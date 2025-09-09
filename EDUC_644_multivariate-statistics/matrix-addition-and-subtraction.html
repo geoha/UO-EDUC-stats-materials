@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>7 Matrix Addition and Subtraction | Terminology and Matrix Manipulations Used in Multivariate Statistics</title>
+  <meta name="description" content="Course materials for multivariate statistics" />
+  <meta name="generator" content="bookdown 0.44 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="7 Matrix Addition and Subtraction | Terminology and Matrix Manipulations Used in Multivariate Statistics" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="Course materials for multivariate statistics" />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="7 Matrix Addition and Subtraction | Terminology and Matrix Manipulations Used in Multivariate Statistics" />
+  
+  <meta name="twitter:description" content="Course materials for multivariate statistics" />
+  
+
+<meta name="author" content="EDUC 644. Applied Multivariate Stats with G. Harrison" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="transposed-vectors-and-matrices.html"/>
+<link rel="next" href="operations-on-matrices-with-a-scalar.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Multivariate Statistics</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a></li>
+<li class="chapter" data-level="1" data-path="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html"><i class="fa fa-check"></i><b>1</b> Terminology and Matrix Manipulations Used in Multivariate Statistics”</a></li>
+<li class="chapter" data-level="2" data-path="scalars.html"><a href="scalars.html"><i class="fa fa-check"></i><b>2</b> Scalars</a></li>
+<li class="chapter" data-level="3" data-path="vectors.html"><a href="vectors.html"><i class="fa fa-check"></i><b>3</b> Vectors</a></li>
+<li class="chapter" data-level="4" data-path="matrices.html"><a href="matrices.html"><i class="fa fa-check"></i><b>4</b> Matrices</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="matrices.html"><a href="matrices.html#data-files-as-matrices"><i class="fa fa-check"></i><b>4.1</b> Data Files as Matrices</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="symmetrical-matrices.html"><a href="symmetrical-matrices.html"><i class="fa fa-check"></i><b>5</b> Symmetrical Matrices</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="symmetrical-matrices.html"><a href="symmetrical-matrices.html#variance-covariance-matrices"><i class="fa fa-check"></i><b>5.1</b> Variance-covariance Matrices</a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="symmetrical-matrices.html"><a href="symmetrical-matrices.html#greek-letters"><i class="fa fa-check"></i><b>5.1.1</b> Greek letters</a></li>
+<li class="chapter" data-level="5.1.2" data-path="symmetrical-matrices.html"><a href="symmetrical-matrices.html#example-variance-covariance-matrix"><i class="fa fa-check"></i><b>5.1.2</b> Example variance-covariance matrix</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="symmetrical-matrices.html"><a href="symmetrical-matrices.html#the-diagonal-and-trace"><i class="fa fa-check"></i><b>5.2</b> The diagonal and trace</a></li>
+<li class="chapter" data-level="5.3" data-path="symmetrical-matrices.html"><a href="symmetrical-matrices.html#an-identity-matrix"><i class="fa fa-check"></i><b>5.3</b> An identity matrix</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="transposed-vectors-and-matrices.html"><a href="transposed-vectors-and-matrices.html"><i class="fa fa-check"></i><b>6</b> Transposed Vectors and Matrices</a></li>
+<li class="chapter" data-level="7" data-path="matrix-addition-and-subtraction.html"><a href="matrix-addition-and-subtraction.html"><i class="fa fa-check"></i><b>7</b> Matrix Addition and Subtraction</a></li>
+<li class="chapter" data-level="8" data-path="operations-on-matrices-with-a-scalar.html"><a href="operations-on-matrices-with-a-scalar.html"><i class="fa fa-check"></i><b>8</b> Operations on Matrices with a Scalar</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="operations-on-matrices-with-a-scalar.html"><a href="operations-on-matrices-with-a-scalar.html#sum-of-square-and-cross-product-sscp-matrices"><i class="fa fa-check"></i><b>8.1</b> Sum-of-square-and-cross-product (SSCP) matrices</a></li>
+<li class="chapter" data-level="8.2" data-path="operations-on-matrices-with-a-scalar.html"><a href="operations-on-matrices-with-a-scalar.html#operations-on-elements-of-a-matrix-example-with-a-correlation-matrix"><i class="fa fa-check"></i><b>8.2</b> Operations on elements of a matrix: Example with a correlation matrix</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="matrix-multiplication.html"><a href="matrix-multiplication.html"><i class="fa fa-check"></i><b>9</b> Matrix Multiplication</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="matrix-multiplication.html"><a href="matrix-multiplication.html#another-example-of-matrix-multiplication-to-get-the-sscp"><i class="fa fa-check"></i><b>9.1</b> Another example of matrix multiplication, to get the SSCP</a></li>
+<li class="chapter" data-level="9.2" data-path="matrix-multiplication.html"><a href="matrix-multiplication.html#the-ordering-is-important"><i class="fa fa-check"></i><b>9.2</b> The ordering is important</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="inverse-of-a-matrix.html"><a href="inverse-of-a-matrix.html"><i class="fa fa-check"></i><b>10</b> Inverse of a Matrix</a></li>
+<li class="chapter" data-level="11" data-path="matrix-determinants-as-generalized-variance.html"><a href="matrix-determinants-as-generalized-variance.html"><i class="fa fa-check"></i><b>11</b> Matrix determinants, as generalized variance</a></li>
+<li class="chapter" data-level="12" data-path="eigenvectors-and-eigenvalues.html"><a href="eigenvectors-and-eigenvalues.html"><i class="fa fa-check"></i><b>12</b> Eigenvectors and Eigenvalues</a></li>
+<li class="chapter" data-level="13" data-path="summary.html"><a href="summary.html"><i class="fa fa-check"></i><b>13</b> Summary</a></li>
+<li class="chapter" data-level="14" data-path="optional-spss-and-r-code-to-manipulate-matrices.html"><a href="optional-spss-and-r-code-to-manipulate-matrices.html"><i class="fa fa-check"></i><b>14</b> Optional: SPSS and R Code to Manipulate Matrices</a></li>
+<li class="chapter" data-level="15" data-path="hotellings-t2.html"><a href="hotellings-t2.html"><i class="fa fa-check"></i><b>15</b> Hotelling’s <span class="math inline">\(T^2\)</span></a>
+<ul>
+<li class="chapter" data-level="15.1" data-path="hotellings-t2.html"><a href="hotellings-t2.html#within-group-covariance-matrices"><i class="fa fa-check"></i><b>15.1</b> Within-group covariance matrices</a></li>
+<li class="chapter" data-level="15.2" data-path="hotellings-t2.html"><a href="hotellings-t2.html#sscp-matrices"><i class="fa fa-check"></i><b>15.2</b> SSCP matrices</a></li>
+<li class="chapter" data-level="15.3" data-path="hotellings-t2.html"><a href="hotellings-t2.html#conducting-the-test-using-functions"><i class="fa fa-check"></i><b>15.3</b> Conducting the Test using Functions</a></li>
+</ul></li>
+<li class="chapter" data-level="16" data-path="data-from-week-1.html"><a href="data-from-week-1.html"><i class="fa fa-check"></i><b>16</b> Data from Week 1</a>
+<ul>
+<li class="chapter" data-level="16.1" data-path="data-from-week-1.html"><a href="data-from-week-1.html#conditions-for-orthogonal-contrasts"><i class="fa fa-check"></i><b>16.1</b> Conditions for orthogonal contrasts</a>
+<ul>
+<li class="chapter" data-level="16.1.1" data-path="data-from-week-1.html"><a href="data-from-week-1.html#an-analogy-for-these-conditions"><i class="fa fa-check"></i><b>16.1.1</b> An analogy for these conditions</a></li>
+<li class="chapter" data-level="16.1.2" data-path="data-from-week-1.html"><a href="data-from-week-1.html#accounting-for-type-i-error-in-non-orthogonal-contrasts."><i class="fa fa-check"></i><b>16.1.2</b> Accounting for Type I error in non-orthogonal contrasts.</a></li>
+<li class="chapter" data-level="16.1.3" data-path="data-from-week-1.html"><a href="data-from-week-1.html#bonferronithe-more-conservative-pizza-sauce"><i class="fa fa-check"></i><b>16.1.3</b> Bonferroni—the more conservative pizza sauce</a></li>
+</ul></li>
+<li class="chapter" data-level="16.2" data-path="data-from-week-1.html"><a href="data-from-week-1.html#post-hoc-tests"><i class="fa fa-check"></i><b>16.2</b> Post-hoc tests</a></li>
+</ul></li>
+<li class="chapter" data-level="17" data-path="data.html"><a href="data.html"><i class="fa fa-check"></i><b>17</b> Data</a>
+<ul>
+<li class="chapter" data-level="17.1" data-path="data.html"><a href="data.html#by-group-descriptive-statistics"><i class="fa fa-check"></i><b>17.1</b> By-group descriptive statistics</a></li>
+<li class="chapter" data-level="17.2" data-path="data.html"><a href="data.html#univariate-normality"><i class="fa fa-check"></i><b>17.2</b> Univariate Normality</a>
+<ul>
+<li class="chapter" data-level="17.2.1" data-path="data.html"><a href="data.html#identifying-univariate-outliers-within-groups"><i class="fa fa-check"></i><b>17.2.1</b> Identifying univariate outliers within groups</a></li>
+<li class="chapter" data-level="17.2.2" data-path="data.html"><a href="data.html#kurtosis-and-skew"><i class="fa fa-check"></i><b>17.2.2</b> Kurtosis and skew</a></li>
+<li class="chapter" data-level="17.2.3" data-path="data.html"><a href="data.html#examining-univariate-normality-using-density-plots"><i class="fa fa-check"></i><b>17.2.3</b> Examining univariate normality using density plots</a></li>
+</ul></li>
+<li class="chapter" data-level="17.3" data-path="data.html"><a href="data.html#examining-univariate-normality-using-quantile-quantile-plots"><i class="fa fa-check"></i><b>17.3</b> Examining univariate normality using quantile-quantile plots</a>
+<ul>
+<li class="chapter" data-level="17.3.1" data-path="data.html"><a href="data.html#univariate-q-q-plots-from-other-packages"><i class="fa fa-check"></i><b>17.3.1</b> Univariate Q-Q plots from other packages</a></li>
+<li class="chapter" data-level="17.3.2" data-path="data.html"><a href="data.html#statistical-tests-of-univariate-normality"><i class="fa fa-check"></i><b>17.3.2</b> Statistical tests of univariate normality</a></li>
+</ul></li>
+<li class="chapter" data-level="17.4" data-path="data.html"><a href="data.html#a-caution-about-statistical-tests-of-statistical-assumptions"><i class="fa fa-check"></i><b>17.4</b> A caution about statistical tests of statistical assumptions</a></li>
+<li class="chapter" data-level="17.5" data-path="data.html"><a href="data.html#mahalanobis-distance-and-multivariate-outliers"><i class="fa fa-check"></i><b>17.5</b> Mahalanobis Distance and Multivariate Outliers</a>
+<ul>
+<li class="chapter" data-level="17.5.1" data-path="data.html"><a href="data.html#outliers"><i class="fa fa-check"></i><b>17.5.1</b> Outliers</a></li>
+<li class="chapter" data-level="17.5.2" data-path="data.html"><a href="data.html#mahalanobis-distance-using-residuals"><i class="fa fa-check"></i><b>17.5.2</b> Mahalanobis Distance using Residuals</a></li>
+<li class="chapter" data-level="17.5.3" data-path="data.html"><a href="data.html#multivariate-residual-q-q-plot-by-group"><i class="fa fa-check"></i><b>17.5.3</b> Multivariate residual Q-Q plot by group</a></li>
+</ul></li>
+<li class="chapter" data-level="17.6" data-path="data.html"><a href="data.html#statistical-tests-of-multivariate-normality"><i class="fa fa-check"></i><b>17.6</b> Statistical Tests of Multivariate Normality</a></li>
+<li class="chapter" data-level="17.7" data-path="data.html"><a href="data.html#homogeneity-of-covariance"><i class="fa fa-check"></i><b>17.7</b> Homogeneity of Covariance</a></li>
+<li class="chapter" data-level="17.8" data-path="data.html"><a href="data.html#conclusions-about-our-statistical-assumptions"><i class="fa fa-check"></i><b>17.8</b> Conclusions about our statistical assumptions</a>
+<ul>
+<li class="chapter" data-level="17.8.1" data-path="data.html"><a href="data.html#interpretation"><i class="fa fa-check"></i><b>17.8.1</b> Interpretation</a></li>
+</ul></li>
+<li class="chapter" data-level="17.9" data-path="data.html"><a href="data.html#follow-up-analysis-with-univariate-f-tests"><i class="fa fa-check"></i><b>17.9</b> Follow-up analysis with univariate <em>F</em>-tests</a></li>
+<li class="chapter" data-level="17.10" data-path="data.html"><a href="data.html#effect-size"><i class="fa fa-check"></i><b>17.10</b> Effect size</a></li>
+<li class="chapter" data-level="17.11" data-path="data.html"><a href="data.html#comparing-the-model-without-outlier"><i class="fa fa-check"></i><b>17.11</b> Comparing the Model Without Outlier</a></li>
+</ul></li>
+<li class="chapter" data-level="18" data-path="following-tabachnick-and-fidells-notes.html"><a href="following-tabachnick-and-fidells-notes.html"><i class="fa fa-check"></i><b>18</b> Following Tabachnick and Fidell’s notes</a>
+<ul>
+<li class="chapter" data-level="18.1" data-path="following-tabachnick-and-fidells-notes.html"><a href="following-tabachnick-and-fidells-notes.html#another-way-to-get-the-sscp_w"><i class="fa fa-check"></i><b>18.1</b> Another way to get the <span class="math inline">\(SSCP_W\)</span>:</a></li>
+<li class="chapter" data-level="18.2" data-path="following-tabachnick-and-fidells-notes.html"><a href="following-tabachnick-and-fidells-notes.html#mathbfsscp_between-for-each-factor"><i class="fa fa-check"></i><b>18.2</b> <span class="math inline">\(\mathbf{SSCP_{Between}}\)</span> for each factor</a></li>
+<li class="chapter" data-level="18.3" data-path="following-tabachnick-and-fidells-notes.html"><a href="following-tabachnick-and-fidells-notes.html#mathbfsscp_between-for-the-interaction"><i class="fa fa-check"></i><b>18.3</b> <span class="math inline">\(\mathbf{SSCP_{Between}}\)</span> for the interaction</a></li>
+<li class="chapter" data-level="18.4" data-path="following-tabachnick-and-fidells-notes.html"><a href="following-tabachnick-and-fidells-notes.html#these-by-hand-calculations-will-be-available-in-manova."><i class="fa fa-check"></i><b>18.4</b> These by-hand calculations will be available in <code>manova()</code>.</a></li>
+<li class="chapter" data-level="18.5" data-path="following-tabachnick-and-fidells-notes.html"><a href="following-tabachnick-and-fidells-notes.html#calculating-the-generalized-variance"><i class="fa fa-check"></i><b>18.5</b> Calculating the generalized variance</a></li>
+<li class="chapter" data-level="18.6" data-path="following-tabachnick-and-fidells-notes.html"><a href="following-tabachnick-and-fidells-notes.html#fit-the-factorial-manova"><i class="fa fa-check"></i><b>18.6</b> Fit the factorial MANOVA</a></li>
+<li class="chapter" data-level="18.7" data-path="following-tabachnick-and-fidells-notes.html"><a href="following-tabachnick-and-fidells-notes.html#mancova-example"><i class="fa fa-check"></i><b>18.7</b> MANCOVA example</a></li>
+<li class="chapter" data-level="18.8" data-path="following-tabachnick-and-fidells-notes.html"><a href="following-tabachnick-and-fidells-notes.html#lets-think-about-ordering-and-type-i-sums-of-squares"><i class="fa fa-check"></i><b>18.8</b> Let’s think about ordering and Type I sums of squares</a>
+<ul>
+<li class="chapter" data-level="18.8.1" data-path="following-tabachnick-and-fidells-notes.html"><a href="following-tabachnick-and-fidells-notes.html#adjusted-means"><i class="fa fa-check"></i><b>18.8.1</b> Adjusted means</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="19" data-path="write-up.html"><a href="write-up.html"><i class="fa fa-check"></i><b>19</b> Write-up</a>
+<ul>
+<li class="chapter" data-level="19.1" data-path="write-up.html"><a href="write-up.html#fitting-the-discriminant-function-analysis-model"><i class="fa fa-check"></i><b>19.1</b> Fitting the discriminant function analysis model</a></li>
+<li class="chapter" data-level="19.2" data-path="write-up.html"><a href="write-up.html#dimension-reduction-analysis"><i class="fa fa-check"></i><b>19.2</b> Dimension reduction analysis</a>
+<ul>
+<li class="chapter" data-level="19.2.1" data-path="write-up.html"><a href="write-up.html#effect-sizes"><i class="fa fa-check"></i><b>19.2.1</b> Effect sizes</a></li>
+</ul></li>
+<li class="chapter" data-level="19.3" data-path="write-up.html"><a href="write-up.html#structure-and-standardized-discriminant-function-coefficients"><i class="fa fa-check"></i><b>19.3</b> Structure and standardized discriminant function coefficients</a></li>
+<li class="chapter" data-level="19.4" data-path="write-up.html"><a href="write-up.html#discriminant-function-scores"><i class="fa fa-check"></i><b>19.4</b> Discriminant function scores</a></li>
+<li class="chapter" data-level="19.5" data-path="write-up.html"><a href="write-up.html#group-means-centroids-of-the-discriminant-function-scores"><i class="fa fa-check"></i><b>19.5</b> Group means (centroids) of the discriminant-function scores</a></li>
+<li class="chapter" data-level="19.6" data-path="write-up.html"><a href="write-up.html#bivariate-scatterplot"><i class="fa fa-check"></i><b>19.6</b> Bivariate scatterplot</a></li>
+</ul></li>
+<li class="chapter" data-level="20" data-path="example-1-to-see-some-properties-of-pca.html"><a href="example-1-to-see-some-properties-of-pca.html"><i class="fa fa-check"></i><b>20</b> Example 1, to see some properties of PCA</a>
+<ul>
+<li class="chapter" data-level="20.1" data-path="example-1-to-see-some-properties-of-pca.html"><a href="example-1-to-see-some-properties-of-pca.html#pca-with-covariance-vs.-correlation"><i class="fa fa-check"></i><b>20.1</b> PCA with Covariance vs. Correlation</a></li>
+<li class="chapter" data-level="20.2" data-path="example-1-to-see-some-properties-of-pca.html"><a href="example-1-to-see-some-properties-of-pca.html#unscaled-eigenvectors"><i class="fa fa-check"></i><b>20.2</b> Unscaled eigenvectors</a></li>
+<li class="chapter" data-level="20.3" data-path="example-1-to-see-some-properties-of-pca.html"><a href="example-1-to-see-some-properties-of-pca.html#looking-at-the-properties-of-eigenvectors-and-eigenvalues"><i class="fa fa-check"></i><b>20.3</b> Looking at the properties of eigenvectors and eigenvalues</a>
+<ul>
+<li class="chapter" data-level="20.3.1" data-path="example-1-to-see-some-properties-of-pca.html"><a href="example-1-to-see-some-properties-of-pca.html#eigenvalues-add-up-to-total-observed-variance"><i class="fa fa-check"></i><b>20.3.1</b> Eigenvalues add up to total observed variance</a></li>
+<li class="chapter" data-level="20.3.2" data-path="example-1-to-see-some-properties-of-pca.html"><a href="example-1-to-see-some-properties-of-pca.html#each-components-proportion-of-variance"><i class="fa fa-check"></i><b>20.3.2</b> Each component’s proportion of variance</a></li>
+<li class="chapter" data-level="20.3.3" data-path="example-1-to-see-some-properties-of-pca.html"><a href="example-1-to-see-some-properties-of-pca.html#rescaling-the-eigenvectors"><i class="fa fa-check"></i><b>20.3.3</b> Rescaling the eigenvectors</a></li>
+<li class="chapter" data-level="20.3.4" data-path="example-1-to-see-some-properties-of-pca.html"><a href="example-1-to-see-some-properties-of-pca.html#reproducing-the-covariance-or-correlation-matrix"><i class="fa fa-check"></i><b>20.3.4</b> Reproducing the covariance (or correlation) matrix</a></li>
+<li class="chapter" data-level="20.3.5" data-path="example-1-to-see-some-properties-of-pca.html"><a href="example-1-to-see-some-properties-of-pca.html#summary-of-the-vectors-and-matrices"><i class="fa fa-check"></i><b>20.3.5</b> Summary of the vectors and matrices</a></li>
+</ul></li>
+<li class="chapter" data-level="20.4" data-path="example-1-to-see-some-properties-of-pca.html"><a href="example-1-to-see-some-properties-of-pca.html#using-the-psych-package"><i class="fa fa-check"></i><b>20.4</b> Using the psych package</a></li>
+<li class="chapter" data-level="20.5" data-path="example-1-to-see-some-properties-of-pca.html"><a href="example-1-to-see-some-properties-of-pca.html#determining-how-many-components-to-retain"><i class="fa fa-check"></i><b>20.5</b> Determining how many components to retain</a>
+<ul>
+<li class="chapter" data-level="20.5.1" data-path="example-1-to-see-some-properties-of-pca.html"><a href="example-1-to-see-some-properties-of-pca.html#kaisers-rule"><i class="fa fa-check"></i><b>20.5.1</b> 1. Kaiser’s rule</a></li>
+<li class="chapter" data-level="20.5.2" data-path="example-1-to-see-some-properties-of-pca.html"><a href="example-1-to-see-some-properties-of-pca.html#scree-plot"><i class="fa fa-check"></i><b>20.5.2</b> 2. Scree plot</a></li>
+<li class="chapter" data-level="20.5.3" data-path="example-1-to-see-some-properties-of-pca.html"><a href="example-1-to-see-some-properties-of-pca.html#parallel-analysis"><i class="fa fa-check"></i><b>20.5.3</b> 3. Parallel analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="20.6" data-path="example-1-to-see-some-properties-of-pca.html"><a href="example-1-to-see-some-properties-of-pca.html#reduced-pca-model"><i class="fa fa-check"></i><b>20.6</b> Reduced PCA model</a></li>
+<li class="chapter" data-level="20.7" data-path="example-1-to-see-some-properties-of-pca.html"><a href="example-1-to-see-some-properties-of-pca.html#interpretation-1"><i class="fa fa-check"></i><b>20.7</b> Interpretation</a>
+<ul>
+<li class="chapter" data-level="20.7.1" data-path="example-1-to-see-some-properties-of-pca.html"><a href="example-1-to-see-some-properties-of-pca.html#plot"><i class="fa fa-check"></i><b>20.7.1</b> Plot</a></li>
+</ul></li>
+<li class="chapter" data-level="20.8" data-path="example-1-to-see-some-properties-of-pca.html"><a href="example-1-to-see-some-properties-of-pca.html#interpretation-of-the-rotated-solution"><i class="fa fa-check"></i><b>20.8</b> Interpretation of the rotated solution</a></li>
+<li class="chapter" data-level="20.9" data-path="example-1-to-see-some-properties-of-pca.html"><a href="example-1-to-see-some-properties-of-pca.html#pca-on-unstandardized-scores"><i class="fa fa-check"></i><b>20.9</b> PCA on Unstandardized Scores</a>
+<ul>
+<li class="chapter" data-level="20.9.1" data-path="example-1-to-see-some-properties-of-pca.html"><a href="example-1-to-see-some-properties-of-pca.html#hand-calculating-component-scores-from-this-pca"><i class="fa fa-check"></i><b>20.9.1</b> Hand calculating component scores from this PCA</a></li>
+</ul></li>
+<li class="chapter" data-level="20.10" data-path="example-1-to-see-some-properties-of-pca.html"><a href="example-1-to-see-some-properties-of-pca.html#pca-on-the-standardized-scores"><i class="fa fa-check"></i><b>20.10</b> PCA on the Standardized Scores</a>
+<ul>
+<li class="chapter" data-level="20.10.1" data-path="example-1-to-see-some-properties-of-pca.html"><a href="example-1-to-see-some-properties-of-pca.html#calculating-component-scores"><i class="fa fa-check"></i><b>20.10.1</b> Calculating component scores</a></li>
+<li class="chapter" data-level="20.10.2" data-path="example-1-to-see-some-properties-of-pca.html"><a href="example-1-to-see-some-properties-of-pca.html#using-the-rescaled-eigenvectors-to-interpret-the-components"><i class="fa fa-check"></i><b>20.10.2</b> Using the rescaled eigenvectors to interpret the components</a></li>
+</ul></li>
+<li class="chapter" data-level="20.11" data-path="example-1-to-see-some-properties-of-pca.html"><a href="example-1-to-see-some-properties-of-pca.html#let-the-psych-package-do-the-work"><i class="fa fa-check"></i><b>20.11</b> Let the Psych Package Do the Work</a>
+<ul>
+<li class="chapter" data-level="20.11.1" data-path="example-1-to-see-some-properties-of-pca.html"><a href="example-1-to-see-some-properties-of-pca.html#view-the-component-scores"><i class="fa fa-check"></i><b>20.11.1</b> View the component scores</a></li>
+</ul></li>
+<li class="chapter" data-level="20.12" data-path="example-1-to-see-some-properties-of-pca.html"><a href="example-1-to-see-some-properties-of-pca.html#data-and-data-cleaning"><i class="fa fa-check"></i><b>20.12</b> Data and data cleaning</a></li>
+<li class="chapter" data-level="20.13" data-path="example-1-to-see-some-properties-of-pca.html"><a href="example-1-to-see-some-properties-of-pca.html#examine-assumption-of-linearity"><i class="fa fa-check"></i><b>20.13</b> Examine assumption of linearity</a></li>
+<li class="chapter" data-level="20.14" data-path="example-1-to-see-some-properties-of-pca.html"><a href="example-1-to-see-some-properties-of-pca.html#multivariate-normality-and-outliers"><i class="fa fa-check"></i><b>20.14</b> Multivariate normality and outliers</a></li>
+<li class="chapter" data-level="20.15" data-path="example-1-to-see-some-properties-of-pca.html"><a href="example-1-to-see-some-properties-of-pca.html#re-examine-linearity-and-normality"><i class="fa fa-check"></i><b>20.15</b> Re-examine linearity and normality</a></li>
+<li class="chapter" data-level="20.16" data-path="example-1-to-see-some-properties-of-pca.html"><a href="example-1-to-see-some-properties-of-pca.html#fit-the-initial-pca"><i class="fa fa-check"></i><b>20.16</b> Fit the initial PCA</a></li>
+<li class="chapter" data-level="20.17" data-path="example-1-to-see-some-properties-of-pca.html"><a href="example-1-to-see-some-properties-of-pca.html#determine-the-number-of-components-to-retain"><i class="fa fa-check"></i><b>20.17</b> Determine the number of components to retain</a></li>
+<li class="chapter" data-level="20.18" data-path="example-1-to-see-some-properties-of-pca.html"><a href="example-1-to-see-some-properties-of-pca.html#refit-the-pca-model-using-rotation-if-that-is-acceptable-in-your-field"><i class="fa fa-check"></i><b>20.18</b> Refit the PCA model, using rotation if that is acceptable in your field</a></li>
+<li class="chapter" data-level="20.19" data-path="example-1-to-see-some-properties-of-pca.html"><a href="example-1-to-see-some-properties-of-pca.html#interpret-the-components"><i class="fa fa-check"></i><b>20.19</b> Interpret the components</a></li>
+<li class="chapter" data-level="20.20" data-path="example-1-to-see-some-properties-of-pca.html"><a href="example-1-to-see-some-properties-of-pca.html#saving-the-scores"><i class="fa fa-check"></i><b>20.20</b> Saving the scores</a></li>
+<li class="chapter" data-level="20.21" data-path="example-1-to-see-some-properties-of-pca.html"><a href="example-1-to-see-some-properties-of-pca.html#usairpollution-data"><i class="fa fa-check"></i><b>20.21</b> USairpollution Data</a></li>
+</ul></li>
+<li class="chapter" data-level="21" data-path="introductory-comments.html"><a href="introductory-comments.html"><i class="fa fa-check"></i><b>21</b> Introductory comments</a>
+<ul>
+<li class="chapter" data-level="21.1" data-path="introductory-comments.html"><a href="introductory-comments.html#packages"><i class="fa fa-check"></i><b>21.1</b> Packages</a></li>
+<li class="chapter" data-level="21.2" data-path="introductory-comments.html"><a href="introductory-comments.html#efa-ne-pca"><i class="fa fa-check"></i><b>21.2</b> EFA <span class="math inline">\(\ne\)</span> PCA</a></li>
+<li class="chapter" data-level="21.3" data-path="introductory-comments.html"><a href="introductory-comments.html#examining-the-data"><i class="fa fa-check"></i><b>21.3</b> Examining the data</a>
+<ul>
+<li class="chapter" data-level="21.3.1" data-path="introductory-comments.html"><a href="introductory-comments.html#descriptive-statistics"><i class="fa fa-check"></i><b>21.3.1</b> Descriptive statistics</a></li>
+</ul></li>
+<li class="chapter" data-level="21.4" data-path="introductory-comments.html"><a href="introductory-comments.html#addressing-assumptions"><i class="fa fa-check"></i><b>21.4</b> Addressing assumptions</a>
+<ul>
+<li class="chapter" data-level="21.4.1" data-path="introductory-comments.html"><a href="introductory-comments.html#linearity"><i class="fa fa-check"></i><b>21.4.1</b> Linearity</a></li>
+<li class="chapter" data-level="21.4.2" data-path="introductory-comments.html"><a href="introductory-comments.html#outliers-and-multivariate-normality"><i class="fa fa-check"></i><b>21.4.2</b> Outliers and multivariate normality</a></li>
+<li class="chapter" data-level="21.4.3" data-path="introductory-comments.html"><a href="introductory-comments.html#absence-of-perfect-multicollinearity"><i class="fa fa-check"></i><b>21.4.3</b> Absence of perfect multicollinearity</a></li>
+</ul></li>
+<li class="chapter" data-level="21.5" data-path="introductory-comments.html"><a href="introductory-comments.html#determining-factorability"><i class="fa fa-check"></i><b>21.5</b> Determining factorability</a></li>
+<li class="chapter" data-level="21.6" data-path="introductory-comments.html"><a href="introductory-comments.html#determining-how-many-factors-to-retain"><i class="fa fa-check"></i><b>21.6</b> Determining how many factors to retain</a>
+<ul>
+<li class="chapter" data-level="21.6.1" data-path="introductory-comments.html"><a href="introductory-comments.html#parallel-analysis-1"><i class="fa fa-check"></i><b>21.6.1</b> Parallel analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="21.7" data-path="introductory-comments.html"><a href="introductory-comments.html#factor-analysis-with-a-data-matrix-raw-data"><i class="fa fa-check"></i><b>21.7</b> Factor analysis with a data matrix (raw data)</a>
+<ul>
+<li class="chapter" data-level="21.7.1" data-path="introductory-comments.html"><a href="introductory-comments.html#determine-how-much-of-the-variance-is-explained-by-the-n-factors"><i class="fa fa-check"></i><b>21.7.1</b> Determine how much of the variance is explained by the <em>n</em> factors</a></li>
+<li class="chapter" data-level="21.7.2" data-path="introductory-comments.html"><a href="introductory-comments.html#fit-the-efa-with-rotation-for-interpretation"><i class="fa fa-check"></i><b>21.7.2</b> Fit the EFA with rotation, for interpretation</a></li>
+<li class="chapter" data-level="21.7.3" data-path="introductory-comments.html"><a href="introductory-comments.html#reduced-correlation-matrix"><i class="fa fa-check"></i><b>21.7.3</b> Reduced correlation matrix</a></li>
+<li class="chapter" data-level="21.7.4" data-path="introductory-comments.html"><a href="introductory-comments.html#examining-pattern-coefficients-the-factor-loadings"><i class="fa fa-check"></i><b>21.7.4</b> Examining pattern coefficients (the factor loadings)</a></li>
+</ul></li>
+<li class="chapter" data-level="21.8" data-path="introductory-comments.html"><a href="introductory-comments.html#factor-analysis-with-correlation-data"><i class="fa fa-check"></i><b>21.8</b> Factor analysis with correlation data</a>
+<ul>
+<li class="chapter" data-level="21.8.1" data-path="introductory-comments.html"><a href="introductory-comments.html#setting-up-the-data"><i class="fa fa-check"></i><b>21.8.1</b> Setting up the data</a></li>
+<li class="chapter" data-level="21.8.2" data-path="introductory-comments.html"><a href="introductory-comments.html#preparatory-steps"><i class="fa fa-check"></i><b>21.8.2</b> Preparatory steps</a></li>
+<li class="chapter" data-level="21.8.3" data-path="introductory-comments.html"><a href="introductory-comments.html#performing-the-factor-analysis"><i class="fa fa-check"></i><b>21.8.3</b> Performing the factor analysis</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="22" data-path="factor-analysis-with-correlation-data-1.html"><a href="factor-analysis-with-correlation-data-1.html"><i class="fa fa-check"></i><b>22</b> Factor analysis with correlation data</a>
+<ul>
+<li class="chapter" data-level="22.1" data-path="factor-analysis-with-correlation-data-1.html"><a href="factor-analysis-with-correlation-data-1.html#setting-up-the-data-1"><i class="fa fa-check"></i><b>22.1</b> Setting up the data</a>
+<ul>
+<li class="chapter" data-level="22.1.1" data-path="factor-analysis-with-correlation-data-1.html"><a href="factor-analysis-with-correlation-data-1.html#some-extra-stuff-importing-half-the-correlation-matrix"><i class="fa fa-check"></i><b>22.1.1</b> Some extra stuff: Importing half the correlation matrix</a></li>
+</ul></li>
+<li class="chapter" data-level="22.2" data-path="factor-analysis-with-correlation-data-1.html"><a href="factor-analysis-with-correlation-data-1.html#preparatory-steps-1"><i class="fa fa-check"></i><b>22.2</b> Preparatory steps</a>
+<ul>
+<li class="chapter" data-level="22.2.1" data-path="factor-analysis-with-correlation-data-1.html"><a href="factor-analysis-with-correlation-data-1.html#factorability"><i class="fa fa-check"></i><b>22.2.1</b> Factorability</a></li>
+<li class="chapter" data-level="22.2.2" data-path="factor-analysis-with-correlation-data-1.html"><a href="factor-analysis-with-correlation-data-1.html#number-of-factors"><i class="fa fa-check"></i><b>22.2.2</b> Number of factors</a></li>
+</ul></li>
+<li class="chapter" data-level="22.3" data-path="factor-analysis-with-correlation-data-1.html"><a href="factor-analysis-with-correlation-data-1.html#performing-the-factor-analysis-1"><i class="fa fa-check"></i><b>22.3</b> Performing the factor analysis</a></li>
+<li class="chapter" data-level="22.4" data-path="factor-analysis-with-correlation-data-1.html"><a href="factor-analysis-with-correlation-data-1.html#describing-categorical-data"><i class="fa fa-check"></i><b>22.4</b> Describing categorical data</a>
+<ul>
+<li class="chapter" data-level="22.4.1" data-path="factor-analysis-with-correlation-data-1.html"><a href="factor-analysis-with-correlation-data-1.html#plotting-categorical-data"><i class="fa fa-check"></i><b>22.4.1</b> Plotting categorical data</a></li>
+<li class="chapter" data-level="22.4.2" data-path="factor-analysis-with-correlation-data-1.html"><a href="factor-analysis-with-correlation-data-1.html#specifying-the-variable-type-as-ordinal"><i class="fa fa-check"></i><b>22.4.2</b> Specifying the variable type as ordinal</a></li>
+<li class="chapter" data-level="22.4.3" data-path="factor-analysis-with-correlation-data-1.html"><a href="factor-analysis-with-correlation-data-1.html#getting-the-correlation-matrix"><i class="fa fa-check"></i><b>22.4.3</b> Getting the correlation matrix</a></li>
+<li class="chapter" data-level="22.4.4" data-path="factor-analysis-with-correlation-data-1.html"><a href="factor-analysis-with-correlation-data-1.html#appraising-the-factorability-and-determining-the-number-of-factors-to-retain"><i class="fa fa-check"></i><b>22.4.4</b> Appraising the factorability and determining the number of factors to retain</a></li>
+<li class="chapter" data-level="22.4.5" data-path="factor-analysis-with-correlation-data-1.html"><a href="factor-analysis-with-correlation-data-1.html#factor-analysis-on-the-polychoric-matrix"><i class="fa fa-check"></i><b>22.4.5</b> Factor analysis on the polychoric matrix</a></li>
+<li class="chapter" data-level="22.4.6" data-path="factor-analysis-with-correlation-data-1.html"><a href="factor-analysis-with-correlation-data-1.html#the-polycor-package-if-needed"><i class="fa fa-check"></i><b>22.4.6</b> The polycor package, if needed</a></li>
+</ul></li>
+<li class="chapter" data-level="22.5" data-path="factor-analysis-with-correlation-data-1.html"><a href="factor-analysis-with-correlation-data-1.html#factor-scores"><i class="fa fa-check"></i><b>22.5</b> Factor scores</a>
+<ul>
+<li class="chapter" data-level="22.5.1" data-path="factor-analysis-with-correlation-data-1.html"><a href="factor-analysis-with-correlation-data-1.html#which-factor-scores-to-use"><i class="fa fa-check"></i><b>22.5.1</b> Which factor scores to use?</a></li>
+</ul></li>
+<li class="chapter" data-level="22.6" data-path="factor-analysis-with-correlation-data-1.html"><a href="factor-analysis-with-correlation-data-1.html#summary-1"><i class="fa fa-check"></i><b>22.6</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="23" data-path="preparatory-steps-2.html"><a href="preparatory-steps-2.html"><i class="fa fa-check"></i><b>23</b> Preparatory steps</a>
+<ul>
+<li class="chapter" data-level="23.1" data-path="preparatory-steps-2.html"><a href="preparatory-steps-2.html#describing-the-data"><i class="fa fa-check"></i><b>23.1</b> Describing the data</a>
+<ul>
+<li class="chapter" data-level="23.1.1" data-path="preparatory-steps-2.html"><a href="preparatory-steps-2.html#an-article-reported-r-and-the-sds-so-how-can-i-get-s"><i class="fa fa-check"></i><b>23.1.1</b> An article reported R and the SDs, so how can I get S?</a></li>
+<li class="chapter" data-level="23.1.2" data-path="preparatory-steps-2.html"><a href="preparatory-steps-2.html#describing-from-a-categorical-perspective"><i class="fa fa-check"></i><b>23.1.2</b> Describing from a categorical perspective</a></li>
+<li class="chapter" data-level="23.1.3" data-path="preparatory-steps-2.html"><a href="preparatory-steps-2.html#addressing-assumptions-1"><i class="fa fa-check"></i><b>23.1.3</b> Addressing assumptions</a></li>
+</ul></li>
+<li class="chapter" data-level="23.2" data-path="preparatory-steps-2.html"><a href="preparatory-steps-2.html#making-sure-the-model-was-correctly-estimated"><i class="fa fa-check"></i><b>23.2</b> Making sure the model was correctly estimated</a></li>
+<li class="chapter" data-level="23.3" data-path="preparatory-steps-2.html"><a href="preparatory-steps-2.html#evaluating-the-model-fit"><i class="fa fa-check"></i><b>23.3</b> Evaluating the model fit</a></li>
+<li class="chapter" data-level="23.4" data-path="preparatory-steps-2.html"><a href="preparatory-steps-2.html#interpretting-the-parameter-estimates"><i class="fa fa-check"></i><b>23.4</b> Interpretting the parameter estimates</a></li>
+<li class="chapter" data-level="23.5" data-path="preparatory-steps-2.html"><a href="preparatory-steps-2.html#further-inspecting-our-model"><i class="fa fa-check"></i><b>23.5</b> Further inspecting our model</a>
+<ul>
+<li class="chapter" data-level="23.5.1" data-path="preparatory-steps-2.html"><a href="preparatory-steps-2.html#looking-at-the-models-covariance-matrices"><i class="fa fa-check"></i><b>23.5.1</b> Looking at the model’s covariance matrices</a></li>
+</ul></li>
+<li class="chapter" data-level="23.6" data-path="preparatory-steps-2.html"><a href="preparatory-steps-2.html#further-inspecting-our-models-parameters"><i class="fa fa-check"></i><b>23.6</b> Further inspecting our model’s parameters</a>
+<ul>
+<li class="chapter" data-level="23.6.1" data-path="preparatory-steps-2.html"><a href="preparatory-steps-2.html#seeing-which-parameters-were-estimated"><i class="fa fa-check"></i><b>23.6.1</b> Seeing which parameters were estimated</a></li>
+<li class="chapter" data-level="23.6.2" data-path="preparatory-steps-2.html"><a href="preparatory-steps-2.html#optional-saving-parameter-estimates-to-a-data-frame"><i class="fa fa-check"></i><b>23.6.2</b> Optional: Saving parameter estimates to a data frame</a></li>
+<li class="chapter" data-level="23.6.3" data-path="preparatory-steps-2.html"><a href="preparatory-steps-2.html#generating-path-diagrams"><i class="fa fa-check"></i><b>23.6.3</b> Generating path diagrams</a></li>
+<li class="chapter" data-level="23.6.4" data-path="preparatory-steps-2.html"><a href="preparatory-steps-2.html#examining-modification-indices"><i class="fa fa-check"></i><b>23.6.4</b> Examining modification indices</a></li>
+</ul></li>
+<li class="chapter" data-level="23.7" data-path="preparatory-steps-2.html"><a href="preparatory-steps-2.html#rescaling-the-factors-to-be-standardized"><i class="fa fa-check"></i><b>23.7</b> Rescaling the factors to be standardized</a></li>
+<li class="chapter" data-level="23.8" data-path="preparatory-steps-2.html"><a href="preparatory-steps-2.html#specifying-a-competing-nested-model"><i class="fa fa-check"></i><b>23.8</b> Specifying a competing, nested, model</a></li>
+<li class="chapter" data-level="23.9" data-path="preparatory-steps-2.html"><a href="preparatory-steps-2.html#conducting-model-comparisons"><i class="fa fa-check"></i><b>23.9</b> Conducting model comparisons</a></li>
+<li class="chapter" data-level="23.10" data-path="preparatory-steps-2.html"><a href="preparatory-steps-2.html#using-data-from-an-r-package"><i class="fa fa-check"></i><b>23.10</b> Using data from an R package</a></li>
+<li class="chapter" data-level="23.11" data-path="preparatory-steps-2.html"><a href="preparatory-steps-2.html#preparing-the-data"><i class="fa fa-check"></i><b>23.11</b> Preparing the data</a></li>
+<li class="chapter" data-level="23.12" data-path="preparatory-steps-2.html"><a href="preparatory-steps-2.html#describing-the-data-1"><i class="fa fa-check"></i><b>23.12</b> Describing the data</a></li>
+<li class="chapter" data-level="23.13" data-path="preparatory-steps-2.html"><a href="preparatory-steps-2.html#fitting-the-cfa-model"><i class="fa fa-check"></i><b>23.13</b> Fitting the CFA model</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Terminology and Matrix Manipulations Used in Multivariate Statistics</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="matrix-addition-and-subtraction" class="section level1 hasAnchor" number="7">
+<h1><span class="header-section-number">7</span> Matrix Addition and Subtraction<a href="matrix-addition-and-subtraction.html#matrix-addition-and-subtraction" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>We can add two matrices together if they are the same order (recall that <em>order</em> refers to the number of rows and columns). For example, if we added <span class="math inline">\(\mathbf{A}\)</span> and <span class="math inline">\(\mathbf{B}\)</span>, we can get matrix <span class="math inline">\(\mathbf{C}\)</span>.</p>
+<p><span class="math display">\[\mathbf{A} = \begin{bmatrix}2&amp;4 \\3&amp;5 \\\end{bmatrix}\]</span>
+<span class="math display">\[\mathbf{B} = \begin{bmatrix} 6&amp;10 \\ 8&amp; 2 \\\end{bmatrix}\]</span>
+<span class="math display">\[\mathbf{C}= \begin{bmatrix}2&amp;4 \\3&amp;5 \\\end{bmatrix} + \begin{bmatrix} 6&amp;10 \\ 8&amp; 2 \\\end{bmatrix} =
+\begin{bmatrix} 8&amp;14 \\11&amp; 7 \\\end{bmatrix}\]</span></p>
+<p>This is because <span class="math inline">\(2 + 6 = 8\)</span> for Cell [1,1] of <span class="math inline">\(\mathbf{C}\)</span>,</p>
+<p><span class="math inline">\(3 + 8 = 11\)</span> for the Cell [1,2],</p>
+<p><span class="math inline">\(4 + 10 = 14\)</span> for the Cell [2,1],</p>
+<p>and <span class="math inline">\(5 + 2 = 7\)</span> for the Cell [2,2].</p>
+<p>The same procedure works with subtraction.</p>
+<p><span class="math display">\[\begin{bmatrix}2&amp;4 \\3&amp;5 \\\end{bmatrix} - \begin{bmatrix} 6&amp;10 \\ 8&amp; 2 \\\end{bmatrix} =
+\begin{bmatrix}-4&amp;-6 \\-5&amp; 3 \\\end{bmatrix}\]</span></p>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="transposed-vectors-and-matrices.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="operations-on-matrices-with-a-scalar.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": {
+    "github": false,
+    "facebook": true,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": null,
+    "text": null
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": null,
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "subsection"
+  }
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

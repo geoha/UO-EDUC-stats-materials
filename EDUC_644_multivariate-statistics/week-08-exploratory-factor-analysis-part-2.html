@@ -1,0 +1,1261 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>9 Week 08: Exploratory Factor Analysis, Part 2 | EDUC 644 Applied Multivariate Statistics</title>
+  <meta name="description" content="Course materials for multivariate statistics" />
+  <meta name="generator" content="bookdown 0.44 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="9 Week 08: Exploratory Factor Analysis, Part 2 | EDUC 644 Applied Multivariate Statistics" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="Course materials for multivariate statistics" />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="9 Week 08: Exploratory Factor Analysis, Part 2 | EDUC 644 Applied Multivariate Statistics" />
+  
+  <meta name="twitter:description" content="Course materials for multivariate statistics" />
+  
+
+<meta name="author" content="George Harrison" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="week-07-exploratory-factor-analysis-part-1.html"/>
+<link rel="next" href="week-09-confirmatory-factor-analysis.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+<link href="libs/tabwid-1.1.3/tabwid.css" rel="stylesheet" />
+<script src="libs/tabwid-1.1.3/tabwid.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Multivariate Statistics</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a></li>
+<li class="chapter" data-level="1" data-path="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html"><i class="fa fa-check"></i><b>1</b> Terminology and Matrix Manipulations Used in Multivariate Statistics</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#scalars"><i class="fa fa-check"></i><b>1.1</b> Scalars</a></li>
+<li class="chapter" data-level="1.2" data-path="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#vectors"><i class="fa fa-check"></i><b>1.2</b> Vectors</a></li>
+<li class="chapter" data-level="1.3" data-path="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#matrices"><i class="fa fa-check"></i><b>1.3</b> Matrices</a></li>
+<li class="chapter" data-level="1.4" data-path="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#symmetrical-matrices"><i class="fa fa-check"></i><b>1.4</b> Symmetrical Matrices</a>
+<ul>
+<li class="chapter" data-level="1.4.1" data-path="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#variance-covariance-matrices"><i class="fa fa-check"></i><b>1.4.1</b> Variance-covariance Matrices</a></li>
+<li class="chapter" data-level="1.4.2" data-path="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#greek-letters"><i class="fa fa-check"></i><b>1.4.2</b> Greek letters</a></li>
+<li class="chapter" data-level="1.4.3" data-path="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#example-variance-covariance-matrix"><i class="fa fa-check"></i><b>1.4.3</b> Example variance-covariance matrix</a></li>
+<li class="chapter" data-level="1.4.4" data-path="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#the-diagonal-and-trace"><i class="fa fa-check"></i><b>1.4.4</b> The diagonal and trace</a></li>
+<li class="chapter" data-level="1.4.5" data-path="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#an-identity-matrix"><i class="fa fa-check"></i><b>1.4.5</b> An identity matrix</a></li>
+</ul></li>
+<li class="chapter" data-level="1.5" data-path="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#transposed-vectors-and-matrices"><i class="fa fa-check"></i><b>1.5</b> Transposed Vectors and Matrices</a></li>
+<li class="chapter" data-level="1.6" data-path="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#matrix-addition-and-subtraction"><i class="fa fa-check"></i><b>1.6</b> Matrix Addition and Subtraction</a></li>
+<li class="chapter" data-level="1.7" data-path="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#operations-on-matrices-with-a-scalar"><i class="fa fa-check"></i><b>1.7</b> Operations on Matrices with a Scalar</a>
+<ul>
+<li class="chapter" data-level="1.7.1" data-path="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#sum-of-square-and-cross-product-sscp-matrices"><i class="fa fa-check"></i><b>1.7.1</b> Sum-of-square-and-cross-product (SSCP) matrices</a></li>
+<li class="chapter" data-level="1.7.2" data-path="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#operations-on-elements-of-a-matrix-example-with-a-correlation-matrix"><i class="fa fa-check"></i><b>1.7.2</b> Operations on elements of a matrix: Example with a correlation matrix</a></li>
+</ul></li>
+<li class="chapter" data-level="1.8" data-path="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#matrix-multiplication"><i class="fa fa-check"></i><b>1.8</b> Matrix Multiplication</a>
+<ul>
+<li class="chapter" data-level="1.8.1" data-path="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#another-example-of-matrix-multiplication-to-get-the-sscp"><i class="fa fa-check"></i><b>1.8.1</b> Another example of matrix multiplication, to get the SSCP</a></li>
+<li class="chapter" data-level="1.8.2" data-path="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#the-ordering-is-important"><i class="fa fa-check"></i><b>1.8.2</b> The ordering is important</a></li>
+</ul></li>
+<li class="chapter" data-level="1.9" data-path="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#inverse-of-a-matrix"><i class="fa fa-check"></i><b>1.9</b> Inverse of a Matrix</a></li>
+<li class="chapter" data-level="1.10" data-path="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#matrix-determinants-as-generalized-variance"><i class="fa fa-check"></i><b>1.10</b> Matrix determinants, as generalized variance</a></li>
+<li class="chapter" data-level="1.11" data-path="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#eigenvectors-and-eigenvalues"><i class="fa fa-check"></i><b>1.11</b> Eigenvectors and Eigenvalues</a></li>
+<li class="chapter" data-level="1.12" data-path="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#summary"><i class="fa fa-check"></i><b>1.12</b> Summary</a></li>
+<li class="chapter" data-level="1.13" data-path="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#optional-spss-and-r-code-to-manipulate-matrices"><i class="fa fa-check"></i><b>1.13</b> Optional: SPSS and R Code to Manipulate Matrices</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="hotellings-t2.html"><a href="hotellings-t2.html"><i class="fa fa-check"></i><b>2</b> Hotelling’s <span class="math inline">\(T^2\)</span></a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="hotellings-t2.html"><a href="hotellings-t2.html#within-group-covariance-matrices"><i class="fa fa-check"></i><b>2.1</b> Within-group covariance matrices</a></li>
+<li class="chapter" data-level="2.2" data-path="hotellings-t2.html"><a href="hotellings-t2.html#sscp-matrices"><i class="fa fa-check"></i><b>2.2</b> SSCP matrices</a></li>
+<li class="chapter" data-level="2.3" data-path="hotellings-t2.html"><a href="hotellings-t2.html#conducting-the-test-using-functions"><i class="fa fa-check"></i><b>2.3</b> Conducting the Test using Functions</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="planned-comparisons-and-contrasts.html"><a href="planned-comparisons-and-contrasts.html"><i class="fa fa-check"></i><b>3</b> Planned Comparisons and Contrasts</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="planned-comparisons-and-contrasts.html"><a href="planned-comparisons-and-contrasts.html#data-from-week-1"><i class="fa fa-check"></i><b>3.1</b> Data from Week 1</a></li>
+<li class="chapter" data-level="3.2" data-path="planned-comparisons-and-contrasts.html"><a href="planned-comparisons-and-contrasts.html#orthogonal-contrasts"><i class="fa fa-check"></i><b>3.2</b> Orthogonal contrasts</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="planned-comparisons-and-contrasts.html"><a href="planned-comparisons-and-contrasts.html#conditions-for-orthogonal-contrasts"><i class="fa fa-check"></i><b>3.2.1</b> Conditions for orthogonal contrasts</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="planned-comparisons-and-contrasts.html"><a href="planned-comparisons-and-contrasts.html#non-orthogonal-contrasts"><i class="fa fa-check"></i><b>3.3</b> Non-orthogonal contrasts</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="planned-comparisons-and-contrasts.html"><a href="planned-comparisons-and-contrasts.html#accounting-for-type-i-error-in-non-orthogonal-contrasts."><i class="fa fa-check"></i><b>3.3.1</b> Accounting for Type I error in non-orthogonal contrasts.</a></li>
+<li class="chapter" data-level="3.3.2" data-path="planned-comparisons-and-contrasts.html"><a href="planned-comparisons-and-contrasts.html#post-hoc-tests"><i class="fa fa-check"></i><b>3.3.2</b> Post-hoc tests</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="week-03-statistical-assumptions-of-manova.html"><a href="week-03-statistical-assumptions-of-manova.html"><i class="fa fa-check"></i><b>4</b> Week 03 Statistical Assumptions of MANOVA</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="week-03-statistical-assumptions-of-manova.html"><a href="week-03-statistical-assumptions-of-manova.html#data"><i class="fa fa-check"></i><b>4.1</b> Data</a></li>
+<li class="chapter" data-level="4.2" data-path="week-03-statistical-assumptions-of-manova.html"><a href="week-03-statistical-assumptions-of-manova.html#descriptive-statistics"><i class="fa fa-check"></i><b>4.2</b> Descriptive statistics</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="week-03-statistical-assumptions-of-manova.html"><a href="week-03-statistical-assumptions-of-manova.html#by-group-descriptive-statistics"><i class="fa fa-check"></i><b>4.2.1</b> By-group descriptive statistics</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="week-03-statistical-assumptions-of-manova.html"><a href="week-03-statistical-assumptions-of-manova.html#normality-assumption"><i class="fa fa-check"></i><b>4.3</b> Normality Assumption</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="week-03-statistical-assumptions-of-manova.html"><a href="week-03-statistical-assumptions-of-manova.html#univariate-normality"><i class="fa fa-check"></i><b>4.3.1</b> Univariate Normality</a></li>
+<li class="chapter" data-level="4.3.2" data-path="week-03-statistical-assumptions-of-manova.html"><a href="week-03-statistical-assumptions-of-manova.html#examining-univariate-normality-using-quantile-quantile-plots"><i class="fa fa-check"></i><b>4.3.2</b> Examining univariate normality using quantile-quantile plots</a></li>
+<li class="chapter" data-level="4.3.3" data-path="week-03-statistical-assumptions-of-manova.html"><a href="week-03-statistical-assumptions-of-manova.html#a-caution-about-statistical-tests-of-statistical-assumptions"><i class="fa fa-check"></i><b>4.3.3</b> A caution about statistical tests of statistical assumptions</a></li>
+<li class="chapter" data-level="4.3.4" data-path="week-03-statistical-assumptions-of-manova.html"><a href="week-03-statistical-assumptions-of-manova.html#mahalanobis-distance-and-multivariate-outliers"><i class="fa fa-check"></i><b>4.3.4</b> Mahalanobis Distance and Multivariate Outliers</a></li>
+<li class="chapter" data-level="4.3.5" data-path="week-03-statistical-assumptions-of-manova.html"><a href="week-03-statistical-assumptions-of-manova.html#statistical-tests-of-multivariate-normality"><i class="fa fa-check"></i><b>4.3.5</b> Statistical Tests of Multivariate Normality</a></li>
+<li class="chapter" data-level="4.3.6" data-path="week-03-statistical-assumptions-of-manova.html"><a href="week-03-statistical-assumptions-of-manova.html#homogeneity-of-covariance"><i class="fa fa-check"></i><b>4.3.6</b> Homogeneity of Covariance</a></li>
+<li class="chapter" data-level="4.3.7" data-path="week-03-statistical-assumptions-of-manova.html"><a href="week-03-statistical-assumptions-of-manova.html#conclusions-about-our-statistical-assumptions"><i class="fa fa-check"></i><b>4.3.7</b> Conclusions about our statistical assumptions</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="week-03-statistical-assumptions-of-manova.html"><a href="week-03-statistical-assumptions-of-manova.html#fitting-the-manova-model"><i class="fa fa-check"></i><b>4.4</b> Fitting the MANOVA Model</a>
+<ul>
+<li class="chapter" data-level="4.4.1" data-path="week-03-statistical-assumptions-of-manova.html"><a href="week-03-statistical-assumptions-of-manova.html#follow-up-analysis-with-univariate-f-tests"><i class="fa fa-check"></i><b>4.4.1</b> Follow-up analysis with univariate <em>F</em>-tests</a></li>
+<li class="chapter" data-level="4.4.2" data-path="week-03-statistical-assumptions-of-manova.html"><a href="week-03-statistical-assumptions-of-manova.html#effect-size"><i class="fa fa-check"></i><b>4.4.2</b> Effect size</a></li>
+<li class="chapter" data-level="4.4.3" data-path="week-03-statistical-assumptions-of-manova.html"><a href="week-03-statistical-assumptions-of-manova.html#comparing-the-model-without-outlier"><i class="fa fa-check"></i><b>4.4.3</b> Comparing the Model Without Outlier</a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="week-03-statistical-assumptions-of-manova.html"><a href="week-03-statistical-assumptions-of-manova.html#robust-one-way-manova"><i class="fa fa-check"></i><b>4.5</b> Robust One-way MANOVA</a></li>
+<li class="chapter" data-level="4.6" data-path="week-03-statistical-assumptions-of-manova.html"><a href="week-03-statistical-assumptions-of-manova.html#summary-1"><i class="fa fa-check"></i><b>4.6</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="week-04-factorial-manova.html"><a href="week-04-factorial-manova.html"><i class="fa fa-check"></i><b>5</b> Week 04 Factorial MANOVA</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="week-04-factorial-manova.html"><a href="week-04-factorial-manova.html#following-tabachnick-and-fidells-notes"><i class="fa fa-check"></i><b>5.1</b> Following Tabachnick and Fidell’s notes</a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="week-04-factorial-manova.html"><a href="week-04-factorial-manova.html#another-way-to-get-the-sscp_w"><i class="fa fa-check"></i><b>5.1.1</b> Another way to get the <span class="math inline">\(SSCP_W\)</span>:</a></li>
+<li class="chapter" data-level="5.1.2" data-path="week-04-factorial-manova.html"><a href="week-04-factorial-manova.html#mathbfsscp_between-for-each-factor"><i class="fa fa-check"></i><b>5.1.2</b> <span class="math inline">\(\mathbf{SSCP_{Between}}\)</span> for each factor</a></li>
+<li class="chapter" data-level="5.1.3" data-path="week-04-factorial-manova.html"><a href="week-04-factorial-manova.html#mathbfsscp_between-for-the-interaction"><i class="fa fa-check"></i><b>5.1.3</b> <span class="math inline">\(\mathbf{SSCP_{Between}}\)</span> for the interaction</a></li>
+<li class="chapter" data-level="5.1.4" data-path="week-04-factorial-manova.html"><a href="week-04-factorial-manova.html#these-by-hand-calculations-will-be-available-in-manova."><i class="fa fa-check"></i><b>5.1.4</b> These by-hand calculations will be available in <code>manova()</code>.</a></li>
+<li class="chapter" data-level="5.1.5" data-path="week-04-factorial-manova.html"><a href="week-04-factorial-manova.html#calculating-the-generalized-variance"><i class="fa fa-check"></i><b>5.1.5</b> Calculating the generalized variance</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="week-04-factorial-manova.html"><a href="week-04-factorial-manova.html#calculating-wilks-lambda"><i class="fa fa-check"></i><b>5.2</b> Calculating Wilks’ Lambda</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="week-04-factorial-manova.html"><a href="week-04-factorial-manova.html#fit-the-factorial-manova"><i class="fa fa-check"></i><b>5.2.1</b> Fit the factorial MANOVA</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="week-04-factorial-manova.html"><a href="week-04-factorial-manova.html#mancova"><i class="fa fa-check"></i><b>5.3</b> MANCOVA</a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="week-04-factorial-manova.html"><a href="week-04-factorial-manova.html#mancova-example"><i class="fa fa-check"></i><b>5.3.1</b> MANCOVA example</a></li>
+<li class="chapter" data-level="5.3.2" data-path="week-04-factorial-manova.html"><a href="week-04-factorial-manova.html#lets-think-about-ordering-and-type-i-sums-of-squares"><i class="fa fa-check"></i><b>5.3.2</b> Let’s think about ordering and Type I sums of squares</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="week-05-discriminant-function-analysis.html"><a href="week-05-discriminant-function-analysis.html"><i class="fa fa-check"></i><b>6</b> Week 05, Discriminant Function Analysis</a>
+<ul>
+<li class="chapter" data-level="6.0.1" data-path="week-05-discriminant-function-analysis.html"><a href="week-05-discriminant-function-analysis.html#fitting-the-discriminant-function-analysis-model"><i class="fa fa-check"></i><b>6.0.1</b> Fitting the discriminant function analysis model</a></li>
+<li class="chapter" data-level="6.0.2" data-path="week-05-discriminant-function-analysis.html"><a href="week-05-discriminant-function-analysis.html#dimension-reduction-analysis"><i class="fa fa-check"></i><b>6.0.2</b> Dimension reduction analysis</a></li>
+<li class="chapter" data-level="6.0.3" data-path="week-05-discriminant-function-analysis.html"><a href="week-05-discriminant-function-analysis.html#structure-and-standardized-discriminant-function-coefficients"><i class="fa fa-check"></i><b>6.0.3</b> Structure and standardized discriminant function coefficients</a></li>
+<li class="chapter" data-level="6.0.4" data-path="week-05-discriminant-function-analysis.html"><a href="week-05-discriminant-function-analysis.html#discriminant-function-scores"><i class="fa fa-check"></i><b>6.0.4</b> Discriminant function scores</a></li>
+<li class="chapter" data-level="6.0.5" data-path="week-05-discriminant-function-analysis.html"><a href="week-05-discriminant-function-analysis.html#group-means-centroids-of-the-discriminant-function-scores"><i class="fa fa-check"></i><b>6.0.5</b> Group means (centroids) of the discriminant-function scores</a></li>
+<li class="chapter" data-level="6.0.6" data-path="week-05-discriminant-function-analysis.html"><a href="week-05-discriminant-function-analysis.html#bivariate-scatterplot"><i class="fa fa-check"></i><b>6.0.6</b> Bivariate scatterplot</a></li>
+<li class="chapter" data-level="6.1" data-path="week-05-discriminant-function-analysis.html"><a href="week-05-discriminant-function-analysis.html#write-up"><i class="fa fa-check"></i><b>6.1</b> Write-up</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="week-06-principal-components-analysis.html"><a href="week-06-principal-components-analysis.html"><i class="fa fa-check"></i><b>7</b> Week 06: Principal Components Analysis</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="week-06-principal-components-analysis.html"><a href="week-06-principal-components-analysis.html#example-1-to-see-some-properties-of-pca"><i class="fa fa-check"></i><b>7.1</b> Example 1, to see some properties of PCA</a>
+<ul>
+<li class="chapter" data-level="7.1.1" data-path="week-06-principal-components-analysis.html"><a href="week-06-principal-components-analysis.html#pca-with-covariance-vs.-correlation"><i class="fa fa-check"></i><b>7.1.1</b> PCA with Covariance vs. Correlation</a></li>
+<li class="chapter" data-level="7.1.2" data-path="week-06-principal-components-analysis.html"><a href="week-06-principal-components-analysis.html#unscaled-eigenvectors"><i class="fa fa-check"></i><b>7.1.2</b> Unscaled eigenvectors</a></li>
+<li class="chapter" data-level="7.1.3" data-path="week-06-principal-components-analysis.html"><a href="week-06-principal-components-analysis.html#looking-at-the-properties-of-eigenvectors-and-eigenvalues"><i class="fa fa-check"></i><b>7.1.3</b> Looking at the properties of eigenvectors and eigenvalues</a></li>
+<li class="chapter" data-level="7.1.4" data-path="week-06-principal-components-analysis.html"><a href="week-06-principal-components-analysis.html#using-the-psych-package"><i class="fa fa-check"></i><b>7.1.4</b> Using the psych package</a></li>
+<li class="chapter" data-level="7.1.5" data-path="week-06-principal-components-analysis.html"><a href="week-06-principal-components-analysis.html#determining-how-many-components-to-retain"><i class="fa fa-check"></i><b>7.1.5</b> Determining how many components to retain</a></li>
+<li class="chapter" data-level="7.1.6" data-path="week-06-principal-components-analysis.html"><a href="week-06-principal-components-analysis.html#reduced-pca-model"><i class="fa fa-check"></i><b>7.1.6</b> Reduced PCA model</a></li>
+<li class="chapter" data-level="7.1.7" data-path="week-06-principal-components-analysis.html"><a href="week-06-principal-components-analysis.html#interpretation-1"><i class="fa fa-check"></i><b>7.1.7</b> Interpretation</a></li>
+<li class="chapter" data-level="7.1.8" data-path="week-06-principal-components-analysis.html"><a href="week-06-principal-components-analysis.html#interpretation-of-the-rotated-solution"><i class="fa fa-check"></i><b>7.1.8</b> Interpretation of the rotated solution</a></li>
+</ul></li>
+<li class="chapter" data-level="7.2" data-path="week-06-principal-components-analysis.html"><a href="week-06-principal-components-analysis.html#example-two"><i class="fa fa-check"></i><b>7.2</b> Example Two</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="week-06-principal-components-analysis.html"><a href="week-06-principal-components-analysis.html#pca-on-unstandardized-scores"><i class="fa fa-check"></i><b>7.2.1</b> PCA on Unstandardized Scores</a></li>
+<li class="chapter" data-level="7.2.2" data-path="week-06-principal-components-analysis.html"><a href="week-06-principal-components-analysis.html#pca-on-the-standardized-scores"><i class="fa fa-check"></i><b>7.2.2</b> PCA on the Standardized Scores</a></li>
+<li class="chapter" data-level="7.2.3" data-path="week-06-principal-components-analysis.html"><a href="week-06-principal-components-analysis.html#let-the-psych-package-do-the-work"><i class="fa fa-check"></i><b>7.2.3</b> Let the Psych Package Do the Work</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="week-06-principal-components-analysis.html"><a href="week-06-principal-components-analysis.html#heptathlon-example"><i class="fa fa-check"></i><b>7.3</b> Heptathlon example</a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="week-06-principal-components-analysis.html"><a href="week-06-principal-components-analysis.html#data-and-data-cleaning"><i class="fa fa-check"></i><b>7.3.1</b> Data and data cleaning</a></li>
+<li class="chapter" data-level="7.3.2" data-path="week-06-principal-components-analysis.html"><a href="week-06-principal-components-analysis.html#examine-assumption-of-linearity"><i class="fa fa-check"></i><b>7.3.2</b> Examine assumption of linearity</a></li>
+<li class="chapter" data-level="7.3.3" data-path="week-06-principal-components-analysis.html"><a href="week-06-principal-components-analysis.html#multivariate-normality-and-outliers"><i class="fa fa-check"></i><b>7.3.3</b> Multivariate normality and outliers</a></li>
+<li class="chapter" data-level="7.3.4" data-path="week-06-principal-components-analysis.html"><a href="week-06-principal-components-analysis.html#re-examine-linearity-and-normality"><i class="fa fa-check"></i><b>7.3.4</b> Re-examine linearity and normality</a></li>
+<li class="chapter" data-level="7.3.5" data-path="week-06-principal-components-analysis.html"><a href="week-06-principal-components-analysis.html#fit-the-initial-pca"><i class="fa fa-check"></i><b>7.3.5</b> Fit the initial PCA</a></li>
+<li class="chapter" data-level="7.3.6" data-path="week-06-principal-components-analysis.html"><a href="week-06-principal-components-analysis.html#determine-the-number-of-components-to-retain"><i class="fa fa-check"></i><b>7.3.6</b> Determine the number of components to retain</a></li>
+<li class="chapter" data-level="7.3.7" data-path="week-06-principal-components-analysis.html"><a href="week-06-principal-components-analysis.html#refit-the-pca-model-using-rotation-if-that-is-acceptable-in-your-field"><i class="fa fa-check"></i><b>7.3.7</b> Refit the PCA model, using rotation if that is acceptable in your field</a></li>
+<li class="chapter" data-level="7.3.8" data-path="week-06-principal-components-analysis.html"><a href="week-06-principal-components-analysis.html#interpret-the-components"><i class="fa fa-check"></i><b>7.3.8</b> Interpret the components</a></li>
+<li class="chapter" data-level="7.3.9" data-path="week-06-principal-components-analysis.html"><a href="week-06-principal-components-analysis.html#saving-the-scores"><i class="fa fa-check"></i><b>7.3.9</b> Saving the scores</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="week-06-principal-components-analysis.html"><a href="week-06-principal-components-analysis.html#other-example-from-later-in-the-chapter-not-assigned"><i class="fa fa-check"></i><b>7.4</b> Other example from later in the chapter (not assigned)</a>
+<ul>
+<li class="chapter" data-level="7.4.1" data-path="week-06-principal-components-analysis.html"><a href="week-06-principal-components-analysis.html#usairpollution-data"><i class="fa fa-check"></i><b>7.4.1</b> USairpollution Data</a></li>
+</ul></li>
+<li class="chapter" data-level="7.5" data-path="week-06-principal-components-analysis.html"><a href="week-06-principal-components-analysis.html#another-resource"><i class="fa fa-check"></i><b>7.5</b> Another resource</a></li>
+<li class="chapter" data-level="7.6" data-path="week-06-principal-components-analysis.html"><a href="week-06-principal-components-analysis.html#references"><i class="fa fa-check"></i><b>7.6</b> References</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="week-07-exploratory-factor-analysis-part-1.html"><a href="week-07-exploratory-factor-analysis-part-1.html"><i class="fa fa-check"></i><b>8</b> Week 07: Exploratory Factor Analysis, Part 1</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="week-07-exploratory-factor-analysis-part-1.html"><a href="week-07-exploratory-factor-analysis-part-1.html#introductory-comments"><i class="fa fa-check"></i><b>8.1</b> Introductory comments</a>
+<ul>
+<li class="chapter" data-level="8.1.1" data-path="week-07-exploratory-factor-analysis-part-1.html"><a href="week-07-exploratory-factor-analysis-part-1.html#packages"><i class="fa fa-check"></i><b>8.1.1</b> Packages</a></li>
+<li class="chapter" data-level="8.1.2" data-path="week-07-exploratory-factor-analysis-part-1.html"><a href="week-07-exploratory-factor-analysis-part-1.html#efa-ne-pca"><i class="fa fa-check"></i><b>8.1.2</b> EFA <span class="math inline">\(\ne\)</span> PCA</a></li>
+</ul></li>
+<li class="chapter" data-level="8.2" data-path="week-07-exploratory-factor-analysis-part-1.html"><a href="week-07-exploratory-factor-analysis-part-1.html#preparatory-steps"><i class="fa fa-check"></i><b>8.2</b> Preparatory steps</a>
+<ul>
+<li class="chapter" data-level="8.2.1" data-path="week-07-exploratory-factor-analysis-part-1.html"><a href="week-07-exploratory-factor-analysis-part-1.html#examining-the-data"><i class="fa fa-check"></i><b>8.2.1</b> Examining the data</a></li>
+<li class="chapter" data-level="8.2.2" data-path="week-07-exploratory-factor-analysis-part-1.html"><a href="week-07-exploratory-factor-analysis-part-1.html#addressing-assumptions"><i class="fa fa-check"></i><b>8.2.2</b> Addressing assumptions</a></li>
+<li class="chapter" data-level="8.2.3" data-path="week-07-exploratory-factor-analysis-part-1.html"><a href="week-07-exploratory-factor-analysis-part-1.html#determining-factorability"><i class="fa fa-check"></i><b>8.2.3</b> Determining factorability</a></li>
+<li class="chapter" data-level="8.2.4" data-path="week-07-exploratory-factor-analysis-part-1.html"><a href="week-07-exploratory-factor-analysis-part-1.html#determining-how-many-factors-to-retain"><i class="fa fa-check"></i><b>8.2.4</b> Determining how many factors to retain</a></li>
+<li class="chapter" data-level="8.2.5" data-path="week-07-exploratory-factor-analysis-part-1.html"><a href="week-07-exploratory-factor-analysis-part-1.html#factor-analysis-with-a-data-matrix-raw-data"><i class="fa fa-check"></i><b>8.2.5</b> Factor analysis with a data matrix (raw data)</a></li>
+<li class="chapter" data-level="8.2.6" data-path="week-07-exploratory-factor-analysis-part-1.html"><a href="week-07-exploratory-factor-analysis-part-1.html#factor-analysis-with-correlation-data"><i class="fa fa-check"></i><b>8.2.6</b> Factor analysis with correlation data</a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="week-07-exploratory-factor-analysis-part-1.html"><a href="week-07-exploratory-factor-analysis-part-1.html#references-1"><i class="fa fa-check"></i><b>8.3</b> References</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="week-08-exploratory-factor-analysis-part-2.html"><a href="week-08-exploratory-factor-analysis-part-2.html"><i class="fa fa-check"></i><b>9</b> Week 08: Exploratory Factor Analysis, Part 2</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="week-08-exploratory-factor-analysis-part-2.html"><a href="week-08-exploratory-factor-analysis-part-2.html#factor-analysis-with-correlation-data-1"><i class="fa fa-check"></i><b>9.1</b> Factor analysis with correlation data</a>
+<ul>
+<li class="chapter" data-level="9.1.1" data-path="week-08-exploratory-factor-analysis-part-2.html"><a href="week-08-exploratory-factor-analysis-part-2.html#setting-up-the-data-1"><i class="fa fa-check"></i><b>9.1.1</b> Setting up the data</a></li>
+<li class="chapter" data-level="9.1.2" data-path="week-08-exploratory-factor-analysis-part-2.html"><a href="week-08-exploratory-factor-analysis-part-2.html#preparatory-steps-2"><i class="fa fa-check"></i><b>9.1.2</b> Preparatory steps</a></li>
+<li class="chapter" data-level="9.1.3" data-path="week-08-exploratory-factor-analysis-part-2.html"><a href="week-08-exploratory-factor-analysis-part-2.html#performing-the-factor-analysis-1"><i class="fa fa-check"></i><b>9.1.3</b> Performing the factor analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="9.2" data-path="week-08-exploratory-factor-analysis-part-2.html"><a href="week-08-exploratory-factor-analysis-part-2.html#efa-with-categorical-data"><i class="fa fa-check"></i><b>9.2</b> EFA with categorical data</a>
+<ul>
+<li class="chapter" data-level="9.2.1" data-path="week-08-exploratory-factor-analysis-part-2.html"><a href="week-08-exploratory-factor-analysis-part-2.html#describing-categorical-data"><i class="fa fa-check"></i><b>9.2.1</b> Describing categorical data</a></li>
+<li class="chapter" data-level="9.2.2" data-path="week-08-exploratory-factor-analysis-part-2.html"><a href="week-08-exploratory-factor-analysis-part-2.html#factor-scores"><i class="fa fa-check"></i><b>9.2.2</b> Factor scores</a></li>
+</ul></li>
+<li class="chapter" data-level="9.3" data-path="week-08-exploratory-factor-analysis-part-2.html"><a href="week-08-exploratory-factor-analysis-part-2.html#practice"><i class="fa fa-check"></i><b>9.3</b> Practice</a>
+<ul>
+<li class="chapter" data-level="9.3.1" data-path="week-08-exploratory-factor-analysis-part-2.html"><a href="week-08-exploratory-factor-analysis-part-2.html#summary-2"><i class="fa fa-check"></i><b>9.3.1</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="9.4" data-path="week-08-exploratory-factor-analysis-part-2.html"><a href="week-08-exploratory-factor-analysis-part-2.html#references-2"><i class="fa fa-check"></i><b>9.4</b> References</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="week-09-confirmatory-factor-analysis.html"><a href="week-09-confirmatory-factor-analysis.html"><i class="fa fa-check"></i><b>10</b> Week 09: Confirmatory Factor Analysis</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="week-09-confirmatory-factor-analysis.html"><a href="week-09-confirmatory-factor-analysis.html#preparatory-steps-3"><i class="fa fa-check"></i><b>10.1</b> Preparatory steps</a>
+<ul>
+<li class="chapter" data-level="10.1.1" data-path="week-09-confirmatory-factor-analysis.html"><a href="week-09-confirmatory-factor-analysis.html#describing-the-data"><i class="fa fa-check"></i><b>10.1.1</b> Describing the data</a></li>
+</ul></li>
+<li class="chapter" data-level="10.2" data-path="week-09-confirmatory-factor-analysis.html"><a href="week-09-confirmatory-factor-analysis.html#fitting-a-cfa-model"><i class="fa fa-check"></i><b>10.2</b> Fitting a CFA model</a>
+<ul>
+<li class="chapter" data-level="10.2.1" data-path="week-09-confirmatory-factor-analysis.html"><a href="week-09-confirmatory-factor-analysis.html#making-sure-the-model-was-correctly-estimated"><i class="fa fa-check"></i><b>10.2.1</b> Making sure the model was correctly estimated</a></li>
+<li class="chapter" data-level="10.2.2" data-path="week-09-confirmatory-factor-analysis.html"><a href="week-09-confirmatory-factor-analysis.html#evaluating-the-model-fit"><i class="fa fa-check"></i><b>10.2.2</b> Evaluating the model fit</a></li>
+<li class="chapter" data-level="10.2.3" data-path="week-09-confirmatory-factor-analysis.html"><a href="week-09-confirmatory-factor-analysis.html#interpretting-the-parameter-estimates"><i class="fa fa-check"></i><b>10.2.3</b> Interpretting the parameter estimates</a></li>
+<li class="chapter" data-level="10.2.4" data-path="week-09-confirmatory-factor-analysis.html"><a href="week-09-confirmatory-factor-analysis.html#further-inspecting-our-model"><i class="fa fa-check"></i><b>10.2.4</b> Further inspecting our model</a></li>
+<li class="chapter" data-level="10.2.5" data-path="week-09-confirmatory-factor-analysis.html"><a href="week-09-confirmatory-factor-analysis.html#further-inspecting-our-models-parameters"><i class="fa fa-check"></i><b>10.2.5</b> Further inspecting our model’s parameters</a></li>
+</ul></li>
+<li class="chapter" data-level="10.3" data-path="week-09-confirmatory-factor-analysis.html"><a href="week-09-confirmatory-factor-analysis.html#using-alternative-model-specifications"><i class="fa fa-check"></i><b>10.3</b> Using alternative model specifications</a>
+<ul>
+<li class="chapter" data-level="10.3.1" data-path="week-09-confirmatory-factor-analysis.html"><a href="week-09-confirmatory-factor-analysis.html#rescaling-the-factors-to-be-standardized"><i class="fa fa-check"></i><b>10.3.1</b> Rescaling the factors to be standardized</a></li>
+<li class="chapter" data-level="10.3.2" data-path="week-09-confirmatory-factor-analysis.html"><a href="week-09-confirmatory-factor-analysis.html#specifying-a-competing-nested-model"><i class="fa fa-check"></i><b>10.3.2</b> Specifying a competing, nested, model</a></li>
+<li class="chapter" data-level="10.3.3" data-path="week-09-confirmatory-factor-analysis.html"><a href="week-09-confirmatory-factor-analysis.html#conducting-model-comparisons"><i class="fa fa-check"></i><b>10.3.3</b> Conducting model comparisons</a></li>
+</ul></li>
+<li class="chapter" data-level="10.4" data-path="week-09-confirmatory-factor-analysis.html"><a href="week-09-confirmatory-factor-analysis.html#estimating-factor-scores"><i class="fa fa-check"></i><b>10.4</b> Estimating factor scores</a></li>
+<li class="chapter" data-level="10.5" data-path="week-09-confirmatory-factor-analysis.html"><a href="week-09-confirmatory-factor-analysis.html#cfa-with-categorical-data"><i class="fa fa-check"></i><b>10.5</b> CFA with categorical data</a>
+<ul>
+<li class="chapter" data-level="10.5.1" data-path="week-09-confirmatory-factor-analysis.html"><a href="week-09-confirmatory-factor-analysis.html#using-data-from-an-r-package"><i class="fa fa-check"></i><b>10.5.1</b> Using data from an R package</a></li>
+<li class="chapter" data-level="10.5.2" data-path="week-09-confirmatory-factor-analysis.html"><a href="week-09-confirmatory-factor-analysis.html#preparing-the-data"><i class="fa fa-check"></i><b>10.5.2</b> Preparing the data</a></li>
+<li class="chapter" data-level="10.5.3" data-path="week-09-confirmatory-factor-analysis.html"><a href="week-09-confirmatory-factor-analysis.html#describing-the-data-1"><i class="fa fa-check"></i><b>10.5.3</b> Describing the data</a></li>
+<li class="chapter" data-level="10.5.4" data-path="week-09-confirmatory-factor-analysis.html"><a href="week-09-confirmatory-factor-analysis.html#fitting-the-cfa-model"><i class="fa fa-check"></i><b>10.5.4</b> Fitting the CFA model</a></li>
+</ul></li>
+<li class="chapter" data-level="10.6" data-path="week-09-confirmatory-factor-analysis.html"><a href="week-09-confirmatory-factor-analysis.html#way-tldr-summary"><i class="fa fa-check"></i><b>10.6</b> Way TL;DR Summary</a></li>
+<li class="chapter" data-level="10.7" data-path="week-09-confirmatory-factor-analysis.html"><a href="week-09-confirmatory-factor-analysis.html#references-3"><i class="fa fa-check"></i><b>10.7</b> References</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">EDUC 644 Applied Multivariate Statistics</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="week-08-exploratory-factor-analysis-part-2" class="section level1 hasAnchor" number="9">
+<h1><span class="header-section-number">9</span> Week 08: Exploratory Factor Analysis, Part 2<a href="week-08-exploratory-factor-analysis-part-2.html#week-08-exploratory-factor-analysis-part-2" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>Conducing EFA with correlations and categorical data, and saving factor scores</p>
+<div id="factor-analysis-with-correlation-data-1" class="section level2 hasAnchor" number="9.1">
+<h2><span class="header-section-number">9.1</span> Factor analysis with correlation data<a href="week-08-exploratory-factor-analysis-part-2.html#factor-analysis-with-correlation-data-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Sometimes we only have access to correlation or covariance data. We can perform factor analysis on correlation matrices using nearly the same set of operations.<a href="#fn51" class="footnote-ref" id="fnref51"><sup>51</sup></a></p>
+<div id="setting-up-the-data-1" class="section level3 hasAnchor" number="9.1.1">
+<h3><span class="header-section-number">9.1.1</span> Setting up the data<a href="week-08-exploratory-factor-analysis-part-2.html#setting-up-the-data-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>If we had a full (symmetrical) matrix in a CSV file, we can import these into R. However, it will not be in a matrix format but as a data frame, so we need to use the <code>as.matrix()</code> function and provide names for the columns and rows.</p>
+<div class="sourceCode" id="cb531"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb531-1"><a href="week-08-exploratory-factor-analysis-part-2.html#cb531-1" tabindex="-1"></a>R_df <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;Week08_GSS_ScienceCorrs.csv&quot;</span>)</span>
+<span id="cb531-2"><a href="week-08-exploratory-factor-analysis-part-2.html#cb531-2" tabindex="-1"></a>R    <span class="ot">&lt;-</span> <span class="fu">as.matrix</span>(R_df)</span>
+<span id="cb531-3"><a href="week-08-exploratory-factor-analysis-part-2.html#cb531-3" tabindex="-1"></a><span class="fu">rownames</span>(R) <span class="ot">&lt;-</span> <span class="fu">colnames</span>(R) <span class="ot">&lt;-</span> <span class="fu">names</span>(R_df)</span>
+<span id="cb531-4"><a href="week-08-exploratory-factor-analysis-part-2.html#cb531-4" tabindex="-1"></a><span class="fu">names</span>(R_df)</span></code></pre></div>
+<pre><code>## [1] &quot;NoIntrst&quot; &quot;Odd&quot;      &quot;NoFun&quot;    &quot;Boring&quot;   &quot;Alone&quot;    &quot;NoRelign&quot; &quot;Better&quot;   &quot;Good&quot;     &quot;Help&quot;</code></pre>
+<div class="sourceCode" id="cb533"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb533-1"><a href="week-08-exploratory-factor-analysis-part-2.html#cb533-1" tabindex="-1"></a>R</span></code></pre></div>
+<pre><code>##          NoIntrst   Odd NoFun Boring  Alone NoRelign Better   Good   Help
+## NoIntrst    1.000 0.504 0.454  0.286  0.351    0.292  0.123  0.049  0.006
+## Odd         0.504 1.000 0.388  0.303  0.216    0.311  0.138  0.029  0.027
+## NoFun       0.454 0.388 1.000  0.261  0.260    0.264  0.113  0.046  0.007
+## Boring      0.286 0.303 0.261  1.000  0.252    0.090 -0.136 -0.131 -0.231
+## Alone       0.351 0.216 0.260  0.252  1.000    0.096  0.076  0.031 -0.010
+## NoRelign    0.292 0.311 0.264  0.090  0.096    1.000  0.067  0.051  0.046
+## Better      0.123 0.138 0.113 -0.136  0.076    0.067  1.000  0.470  0.425
+## Good        0.049 0.029 0.046 -0.131  0.031    0.051  0.470  1.000  0.402
+## Help        0.006 0.027 0.007 -0.231 -0.010    0.046  0.425  0.402  1.000</code></pre>
+<p>Now we have a matrix, called <strong>R</strong>, which we can use in our factor analysis functions.</p>
+<p>One more step is that we need to specify the <em>n</em>-size, if we have access to that information. Let’s say we knew it was 372.</p>
+<div class="sourceCode" id="cb535"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb535-1"><a href="week-08-exploratory-factor-analysis-part-2.html#cb535-1" tabindex="-1"></a>n_p <span class="ot">&lt;-</span> <span class="dv">372</span></span></code></pre></div>
+<div id="some-extra-stuff-importing-half-the-correlation-matrix" class="section level4 hasAnchor" number="9.1.1.1">
+<h4><span class="header-section-number">9.1.1.1</span> Some extra stuff: Importing half the correlation matrix<a href="week-08-exploratory-factor-analysis-part-2.html#some-extra-stuff-importing-half-the-correlation-matrix" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Alternatively, let’s say we were given a file that included only one side of the correlation matrix. Or, we got lazy and instead of manually entering all of the correlations on both sides, we only want to manually enter them on one side, perhaps to avoid typos in our data entry. In this situation, we can import our one-sided correlation matrix and then let R do the work. First, we should be sure the other side has <code>NA</code>s in the cells on the blank side of the matrix. These <code>NA</code>s are easier to type into a CSV file than numbers.</p>
+<div class="sourceCode" id="cb536"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb536-1"><a href="week-08-exploratory-factor-analysis-part-2.html#cb536-1" tabindex="-1"></a>RLower <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;Week08_LowerCorr_GSS_Sci.csv&quot;</span>)</span>
+<span id="cb536-2"><a href="week-08-exploratory-factor-analysis-part-2.html#cb536-2" tabindex="-1"></a>RLower <span class="ot">&lt;-</span> <span class="fu">as.matrix</span>(RLower)</span>
+<span id="cb536-3"><a href="week-08-exploratory-factor-analysis-part-2.html#cb536-3" tabindex="-1"></a>RLower</span></code></pre></div>
+<pre><code>##       NoIntrst   Odd NoFun Boring  Alone NoRelign Better  Good Help
+##  [1,]    1.000    NA    NA     NA     NA       NA     NA    NA   NA
+##  [2,]    0.504 1.000    NA     NA     NA       NA     NA    NA   NA
+##  [3,]    0.454 0.388 1.000     NA     NA       NA     NA    NA   NA
+##  [4,]    0.286 0.303 0.261  1.000     NA       NA     NA    NA   NA
+##  [5,]    0.351 0.216 0.260  0.252  1.000       NA     NA    NA   NA
+##  [6,]    0.292 0.311 0.264  0.090  0.096    1.000     NA    NA   NA
+##  [7,]    0.123 0.138 0.113 -0.136  0.076    0.067  1.000    NA   NA
+##  [8,]    0.049 0.029 0.046 -0.131  0.031    0.051  0.470 1.000   NA
+##  [9,]    0.006 0.027 0.007 -0.231 -0.010    0.046  0.425 0.402    1</code></pre>
+<p>We can use the <code>forceSymmetric()</code> function from the Matrix <span class="citation">(<a href="#ref-R-Matrix">Bates, Maechler, and Jagan 2025</a>)</span> package to turn our one-sided matrix into a symmetric matrix. Also, because the output from that function is a special kind of output, rather than a simple matrix, let’s change its type back to a matrix using R base’s <code>as.matrix()</code> function. Finally, we’ll name the row and columns, using the column names in the <code>RLower</code> data that we imported.</p>
+<div class="sourceCode" id="cb538"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb538-1"><a href="week-08-exploratory-factor-analysis-part-2.html#cb538-1" tabindex="-1"></a><span class="fu">library</span>(Matrix)</span>
+<span id="cb538-2"><a href="week-08-exploratory-factor-analysis-part-2.html#cb538-2" tabindex="-1"></a><span class="co"># help(&quot;forceSymmetric&quot;, package = &quot;Matrix&quot;)</span></span>
+<span id="cb538-3"><a href="week-08-exploratory-factor-analysis-part-2.html#cb538-3" tabindex="-1"></a>R <span class="ot">&lt;-</span> Matrix<span class="sc">::</span><span class="fu">forceSymmetric</span>(RLower, <span class="at">uplo=</span><span class="st">&quot;L&quot;</span>)</span>
+<span id="cb538-4"><a href="week-08-exploratory-factor-analysis-part-2.html#cb538-4" tabindex="-1"></a>R <span class="ot">&lt;-</span> <span class="fu">as.matrix</span>(R)</span>
+<span id="cb538-5"><a href="week-08-exploratory-factor-analysis-part-2.html#cb538-5" tabindex="-1"></a><span class="fu">rownames</span>(R) <span class="ot">&lt;-</span> <span class="fu">colnames</span>(R) <span class="ot">&lt;-</span> <span class="fu">colnames</span>(RLower)</span>
+<span id="cb538-6"><a href="week-08-exploratory-factor-analysis-part-2.html#cb538-6" tabindex="-1"></a>R</span></code></pre></div>
+<pre><code>##          NoIntrst   Odd NoFun Boring  Alone NoRelign Better   Good   Help
+## NoIntrst    1.000 0.504 0.454  0.286  0.351    0.292  0.123  0.049  0.006
+## Odd         0.504 1.000 0.388  0.303  0.216    0.311  0.138  0.029  0.027
+## NoFun       0.454 0.388 1.000  0.261  0.260    0.264  0.113  0.046  0.007
+## Boring      0.286 0.303 0.261  1.000  0.252    0.090 -0.136 -0.131 -0.231
+## Alone       0.351 0.216 0.260  0.252  1.000    0.096  0.076  0.031 -0.010
+## NoRelign    0.292 0.311 0.264  0.090  0.096    1.000  0.067  0.051  0.046
+## Better      0.123 0.138 0.113 -0.136  0.076    0.067  1.000  0.470  0.425
+## Good        0.049 0.029 0.046 -0.131  0.031    0.051  0.470  1.000  0.402
+## Help        0.006 0.027 0.007 -0.231 -0.010    0.046  0.425  0.402  1.000</code></pre>
+<p>Okay, back to the task at hand:</p>
+</div>
+</div>
+<div id="preparatory-steps-2" class="section level3 hasAnchor" number="9.1.2">
+<h3><span class="header-section-number">9.1.2</span> Preparatory steps<a href="week-08-exploratory-factor-analysis-part-2.html#preparatory-steps-2" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>If all we have is the correlation matrix and <em>n</em>-sizes, we won’t be able to report the descriptive statistics or the assumptions having to do with linearity. We can use most of the same procedures to determine the factorability and the number of factors to retain.</p>
+<div id="factorability" class="section level4 hasAnchor" number="9.1.2.1">
+<h4><span class="header-section-number">9.1.2.1</span> Factorability<a href="week-08-exploratory-factor-analysis-part-2.html#factorability" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>We can start with the determinant, to see if the EFA will work. This should be positive.</p>
+<div class="sourceCode" id="cb540"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb540-1"><a href="week-08-exploratory-factor-analysis-part-2.html#cb540-1" tabindex="-1"></a><span class="fu">det</span>(R)</span></code></pre></div>
+<pre><code>## [1] 0.1915743</code></pre>
+<p>We can examine the KMO and Bartlett tests for factorability. The Bartlett test with the correlation also requires we specify the <em>n</em>-size.</p>
+<div class="sourceCode" id="cb542"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb542-1"><a href="week-08-exploratory-factor-analysis-part-2.html#cb542-1" tabindex="-1"></a><span class="fu">KMO</span>(R)</span></code></pre></div>
+<pre><code>## Kaiser-Meyer-Olkin factor adequacy
+## Call: KMO(r = R)
+## Overall MSA =  0.75
+## MSA for each item = 
+## NoIntrst      Odd    NoFun   Boring    Alone NoRelign   Better     Good     Help 
+##     0.76     0.76     0.82     0.77     0.79     0.81     0.68     0.69     0.71</code></pre>
+<div class="sourceCode" id="cb544"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb544-1"><a href="week-08-exploratory-factor-analysis-part-2.html#cb544-1" tabindex="-1"></a>psych<span class="sc">::</span><span class="fu">cortest.bartlett</span>(R, <span class="at">n =</span> n_p) <span class="co"># We had set n_p in the previous code, this is the n-size</span></span></code></pre></div>
+<pre><code>## $chisq
+## [1] 606.7354
+## 
+## $p.value
+## [1] 8.250062e-105
+## 
+## $df
+## [1] 36</code></pre>
+<p>These are the same results we saw with the raw data.</p>
+</div>
+<div id="number-of-factors" class="section level4 hasAnchor" number="9.1.2.2">
+<h4><span class="header-section-number">9.1.2.2</span> Number of factors<a href="week-08-exploratory-factor-analysis-part-2.html#number-of-factors" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>As we did with the raw data, we can use the <code>eigenComputes()</code> function from the nFactors package to conduct the parallel test. Paradoxically, we set the <code>cor =</code> argument to <code>FALSE</code>. If we set it to <code>TRUE</code> (which is the default), it assumes we are analyzing raw data and that we want it to first turn it into a correlation matrix. We already have a correlation matrix, so we set this to FALSE.</p>
+<div class="sourceCode" id="cb546"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb546-1"><a href="week-08-exploratory-factor-analysis-part-2.html#cb546-1" tabindex="-1"></a><span class="fu">library</span>(nFactors)</span>
+<span id="cb546-2"><a href="week-08-exploratory-factor-analysis-part-2.html#cb546-2" tabindex="-1"></a>ReducedEig <span class="ot">&lt;-</span> <span class="fu">eigenComputes</span>(R, <span class="at">cor =</span> <span class="cn">FALSE</span>, <span class="at">model =</span> <span class="st">&quot;factors&quot;</span>)</span>
+<span id="cb546-3"><a href="week-08-exploratory-factor-analysis-part-2.html#cb546-3" tabindex="-1"></a>n_nu       <span class="ot">&lt;-</span> <span class="fu">ncol</span>(R) <span class="co"># The number of variables in our data</span></span>
+<span id="cb546-4"><a href="week-08-exploratory-factor-analysis-part-2.html#cb546-4" tabindex="-1"></a>n_factors  <span class="ot">&lt;-</span> <span class="fu">length</span>(ReducedEig)</span>
+<span id="cb546-5"><a href="week-08-exploratory-factor-analysis-part-2.html#cb546-5" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb546-6"><a href="week-08-exploratory-factor-analysis-part-2.html#cb546-6" tabindex="-1"></a>paral <span class="ot">&lt;-</span> <span class="fu">parallel</span>(<span class="at">subject =</span> n_p,</span>
+<span id="cb546-7"><a href="week-08-exploratory-factor-analysis-part-2.html#cb546-7" tabindex="-1"></a>                      <span class="at">var =</span> n_nu,</span>
+<span id="cb546-8"><a href="week-08-exploratory-factor-analysis-part-2.html#cb546-8" tabindex="-1"></a>                      <span class="at">rep =</span> <span class="dv">1000</span>,</span>
+<span id="cb546-9"><a href="week-08-exploratory-factor-analysis-part-2.html#cb546-9" tabindex="-1"></a>                 <span class="at">quantile =</span> .<span class="dv">95</span>, </span>
+<span id="cb546-10"><a href="week-08-exploratory-factor-analysis-part-2.html#cb546-10" tabindex="-1"></a>                    <span class="at">model =</span> <span class="st">&quot;factors&quot;</span>)</span>
+<span id="cb546-11"><a href="week-08-exploratory-factor-analysis-part-2.html#cb546-11" tabindex="-1"></a>ParallelAna <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Nfactor=</span> <span class="dv">1</span><span class="sc">:</span>n_factors,</span>
+<span id="cb546-12"><a href="week-08-exploratory-factor-analysis-part-2.html#cb546-12" tabindex="-1"></a>                        ReducedEig,</span>
+<span id="cb546-13"><a href="week-08-exploratory-factor-analysis-part-2.html#cb546-13" tabindex="-1"></a>                        <span class="at">RandEigM =</span> paral<span class="sc">$</span>eigen<span class="sc">$</span>mevpea,</span>
+<span id="cb546-14"><a href="week-08-exploratory-factor-analysis-part-2.html#cb546-14" tabindex="-1"></a>                       <span class="at">RandEig95 =</span> paral<span class="sc">$</span>eigen<span class="sc">$</span>qevpea)</span>
+<span id="cb546-15"><a href="week-08-exploratory-factor-analysis-part-2.html#cb546-15" tabindex="-1"></a>ParallelAna <span class="ot">&lt;-</span> <span class="fu">round</span>(ParallelAna, <span class="dv">3</span>)</span>
+<span id="cb546-16"><a href="week-08-exploratory-factor-analysis-part-2.html#cb546-16" tabindex="-1"></a>ParallelAna</span></code></pre></div>
+<pre><code>##   Nfactor ReducedEig RandEigM RandEig95
+## 1       1      1.816    0.271     0.351
+## 2       2      1.228    0.185     0.245
+## 3       3      0.127    0.119     0.170
+## 4       4     -0.047    0.063     0.105
+## 5       5     -0.090    0.011     0.048
+## 6       6     -0.113   -0.037    -0.003
+## 7       7     -0.148   -0.086    -0.051
+## 8       8     -0.179   -0.136    -0.098
+## 9       9     -0.237   -0.196    -0.154</code></pre>
+<p>We observe similar results as with our raw data. The third observed (reduced) eigenvalue is lower than its counterpart at the 95th percentile of the randomly generated data sets.</p>
+<p>The Hull method seems to require a data matrix of the raw data, so this method for examining number of factors is not available with correlation data.</p>
+<p>We can get the scree plot using same output from the <code>eigenComputes()</code> function we used above (as we did with the raw data in the previous lesson):</p>
+<div class="sourceCode" id="cb548"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb548-1"><a href="week-08-exploratory-factor-analysis-part-2.html#cb548-1" tabindex="-1"></a>scree <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Factor_n =</span> <span class="fu">as.factor</span>(<span class="dv">1</span><span class="sc">:</span>n_factors), </span>
+<span id="cb548-2"><a href="week-08-exploratory-factor-analysis-part-2.html#cb548-2" tabindex="-1"></a>                  <span class="at">Eigenvalue =</span> ReducedEig)</span>
+<span id="cb548-3"><a href="week-08-exploratory-factor-analysis-part-2.html#cb548-3" tabindex="-1"></a><span class="fu">ggplot</span>(scree, <span class="fu">aes</span>(<span class="at">x =</span> Factor_n, <span class="at">y =</span> Eigenvalue, <span class="at">group =</span> <span class="dv">1</span>)) <span class="sc">+</span> </span>
+<span id="cb548-4"><a href="week-08-exploratory-factor-analysis-part-2.html#cb548-4" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb548-5"><a href="week-08-exploratory-factor-analysis-part-2.html#cb548-5" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Number of factors&quot;</span>) <span class="sc">+</span></span>
+<span id="cb548-6"><a href="week-08-exploratory-factor-analysis-part-2.html#cb548-6" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;Eigenvalue&quot;</span>) <span class="sc">+</span></span>
+<span id="cb548-7"><a href="week-08-exploratory-factor-analysis-part-2.html#cb548-7" tabindex="-1"></a>  <span class="fu">labs</span>( <span class="at">title =</span> <span class="st">&quot;Scree Plot&quot;</span>, </span>
+<span id="cb548-8"><a href="week-08-exploratory-factor-analysis-part-2.html#cb548-8" tabindex="-1"></a>     <span class="at">subtitle =</span> <span class="st">&quot;(Based on the reduced correlation matrix)&quot;</span>)</span></code></pre></div>
+<p><img src="multivariate_stats_files/figure-html/unnamed-chunk-290-1.png" width="672" /></p>
+</div>
+</div>
+<div id="performing-the-factor-analysis-1" class="section level3 hasAnchor" number="9.1.3">
+<h3><span class="header-section-number">9.1.3</span> Performing the factor analysis<a href="week-08-exploratory-factor-analysis-part-2.html#performing-the-factor-analysis-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>We can use the same <code>psych::fa()</code> function we used with the raw data set, but instead use the correlation matrix. We need to specify the number of observations using the <code>n.obs =</code> argument.</p>
+<div class="sourceCode" id="cb549"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb549-1"><a href="week-08-exploratory-factor-analysis-part-2.html#cb549-1" tabindex="-1"></a>fafit2 <span class="ot">&lt;-</span> psych<span class="sc">::</span><span class="fu">fa</span>(R, </span>
+<span id="cb549-2"><a href="week-08-exploratory-factor-analysis-part-2.html#cb549-2" tabindex="-1"></a>             <span class="at">n.obs =</span> n_p,</span>
+<span id="cb549-3"><a href="week-08-exploratory-factor-analysis-part-2.html#cb549-3" tabindex="-1"></a>             <span class="at">nfactors =</span> <span class="dv">2</span>, </span>
+<span id="cb549-4"><a href="week-08-exploratory-factor-analysis-part-2.html#cb549-4" tabindex="-1"></a>             <span class="at">fm =</span> <span class="st">&quot;pa&quot;</span>, </span>
+<span id="cb549-5"><a href="week-08-exploratory-factor-analysis-part-2.html#cb549-5" tabindex="-1"></a>             <span class="at">rotate =</span> <span class="st">&quot;promax&quot;</span>)</span></code></pre></div>
+<p>The results will not be identical to those in our raw data set because our correlation matrix was based on rounded values, which is typical when we use data from publications or reports.</p>
+<div class="sourceCode" id="cb550"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb550-1"><a href="week-08-exploratory-factor-analysis-part-2.html#cb550-1" tabindex="-1"></a><span class="fu">print</span>(fafit2, <span class="at">digits =</span> <span class="dv">2</span>, <span class="at">cut =</span> <span class="fu">sqrt</span>(.<span class="dv">10</span>) )</span></code></pre></div>
+<pre><code>## Factor Analysis using method =  pa
+## Call: psych::fa(r = R, nfactors = 2, n.obs = n_p, rotate = &quot;promax&quot;, 
+##     fm = &quot;pa&quot;)
+## Standardized loadings (pattern matrix) based upon correlation matrix
+##            PA1   PA2   h2   u2 com
+## NoIntrst  0.75       0.56 0.44 1.0
+## Odd       0.66       0.44 0.56 1.0
+## NoFun     0.61       0.37 0.63 1.0
+## Boring    0.45       0.28 0.72 1.7
+## Alone     0.42       0.17 0.83 1.0
+## NoRelign  0.38       0.15 0.85 1.1
+## Better          0.70 0.50 0.50 1.1
+## Good            0.64 0.41 0.59 1.0
+## Help            0.64 0.41 0.59 1.0
+## 
+##                        PA1  PA2
+## SS loadings           1.91 1.39
+## Proportion Var        0.21 0.15
+## Cumulative Var        0.21 0.37
+## Proportion Explained  0.58 0.42
+## Cumulative Proportion 0.58 1.00
+## 
+##  With factor correlations of 
+##     PA1 PA2
+## PA1   1   0
+## PA2   0   1
+## 
+## Mean item complexity =  1.1
+## Test of the hypothesis that 2 factors are sufficient.
+## 
+## df null model =  36  with the objective function =  1.65 with Chi Square =  606.74
+## df of  the model are 19  and the objective function was  0.06 
+## 
+## The root mean square of the residuals (RMSR) is  0.03 
+## The df corrected root mean square of the residuals is  0.04 
+## 
+## The harmonic n.obs is  372 with the empirical chi square  21.89  with prob &lt;  0.29 
+## The total n.obs was  372  with Likelihood Chi Square =  22.66  with prob &lt;  0.25 
+## 
+## Tucker Lewis Index of factoring reliability =  0.988
+## RMSEA index =  0.023  and the 90 % confidence intervals are  0 0.053
+## BIC =  -89.8
+## Fit based upon off diagonal values = 0.99
+## Measures of factor score adequacy             
+##                                                    PA1  PA2
+## Correlation of (regression) scores with factors   0.88 0.84
+## Multiple R square of scores with factors          0.77 0.71
+## Minimum correlation of possible factor scores     0.54 0.42</code></pre>
+</div>
+</div>
+<div id="efa-with-categorical-data" class="section level2 hasAnchor" number="9.2">
+<h2><span class="header-section-number">9.2</span> EFA with categorical data<a href="week-08-exploratory-factor-analysis-part-2.html#efa-with-categorical-data" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Let’s use last week’s data, which was about the attitudes towards scientists.</p>
+<div class="sourceCode" id="cb552"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb552-1"><a href="week-08-exploratory-factor-analysis-part-2.html#cb552-1" tabindex="-1"></a>raw <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;Week07_GSS_Science.csv&quot;</span>)</span>
+<span id="cb552-2"><a href="week-08-exploratory-factor-analysis-part-2.html#cb552-2" tabindex="-1"></a>dat <span class="ot">&lt;-</span> raw[ , <span class="sc">-</span><span class="dv">1</span>] <span class="co"># Removing the ID column, so we have just the variables</span></span></code></pre></div>
+<div id="describing-categorical-data" class="section level3 hasAnchor" number="9.2.1">
+<h3><span class="header-section-number">9.2.1</span> Describing categorical data<a href="week-08-exploratory-factor-analysis-part-2.html#describing-categorical-data" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Because our data are ordered categorical—that is, they’re on an ordinal type of scale—with only four points, we should present the item-level descriptive statistics as the frequency of responses to each of the scale points.</p>
+<p>A really simple function for this is <code>table()</code>. It provides the frequency of responses for each unique value in the column. We would use this for each variable, sequentially.</p>
+<div class="sourceCode" id="cb553"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb553-1"><a href="week-08-exploratory-factor-analysis-part-2.html#cb553-1" tabindex="-1"></a><span class="fu">table</span>(dat[, <span class="st">&quot;NoIntrst&quot;</span>])</span></code></pre></div>
+<pre><code>## 
+##   1   2   3   4 
+##  13 117 219  22</code></pre>
+<p>We can calculate the proportions using the <code>prop.table()</code> or <code>proportions()</code> function around this:</p>
+<div class="sourceCode" id="cb555"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb555-1"><a href="week-08-exploratory-factor-analysis-part-2.html#cb555-1" tabindex="-1"></a><span class="fu">prop.table</span>( <span class="fu">table</span>(dat[, <span class="st">&quot;NoIntrst&quot;</span>]) )</span></code></pre></div>
+<pre><code>## 
+##          1          2          3          4 
+## 0.03504043 0.31536388 0.59029650 0.05929919</code></pre>
+<div id="plotting-categorical-data" class="section level4 hasAnchor" number="9.2.1.1">
+<h4><span class="header-section-number">9.2.1.1</span> Plotting categorical data<a href="week-08-exploratory-factor-analysis-part-2.html#plotting-categorical-data" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>If we wanted to create an output that included all of the items, we can write our own function or we can use the <code>ExpCustomStat()</code> function from the SmartEDA package <span class="citation">(<a href="#ref-R-SmartEDA">Dayanand Ubrangala et al. 2024</a>)</span>:</p>
+<div class="sourceCode" id="cb557"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb557-1"><a href="week-08-exploratory-factor-analysis-part-2.html#cb557-1" tabindex="-1"></a><span class="fu">library</span>(SmartEDA)</span>
+<span id="cb557-2"><a href="week-08-exploratory-factor-analysis-part-2.html#cb557-2" tabindex="-1"></a>freqout <span class="ot">&lt;-</span> SmartEDA<span class="sc">::</span><span class="fu">ExpCustomStat</span>(dat, </span>
+<span id="cb557-3"><a href="week-08-exploratory-factor-analysis-part-2.html#cb557-3" tabindex="-1"></a>                                   <span class="at">Cvar =</span> <span class="fu">colnames</span>(dat),</span>
+<span id="cb557-4"><a href="week-08-exploratory-factor-analysis-part-2.html#cb557-4" tabindex="-1"></a>                                   <span class="at">stat =</span> <span class="fu">c</span>(<span class="st">&quot;Count&quot;</span>,<span class="st">&quot;prop&quot;</span>),</span>
+<span id="cb557-5"><a href="week-08-exploratory-factor-analysis-part-2.html#cb557-5" tabindex="-1"></a>                                   <span class="at">gpby =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb557-6"><a href="week-08-exploratory-factor-analysis-part-2.html#cb557-6" tabindex="-1"></a><span class="fu">names</span>(freqout) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Category&quot;</span>, <span class="st">&quot;Item&quot;</span>, <span class="st">&quot;Frequency&quot;</span>, <span class="st">&quot;Percent&quot;</span>)</span>
+<span id="cb557-7"><a href="week-08-exploratory-factor-analysis-part-2.html#cb557-7" tabindex="-1"></a><span class="fu">head</span>(freqout, <span class="dv">10</span>)</span></code></pre></div>
+<pre><code>##     Category     Item Frequency Percent
+##        &lt;int&gt;   &lt;char&gt;     &lt;int&gt;   &lt;num&gt;
+##  1:        3 NoIntrst       219   59.03
+##  2:        2 NoIntrst       117   31.54
+##  3:        1 NoIntrst        13    3.50
+##  4:        4 NoIntrst        22    5.93
+##  5:        3      Odd       217   58.49
+##  6:        2      Odd       110   29.65
+##  7:        1      Odd        19    5.12
+##  8:        4      Odd        25    6.74
+##  9:        3    NoFun       243   65.50
+## 10:        2    NoFun        79   21.29</code></pre>
+<p>The order of the categories is wonkey. I can use the <code>arrange()</code> function to reorder but we have to keep the order within each item.</p>
+<div class="sourceCode" id="cb559"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb559-1"><a href="week-08-exploratory-factor-analysis-part-2.html#cb559-1" tabindex="-1"></a>freqout_alpha <span class="ot">&lt;-</span> freqout  <span class="sc">%&gt;%</span> </span>
+<span id="cb559-2"><a href="week-08-exploratory-factor-analysis-part-2.html#cb559-2" tabindex="-1"></a>  <span class="fu">arrange</span>(Item, Category)</span>
+<span id="cb559-3"><a href="week-08-exploratory-factor-analysis-part-2.html#cb559-3" tabindex="-1"></a><span class="fu">head</span>(freqout_alpha, <span class="dv">10</span>)</span></code></pre></div>
+<pre><code>##     Category   Item Frequency Percent
+##        &lt;int&gt; &lt;char&gt;     &lt;int&gt;   &lt;num&gt;
+##  1:        1  Alone        16    4.31
+##  2:        2  Alone        65   17.52
+##  3:        3  Alone       247   66.58
+##  4:        4  Alone        43   11.59
+##  5:        1 Better        67   18.06
+##  6:        2 Better       276   74.39
+##  7:        3 Better        26    7.01
+##  8:        4 Better         2    0.54
+##  9:        1 Boring         5    1.35
+## 10:        2 Boring        58   15.63</code></pre>
+<p>That rearranged our items in alphabetical order, which might be fine for our purposes.</p>
+<p>If we want to keep the original order, we might have to create a temporary variable to sort by, doing something like this:</p>
+<div class="sourceCode" id="cb561"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb561-1"><a href="week-08-exploratory-factor-analysis-part-2.html#cb561-1" tabindex="-1"></a>freqout <span class="ot">&lt;-</span> freqout  <span class="sc">%&gt;%</span> </span>
+<span id="cb561-2"><a href="week-08-exploratory-factor-analysis-part-2.html#cb561-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">temp =</span> <span class="fu">row_number</span>()) <span class="sc">%&gt;%</span> <span class="co"># Creating a temporary sorting variable</span></span>
+<span id="cb561-3"><a href="week-08-exploratory-factor-analysis-part-2.html#cb561-3" tabindex="-1"></a>  <span class="fu">group_by</span>(Item) <span class="sc">%&gt;%</span> </span>
+<span id="cb561-4"><a href="week-08-exploratory-factor-analysis-part-2.html#cb561-4" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">temp =</span> <span class="fu">min</span>(temp)) <span class="sc">%&gt;%</span> <span class="co"># Each item has the same sorting variable value</span></span>
+<span id="cb561-5"><a href="week-08-exploratory-factor-analysis-part-2.html#cb561-5" tabindex="-1"></a>  <span class="fu">arrange</span>(temp, Category) <span class="sc">%&gt;%</span>  <span class="co"># Do the sorting.</span></span>
+<span id="cb561-6"><a href="week-08-exploratory-factor-analysis-part-2.html#cb561-6" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="sc">-</span>temp) <span class="co"># Removing the sorting variable</span></span>
+<span id="cb561-7"><a href="week-08-exploratory-factor-analysis-part-2.html#cb561-7" tabindex="-1"></a><span class="fu">head</span>(freqout, <span class="dv">10</span>)</span></code></pre></div>
+<pre><code>## # A tibble: 10 × 4
+## # Groups:   Item [3]
+##    Category Item     Frequency Percent
+##       &lt;int&gt; &lt;chr&gt;        &lt;int&gt;   &lt;dbl&gt;
+##  1        1 NoIntrst        13    3.5 
+##  2        2 NoIntrst       117   31.5 
+##  3        3 NoIntrst       219   59.0 
+##  4        4 NoIntrst        22    5.93
+##  5        1 Odd             19    5.12
+##  6        2 Odd            110   29.6 
+##  7        3 Odd            217   58.5 
+##  8        4 Odd             25    6.74
+##  9        1 NoFun           11    2.96
+## 10        2 NoFun           79   21.3</code></pre>
+<p>We can use that outputted object with ggplot to create a column plot of the category responses for each variable:</p>
+<div class="sourceCode" id="cb563"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb563-1"><a href="week-08-exploratory-factor-analysis-part-2.html#cb563-1" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb563-2"><a href="week-08-exploratory-factor-analysis-part-2.html#cb563-2" tabindex="-1"></a><span class="fu">library</span>(gridExtra)</span>
+<span id="cb563-3"><a href="week-08-exploratory-factor-analysis-part-2.html#cb563-3" tabindex="-1"></a>freqout <span class="sc">%&gt;%</span> </span>
+<span id="cb563-4"><a href="week-08-exploratory-factor-analysis-part-2.html#cb563-4" tabindex="-1"></a>  <span class="co"># This mutate function is optional, just to get the items to be in the order we want:</span></span>
+<span id="cb563-5"><a href="week-08-exploratory-factor-analysis-part-2.html#cb563-5" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Item =</span> <span class="fu">factor</span>(Item, <span class="at">levels =</span> <span class="fu">unique</span>(freqout<span class="sc">$</span>Item) )) <span class="sc">%&gt;%</span> </span>
+<span id="cb563-6"><a href="week-08-exploratory-factor-analysis-part-2.html#cb563-6" tabindex="-1"></a>  <span class="fu">ggplot</span>( <span class="fu">aes</span>(<span class="at">x =</span> Category, <span class="at">y =</span> Frequency)) <span class="sc">+</span></span>
+<span id="cb563-7"><a href="week-08-exploratory-factor-analysis-part-2.html#cb563-7" tabindex="-1"></a>  <span class="fu">geom_col</span>() <span class="sc">+</span></span>
+<span id="cb563-8"><a href="week-08-exploratory-factor-analysis-part-2.html#cb563-8" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(. <span class="sc">~</span> Item, <span class="at">nrow =</span> <span class="dv">3</span> )</span></code></pre></div>
+<p><img src="multivariate_stats_files/figure-html/unnamed-chunk-299-1.png" width="672" /></p>
+<div class="sourceCode" id="cb564"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb564-1"><a href="week-08-exploratory-factor-analysis-part-2.html#cb564-1" tabindex="-1"></a><span class="co"># ggsave(&quot;freqout_GSS_cat.png&quot;)</span></span></code></pre></div>
+<p>This plot illustrates the low frequency of responses to some of the items’ categories. Generally, we want to see a spread of responses across the categories.</p>
+<p>If we want something simpler, we can examine the plot for each item using the <code>prop.table(table())</code> code around the item. For the first item, it would be this:</p>
+<div class="sourceCode" id="cb565"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb565-1"><a href="week-08-exploratory-factor-analysis-part-2.html#cb565-1" tabindex="-1"></a><span class="fu">barplot</span>(<span class="fu">prop.table</span>(<span class="fu">table</span>(dat<span class="sc">$</span>NoIntrst)))</span></code></pre></div>
+<p><img src="multivariate_stats_files/figure-html/unnamed-chunk-300-1.png" width="672" /></p>
+<p>If we needed a table to report the descriptive, frequency, statistics, we might use this approach to format it:</p>
+<div class="sourceCode" id="cb566"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb566-1"><a href="week-08-exploratory-factor-analysis-part-2.html#cb566-1" tabindex="-1"></a>freqout.table <span class="ot">&lt;-</span> freqout <span class="sc">%&gt;%</span> </span>
+<span id="cb566-2"><a href="week-08-exploratory-factor-analysis-part-2.html#cb566-2" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> Category, </span>
+<span id="cb566-3"><a href="week-08-exploratory-factor-analysis-part-2.html#cb566-3" tabindex="-1"></a>              <span class="at">values_from =</span> <span class="fu">c</span>(Frequency, Percent) )</span></code></pre></div>
+<p>Then we can change the names and rearrange the columns.</p>
+<div class="sourceCode" id="cb567"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb567-1"><a href="week-08-exploratory-factor-analysis-part-2.html#cb567-1" tabindex="-1"></a><span class="fu">names</span>(freqout.table) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Item&quot;</span>, </span>
+<span id="cb567-2"><a href="week-08-exploratory-factor-analysis-part-2.html#cb567-2" tabindex="-1"></a>                          <span class="st">&quot;n.1&quot;</span>, <span class="st">&quot;n.2&quot;</span>, <span class="st">&quot;n.3&quot;</span>, <span class="st">&quot;n.4&quot;</span>, </span>
+<span id="cb567-3"><a href="week-08-exploratory-factor-analysis-part-2.html#cb567-3" tabindex="-1"></a>                          <span class="st">&quot;Perc.1&quot;</span>, <span class="st">&quot;Perc.2&quot;</span>, <span class="st">&quot;Perc.3&quot;</span>, <span class="st">&quot;Perc.4&quot;</span>)</span>
+<span id="cb567-4"><a href="week-08-exploratory-factor-analysis-part-2.html#cb567-4" tabindex="-1"></a><span class="co"># Here, we&#39;re just reordering the columns so it is a little easier to interpret:</span></span>
+<span id="cb567-5"><a href="week-08-exploratory-factor-analysis-part-2.html#cb567-5" tabindex="-1"></a>freqout.table <span class="ot">&lt;-</span> freqout.table[, <span class="fu">c</span>(<span class="st">&quot;Item&quot;</span>, </span>
+<span id="cb567-6"><a href="week-08-exploratory-factor-analysis-part-2.html#cb567-6" tabindex="-1"></a>                                   <span class="st">&quot;n.1&quot;</span>, <span class="st">&quot;Perc.1&quot;</span>, </span>
+<span id="cb567-7"><a href="week-08-exploratory-factor-analysis-part-2.html#cb567-7" tabindex="-1"></a>                                   <span class="st">&quot;n.2&quot;</span>, <span class="st">&quot;Perc.2&quot;</span>, </span>
+<span id="cb567-8"><a href="week-08-exploratory-factor-analysis-part-2.html#cb567-8" tabindex="-1"></a>                                   <span class="st">&quot;n.3&quot;</span>, <span class="st">&quot;Perc.3&quot;</span>,  </span>
+<span id="cb567-9"><a href="week-08-exploratory-factor-analysis-part-2.html#cb567-9" tabindex="-1"></a>                                   <span class="st">&quot;n.4&quot;</span>, <span class="st">&quot;Perc.4&quot;</span>)] <span class="sc">%&gt;%</span> <span class="fu">data.frame</span>()</span>
+<span id="cb567-10"><a href="week-08-exploratory-factor-analysis-part-2.html#cb567-10" tabindex="-1"></a>freqout.table</span></code></pre></div>
+<pre><code>##       Item n.1 Perc.1 n.2 Perc.2 n.3 Perc.3 n.4 Perc.4
+## 1 NoIntrst  13   3.50 117  31.54 219  59.03  22   5.93
+## 2      Odd  19   5.12 110  29.65 217  58.49  25   6.74
+## 3    NoFun  11   2.96  79  21.29 243  65.50  38  10.24
+## 4   Boring   5   1.35  58  15.63 254  68.46  54  14.56
+## 5    Alone  16   4.31  65  17.52 247  66.58  43  11.59
+## 6 NoRelign  21   5.66 123  33.15 205  55.26  22   5.93
+## 7   Better  67  18.06 276  74.39  26   7.01   2   0.54
+## 8     Good  79  21.29 271  73.05  18   4.85   3   0.81
+## 9     Help  94  25.34 274  73.85   2   0.54   1   0.27</code></pre>
+<div class="sourceCode" id="cb569"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb569-1"><a href="week-08-exploratory-factor-analysis-part-2.html#cb569-1" tabindex="-1"></a><span class="co"># write.csv(freqout.table, &quot;freqout.table.csv&quot;,  row.names = FALSE)</span></span></code></pre></div>
+</div>
+<div id="specifying-the-variable-type-as-ordinal" class="section level4 hasAnchor" number="9.2.1.2">
+<h4><span class="header-section-number">9.2.1.2</span> Specifying the variable type as ordinal<a href="week-08-exploratory-factor-analysis-part-2.html#specifying-the-variable-type-as-ordinal" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Another way we could obtain the frequency counts is to specify that our items are ordered factors (i.e., ordered categorical variables), then use the <code>summary()</code> function on them.<a href="#fn52" class="footnote-ref" id="fnref52"><sup>52</sup></a> <a href="#fn53" class="footnote-ref" id="fnref53"><sup>53</sup></a></p>
+<div class="sourceCode" id="cb570"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb570-1"><a href="week-08-exploratory-factor-analysis-part-2.html#cb570-1" tabindex="-1"></a>datF <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="fu">lapply</span>(dat,</span>
+<span id="cb570-2"><a href="week-08-exploratory-factor-analysis-part-2.html#cb570-2" tabindex="-1"></a>                         ordered,</span>
+<span id="cb570-3"><a href="week-08-exploratory-factor-analysis-part-2.html#cb570-3" tabindex="-1"></a>                         <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>)) )</span>
+<span id="cb570-4"><a href="week-08-exploratory-factor-analysis-part-2.html#cb570-4" tabindex="-1"></a><span class="fu">summary</span>(datF)</span></code></pre></div>
+<pre><code>##  NoIntrst Odd     NoFun   Boring  Alone   NoRelign Better  Good    Help   
+##  1: 13    1: 19   1: 11   1:  5   1: 16   1: 21    1: 67   1: 79   1: 94  
+##  2:117    2:110   2: 79   2: 58   2: 65   2:123    2:276   2:271   2:274  
+##  3:219    3:217   3:243   3:254   3:247   3:205    3: 26   3: 18   3:  2  
+##  4: 22    4: 25   4: 38   4: 54   4: 43   4: 22    4:  2   4:  3   4:  1</code></pre>
+<p>There are other packages and functions. The DescTools package <span class="citation">(<a href="#ref-R-DescTools">Signorell 2025</a>)</span> is one example (results are not printed here):</p>
+<div class="sourceCode" id="cb572"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb572-1"><a href="week-08-exploratory-factor-analysis-part-2.html#cb572-1" tabindex="-1"></a><span class="fu">library</span>(DescTools)</span>
+<span id="cb572-2"><a href="week-08-exploratory-factor-analysis-part-2.html#cb572-2" tabindex="-1"></a>DescTools<span class="sc">::</span><span class="fu">Desc</span>(datF<span class="sc">$</span>NoIntrst, <span class="at">plotit =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+</div>
+<div id="getting-the-correlation-matrix" class="section level4 hasAnchor" number="9.2.1.3">
+<h4><span class="header-section-number">9.2.1.3</span> Getting the correlation matrix<a href="week-08-exploratory-factor-analysis-part-2.html#getting-the-correlation-matrix" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>For the factor analysis, because our data are ordered categorical and not continuous, we should use the a polychoric matrix instead of the raw values. We can directly specify this in the <code>fa()</code> function using the <code>cor = "poly"</code> argument.<a href="#fn54" class="footnote-ref" id="fnref54"><sup>54</sup></a> Because we don’t know how many factors to retain yet, we do not need to specify the <code>nfactors =</code> argument yet. We can find the polchoric matrix as part of the output.</p>
+<div class="sourceCode" id="cb573"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb573-1"><a href="week-08-exploratory-factor-analysis-part-2.html#cb573-1" tabindex="-1"></a><span class="fu">library</span>(psych)</span>
+<span id="cb573-2"><a href="week-08-exploratory-factor-analysis-part-2.html#cb573-2" tabindex="-1"></a>temp   <span class="ot">&lt;-</span> psych<span class="sc">::</span><span class="fu">fa</span>(dat,</span>
+<span id="cb573-3"><a href="week-08-exploratory-factor-analysis-part-2.html#cb573-3" tabindex="-1"></a>                    <span class="at">fm       =</span> <span class="st">&quot;pa&quot;</span>,</span>
+<span id="cb573-4"><a href="week-08-exploratory-factor-analysis-part-2.html#cb573-4" tabindex="-1"></a>                    <span class="at">rotate   =</span> <span class="st">&quot;promax&quot;</span>,</span>
+<span id="cb573-5"><a href="week-08-exploratory-factor-analysis-part-2.html#cb573-5" tabindex="-1"></a>                    <span class="at">cor      =</span> <span class="st">&quot;poly&quot;</span>)</span>
+<span id="cb573-6"><a href="week-08-exploratory-factor-analysis-part-2.html#cb573-6" tabindex="-1"></a>n_p    <span class="ot">&lt;-</span> <span class="fu">nrow</span>(raw)</span>
+<span id="cb573-7"><a href="week-08-exploratory-factor-analysis-part-2.html#cb573-7" tabindex="-1"></a>R_poly <span class="ot">&lt;-</span> temp<span class="sc">$</span>r</span>
+<span id="cb573-8"><a href="week-08-exploratory-factor-analysis-part-2.html#cb573-8" tabindex="-1"></a><span class="fu">round</span>( R_poly, <span class="dv">3</span>)</span></code></pre></div>
+<!-- Here is a prettified output of the polychoric correlation matrix: -->
+<!-- ```{r echo = F, message = F, warning = F} -->
+<!-- library(corrr) -->
+<!-- library(dplyr) -->
+<!-- library(kableExtra) -->
+<!-- R2 <- R_poly -->
+<!-- R2[upper.tri(R2)] <- NA  -->
+<!-- corprint <- R2 %>%  -->
+<!--      # shave() %>%  # This only works with their correlate() function, so had to use upper.tri() function above -->
+<!--      fashion(leading_zeros = F, decimals = 3) -->
+<!-- # corprint <- corprint[-1] -->
+<!-- row.names(corprint) <- colnames(R_poly) -->
+<!-- diag(corprint) <- 1 -->
+<!-- kbl(corprint, booktabs = T, escape = F) %>%  -->
+<!--         column_spec(1, bold = TRUE) %>%  -->
+<!--         kable_styling(full_width = TRUE) -->
+<!-- ``` -->
+<p>Notice that the correlations differ from those we observed with the Pearson correlations that we used in the garden-variety factor analysis.</p>
+</div>
+<div id="appraising-the-factorability-and-determining-the-number-of-factors-to-retain" class="section level4 hasAnchor" number="9.2.1.4">
+<h4><span class="header-section-number">9.2.1.4</span> Appraising the factorability and determining the number of factors to retain<a href="week-08-exploratory-factor-analysis-part-2.html#appraising-the-factorability-and-determining-the-number-of-factors-to-retain" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>We can use this polychoric correlation matrix in our examination of the factorability and in assessing how many factors to retain, just as we would do with a Pearson correlation matrix.</p>
+<p>Here is the determinant:</p>
+<div class="sourceCode" id="cb574"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb574-1"><a href="week-08-exploratory-factor-analysis-part-2.html#cb574-1" tabindex="-1"></a><span class="fu">det</span>(R_poly)</span></code></pre></div>
+<pre><code>## [1] 0.06958345</code></pre>
+<p>This is positive and not too close to zero.</p>
+<div class="sourceCode" id="cb576"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb576-1"><a href="week-08-exploratory-factor-analysis-part-2.html#cb576-1" tabindex="-1"></a>psych<span class="sc">::</span><span class="fu">KMO</span>(R_poly)</span></code></pre></div>
+<pre><code>## Kaiser-Meyer-Olkin factor adequacy
+## Call: psych::KMO(r = R_poly)
+## Overall MSA =  0.76
+## MSA for each item = 
+## NoIntrst      Odd    NoFun   Boring    Alone NoRelign   Better     Good     Help 
+##     0.77     0.76     0.85     0.77     0.78     0.82     0.70     0.70     0.74</code></pre>
+<div class="sourceCode" id="cb578"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb578-1"><a href="week-08-exploratory-factor-analysis-part-2.html#cb578-1" tabindex="-1"></a>psych<span class="sc">::</span><span class="fu">cortest.bartlett</span>(R_poly, <span class="at">n =</span> n_p)</span></code></pre></div>
+<pre><code>## $chisq
+## [1] 975.9178
+## 
+## $p.value
+## [1] 1.773981e-181
+## 
+## $df
+## [1] 36</code></pre>
+<p>KMO test result is .76, which is greater than .60 threshold.
+The Bartlett test was statistically significant, suggesting that the data do not come from a population that an identity matrix (1s on the diagonal and 0s on the off-diagonal) would describe.</p>
+<p>With these three results, we observe that the data are factorable.</p>
+<p>Let’s see how many factors we should retain:</p>
+<div class="sourceCode" id="cb580"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb580-1"><a href="week-08-exploratory-factor-analysis-part-2.html#cb580-1" tabindex="-1"></a><span class="fu">library</span>(nFactors)</span>
+<span id="cb580-2"><a href="week-08-exploratory-factor-analysis-part-2.html#cb580-2" tabindex="-1"></a></span>
+<span id="cb580-3"><a href="week-08-exploratory-factor-analysis-part-2.html#cb580-3" tabindex="-1"></a>ReducedEig <span class="ot">&lt;-</span> <span class="fu">eigenComputes</span>(R_poly, <span class="at">cor =</span> <span class="cn">FALSE</span>, <span class="at">model =</span> <span class="st">&quot;factors&quot;</span>)</span>
+<span id="cb580-4"><a href="week-08-exploratory-factor-analysis-part-2.html#cb580-4" tabindex="-1"></a>n_nu       <span class="ot">&lt;-</span> <span class="fu">ncol</span>(R_poly) <span class="co"># The number of variables in our data</span></span>
+<span id="cb580-5"><a href="week-08-exploratory-factor-analysis-part-2.html#cb580-5" tabindex="-1"></a>n_factors  <span class="ot">&lt;-</span> <span class="fu">length</span>(ReducedEig)</span>
+<span id="cb580-6"><a href="week-08-exploratory-factor-analysis-part-2.html#cb580-6" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">345</span>)</span>
+<span id="cb580-7"><a href="week-08-exploratory-factor-analysis-part-2.html#cb580-7" tabindex="-1"></a>paral <span class="ot">&lt;-</span> <span class="fu">parallel</span>(<span class="at">subject =</span> n_p,</span>
+<span id="cb580-8"><a href="week-08-exploratory-factor-analysis-part-2.html#cb580-8" tabindex="-1"></a>                      <span class="at">var =</span> n_nu,</span>
+<span id="cb580-9"><a href="week-08-exploratory-factor-analysis-part-2.html#cb580-9" tabindex="-1"></a>                      <span class="at">rep =</span> <span class="dv">1000</span>,</span>
+<span id="cb580-10"><a href="week-08-exploratory-factor-analysis-part-2.html#cb580-10" tabindex="-1"></a>                 <span class="at">quantile =</span> .<span class="dv">95</span>, </span>
+<span id="cb580-11"><a href="week-08-exploratory-factor-analysis-part-2.html#cb580-11" tabindex="-1"></a>                    <span class="at">model =</span> <span class="st">&quot;factors&quot;</span>)</span>
+<span id="cb580-12"><a href="week-08-exploratory-factor-analysis-part-2.html#cb580-12" tabindex="-1"></a></span>
+<span id="cb580-13"><a href="week-08-exploratory-factor-analysis-part-2.html#cb580-13" tabindex="-1"></a>ParallelAna <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Nfactor=</span> <span class="dv">1</span><span class="sc">:</span>n_factors,</span>
+<span id="cb580-14"><a href="week-08-exploratory-factor-analysis-part-2.html#cb580-14" tabindex="-1"></a>                        ReducedEig,</span>
+<span id="cb580-15"><a href="week-08-exploratory-factor-analysis-part-2.html#cb580-15" tabindex="-1"></a>                        <span class="at">RandEigM =</span> paral<span class="sc">$</span>eigen<span class="sc">$</span>mevpea,</span>
+<span id="cb580-16"><a href="week-08-exploratory-factor-analysis-part-2.html#cb580-16" tabindex="-1"></a>                       <span class="at">RandEig95 =</span> paral<span class="sc">$</span>eigen<span class="sc">$</span>qevpea)</span>
+<span id="cb580-17"><a href="week-08-exploratory-factor-analysis-part-2.html#cb580-17" tabindex="-1"></a>ParallelAna <span class="ot">&lt;-</span> <span class="fu">round</span>(ParallelAna, <span class="dv">3</span>)</span>
+<span id="cb580-18"><a href="week-08-exploratory-factor-analysis-part-2.html#cb580-18" tabindex="-1"></a>ParallelAna</span></code></pre></div>
+<pre><code>##   Nfactor ReducedEig RandEigM RandEig95
+## 1       1      2.245    0.272     0.360
+## 2       2      1.697    0.187     0.245
+## 3       3      0.202    0.120     0.171
+## 4       4     -0.020    0.063     0.103
+## 5       5     -0.059    0.012     0.052
+## 6       6     -0.105   -0.037    -0.005
+## 7       7     -0.138   -0.087    -0.053
+## 8       8     -0.146   -0.138    -0.099
+## 9       9     -0.255   -0.196    -0.155</code></pre>
+<p>Here is our scree plot:</p>
+<div class="sourceCode" id="cb582"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb582-1"><a href="week-08-exploratory-factor-analysis-part-2.html#cb582-1" tabindex="-1"></a>scree <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Factor_n =</span> <span class="fu">as.factor</span>(<span class="dv">1</span><span class="sc">:</span>n_factors), </span>
+<span id="cb582-2"><a href="week-08-exploratory-factor-analysis-part-2.html#cb582-2" tabindex="-1"></a>                  <span class="at">Eigenvalue =</span> ReducedEig)</span>
+<span id="cb582-3"><a href="week-08-exploratory-factor-analysis-part-2.html#cb582-3" tabindex="-1"></a><span class="fu">ggplot</span>(scree, <span class="fu">aes</span>(<span class="at">x =</span> Factor_n, <span class="at">y =</span> Eigenvalue, <span class="at">group =</span> <span class="dv">1</span>)) <span class="sc">+</span> </span>
+<span id="cb582-4"><a href="week-08-exploratory-factor-analysis-part-2.html#cb582-4" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb582-5"><a href="week-08-exploratory-factor-analysis-part-2.html#cb582-5" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Number of factors&quot;</span>) <span class="sc">+</span></span>
+<span id="cb582-6"><a href="week-08-exploratory-factor-analysis-part-2.html#cb582-6" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;Eigenvalue&quot;</span>) <span class="sc">+</span></span>
+<span id="cb582-7"><a href="week-08-exploratory-factor-analysis-part-2.html#cb582-7" tabindex="-1"></a>  <span class="fu">labs</span>( <span class="at">title =</span> <span class="st">&quot;Scree Plot&quot;</span>, </span>
+<span id="cb582-8"><a href="week-08-exploratory-factor-analysis-part-2.html#cb582-8" tabindex="-1"></a>     <span class="at">subtitle =</span> <span class="st">&quot;(Based on the reduced correlation matrix)&quot;</span>)</span></code></pre></div>
+<p><img src="multivariate_stats_files/figure-html/unnamed-chunk-309-1.png" width="672" /></p>
+<p>We can also use the psych package’s <code>fa.parallel()</code> function on the polychoric correlation matrix.</p>
+<ul>
+<li>Similar to if we use the <code>psych::fa()</code> function, with the <code>psych::fa.parallel()</code> function, if we use a correlation matrix as input, we need to specify the number of observations, using the <code>n.obs =</code> argument.</li>
+<li>We can also set our factor estimation method to be principal axis factoring using <code>fm = "pa"</code>.</li>
+<li>We can make sure we get the factors and not the principal components with <code>fa = "fa"</code>.</li>
+<li>Another option is to set the <code>SMC = TRUE</code>. This sets the squared multiple correlations (i.e., the square of the factor loadings) to replace the diagonal of the matrix, making it a reduced correlation matrix, which is what we did just previously with the nFactors package. William Revelle, however in the psych help files, makes the point that the random data’s eigenvalues would <strong>not</strong> be estimated based on the reduced correlation matrix, which implies we should leave <code>SMC = FALSE</code>, which is the default in this function.</li>
+<li>Finally, I noticed that the default quantile for the parallel analysis is indeed at .95, which was a topic of discussion in the previous class; here, I added <code>quant = .95</code> to make this explicit even though it is the default. If you want the median of the randomly generated data, use <code>quant = .50</code>.</li>
+<li>Finally, ignore the horizontal line at 1.00, as this is for PCA, not EFA. I emailed Revelle about this, so it might be fixed.<a href="#fn55" class="footnote-ref" id="fnref55"><sup>55</sup></a></li>
+</ul>
+<div class="sourceCode" id="cb583"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb583-1"><a href="week-08-exploratory-factor-analysis-part-2.html#cb583-1" tabindex="-1"></a><span class="co"># You can try the following, as an alternative, but it probably will throw an error.</span></span>
+<span id="cb583-2"><a href="week-08-exploratory-factor-analysis-part-2.html#cb583-2" tabindex="-1"></a><span class="co"># fa.parallel(dat, fm = &quot;pa&quot;, fa = &quot;fa&quot;,cor = &quot;poly&quot;, quant = .95)</span></span>
+<span id="cb583-3"><a href="week-08-exploratory-factor-analysis-part-2.html#cb583-3" tabindex="-1"></a><span class="co"># We can, instead, use the polychoric correlation matrix as the input:</span></span>
+<span id="cb583-4"><a href="week-08-exploratory-factor-analysis-part-2.html#cb583-4" tabindex="-1"></a>para.psyc <span class="ot">&lt;-</span> <span class="fu">fa.parallel</span>(R_poly,</span>
+<span id="cb583-5"><a href="week-08-exploratory-factor-analysis-part-2.html#cb583-5" tabindex="-1"></a>                         <span class="at">n.obs =</span> <span class="dv">372</span>,</span>
+<span id="cb583-6"><a href="week-08-exploratory-factor-analysis-part-2.html#cb583-6" tabindex="-1"></a>                         <span class="at">fm =</span> <span class="st">&quot;pa&quot;</span>,</span>
+<span id="cb583-7"><a href="week-08-exploratory-factor-analysis-part-2.html#cb583-7" tabindex="-1"></a>                         <span class="at">fa =</span> <span class="st">&quot;fa&quot;</span>,</span>
+<span id="cb583-8"><a href="week-08-exploratory-factor-analysis-part-2.html#cb583-8" tabindex="-1"></a>                         <span class="at">SMC =</span> <span class="cn">FALSE</span>, <span class="co"># TRUE returns the eigenvalues of the reduced correlation.</span></span>
+<span id="cb583-9"><a href="week-08-exploratory-factor-analysis-part-2.html#cb583-9" tabindex="-1"></a>                         <span class="at">quant =</span> .<span class="dv">95</span>) </span></code></pre></div>
+<p><img src="multivariate_stats_files/figure-html/unnamed-chunk-310-1.png" width="672" /></p>
+<pre><code>## Parallel analysis suggests that the number of factors =  3  and the number of components =  NA</code></pre>
+<div class="sourceCode" id="cb585"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb585-1"><a href="week-08-exploratory-factor-analysis-part-2.html#cb585-1" tabindex="-1"></a><span class="fu">print</span>(para.psyc)</span></code></pre></div>
+<pre><code>## Call: fa.parallel(x = R_poly, n.obs = 372, fm = &quot;pa&quot;, fa = &quot;fa&quot;, SMC = FALSE, 
+##     quant = 0.95)
+## Parallel analysis suggests that the number of factors =  3  and the number of components =  NA 
+## 
+##  Eigen Values of 
+## 
+##  eigen values of factors
+## [1]  2.31  1.29  0.17  0.03 -0.01 -0.10 -0.23 -0.55 -0.61
+## 
+##  eigen values of simulated factors
+## [1]  0.37  0.18  0.12  0.07  0.02 -0.03 -0.07 -0.11 -0.18
+## 
+##  eigen values of components 
+## [1] 2.85 2.26 0.95 0.67 0.58 0.54 0.44 0.39 0.32
+## 
+##  eigen values of simulated components
+## [1] NA</code></pre>
+<p>At this point, we have a judgment call to make. The scree plot seems to support retaining two factors but the parallel test indicates we should retain three. At this point, we could argue for parsimony and decide to use only two factors because of the shape of the scree plot and because the eigenvalues of the simulated data and observed data at the third eigenvalue are so close.</p>
+<p>Let’s look at the cumulative proportion of variance explained by three factors.</p>
+<div class="sourceCode" id="cb587"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb587-1"><a href="week-08-exploratory-factor-analysis-part-2.html#cb587-1" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;psych&quot;</span>)</span>
+<span id="cb587-2"><a href="week-08-exploratory-factor-analysis-part-2.html#cb587-2" tabindex="-1"></a>fafit_norot <span class="ot">&lt;-</span> <span class="fu">fa</span>(dat, </span>
+<span id="cb587-3"><a href="week-08-exploratory-factor-analysis-part-2.html#cb587-3" tabindex="-1"></a>            <span class="at">nfactors =</span> <span class="dv">3</span>, </span>
+<span id="cb587-4"><a href="week-08-exploratory-factor-analysis-part-2.html#cb587-4" tabindex="-1"></a>            <span class="at">fm       =</span> <span class="st">&quot;pa&quot;</span>, </span>
+<span id="cb587-5"><a href="week-08-exploratory-factor-analysis-part-2.html#cb587-5" tabindex="-1"></a>            <span class="at">rotate   =</span> <span class="st">&quot;none&quot;</span>,</span>
+<span id="cb587-6"><a href="week-08-exploratory-factor-analysis-part-2.html#cb587-6" tabindex="-1"></a>            <span class="at">cor      =</span> <span class="st">&quot;poly&quot;</span>)</span>
+<span id="cb587-7"><a href="week-08-exploratory-factor-analysis-part-2.html#cb587-7" tabindex="-1"></a><span class="fu">print</span>(fafit_norot, <span class="at">cut =</span> .<span class="dv">32</span>, <span class="at">sort =</span> <span class="cn">TRUE</span>, <span class="at">digits =</span> <span class="dv">4</span>)</span></code></pre></div>
+<pre><code>## Factor Analysis using method =  pa
+## Call: fa(r = dat, nfactors = 3, rotate = &quot;none&quot;, fm = &quot;pa&quot;, cor = &quot;poly&quot;)
+## Standardized loadings (pattern matrix) based upon correlation matrix
+##          item     PA1     PA2     PA3     h2     u2   com
+## NoIntrst    1  0.8128                 0.6611 0.3389 1.001
+## Odd         2  0.7354                 0.5718 0.4282 1.114
+## NoFun       3  0.6673                 0.4467 0.5533 1.006
+## Boring      4  0.5089 -0.3750         0.4454 0.5546 2.231
+## Alone       5  0.4683          0.3213 0.3260 0.6740 1.809
+## NoRelign    6  0.4399         -0.3218 0.2997 0.7003 1.864
+## Better      7          0.7785         0.6496 0.3504 1.145
+## Help        9          0.7455         0.5601 0.4399 1.016
+## Good        8          0.7273         0.5478 0.4522 1.072
+## 
+##                          PA1    PA2    PA3
+## SS loadings           2.3585 1.8382 0.3115
+## Proportion Var        0.2621 0.2042 0.0346
+## Cumulative Var        0.2621 0.4663 0.5009
+## Proportion Explained  0.5232 0.4078 0.0691
+## Cumulative Proportion 0.5232 0.9309 1.0000
+## 
+## Mean item complexity =  1.4
+## Test of the hypothesis that 3 factors are sufficient.
+## 
+## df null model =  36  with the objective function =  2.6652 with Chi Square =  975.9178
+## df of  the model are 12  and the objective function was  0.0726 
+## 
+## The root mean square of the residuals (RMSR) is  0.0204 
+## The df corrected root mean square of the residuals is  0.0354 
+## 
+## The harmonic n.obs is  371 with the empirical chi square  11.1321  with prob &lt;  0.5176 
+## The total n.obs was  371  with Likelihood Chi Square =  26.4302  with prob &lt;  0.009325 
+## 
+## Tucker Lewis Index of factoring reliability =  0.95368
+## RMSEA index =  0.05687  and the 90 % confidence intervals are  0.0271 0.08662
+## BIC =  -44.5642
+## Fit based upon off diagonal values = 0.9955
+## Measures of factor score adequacy             
+##                                                      PA1    PA2     PA3
+## Correlation of (regression) scores with factors   0.9156 0.9030  0.5858
+## Multiple R square of scores with factors          0.8383 0.8154  0.3432
+## Minimum correlation of possible factor scores     0.6767 0.6307 -0.3137</code></pre>
+<p>We see that 50.09% of the variance is explained by three factors.</p>
+</div>
+<div id="factor-analysis-on-the-polychoric-matrix" class="section level4 hasAnchor" number="9.2.1.5">
+<h4><span class="header-section-number">9.2.1.5</span> Factor analysis on the polychoric matrix<a href="week-08-exploratory-factor-analysis-part-2.html#factor-analysis-on-the-polychoric-matrix" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>We can perform the factor analysis on our polychoric correlation matrix, <code>R_poly</code>. Alternatively, we can use the raw data and specify <code>cor = "poly"</code>. If our data were dichotomous, this would be a tetrachoric matrix, <code>cor = "tet"</code>.</p>
+<div class="sourceCode" id="cb589"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb589-1"><a href="week-08-exploratory-factor-analysis-part-2.html#cb589-1" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;psych&quot;</span>)</span>
+<span id="cb589-2"><a href="week-08-exploratory-factor-analysis-part-2.html#cb589-2" tabindex="-1"></a>fafit <span class="ot">&lt;-</span> <span class="fu">fa</span>(dat, </span>
+<span id="cb589-3"><a href="week-08-exploratory-factor-analysis-part-2.html#cb589-3" tabindex="-1"></a>            <span class="at">nfactors =</span> <span class="dv">3</span>, </span>
+<span id="cb589-4"><a href="week-08-exploratory-factor-analysis-part-2.html#cb589-4" tabindex="-1"></a>            <span class="at">fm       =</span> <span class="st">&quot;pa&quot;</span>, </span>
+<span id="cb589-5"><a href="week-08-exploratory-factor-analysis-part-2.html#cb589-5" tabindex="-1"></a>            <span class="at">rotate   =</span> <span class="st">&quot;promax&quot;</span>,</span>
+<span id="cb589-6"><a href="week-08-exploratory-factor-analysis-part-2.html#cb589-6" tabindex="-1"></a>            <span class="at">cor      =</span> <span class="st">&quot;poly&quot;</span>)</span>
+<span id="cb589-7"><a href="week-08-exploratory-factor-analysis-part-2.html#cb589-7" tabindex="-1"></a><span class="fu">print</span>(fafit, <span class="at">cut =</span> .<span class="dv">32</span>, <span class="at">sort =</span> <span class="cn">TRUE</span>, <span class="at">digits =</span> <span class="dv">2</span>)</span></code></pre></div>
+<pre><code>## Factor Analysis using method =  pa
+## Call: fa(r = dat, nfactors = 3, rotate = &quot;promax&quot;, fm = &quot;pa&quot;, cor = &quot;poly&quot;)
+## Standardized loadings (pattern matrix) based upon correlation matrix
+##          item   PA2   PA1   PA3   h2   u2 com
+## Better      7  0.81             0.65 0.35 1.0
+## Good        8  0.76             0.55 0.45 1.0
+## Help        9  0.70             0.56 0.44 1.2
+## Odd         2        0.66       0.57 0.43 1.1
+## NoRelign    6        0.65       0.30 0.70 1.2
+## NoIntrst    1        0.49  0.41 0.66 0.34 2.0
+## NoFun       3        0.45       0.45 0.55 1.7
+## Alone       5              0.63 0.33 0.67 1.1
+## Boring      4              0.56 0.45 0.55 1.4
+## 
+##                       PA2  PA1  PA3
+## SS loadings           1.8 1.49 1.22
+## Proportion Var        0.2 0.17 0.14
+## Cumulative Var        0.2 0.37 0.50
+## Proportion Explained  0.4 0.33 0.27
+## Cumulative Proportion 0.4 0.73 1.00
+## 
+##  With factor correlations of 
+##       PA2  PA1   PA3
+## PA2  1.00 0.11 -0.13
+## PA1  0.11 1.00  0.63
+## PA3 -0.13 0.63  1.00
+## 
+## Mean item complexity =  1.3
+## Test of the hypothesis that 3 factors are sufficient.
+## 
+## df null model =  36  with the objective function =  2.67 with Chi Square =  975.92
+## df of  the model are 12  and the objective function was  0.07 
+## 
+## The root mean square of the residuals (RMSR) is  0.02 
+## The df corrected root mean square of the residuals is  0.04 
+## 
+## The harmonic n.obs is  371 with the empirical chi square  11.13  with prob &lt;  0.52 
+## The total n.obs was  371  with Likelihood Chi Square =  26.43  with prob &lt;  0.0093 
+## 
+## Tucker Lewis Index of factoring reliability =  0.954
+## RMSEA index =  0.057  and the 90 % confidence intervals are  0.027 0.087
+## BIC =  -44.56
+## Fit based upon off diagonal values = 1
+## Measures of factor score adequacy             
+##                                                    PA2  PA1  PA3
+## Correlation of (regression) scores with factors   0.90 0.88 0.85
+## Multiple R square of scores with factors          0.82 0.78 0.73
+## Minimum correlation of possible factor scores     0.63 0.55 0.46</code></pre>
+<p>We can print the factor loadings. Setting <code>simple = FALSE</code> specifies that we want to see if there are complex loadings.</p>
+<div class="sourceCode" id="cb591"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb591-1"><a href="week-08-exploratory-factor-analysis-part-2.html#cb591-1" tabindex="-1"></a><span class="fu">fa.diagram</span>(fafit, <span class="at">cut =</span> .<span class="dv">32</span>, <span class="at">digits =</span> <span class="dv">2</span>, <span class="at">simple =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<p><img src="multivariate_stats_files/figure-html/unnamed-chunk-313-1.png" width="672" /></p>
+<p>We see that the <code>NoIntrst</code> subtest now has some clear complexity. It loads on the second and third factor almost evenly. We should ask if this aligns with the underlying theory about how this item is expected to relate to the latent variables.</p>
+<p>We can report the inter-factor correlations and the pattern and structure matrices (or factor matrix if we had specified an orthogonal rotation).</p>
+<div class="sourceCode" id="cb592"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb592-1"><a href="week-08-exploratory-factor-analysis-part-2.html#cb592-1" tabindex="-1"></a><span class="fu">round</span>(fafit<span class="sc">$</span>Phi,<span class="dv">3</span>)</span></code></pre></div>
+<pre><code>##        PA2   PA1    PA3
+## PA2  1.000 0.110 -0.131
+## PA1  0.110 1.000  0.626
+## PA3 -0.131 0.626  1.000</code></pre>
+<p>We see weak correlations between Factor 1 and Factors 2 and 3, <code>r_{F1,F2} = .11</code> and <code>r_{F1,F3} = -.13</code>. Factors 2 and 3 have a moderately positive correlation, <code>r_{F1,F2} = .63</code>.</p>
+<div class="sourceCode" id="cb594"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb594-1"><a href="week-08-exploratory-factor-analysis-part-2.html#cb594-1" tabindex="-1"></a>PattM   <span class="ot">&lt;-</span> fafit<span class="sc">$</span>loadings[<span class="dv">1</span><span class="sc">:</span><span class="dv">9</span>,]</span>
+<span id="cb594-2"><a href="week-08-exploratory-factor-analysis-part-2.html#cb594-2" tabindex="-1"></a>StructM <span class="ot">&lt;-</span> fafit<span class="sc">$</span>Structure[<span class="dv">1</span><span class="sc">:</span><span class="dv">9</span>,]</span></code></pre></div>
+<p>Here’s the pattern matrix, which is what we use for interpretation.</p>
+<div class="sourceCode" id="cb595"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb595-1"><a href="week-08-exploratory-factor-analysis-part-2.html#cb595-1" tabindex="-1"></a><span class="fu">round</span>(PattM, <span class="dv">2</span>)</span></code></pre></div>
+<pre><code>##            PA2   PA1   PA3
+## NoIntrst  0.08  0.49  0.41
+## Odd       0.01  0.66  0.14
+## NoFun     0.04  0.45  0.28
+## Boring   -0.25  0.05  0.56
+## Alone     0.09 -0.09  0.63
+## NoRelign -0.03  0.65 -0.19
+## Better    0.81  0.03  0.11
+## Good      0.76 -0.08  0.09
+## Help      0.70  0.07 -0.18</code></pre>
+<p>Here’s the structure matrix. We can see very slight differences. They’re close because the factors are uncorrelated.</p>
+<div class="sourceCode" id="cb597"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb597-1"><a href="week-08-exploratory-factor-analysis-part-2.html#cb597-1" tabindex="-1"></a><span class="fu">round</span>(StructM, <span class="dv">2</span>)</span></code></pre></div>
+<pre><code>##            PA2  PA1   PA3
+## NoIntrst  0.09 0.75  0.70
+## Odd       0.07 0.75  0.55
+## NoFun     0.05 0.63  0.56
+## Boring   -0.32 0.37  0.62
+## Alone     0.00 0.32  0.56
+## NoRelign  0.06 0.53  0.22
+## Better    0.80 0.18  0.02
+## Good      0.74 0.06 -0.06
+## Help      0.73 0.03 -0.23</code></pre>
+<!-- ```{r echo = F} -->
+<!-- library(dplyr) -->
+<!-- library(kableExtra) -->
+<!-- library(stringr) -->
+<!-- Patt    <- data.frame(round(PattM,2)) -->
+<!-- names(Patt)   <- paste0(names(Patt),"_pat") -->
+<!-- Struct  <- data.frame(round(StructM,2)) -->
+<!-- names(Struct) <- paste0(names(Struct),"_str") -->
+<!-- PattStr <- data.frame(Subtest = row.names(StructM), -->
+<!--                        Patt, -->
+<!--                        Struct) -->
+<!-- row.names(PattStr) <- NULL -->
+<!-- m <- length(names(Patt)) -->
+<!-- condfun <- function(x){ -->
+<!--   x <- as.numeric(x) -->
+<!--   x2 <- numformat2(x)   -->
+<!--   cell_spec(x2, bold = ifelse(abs(x) > .32, TRUE, FALSE), color = ifelse(x < -.32, "brown","black") ) -->
+<!--   } -->
+<!-- PattStr <- PattStr %>% mutate_at(2:(2*m+1),condfun) -->
+<!-- kbl(PattStr, booktabs = T, escape = F, -->
+<!--      col.names = c("Subtest", paste0("F",str_extract(names(PattStr[-1]), "\\d+"))), -->
+<!--     caption = "Pattern and structure coefficients of the factor analysis of the polychoric correlation data") %>%      add_header_above(c(" ", "Pattern coefficients " = m, " Structure coefficients" = m)) %>% -->
+<!--          kable_styling(full_width = FALSE) %>%  -->
+<!--  add_footnote("_*Note*_. Coefficients with absolute value > .32 are boldfaced.", notation = "none")  -->
+<!-- ``` -->
+</div>
+<div id="the-polycor-package-if-needed" class="section level4 hasAnchor" number="9.2.1.6">
+<h4><span class="header-section-number">9.2.1.6</span> The polycor package, if needed<a href="week-08-exploratory-factor-analysis-part-2.html#the-polycor-package-if-needed" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Sometimes a different approach to estimating the polychoric correlation matrix is required if those of the psych package do not provide a polychoric correlation. The polycor package <span class="citation">(<a href="#ref-R-polycor">Fox 2022</a>)</span> offers more functionality, but can require more processing time—<strong>sometimes several minutes</strong>. <a href="#fn56" class="footnote-ref" id="fnref56"><sup>56</sup></a></p>
+<p>We first change our variable types to be ordered factors instead of numeric. We did this above, but here is the code again. This will ensure that we estimate the polychoric instead of the Pearson correlations in the <code>hetcor()</code> function. We use the <code>ordered()</code> function inside the <code>lapply()</code> function.</p>
+<div class="sourceCode" id="cb599"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb599-1"><a href="week-08-exploratory-factor-analysis-part-2.html#cb599-1" tabindex="-1"></a>datF <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="fu">lapply</span>(dat,</span>
+<span id="cb599-2"><a href="week-08-exploratory-factor-analysis-part-2.html#cb599-2" tabindex="-1"></a>                         ordered,</span>
+<span id="cb599-3"><a href="week-08-exploratory-factor-analysis-part-2.html#cb599-3" tabindex="-1"></a>                         <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>)) )</span></code></pre></div>
+<p>Now we can use the package and the function to acquire the polychoric correlation matrix, which we can subsequently use with our <code>psych::fa()</code> function.</p>
+<div class="sourceCode" id="cb600"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb600-1"><a href="week-08-exploratory-factor-analysis-part-2.html#cb600-1" tabindex="-1"></a><span class="fu">library</span>(polycor)</span>
+<span id="cb600-2"><a href="week-08-exploratory-factor-analysis-part-2.html#cb600-2" tabindex="-1"></a><span class="co">#This can take several minutes!</span></span>
+<span id="cb600-3"><a href="week-08-exploratory-factor-analysis-part-2.html#cb600-3" tabindex="-1"></a>hetout <span class="ot">&lt;-</span> polycor<span class="sc">::</span><span class="fu">hetcor</span>(datF, <span class="at">ML =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb600-4"><a href="week-08-exploratory-factor-analysis-part-2.html#cb600-4" tabindex="-1"></a>R_poly <span class="ot">&lt;-</span> <span class="fu">as.matrix</span>(hetout<span class="sc">$</span>correlations)</span>
+<span id="cb600-5"><a href="week-08-exploratory-factor-analysis-part-2.html#cb600-5" tabindex="-1"></a>n_nu   <span class="ot">&lt;-</span> hetout<span class="sc">$</span>n</span>
+<span id="cb600-6"><a href="week-08-exploratory-factor-analysis-part-2.html#cb600-6" tabindex="-1"></a>fafit  <span class="ot">&lt;-</span> <span class="fu">fa</span>(R_poly, <span class="at">n.obs =</span> n_p, <span class="at">nfactors =</span> <span class="dv">2</span>, <span class="at">fm =</span> <span class="st">&quot;pa&quot;</span>, <span class="at">rotate =</span> <span class="st">&quot;promax&quot;</span>)</span></code></pre></div>
+</div>
+</div>
+<div id="factor-scores" class="section level3 hasAnchor" number="9.2.2">
+<h3><span class="header-section-number">9.2.2</span> Factor scores<a href="week-08-exploratory-factor-analysis-part-2.html#factor-scores" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>When we have a raw data set, for example with each row representing a person, we can estimate those persons’ factor scores.<a href="#fn57" class="footnote-ref" id="fnref57"><sup>57</sup></a> A large advantage to using factor scores over raw composite scores is that the factor scores are calculated after removing the unique item variances.<a href="#fn58" class="footnote-ref" id="fnref58"><sup>58</sup></a></p>
+<div class="sourceCode" id="cb601"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb601-1"><a href="week-08-exploratory-factor-analysis-part-2.html#cb601-1" tabindex="-1"></a>Factor_scores <span class="ot">&lt;-</span> psych<span class="sc">::</span><span class="fu">factor.scores</span>(dat, fafit)<span class="sc">$</span>scores</span>
+<span id="cb601-2"><a href="week-08-exploratory-factor-analysis-part-2.html#cb601-2" tabindex="-1"></a><span class="fu">head</span>(Factor_scores)</span></code></pre></div>
+<pre><code>##             PA2        PA1        PA3
+## [1,] -2.2738807  1.0862526  0.9536342
+## [2,] -1.5026730 -0.5697761  1.2872092
+## [3,]  0.5386996 -1.0731917 -0.9764344
+## [4,]  0.3387576  0.3248921 -1.4942695
+## [5,] -1.1997520  0.3274958 -1.1398391
+## [6,] -1.6211552 -0.4228087  0.3491049</code></pre>
+<p>Here, we see the factor scores of Person 1 on Line 1, Person 2 on Line 2, and so forth. We can attach the person IDs to this vector so we can use it in our future analyses.<a href="#fn59" class="footnote-ref" id="fnref59"><sup>59</sup></a></p>
+<div class="sourceCode" id="cb603"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb603-1"><a href="week-08-exploratory-factor-analysis-part-2.html#cb603-1" tabindex="-1"></a>df.factor.scores <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">PID =</span> raw<span class="sc">$</span>PID, Factor_scores)</span>
+<span id="cb603-2"><a href="week-08-exploratory-factor-analysis-part-2.html#cb603-2" tabindex="-1"></a><span class="fu">head</span>(df.factor.scores) <span class="sc">%&gt;%</span> <span class="fu">arrange</span>(<span class="fu">desc</span>(PA2))</span></code></pre></div>
+<pre><code>##     PID        PA2        PA1        PA3
+## 1 S0003  0.5386996 -1.0731917 -0.9764344
+## 2 S0004  0.3387576  0.3248921 -1.4942695
+## 3 S0005 -1.1997520  0.3274958 -1.1398391
+## 4 S0002 -1.5026730 -0.5697761  1.2872092
+## 5 S0006 -1.6211552 -0.4228087  0.3491049
+## 6 S0001 -2.2738807  1.0862526  0.9536342</code></pre>
+<p>We can see that Person ID <code>S0003</code> had the highest score on Factor 1.</p>
+<p>We can save these scores to columns in our original data frame so we can use them later.</p>
+<div class="sourceCode" id="cb605"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb605-1"><a href="week-08-exploratory-factor-analysis-part-2.html#cb605-1" tabindex="-1"></a>raw[, <span class="fu">c</span>(<span class="st">&quot;F1&quot;</span>, <span class="st">&quot;F2&quot;</span>, <span class="st">&quot;F3&quot;</span>)] <span class="ot">&lt;-</span> Factor_scores</span></code></pre></div>
+<p>If we look at the descriptive statistics of these factor scores, we see that the they are centered around <span class="math inline">\(0\)</span> and the variance of each factor is <span class="math inline">\(1\)</span>. This is the result of fixing the factor means and variances to these values in exploratory-factor-analysis models, which in turn allows the computation of the common and unique variances of the subtests.</p>
+<div class="sourceCode" id="cb606"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb606-1"><a href="week-08-exploratory-factor-analysis-part-2.html#cb606-1" tabindex="-1"></a>desc <span class="ot">&lt;-</span> psych<span class="sc">::</span><span class="fu">describe</span>(raw[, <span class="fu">c</span>(<span class="st">&quot;F1&quot;</span>, <span class="st">&quot;F2&quot;</span>, <span class="st">&quot;F3&quot;</span>)])</span>
+<span id="cb606-2"><a href="week-08-exploratory-factor-analysis-part-2.html#cb606-2" tabindex="-1"></a><span class="fu">print</span>(desc, <span class="at">digits =</span> <span class="dv">3</span>)</span></code></pre></div>
+<pre><code>##    vars   n mean sd median trimmed   mad    min   max range   skew kurtosis    se
+## F1    1 371    0  1  0.360   0.074 0.306 -2.407 5.148 7.554 -0.313    2.039 0.052
+## F2    2 371    0  1  0.178   0.032 0.723 -3.621 2.822 6.443 -0.381    1.138 0.052
+## F3    3 371    0  1  0.124   0.004 0.854 -3.690 3.053 6.743 -0.138    0.934 0.052</code></pre>
+<div id="which-factor-scores-to-use" class="section level4 hasAnchor" number="9.2.2.1">
+<h4><span class="header-section-number">9.2.2.1</span> Which factor scores to use?<a href="week-08-exploratory-factor-analysis-part-2.html#which-factor-scores-to-use" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>If we read the help file for the <code>factor.scores()</code> function, we see there are several methods available, with the <code>method =</code> argument. Tucker <span class="citation">(<a href="#ref-tucker_relations_1971">1971</a>)</span> identified a difference between Bartlett scores and regression (Thurstone) scores (the latter being the default from the psych package) from factor analysis. The conclusion was that when we plan to use factor scores as predictors in a regression, we should use the regression scores; when we plan to use the scores as a dependent variable, we should use the Bartlett scores. (This does not help us when we have the variable as a mediator, where it is both a dependent and an independent variable—we’re in the dark.) For information on how the scores are calculated, we can read DiStefano and colleagues <span class="citation">(<a href="#ref-distefano_understanding_2009">2009</a>)</span>. For more on which factor scores to use, I think Skrondal and Laake <span class="citation">(<a href="#ref-skrondal_regression_2001">2001</a>)</span> provided more on this.</p>
+</div>
+</div>
+</div>
+<div id="practice" class="section level2 hasAnchor" number="9.3">
+<h2><span class="header-section-number">9.3</span> Practice<a href="week-08-exploratory-factor-analysis-part-2.html#practice" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Try out the EFA procedures from last week and this week with a new raw data set, <code>Week08_GoalOrientation_Raw.csv</code>. This might require a little more subjective interpretation in identifying the number of factors to retain. However, the results are more interesting, particularly with the <span class="math inline">\(\Phi\)</span> matrix. If we use four factors with principal axis factoring and a garden-variety factor analysis (with Pearson correlations), we can obtain the following pattern and structure coefficients:</p>
+<div class="sourceCode" id="cb608"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb608-1"><a href="week-08-exploratory-factor-analysis-part-2.html#cb608-1" tabindex="-1"></a>raw2 <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;Week08_GoalOrientation_Raw.csv&quot;</span>)</span>
+<span id="cb608-2"><a href="week-08-exploratory-factor-analysis-part-2.html#cb608-2" tabindex="-1"></a>dat2 <span class="ot">&lt;-</span> raw2[ , <span class="sc">-</span><span class="dv">1</span>]</span>
+<span id="cb608-3"><a href="week-08-exploratory-factor-analysis-part-2.html#cb608-3" tabindex="-1"></a>psych<span class="sc">::</span><span class="fu">describe</span>(dat2)</span></code></pre></div>
+<pre><code>##       vars    n mean   sd median trimmed  mad min max range  skew kurtosis   se
+## PAP1     1 1022 5.15 1.55      5    5.32 1.48   1   7     6 -0.75     0.12 0.05
+## PAP2     2 1022 5.20 1.53      5    5.38 1.48   1   7     6 -0.85     0.24 0.05
+## PAP3     3 1022 4.91 1.55      5    5.03 1.48   1   7     6 -0.51    -0.32 0.05
+## PAV4     4 1022 4.86 1.94      5    5.05 2.97   1   7     6 -0.60    -0.82 0.06
+## PAV5     5 1022 4.71 1.68      5    4.82 1.48   1   7     6 -0.43    -0.62 0.05
+## PAV6     6 1022 4.19 1.72      4    4.19 1.48   1   7     6 -0.05    -0.87 0.05
+## MAV7     7 1022 5.10 1.42      5    5.22 1.48   1   7     6 -0.59    -0.06 0.04
+## MAV8     8 1022 4.14 1.50      4    4.14 1.48   1   7     6 -0.06    -0.54 0.05
+## MAV9     9 1022 3.89 1.60      4    3.88 1.48   1   7     6  0.06    -0.64 0.05
+## MAP10   10 1022 5.76 1.18      6    5.90 1.48   1   7     6 -1.03     1.22 0.04
+## MAP11   11 1022 6.21 0.98      7    6.36 0.00   1   7     6 -1.22     1.34 0.03
+## MAP12   12 1022 5.89 1.20      6    6.06 1.48   1   7     6 -1.13     1.21 0.04</code></pre>
+<!-- ```{r echo = F} -->
+<!-- library(kableExtra) -->
+<!-- library(stringr) -->
+<!-- library(dplyr) -->
+<!-- Patt    <- data.frame(round(PattM2,2)) -->
+<!-- names(Patt)   <- paste0(names(Patt),"_pat") -->
+<!-- Struct  <- data.frame(round(StructM2,2)) -->
+<!-- names(Struct) <- paste0(names(Struct),"_str") -->
+<!-- PattStr <- data.frame(Subtest = row.names(StructM2), -->
+<!--                        Patt, -->
+<!--                        Struct) -->
+<!-- row.names(PattStr) <- NULL -->
+<!-- m <- length(names(Patt)) -->
+<!-- condfun <- function(x){ -->
+<!--   x <- as.numeric(x) -->
+<!--   x2 <- numformat2(x)   -->
+<!--   cell_spec(x2, bold = ifelse(abs(x) > .32, TRUE, FALSE), color = ifelse(x < -.32, "brown","black") ) -->
+<!--   } -->
+<!-- PattStr <- PattStr %>% mutate_at(2:(2*m+1),condfun) -->
+<!-- kbl(PattStr, booktabs = T, escape = F, -->
+<!--      col.names = c("Subtest", paste0("F",str_extract(names(PattStr[-1]), "\\d+"))), -->
+<!--     caption = "Pattern and structure coefficients of factors from the Goal Orientations data") %>%      add_header_above(c(" ", "Pattern coefficients " = m, " Structure coefficients" = m)) %>% -->
+<!--          kable_styling(full_width = FALSE) %>%  -->
+<!--  add_footnote("_*Note*_. Coefficients with absolute value > .32 are boldfaced.", notation = "none")  -->
+<!-- ``` -->
+<div id="summary-2" class="section level3 hasAnchor" number="9.3.1">
+<h3><span class="header-section-number">9.3.1</span> Summary<a href="week-08-exploratory-factor-analysis-part-2.html#summary-2" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>This week and last week, we reviewed the preliminary steps to factor analysis including examining the data and the assumptions for factor analysis, how to test for factorability, and how to determine the number of factors to retain. We also used the <code>fa()</code> function from the psych package and manipulated the output to extract specific information such as the pattern coefficients. We also practiced fitting a factor-analysis model to a correlation matrix. We determined that with our data, which do not seem to fit the assumption of linearity because the subtests only have four points, we should use the polychoric correlation matrix for more appropriately fitting the factor-analysis model. We conducted the factor analysis and then estimated persons’ factor scores.</p>
+</div>
+</div>
+<div id="references-2" class="section level2 hasAnchor" number="9.4">
+<h2><span class="header-section-number">9.4</span> References<a href="week-08-exploratory-factor-analysis-part-2.html#references-2" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+
+</div>
+</div>
+<h3>References</h3>
+<div id="refs" class="references csl-bib-body hanging-indent" entry-spacing="0">
+<div id="ref-R-Matrix" class="csl-entry">
+Bates, Douglas, Martin Maechler, and Mikael Jagan. 2025. <em>Matrix: Sparse and Dense Matrix Classes and Methods</em>. <a href="https://Matrix.R-forge.R-project.org">https://Matrix.R-forge.R-project.org</a>.
+</div>
+<div id="ref-R-SmartEDA" class="csl-entry">
+Dayanand Ubrangala, Kiran R, Ravi Prasad Kondapalli, and Sayan Putatunda. 2024. <em>SmartEDA: Summarize and Explore the Data</em>. <a href="https://daya6489.github.io/SmartEDA/">https://daya6489.github.io/SmartEDA/</a>.
+</div>
+<div id="ref-distefano_understanding_2009" class="csl-entry">
+DiStefano, Christine, Min Zhu, and Diana Mîndrilã. 2009. <span>“Understanding and Using Factor Scores: Considerations for the Applied Researcher”</span> 14 (20). <a href="https://doi.org/10.7275/DA8T-4G52">https://doi.org/10.7275/DA8T-4G52</a>.
+</div>
+<div id="ref-R-polycor" class="csl-entry">
+Fox, John. 2022. <em>Polycor: Polychoric and Polyserial Correlations</em>. <a href="https://r-forge.r-project.org/projects/polycor/">https://r-forge.r-project.org/projects/polycor/</a>.
+</div>
+<div id="ref-R-DescTools" class="csl-entry">
+Signorell, Andri. 2025. <em>DescTools: Tools for Descriptive Statistics</em>. <a href="https://andrisignorell.github.io/DescTools/">https://andrisignorell.github.io/DescTools/</a>.
+</div>
+<div id="ref-skrondal_regression_2001" class="csl-entry">
+Skrondal, Anders, and Petter Laake. 2001. <span>“Regression Among Factor Scores.”</span> <em>Psychometrika</em> 66 (4): 563–75. <a href="https://doi.org/10.1007/BF02296196">https://doi.org/10.1007/BF02296196</a>.
+</div>
+<div id="ref-tucker_relations_1971" class="csl-entry">
+Tucker, Ledyard R. 1971. <span>“Relations of Factor Score Estimates to Their Use.”</span> <em>Psychometrika</em> 36 (4): 427–36. <a href="https://doi.org/10.1007/BF02291367">https://doi.org/10.1007/BF02291367</a>.
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="51">
+<li id="fn51"><p>If all we have is the correlation matrix, we are, obviously, not able to estimate persons’ factor scores because we have no person-level data.<a href="week-08-exploratory-factor-analysis-part-2.html#fnref51" class="footnote-back">↩︎</a></p></li>
+<li id="fn52"><p>This <code>lapply()</code> function may be new to you. It is similar to <code>apply()</code> in that it applies another function across the columns of data. Here, we’re applying the <code>ordered()</code> function across each column of data. The <code>ordered()</code> function is a special case of the <code>factor()</code> function. We use this to create ordered factors.<a href="week-08-exploratory-factor-analysis-part-2.html#fnref52" class="footnote-back">↩︎</a></p></li>
+<li id="fn53"><p>Note that the word <em>factor</em> is not the same as a factor in factor analysis; it is a factor-type of variable, as in in analysis of variance framework.<a href="week-08-exploratory-factor-analysis-part-2.html#fnref53" class="footnote-back">↩︎</a></p></li>
+<li id="fn54"><p>As is explained in the help files for the <code>fa()</code> function, this argument is <code>cor = "tet"</code> for tetrachoric correlations if our data are dichotomous and <code>cor = "mixed"</code> if our data include a mix of variables, such as if some are dichotomous, polytomous, and continuous.<a href="week-08-exploratory-factor-analysis-part-2.html#fnref54" class="footnote-back">↩︎</a></p></li>
+<li id="fn55"><p>In the function, where it says <code>if (fa != "pc" &amp;&amp; plot) abline(h = 1)</code> it should say <code>if (fa != "fa" &amp;&amp; plot) abline(h = 1)</code>.<a href="week-08-exploratory-factor-analysis-part-2.html#fnref55" class="footnote-back">↩︎</a></p></li>
+<li id="fn56"><p>We can look through the help file for this function, <code>help("hetcor" ,package = "polycor")</code>, to see more options.<a href="week-08-exploratory-factor-analysis-part-2.html#fnref56" class="footnote-back">↩︎</a></p></li>
+<li id="fn57"><p>We can even do this if we used a polychoric correlation matrix in our factor analysis model, as long as the raw data were included in the <code>fa()</code> function.<a href="week-08-exploratory-factor-analysis-part-2.html#fnref57" class="footnote-back">↩︎</a></p></li>
+<li id="fn58"><p>There are a few types of factor scores available. The default is the regression-based, Thurstone, scores. Bartlett scores are another option. <a href="https://scholarworks.umass.edu/cgi/viewcontent.cgi?article=1226&amp;context=pare">DiStefano and colleagues (2009) provide more information</a>. <a href="week-08-exploratory-factor-analysis-part-2.html#fnref58" class="footnote-back">↩︎</a></p></li>
+<li id="fn59"><p>We must be careful when we assign person IDs from our raw data frame to this scored data frame. We need to be sure that any observations that may have been removed during the factor-analysis process are excluded from the names that we assign to the <code>PID</code> column name in the scored <code>Factor_scores</code> data frame. This might happen if there are missing data and a person gets excluded from the factor analysis estimation. In this example, we do not observe this problem because all persons’ scores on all factors were estimated. Also, at the time of this writing, any row with missing data will also have a corresponding row with <code>NA</code>s.<a href="week-08-exploratory-factor-analysis-part-2.html#fnref59" class="footnote-back">↩︎</a></p></li>
+</ol>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="week-07-exploratory-factor-analysis-part-1.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="week-09-confirmatory-factor-analysis.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": {
+    "github": false,
+    "facebook": true,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": null,
+    "text": null
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": null,
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "subsection"
+  }
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

@@ -1,0 +1,1003 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>21 Fitting a CFA model | EDUC 644 Applied Multivariate Statistics</title>
+  <meta name="description" content="Course materials for multivariate statistics" />
+  <meta name="generator" content="bookdown 0.44 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="21 Fitting a CFA model | EDUC 644 Applied Multivariate Statistics" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="Course materials for multivariate statistics" />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="21 Fitting a CFA model | EDUC 644 Applied Multivariate Statistics" />
+  
+  <meta name="twitter:description" content="Course materials for multivariate statistics" />
+  
+
+<meta name="author" content="George Harrison" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="preparatory-steps-3.html"/>
+<link rel="next" href="using-alternative-model-specifications.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+<link href="libs/tabwid-1.1.3/tabwid.css" rel="stylesheet" />
+<script src="libs/tabwid-1.1.3/tabwid.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Multivariate Statistics</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a></li>
+<li class="chapter" data-level="1" data-path="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html"><i class="fa fa-check"></i><b>1</b> Terminology and Matrix Manipulations Used in Multivariate Statistics</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#scalars"><i class="fa fa-check"></i><b>1.1</b> Scalars</a></li>
+<li class="chapter" data-level="1.2" data-path="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#vectors"><i class="fa fa-check"></i><b>1.2</b> Vectors</a></li>
+<li class="chapter" data-level="1.3" data-path="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#matrices"><i class="fa fa-check"></i><b>1.3</b> Matrices</a></li>
+<li class="chapter" data-level="1.4" data-path="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#symmetrical-matrices"><i class="fa fa-check"></i><b>1.4</b> Symmetrical Matrices</a>
+<ul>
+<li class="chapter" data-level="1.4.1" data-path="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#variance-covariance-matrices"><i class="fa fa-check"></i><b>1.4.1</b> Variance-covariance Matrices</a></li>
+<li class="chapter" data-level="1.4.2" data-path="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#greek-letters"><i class="fa fa-check"></i><b>1.4.2</b> Greek letters</a></li>
+<li class="chapter" data-level="1.4.3" data-path="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#example-variance-covariance-matrix"><i class="fa fa-check"></i><b>1.4.3</b> Example variance-covariance matrix</a></li>
+<li class="chapter" data-level="1.4.4" data-path="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#the-diagonal-and-trace"><i class="fa fa-check"></i><b>1.4.4</b> The diagonal and trace</a></li>
+<li class="chapter" data-level="1.4.5" data-path="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#an-identity-matrix"><i class="fa fa-check"></i><b>1.4.5</b> An identity matrix</a></li>
+</ul></li>
+<li class="chapter" data-level="1.5" data-path="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#transposed-vectors-and-matrices"><i class="fa fa-check"></i><b>1.5</b> Transposed Vectors and Matrices</a></li>
+<li class="chapter" data-level="1.6" data-path="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#matrix-addition-and-subtraction"><i class="fa fa-check"></i><b>1.6</b> Matrix Addition and Subtraction</a></li>
+<li class="chapter" data-level="1.7" data-path="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#operations-on-matrices-with-a-scalar"><i class="fa fa-check"></i><b>1.7</b> Operations on Matrices with a Scalar</a>
+<ul>
+<li class="chapter" data-level="1.7.1" data-path="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#sum-of-square-and-cross-product-sscp-matrices"><i class="fa fa-check"></i><b>1.7.1</b> Sum-of-square-and-cross-product (SSCP) matrices</a></li>
+<li class="chapter" data-level="1.7.2" data-path="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#operations-on-elements-of-a-matrix-example-with-a-correlation-matrix"><i class="fa fa-check"></i><b>1.7.2</b> Operations on elements of a matrix: Example with a correlation matrix</a></li>
+</ul></li>
+<li class="chapter" data-level="1.8" data-path="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#matrix-multiplication"><i class="fa fa-check"></i><b>1.8</b> Matrix Multiplication</a>
+<ul>
+<li class="chapter" data-level="1.8.1" data-path="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#another-example-of-matrix-multiplication-to-get-the-sscp"><i class="fa fa-check"></i><b>1.8.1</b> Another example of matrix multiplication, to get the SSCP</a></li>
+<li class="chapter" data-level="1.8.2" data-path="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#the-ordering-is-important"><i class="fa fa-check"></i><b>1.8.2</b> The ordering is important</a></li>
+</ul></li>
+<li class="chapter" data-level="1.9" data-path="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#inverse-of-a-matrix"><i class="fa fa-check"></i><b>1.9</b> Inverse of a Matrix</a></li>
+<li class="chapter" data-level="1.10" data-path="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#matrix-determinants-as-generalized-variance"><i class="fa fa-check"></i><b>1.10</b> Matrix determinants, as generalized variance</a></li>
+<li class="chapter" data-level="1.11" data-path="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#eigenvectors-and-eigenvalues"><i class="fa fa-check"></i><b>1.11</b> Eigenvectors and Eigenvalues</a></li>
+<li class="chapter" data-level="1.12" data-path="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#summary"><i class="fa fa-check"></i><b>1.12</b> Summary</a></li>
+<li class="chapter" data-level="1.13" data-path="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#optional-spss-and-r-code-to-manipulate-matrices"><i class="fa fa-check"></i><b>1.13</b> Optional: SPSS and R Code to Manipulate Matrices</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="hotellings-t2.html"><a href="hotellings-t2.html"><i class="fa fa-check"></i><b>2</b> Hotelling’s <span class="math inline">\(T^2\)</span></a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="hotellings-t2.html"><a href="hotellings-t2.html#within-group-covariance-matrices"><i class="fa fa-check"></i><b>2.1</b> Within-group covariance matrices</a></li>
+<li class="chapter" data-level="2.2" data-path="hotellings-t2.html"><a href="hotellings-t2.html#sscp-matrices"><i class="fa fa-check"></i><b>2.2</b> SSCP matrices</a></li>
+<li class="chapter" data-level="2.3" data-path="hotellings-t2.html"><a href="hotellings-t2.html#conducting-the-test-using-functions"><i class="fa fa-check"></i><b>2.3</b> Conducting the Test using Functions</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="planned-comparisons-and-contrasts.html"><a href="planned-comparisons-and-contrasts.html"><i class="fa fa-check"></i><b>3</b> Planned Comparisons and Contrasts</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="planned-comparisons-and-contrasts.html"><a href="planned-comparisons-and-contrasts.html#data-from-week-1"><i class="fa fa-check"></i><b>3.1</b> Data from Week 1</a></li>
+<li class="chapter" data-level="3.2" data-path="planned-comparisons-and-contrasts.html"><a href="planned-comparisons-and-contrasts.html#orthogonal-contrasts"><i class="fa fa-check"></i><b>3.2</b> Orthogonal contrasts</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="planned-comparisons-and-contrasts.html"><a href="planned-comparisons-and-contrasts.html#conditions-for-orthogonal-contrasts"><i class="fa fa-check"></i><b>3.2.1</b> Conditions for orthogonal contrasts</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="planned-comparisons-and-contrasts.html"><a href="planned-comparisons-and-contrasts.html#non-orthogonal-contrasts"><i class="fa fa-check"></i><b>3.3</b> Non-orthogonal contrasts</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="planned-comparisons-and-contrasts.html"><a href="planned-comparisons-and-contrasts.html#accounting-for-type-i-error-in-non-orthogonal-contrasts."><i class="fa fa-check"></i><b>3.3.1</b> Accounting for Type I error in non-orthogonal contrasts.</a></li>
+<li class="chapter" data-level="3.3.2" data-path="planned-comparisons-and-contrasts.html"><a href="planned-comparisons-and-contrasts.html#post-hoc-tests"><i class="fa fa-check"></i><b>3.3.2</b> Post-hoc tests</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="week-03-statistical-assumptions-of-manova.html"><a href="week-03-statistical-assumptions-of-manova.html"><i class="fa fa-check"></i><b>4</b> Week 03 Statistical Assumptions of MANOVA</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="week-03-statistical-assumptions-of-manova.html"><a href="week-03-statistical-assumptions-of-manova.html#data"><i class="fa fa-check"></i><b>4.1</b> Data</a></li>
+<li class="chapter" data-level="4.2" data-path="week-03-statistical-assumptions-of-manova.html"><a href="week-03-statistical-assumptions-of-manova.html#descriptive-statistics"><i class="fa fa-check"></i><b>4.2</b> Descriptive statistics</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="week-03-statistical-assumptions-of-manova.html"><a href="week-03-statistical-assumptions-of-manova.html#by-group-descriptive-statistics"><i class="fa fa-check"></i><b>4.2.1</b> By-group descriptive statistics</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="week-03-statistical-assumptions-of-manova.html"><a href="week-03-statistical-assumptions-of-manova.html#normality-assumption"><i class="fa fa-check"></i><b>4.3</b> Normality Assumption</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="week-03-statistical-assumptions-of-manova.html"><a href="week-03-statistical-assumptions-of-manova.html#univariate-normality"><i class="fa fa-check"></i><b>4.3.1</b> Univariate Normality</a></li>
+<li class="chapter" data-level="4.3.2" data-path="week-03-statistical-assumptions-of-manova.html"><a href="week-03-statistical-assumptions-of-manova.html#examining-univariate-normality-using-quantile-quantile-plots"><i class="fa fa-check"></i><b>4.3.2</b> Examining univariate normality using quantile-quantile plots</a></li>
+<li class="chapter" data-level="4.3.3" data-path="week-03-statistical-assumptions-of-manova.html"><a href="week-03-statistical-assumptions-of-manova.html#a-caution-about-statistical-tests-of-statistical-assumptions"><i class="fa fa-check"></i><b>4.3.3</b> A caution about statistical tests of statistical assumptions</a></li>
+<li class="chapter" data-level="4.3.4" data-path="week-03-statistical-assumptions-of-manova.html"><a href="week-03-statistical-assumptions-of-manova.html#mahalanobis-distance-and-multivariate-outliers"><i class="fa fa-check"></i><b>4.3.4</b> Mahalanobis Distance and Multivariate Outliers</a></li>
+<li class="chapter" data-level="4.3.5" data-path="week-03-statistical-assumptions-of-manova.html"><a href="week-03-statistical-assumptions-of-manova.html#statistical-tests-of-multivariate-normality"><i class="fa fa-check"></i><b>4.3.5</b> Statistical Tests of Multivariate Normality</a></li>
+<li class="chapter" data-level="4.3.6" data-path="week-03-statistical-assumptions-of-manova.html"><a href="week-03-statistical-assumptions-of-manova.html#homogeneity-of-covariance"><i class="fa fa-check"></i><b>4.3.6</b> Homogeneity of Covariance</a></li>
+<li class="chapter" data-level="4.3.7" data-path="week-03-statistical-assumptions-of-manova.html"><a href="week-03-statistical-assumptions-of-manova.html#conclusions-about-our-statistical-assumptions"><i class="fa fa-check"></i><b>4.3.7</b> Conclusions about our statistical assumptions</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="week-03-statistical-assumptions-of-manova.html"><a href="week-03-statistical-assumptions-of-manova.html#fitting-the-manova-model"><i class="fa fa-check"></i><b>4.4</b> Fitting the MANOVA Model</a>
+<ul>
+<li class="chapter" data-level="4.4.1" data-path="week-03-statistical-assumptions-of-manova.html"><a href="week-03-statistical-assumptions-of-manova.html#follow-up-analysis-with-univariate-f-tests"><i class="fa fa-check"></i><b>4.4.1</b> Follow-up analysis with univariate <em>F</em>-tests</a></li>
+<li class="chapter" data-level="4.4.2" data-path="week-03-statistical-assumptions-of-manova.html"><a href="week-03-statistical-assumptions-of-manova.html#effect-size"><i class="fa fa-check"></i><b>4.4.2</b> Effect size</a></li>
+<li class="chapter" data-level="4.4.3" data-path="week-03-statistical-assumptions-of-manova.html"><a href="week-03-statistical-assumptions-of-manova.html#comparing-the-model-without-outlier"><i class="fa fa-check"></i><b>4.4.3</b> Comparing the Model Without Outlier</a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="week-03-statistical-assumptions-of-manova.html"><a href="week-03-statistical-assumptions-of-manova.html#robust-one-way-manova"><i class="fa fa-check"></i><b>4.5</b> Robust One-way MANOVA</a></li>
+<li class="chapter" data-level="4.6" data-path="week-03-statistical-assumptions-of-manova.html"><a href="week-03-statistical-assumptions-of-manova.html#summary-1"><i class="fa fa-check"></i><b>4.6</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="week-04-factorial-manova.html"><a href="week-04-factorial-manova.html"><i class="fa fa-check"></i><b>5</b> Week 04 Factorial MANOVA</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="week-04-factorial-manova.html"><a href="week-04-factorial-manova.html#drawing-from-ch.-7-of-tabachnick-fidell"><i class="fa fa-check"></i><b>5.1</b> Drawing from Ch. 7 of Tabachnick &amp; Fidell</a></li>
+<li class="chapter" data-level="5.2" data-path="week-04-factorial-manova.html"><a href="week-04-factorial-manova.html#following-tabachnick-and-fidells-notes"><i class="fa fa-check"></i><b>5.2</b> Following Tabachnick and Fidell’s notes</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="week-04-factorial-manova.html"><a href="week-04-factorial-manova.html#another-way-to-get-the-sscp_w"><i class="fa fa-check"></i><b>5.2.1</b> Another way to get the <span class="math inline">\(SSCP_W\)</span>:</a></li>
+<li class="chapter" data-level="5.2.2" data-path="week-04-factorial-manova.html"><a href="week-04-factorial-manova.html#mathbfsscp_between-for-each-factor"><i class="fa fa-check"></i><b>5.2.2</b> <span class="math inline">\(\mathbf{SSCP_{Between}}\)</span> for each factor</a></li>
+<li class="chapter" data-level="5.2.3" data-path="week-04-factorial-manova.html"><a href="week-04-factorial-manova.html#mathbfsscp_between-for-the-interaction"><i class="fa fa-check"></i><b>5.2.3</b> <span class="math inline">\(\mathbf{SSCP_{Between}}\)</span> for the interaction</a></li>
+<li class="chapter" data-level="5.2.4" data-path="week-04-factorial-manova.html"><a href="week-04-factorial-manova.html#these-by-hand-calculations-will-be-available-in-manova."><i class="fa fa-check"></i><b>5.2.4</b> These by-hand calculations will be available in <code>manova()</code>.</a></li>
+<li class="chapter" data-level="5.2.5" data-path="week-04-factorial-manova.html"><a href="week-04-factorial-manova.html#calculating-the-generalized-variance"><i class="fa fa-check"></i><b>5.2.5</b> Calculating the generalized variance</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="week-04-factorial-manova.html"><a href="week-04-factorial-manova.html#calculating-wilks-lambda"><i class="fa fa-check"></i><b>5.3</b> Calculating Wilks’ Lambda</a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="week-04-factorial-manova.html"><a href="week-04-factorial-manova.html#fit-the-factorial-manova"><i class="fa fa-check"></i><b>5.3.1</b> Fit the factorial MANOVA</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="week-04-factorial-manova.html"><a href="week-04-factorial-manova.html#mancova"><i class="fa fa-check"></i><b>5.4</b> MANCOVA</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="week-04-factorial-manova.html"><a href="week-04-factorial-manova.html#mancova-example"><i class="fa fa-check"></i><b>5.4.1</b> MANCOVA example</a></li>
+<li class="chapter" data-level="5.4.2" data-path="week-04-factorial-manova.html"><a href="week-04-factorial-manova.html#lets-think-about-ordering-and-type-i-sums-of-squares"><i class="fa fa-check"></i><b>5.4.2</b> Let’s think about ordering and Type I sums of squares</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="week-04-factorial-manova.html"><a href="week-04-factorial-manova.html#fitting-the-discriminant-function-analysis-model"><i class="fa fa-check"></i><b>5.5</b> Fitting the discriminant function analysis model</a></li>
+<li class="chapter" data-level="5.6" data-path="week-04-factorial-manova.html"><a href="week-04-factorial-manova.html#dimension-reduction-analysis"><i class="fa fa-check"></i><b>5.6</b> Dimension reduction analysis</a>
+<ul>
+<li class="chapter" data-level="5.6.1" data-path="week-04-factorial-manova.html"><a href="week-04-factorial-manova.html#effect-sizes"><i class="fa fa-check"></i><b>5.6.1</b> Effect sizes</a></li>
+</ul></li>
+<li class="chapter" data-level="5.7" data-path="week-04-factorial-manova.html"><a href="week-04-factorial-manova.html#structure-and-standardized-discriminant-function-coefficients"><i class="fa fa-check"></i><b>5.7</b> Structure and standardized discriminant function coefficients</a></li>
+<li class="chapter" data-level="5.8" data-path="week-04-factorial-manova.html"><a href="week-04-factorial-manova.html#discriminant-function-scores"><i class="fa fa-check"></i><b>5.8</b> Discriminant function scores</a></li>
+<li class="chapter" data-level="5.9" data-path="week-04-factorial-manova.html"><a href="week-04-factorial-manova.html#group-means-centroids-of-the-discriminant-function-scores"><i class="fa fa-check"></i><b>5.9</b> Group means (centroids) of the discriminant-function scores</a></li>
+<li class="chapter" data-level="5.10" data-path="week-04-factorial-manova.html"><a href="week-04-factorial-manova.html#bivariate-scatterplot"><i class="fa fa-check"></i><b>5.10</b> Bivariate scatterplot</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="write-up.html"><a href="write-up.html"><i class="fa fa-check"></i><b>6</b> Write-up</a></li>
+<li class="chapter" data-level="7" data-path="example-1-to-see-some-properties-of-pca.html"><a href="example-1-to-see-some-properties-of-pca.html"><i class="fa fa-check"></i><b>7</b> Example 1, to see some properties of PCA</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="example-1-to-see-some-properties-of-pca.html"><a href="example-1-to-see-some-properties-of-pca.html#pca-with-covariance-vs.-correlation"><i class="fa fa-check"></i><b>7.1</b> PCA with Covariance vs. Correlation</a></li>
+<li class="chapter" data-level="7.2" data-path="example-1-to-see-some-properties-of-pca.html"><a href="example-1-to-see-some-properties-of-pca.html#unscaled-eigenvectors"><i class="fa fa-check"></i><b>7.2</b> Unscaled eigenvectors</a></li>
+<li class="chapter" data-level="7.3" data-path="example-1-to-see-some-properties-of-pca.html"><a href="example-1-to-see-some-properties-of-pca.html#looking-at-the-properties-of-eigenvectors-and-eigenvalues"><i class="fa fa-check"></i><b>7.3</b> Looking at the properties of eigenvectors and eigenvalues</a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="example-1-to-see-some-properties-of-pca.html"><a href="example-1-to-see-some-properties-of-pca.html#eigenvalues-add-up-to-total-observed-variance"><i class="fa fa-check"></i><b>7.3.1</b> Eigenvalues add up to total observed variance</a></li>
+<li class="chapter" data-level="7.3.2" data-path="example-1-to-see-some-properties-of-pca.html"><a href="example-1-to-see-some-properties-of-pca.html#each-components-proportion-of-variance"><i class="fa fa-check"></i><b>7.3.2</b> Each component’s proportion of variance</a></li>
+<li class="chapter" data-level="7.3.3" data-path="example-1-to-see-some-properties-of-pca.html"><a href="example-1-to-see-some-properties-of-pca.html#rescaling-the-eigenvectors"><i class="fa fa-check"></i><b>7.3.3</b> Rescaling the eigenvectors</a></li>
+<li class="chapter" data-level="7.3.4" data-path="example-1-to-see-some-properties-of-pca.html"><a href="example-1-to-see-some-properties-of-pca.html#reproducing-the-covariance-or-correlation-matrix"><i class="fa fa-check"></i><b>7.3.4</b> Reproducing the covariance (or correlation) matrix</a></li>
+<li class="chapter" data-level="7.3.5" data-path="example-1-to-see-some-properties-of-pca.html"><a href="example-1-to-see-some-properties-of-pca.html#summary-of-the-vectors-and-matrices"><i class="fa fa-check"></i><b>7.3.5</b> Summary of the vectors and matrices</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="example-1-to-see-some-properties-of-pca.html"><a href="example-1-to-see-some-properties-of-pca.html#using-the-psych-package"><i class="fa fa-check"></i><b>7.4</b> Using the psych package</a></li>
+<li class="chapter" data-level="7.5" data-path="example-1-to-see-some-properties-of-pca.html"><a href="example-1-to-see-some-properties-of-pca.html#determining-how-many-components-to-retain"><i class="fa fa-check"></i><b>7.5</b> Determining how many components to retain</a>
+<ul>
+<li class="chapter" data-level="7.5.1" data-path="example-1-to-see-some-properties-of-pca.html"><a href="example-1-to-see-some-properties-of-pca.html#kaisers-rule"><i class="fa fa-check"></i><b>7.5.1</b> 1. Kaiser’s rule</a></li>
+<li class="chapter" data-level="7.5.2" data-path="example-1-to-see-some-properties-of-pca.html"><a href="example-1-to-see-some-properties-of-pca.html#scree-plot"><i class="fa fa-check"></i><b>7.5.2</b> 2. Scree plot</a></li>
+<li class="chapter" data-level="7.5.3" data-path="example-1-to-see-some-properties-of-pca.html"><a href="example-1-to-see-some-properties-of-pca.html#parallel-analysis"><i class="fa fa-check"></i><b>7.5.3</b> 3. Parallel analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="7.6" data-path="example-1-to-see-some-properties-of-pca.html"><a href="example-1-to-see-some-properties-of-pca.html#reduced-pca-model"><i class="fa fa-check"></i><b>7.6</b> Reduced PCA model</a></li>
+<li class="chapter" data-level="7.7" data-path="example-1-to-see-some-properties-of-pca.html"><a href="example-1-to-see-some-properties-of-pca.html#interpretation-1"><i class="fa fa-check"></i><b>7.7</b> Interpretation</a>
+<ul>
+<li class="chapter" data-level="7.7.1" data-path="example-1-to-see-some-properties-of-pca.html"><a href="example-1-to-see-some-properties-of-pca.html#plot"><i class="fa fa-check"></i><b>7.7.1</b> Plot</a></li>
+</ul></li>
+<li class="chapter" data-level="7.8" data-path="example-1-to-see-some-properties-of-pca.html"><a href="example-1-to-see-some-properties-of-pca.html#interpretation-of-the-rotated-solution"><i class="fa fa-check"></i><b>7.8</b> Interpretation of the rotated solution</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="example-two.html"><a href="example-two.html"><i class="fa fa-check"></i><b>8</b> Example Two</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="example-two.html"><a href="example-two.html#pca-on-unstandardized-scores"><i class="fa fa-check"></i><b>8.1</b> PCA on Unstandardized Scores</a>
+<ul>
+<li class="chapter" data-level="8.1.1" data-path="example-two.html"><a href="example-two.html#hand-calculating-component-scores-from-this-pca"><i class="fa fa-check"></i><b>8.1.1</b> Hand calculating component scores from this PCA</a></li>
+</ul></li>
+<li class="chapter" data-level="8.2" data-path="example-two.html"><a href="example-two.html#pca-on-the-standardized-scores"><i class="fa fa-check"></i><b>8.2</b> PCA on the Standardized Scores</a>
+<ul>
+<li class="chapter" data-level="8.2.1" data-path="example-two.html"><a href="example-two.html#calculating-component-scores"><i class="fa fa-check"></i><b>8.2.1</b> Calculating component scores</a></li>
+<li class="chapter" data-level="8.2.2" data-path="example-two.html"><a href="example-two.html#using-the-rescaled-eigenvectors-to-interpret-the-components"><i class="fa fa-check"></i><b>8.2.2</b> Using the rescaled eigenvectors to interpret the components</a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="example-two.html"><a href="example-two.html#let-the-psych-package-do-the-work"><i class="fa fa-check"></i><b>8.3</b> Let the Psych Package Do the Work</a>
+<ul>
+<li class="chapter" data-level="8.3.1" data-path="example-two.html"><a href="example-two.html#view-the-component-scores"><i class="fa fa-check"></i><b>8.3.1</b> View the component scores</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="heptathlon-example.html"><a href="heptathlon-example.html"><i class="fa fa-check"></i><b>9</b> Heptathlon example</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="heptathlon-example.html"><a href="heptathlon-example.html#data-and-data-cleaning"><i class="fa fa-check"></i><b>9.1</b> Data and data cleaning</a></li>
+<li class="chapter" data-level="9.2" data-path="heptathlon-example.html"><a href="heptathlon-example.html#examine-assumption-of-linearity"><i class="fa fa-check"></i><b>9.2</b> Examine assumption of linearity</a></li>
+<li class="chapter" data-level="9.3" data-path="heptathlon-example.html"><a href="heptathlon-example.html#multivariate-normality-and-outliers"><i class="fa fa-check"></i><b>9.3</b> Multivariate normality and outliers</a></li>
+<li class="chapter" data-level="9.4" data-path="heptathlon-example.html"><a href="heptathlon-example.html#re-examine-linearity-and-normality"><i class="fa fa-check"></i><b>9.4</b> Re-examine linearity and normality</a></li>
+<li class="chapter" data-level="9.5" data-path="heptathlon-example.html"><a href="heptathlon-example.html#fit-the-initial-pca"><i class="fa fa-check"></i><b>9.5</b> Fit the initial PCA</a></li>
+<li class="chapter" data-level="9.6" data-path="heptathlon-example.html"><a href="heptathlon-example.html#determine-the-number-of-components-to-retain"><i class="fa fa-check"></i><b>9.6</b> Determine the number of components to retain</a></li>
+<li class="chapter" data-level="9.7" data-path="heptathlon-example.html"><a href="heptathlon-example.html#refit-the-pca-model-using-rotation-if-that-is-acceptable-in-your-field"><i class="fa fa-check"></i><b>9.7</b> Refit the PCA model, using rotation if that is acceptable in your field</a></li>
+<li class="chapter" data-level="9.8" data-path="heptathlon-example.html"><a href="heptathlon-example.html#interpret-the-components"><i class="fa fa-check"></i><b>9.8</b> Interpret the components</a></li>
+<li class="chapter" data-level="9.9" data-path="heptathlon-example.html"><a href="heptathlon-example.html#saving-the-scores"><i class="fa fa-check"></i><b>9.9</b> Saving the scores</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="other-example-from-later-in-the-chapter-not-assigned.html"><a href="other-example-from-later-in-the-chapter-not-assigned.html"><i class="fa fa-check"></i><b>10</b> Other example from later in the chapter (not assigned)</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="other-example-from-later-in-the-chapter-not-assigned.html"><a href="other-example-from-later-in-the-chapter-not-assigned.html#usairpollution-data"><i class="fa fa-check"></i><b>10.1</b> USairpollution Data</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="another-resource.html"><a href="another-resource.html"><i class="fa fa-check"></i><b>11</b> Another resource</a></li>
+<li class="chapter" data-level="12" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i><b>12</b> References</a></li>
+<li class="chapter" data-level="13" data-path="introductory-comments.html"><a href="introductory-comments.html"><i class="fa fa-check"></i><b>13</b> Introductory comments</a>
+<ul>
+<li class="chapter" data-level="13.1" data-path="introductory-comments.html"><a href="introductory-comments.html#packages"><i class="fa fa-check"></i><b>13.1</b> Packages</a></li>
+<li class="chapter" data-level="13.2" data-path="introductory-comments.html"><a href="introductory-comments.html#efa-ne-pca"><i class="fa fa-check"></i><b>13.2</b> EFA <span class="math inline">\(\ne\)</span> PCA</a></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="preparatory-steps.html"><a href="preparatory-steps.html"><i class="fa fa-check"></i><b>14</b> Preparatory steps</a>
+<ul>
+<li class="chapter" data-level="14.1" data-path="preparatory-steps.html"><a href="preparatory-steps.html#examining-the-data"><i class="fa fa-check"></i><b>14.1</b> Examining the data</a>
+<ul>
+<li class="chapter" data-level="14.1.1" data-path="preparatory-steps.html"><a href="preparatory-steps.html#descriptive-statistics-1"><i class="fa fa-check"></i><b>14.1.1</b> Descriptive statistics</a></li>
+</ul></li>
+<li class="chapter" data-level="14.2" data-path="preparatory-steps.html"><a href="preparatory-steps.html#addressing-assumptions"><i class="fa fa-check"></i><b>14.2</b> Addressing assumptions</a>
+<ul>
+<li class="chapter" data-level="14.2.1" data-path="preparatory-steps.html"><a href="preparatory-steps.html#linearity"><i class="fa fa-check"></i><b>14.2.1</b> Linearity</a></li>
+<li class="chapter" data-level="14.2.2" data-path="preparatory-steps.html"><a href="preparatory-steps.html#outliers-and-multivariate-normality"><i class="fa fa-check"></i><b>14.2.2</b> Outliers and multivariate normality</a></li>
+<li class="chapter" data-level="14.2.3" data-path="preparatory-steps.html"><a href="preparatory-steps.html#absence-of-perfect-multicollinearity"><i class="fa fa-check"></i><b>14.2.3</b> Absence of perfect multicollinearity</a></li>
+</ul></li>
+<li class="chapter" data-level="14.3" data-path="preparatory-steps.html"><a href="preparatory-steps.html#determining-factorability"><i class="fa fa-check"></i><b>14.3</b> Determining factorability</a></li>
+<li class="chapter" data-level="14.4" data-path="preparatory-steps.html"><a href="preparatory-steps.html#determining-how-many-factors-to-retain"><i class="fa fa-check"></i><b>14.4</b> Determining how many factors to retain</a>
+<ul>
+<li class="chapter" data-level="14.4.1" data-path="preparatory-steps.html"><a href="preparatory-steps.html#parallel-analysis-1"><i class="fa fa-check"></i><b>14.4.1</b> Parallel analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="14.5" data-path="preparatory-steps.html"><a href="preparatory-steps.html#factor-analysis-with-a-data-matrix-raw-data"><i class="fa fa-check"></i><b>14.5</b> Factor analysis with a data matrix (raw data)</a>
+<ul>
+<li class="chapter" data-level="14.5.1" data-path="preparatory-steps.html"><a href="preparatory-steps.html#determine-how-much-of-the-variance-is-explained-by-the-n-factors"><i class="fa fa-check"></i><b>14.5.1</b> Determine how much of the variance is explained by the <em>n</em> factors</a></li>
+<li class="chapter" data-level="14.5.2" data-path="preparatory-steps.html"><a href="preparatory-steps.html#fit-the-efa-with-rotation-for-interpretation"><i class="fa fa-check"></i><b>14.5.2</b> Fit the EFA with rotation, for interpretation</a></li>
+<li class="chapter" data-level="14.5.3" data-path="preparatory-steps.html"><a href="preparatory-steps.html#reduced-correlation-matrix"><i class="fa fa-check"></i><b>14.5.3</b> Reduced correlation matrix</a></li>
+<li class="chapter" data-level="14.5.4" data-path="preparatory-steps.html"><a href="preparatory-steps.html#examining-pattern-coefficients-the-factor-loadings"><i class="fa fa-check"></i><b>14.5.4</b> Examining pattern coefficients (the factor loadings)</a></li>
+</ul></li>
+<li class="chapter" data-level="14.6" data-path="preparatory-steps.html"><a href="preparatory-steps.html#factor-analysis-with-correlation-data"><i class="fa fa-check"></i><b>14.6</b> Factor analysis with correlation data</a>
+<ul>
+<li class="chapter" data-level="14.6.1" data-path="preparatory-steps.html"><a href="preparatory-steps.html#setting-up-the-data"><i class="fa fa-check"></i><b>14.6.1</b> Setting up the data</a></li>
+<li class="chapter" data-level="14.6.2" data-path="preparatory-steps.html"><a href="preparatory-steps.html#preparatory-steps-1"><i class="fa fa-check"></i><b>14.6.2</b> Preparatory steps</a></li>
+<li class="chapter" data-level="14.6.3" data-path="preparatory-steps.html"><a href="preparatory-steps.html#performing-the-factor-analysis"><i class="fa fa-check"></i><b>14.6.3</b> Performing the factor analysis</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="15" data-path="references-1.html"><a href="references-1.html"><i class="fa fa-check"></i><b>15</b> References</a></li>
+<li class="chapter" data-level="16" data-path="factor-analysis-with-correlation-data-1.html"><a href="factor-analysis-with-correlation-data-1.html"><i class="fa fa-check"></i><b>16</b> Factor analysis with correlation data</a>
+<ul>
+<li class="chapter" data-level="16.1" data-path="factor-analysis-with-correlation-data-1.html"><a href="factor-analysis-with-correlation-data-1.html#setting-up-the-data-1"><i class="fa fa-check"></i><b>16.1</b> Setting up the data</a>
+<ul>
+<li class="chapter" data-level="16.1.1" data-path="factor-analysis-with-correlation-data-1.html"><a href="factor-analysis-with-correlation-data-1.html#some-extra-stuff-importing-half-the-correlation-matrix"><i class="fa fa-check"></i><b>16.1.1</b> Some extra stuff: Importing half the correlation matrix</a></li>
+</ul></li>
+<li class="chapter" data-level="16.2" data-path="factor-analysis-with-correlation-data-1.html"><a href="factor-analysis-with-correlation-data-1.html#preparatory-steps-2"><i class="fa fa-check"></i><b>16.2</b> Preparatory steps</a>
+<ul>
+<li class="chapter" data-level="16.2.1" data-path="factor-analysis-with-correlation-data-1.html"><a href="factor-analysis-with-correlation-data-1.html#factorability"><i class="fa fa-check"></i><b>16.2.1</b> Factorability</a></li>
+<li class="chapter" data-level="16.2.2" data-path="factor-analysis-with-correlation-data-1.html"><a href="factor-analysis-with-correlation-data-1.html#number-of-factors"><i class="fa fa-check"></i><b>16.2.2</b> Number of factors</a></li>
+</ul></li>
+<li class="chapter" data-level="16.3" data-path="factor-analysis-with-correlation-data-1.html"><a href="factor-analysis-with-correlation-data-1.html#performing-the-factor-analysis-1"><i class="fa fa-check"></i><b>16.3</b> Performing the factor analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="17" data-path="efa-with-categorical-data.html"><a href="efa-with-categorical-data.html"><i class="fa fa-check"></i><b>17</b> EFA with categorical data</a>
+<ul>
+<li class="chapter" data-level="17.1" data-path="efa-with-categorical-data.html"><a href="efa-with-categorical-data.html#describing-categorical-data"><i class="fa fa-check"></i><b>17.1</b> Describing categorical data</a>
+<ul>
+<li class="chapter" data-level="17.1.1" data-path="efa-with-categorical-data.html"><a href="efa-with-categorical-data.html#plotting-categorical-data"><i class="fa fa-check"></i><b>17.1.1</b> Plotting categorical data</a></li>
+<li class="chapter" data-level="17.1.2" data-path="efa-with-categorical-data.html"><a href="efa-with-categorical-data.html#specifying-the-variable-type-as-ordinal"><i class="fa fa-check"></i><b>17.1.2</b> Specifying the variable type as ordinal</a></li>
+<li class="chapter" data-level="17.1.3" data-path="efa-with-categorical-data.html"><a href="efa-with-categorical-data.html#getting-the-correlation-matrix"><i class="fa fa-check"></i><b>17.1.3</b> Getting the correlation matrix</a></li>
+<li class="chapter" data-level="17.1.4" data-path="efa-with-categorical-data.html"><a href="efa-with-categorical-data.html#appraising-the-factorability-and-determining-the-number-of-factors-to-retain"><i class="fa fa-check"></i><b>17.1.4</b> Appraising the factorability and determining the number of factors to retain</a></li>
+<li class="chapter" data-level="17.1.5" data-path="efa-with-categorical-data.html"><a href="efa-with-categorical-data.html#factor-analysis-on-the-polychoric-matrix"><i class="fa fa-check"></i><b>17.1.5</b> Factor analysis on the polychoric matrix</a></li>
+<li class="chapter" data-level="17.1.6" data-path="efa-with-categorical-data.html"><a href="efa-with-categorical-data.html#the-polycor-package-if-needed"><i class="fa fa-check"></i><b>17.1.6</b> The polycor package, if needed</a></li>
+</ul></li>
+<li class="chapter" data-level="17.2" data-path="efa-with-categorical-data.html"><a href="efa-with-categorical-data.html#factor-scores"><i class="fa fa-check"></i><b>17.2</b> Factor scores</a>
+<ul>
+<li class="chapter" data-level="17.2.1" data-path="efa-with-categorical-data.html"><a href="efa-with-categorical-data.html#which-factor-scores-to-use"><i class="fa fa-check"></i><b>17.2.1</b> Which factor scores to use?</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="18" data-path="practice.html"><a href="practice.html"><i class="fa fa-check"></i><b>18</b> Practice</a>
+<ul>
+<li class="chapter" data-level="18.1" data-path="practice.html"><a href="practice.html#summary-2"><i class="fa fa-check"></i><b>18.1</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="19" data-path="references-2.html"><a href="references-2.html"><i class="fa fa-check"></i><b>19</b> References</a></li>
+<li class="chapter" data-level="20" data-path="preparatory-steps-3.html"><a href="preparatory-steps-3.html"><i class="fa fa-check"></i><b>20</b> Preparatory steps</a>
+<ul>
+<li class="chapter" data-level="20.1" data-path="preparatory-steps-3.html"><a href="preparatory-steps-3.html#describing-the-data"><i class="fa fa-check"></i><b>20.1</b> Describing the data</a>
+<ul>
+<li class="chapter" data-level="20.1.1" data-path="preparatory-steps-3.html"><a href="preparatory-steps-3.html#an-article-reported-r-and-the-sds-so-how-can-i-get-s"><i class="fa fa-check"></i><b>20.1.1</b> An article reported R and the SDs, so how can I get S?</a></li>
+<li class="chapter" data-level="20.1.2" data-path="preparatory-steps-3.html"><a href="preparatory-steps-3.html#describing-from-a-categorical-perspective"><i class="fa fa-check"></i><b>20.1.2</b> Describing from a categorical perspective</a></li>
+<li class="chapter" data-level="20.1.3" data-path="preparatory-steps-3.html"><a href="preparatory-steps-3.html#addressing-assumptions-1"><i class="fa fa-check"></i><b>20.1.3</b> Addressing assumptions</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="21" data-path="fitting-a-cfa-model.html"><a href="fitting-a-cfa-model.html"><i class="fa fa-check"></i><b>21</b> Fitting a CFA model</a>
+<ul>
+<li class="chapter" data-level="21.1" data-path="fitting-a-cfa-model.html"><a href="fitting-a-cfa-model.html#making-sure-the-model-was-correctly-estimated"><i class="fa fa-check"></i><b>21.1</b> Making sure the model was correctly estimated</a></li>
+<li class="chapter" data-level="21.2" data-path="fitting-a-cfa-model.html"><a href="fitting-a-cfa-model.html#evaluating-the-model-fit"><i class="fa fa-check"></i><b>21.2</b> Evaluating the model fit</a></li>
+<li class="chapter" data-level="21.3" data-path="fitting-a-cfa-model.html"><a href="fitting-a-cfa-model.html#interpretting-the-parameter-estimates"><i class="fa fa-check"></i><b>21.3</b> Interpretting the parameter estimates</a></li>
+<li class="chapter" data-level="21.4" data-path="fitting-a-cfa-model.html"><a href="fitting-a-cfa-model.html#further-inspecting-our-model"><i class="fa fa-check"></i><b>21.4</b> Further inspecting our model</a>
+<ul>
+<li class="chapter" data-level="21.4.1" data-path="fitting-a-cfa-model.html"><a href="fitting-a-cfa-model.html#looking-at-the-models-covariance-matrices"><i class="fa fa-check"></i><b>21.4.1</b> Looking at the model’s covariance matrices</a></li>
+</ul></li>
+<li class="chapter" data-level="21.5" data-path="fitting-a-cfa-model.html"><a href="fitting-a-cfa-model.html#further-inspecting-our-models-parameters"><i class="fa fa-check"></i><b>21.5</b> Further inspecting our model’s parameters</a>
+<ul>
+<li class="chapter" data-level="21.5.1" data-path="fitting-a-cfa-model.html"><a href="fitting-a-cfa-model.html#seeing-which-parameters-were-estimated"><i class="fa fa-check"></i><b>21.5.1</b> Seeing which parameters were estimated</a></li>
+<li class="chapter" data-level="21.5.2" data-path="fitting-a-cfa-model.html"><a href="fitting-a-cfa-model.html#optional-saving-parameter-estimates-to-a-data-frame"><i class="fa fa-check"></i><b>21.5.2</b> Optional: Saving parameter estimates to a data frame</a></li>
+<li class="chapter" data-level="21.5.3" data-path="fitting-a-cfa-model.html"><a href="fitting-a-cfa-model.html#generating-path-diagrams"><i class="fa fa-check"></i><b>21.5.3</b> Generating path diagrams</a></li>
+<li class="chapter" data-level="21.5.4" data-path="fitting-a-cfa-model.html"><a href="fitting-a-cfa-model.html#examining-modification-indices"><i class="fa fa-check"></i><b>21.5.4</b> Examining modification indices</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="22" data-path="using-alternative-model-specifications.html"><a href="using-alternative-model-specifications.html"><i class="fa fa-check"></i><b>22</b> Using alternative model specifications</a>
+<ul>
+<li class="chapter" data-level="22.1" data-path="using-alternative-model-specifications.html"><a href="using-alternative-model-specifications.html#rescaling-the-factors-to-be-standardized"><i class="fa fa-check"></i><b>22.1</b> Rescaling the factors to be standardized</a></li>
+<li class="chapter" data-level="22.2" data-path="using-alternative-model-specifications.html"><a href="using-alternative-model-specifications.html#specifying-a-competing-nested-model"><i class="fa fa-check"></i><b>22.2</b> Specifying a competing, nested, model</a></li>
+<li class="chapter" data-level="22.3" data-path="using-alternative-model-specifications.html"><a href="using-alternative-model-specifications.html#conducting-model-comparisons"><i class="fa fa-check"></i><b>22.3</b> Conducting model comparisons</a></li>
+</ul></li>
+<li class="chapter" data-level="23" data-path="estimating-factor-scores.html"><a href="estimating-factor-scores.html"><i class="fa fa-check"></i><b>23</b> Estimating factor scores</a></li>
+<li class="chapter" data-level="24" data-path="cfa-with-categorical-data.html"><a href="cfa-with-categorical-data.html"><i class="fa fa-check"></i><b>24</b> CFA with categorical data</a>
+<ul>
+<li class="chapter" data-level="24.1" data-path="cfa-with-categorical-data.html"><a href="cfa-with-categorical-data.html#using-data-from-an-r-package"><i class="fa fa-check"></i><b>24.1</b> Using data from an R package</a></li>
+<li class="chapter" data-level="24.2" data-path="cfa-with-categorical-data.html"><a href="cfa-with-categorical-data.html#preparing-the-data"><i class="fa fa-check"></i><b>24.2</b> Preparing the data</a></li>
+<li class="chapter" data-level="24.3" data-path="cfa-with-categorical-data.html"><a href="cfa-with-categorical-data.html#describing-the-data-1"><i class="fa fa-check"></i><b>24.3</b> Describing the data</a></li>
+<li class="chapter" data-level="24.4" data-path="cfa-with-categorical-data.html"><a href="cfa-with-categorical-data.html#fitting-the-cfa-model"><i class="fa fa-check"></i><b>24.4</b> Fitting the CFA model</a></li>
+</ul></li>
+<li class="chapter" data-level="25" data-path="way-tldr-summary.html"><a href="way-tldr-summary.html"><i class="fa fa-check"></i><b>25</b> Way TL;DR Summary</a></li>
+<li class="chapter" data-level="26" data-path="references-3.html"><a href="references-3.html"><i class="fa fa-check"></i><b>26</b> References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">EDUC 644 Applied Multivariate Statistics</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="fitting-a-cfa-model" class="section level1 hasAnchor" number="21">
+<h1><span class="header-section-number">21</span> Fitting a CFA model<a href="fitting-a-cfa-model.html#fitting-a-cfa-model" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>Before we fit the CFA model using the lavaan package, we need to provide the CFA model specification. We are specifying four factors, which we’re naming <code>PAP</code>, <code>PAV</code>, <code>MAV</code>, and <code>MAP</code>. We indicate which variables load on which factor with the <code>=~</code> operator in lavaan’s language. The default is to set each factor’s metric to be on the scale of its first variable.</p>
+<div class="sourceCode" id="cb636"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb636-1"><a href="fitting-a-cfa-model.html#cb636-1" tabindex="-1"></a><span class="fu">library</span>(lavaan)</span>
+<span id="cb636-2"><a href="fitting-a-cfa-model.html#cb636-2" tabindex="-1"></a>mymod <span class="ot">&lt;-</span> <span class="st">&quot;PAP =~ PAP1  +  PAP2 +  PAP3</span></span>
+<span id="cb636-3"><a href="fitting-a-cfa-model.html#cb636-3" tabindex="-1"></a><span class="st">          PAV =~ PAV4  +  PAV5 +  PAV6</span></span>
+<span id="cb636-4"><a href="fitting-a-cfa-model.html#cb636-4" tabindex="-1"></a><span class="st">          MAV =~ MAV7  +  MAV8 +  MAV9</span></span>
+<span id="cb636-5"><a href="fitting-a-cfa-model.html#cb636-5" tabindex="-1"></a><span class="st">          MAP =~ MAP10 + MAP11 + MAP12&quot;</span></span></code></pre></div>
+<p>Now that we have the model specification saved to our <code>mymod</code> object, we can fit the model to our data using the <code>cfa()</code> function. The first argument is the model specification. In the <code>data =</code> argument, we include the raw data set. We use the <code>estimator = "MLR"</code> to specify the robust maximum likelihood estimation method. We can use the <code>mimic = "Mplus"</code> argument if we wish to acquire output that is similar to what it would be if we were to use Mplus software.</p>
+<div class="sourceCode" id="cb637"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb637-1"><a href="fitting-a-cfa-model.html#cb637-1" tabindex="-1"></a>cfa_fit <span class="ot">&lt;-</span> <span class="fu">cfa</span>(mymod, </span>
+<span id="cb637-2"><a href="fitting-a-cfa-model.html#cb637-2" tabindex="-1"></a>                <span class="at">data =</span> dat,</span>
+<span id="cb637-3"><a href="fitting-a-cfa-model.html#cb637-3" tabindex="-1"></a>           <span class="at">estimator =</span> <span class="st">&quot;MLR&quot;</span>,</span>
+<span id="cb637-4"><a href="fitting-a-cfa-model.html#cb637-4" tabindex="-1"></a>               <span class="at">mimic =</span> <span class="st">&quot;Mplus&quot;</span>)</span></code></pre></div>
+<p>At this point, we should look at whether there were any errors when we attempt to fit the model. For instance, if we get a warning that says <code>The variance-covariance matrix of the estimated parameters (vcov) does not appear to be positive definite!</code> there is something wrong with our model specification. More than likely, our model is underidentified and we need to go back to our specification.</p>
+<p>If we did not have access to the raw data but only had the covariance matrix, <strong>S</strong>, we can include the <code>sample.cov =</code> argument in place of the <code>data =</code> argument. We also need to specify the number of persons, which here we’ll assign to the object <code>n_p</code>, which is 1022.<a href="#fn64" class="footnote-ref" id="fnref64"><sup>64</sup></a></p>
+<div class="sourceCode" id="cb638"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb638-1"><a href="fitting-a-cfa-model.html#cb638-1" tabindex="-1"></a>S   <span class="ot">&lt;-</span> <span class="fu">cov</span>(dat)</span>
+<span id="cb638-2"><a href="fitting-a-cfa-model.html#cb638-2" tabindex="-1"></a>n_p <span class="ot">&lt;-</span> <span class="fu">nrow</span>(dat)</span>
+<span id="cb638-3"><a href="fitting-a-cfa-model.html#cb638-3" tabindex="-1"></a></span>
+<span id="cb638-4"><a href="fitting-a-cfa-model.html#cb638-4" tabindex="-1"></a>cfa_fit_S <span class="ot">&lt;-</span> <span class="fu">cfa</span>(mymod, </span>
+<span id="cb638-5"><a href="fitting-a-cfa-model.html#cb638-5" tabindex="-1"></a>               <span class="at">sample.cov  =</span> S, </span>
+<span id="cb638-6"><a href="fitting-a-cfa-model.html#cb638-6" tabindex="-1"></a>               <span class="at">sample.nobs =</span> n_p,</span>
+<span id="cb638-7"><a href="fitting-a-cfa-model.html#cb638-7" tabindex="-1"></a>               <span class="at">mimic =</span> <span class="st">&quot;Mplus&quot;</span>)</span></code></pre></div>
+<p>We will use the earlier specification, with the raw data and the robust estimation. We can use the <code>summary()</code> function on our object that contains the CFA result. We can also ask for the fit indices, standardized coefficients, and the r-square of the loadings using these respective three arguments.</p>
+<div class="sourceCode" id="cb639"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb639-1"><a href="fitting-a-cfa-model.html#cb639-1" tabindex="-1"></a><span class="fu">summary</span>(cfa_fit, </span>
+<span id="cb639-2"><a href="fitting-a-cfa-model.html#cb639-2" tabindex="-1"></a>        <span class="at">fit.measures =</span> <span class="cn">TRUE</span>, </span>
+<span id="cb639-3"><a href="fitting-a-cfa-model.html#cb639-3" tabindex="-1"></a>        <span class="at">standardized =</span> <span class="cn">TRUE</span>, </span>
+<span id="cb639-4"><a href="fitting-a-cfa-model.html#cb639-4" tabindex="-1"></a>        <span class="at">rsquare      =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<pre><code>## lavaan 0.6-19 ended normally after 46 iterations
+## 
+##   Estimator                                         ML
+##   Optimization method                           NLMINB
+##   Number of model parameters                        42
+## 
+##   Number of observations                          1022
+##   Number of missing patterns                         1
+## 
+## Model Test User Model:
+##                                               Standard      Scaled
+##   Test Statistic                               283.977     260.087
+##   Degrees of freedom                                48          48
+##   P-value (Chi-square)                           0.000       0.000
+##   Scaling correction factor                                  1.092
+##     Yuan-Bentler correction (Mplus variant)                       
+## 
+## Model Test Baseline Model:
+## 
+##   Test statistic                              4421.866    3657.087
+##   Degrees of freedom                                66          66
+##   P-value                                        0.000       0.000
+##   Scaling correction factor                                  1.209
+## 
+## User Model versus Baseline Model:
+## 
+##   Comparative Fit Index (CFI)                    0.946       0.941
+##   Tucker-Lewis Index (TLI)                       0.926       0.919
+##                                                                   
+##   Robust Comparative Fit Index (CFI)                         0.947
+##   Robust Tucker-Lewis Index (TLI)                            0.927
+## 
+## Loglikelihood and Information Criteria:
+## 
+##   Loglikelihood user model (H0)             -20006.917  -20006.917
+##   Scaling correction factor                                  1.227
+##       for the MLR correction                                      
+##   Loglikelihood unrestricted model (H1)     -19864.929  -19864.929
+##   Scaling correction factor                                  1.155
+##       for the MLR correction                                      
+##                                                                   
+##   Akaike (AIC)                               40097.835   40097.835
+##   Bayesian (BIC)                             40304.875   40304.875
+##   Sample-size adjusted Bayesian (SABIC)      40171.478   40171.478
+## 
+## Root Mean Square Error of Approximation:
+## 
+##   RMSEA                                          0.069       0.066
+##   90 Percent confidence interval - lower         0.062       0.058
+##   90 Percent confidence interval - upper         0.077       0.073
+##   P-value H_0: RMSEA &lt;= 0.050                    0.000       0.000
+##   P-value H_0: RMSEA &gt;= 0.080                    0.013       0.001
+##                                                                   
+##   Robust RMSEA                                               0.069
+##   90 Percent confidence interval - lower                     0.061
+##   90 Percent confidence interval - upper                     0.077
+##   P-value H_0: Robust RMSEA &lt;= 0.050                         0.000
+##   P-value H_0: Robust RMSEA &gt;= 0.080                         0.012
+## 
+## Standardized Root Mean Square Residual:
+## 
+##   SRMR                                           0.046       0.046
+## 
+## Parameter Estimates:
+## 
+##   Standard errors                             Sandwich
+##   Information bread                           Observed
+##   Observed information based on                Hessian
+## 
+## Latent Variables:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+##   PAP =~                                                                
+##     PAP1              1.000                               1.255    0.812
+##     PAP2              1.035    0.037   28.243    0.000    1.298    0.850
+##     PAP3              1.052    0.038   27.683    0.000    1.320    0.850
+##   PAV =~                                                                
+##     PAV4              1.000                               1.144    0.591
+##     PAV5              0.772    0.062   12.356    0.000    0.884    0.526
+##     PAV6              1.195    0.082   14.615    0.000    1.368    0.797
+##   MAV =~                                                                
+##     MAV7              1.000                               0.657    0.462
+##     MAV8              1.956    0.169   11.600    0.000    1.285    0.855
+##     MAV9              1.845    0.160   11.547    0.000    1.212    0.756
+##   MAP =~                                                                
+##     MAP10             1.000                               0.814    0.691
+##     MAP11             0.974    0.056   17.430    0.000    0.793    0.811
+##     MAP12             1.041    0.066   15.885    0.000    0.847    0.708
+## 
+## Covariances:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+##   PAP ~~                                                                
+##     PAV               0.751    0.074   10.112    0.000    0.523    0.523
+##     MAV               0.197    0.038    5.123    0.000    0.238    0.238
+##     MAP               0.308    0.046    6.719    0.000    0.301    0.301
+##   PAV ~~                                                                
+##     MAV               0.378    0.056    6.693    0.000    0.502    0.502
+##     MAP               0.080    0.038    2.133    0.033    0.086    0.086
+##   MAV ~~                                                                
+##     MAP               0.159    0.024    6.558    0.000    0.297    0.297
+## 
+## Intercepts:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+##    .PAP1              5.155    0.048  106.570    0.000    5.155    3.334
+##    .PAP2              5.201    0.048  108.813    0.000    5.201    3.404
+##    .PAP3              4.915    0.049  101.118    0.000    4.915    3.163
+##    .PAV4              4.860    0.061   80.186    0.000    4.860    2.508
+##    .PAV5              4.713    0.053   89.744    0.000    4.713    2.807
+##    .PAV6              4.192    0.054   78.131    0.000    4.192    2.444
+##    .MAV7              5.103    0.045  114.616    0.000    5.103    3.585
+##    .MAV8              4.135    0.047   87.939    0.000    4.135    2.751
+##    .MAV9              3.890    0.050   77.534    0.000    3.890    2.425
+##    .MAP10             5.756    0.037  156.210    0.000    5.756    4.886
+##    .MAP11             6.209    0.031  203.007    0.000    6.209    6.350
+##    .MAP12             5.889    0.037  157.389    0.000    5.889    4.923
+## 
+## Variances:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+##    .PAP1              0.816    0.063   12.990    0.000    0.816    0.341
+##    .PAP2              0.649    0.068    9.558    0.000    0.649    0.278
+##    .PAP3              0.671    0.079    8.483    0.000    0.671    0.278
+##    .PAV4              2.445    0.153   15.983    0.000    2.445    0.651
+##    .PAV5              2.038    0.116   17.564    0.000    2.038    0.723
+##    .PAV6              1.071    0.139    7.692    0.000    1.071    0.364
+##    .MAV7              1.594    0.081   19.625    0.000    1.594    0.787
+##    .MAV8              0.609    0.085    7.123    0.000    0.609    0.269
+##    .MAV9              1.104    0.100   11.048    0.000    1.104    0.429
+##    .MAP10             0.725    0.062   11.609    0.000    0.725    0.522
+##    .MAP11             0.327    0.033    9.775    0.000    0.327    0.342
+##    .MAP12             0.713    0.057   12.606    0.000    0.713    0.498
+##     PAP               1.575    0.114   13.872    0.000    1.000    1.000
+##     PAV               1.310    0.148    8.832    0.000    1.000    1.000
+##     MAV               0.432    0.070    6.200    0.000    1.000    1.000
+##     MAP               0.663    0.067    9.850    0.000    1.000    1.000
+## 
+## R-Square:
+##                    Estimate
+##     PAP1              0.659
+##     PAP2              0.722
+##     PAP3              0.722
+##     PAV4              0.349
+##     PAV5              0.277
+##     PAV6              0.636
+##     MAV7              0.213
+##     MAV8              0.731
+##     MAV9              0.571
+##     MAP10             0.478
+##     MAP11             0.658
+##     MAP12             0.502</code></pre>
+<div id="making-sure-the-model-was-correctly-estimated" class="section level2 hasAnchor" number="21.1">
+<h2><span class="header-section-number">21.1</span> Making sure the model was correctly estimated<a href="fitting-a-cfa-model.html#making-sure-the-model-was-correctly-estimated" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The first place our eyes should go in the output is the first line. With luck, it will report that lavaan ended normally after some number of iterations. Our output suggests the model ended normally, so we are in good shape.</p>
+<p>We should then make sure the model included all of our data by seeing if the <code>Number of observations</code> is what we expect it to be, which it is in this case (1022).</p>
+<p>Additionally, we should be sure that the number of parameters is what we expect. We see that there are 42 parameters, which is what we expect if we include the means of the items. This is because there are 8 pattern coefficients, 12 item error variances, 4 factor variances, and 6 factor covariances, as well as 12 item means, the latter of which is excluded from our calculation of the degrees of freedom. The degrees of freedom is the number unique cells in the sample covariance matrix minus the number of parameters. The number of unique cells is <span class="math inline">\(\frac{\nu(\nu + 1)}{2} = 78\)</span>, where <span class="math inline">\(\nu\)</span> is the number of variables (i.e., the 12 items). The number of parameters excluding the item means is <span class="math inline">\(30\)</span>, making our degrees of freedom <span class="math inline">\(48\)</span>.</p>
+</div>
+<div id="evaluating-the-model-fit" class="section level2 hasAnchor" number="21.2">
+<h2><span class="header-section-number">21.2</span> Evaluating the model fit<a href="fitting-a-cfa-model.html#evaluating-the-model-fit" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>We can proceed to look at the model fit and parameter estimates. Looking at the fit statistics, we see there is some degree of mispecification in this model. Because we used robust estimation, we read the indices under the <code>Robust</code> column in the output. The chi-square fit index of <span class="math inline">\(260.087\)</span>, with its <span class="math inline">\(48\)</span> degrees of freedom, suggests the model does not fit. The global fit indexes are borderline okay. Neither the comparative fit index, <span class="math inline">\(0.947\)</span>, nor the root mean square error of approximation, <span class="math inline">\(0.069\)</span>, exceed the traditional criteria for “good” fit (CFI <span class="math inline">\(\ge .95\)</span> and RMSEA <span class="math inline">\(\le .06\)</span>) but they are close. The standardized root mean square residual of <span class="math inline">\(0.046\)</span> does meet the criterion (SRMR <span class="math inline">\(\le .08\)</span>).</p>
+<p>If we seek to save these fit indexes to an object, we can use the <code>fitMeasures()</code> function. These have <code>.scaled</code> and <code>.robust</code> suffixes because we used robust maximum likelihood as the estimation method. If we simply used <code>estimator = "ML"</code>, which is the default, we would remove those suffixes.</p>
+<div class="sourceCode" id="cb641"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb641-1"><a href="fitting-a-cfa-model.html#cb641-1" tabindex="-1"></a>fit_stats <span class="ot">&lt;-</span> <span class="fu">fitMeasures</span>(cfa_fit, <span class="fu">c</span>(<span class="st">&quot;chisq.scaled&quot;</span>,<span class="st">&quot;df.scaled&quot;</span>, <span class="st">&quot;pvalue.scaled&quot;</span>, </span>
+<span id="cb641-2"><a href="fitting-a-cfa-model.html#cb641-2" tabindex="-1"></a>                                    <span class="st">&quot;cfi.robust&quot;</span>, </span>
+<span id="cb641-3"><a href="fitting-a-cfa-model.html#cb641-3" tabindex="-1"></a>                                    <span class="st">&quot;tli.robust&quot;</span>, </span>
+<span id="cb641-4"><a href="fitting-a-cfa-model.html#cb641-4" tabindex="-1"></a>                                    <span class="st">&quot;rmsea.robust&quot;</span>, </span>
+<span id="cb641-5"><a href="fitting-a-cfa-model.html#cb641-5" tabindex="-1"></a>                                    <span class="st">&quot;srmr&quot;</span>))</span>
+<span id="cb641-6"><a href="fitting-a-cfa-model.html#cb641-6" tabindex="-1"></a>fit_stats</span></code></pre></div>
+<pre><code>##  chisq.scaled     df.scaled pvalue.scaled    cfi.robust    tli.robust  rmsea.robust          srmr 
+##       260.087        48.000         0.000         0.947         0.927         0.069         0.046</code></pre>
+</div>
+<div id="interpretting-the-parameter-estimates" class="section level2 hasAnchor" number="21.3">
+<h2><span class="header-section-number">21.3</span> Interpretting the parameter estimates<a href="fitting-a-cfa-model.html#interpretting-the-parameter-estimates" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Looking back at the main output, we see that the unstandardized parameter estimates are in the <code>Estimate</code> column. The first pattern coefficient for each factor is <span class="math inline">\(1.00\)</span>. This is because the default specification is to fix the first variable to be the reference variable, thereby setting the metric of the factor to be the same as that variable. The other coefficients on that factor are interpreted as their expected change in their units based on a one-unit change in the factor, where that unit is the same as that of the reference variable.</p>
+<p>In the covariances section, we see the covariances among the factors. The standardized column shows the correlations among the factors. We see that these are all statistically significant and that the correlation between <code>PAV</code> and <code>MAP</code> is the weakest. We might want to evaluate the degree to which these results are consistent with our theory about the strength and direction of these latent-variable relationships.</p>
+<p>In the variances section of the output, we see that the variances of the factors are in the units of their first loading manifest variables. For example, the variance of the first factor is <span class="math inline">\(1.575\)</span>. In this section of the output, we also see the variances of the manifest variables (i.e., the observed variables that the factors predict). These are the error (or residual) variances.</p>
+<p>In the intercepts section, we see the estimates of the means of each manifest variable and factor. We can see that the factors are centered around zero. In evaluating the fit of the CFA model, we are not usually interested in this section.</p>
+<p>For all of the parameter estimates, there are versions of their estimates in a completely standardized model, in the <code>Std.all</code> column. The observed variables and the factors are scaled as <em>z</em>-scores. In interpreting the first item’s standardized pattern coefficient, <span class="math inline">\(\lambda_{1,1}\)</span>, we can say that the expected amount of change is <span class="math inline">\(0.812\)</span> standard-deviation units for each <span class="math inline">\(1\)</span> standard-deviation unit change in the factor score. With this particular model, the <span class="math inline">\(R^2\)</span> estimates of the observed variables are the same as the squared standardized loadings. For instance, <span class="math inline">\(\lambda_{1,1}^2 = R_{\text{PAP}1}^2 = 0.659\)</span>. And, as mentioned in the covariances section, any standardized covariances are interpreted as correlations.</p>
+<p>The <code>Std.lv</code> column includes the estimates when the factors (the <strong>l</strong>atent <strong>v</strong>ariables) are standardized but the observed variables are not. These pattern coefficients are interpreted as changes in the observed variable, on its original scale, for each <span class="math inline">\(1\)</span> standard-deviation unit change in the factor score.</p>
+</div>
+<div id="further-inspecting-our-model" class="section level2 hasAnchor" number="21.4">
+<h2><span class="header-section-number">21.4</span> Further inspecting our model<a href="fitting-a-cfa-model.html#further-inspecting-our-model" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="looking-at-the-models-covariance-matrices" class="section level3 hasAnchor" number="21.4.1">
+<h3><span class="header-section-number">21.4.1</span> Looking at the model’s covariance matrices<a href="fitting-a-cfa-model.html#looking-at-the-models-covariance-matrices" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>There are several covariances. In addition to the sample covariance matrix from the raw data <span class="math inline">\((\text{S})\)</span>, there is the model-implied covariance matrix <span class="math inline">\((\Sigma({\hat{\theta}}))\)</span>, the residual covariance matrix <span class="math inline">\((\Theta_{\delta})\)</span>, and the standardized residual covariance matrix.</p>
+<p>We can get the model-implied covariance matrix from the fitted output using the <code>fitted()</code> function. We can isolate the covariance by attaching <code>$cov</code> to this object.</p>
+<div class="sourceCode" id="cb643"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb643-1"><a href="fitting-a-cfa-model.html#cb643-1" tabindex="-1"></a>Sigma_theta <span class="ot">&lt;-</span> <span class="fu">fitted</span>(cfa_fit)<span class="sc">$</span>cov</span>
+<span id="cb643-2"><a href="fitting-a-cfa-model.html#cb643-2" tabindex="-1"></a>Sigma_theta</span></code></pre></div>
+<pre><code>##        PAP1  PAP2  PAP3  PAV4  PAV5  PAV6  MAV7  MAV8  MAV9 MAP10 MAP11 MAP12
+## PAP1  2.391                                                                  
+## PAP2  1.629 2.335                                                            
+## PAP3  1.657 1.715 2.414                                                      
+## PAV4  0.751 0.777 0.790 3.754                                                
+## PAV5  0.580 0.600 0.610 1.011 2.819                                          
+## PAV6  0.897 0.928 0.944 1.565 1.209 2.942                                    
+## MAV7  0.197 0.203 0.207 0.378 0.292 0.451 2.026                              
+## MAV8  0.384 0.398 0.404 0.739 0.570 0.883 0.844 2.260                        
+## MAV9  0.363 0.375 0.382 0.697 0.538 0.833 0.796 1.558 2.573                  
+## MAP10 0.308 0.319 0.324 0.080 0.062 0.096 0.159 0.311 0.293 1.388            
+## MAP11 0.300 0.310 0.316 0.078 0.060 0.093 0.155 0.303 0.286 0.646 0.956      
+## MAP12 0.320 0.332 0.337 0.083 0.064 0.100 0.165 0.323 0.305 0.690 0.672 1.431</code></pre>
+<p>This seems to be similar to the sample covariance matrix, <span class="math inline">\(\text{S}\)</span>.</p>
+<div class="sourceCode" id="cb645"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb645-1"><a href="fitting-a-cfa-model.html#cb645-1" tabindex="-1"></a>S_sample <span class="ot">&lt;-</span> <span class="fu">inspect</span>(cfa_fit, <span class="st">&#39;sampstat&#39;</span>)<span class="sc">$</span>cov</span>
+<span id="cb645-2"><a href="fitting-a-cfa-model.html#cb645-2" tabindex="-1"></a>S_sample</span></code></pre></div>
+<pre><code>##         PAP1   PAP2   PAP3   PAV4   PAV5   PAV6   MAV7   MAV8   MAV9  MAP10  MAP11  MAP12
+## PAP1   2.391                                                                             
+## PAP2   1.629  2.335                                                                      
+## PAP3   1.687  1.691  2.414                                                               
+## PAV4   0.497  0.726  0.567  3.754                                                        
+## PAV5   0.424  0.637  0.466  1.236  2.819                                                 
+## PAV6   0.778  1.103  1.109  1.602  1.086  2.942                                          
+## MAV7  -0.087  0.148  0.046  0.626  0.784  0.581  2.026                                   
+## MAV8   0.331  0.487  0.507  0.635  0.707  0.837  0.827  2.260                            
+## MAV9   0.194  0.356  0.408  0.369  0.685  0.829  0.764  1.571  2.573                     
+## MAP10  0.509  0.458  0.409  0.089  0.131  0.120  0.031  0.270  0.243  1.388              
+## MAP11  0.275  0.302  0.283  0.022 -0.012  0.086  0.072  0.297  0.278  0.643  0.956       
+## MAP12  0.207  0.281  0.237  0.067  0.042  0.172  0.272  0.397  0.393  0.680  0.679  1.431</code></pre>
+<p>The discrepancy between <span class="math inline">\(\Sigma({\hat{\theta}})\)</span> and <span class="math inline">\(\text{S}\)</span> is the residual matrix. This discrepancy is the basis for the fit statistics. We can calculate it as <code>S_sample - Sigma_theta</code> given the objects we just created. Alternatively, we can get <span class="math inline">\(\Theta_{\delta}\)</span> using the <code>resid()</code> function:</p>
+<div class="sourceCode" id="cb647"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb647-1"><a href="fitting-a-cfa-model.html#cb647-1" tabindex="-1"></a>theta_delta <span class="ot">&lt;-</span> <span class="fu">resid</span>(cfa_fit, <span class="at">type =</span> <span class="st">&quot;raw&quot;</span>)</span>
+<span id="cb647-2"><a href="fitting-a-cfa-model.html#cb647-2" tabindex="-1"></a>theta_delta</span></code></pre></div>
+<pre><code>## $type
+## [1] &quot;raw&quot;
+## 
+## $cov
+##         PAP1   PAP2   PAP3   PAV4   PAV5   PAV6   MAV7   MAV8   MAV9  MAP10  MAP11  MAP12
+## PAP1   0.000                                                                             
+## PAP2   0.000  0.000                                                                      
+## PAP3   0.030 -0.023  0.000                                                               
+## PAV4  -0.253 -0.051 -0.222  0.000                                                        
+## PAV5  -0.156  0.037 -0.144  0.224  0.000                                                 
+## PAV6  -0.119  0.175  0.165  0.037 -0.122  0.000                                          
+## MAV7  -0.284 -0.056 -0.161  0.248  0.492  0.130  0.000                                   
+## MAV8  -0.053  0.089  0.102 -0.103  0.137 -0.046 -0.017  0.000                            
+## MAV9  -0.169 -0.020  0.026 -0.328  0.147 -0.004 -0.033  0.013  0.000                     
+## MAP10  0.201  0.139  0.085  0.009  0.069  0.024 -0.128 -0.041 -0.050  0.000              
+## MAP11 -0.025 -0.008 -0.033 -0.056 -0.073 -0.007 -0.082 -0.006 -0.007 -0.003  0.000       
+## MAP12 -0.114 -0.050 -0.100 -0.017 -0.023  0.072  0.106  0.073  0.088 -0.009  0.007  0.000
+## 
+## $mean
+##  PAP1  PAP2  PAP3  PAV4  PAV5  PAV6  MAV7  MAV8  MAV9 MAP10 MAP11 MAP12 
+##     0     0     0     0     0     0     0     0     0     0     0     0</code></pre>
+<p>Finally, if we need access to the standardized residuals, we can use the <code>resid()</code> function with the <code>type = "standardized"</code>:</p>
+<div class="sourceCode" id="cb649"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb649-1"><a href="fitting-a-cfa-model.html#cb649-1" tabindex="-1"></a>std_resids <span class="ot">&lt;-</span> <span class="fu">resid</span>(cfa_fit, <span class="at">type =</span> <span class="st">&quot;standardized&quot;</span>)</span>
+<span id="cb649-2"><a href="fitting-a-cfa-model.html#cb649-2" tabindex="-1"></a>std_resids</span></code></pre></div>
+<pre><code>## $type
+## [1] &quot;standardized&quot;
+## 
+## $cov
+##         PAP1   PAP2   PAP3   PAV4   PAV5   PAV6   MAV7   MAV8   MAV9  MAP10  MAP11  MAP12
+## PAP1   0.000                                                                             
+## PAP2   0.001  0.000                                                                      
+## PAP3   1.010 -0.926  0.000                                                               
+## PAV4  -3.637 -0.767 -3.379  0.000                                                        
+## PAV5  -2.247  0.600 -2.190  2.907  0.000                                                 
+## PAV6  -2.613  3.469  3.507  1.055 -3.494  0.000                                          
+## MAV7  -4.237 -0.861 -2.424  2.911  6.958  1.867  0.000                                   
+## MAV8  -1.247  2.349  2.468 -1.831  2.123 -1.247 -0.669  0.000                            
+## MAV9  -2.957 -0.368  0.467 -5.143  2.089 -0.075 -1.021  0.593  0.000                     
+## MAP10  4.720  3.313  1.945  0.152  1.237  0.539 -2.591 -1.167 -1.125  0.000              
+## MAP11 -0.844 -0.287 -1.181 -1.275 -1.691 -0.242 -2.078 -0.269 -0.235 -0.354  0.000       
+## MAP12 -2.560 -1.202 -2.456 -0.264 -0.391  1.654  2.145  2.186  2.250 -0.857  1.089  0.000
+## 
+## $mean
+##  PAP1  PAP2  PAP3  PAV4  PAV5  PAV6  MAV7  MAV8  MAV9 MAP10 MAP11 MAP12 
+##     0     0     0     0     0     0     0     0     0     0     0     0</code></pre>
+<p>Because these are in <em>z</em>-score units, those standardized errors that are greater in absolute value than 2 are unexpected if the model has good fit. Although these can be inflated because of small standard deviations, some of the larger estimates are worth looking into. For example, with <code>PAV5</code> and <code>PAV7</code> there’s a <em>z</em>-score of 6.96, which is pretty big. It is a positive value indicating that the model-implied covariance (<span class="math inline">\(0.292\)</span>) underestimated the covariance between these two variables.</p>
+</div>
+</div>
+<div id="further-inspecting-our-models-parameters" class="section level2 hasAnchor" number="21.5">
+<h2><span class="header-section-number">21.5</span> Further inspecting our model’s parameters<a href="fitting-a-cfa-model.html#further-inspecting-our-models-parameters" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="seeing-which-parameters-were-estimated" class="section level3 hasAnchor" number="21.5.1">
+<h3><span class="header-section-number">21.5.1</span> Seeing which parameters were estimated<a href="fitting-a-cfa-model.html#seeing-which-parameters-were-estimated" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Sometimes, we want to see what all of the estimated parameters are in the model. We can use the <code>inspect()</code> function on our model’s output. This will report which parameters are estimated and enumerate them (from 1 up to 42 in our model). By default, some parameters are fixed and others are estimated. For example, with our specification, each factor’s first observed variable’s loading is not estimated because it is fixed to 1 in order to place the factor on a scale. We can see this in the <code>$lambda</code> part of the output, where those parameters are not enumerated but are instead marked as <code>0</code>, indicating they were not estimated.</p>
+<div class="sourceCode" id="cb651"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb651-1"><a href="fitting-a-cfa-model.html#cb651-1" tabindex="-1"></a><span class="fu">inspect</span>(cfa_fit)</span></code></pre></div>
+<pre><code>## $lambda
+##       PAP PAV MAV MAP
+## PAP1    0   0   0   0
+## PAP2    1   0   0   0
+## PAP3    2   0   0   0
+## PAV4    0   0   0   0
+## PAV5    0   3   0   0
+## PAV6    0   4   0   0
+## MAV7    0   0   0   0
+## MAV8    0   0   5   0
+## MAV9    0   0   6   0
+## MAP10   0   0   0   0
+## MAP11   0   0   0   7
+## MAP12   0   0   0   8
+## 
+## $theta
+##       PAP1 PAP2 PAP3 PAV4 PAV5 PAV6 MAV7 MAV8 MAV9 MAP10 MAP11 MAP12
+## PAP1     9                                                          
+## PAP2     0   10                                                     
+## PAP3     0    0   11                                                
+## PAV4     0    0    0   12                                           
+## PAV5     0    0    0    0   13                                      
+## PAV6     0    0    0    0    0   14                                 
+## MAV7     0    0    0    0    0    0   15                            
+## MAV8     0    0    0    0    0    0    0   16                       
+## MAV9     0    0    0    0    0    0    0    0   17                  
+## MAP10    0    0    0    0    0    0    0    0    0    18            
+## MAP11    0    0    0    0    0    0    0    0    0     0    19      
+## MAP12    0    0    0    0    0    0    0    0    0     0     0    20
+## 
+## $psi
+##     PAP PAV MAV MAP
+## PAP  21            
+## PAV  25  22        
+## MAV  26  28  23    
+## MAP  27  29  30  24
+## 
+## $nu
+##       intrcp
+## PAP1      31
+## PAP2      32
+## PAP3      33
+## PAV4      34
+## PAV5      35
+## PAV6      36
+## MAV7      37
+## MAV8      38
+## MAV9      39
+## MAP10     40
+## MAP11     41
+## MAP12     42
+## 
+## $alpha
+##     intrcp
+## PAP      0
+## PAV      0
+## MAV      0
+## MAP      0</code></pre>
+<p>We also see in the <code>$theta</code> portion of the output that all of the variances in the <span class="math inline">\(\Theta_{\delta}\)</span> matrix are estimated whereas none of the covariances is. The parameters in the <code>$psi</code> part of the output are the estimated variances and covariances among the factors.<a href="#fn65" class="footnote-ref" id="fnref65"><sup>65</sup></a> By default, these are all estimated.<a href="#fn66" class="footnote-ref" id="fnref66"><sup>66</sup></a></p>
+</div>
+<div id="optional-saving-parameter-estimates-to-a-data-frame" class="section level3 hasAnchor" number="21.5.2">
+<h3><span class="header-section-number">21.5.2</span> Optional: Saving parameter estimates to a data frame<a href="fitting-a-cfa-model.html#optional-saving-parameter-estimates-to-a-data-frame" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Though we can see the parameter estimates in the model output, we can also get them in data-frame format. This is convenient if we wish to save them to a data frame or export them to a CSV file. We see there are three operators here. We used the <code>=~</code> in our model specification to refer to the factor-item loadings. The <code>~~</code> refers to variances and covariances, and the <code>~1</code> refers to the intercepts, which we can interpret in this model as the means. The <code>lhs</code> and <code>rhs</code> are the <strong>l</strong>eft and <strong>r</strong>ight <strong>h</strong>and <strong>s</strong>ides of the operator, which we can use to filter which parameters we would like to deal with from the resulting data frame (as we do below).</p>
+<div class="sourceCode" id="cb653"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb653-1"><a href="fitting-a-cfa-model.html#cb653-1" tabindex="-1"></a>params <span class="ot">&lt;-</span> <span class="fu">parameterEstimates</span>(cfa_fit)</span>
+<span id="cb653-2"><a href="fitting-a-cfa-model.html#cb653-2" tabindex="-1"></a>params</span></code></pre></div>
+<pre><code>##      lhs op   rhs   est    se       z pvalue ci.lower ci.upper
+## 1    PAP =~  PAP1 1.000 0.000      NA     NA    1.000    1.000
+## 2    PAP =~  PAP2 1.035 0.037  28.243  0.000    0.963    1.106
+## 3    PAP =~  PAP3 1.052 0.038  27.683  0.000    0.978    1.127
+## 4    PAV =~  PAV4 1.000 0.000      NA     NA    1.000    1.000
+## 5    PAV =~  PAV5 0.772 0.062  12.356  0.000    0.650    0.895
+## 6    PAV =~  PAV6 1.195 0.082  14.615  0.000    1.035    1.355
+## 7    MAV =~  MAV7 1.000 0.000      NA     NA    1.000    1.000
+## 8    MAV =~  MAV8 1.956 0.169  11.600  0.000    1.625    2.286
+## 9    MAV =~  MAV9 1.845 0.160  11.547  0.000    1.532    2.158
+## 10   MAP =~ MAP10 1.000 0.000      NA     NA    1.000    1.000
+## 11   MAP =~ MAP11 0.974 0.056  17.430  0.000    0.865    1.084
+## 12   MAP =~ MAP12 1.041 0.066  15.885  0.000    0.912    1.169
+## 13  PAP1 ~~  PAP1 0.816 0.063  12.990  0.000    0.693    0.939
+## 14  PAP2 ~~  PAP2 0.649 0.068   9.558  0.000    0.516    0.782
+## 15  PAP3 ~~  PAP3 0.671 0.079   8.483  0.000    0.516    0.826
+## 16  PAV4 ~~  PAV4 2.445 0.153  15.983  0.000    2.145    2.744
+## 17  PAV5 ~~  PAV5 2.038 0.116  17.564  0.000    1.811    2.265
+## 18  PAV6 ~~  PAV6 1.071 0.139   7.692  0.000    0.798    1.344
+## 19  MAV7 ~~  MAV7 1.594 0.081  19.625  0.000    1.435    1.753
+## 20  MAV8 ~~  MAV8 0.609 0.085   7.123  0.000    0.441    0.776
+## 21  MAV9 ~~  MAV9 1.104 0.100  11.048  0.000    0.908    1.299
+## 22 MAP10 ~~ MAP10 0.725 0.062  11.609  0.000    0.603    0.847
+## 23 MAP11 ~~ MAP11 0.327 0.033   9.775  0.000    0.262    0.393
+## 24 MAP12 ~~ MAP12 0.713 0.057  12.606  0.000    0.602    0.824
+## 25   PAP ~~   PAP 1.575 0.114  13.872  0.000    1.352    1.797
+## 26   PAV ~~   PAV 1.310 0.148   8.832  0.000    1.019    1.600
+## 27   MAV ~~   MAV 0.432 0.070   6.200  0.000    0.295    0.568
+## 28   MAP ~~   MAP 0.663 0.067   9.850  0.000    0.531    0.795
+## 29   PAP ~~   PAV 0.751 0.074  10.112  0.000    0.605    0.896
+## 30   PAP ~~   MAV 0.197 0.038   5.123  0.000    0.121    0.272
+## 31   PAP ~~   MAP 0.308 0.046   6.719  0.000    0.218    0.398
+## 32   PAV ~~   MAV 0.378 0.056   6.693  0.000    0.267    0.488
+## 33   PAV ~~   MAP 0.080 0.038   2.133  0.033    0.007    0.154
+## 34   MAV ~~   MAP 0.159 0.024   6.558  0.000    0.111    0.206
+## 35  PAP1 ~1       5.155 0.048 106.570  0.000    5.060    5.249
+## 36  PAP2 ~1       5.201 0.048 108.813  0.000    5.107    5.294
+## 37  PAP3 ~1       4.915 0.049 101.118  0.000    4.820    5.010
+## 38  PAV4 ~1       4.860 0.061  80.186  0.000    4.741    4.979
+## 39  PAV5 ~1       4.713 0.053  89.744  0.000    4.610    4.816
+## 40  PAV6 ~1       4.192 0.054  78.131  0.000    4.087    4.297
+## 41  MAV7 ~1       5.103 0.045 114.616  0.000    5.015    5.190
+## 42  MAV8 ~1       4.135 0.047  87.939  0.000    4.043    4.227
+## 43  MAV9 ~1       3.890 0.050  77.534  0.000    3.792    3.989
+## 44 MAP10 ~1       5.756 0.037 156.210  0.000    5.684    5.829
+## 45 MAP11 ~1       6.209 0.031 203.007  0.000    6.149    6.269
+## 46 MAP12 ~1       5.889 0.037 157.389  0.000    5.816    5.963
+## 47   PAP ~1       0.000 0.000      NA     NA    0.000    0.000
+## 48   PAV ~1       0.000 0.000      NA     NA    0.000    0.000
+## 49   MAV ~1       0.000 0.000      NA     NA    0.000    0.000
+## 50   MAP ~1       0.000 0.000      NA     NA    0.000    0.000</code></pre>
+</div>
+<div id="generating-path-diagrams" class="section level3 hasAnchor" number="21.5.3">
+<h3><span class="header-section-number">21.5.3</span> Generating path diagrams<a href="fitting-a-cfa-model.html#generating-path-diagrams" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The semPlot package <span class="citation">(<a href="#ref-R-semPlot"><strong>R-semPlot?</strong></a>)</span> provides a function for plotting the output from lavaan’s <code>CFA()</code> function. We can generate the standardized and unstandardized solutions.<a href="#fn67" class="footnote-ref" id="fnref67"><sup>67</sup></a> There are several arguments available, which are described in the help files.</p>
+<div class="sourceCode" id="cb655"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb655-1"><a href="fitting-a-cfa-model.html#cb655-1" tabindex="-1"></a>semPlot<span class="sc">::</span><span class="fu">semPaths</span>(cfa_fit, <span class="at">what =</span> <span class="st">&quot;est&quot;</span>, <span class="at">intercept =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb655-2"><a href="fitting-a-cfa-model.html#cb655-2" tabindex="-1"></a>  <span class="at">rotation =</span> <span class="dv">2</span>, <span class="at">fade =</span> F, <span class="at">edge.color =</span> <span class="st">&quot;black&quot;</span>, </span>
+<span id="cb655-3"><a href="fitting-a-cfa-model.html#cb655-3" tabindex="-1"></a>  <span class="at">curvePivot =</span> T, <span class="at">sizeMan =</span> <span class="dv">8</span>, <span class="at">residuals =</span> F, <span class="at">curvature =</span> <span class="fl">2.5</span>,</span>
+<span id="cb655-4"><a href="fitting-a-cfa-model.html#cb655-4" tabindex="-1"></a>  <span class="at">title =</span> <span class="cn">FALSE</span>, <span class="at">sizeMan2 =</span> <span class="dv">3</span>, <span class="at">sizeLat2 =</span> <span class="dv">8</span>,</span>
+<span id="cb655-5"><a href="fitting-a-cfa-model.html#cb655-5" tabindex="-1"></a>  <span class="at">label.cex =</span> <span class="dv">1</span>, <span class="at">edge.label.cex =</span> <span class="fl">1.2</span>)</span>
+<span id="cb655-6"><a href="fitting-a-cfa-model.html#cb655-6" tabindex="-1"></a><span class="fu">title</span>(<span class="st">&quot;Unstandardized solution&quot;</span>, <span class="at">line =</span> <span class="dv">1</span>)</span></code></pre></div>
+<p><img src="multivariate_stats_files/figure-html/unnamed-chunk-358-1.png" width="672" /></p>
+<p>The dotted line indicates the path coefficient was not estimated because the factor was scaled to that item. We could specify the model with factor variances scaled to 1 and generate a new path model.</p>
+</div>
+<div id="examining-modification-indices" class="section level3 hasAnchor" number="21.5.4">
+<h3><span class="header-section-number">21.5.4</span> Examining modification indices<a href="fitting-a-cfa-model.html#examining-modification-indices" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Notice that if we permitted the errors to correlate between <code>PAV5</code> and <code>MAV7</code>, we would improve our chi-square by 40.375. The estimated parameter change (epc) is 0.386, which is what the error covariance is estimated to be if we permitted this to be estimated in the model.</p>
+<div class="sourceCode" id="cb656"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb656-1"><a href="fitting-a-cfa-model.html#cb656-1" tabindex="-1"></a>Mod_inds <span class="ot">&lt;-</span> <span class="fu">modindices</span>(cfa_fit, </span>
+<span id="cb656-2"><a href="fitting-a-cfa-model.html#cb656-2" tabindex="-1"></a>           <span class="at">standardized  =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb656-3"><a href="fitting-a-cfa-model.html#cb656-3" tabindex="-1"></a>           <span class="at">minimum.value =</span> <span class="fl">3.84</span>,</span>
+<span id="cb656-4"><a href="fitting-a-cfa-model.html#cb656-4" tabindex="-1"></a>                   <span class="at">sort. =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb656-5"><a href="fitting-a-cfa-model.html#cb656-5" tabindex="-1"></a>Mod_inds[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, ]</span></code></pre></div>
+<pre><code>##      lhs op   rhs     mi    epc sepc.lv sepc.all sepc.nox
+## 126 PAV5 ~~  MAV7 40.375  0.386   0.386    0.214    0.214
+## 125 PAV5 ~~  PAV6 33.826 -0.591  -0.591   -0.400   -0.400
+## 60   PAV =~  PAP1 30.608 -0.235  -0.269   -0.174   -0.174
+## 121 PAV4 ~~  MAV9 23.206 -0.310  -0.310   -0.189   -0.189
+## 53   PAP =~  PAV6 22.759  0.326   0.409    0.239    0.239
+## 57   PAP =~ MAP10 20.215  0.126   0.158    0.135    0.135
+## 98  PAP2 ~~  PAP3 19.871 -0.363  -0.363   -0.551   -0.551
+## 95  PAP1 ~~ MAP10 19.295  0.133   0.133    0.174    0.174
+## 88  PAP1 ~~  PAP3 17.587  0.311   0.311    0.420    0.420
+## 117 PAV4 ~~  PAV5 17.394  0.378   0.378    0.169    0.169</code></pre>
+<p>Because we used the <code>sort. = TRUE</code> argument, the parameters are ranked by modification index. We asked for only the first 10, though there seem to be many more. The <code>~~</code> symbolizes covariance; the <code>=~</code> symbolizes the loading of an observed variable on a factor. With our current specification, the model is particularly failing to account for error covariances between <code>PAV5</code> and two other items, <code>MAV7</code> and <code>PAV6</code>. There also seems to be some unexpected relationship between <code>PAP1</code> and the <code>PAV</code> factor that the model is failing to account for. There are several other sources of variance that seem to explain our model’s lack of fit. These modification indices are useful for understanding the sources of misfit in our model and might be used to critique the current model’s application to real data.</p>
+</div>
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="64">
+<li id="fn64"><p>The <code>estimator = "MLR"</code> specification does not work with covariance data. This means that if we use the covariance matrix as the input, we assume the data are multivariate normal.<a href="fitting-a-cfa-model.html#fnref64" class="footnote-back">↩︎</a></p></li>
+<li id="fn65"><p>Because our factors are predictors of the observed variables, we can call this a phi matrix even though it is listed as psi.<a href="fitting-a-cfa-model.html#fnref65" class="footnote-back">↩︎</a></p></li>
+<li id="fn66"><p>If you’re curious, the <code>$nu</code> <span class="math inline">\((\nu)\)</span> portion shows that the model also estimates the intercept of each of the variables, which we can think of as their means and which can be interpreted as the average facility to endorse each item. These are sometimes called tau <span class="math inline">\((\tau)\)</span> parameters. In item-response theory these are essentially item difficulty parameters. The <code>$alpha</code> <span class="math inline">\((\alpha)\)</span> intercepts are fixed to zero by default. In most models, these are the factor means. We see that altogether we have 42 parameters being estimated, which we saw in our original output from <code>summary(cfa_fit)</code>. We can also remember that when we estimate the model-implied covariance <span class="math inline">\((\Sigma({\hat{\theta}}))\)</span>, we are not estimating the items’ means, so we do not include the number of <span class="math inline">\(\nu\)</span> estimates when we consider the model’s degrees of freedom <span class="math inline">\((\frac{\nu(\nu + 1)}{2} - \text{number of parameters} = 78 - 30 = 48)\)</span>.<a href="fitting-a-cfa-model.html#fnref66" class="footnote-back">↩︎</a></p></li>
+<li id="fn67"><p>For standardized parameters, include <code>what = "std"</code>.<a href="fitting-a-cfa-model.html#fnref67" class="footnote-back">↩︎</a></p></li>
+</ol>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="preparatory-steps-3.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="using-alternative-model-specifications.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": {
+    "github": false,
+    "facebook": true,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": null,
+    "text": null
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": null,
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "subsection"
+  }
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
