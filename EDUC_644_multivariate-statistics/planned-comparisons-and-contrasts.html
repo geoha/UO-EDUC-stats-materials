@@ -4,23 +4,23 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>3 Planned Comparisons and Contrasts | EDUC 644 Applied Multivariate Statistics</title>
-  <meta name="description" content="Course materials for multivariate statistics" />
+  <title>3 Planned Comparisons and Contrasts | Guidebook for Using R in Applied Multivariate Statistics</title>
+  <meta name="description" content="Course guidebook for multivariate statistics" />
   <meta name="generator" content="bookdown 0.44 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="3 Planned Comparisons and Contrasts | EDUC 644 Applied Multivariate Statistics" />
+  <meta property="og:title" content="3 Planned Comparisons and Contrasts | Guidebook for Using R in Applied Multivariate Statistics" />
   <meta property="og:type" content="book" />
   
-  <meta property="og:description" content="Course materials for multivariate statistics" />
+  <meta property="og:description" content="Course guidebook for multivariate statistics" />
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="3 Planned Comparisons and Contrasts | EDUC 644 Applied Multivariate Statistics" />
+  <meta name="twitter:title" content="3 Planned Comparisons and Contrasts | Guidebook for Using R in Applied Multivariate Statistics" />
   
-  <meta name="twitter:description" content="Course materials for multivariate statistics" />
+  <meta name="twitter:description" content="Course guidebook for multivariate statistics" />
   
 
-<meta name="author" content="George Harrison" />
+<meta name="author" content="George M. Harrison" />
 
 
 
@@ -171,7 +171,10 @@ div.csl-indent {
 <ul>
 <li class="chapter" data-level="1.1" data-path="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#scalars"><i class="fa fa-check"></i><b>1.1</b> Scalars</a></li>
 <li class="chapter" data-level="1.2" data-path="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#vectors"><i class="fa fa-check"></i><b>1.2</b> Vectors</a></li>
-<li class="chapter" data-level="1.3" data-path="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#matrices"><i class="fa fa-check"></i><b>1.3</b> Matrices</a></li>
+<li class="chapter" data-level="1.3" data-path="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#matrices"><i class="fa fa-check"></i><b>1.3</b> Matrices</a>
+<ul>
+<li class="chapter" data-level="1.3.1" data-path="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#data-files-as-matrices"><i class="fa fa-check"></i><b>1.3.1</b> Data Files as Matrices</a></li>
+</ul></li>
 <li class="chapter" data-level="1.4" data-path="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#symmetrical-matrices"><i class="fa fa-check"></i><b>1.4</b> Symmetrical Matrices</a>
 <ul>
 <li class="chapter" data-level="1.4.1" data-path="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#variance-covariance-matrices"><i class="fa fa-check"></i><b>1.4.1</b> Variance-covariance Matrices</a></li>
@@ -390,7 +393,7 @@ div.csl-indent {
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">EDUC 644 Applied Multivariate Statistics</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Guidebook for Using R in Applied Multivariate Statistics</a>
           </h1>
         </div>
 
@@ -400,27 +403,27 @@ div.csl-indent {
             <section class="normal" id="section-">
 <div id="planned-comparisons-and-contrasts" class="section level1 hasAnchor" number="3">
 <h1><span class="header-section-number">3</span> Planned Comparisons and Contrasts<a href="planned-comparisons-and-contrasts.html#planned-comparisons-and-contrasts" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p>We use planned comparisons when we have research questions about specific group differences. If we’re simply exploring, we might use post-hoc tests (which I have <em>never</em> done because I’ve always had a research question).</p>
-<p>There are two types of planned comparisons we should think about: Orthogonal and non-orthogonal. We’ll look at orthogonal contrasts first and then non-orthogonal. Even though orthogonal are better, we should let our research question guide us in which contrasts we use.</p>
+<p>We use planned comparisons when we have research questions about specific group differences. If we’re simply exploring, we might use post-hoc comparisons, which are useful if we do not have specific research questions about group differences. The term <em>comparisons</em> can encompass both post hoc comparisons and planned contrasts. The term <em>contrasts</em> usually refers to the numerically weighted comparisons.</p>
+<p>There are two types of planned contrasts we should think about: Orthogonal and non-orthogonal. We’ll look at orthogonal contrasts first and then non-orthogonal. Even though orthogonal are better, we should let our research question guide us in which contrasts we use.</p>
 <div id="data-from-week-1" class="section level2 hasAnchor" number="3.1">
 <h2><span class="header-section-number">3.1</span> Data from Week 1<a href="planned-comparisons-and-contrasts.html#data-from-week-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Here is our data set, again. We have three variables, described in the Week 1 slides.</p>
-<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="planned-comparisons-and-contrasts.html#cb36-1" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb36-2"><a href="planned-comparisons-and-contrasts.html#cb36-2" tabindex="-1"></a>  <span class="at">person =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">15</span>,</span>
-<span id="cb36-3"><a href="planned-comparisons-and-contrasts.html#cb36-3" tabindex="-1"></a>  <span class="at">treatment =</span> <span class="fu">factor</span>(<span class="fu">rep</span>( <span class="fu">c</span>(<span class="st">&quot;Placebo&quot;</span>, <span class="st">&quot;Low dose&quot;</span>, <span class="st">&quot;High dose&quot;</span>), <span class="at">each =</span> <span class="dv">5</span>),</span>
-<span id="cb36-4"><a href="planned-comparisons-and-contrasts.html#cb36-4" tabindex="-1"></a>                     <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">&quot;Placebo&quot;</span>, <span class="st">&quot;Low dose&quot;</span>, <span class="st">&quot;High dose&quot;</span>)),</span>
-<span id="cb36-5"><a href="planned-comparisons-and-contrasts.html#cb36-5" tabindex="-1"></a>  <span class="at">waketime =</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">7</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">3</span>, <span class="dv">6</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="planned-comparisons-and-contrasts.html#cb35-1" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb35-2"><a href="planned-comparisons-and-contrasts.html#cb35-2" tabindex="-1"></a>  <span class="at">person =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">15</span>,</span>
+<span id="cb35-3"><a href="planned-comparisons-and-contrasts.html#cb35-3" tabindex="-1"></a>  <span class="at">treatment =</span> <span class="fu">factor</span>(<span class="fu">rep</span>( <span class="fu">c</span>(<span class="st">&quot;Placebo&quot;</span>, <span class="st">&quot;Low dose&quot;</span>, <span class="st">&quot;High dose&quot;</span>), <span class="at">each =</span> <span class="dv">5</span>),</span>
+<span id="cb35-4"><a href="planned-comparisons-and-contrasts.html#cb35-4" tabindex="-1"></a>                     <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">&quot;Placebo&quot;</span>, <span class="st">&quot;Low dose&quot;</span>, <span class="st">&quot;High dose&quot;</span>)),</span>
+<span id="cb35-5"><a href="planned-comparisons-and-contrasts.html#cb35-5" tabindex="-1"></a>  <span class="at">waketime =</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">7</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">3</span>, <span class="dv">6</span>))</span></code></pre></div>
 <p>After we look at the descriptive statistics and assumptions, we can set up our analysis. Let’s get right to the contrast coding part:</p>
 <p>We can assign contrast codes to the categorical variable of interest. Let’s say we had two research questions: (a) whether any form of dosage was better than the placebo, and (b) whether there was a difference in the two dosages. We can look at the ordering of our levels in our variable, which we’ll use when we create corresponding planned contrasts:</p>
-<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="planned-comparisons-and-contrasts.html#cb37-1" tabindex="-1"></a><span class="fu">levels</span>(dat<span class="sc">$</span>treatment)</span></code></pre></div>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="planned-comparisons-and-contrasts.html#cb36-1" tabindex="-1"></a><span class="fu">levels</span>(dat<span class="sc">$</span>treatment)</span></code></pre></div>
 <pre><code>## [1] &quot;Placebo&quot;   &quot;Low dose&quot;  &quot;High dose&quot;</code></pre>
 <p>We can create a vector for each contrast and assign them to an object. In the previous code, I used the generic <code>contrast1</code> as the object name. Here, let’s name the objects so we can remember what two groupings we’re comparing:</p>
-<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="planned-comparisons-and-contrasts.html#cb39-1" tabindex="-1"></a>PvLH <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">1</span>)</span>
-<span id="cb39-2"><a href="planned-comparisons-and-contrasts.html#cb39-2" tabindex="-1"></a>LvH  <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="sc">-</span><span class="dv">1</span>, <span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="planned-comparisons-and-contrasts.html#cb38-1" tabindex="-1"></a>PvLH <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">1</span>)</span>
+<span id="cb38-2"><a href="planned-comparisons-and-contrasts.html#cb38-2" tabindex="-1"></a>LvH  <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="sc">-</span><span class="dv">1</span>, <span class="dv">1</span>)</span></code></pre></div>
 <p>Next, we assign these contrasts to the <code>contrasts</code> attribute of the variable in our data set. We use the <code>cbind()</code> function because this is the format the attribute requires; we’re taking the two vectors and binding them together as columns.</p>
-<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="planned-comparisons-and-contrasts.html#cb40-1" tabindex="-1"></a><span class="fu">contrasts</span>(dat<span class="sc">$</span>treatment) <span class="ot">&lt;-</span> <span class="fu">cbind</span>(PvLH, LvH)</span></code></pre></div>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="planned-comparisons-and-contrasts.html#cb39-1" tabindex="-1"></a><span class="fu">contrasts</span>(dat<span class="sc">$</span>treatment) <span class="ot">&lt;-</span> <span class="fu">cbind</span>(PvLH, LvH)</span></code></pre></div>
 <p>We can take a peek at the attributes of our variable, where the contrasts are stored:</p>
-<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="planned-comparisons-and-contrasts.html#cb41-1" tabindex="-1"></a><span class="fu">attributes</span>(dat<span class="sc">$</span>treatment)</span></code></pre></div>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="planned-comparisons-and-contrasts.html#cb40-1" tabindex="-1"></a><span class="fu">attributes</span>(dat<span class="sc">$</span>treatment)</span></code></pre></div>
 <pre><code>## $levels
 ## [1] &quot;Placebo&quot;   &quot;Low dose&quot;  &quot;High dose&quot;
 ## 
@@ -433,7 +436,7 @@ div.csl-indent {
 ## Low dose     1  -1
 ## High dose    1   1</code></pre>
 <p>we can also isolate this attribute if we want to perform operations on it (which we will):</p>
-<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="planned-comparisons-and-contrasts.html#cb43-1" tabindex="-1"></a><span class="fu">attributes</span>(dat<span class="sc">$</span>treatment)<span class="sc">$</span>contrasts</span></code></pre></div>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="planned-comparisons-and-contrasts.html#cb42-1" tabindex="-1"></a><span class="fu">attributes</span>(dat<span class="sc">$</span>treatment)<span class="sc">$</span>contrasts</span></code></pre></div>
 <pre><code>##           PvLH LvH
 ## Placebo     -2   0
 ## Low dose     1  -1
@@ -450,23 +453,23 @@ div.csl-indent {
 <li>The sum of the products of the codes for each group must be zero.</li>
 </ol>
 <p>Let’s check these two conditions. First, we can look at the sum of the contrasts within each of our two contrasts. This part is easy. For the first one, <span class="math inline">\(-2 + 1 + 1 = 0\)</span> and for the second one, <span class="math inline">\(0 + -1 + 1 = 0\)</span>. We can use the <code>apply()</code> function here. This has three arguments: The data (the first argument), the margin, and the function. The <code>FUN =</code> argument specifies which function to use with the data. Here, we’re using <code>sum()</code>. The <code>MARGIN =</code> function specifies which margin to apply this to. I remember this as being in the same order that we use in indexing—the first margin is the rows; the second is the columns. Here, we’re performing the <code>sum()</code> function on the columns (the margin would be a column score):</p>
-<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="planned-comparisons-and-contrasts.html#cb45-1" tabindex="-1"></a><span class="fu">apply</span>(<span class="fu">attributes</span>(dat<span class="sc">$</span>treatment)<span class="sc">$</span>contrasts,</span>
-<span id="cb45-2"><a href="planned-comparisons-and-contrasts.html#cb45-2" tabindex="-1"></a>      <span class="at">MARGIN =</span> <span class="dv">2</span>, <span class="co"># sum() on the columns (across the rows)</span></span>
-<span id="cb45-3"><a href="planned-comparisons-and-contrasts.html#cb45-3" tabindex="-1"></a>      <span class="at">FUN =</span> sum)</span></code></pre></div>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="planned-comparisons-and-contrasts.html#cb44-1" tabindex="-1"></a><span class="fu">apply</span>(<span class="fu">attributes</span>(dat<span class="sc">$</span>treatment)<span class="sc">$</span>contrasts,</span>
+<span id="cb44-2"><a href="planned-comparisons-and-contrasts.html#cb44-2" tabindex="-1"></a>      <span class="at">MARGIN =</span> <span class="dv">2</span>, <span class="co"># sum() on the columns (across the rows)</span></span>
+<span id="cb44-3"><a href="planned-comparisons-and-contrasts.html#cb44-3" tabindex="-1"></a>      <span class="at">FUN =</span> sum)</span></code></pre></div>
 <pre><code>## PvLH  LvH 
 ##    0    0</code></pre>
 <p>Cool beans. We’ve met that first condition. Let’s look at the sum of the products of the codes. <em>This is the correction to the mistake I made in last week’s code.</em> What we need to do is take the products of the weights within each group, then sum these products. If this is zero, we’re in good shape.</p>
-<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="planned-comparisons-and-contrasts.html#cb47-1" tabindex="-1"></a><span class="co"># Here are the products of the codes, per group:</span></span>
-<span id="cb47-2"><a href="planned-comparisons-and-contrasts.html#cb47-2" tabindex="-1"></a><span class="fu">apply</span>(<span class="fu">attributes</span>(dat<span class="sc">$</span>treatment)<span class="sc">$</span>contrasts, </span>
-<span id="cb47-3"><a href="planned-comparisons-and-contrasts.html#cb47-3" tabindex="-1"></a>      <span class="at">MARGIN =</span> <span class="dv">1</span>, <span class="co"># calculate the product on the rows, across the columns</span></span>
-<span id="cb47-4"><a href="planned-comparisons-and-contrasts.html#cb47-4" tabindex="-1"></a>      <span class="at">FUN =</span> prod)</span></code></pre></div>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="planned-comparisons-and-contrasts.html#cb46-1" tabindex="-1"></a><span class="co"># Here are the products of the codes, per group:</span></span>
+<span id="cb46-2"><a href="planned-comparisons-and-contrasts.html#cb46-2" tabindex="-1"></a><span class="fu">apply</span>(<span class="fu">attributes</span>(dat<span class="sc">$</span>treatment)<span class="sc">$</span>contrasts, </span>
+<span id="cb46-3"><a href="planned-comparisons-and-contrasts.html#cb46-3" tabindex="-1"></a>      <span class="at">MARGIN =</span> <span class="dv">1</span>, <span class="co"># calculate the product on the rows, across the columns</span></span>
+<span id="cb46-4"><a href="planned-comparisons-and-contrasts.html#cb46-4" tabindex="-1"></a>      <span class="at">FUN =</span> prod)</span></code></pre></div>
 <pre><code>##   Placebo  Low dose High dose 
 ##         0        -1         1</code></pre>
 <p>Indeed, if we sum these up, we get zero. We could put this inside a <code>sum()</code> function:</p>
-<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="planned-comparisons-and-contrasts.html#cb49-1" tabindex="-1"></a><span class="fu">sum</span>( </span>
-<span id="cb49-2"><a href="planned-comparisons-and-contrasts.html#cb49-2" tabindex="-1"></a>  <span class="fu">apply</span>(<span class="fu">attributes</span>(dat<span class="sc">$</span>treatment)<span class="sc">$</span>contrasts, </span>
-<span id="cb49-3"><a href="planned-comparisons-and-contrasts.html#cb49-3" tabindex="-1"></a>        <span class="at">MARGIN =</span> <span class="dv">1</span>, </span>
-<span id="cb49-4"><a href="planned-comparisons-and-contrasts.html#cb49-4" tabindex="-1"></a>        <span class="at">FUN =</span> prod) )</span></code></pre></div>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="planned-comparisons-and-contrasts.html#cb48-1" tabindex="-1"></a><span class="fu">sum</span>( </span>
+<span id="cb48-2"><a href="planned-comparisons-and-contrasts.html#cb48-2" tabindex="-1"></a>  <span class="fu">apply</span>(<span class="fu">attributes</span>(dat<span class="sc">$</span>treatment)<span class="sc">$</span>contrasts, </span>
+<span id="cb48-3"><a href="planned-comparisons-and-contrasts.html#cb48-3" tabindex="-1"></a>        <span class="at">MARGIN =</span> <span class="dv">1</span>, </span>
+<span id="cb48-4"><a href="planned-comparisons-and-contrasts.html#cb48-4" tabindex="-1"></a>        <span class="at">FUN =</span> prod) )</span></code></pre></div>
 <pre><code>## [1] 0</code></pre>
 <p>We have an orthogonal contrast. Woohoo! Now, we don’t have to adjust for Type I error rates.</p>
 <div id="an-analogy-for-these-conditions" class="section level4 hasAnchor" number="3.2.1.1">
@@ -474,8 +477,8 @@ div.csl-indent {
 <p>Another way to think about this is that we are splitting up the variance so that we’re not reusing a piece of the variance. One analogy could be that we imagine the total variance in the dependent variable as a pizza and our groups as slices of that pizza (maybe with different levels of spice). We have three big slices, so we could cut up that variance in several ways. The rule for orthogonal contrasts is that <strong>we cannot isolate a group more than one time</strong> (which in turn would result in the second condition above not being met).
 With our first contrast, we taking the placebo as a single slice of pizza and we’re comparing it the other two slices combined. We have isolated the placebo group in the first contrast, so after we’ve done that, we can’t put it back on the pizza pan—we’ve accounted for its variance. With the second contrast, we’re taking individual pieces and comparing them, so each is isolated but that’s okay because we don’t have any more contrasts.</p>
 <p>Now we can fit our ANOVA model:</p>
-<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="planned-comparisons-and-contrasts.html#cb51-1" tabindex="-1"></a>a1 <span class="ot">&lt;-</span> <span class="fu">aov</span>(waketime <span class="sc">~</span> treatment, <span class="at">data =</span> dat)</span>
-<span id="cb51-2"><a href="planned-comparisons-and-contrasts.html#cb51-2" tabindex="-1"></a><span class="fu">summary</span>(a1)</span></code></pre></div>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="planned-comparisons-and-contrasts.html#cb50-1" tabindex="-1"></a>a1 <span class="ot">&lt;-</span> <span class="fu">aov</span>(waketime <span class="sc">~</span> treatment, <span class="at">data =</span> dat)</span>
+<span id="cb50-2"><a href="planned-comparisons-and-contrasts.html#cb50-2" tabindex="-1"></a><span class="fu">summary</span>(a1)</span></code></pre></div>
 <pre><code>##             Df Sum Sq Mean Sq F value Pr(&gt;F)  
 ## treatment    2  20.13  10.067   5.119 0.0247 *
 ## Residuals   12  23.60   1.967                 
@@ -483,7 +486,7 @@ With our first contrast, we taking the placebo as a single slice of pizza and we
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 <p>Because our omnibus null hypothesis was rejected, we can look at the contrasts.
 Here’s one way in R to do this:</p>
-<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="planned-comparisons-and-contrasts.html#cb53-1" tabindex="-1"></a><span class="fu">summary.lm</span>(a1)</span></code></pre></div>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="planned-comparisons-and-contrasts.html#cb52-1" tabindex="-1"></a><span class="fu">summary.lm</span>(a1)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## aov(formula = waketime ~ treatment, data = dat)
@@ -504,11 +507,11 @@ Here’s one way in R to do this:</p>
 ## Multiple R-squared:  0.4604, Adjusted R-squared:  0.3704 
 ## F-statistic: 5.119 on 2 and 12 DF,  p-value: 0.02469</code></pre>
 <p>Here’s another way, which includes the Omnibus result and seems to be a more informative output.</p>
-<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="planned-comparisons-and-contrasts.html#cb55-1" tabindex="-1"></a><span class="fu">summary.aov</span>(a1,</span>
-<span id="cb55-2"><a href="planned-comparisons-and-contrasts.html#cb55-2" tabindex="-1"></a>            <span class="at">split =</span></span>
-<span id="cb55-3"><a href="planned-comparisons-and-contrasts.html#cb55-3" tabindex="-1"></a>              <span class="fu">list</span>(<span class="at">treatment =</span> </span>
-<span id="cb55-4"><a href="planned-comparisons-and-contrasts.html#cb55-4" tabindex="-1"></a>                     <span class="fu">list</span>(<span class="st">&quot;Placebo vs Low &amp; High dose&quot;</span> <span class="ot">=</span> <span class="dv">1</span>,</span>
-<span id="cb55-5"><a href="planned-comparisons-and-contrasts.html#cb55-5" tabindex="-1"></a>                          <span class="st">&quot;Low vs High dose&quot;</span> <span class="ot">=</span> <span class="dv">2</span>) ))</span></code></pre></div>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="planned-comparisons-and-contrasts.html#cb54-1" tabindex="-1"></a><span class="fu">summary.aov</span>(a1,</span>
+<span id="cb54-2"><a href="planned-comparisons-and-contrasts.html#cb54-2" tabindex="-1"></a>            <span class="at">split =</span></span>
+<span id="cb54-3"><a href="planned-comparisons-and-contrasts.html#cb54-3" tabindex="-1"></a>              <span class="fu">list</span>(<span class="at">treatment =</span> </span>
+<span id="cb54-4"><a href="planned-comparisons-and-contrasts.html#cb54-4" tabindex="-1"></a>                     <span class="fu">list</span>(<span class="st">&quot;Placebo vs Low &amp; High dose&quot;</span> <span class="ot">=</span> <span class="dv">1</span>,</span>
+<span id="cb54-5"><a href="planned-comparisons-and-contrasts.html#cb54-5" tabindex="-1"></a>                          <span class="st">&quot;Low vs High dose&quot;</span> <span class="ot">=</span> <span class="dv">2</span>) ))</span></code></pre></div>
 <pre><code>##                                         Df Sum Sq Mean Sq F value Pr(&gt;F)  
 ## treatment                                2  20.13  10.067   5.119 0.0247 *
 ##   treatment: Placebo vs Low &amp; High dose  1  12.03  12.033   6.119 0.0293 *
@@ -516,42 +519,42 @@ Here’s one way in R to do this:</p>
 ## Residuals                               12  23.60   1.967                 
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
-<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="planned-comparisons-and-contrasts.html#cb57-1" tabindex="-1"></a><span class="co">#The `= 1` and `= 2` refer to their respective contrast order in the attributes.</span></span></code></pre></div>
+<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="planned-comparisons-and-contrasts.html#cb56-1" tabindex="-1"></a><span class="co">#The `= 1` and `= 2` refer to their respective contrast order in the attributes.</span></span></code></pre></div>
 </div>
 </div>
 </div>
 <div id="non-orthogonal-contrasts" class="section level2 hasAnchor" number="3.3">
 <h2><span class="header-section-number">3.3</span> Non-orthogonal contrasts<a href="planned-comparisons-and-contrasts.html#non-orthogonal-contrasts" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>If our research questions directed us to use a different contrast, such as whether the placebo group differed from the low-dose group and whether the placebo differed from the high-dose group, we can use this contrast coding:</p>
-<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="planned-comparisons-and-contrasts.html#cb58-1" tabindex="-1"></a>PvL <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>)</span>
-<span id="cb58-2"><a href="planned-comparisons-and-contrasts.html#cb58-2" tabindex="-1"></a>PvH <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>)</span>
-<span id="cb58-3"><a href="planned-comparisons-and-contrasts.html#cb58-3" tabindex="-1"></a><span class="fu">contrasts</span>(dat<span class="sc">$</span>treatment) <span class="ot">&lt;-</span> <span class="fu">cbind</span>(PvL, PvH)</span>
-<span id="cb58-4"><a href="planned-comparisons-and-contrasts.html#cb58-4" tabindex="-1"></a><span class="fu">attributes</span>(dat<span class="sc">$</span>treatment)<span class="sc">$</span>contrasts</span></code></pre></div>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="planned-comparisons-and-contrasts.html#cb57-1" tabindex="-1"></a>PvL <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>)</span>
+<span id="cb57-2"><a href="planned-comparisons-and-contrasts.html#cb57-2" tabindex="-1"></a>PvH <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>)</span>
+<span id="cb57-3"><a href="planned-comparisons-and-contrasts.html#cb57-3" tabindex="-1"></a><span class="fu">contrasts</span>(dat<span class="sc">$</span>treatment) <span class="ot">&lt;-</span> <span class="fu">cbind</span>(PvL, PvH)</span>
+<span id="cb57-4"><a href="planned-comparisons-and-contrasts.html#cb57-4" tabindex="-1"></a><span class="fu">attributes</span>(dat<span class="sc">$</span>treatment)<span class="sc">$</span>contrasts</span></code></pre></div>
 <pre><code>##           PvL PvH
 ## Placebo    -1  -1
 ## Low dose    1   0
 ## High dose   0   1</code></pre>
 <p>Notice that we have isolated the placebo group twice. We’ve taken out that slice of pizza and then put it back. Let’s check the conditions for orthogonality. As for summing the codes within each contrast, we’re okay—we meet the condition.</p>
-<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="planned-comparisons-and-contrasts.html#cb60-1" tabindex="-1"></a><span class="fu">apply</span>(<span class="fu">attributes</span>(dat<span class="sc">$</span>treatment)<span class="sc">$</span>contrasts,</span>
-<span id="cb60-2"><a href="planned-comparisons-and-contrasts.html#cb60-2" tabindex="-1"></a><span class="at">MARGIN =</span> <span class="dv">2</span>, <span class="co"># sum() across the columns</span></span>
-<span id="cb60-3"><a href="planned-comparisons-and-contrasts.html#cb60-3" tabindex="-1"></a><span class="at">FUN =</span> sum)</span></code></pre></div>
+<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="planned-comparisons-and-contrasts.html#cb59-1" tabindex="-1"></a><span class="fu">apply</span>(<span class="fu">attributes</span>(dat<span class="sc">$</span>treatment)<span class="sc">$</span>contrasts,</span>
+<span id="cb59-2"><a href="planned-comparisons-and-contrasts.html#cb59-2" tabindex="-1"></a><span class="at">MARGIN =</span> <span class="dv">2</span>, <span class="co"># sum() across the columns</span></span>
+<span id="cb59-3"><a href="planned-comparisons-and-contrasts.html#cb59-3" tabindex="-1"></a><span class="at">FUN =</span> sum)</span></code></pre></div>
 <pre><code>## PvL PvH 
 ##   0   0</code></pre>
 <p>But, as for meeting the second condition, no dice!<a href="#fn17" class="footnote-ref" id="fnref17"><sup>17</sup></a> The sum of the products of the codes within group is not equal to zero.</p>
-<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="planned-comparisons-and-contrasts.html#cb62-1" tabindex="-1"></a><span class="fu">sum</span>(</span>
-<span id="cb62-2"><a href="planned-comparisons-and-contrasts.html#cb62-2" tabindex="-1"></a><span class="fu">apply</span>(<span class="fu">attributes</span>(dat<span class="sc">$</span>treatment)<span class="sc">$</span>contrasts,</span>
-<span id="cb62-3"><a href="planned-comparisons-and-contrasts.html#cb62-3" tabindex="-1"></a><span class="at">MARGIN =</span> <span class="dv">1</span>,</span>
-<span id="cb62-4"><a href="planned-comparisons-and-contrasts.html#cb62-4" tabindex="-1"></a><span class="at">FUN =</span> prod) )</span></code></pre></div>
+<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="planned-comparisons-and-contrasts.html#cb61-1" tabindex="-1"></a><span class="fu">sum</span>(</span>
+<span id="cb61-2"><a href="planned-comparisons-and-contrasts.html#cb61-2" tabindex="-1"></a><span class="fu">apply</span>(<span class="fu">attributes</span>(dat<span class="sc">$</span>treatment)<span class="sc">$</span>contrasts,</span>
+<span id="cb61-3"><a href="planned-comparisons-and-contrasts.html#cb61-3" tabindex="-1"></a><span class="at">MARGIN =</span> <span class="dv">1</span>,</span>
+<span id="cb61-4"><a href="planned-comparisons-and-contrasts.html#cb61-4" tabindex="-1"></a><span class="at">FUN =</span> prod) )</span></code></pre></div>
 <pre><code>## [1] 1</code></pre>
 <p>Still, if this is our research question, we go with it and fit our model:</p>
-<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="planned-comparisons-and-contrasts.html#cb64-1" tabindex="-1"></a>a1 <span class="ot">&lt;-</span> <span class="fu">aov</span>(waketime <span class="sc">~</span> treatment, <span class="at">data =</span> dat)</span></code></pre></div>
+<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="planned-comparisons-and-contrasts.html#cb63-1" tabindex="-1"></a>a1 <span class="ot">&lt;-</span> <span class="fu">aov</span>(waketime <span class="sc">~</span> treatment, <span class="at">data =</span> dat)</span></code></pre></div>
 <p>The overall omnibus test is the same as before, of course. Let’s look at the contrasts:</p>
-<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="planned-comparisons-and-contrasts.html#cb65-1" tabindex="-1"></a>aov.summ.out <span class="ot">&lt;-</span> <span class="fu">summary.aov</span>(a1,</span>
-<span id="cb65-2"><a href="planned-comparisons-and-contrasts.html#cb65-2" tabindex="-1"></a>            <span class="at">split =</span></span>
-<span id="cb65-3"><a href="planned-comparisons-and-contrasts.html#cb65-3" tabindex="-1"></a>              <span class="fu">list</span>(<span class="at">treatment =</span> </span>
-<span id="cb65-4"><a href="planned-comparisons-and-contrasts.html#cb65-4" tabindex="-1"></a>                     <span class="fu">list</span>(<span class="st">&quot;Placebo vs Low dose&quot;</span>  <span class="ot">=</span> <span class="dv">1</span>,</span>
-<span id="cb65-5"><a href="planned-comparisons-and-contrasts.html#cb65-5" tabindex="-1"></a>                          <span class="st">&quot;Placebo vs High dose&quot;</span> <span class="ot">=</span> <span class="dv">2</span>) ))</span>
-<span id="cb65-6"><a href="planned-comparisons-and-contrasts.html#cb65-6" tabindex="-1"></a>aov.summ.out</span></code></pre></div>
+<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="planned-comparisons-and-contrasts.html#cb64-1" tabindex="-1"></a>aov.summ.out <span class="ot">&lt;-</span> <span class="fu">summary.aov</span>(a1,</span>
+<span id="cb64-2"><a href="planned-comparisons-and-contrasts.html#cb64-2" tabindex="-1"></a>            <span class="at">split =</span></span>
+<span id="cb64-3"><a href="planned-comparisons-and-contrasts.html#cb64-3" tabindex="-1"></a>              <span class="fu">list</span>(<span class="at">treatment =</span> </span>
+<span id="cb64-4"><a href="planned-comparisons-and-contrasts.html#cb64-4" tabindex="-1"></a>                     <span class="fu">list</span>(<span class="st">&quot;Placebo vs Low dose&quot;</span>  <span class="ot">=</span> <span class="dv">1</span>,</span>
+<span id="cb64-5"><a href="planned-comparisons-and-contrasts.html#cb64-5" tabindex="-1"></a>                          <span class="st">&quot;Placebo vs High dose&quot;</span> <span class="ot">=</span> <span class="dv">2</span>) ))</span>
+<span id="cb64-6"><a href="planned-comparisons-and-contrasts.html#cb64-6" tabindex="-1"></a>aov.summ.out</span></code></pre></div>
 <pre><code>##                                   Df Sum Sq Mean Sq F value Pr(&gt;F)  
 ## treatment                          2  20.13  10.067   5.119 0.0247 *
 ##   treatment: Placebo vs Low dose   1   2.50   2.500   1.271 0.2816  
@@ -562,11 +565,11 @@ Here’s one way in R to do this:</p>
 <div id="accounting-for-type-i-error-in-non-orthogonal-contrasts." class="section level3 hasAnchor" number="3.3.1">
 <h3><span class="header-section-number">3.3.1</span> Accounting for Type I error in non-orthogonal contrasts.<a href="planned-comparisons-and-contrasts.html#accounting-for-type-i-error-in-non-orthogonal-contrasts." class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Because the contrast is not orthogonal, I would use a Benjamini-Hochberg false-discovery-rate adjustment to the alpha. A false-discovery rate is the number of tests that are “discovered” but are false. In other words, of all the discoveries (i.e., of all the tests that we observe to have a <em>p</em>-value lower than our critical value of <span class="math inline">\(\alpha = .05\)</span>), what is the proportion that we would expect to be false.</p>
-<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="planned-comparisons-and-contrasts.html#cb67-1" tabindex="-1"></a>observed.pvalues <span class="ot">&lt;-</span> <span class="fu">c</span>(.<span class="dv">2816</span>, .<span class="dv">0112</span>)</span>
-<span id="cb67-2"><a href="planned-comparisons-and-contrasts.html#cb67-2" tabindex="-1"></a><span class="co"># Or, for reproducibility:</span></span>
-<span id="cb67-3"><a href="planned-comparisons-and-contrasts.html#cb67-3" tabindex="-1"></a>observed.pvalues <span class="ot">&lt;-</span> aov.summ.out[[<span class="dv">1</span>]][<span class="dv">2</span><span class="sc">:</span><span class="dv">3</span>,<span class="dv">5</span>]</span>
-<span id="cb67-4"><a href="planned-comparisons-and-contrasts.html#cb67-4" tabindex="-1"></a><span class="co"># Benjamini-Hochberg false discovery rate adjustment:</span></span>
-<span id="cb67-5"><a href="planned-comparisons-and-contrasts.html#cb67-5" tabindex="-1"></a><span class="fu">p.adjust</span>(<span class="at">p =</span> observed.pvalues, <span class="at">method =</span> <span class="st">&quot;BH&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb66-1"><a href="planned-comparisons-and-contrasts.html#cb66-1" tabindex="-1"></a>observed.pvalues <span class="ot">&lt;-</span> <span class="fu">c</span>(.<span class="dv">2816</span>, .<span class="dv">0112</span>)</span>
+<span id="cb66-2"><a href="planned-comparisons-and-contrasts.html#cb66-2" tabindex="-1"></a><span class="co"># Or, for reproducibility:</span></span>
+<span id="cb66-3"><a href="planned-comparisons-and-contrasts.html#cb66-3" tabindex="-1"></a>observed.pvalues <span class="ot">&lt;-</span> aov.summ.out[[<span class="dv">1</span>]][<span class="dv">2</span><span class="sc">:</span><span class="dv">3</span>,<span class="dv">5</span>]</span>
+<span id="cb66-4"><a href="planned-comparisons-and-contrasts.html#cb66-4" tabindex="-1"></a><span class="co"># Benjamini-Hochberg false discovery rate adjustment:</span></span>
+<span id="cb66-5"><a href="planned-comparisons-and-contrasts.html#cb66-5" tabindex="-1"></a><span class="fu">p.adjust</span>(<span class="at">p =</span> observed.pvalues, <span class="at">method =</span> <span class="st">&quot;BH&quot;</span>)</span></code></pre></div>
 <pre><code>##  Placebo vs Low dose Placebo vs High dose 
 ##           0.28158387           0.02236722</code></pre>
 <p>What I don’t like about this output (not the procedure) is that it adjusts the <em>p</em>-value instead of the alpha. The statistical conclusion is the same, however—a <em>p</em>-value less than .05 can be used to reject the null hypothesis that the two groups being compared are the same. In this case, the statistical conclusion is the same as it would be if we had not made the adjustment—the second contrast between the placebo and high-dosage group is statistically significant.</p>
@@ -575,8 +578,8 @@ Here’s one way in R to do this:</p>
 <p>A more conservative adjustment is the Bonferroni adjustment to the family-wise error rate. This adjusts for the probability that we will have at least one Type I error (beyond our alpha of .05 Type I error rate), in our set of tests in the family.</p>
 <p>With a few contrasts, this is useful; I would not use it if we have many contrasts because it can reduce our alpha levels to levels that are unrealistically low. With only two contrasts, the adjusted alpha is <span class="math inline">\(\frac{.05}{2} = .025\)</span>. This is the new critical alpha, where those comparisons with observed <em>p</em>-values exceeding this would then fail to be rejected. With 20 contrasts, it would be much lower, <span class="math inline">\(\frac{.05}{20} = 0.0025\)</span>.</p>
 <p>The <code>p.adjust()</code> function reports the so-called adjusted <em>p</em>-values instead of the statistical conclusion-based approach of observed <span class="math inline">\(p &lt; .05\)</span>. The statistical conclusions are correct, however, if we simply apply the adjusted <span class="math inline">\(p &lt; .05\)</span> decision criterion.</p>
-<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="planned-comparisons-and-contrasts.html#cb69-1" tabindex="-1"></a>observed.pvalues <span class="ot">&lt;-</span> aov.summ.out[[<span class="dv">1</span>]][<span class="dv">2</span><span class="sc">:</span><span class="dv">3</span>,<span class="dv">5</span>]</span>
-<span id="cb69-2"><a href="planned-comparisons-and-contrasts.html#cb69-2" tabindex="-1"></a><span class="fu">p.adjust</span>(<span class="at">p =</span> observed.pvalues, <span class="at">method =</span> <span class="st">&quot;bonferroni&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb68-1"><a href="planned-comparisons-and-contrasts.html#cb68-1" tabindex="-1"></a>observed.pvalues <span class="ot">&lt;-</span> aov.summ.out[[<span class="dv">1</span>]][<span class="dv">2</span><span class="sc">:</span><span class="dv">3</span>,<span class="dv">5</span>]</span>
+<span id="cb68-2"><a href="planned-comparisons-and-contrasts.html#cb68-2" tabindex="-1"></a><span class="fu">p.adjust</span>(<span class="at">p =</span> observed.pvalues, <span class="at">method =</span> <span class="st">&quot;bonferroni&quot;</span>)</span></code></pre></div>
 <pre><code>##  Placebo vs Low dose Placebo vs High dose 
 ##           0.56316774           0.02236722</code></pre>
 <p>We arrive at the same statistical conclusion as we had with the Benjamini-Hochberg approach.</p>
@@ -585,9 +588,9 @@ Here’s one way in R to do this:</p>
 <div id="post-hoc-tests" class="section level3 hasAnchor" number="3.3.2">
 <h3><span class="header-section-number">3.3.2</span> Post-hoc tests<a href="planned-comparisons-and-contrasts.html#post-hoc-tests" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>If we had no research questions about group comparisons (which would be bizarre) and wanted to explore all contrasts, we could use Tukey’s HSD:</p>
-<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb71-1"><a href="planned-comparisons-and-contrasts.html#cb71-1" tabindex="-1"></a><span class="fu">contrasts</span>(dat<span class="sc">$</span>treatment) <span class="ot">&lt;-</span> <span class="cn">NULL</span> <span class="co"># clearing previous contrast codes</span></span>
-<span id="cb71-2"><a href="planned-comparisons-and-contrasts.html#cb71-2" tabindex="-1"></a>a1 <span class="ot">&lt;-</span> <span class="fu">aov</span>(waketime <span class="sc">~</span> treatment, <span class="at">data =</span> dat)</span>
-<span id="cb71-3"><a href="planned-comparisons-and-contrasts.html#cb71-3" tabindex="-1"></a><span class="fu">TukeyHSD</span>(a1)</span></code></pre></div>
+<div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb70-1"><a href="planned-comparisons-and-contrasts.html#cb70-1" tabindex="-1"></a><span class="fu">contrasts</span>(dat<span class="sc">$</span>treatment) <span class="ot">&lt;-</span> <span class="cn">NULL</span> <span class="co"># clearing previous contrast codes</span></span>
+<span id="cb70-2"><a href="planned-comparisons-and-contrasts.html#cb70-2" tabindex="-1"></a>a1 <span class="ot">&lt;-</span> <span class="fu">aov</span>(waketime <span class="sc">~</span> treatment, <span class="at">data =</span> dat)</span>
+<span id="cb70-3"><a href="planned-comparisons-and-contrasts.html#cb70-3" tabindex="-1"></a><span class="fu">TukeyHSD</span>(a1)</span></code></pre></div>
 <pre><code>##   Tukey multiple comparisons of means
 ##     95% family-wise confidence level
 ## 

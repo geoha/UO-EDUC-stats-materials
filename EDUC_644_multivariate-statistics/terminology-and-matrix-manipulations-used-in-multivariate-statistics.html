@@ -4,23 +4,23 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>1 Terminology and Matrix Manipulations Used in Multivariate Statistics | EDUC 644 Applied Multivariate Statistics</title>
-  <meta name="description" content="Course materials for multivariate statistics" />
+  <title>1 Terminology and Matrix Manipulations Used in Multivariate Statistics | Guidebook for Using R in Applied Multivariate Statistics</title>
+  <meta name="description" content="Course guidebook for multivariate statistics" />
   <meta name="generator" content="bookdown 0.44 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="1 Terminology and Matrix Manipulations Used in Multivariate Statistics | EDUC 644 Applied Multivariate Statistics" />
+  <meta property="og:title" content="1 Terminology and Matrix Manipulations Used in Multivariate Statistics | Guidebook for Using R in Applied Multivariate Statistics" />
   <meta property="og:type" content="book" />
   
-  <meta property="og:description" content="Course materials for multivariate statistics" />
+  <meta property="og:description" content="Course guidebook for multivariate statistics" />
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="1 Terminology and Matrix Manipulations Used in Multivariate Statistics | EDUC 644 Applied Multivariate Statistics" />
+  <meta name="twitter:title" content="1 Terminology and Matrix Manipulations Used in Multivariate Statistics | Guidebook for Using R in Applied Multivariate Statistics" />
   
-  <meta name="twitter:description" content="Course materials for multivariate statistics" />
+  <meta name="twitter:description" content="Course guidebook for multivariate statistics" />
   
 
-<meta name="author" content="George Harrison" />
+<meta name="author" content="George M. Harrison" />
 
 
 
@@ -171,7 +171,10 @@ div.csl-indent {
 <ul>
 <li class="chapter" data-level="1.1" data-path="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#scalars"><i class="fa fa-check"></i><b>1.1</b> Scalars</a></li>
 <li class="chapter" data-level="1.2" data-path="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#vectors"><i class="fa fa-check"></i><b>1.2</b> Vectors</a></li>
-<li class="chapter" data-level="1.3" data-path="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#matrices"><i class="fa fa-check"></i><b>1.3</b> Matrices</a></li>
+<li class="chapter" data-level="1.3" data-path="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#matrices"><i class="fa fa-check"></i><b>1.3</b> Matrices</a>
+<ul>
+<li class="chapter" data-level="1.3.1" data-path="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#data-files-as-matrices"><i class="fa fa-check"></i><b>1.3.1</b> Data Files as Matrices</a></li>
+</ul></li>
 <li class="chapter" data-level="1.4" data-path="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#symmetrical-matrices"><i class="fa fa-check"></i><b>1.4</b> Symmetrical Matrices</a>
 <ul>
 <li class="chapter" data-level="1.4.1" data-path="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#variance-covariance-matrices"><i class="fa fa-check"></i><b>1.4.1</b> Variance-covariance Matrices</a></li>
@@ -390,7 +393,7 @@ div.csl-indent {
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">EDUC 644 Applied Multivariate Statistics</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Guidebook for Using R in Applied Multivariate Statistics</a>
           </h1>
         </div>
 
@@ -426,8 +429,8 @@ div.csl-indent {
 </div>
 <div id="matrices" class="section level2 hasAnchor" number="1.3">
 <h2><span class="header-section-number">1.3</span> Matrices<a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#matrices" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div id="data-files-as-matrices" class="section level6 hasAnchor" number="1.3.0.0.0.1">
-<h6><span class="header-section-number">1.3.0.0.0.1</span> Data Files as Matrices<a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#data-files-as-matrices" class="anchor-section" aria-label="Anchor link to header"></a></h6>
+<div id="data-files-as-matrices" class="section level3 hasAnchor" number="1.3.1">
+<h3><span class="header-section-number">1.3.1</span> Data Files as Matrices<a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#data-files-as-matrices" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>We can think of our typical data file as being made up of several vectors side by side each other, as columns. We can also think of a data file as a data matrix.<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a> Here is a tiny fictitious data set from Pituch and Stevens (2016, Ch. 4) containing nine counseling patients, three of whom are in one group of treatment (receiving a behavior-modification intervention), with the remaining 6 in a second group (receiving cognitive intervention). Each person is then measured on two continuous outcome variables: client satisfaction, <code>sa</code>, and client self-acceptance, <code>csa</code>.</p>
 <p>Our data set includes nine observations and three variables, two of which are the dependent variables we just addressed, and one of which is a grouping variable, <code>grp</code>. I suppose we could count the <em>id</em> column as a variable, too, but we typically do not.</p>
 <table>
@@ -744,71 +747,71 @@ For this simple matrix, we could calculate this by hand but with higher-order ma
 </tbody>
 </table>
 <p>Here is the R code:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#cb2-1" tabindex="-1"></a><span class="co"># There are many ways to make a matrix. One is to use the `matrix()` function.</span></span>
-<span id="cb2-2"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#cb2-2" tabindex="-1"></a><span class="co"># In this example, we have the data in two columns. We can use the </span></span>
-<span id="cb2-3"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#cb2-3" tabindex="-1"></a><span class="co"># `byrow = TRUE` argument to tell R to fill in the matrix by rows. </span></span>
-<span id="cb2-4"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#cb2-4" tabindex="-1"></a><span class="co"># The `ncol = 2` argument defines the order as an n x 2 matrix.</span></span>
-<span id="cb2-5"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#cb2-5" tabindex="-1"></a>Y <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span>, </span>
-<span id="cb2-6"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#cb2-6" tabindex="-1"></a>              <span class="dv">3</span>, <span class="dv">7</span>, </span>
-<span id="cb2-7"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#cb2-7" tabindex="-1"></a>              <span class="dv">2</span>, <span class="dv">2</span>, </span>
-<span id="cb2-8"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#cb2-8" tabindex="-1"></a>              <span class="dv">4</span>, <span class="dv">6</span>, </span>
-<span id="cb2-9"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#cb2-9" tabindex="-1"></a>              <span class="dv">6</span>, <span class="dv">8</span>, </span>
-<span id="cb2-10"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#cb2-10" tabindex="-1"></a>              <span class="dv">6</span>, <span class="dv">8</span>, </span>
-<span id="cb2-11"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#cb2-11" tabindex="-1"></a>              <span class="dv">5</span>, <span class="dv">10</span>, </span>
-<span id="cb2-12"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#cb2-12" tabindex="-1"></a>              <span class="dv">5</span>, <span class="dv">10</span>, </span>
-<span id="cb2-13"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#cb2-13" tabindex="-1"></a>              <span class="dv">4</span>, <span class="dv">6</span>),</span>
-<span id="cb2-14"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#cb2-14" tabindex="-1"></a>            <span class="at">byrow =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb2-15"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#cb2-15" tabindex="-1"></a>            <span class="at">ncol =</span> <span class="dv">2</span>)</span>
-<span id="cb2-16"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#cb2-16" tabindex="-1"></a>Y <span class="do">## Prints to console</span></span>
-<span id="cb2-17"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#cb2-17" tabindex="-1"></a></span>
-<span id="cb2-18"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#cb2-18" tabindex="-1"></a><span class="co"># Another way to create a matrix is by binding columns of equal length data.</span></span>
-<span id="cb2-19"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#cb2-19" tabindex="-1"></a><span class="co"># Here, we&#39;re calculating the deviation scores of each variable, then </span></span>
-<span id="cb2-20"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#cb2-20" tabindex="-1"></a><span class="co"># sticking them together with `cbind()`.</span></span>
-<span id="cb2-21"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#cb2-21" tabindex="-1"></a>y1 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">6</span>, <span class="dv">6</span>, <span class="dv">5</span>, <span class="dv">5</span>, <span class="dv">4</span>)</span>
-<span id="cb2-22"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#cb2-22" tabindex="-1"></a>y2 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">7</span>, <span class="dv">2</span>, <span class="dv">6</span>, <span class="dv">8</span>, <span class="dv">8</span>,<span class="dv">10</span>,<span class="dv">10</span>, <span class="dv">6</span>)</span>
-<span id="cb2-23"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#cb2-23" tabindex="-1"></a>C <span class="ot">&lt;-</span> <span class="fu">cbind</span>(y1 <span class="sc">-</span> <span class="fu">mean</span>(y1),</span>
-<span id="cb2-24"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#cb2-24" tabindex="-1"></a>           y2 <span class="sc">-</span> <span class="fu">mean</span>(y2) )</span>
-<span id="cb2-25"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#cb2-25" tabindex="-1"></a>C</span>
-<span id="cb2-26"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#cb2-26" tabindex="-1"></a><span class="co"># Use `%*%` for matrix multiplication. Use `t()` for transposing.</span></span>
-<span id="cb2-27"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#cb2-27" tabindex="-1"></a>SSCP <span class="ot">&lt;-</span> <span class="fu">t</span>(C) <span class="sc">%*%</span> C</span>
-<span id="cb2-28"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#cb2-28" tabindex="-1"></a>SSCP</span>
-<span id="cb2-29"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#cb2-29" tabindex="-1"></a><span class="co"># To get the covariance matrix from SSCP, we divide each element by n - 1.</span></span>
-<span id="cb2-30"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#cb2-30" tabindex="-1"></a><span class="co"># In other words, we&#39;re dividing the matrix by a scalar.</span></span>
-<span id="cb2-31"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#cb2-31" tabindex="-1"></a>S <span class="ot">&lt;-</span> SSCP <span class="sc">/</span> (<span class="fu">nrow</span>(Y) <span class="sc">-</span> <span class="dv">1</span>)</span>
-<span id="cb2-32"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#cb2-32" tabindex="-1"></a>S</span>
-<span id="cb2-33"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#cb2-33" tabindex="-1"></a><span class="co"># If we wanted to calculate the determinant, we use the `det()` function:</span></span>
-<span id="cb2-34"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#cb2-34" tabindex="-1"></a><span class="fu">det</span>(S)</span>
-<span id="cb2-35"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#cb2-35" tabindex="-1"></a><span class="co"># If we wanted the inverse of the matrix, we use the `solve()` function:</span></span>
-<span id="cb2-36"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#cb2-36" tabindex="-1"></a><span class="fu">solve</span>(S)</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#cb1-1" tabindex="-1"></a><span class="co"># There are many ways to make a matrix. One is to use the `matrix()` function.</span></span>
+<span id="cb1-2"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#cb1-2" tabindex="-1"></a><span class="co"># In this example, we have the data in two columns. We can use the </span></span>
+<span id="cb1-3"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#cb1-3" tabindex="-1"></a><span class="co"># `byrow = TRUE` argument to tell R to fill in the matrix by rows. </span></span>
+<span id="cb1-4"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#cb1-4" tabindex="-1"></a><span class="co"># The `ncol = 2` argument defines the order as an n x 2 matrix.</span></span>
+<span id="cb1-5"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#cb1-5" tabindex="-1"></a>Y <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span>, </span>
+<span id="cb1-6"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#cb1-6" tabindex="-1"></a>              <span class="dv">3</span>, <span class="dv">7</span>, </span>
+<span id="cb1-7"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#cb1-7" tabindex="-1"></a>              <span class="dv">2</span>, <span class="dv">2</span>, </span>
+<span id="cb1-8"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#cb1-8" tabindex="-1"></a>              <span class="dv">4</span>, <span class="dv">6</span>, </span>
+<span id="cb1-9"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#cb1-9" tabindex="-1"></a>              <span class="dv">6</span>, <span class="dv">8</span>, </span>
+<span id="cb1-10"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#cb1-10" tabindex="-1"></a>              <span class="dv">6</span>, <span class="dv">8</span>, </span>
+<span id="cb1-11"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#cb1-11" tabindex="-1"></a>              <span class="dv">5</span>, <span class="dv">10</span>, </span>
+<span id="cb1-12"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#cb1-12" tabindex="-1"></a>              <span class="dv">5</span>, <span class="dv">10</span>, </span>
+<span id="cb1-13"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#cb1-13" tabindex="-1"></a>              <span class="dv">4</span>, <span class="dv">6</span>),</span>
+<span id="cb1-14"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#cb1-14" tabindex="-1"></a>            <span class="at">byrow =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb1-15"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#cb1-15" tabindex="-1"></a>            <span class="at">ncol =</span> <span class="dv">2</span>)</span>
+<span id="cb1-16"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#cb1-16" tabindex="-1"></a>Y <span class="do">## Prints to console</span></span>
+<span id="cb1-17"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#cb1-17" tabindex="-1"></a></span>
+<span id="cb1-18"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#cb1-18" tabindex="-1"></a><span class="co"># Another way to create a matrix is by binding columns of equal length data.</span></span>
+<span id="cb1-19"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#cb1-19" tabindex="-1"></a><span class="co"># Here, we&#39;re calculating the deviation scores of each variable, then </span></span>
+<span id="cb1-20"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#cb1-20" tabindex="-1"></a><span class="co"># sticking them together with `cbind()`.</span></span>
+<span id="cb1-21"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#cb1-21" tabindex="-1"></a>y1 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">6</span>, <span class="dv">6</span>, <span class="dv">5</span>, <span class="dv">5</span>, <span class="dv">4</span>)</span>
+<span id="cb1-22"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#cb1-22" tabindex="-1"></a>y2 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">7</span>, <span class="dv">2</span>, <span class="dv">6</span>, <span class="dv">8</span>, <span class="dv">8</span>,<span class="dv">10</span>,<span class="dv">10</span>, <span class="dv">6</span>)</span>
+<span id="cb1-23"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#cb1-23" tabindex="-1"></a>C <span class="ot">&lt;-</span> <span class="fu">cbind</span>(y1 <span class="sc">-</span> <span class="fu">mean</span>(y1),</span>
+<span id="cb1-24"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#cb1-24" tabindex="-1"></a>           y2 <span class="sc">-</span> <span class="fu">mean</span>(y2) )</span>
+<span id="cb1-25"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#cb1-25" tabindex="-1"></a>C</span>
+<span id="cb1-26"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#cb1-26" tabindex="-1"></a><span class="co"># Use `%*%` for matrix multiplication. Use `t()` for transposing.</span></span>
+<span id="cb1-27"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#cb1-27" tabindex="-1"></a>SSCP <span class="ot">&lt;-</span> <span class="fu">t</span>(C) <span class="sc">%*%</span> C</span>
+<span id="cb1-28"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#cb1-28" tabindex="-1"></a>SSCP</span>
+<span id="cb1-29"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#cb1-29" tabindex="-1"></a><span class="co"># To get the covariance matrix from SSCP, we divide each element by n - 1.</span></span>
+<span id="cb1-30"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#cb1-30" tabindex="-1"></a><span class="co"># In other words, we&#39;re dividing the matrix by a scalar.</span></span>
+<span id="cb1-31"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#cb1-31" tabindex="-1"></a>S <span class="ot">&lt;-</span> SSCP <span class="sc">/</span> (<span class="fu">nrow</span>(Y) <span class="sc">-</span> <span class="dv">1</span>)</span>
+<span id="cb1-32"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#cb1-32" tabindex="-1"></a>S</span>
+<span id="cb1-33"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#cb1-33" tabindex="-1"></a><span class="co"># If we wanted to calculate the determinant, we use the `det()` function:</span></span>
+<span id="cb1-34"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#cb1-34" tabindex="-1"></a><span class="fu">det</span>(S)</span>
+<span id="cb1-35"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#cb1-35" tabindex="-1"></a><span class="co"># If we wanted the inverse of the matrix, we use the `solve()` function:</span></span>
+<span id="cb1-36"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#cb1-36" tabindex="-1"></a><span class="fu">solve</span>(S)</span></code></pre></div>
 <p>Here is the SPSS code to accomplish the same thing.
 <!-- So far, `awk` and `sed` languages show up okay in inline. --></p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode awk"><code class="sourceCode awk"><span id="cb3-1"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#cb3-1" tabindex="-1"></a><span class="ot">/*</span><span class="ss"> Tell SPSS that the following will use matrix mode</span><span class="ot">.</span></span>
-<span id="cb3-2"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#cb3-2" tabindex="-1"></a>MATRIX.</span>
-<span id="cb3-3"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#cb3-3" tabindex="-1"></a><span class="ot">/*</span><span class="ss"> Creating two vectors, using semicolons between numbers to make them vertical</span><span class="ot">.</span></span>
-<span id="cb3-4"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#cb3-4" tabindex="-1"></a>COMPUTE y1 <span class="op">=</span> <span class="op">{</span><span class="dv">1</span><span class="op">;</span> <span class="dv">3</span><span class="op">;</span> <span class="dv">2</span><span class="op">;</span> <span class="dv">4</span><span class="op">;</span> <span class="dv">6</span><span class="op">;</span> <span class="dv">6</span><span class="op">;</span> <span class="dv">5</span><span class="op">;</span> <span class="dv">5</span><span class="op">;</span> <span class="dv">4</span><span class="op">}</span>.</span>
-<span id="cb3-5"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#cb3-5" tabindex="-1"></a>COMPUTE y2 <span class="op">=</span> <span class="op">{</span><span class="dv">3</span><span class="op">;</span> <span class="dv">7</span><span class="op">;</span> <span class="dv">2</span><span class="op">;</span> <span class="dv">6</span><span class="op">;</span> <span class="dv">8</span><span class="op">;</span> <span class="dv">8</span><span class="op">;</span><span class="dv">10</span><span class="op">;</span><span class="dv">10</span><span class="op">;</span> <span class="dv">6</span><span class="op">}</span>.</span>
-<span id="cb3-6"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#cb3-6" tabindex="-1"></a><span class="ot">/*</span><span class="ss"> Now subtracting the mean from the vectors to get mean-centered vectors</span><span class="ot">.</span></span>
-<span id="cb3-7"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#cb3-7" tabindex="-1"></a>COMPUTE c1 <span class="op">=</span> y1 <span class="op">-</span> <span class="fl">4.</span></span>
-<span id="cb3-8"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#cb3-8" tabindex="-1"></a>COMPUTE c2 <span class="op">=</span> y2 <span class="op">-</span> <span class="dv">6</span>.<span class="fl">666667.</span></span>
-<span id="cb3-9"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#cb3-9" tabindex="-1"></a><span class="ot">/*</span><span class="ss"> Sticking the two vertical vectors together into a matrix</span><span class="ot">.</span></span>
-<span id="cb3-10"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#cb3-10" tabindex="-1"></a>COMPUTE C <span class="op">=</span> <span class="op">{</span>c1 <span class="op">,</span> c2<span class="op">}</span>.</span>
-<span id="cb3-11"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#cb3-11" tabindex="-1"></a><span class="ot">/*</span><span class="ss"> Calculating the SSCP using matrix multiplication of the transpose of C and C</span><span class="ot">.</span></span>
-<span id="cb3-12"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#cb3-12" tabindex="-1"></a>COMPUTE tranC <span class="op">=</span> TRANSPOS<span class="op">(</span>C<span class="op">)</span>.</span>
-<span id="cb3-13"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#cb3-13" tabindex="-1"></a>COMPUTE SS_CP <span class="op">=</span> tranC <span class="op">*</span> C.</span>
-<span id="cb3-14"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#cb3-14" tabindex="-1"></a><span class="ot">/*</span><span class="ss"> Dividing the SSCP by n-1 to get the covariance matrix</span><span class="ot">.</span></span>
-<span id="cb3-15"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#cb3-15" tabindex="-1"></a>COMPUTE S <span class="op">=</span> SS_CP <span class="op">/</span> <span class="fl">8.</span></span>
-<span id="cb3-16"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#cb3-16" tabindex="-1"></a><span class="ot">/*</span><span class="ss"> Computing the determinant and the inverse of S</span><span class="ot">.</span></span>
-<span id="cb3-17"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#cb3-17" tabindex="-1"></a>COMPUTE DETS <span class="op">=</span> DET<span class="op">(</span>S<span class="op">)</span>.</span>
-<span id="cb3-18"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#cb3-18" tabindex="-1"></a>COMPUTE INVS <span class="op">=</span> INV<span class="op">(</span>S<span class="op">)</span>.</span>
-<span id="cb3-19"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#cb3-19" tabindex="-1"></a><span class="ot">/*</span><span class="ss"> Print the results</span><span class="ot">.</span></span>
-<span id="cb3-20"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#cb3-20" tabindex="-1"></a>PRINT C.</span>
-<span id="cb3-21"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#cb3-21" tabindex="-1"></a>PRINT TranC.</span>
-<span id="cb3-22"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#cb3-22" tabindex="-1"></a>PRINT SS_CP <span class="op">/</span>title <span class="op">=</span> <span class="st">&quot;SSCP Matrix&quot;</span>.</span>
-<span id="cb3-23"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#cb3-23" tabindex="-1"></a>PRINT S <span class="op">/</span>title <span class="op">=</span> <span class="st">&quot;Covariance Matrix S&quot;</span>.</span>
-<span id="cb3-24"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#cb3-24" tabindex="-1"></a>PRINT DETS <span class="op">/</span>title <span class="op">=</span> <span class="st">&quot;Determinant of S&quot;</span>.</span>
-<span id="cb3-25"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#cb3-25" tabindex="-1"></a>PRINT INVS <span class="op">/</span>title  <span class="op">=</span> <span class="st">&quot;Inverse of S&quot;</span>.</span>
-<span id="cb3-26"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#cb3-26" tabindex="-1"></a><span class="ot">/*</span><span class="ss"> Close the matrix mode</span><span class="ot">.</span></span>
-<span id="cb3-27"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#cb3-27" tabindex="-1"></a><span class="cf">END</span> MATRIX.</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode awk"><code class="sourceCode awk"><span id="cb2-1"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#cb2-1" tabindex="-1"></a><span class="ot">/*</span><span class="ss"> Tell SPSS that the following will use matrix mode</span><span class="ot">.</span></span>
+<span id="cb2-2"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#cb2-2" tabindex="-1"></a>MATRIX.</span>
+<span id="cb2-3"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#cb2-3" tabindex="-1"></a><span class="ot">/*</span><span class="ss"> Creating two vectors, using semicolons between numbers to make them vertical</span><span class="ot">.</span></span>
+<span id="cb2-4"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#cb2-4" tabindex="-1"></a>COMPUTE y1 <span class="op">=</span> <span class="op">{</span><span class="dv">1</span><span class="op">;</span> <span class="dv">3</span><span class="op">;</span> <span class="dv">2</span><span class="op">;</span> <span class="dv">4</span><span class="op">;</span> <span class="dv">6</span><span class="op">;</span> <span class="dv">6</span><span class="op">;</span> <span class="dv">5</span><span class="op">;</span> <span class="dv">5</span><span class="op">;</span> <span class="dv">4</span><span class="op">}</span>.</span>
+<span id="cb2-5"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#cb2-5" tabindex="-1"></a>COMPUTE y2 <span class="op">=</span> <span class="op">{</span><span class="dv">3</span><span class="op">;</span> <span class="dv">7</span><span class="op">;</span> <span class="dv">2</span><span class="op">;</span> <span class="dv">6</span><span class="op">;</span> <span class="dv">8</span><span class="op">;</span> <span class="dv">8</span><span class="op">;</span><span class="dv">10</span><span class="op">;</span><span class="dv">10</span><span class="op">;</span> <span class="dv">6</span><span class="op">}</span>.</span>
+<span id="cb2-6"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#cb2-6" tabindex="-1"></a><span class="ot">/*</span><span class="ss"> Now subtracting the mean from the vectors to get mean-centered vectors</span><span class="ot">.</span></span>
+<span id="cb2-7"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#cb2-7" tabindex="-1"></a>COMPUTE c1 <span class="op">=</span> y1 <span class="op">-</span> <span class="fl">4.</span></span>
+<span id="cb2-8"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#cb2-8" tabindex="-1"></a>COMPUTE c2 <span class="op">=</span> y2 <span class="op">-</span> <span class="dv">6</span>.<span class="fl">666667.</span></span>
+<span id="cb2-9"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#cb2-9" tabindex="-1"></a><span class="ot">/*</span><span class="ss"> Sticking the two vertical vectors together into a matrix</span><span class="ot">.</span></span>
+<span id="cb2-10"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#cb2-10" tabindex="-1"></a>COMPUTE C <span class="op">=</span> <span class="op">{</span>c1 <span class="op">,</span> c2<span class="op">}</span>.</span>
+<span id="cb2-11"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#cb2-11" tabindex="-1"></a><span class="ot">/*</span><span class="ss"> Calculating the SSCP using matrix multiplication of the transpose of C and C</span><span class="ot">.</span></span>
+<span id="cb2-12"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#cb2-12" tabindex="-1"></a>COMPUTE tranC <span class="op">=</span> TRANSPOS<span class="op">(</span>C<span class="op">)</span>.</span>
+<span id="cb2-13"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#cb2-13" tabindex="-1"></a>COMPUTE SS_CP <span class="op">=</span> tranC <span class="op">*</span> C.</span>
+<span id="cb2-14"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#cb2-14" tabindex="-1"></a><span class="ot">/*</span><span class="ss"> Dividing the SSCP by n-1 to get the covariance matrix</span><span class="ot">.</span></span>
+<span id="cb2-15"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#cb2-15" tabindex="-1"></a>COMPUTE S <span class="op">=</span> SS_CP <span class="op">/</span> <span class="fl">8.</span></span>
+<span id="cb2-16"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#cb2-16" tabindex="-1"></a><span class="ot">/*</span><span class="ss"> Computing the determinant and the inverse of S</span><span class="ot">.</span></span>
+<span id="cb2-17"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#cb2-17" tabindex="-1"></a>COMPUTE DETS <span class="op">=</span> DET<span class="op">(</span>S<span class="op">)</span>.</span>
+<span id="cb2-18"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#cb2-18" tabindex="-1"></a>COMPUTE INVS <span class="op">=</span> INV<span class="op">(</span>S<span class="op">)</span>.</span>
+<span id="cb2-19"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#cb2-19" tabindex="-1"></a><span class="ot">/*</span><span class="ss"> Print the results</span><span class="ot">.</span></span>
+<span id="cb2-20"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#cb2-20" tabindex="-1"></a>PRINT C.</span>
+<span id="cb2-21"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#cb2-21" tabindex="-1"></a>PRINT TranC.</span>
+<span id="cb2-22"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#cb2-22" tabindex="-1"></a>PRINT SS_CP <span class="op">/</span>title <span class="op">=</span> <span class="st">&quot;SSCP Matrix&quot;</span>.</span>
+<span id="cb2-23"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#cb2-23" tabindex="-1"></a>PRINT S <span class="op">/</span>title <span class="op">=</span> <span class="st">&quot;Covariance Matrix S&quot;</span>.</span>
+<span id="cb2-24"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#cb2-24" tabindex="-1"></a>PRINT DETS <span class="op">/</span>title <span class="op">=</span> <span class="st">&quot;Determinant of S&quot;</span>.</span>
+<span id="cb2-25"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#cb2-25" tabindex="-1"></a>PRINT INVS <span class="op">/</span>title  <span class="op">=</span> <span class="st">&quot;Inverse of S&quot;</span>.</span>
+<span id="cb2-26"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#cb2-26" tabindex="-1"></a><span class="ot">/*</span><span class="ss"> Close the matrix mode</span><span class="ot">.</span></span>
+<span id="cb2-27"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#cb2-27" tabindex="-1"></a><span class="cf">END</span> MATRIX.</span></code></pre></div>
 
 </div>
 </div>

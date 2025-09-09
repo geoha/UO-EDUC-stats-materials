@@ -4,23 +4,23 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>5 Week 04 Factorial MANOVA | EDUC 644 Applied Multivariate Statistics</title>
-  <meta name="description" content="Course materials for multivariate statistics" />
+  <title>5 Week 04 Factorial MANOVA | Guidebook for Using R in Applied Multivariate Statistics</title>
+  <meta name="description" content="Course guidebook for multivariate statistics" />
   <meta name="generator" content="bookdown 0.44 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="5 Week 04 Factorial MANOVA | EDUC 644 Applied Multivariate Statistics" />
+  <meta property="og:title" content="5 Week 04 Factorial MANOVA | Guidebook for Using R in Applied Multivariate Statistics" />
   <meta property="og:type" content="book" />
   
-  <meta property="og:description" content="Course materials for multivariate statistics" />
+  <meta property="og:description" content="Course guidebook for multivariate statistics" />
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="5 Week 04 Factorial MANOVA | EDUC 644 Applied Multivariate Statistics" />
+  <meta name="twitter:title" content="5 Week 04 Factorial MANOVA | Guidebook for Using R in Applied Multivariate Statistics" />
   
-  <meta name="twitter:description" content="Course materials for multivariate statistics" />
+  <meta name="twitter:description" content="Course guidebook for multivariate statistics" />
   
 
-<meta name="author" content="George Harrison" />
+<meta name="author" content="George M. Harrison" />
 
 
 
@@ -171,7 +171,10 @@ div.csl-indent {
 <ul>
 <li class="chapter" data-level="1.1" data-path="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#scalars"><i class="fa fa-check"></i><b>1.1</b> Scalars</a></li>
 <li class="chapter" data-level="1.2" data-path="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#vectors"><i class="fa fa-check"></i><b>1.2</b> Vectors</a></li>
-<li class="chapter" data-level="1.3" data-path="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#matrices"><i class="fa fa-check"></i><b>1.3</b> Matrices</a></li>
+<li class="chapter" data-level="1.3" data-path="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#matrices"><i class="fa fa-check"></i><b>1.3</b> Matrices</a>
+<ul>
+<li class="chapter" data-level="1.3.1" data-path="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#data-files-as-matrices"><i class="fa fa-check"></i><b>1.3.1</b> Data Files as Matrices</a></li>
+</ul></li>
 <li class="chapter" data-level="1.4" data-path="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#symmetrical-matrices"><i class="fa fa-check"></i><b>1.4</b> Symmetrical Matrices</a>
 <ul>
 <li class="chapter" data-level="1.4.1" data-path="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#variance-covariance-matrices"><i class="fa fa-check"></i><b>1.4.1</b> Variance-covariance Matrices</a></li>
@@ -390,7 +393,7 @@ div.csl-indent {
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">EDUC 644 Applied Multivariate Statistics</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Guidebook for Using R in Applied Multivariate Statistics</a>
           </h1>
         </div>
 
@@ -405,19 +408,19 @@ div.csl-indent {
 <div id="following-tabachnick-and-fidells-notes" class="section level2 hasAnchor" number="5.1">
 <h2><span class="header-section-number">5.1</span> Following Tabachnick and Fidell’s notes<a href="week-04-factorial-manova.html#following-tabachnick-and-fidells-notes" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Here are the data:</p>
-<div class="sourceCode" id="cb167"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb167-1"><a href="week-04-factorial-manova.html#cb167-1" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb167-2"><a href="week-04-factorial-manova.html#cb167-2" tabindex="-1"></a>  <span class="at">id =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">18</span>,</span>
-<span id="cb167-3"><a href="week-04-factorial-manova.html#cb167-3" tabindex="-1"></a> <span class="at">treat =</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">&quot;T&quot;</span>, <span class="st">&quot;C&quot;</span>), <span class="at">each =</span> <span class="dv">9</span>),</span>
-<span id="cb167-4"><a href="week-04-factorial-manova.html#cb167-4" tabindex="-1"></a> <span class="at">disab =</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">&quot;Mild&quot;</span>,     <span class="st">&quot;Mild&quot;</span>,     <span class="st">&quot;Mild&quot;</span>,</span>
-<span id="cb167-5"><a href="week-04-factorial-manova.html#cb167-5" tabindex="-1"></a>               <span class="st">&quot;Moderate&quot;</span>, <span class="st">&quot;Moderate&quot;</span>, <span class="st">&quot;Moderate&quot;</span>, </span>
-<span id="cb167-6"><a href="week-04-factorial-manova.html#cb167-6" tabindex="-1"></a>               <span class="st">&quot;Severe&quot;</span>,   <span class="st">&quot;Severe&quot;</span>,   <span class="st">&quot;Severe&quot;</span>), <span class="at">times =</span> <span class="dv">2</span>),</span>
-<span id="cb167-7"><a href="week-04-factorial-manova.html#cb167-7" tabindex="-1"></a> <span class="at">wratR =</span> <span class="fu">c</span>(<span class="dv">115</span>,  <span class="dv">98</span>, <span class="dv">107</span>, <span class="dv">100</span>, <span class="dv">105</span>,  <span class="dv">95</span>,  <span class="dv">89</span>, <span class="dv">100</span>,  <span class="dv">90</span>, </span>
-<span id="cb167-8"><a href="week-04-factorial-manova.html#cb167-8" tabindex="-1"></a>            <span class="dv">90</span>,  <span class="dv">85</span>,  <span class="dv">80</span>,  <span class="dv">70</span>,  <span class="dv">85</span>,  <span class="dv">78</span>,  <span class="dv">65</span>,  <span class="dv">80</span>,  <span class="dv">72</span>),</span>
-<span id="cb167-9"><a href="week-04-factorial-manova.html#cb167-9" tabindex="-1"></a> <span class="at">wratA =</span> <span class="fu">c</span>(<span class="dv">108</span>, <span class="dv">105</span>,  <span class="dv">98</span>, <span class="dv">105</span>,  <span class="dv">95</span>,  <span class="dv">98</span>,  <span class="dv">78</span>,  <span class="dv">85</span>,  <span class="dv">95</span>,</span>
-<span id="cb167-10"><a href="week-04-factorial-manova.html#cb167-10" tabindex="-1"></a>            <span class="dv">92</span>,  <span class="dv">95</span>,  <span class="dv">81</span>,  <span class="dv">80</span>,  <span class="dv">68</span>,  <span class="dv">82</span>,  <span class="dv">62</span>,  <span class="dv">70</span>,  <span class="dv">73</span>),</span>
-<span id="cb167-11"><a href="week-04-factorial-manova.html#cb167-11" tabindex="-1"></a> <span class="at">IQ    =</span> <span class="fu">c</span>(<span class="dv">110</span>, <span class="dv">102</span>, <span class="dv">100</span>, <span class="dv">115</span>,  <span class="dv">98</span>, <span class="dv">100</span>,  <span class="dv">99</span>, <span class="dv">102</span>, <span class="dv">100</span>,</span>
-<span id="cb167-12"><a href="week-04-factorial-manova.html#cb167-12" tabindex="-1"></a>           <span class="dv">108</span>, <span class="dv">115</span>,  <span class="dv">95</span>, <span class="dv">100</span>,  <span class="dv">99</span>, <span class="dv">105</span>, <span class="dv">101</span>,  <span class="dv">95</span>, <span class="dv">102</span>) )</span>
-<span id="cb167-13"><a href="week-04-factorial-manova.html#cb167-13" tabindex="-1"></a><span class="fu">str</span>(dat)</span></code></pre></div>
+<div class="sourceCode" id="cb166"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb166-1"><a href="week-04-factorial-manova.html#cb166-1" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb166-2"><a href="week-04-factorial-manova.html#cb166-2" tabindex="-1"></a>  <span class="at">id =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">18</span>,</span>
+<span id="cb166-3"><a href="week-04-factorial-manova.html#cb166-3" tabindex="-1"></a> <span class="at">treat =</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">&quot;T&quot;</span>, <span class="st">&quot;C&quot;</span>), <span class="at">each =</span> <span class="dv">9</span>),</span>
+<span id="cb166-4"><a href="week-04-factorial-manova.html#cb166-4" tabindex="-1"></a> <span class="at">disab =</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">&quot;Mild&quot;</span>,     <span class="st">&quot;Mild&quot;</span>,     <span class="st">&quot;Mild&quot;</span>,</span>
+<span id="cb166-5"><a href="week-04-factorial-manova.html#cb166-5" tabindex="-1"></a>               <span class="st">&quot;Moderate&quot;</span>, <span class="st">&quot;Moderate&quot;</span>, <span class="st">&quot;Moderate&quot;</span>, </span>
+<span id="cb166-6"><a href="week-04-factorial-manova.html#cb166-6" tabindex="-1"></a>               <span class="st">&quot;Severe&quot;</span>,   <span class="st">&quot;Severe&quot;</span>,   <span class="st">&quot;Severe&quot;</span>), <span class="at">times =</span> <span class="dv">2</span>),</span>
+<span id="cb166-7"><a href="week-04-factorial-manova.html#cb166-7" tabindex="-1"></a> <span class="at">wratR =</span> <span class="fu">c</span>(<span class="dv">115</span>,  <span class="dv">98</span>, <span class="dv">107</span>, <span class="dv">100</span>, <span class="dv">105</span>,  <span class="dv">95</span>,  <span class="dv">89</span>, <span class="dv">100</span>,  <span class="dv">90</span>, </span>
+<span id="cb166-8"><a href="week-04-factorial-manova.html#cb166-8" tabindex="-1"></a>            <span class="dv">90</span>,  <span class="dv">85</span>,  <span class="dv">80</span>,  <span class="dv">70</span>,  <span class="dv">85</span>,  <span class="dv">78</span>,  <span class="dv">65</span>,  <span class="dv">80</span>,  <span class="dv">72</span>),</span>
+<span id="cb166-9"><a href="week-04-factorial-manova.html#cb166-9" tabindex="-1"></a> <span class="at">wratA =</span> <span class="fu">c</span>(<span class="dv">108</span>, <span class="dv">105</span>,  <span class="dv">98</span>, <span class="dv">105</span>,  <span class="dv">95</span>,  <span class="dv">98</span>,  <span class="dv">78</span>,  <span class="dv">85</span>,  <span class="dv">95</span>,</span>
+<span id="cb166-10"><a href="week-04-factorial-manova.html#cb166-10" tabindex="-1"></a>            <span class="dv">92</span>,  <span class="dv">95</span>,  <span class="dv">81</span>,  <span class="dv">80</span>,  <span class="dv">68</span>,  <span class="dv">82</span>,  <span class="dv">62</span>,  <span class="dv">70</span>,  <span class="dv">73</span>),</span>
+<span id="cb166-11"><a href="week-04-factorial-manova.html#cb166-11" tabindex="-1"></a> <span class="at">IQ    =</span> <span class="fu">c</span>(<span class="dv">110</span>, <span class="dv">102</span>, <span class="dv">100</span>, <span class="dv">115</span>,  <span class="dv">98</span>, <span class="dv">100</span>,  <span class="dv">99</span>, <span class="dv">102</span>, <span class="dv">100</span>,</span>
+<span id="cb166-12"><a href="week-04-factorial-manova.html#cb166-12" tabindex="-1"></a>           <span class="dv">108</span>, <span class="dv">115</span>,  <span class="dv">95</span>, <span class="dv">100</span>,  <span class="dv">99</span>, <span class="dv">105</span>, <span class="dv">101</span>,  <span class="dv">95</span>, <span class="dv">102</span>) )</span>
+<span id="cb166-13"><a href="week-04-factorial-manova.html#cb166-13" tabindex="-1"></a><span class="fu">str</span>(dat)</span></code></pre></div>
 <pre><code>## &#39;data.frame&#39;:    18 obs. of  6 variables:
 ##  $ id   : int  1 2 3 4 5 6 7 8 9 10 ...
 ##  $ treat: chr  &quot;T&quot; &quot;T&quot; &quot;T&quot; &quot;T&quot; ...
@@ -425,9 +428,9 @@ div.csl-indent {
 ##  $ wratR: num  115 98 107 100 105 95 89 100 90 90 ...
 ##  $ wratA: num  108 105 98 105 95 98 78 85 95 92 ...
 ##  $ IQ   : num  110 102 100 115 98 100 99 102 100 108 ...</code></pre>
-<div class="sourceCode" id="cb169"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb169-1"><a href="week-04-factorial-manova.html#cb169-1" tabindex="-1"></a>dat<span class="sc">$</span>treat <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(dat<span class="sc">$</span>treat)</span>
-<span id="cb169-2"><a href="week-04-factorial-manova.html#cb169-2" tabindex="-1"></a>dat<span class="sc">$</span>disab <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(dat<span class="sc">$</span>disab)</span>
-<span id="cb169-3"><a href="week-04-factorial-manova.html#cb169-3" tabindex="-1"></a><span class="fu">str</span>(dat)</span></code></pre></div>
+<div class="sourceCode" id="cb168"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb168-1"><a href="week-04-factorial-manova.html#cb168-1" tabindex="-1"></a>dat<span class="sc">$</span>treat <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(dat<span class="sc">$</span>treat)</span>
+<span id="cb168-2"><a href="week-04-factorial-manova.html#cb168-2" tabindex="-1"></a>dat<span class="sc">$</span>disab <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(dat<span class="sc">$</span>disab)</span>
+<span id="cb168-3"><a href="week-04-factorial-manova.html#cb168-3" tabindex="-1"></a><span class="fu">str</span>(dat)</span></code></pre></div>
 <pre><code>## &#39;data.frame&#39;:    18 obs. of  6 variables:
 ##  $ id   : int  1 2 3 4 5 6 7 8 9 10 ...
 ##  $ treat: Factor w/ 2 levels &quot;C&quot;,&quot;T&quot;: 2 2 2 2 2 2 2 2 2 1 ...
@@ -436,43 +439,43 @@ div.csl-indent {
 ##  $ wratA: num  108 105 98 105 95 98 78 85 95 92 ...
 ##  $ IQ   : num  110 102 100 115 98 100 99 102 100 108 ...</code></pre>
 <p>We can see the calculations presented on p. 258. This is only with the first observation in the data set.</p>
-<div class="sourceCode" id="cb171"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb171-1"><a href="week-04-factorial-manova.html#cb171-1" tabindex="-1"></a>mat_GM <span class="ot">&lt;-</span> <span class="fu">cbind</span>(<span class="fu">c</span>(<span class="fu">mean</span>(dat<span class="sc">$</span>wratR), <span class="fu">mean</span>(dat<span class="sc">$</span>wratA)) )</span>
-<span id="cb171-2"><a href="week-04-factorial-manova.html#cb171-2" tabindex="-1"></a>Y_111  <span class="ot">&lt;-</span> <span class="fu">cbind</span>( <span class="fu">unlist</span>(dat[<span class="dv">1</span>, <span class="fu">c</span>(<span class="st">&quot;wratR&quot;</span>, <span class="st">&quot;wratA&quot;</span>)]) )</span>
-<span id="cb171-3"><a href="week-04-factorial-manova.html#cb171-3" tabindex="-1"></a>SS_111 <span class="ot">&lt;-</span> Y_111 <span class="sc">-</span> mat_GM</span>
-<span id="cb171-4"><a href="week-04-factorial-manova.html#cb171-4" tabindex="-1"></a>SS_111 <span class="sc">%*%</span> <span class="fu">t</span>(SS_111)</span></code></pre></div>
+<div class="sourceCode" id="cb170"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb170-1"><a href="week-04-factorial-manova.html#cb170-1" tabindex="-1"></a>mat_GM <span class="ot">&lt;-</span> <span class="fu">cbind</span>(<span class="fu">c</span>(<span class="fu">mean</span>(dat<span class="sc">$</span>wratR), <span class="fu">mean</span>(dat<span class="sc">$</span>wratA)) )</span>
+<span id="cb170-2"><a href="week-04-factorial-manova.html#cb170-2" tabindex="-1"></a>Y_111  <span class="ot">&lt;-</span> <span class="fu">cbind</span>( <span class="fu">unlist</span>(dat[<span class="dv">1</span>, <span class="fu">c</span>(<span class="st">&quot;wratR&quot;</span>, <span class="st">&quot;wratA&quot;</span>)]) )</span>
+<span id="cb170-3"><a href="week-04-factorial-manova.html#cb170-3" tabindex="-1"></a>SS_111 <span class="ot">&lt;-</span> Y_111 <span class="sc">-</span> mat_GM</span>
+<span id="cb170-4"><a href="week-04-factorial-manova.html#cb170-4" tabindex="-1"></a>SS_111 <span class="sc">%*%</span> <span class="fu">t</span>(SS_111)</span></code></pre></div>
 <pre><code>##          wratR    wratA
 ## wratR 670.2346 537.9136
 ## wratA 537.9136 431.7160</code></pre>
 <p>We could do this for every person and add up all the matrices, which would give us a <span class="math inline">\(\mathbf{SSCP}_{total}\)</span> matrix. But, let’s not. Instead, we can get the total SSCP matrix by getting the covariance with the <code>cov()</code> function and scalar-multiplying that by the <em>df</em>:</p>
-<div class="sourceCode" id="cb173"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb173-1"><a href="week-04-factorial-manova.html#cb173-1" tabindex="-1"></a>DVs <span class="ot">&lt;-</span> <span class="fu">cbind</span>(dat[, <span class="fu">c</span>(<span class="st">&quot;wratR&quot;</span>, <span class="st">&quot;wratA&quot;</span>)])</span>
-<span id="cb173-2"><a href="week-04-factorial-manova.html#cb173-2" tabindex="-1"></a><span class="fu">cov</span>(DVs)</span></code></pre></div>
+<div class="sourceCode" id="cb172"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb172-1"><a href="week-04-factorial-manova.html#cb172-1" tabindex="-1"></a>DVs <span class="ot">&lt;-</span> <span class="fu">cbind</span>(dat[, <span class="fu">c</span>(<span class="st">&quot;wratR&quot;</span>, <span class="st">&quot;wratA&quot;</span>)])</span>
+<span id="cb172-2"><a href="week-04-factorial-manova.html#cb172-2" tabindex="-1"></a><span class="fu">cov</span>(DVs)</span></code></pre></div>
 <pre><code>##          wratR    wratA
 ## wratR 185.7516 150.9150
 ## wratA 150.9150 189.0065</code></pre>
-<div class="sourceCode" id="cb175"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb175-1"><a href="week-04-factorial-manova.html#cb175-1" tabindex="-1"></a>N <span class="ot">&lt;-</span> <span class="fu">nrow</span>(dat)</span>
-<span id="cb175-2"><a href="week-04-factorial-manova.html#cb175-2" tabindex="-1"></a>SSCP_T <span class="ot">&lt;-</span> <span class="fu">cov</span>(DVs) <span class="sc">*</span> (N<span class="dv">-1</span>)</span>
-<span id="cb175-3"><a href="week-04-factorial-manova.html#cb175-3" tabindex="-1"></a>SSCP_T </span></code></pre></div>
+<div class="sourceCode" id="cb174"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb174-1"><a href="week-04-factorial-manova.html#cb174-1" tabindex="-1"></a>N <span class="ot">&lt;-</span> <span class="fu">nrow</span>(dat)</span>
+<span id="cb174-2"><a href="week-04-factorial-manova.html#cb174-2" tabindex="-1"></a>SSCP_T <span class="ot">&lt;-</span> <span class="fu">cov</span>(DVs) <span class="sc">*</span> (N<span class="dv">-1</span>)</span>
+<span id="cb174-3"><a href="week-04-factorial-manova.html#cb174-3" tabindex="-1"></a>SSCP_T </span></code></pre></div>
 <pre><code>##          wratR    wratA
 ## wratR 3157.778 2565.556
 ## wratA 2565.556 3213.111</code></pre>
 <p>This is the <span class="math inline">\(\mathbf{SSCP_{total}}\)</span>, which will be the same as the sum of all of the SSCP matrices of the two main effects, the interaction effect, and the residual (within).</p>
 <p>If we’re using “by-hand” calculations, the Within and Between SSCP matrices are the following:</p>
-<div class="sourceCode" id="cb177"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb177-1"><a href="week-04-factorial-manova.html#cb177-1" tabindex="-1"></a><span class="co"># SSCP_W = sum of all of the Ws in each cell</span></span>
-<span id="cb177-2"><a href="week-04-factorial-manova.html#cb177-2" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb177-3"><a href="week-04-factorial-manova.html#cb177-3" tabindex="-1"></a>sqrs_cps <span class="ot">&lt;-</span> dat <span class="sc">%&gt;%</span> </span>
-<span id="cb177-4"><a href="week-04-factorial-manova.html#cb177-4" tabindex="-1"></a><span class="co"># `group_by()` conducts the rest by treatment and disability; i.e., within each cell.</span></span>
-<span id="cb177-5"><a href="week-04-factorial-manova.html#cb177-5" tabindex="-1"></a>        <span class="fu">group_by</span>(treat, disab) <span class="sc">%&gt;%</span> </span>
-<span id="cb177-6"><a href="week-04-factorial-manova.html#cb177-6" tabindex="-1"></a>        <span class="fu">mutate</span>(<span class="at">m_1 =</span> <span class="fu">mean</span>(wratR),</span>
-<span id="cb177-7"><a href="week-04-factorial-manova.html#cb177-7" tabindex="-1"></a>               <span class="at">m_2 =</span> <span class="fu">mean</span>(wratA),</span>
-<span id="cb177-8"><a href="week-04-factorial-manova.html#cb177-8" tabindex="-1"></a>               <span class="at">sq_1tb=</span> (wratR <span class="sc">-</span> m_1)<span class="sc">^</span><span class="dv">2</span>,</span>
-<span id="cb177-9"><a href="week-04-factorial-manova.html#cb177-9" tabindex="-1"></a>               <span class="at">cp    =</span> (wratR <span class="sc">-</span> m_1)<span class="sc">*</span>(wratA <span class="sc">-</span> m_2),</span>
-<span id="cb177-10"><a href="week-04-factorial-manova.html#cb177-10" tabindex="-1"></a>               <span class="at">sq_2tb=</span> (wratA <span class="sc">-</span> m_2)<span class="sc">^</span><span class="dv">2</span>  )</span>
-<span id="cb177-11"><a href="week-04-factorial-manova.html#cb177-11" tabindex="-1"></a><span class="co"># Summing the squares and cross products:</span></span>
-<span id="cb177-12"><a href="week-04-factorial-manova.html#cb177-12" tabindex="-1"></a>SSCP_Ws <span class="ot">&lt;-</span> sqrs_cps <span class="sc">%&gt;%</span> </span>
-<span id="cb177-13"><a href="week-04-factorial-manova.html#cb177-13" tabindex="-1"></a>     <span class="fu">summarize</span>(<span class="at">SS_1tb =</span> <span class="fu">sum</span>(sq_1tb),</span>
-<span id="cb177-14"><a href="week-04-factorial-manova.html#cb177-14" tabindex="-1"></a>               <span class="at">cp_12  =</span> <span class="fu">sum</span>(cp),</span>
-<span id="cb177-15"><a href="week-04-factorial-manova.html#cb177-15" tabindex="-1"></a>               <span class="at">SS_2tb =</span> <span class="fu">sum</span>(sq_2tb)  )</span>
-<span id="cb177-16"><a href="week-04-factorial-manova.html#cb177-16" tabindex="-1"></a>SSCP_Ws</span></code></pre></div>
+<div class="sourceCode" id="cb176"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb176-1"><a href="week-04-factorial-manova.html#cb176-1" tabindex="-1"></a><span class="co"># SSCP_W = sum of all of the Ws in each cell</span></span>
+<span id="cb176-2"><a href="week-04-factorial-manova.html#cb176-2" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb176-3"><a href="week-04-factorial-manova.html#cb176-3" tabindex="-1"></a>sqrs_cps <span class="ot">&lt;-</span> dat <span class="sc">%&gt;%</span> </span>
+<span id="cb176-4"><a href="week-04-factorial-manova.html#cb176-4" tabindex="-1"></a><span class="co"># `group_by()` conducts the rest by treatment and disability; i.e., within each cell.</span></span>
+<span id="cb176-5"><a href="week-04-factorial-manova.html#cb176-5" tabindex="-1"></a>        <span class="fu">group_by</span>(treat, disab) <span class="sc">%&gt;%</span> </span>
+<span id="cb176-6"><a href="week-04-factorial-manova.html#cb176-6" tabindex="-1"></a>        <span class="fu">mutate</span>(<span class="at">m_1 =</span> <span class="fu">mean</span>(wratR),</span>
+<span id="cb176-7"><a href="week-04-factorial-manova.html#cb176-7" tabindex="-1"></a>               <span class="at">m_2 =</span> <span class="fu">mean</span>(wratA),</span>
+<span id="cb176-8"><a href="week-04-factorial-manova.html#cb176-8" tabindex="-1"></a>               <span class="at">sq_1tb=</span> (wratR <span class="sc">-</span> m_1)<span class="sc">^</span><span class="dv">2</span>,</span>
+<span id="cb176-9"><a href="week-04-factorial-manova.html#cb176-9" tabindex="-1"></a>               <span class="at">cp    =</span> (wratR <span class="sc">-</span> m_1)<span class="sc">*</span>(wratA <span class="sc">-</span> m_2),</span>
+<span id="cb176-10"><a href="week-04-factorial-manova.html#cb176-10" tabindex="-1"></a>               <span class="at">sq_2tb=</span> (wratA <span class="sc">-</span> m_2)<span class="sc">^</span><span class="dv">2</span>  )</span>
+<span id="cb176-11"><a href="week-04-factorial-manova.html#cb176-11" tabindex="-1"></a><span class="co"># Summing the squares and cross products:</span></span>
+<span id="cb176-12"><a href="week-04-factorial-manova.html#cb176-12" tabindex="-1"></a>SSCP_Ws <span class="ot">&lt;-</span> sqrs_cps <span class="sc">%&gt;%</span> </span>
+<span id="cb176-13"><a href="week-04-factorial-manova.html#cb176-13" tabindex="-1"></a>     <span class="fu">summarize</span>(<span class="at">SS_1tb =</span> <span class="fu">sum</span>(sq_1tb),</span>
+<span id="cb176-14"><a href="week-04-factorial-manova.html#cb176-14" tabindex="-1"></a>               <span class="at">cp_12  =</span> <span class="fu">sum</span>(cp),</span>
+<span id="cb176-15"><a href="week-04-factorial-manova.html#cb176-15" tabindex="-1"></a>               <span class="at">SS_2tb =</span> <span class="fu">sum</span>(sq_2tb)  )</span>
+<span id="cb176-16"><a href="week-04-factorial-manova.html#cb176-16" tabindex="-1"></a>SSCP_Ws</span></code></pre></div>
 <pre><code>## # A tibble: 6 × 5
 ## # Groups:   treat [2]
 ##   treat disab    SS_1tb cp_12 SS_2tb
@@ -483,30 +486,30 @@ div.csl-indent {
 ## 4 T     Mild       145.  22.7   52.7
 ## 5 T     Moderate    50  -15     52.7
 ## 6 T     Severe      74   -2    146</code></pre>
-<div class="sourceCode" id="cb179"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb179-1"><a href="week-04-factorial-manova.html#cb179-1" tabindex="-1"></a>W_1 <span class="ot">&lt;-</span> <span class="fu">matrix</span>( <span class="fu">unlist</span>(SSCP_Ws[<span class="dv">1</span>, <span class="fu">c</span>(<span class="st">&quot;SS_1tb&quot;</span>, <span class="st">&quot;cp_12&quot;</span>, <span class="st">&quot;cp_12&quot;</span>, <span class="st">&quot;SS_2tb&quot;</span>)]), <span class="at">nrow =</span> <span class="dv">2</span>)</span>
-<span id="cb179-2"><a href="week-04-factorial-manova.html#cb179-2" tabindex="-1"></a>W_2 <span class="ot">&lt;-</span> <span class="fu">matrix</span>( <span class="fu">unlist</span>(SSCP_Ws[<span class="dv">2</span>, <span class="fu">c</span>(<span class="st">&quot;SS_1tb&quot;</span>, <span class="st">&quot;cp_12&quot;</span>, <span class="st">&quot;cp_12&quot;</span>, <span class="st">&quot;SS_2tb&quot;</span>)]), <span class="at">nrow =</span> <span class="dv">2</span>)</span>
-<span id="cb179-3"><a href="week-04-factorial-manova.html#cb179-3" tabindex="-1"></a>W_3 <span class="ot">&lt;-</span> <span class="fu">matrix</span>( <span class="fu">unlist</span>(SSCP_Ws[<span class="dv">3</span>, <span class="fu">c</span>(<span class="st">&quot;SS_1tb&quot;</span>, <span class="st">&quot;cp_12&quot;</span>, <span class="st">&quot;cp_12&quot;</span>, <span class="st">&quot;SS_2tb&quot;</span>)]), <span class="at">nrow =</span> <span class="dv">2</span>)</span>
-<span id="cb179-4"><a href="week-04-factorial-manova.html#cb179-4" tabindex="-1"></a>W_4 <span class="ot">&lt;-</span> <span class="fu">matrix</span>( <span class="fu">unlist</span>(SSCP_Ws[<span class="dv">4</span>, <span class="fu">c</span>(<span class="st">&quot;SS_1tb&quot;</span>, <span class="st">&quot;cp_12&quot;</span>, <span class="st">&quot;cp_12&quot;</span>, <span class="st">&quot;SS_2tb&quot;</span>)]), <span class="at">nrow =</span> <span class="dv">2</span>)</span>
-<span id="cb179-5"><a href="week-04-factorial-manova.html#cb179-5" tabindex="-1"></a>W_5 <span class="ot">&lt;-</span> <span class="fu">matrix</span>( <span class="fu">unlist</span>(SSCP_Ws[<span class="dv">5</span>, <span class="fu">c</span>(<span class="st">&quot;SS_1tb&quot;</span>, <span class="st">&quot;cp_12&quot;</span>, <span class="st">&quot;cp_12&quot;</span>, <span class="st">&quot;SS_2tb&quot;</span>)]), <span class="at">nrow =</span> <span class="dv">2</span>)</span>
-<span id="cb179-6"><a href="week-04-factorial-manova.html#cb179-6" tabindex="-1"></a>W_6 <span class="ot">&lt;-</span> <span class="fu">matrix</span>( <span class="fu">unlist</span>(SSCP_Ws[<span class="dv">6</span>, <span class="fu">c</span>(<span class="st">&quot;SS_1tb&quot;</span>, <span class="st">&quot;cp_12&quot;</span>, <span class="st">&quot;cp_12&quot;</span>, <span class="st">&quot;SS_2tb&quot;</span>)]), <span class="at">nrow =</span> <span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb178"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb178-1"><a href="week-04-factorial-manova.html#cb178-1" tabindex="-1"></a>W_1 <span class="ot">&lt;-</span> <span class="fu">matrix</span>( <span class="fu">unlist</span>(SSCP_Ws[<span class="dv">1</span>, <span class="fu">c</span>(<span class="st">&quot;SS_1tb&quot;</span>, <span class="st">&quot;cp_12&quot;</span>, <span class="st">&quot;cp_12&quot;</span>, <span class="st">&quot;SS_2tb&quot;</span>)]), <span class="at">nrow =</span> <span class="dv">2</span>)</span>
+<span id="cb178-2"><a href="week-04-factorial-manova.html#cb178-2" tabindex="-1"></a>W_2 <span class="ot">&lt;-</span> <span class="fu">matrix</span>( <span class="fu">unlist</span>(SSCP_Ws[<span class="dv">2</span>, <span class="fu">c</span>(<span class="st">&quot;SS_1tb&quot;</span>, <span class="st">&quot;cp_12&quot;</span>, <span class="st">&quot;cp_12&quot;</span>, <span class="st">&quot;SS_2tb&quot;</span>)]), <span class="at">nrow =</span> <span class="dv">2</span>)</span>
+<span id="cb178-3"><a href="week-04-factorial-manova.html#cb178-3" tabindex="-1"></a>W_3 <span class="ot">&lt;-</span> <span class="fu">matrix</span>( <span class="fu">unlist</span>(SSCP_Ws[<span class="dv">3</span>, <span class="fu">c</span>(<span class="st">&quot;SS_1tb&quot;</span>, <span class="st">&quot;cp_12&quot;</span>, <span class="st">&quot;cp_12&quot;</span>, <span class="st">&quot;SS_2tb&quot;</span>)]), <span class="at">nrow =</span> <span class="dv">2</span>)</span>
+<span id="cb178-4"><a href="week-04-factorial-manova.html#cb178-4" tabindex="-1"></a>W_4 <span class="ot">&lt;-</span> <span class="fu">matrix</span>( <span class="fu">unlist</span>(SSCP_Ws[<span class="dv">4</span>, <span class="fu">c</span>(<span class="st">&quot;SS_1tb&quot;</span>, <span class="st">&quot;cp_12&quot;</span>, <span class="st">&quot;cp_12&quot;</span>, <span class="st">&quot;SS_2tb&quot;</span>)]), <span class="at">nrow =</span> <span class="dv">2</span>)</span>
+<span id="cb178-5"><a href="week-04-factorial-manova.html#cb178-5" tabindex="-1"></a>W_5 <span class="ot">&lt;-</span> <span class="fu">matrix</span>( <span class="fu">unlist</span>(SSCP_Ws[<span class="dv">5</span>, <span class="fu">c</span>(<span class="st">&quot;SS_1tb&quot;</span>, <span class="st">&quot;cp_12&quot;</span>, <span class="st">&quot;cp_12&quot;</span>, <span class="st">&quot;SS_2tb&quot;</span>)]), <span class="at">nrow =</span> <span class="dv">2</span>)</span>
+<span id="cb178-6"><a href="week-04-factorial-manova.html#cb178-6" tabindex="-1"></a>W_6 <span class="ot">&lt;-</span> <span class="fu">matrix</span>( <span class="fu">unlist</span>(SSCP_Ws[<span class="dv">6</span>, <span class="fu">c</span>(<span class="st">&quot;SS_1tb&quot;</span>, <span class="st">&quot;cp_12&quot;</span>, <span class="st">&quot;cp_12&quot;</span>, <span class="st">&quot;SS_2tb&quot;</span>)]), <span class="at">nrow =</span> <span class="dv">2</span>)</span></code></pre></div>
 <p>Now, can use matrix addition to add them up. This is the <span class="math inline">\(\mathbf{SSCP_{within}}\)</span> matrix:</p>
-<div class="sourceCode" id="cb180"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb180-1"><a href="week-04-factorial-manova.html#cb180-1" tabindex="-1"></a>SSCP_W <span class="ot">&lt;-</span> W_1 <span class="sc">+</span> W_2 <span class="sc">+</span> W_3 <span class="sc">+</span> W_4 <span class="sc">+</span> W_5 <span class="sc">+</span> W_6 </span>
-<span id="cb180-2"><a href="week-04-factorial-manova.html#cb180-2" tabindex="-1"></a><span class="fu">colnames</span>(SSCP_W) <span class="ot">&lt;-</span> <span class="fu">rownames</span>(SSCP_W) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;wratR&quot;</span>, <span class="st">&quot;wratA&quot;</span>)</span>
-<span id="cb180-3"><a href="week-04-factorial-manova.html#cb180-3" tabindex="-1"></a>SSCP_W</span></code></pre></div>
+<div class="sourceCode" id="cb179"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb179-1"><a href="week-04-factorial-manova.html#cb179-1" tabindex="-1"></a>SSCP_W <span class="ot">&lt;-</span> W_1 <span class="sc">+</span> W_2 <span class="sc">+</span> W_3 <span class="sc">+</span> W_4 <span class="sc">+</span> W_5 <span class="sc">+</span> W_6 </span>
+<span id="cb179-2"><a href="week-04-factorial-manova.html#cb179-2" tabindex="-1"></a><span class="fu">colnames</span>(SSCP_W) <span class="ot">&lt;-</span> <span class="fu">rownames</span>(SSCP_W) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;wratR&quot;</span>, <span class="st">&quot;wratA&quot;</span>)</span>
+<span id="cb179-3"><a href="week-04-factorial-manova.html#cb179-3" tabindex="-1"></a>SSCP_W</span></code></pre></div>
 <pre><code>##       wratR    wratA
 ## wratR   544  31.0000
 ## wratA    31 539.3333</code></pre>
 <div id="another-way-to-get-the-sscp_w" class="section level3 hasAnchor" number="5.1.1">
 <h3><span class="header-section-number">5.1.1</span> Another way to get the <span class="math inline">\(SSCP_W\)</span>:<a href="week-04-factorial-manova.html#another-way-to-get-the-sscp_w" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>The following bit of code is shorter than doing it by hand, but is way harder to read. Basically, we’re getting the covariance within each group-by-group cell in the full factorial model. Then, we’re obtaining the SSCP by multiplying by the <em>n</em>-size within the cell (assuming a balanced design, with all cells are same size). Then, we save this list of 6 within-matrices and then add them up. This gives the total within-SSCP. This is the same kind of operation we did in Assignment 1.</p>
-<div class="sourceCode" id="cb182"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb182-1"><a href="week-04-factorial-manova.html#cb182-1" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb182-2"><a href="week-04-factorial-manova.html#cb182-2" tabindex="-1"></a>temp <span class="ot">&lt;-</span> dat <span class="sc">%&gt;%</span> </span>
-<span id="cb182-3"><a href="week-04-factorial-manova.html#cb182-3" tabindex="-1"></a>  <span class="fu">group_by</span>(treat, disab) <span class="sc">%&gt;%</span> </span>
-<span id="cb182-4"><a href="week-04-factorial-manova.html#cb182-4" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">S_b =</span> <span class="fu">cov</span>(<span class="fu">cbind</span>(wratR, wratA)),</span>
-<span id="cb182-5"><a href="week-04-factorial-manova.html#cb182-5" tabindex="-1"></a>            <span class="at">degf =</span> <span class="fu">n</span>()<span class="sc">-</span><span class="dv">1</span>,</span>
-<span id="cb182-6"><a href="week-04-factorial-manova.html#cb182-6" tabindex="-1"></a>            <span class="at">sscp=</span> S_b <span class="sc">*</span> degf ) <span class="sc">%&gt;%</span> </span>
-<span id="cb182-7"><a href="week-04-factorial-manova.html#cb182-7" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(sscp) <span class="sc">%&gt;%</span> <span class="fu">data.frame</span>()</span>
-<span id="cb182-8"><a href="week-04-factorial-manova.html#cb182-8" tabindex="-1"></a>temp</span></code></pre></div>
+<div class="sourceCode" id="cb181"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb181-1"><a href="week-04-factorial-manova.html#cb181-1" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb181-2"><a href="week-04-factorial-manova.html#cb181-2" tabindex="-1"></a>temp <span class="ot">&lt;-</span> dat <span class="sc">%&gt;%</span> </span>
+<span id="cb181-3"><a href="week-04-factorial-manova.html#cb181-3" tabindex="-1"></a>  <span class="fu">group_by</span>(treat, disab) <span class="sc">%&gt;%</span> </span>
+<span id="cb181-4"><a href="week-04-factorial-manova.html#cb181-4" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">S_b =</span> <span class="fu">cov</span>(<span class="fu">cbind</span>(wratR, wratA)),</span>
+<span id="cb181-5"><a href="week-04-factorial-manova.html#cb181-5" tabindex="-1"></a>            <span class="at">degf =</span> <span class="fu">n</span>()<span class="sc">-</span><span class="dv">1</span>,</span>
+<span id="cb181-6"><a href="week-04-factorial-manova.html#cb181-6" tabindex="-1"></a>            <span class="at">sscp=</span> S_b <span class="sc">*</span> degf ) <span class="sc">%&gt;%</span> </span>
+<span id="cb181-7"><a href="week-04-factorial-manova.html#cb181-7" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(sscp) <span class="sc">%&gt;%</span> <span class="fu">data.frame</span>()</span>
+<span id="cb181-8"><a href="week-04-factorial-manova.html#cb181-8" tabindex="-1"></a>temp</span></code></pre></div>
 <pre><code>##    treat    disab    sscp.1    sscp.2
 ## 1      C     Mild  50.00000  55.00000
 ## 2      C     Mild  55.00000 108.66667
@@ -520,16 +523,16 @@ div.csl-indent {
 ## 10     T Moderate -15.00000  52.66667
 ## 11     T   Severe  74.00000  -2.00000
 ## 12     T   Severe  -2.00000 146.00000</code></pre>
-<div class="sourceCode" id="cb184"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb184-1"><a href="week-04-factorial-manova.html#cb184-1" tabindex="-1"></a>sscp.mat <span class="ot">&lt;-</span> temp<span class="sc">$</span>sscp <span class="co"># The result of the summarize function was a matrix.</span></span>
-<span id="cb184-2"><a href="week-04-factorial-manova.html#cb184-2" tabindex="-1"></a>k_grps <span class="ot">&lt;-</span> <span class="fu">length</span>( <span class="fu">unique</span>(dat[,<span class="fu">c</span>(<span class="st">&quot;treat&quot;</span>, <span class="st">&quot;disab&quot;</span>)]) )</span>
-<span id="cb184-3"><a href="week-04-factorial-manova.html#cb184-3" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="dv">2</span> <span class="co"># number of DVs is 2</span></span>
-<span id="cb184-4"><a href="week-04-factorial-manova.html#cb184-4" tabindex="-1"></a><span class="co"># Add a column to tell R how to split this up into 6 smaller matrices:</span></span>
-<span id="cb184-5"><a href="week-04-factorial-manova.html#cb184-5" tabindex="-1"></a>sscp.mat <span class="ot">&lt;-</span> <span class="fu">cbind</span>(sscp.mat, <span class="fu">c</span>( <span class="fu">rep</span>(<span class="dv">1</span><span class="sc">:</span>k_grps, <span class="at">each =</span> p) ) )</span>
-<span id="cb184-6"><a href="week-04-factorial-manova.html#cb184-6" tabindex="-1"></a><span class="co"># Split this up into 6 matrices, each stored in this list</span></span>
-<span id="cb184-7"><a href="week-04-factorial-manova.html#cb184-7" tabindex="-1"></a>SSCP_W2 <span class="ot">&lt;-</span> <span class="fu">lapply</span>( <span class="fu">split</span>(sscp.mat[,<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>], </span>
-<span id="cb184-8"><a href="week-04-factorial-manova.html#cb184-8" tabindex="-1"></a>                        <span class="at">f =</span> sscp.mat[,<span class="dv">3</span>] ), </span>
-<span id="cb184-9"><a href="week-04-factorial-manova.html#cb184-9" tabindex="-1"></a>                  <span class="at">FUN =</span> matrix, <span class="at">ncol=</span>p)</span>
-<span id="cb184-10"><a href="week-04-factorial-manova.html#cb184-10" tabindex="-1"></a>SSCP_W2 <span class="co"># Our list of matrices</span></span></code></pre></div>
+<div class="sourceCode" id="cb183"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb183-1"><a href="week-04-factorial-manova.html#cb183-1" tabindex="-1"></a>sscp.mat <span class="ot">&lt;-</span> temp<span class="sc">$</span>sscp <span class="co"># The result of the summarize function was a matrix.</span></span>
+<span id="cb183-2"><a href="week-04-factorial-manova.html#cb183-2" tabindex="-1"></a>k_grps <span class="ot">&lt;-</span> <span class="fu">length</span>( <span class="fu">unique</span>(dat[,<span class="fu">c</span>(<span class="st">&quot;treat&quot;</span>, <span class="st">&quot;disab&quot;</span>)]) )</span>
+<span id="cb183-3"><a href="week-04-factorial-manova.html#cb183-3" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="dv">2</span> <span class="co"># number of DVs is 2</span></span>
+<span id="cb183-4"><a href="week-04-factorial-manova.html#cb183-4" tabindex="-1"></a><span class="co"># Add a column to tell R how to split this up into 6 smaller matrices:</span></span>
+<span id="cb183-5"><a href="week-04-factorial-manova.html#cb183-5" tabindex="-1"></a>sscp.mat <span class="ot">&lt;-</span> <span class="fu">cbind</span>(sscp.mat, <span class="fu">c</span>( <span class="fu">rep</span>(<span class="dv">1</span><span class="sc">:</span>k_grps, <span class="at">each =</span> p) ) )</span>
+<span id="cb183-6"><a href="week-04-factorial-manova.html#cb183-6" tabindex="-1"></a><span class="co"># Split this up into 6 matrices, each stored in this list</span></span>
+<span id="cb183-7"><a href="week-04-factorial-manova.html#cb183-7" tabindex="-1"></a>SSCP_W2 <span class="ot">&lt;-</span> <span class="fu">lapply</span>( <span class="fu">split</span>(sscp.mat[,<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>], </span>
+<span id="cb183-8"><a href="week-04-factorial-manova.html#cb183-8" tabindex="-1"></a>                        <span class="at">f =</span> sscp.mat[,<span class="dv">3</span>] ), </span>
+<span id="cb183-9"><a href="week-04-factorial-manova.html#cb183-9" tabindex="-1"></a>                  <span class="at">FUN =</span> matrix, <span class="at">ncol=</span>p)</span>
+<span id="cb183-10"><a href="week-04-factorial-manova.html#cb183-10" tabindex="-1"></a>SSCP_W2 <span class="co"># Our list of matrices</span></span></code></pre></div>
 <pre><code>## $`1`
 ##           [,1]      [,2]
 ## [1,]  50.00000  55.00000
@@ -547,9 +550,9 @@ div.csl-indent {
 ## [4,]  22.66667  52.66667
 ## [5,]  74.00000  -2.00000
 ## [6,]  -2.00000 146.00000</code></pre>
-<div class="sourceCode" id="cb186"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb186-1"><a href="week-04-factorial-manova.html#cb186-1" tabindex="-1"></a><span class="co"># This fancy function adds the matrices across the lists:</span></span>
-<span id="cb186-2"><a href="week-04-factorial-manova.html#cb186-2" tabindex="-1"></a>SSCP_W2 <span class="ot">&lt;-</span> <span class="fu">Reduce</span>(<span class="at">f =</span> <span class="st">&quot;+&quot;</span>, SSCP_W2) </span>
-<span id="cb186-3"><a href="week-04-factorial-manova.html#cb186-3" tabindex="-1"></a>SSCP_W2 <span class="co"># The within-SSCP matrix</span></span></code></pre></div>
+<div class="sourceCode" id="cb185"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb185-1"><a href="week-04-factorial-manova.html#cb185-1" tabindex="-1"></a><span class="co"># This fancy function adds the matrices across the lists:</span></span>
+<span id="cb185-2"><a href="week-04-factorial-manova.html#cb185-2" tabindex="-1"></a>SSCP_W2 <span class="ot">&lt;-</span> <span class="fu">Reduce</span>(<span class="at">f =</span> <span class="st">&quot;+&quot;</span>, SSCP_W2) </span>
+<span id="cb185-3"><a href="week-04-factorial-manova.html#cb185-3" tabindex="-1"></a>SSCP_W2 <span class="co"># The within-SSCP matrix</span></span></code></pre></div>
 <pre><code>##           [,1]      [,2]
 ## [1,] 162.66667 -32.33333
 ## [2,] -32.33333 223.33333
@@ -557,7 +560,7 @@ div.csl-indent {
 ## [4,]  80.33333 117.33333
 ## [5,] 124.00000 -17.00000
 ## [6,] -17.00000 198.66667</code></pre>
-<div class="sourceCode" id="cb188"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb188-1"><a href="week-04-factorial-manova.html#cb188-1" tabindex="-1"></a>SSCP_W <span class="co"># compare with the previous hand-calculation</span></span></code></pre></div>
+<div class="sourceCode" id="cb187"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb187-1"><a href="week-04-factorial-manova.html#cb187-1" tabindex="-1"></a>SSCP_W <span class="co"># compare with the previous hand-calculation</span></span></code></pre></div>
 <pre><code>##       wratR    wratA
 ## wratR   544  31.0000
 ## wratA    31 539.3333</code></pre>
@@ -566,63 +569,63 @@ div.csl-indent {
 <h3><span class="header-section-number">5.1.2</span> <span class="math inline">\(\mathbf{SSCP_{Between}}\)</span> for each factor<a href="week-04-factorial-manova.html#mathbfsscp_between-for-each-factor" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Here is something similar for the Between SSCP. There are three <strong>B</strong> matrices, one for each main effect (of <code>treat</code> and of <code>disab</code>) and one for the interaction.
 Let’s look at the main effect of <code>treat</code>:</p>
-<div class="sourceCode" id="cb190"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb190-1"><a href="week-04-factorial-manova.html#cb190-1" tabindex="-1"></a>meanSSCP_treat <span class="ot">&lt;-</span> dat <span class="sc">%&gt;%</span> </span>
-<span id="cb190-2"><a href="week-04-factorial-manova.html#cb190-2" tabindex="-1"></a>        <span class="fu">group_by</span>(treat) <span class="sc">%&gt;%</span> </span>
-<span id="cb190-3"><a href="week-04-factorial-manova.html#cb190-3" tabindex="-1"></a>        <span class="fu">summarize</span>(<span class="at">m_1 =</span> <span class="fu">mean</span>(wratR),</span>
-<span id="cb190-4"><a href="week-04-factorial-manova.html#cb190-4" tabindex="-1"></a>                  <span class="at">m_2 =</span> <span class="fu">mean</span>(wratA))</span>
-<span id="cb190-5"><a href="week-04-factorial-manova.html#cb190-5" tabindex="-1"></a>meanSSCP_treat<span class="sc">$</span>GM1 <span class="ot">&lt;-</span> <span class="fu">mean</span>(dat<span class="sc">$</span>wratR)</span>
-<span id="cb190-6"><a href="week-04-factorial-manova.html#cb190-6" tabindex="-1"></a>meanSSCP_treat<span class="sc">$</span>GM2 <span class="ot">&lt;-</span> <span class="fu">mean</span>(dat<span class="sc">$</span>wratA)</span>
-<span id="cb190-7"><a href="week-04-factorial-manova.html#cb190-7" tabindex="-1"></a>meanSSCP_treat<span class="sc">$</span>n   <span class="ot">&lt;-</span> <span class="fu">table</span>(dat<span class="sc">$</span>treat)[<span class="dv">1</span>][[<span class="dv">1</span>]] <span class="co"># n per group is 9</span></span>
-<span id="cb190-8"><a href="week-04-factorial-manova.html#cb190-8" tabindex="-1"></a>meanSSCP_treat</span></code></pre></div>
+<div class="sourceCode" id="cb189"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb189-1"><a href="week-04-factorial-manova.html#cb189-1" tabindex="-1"></a>meanSSCP_treat <span class="ot">&lt;-</span> dat <span class="sc">%&gt;%</span> </span>
+<span id="cb189-2"><a href="week-04-factorial-manova.html#cb189-2" tabindex="-1"></a>        <span class="fu">group_by</span>(treat) <span class="sc">%&gt;%</span> </span>
+<span id="cb189-3"><a href="week-04-factorial-manova.html#cb189-3" tabindex="-1"></a>        <span class="fu">summarize</span>(<span class="at">m_1 =</span> <span class="fu">mean</span>(wratR),</span>
+<span id="cb189-4"><a href="week-04-factorial-manova.html#cb189-4" tabindex="-1"></a>                  <span class="at">m_2 =</span> <span class="fu">mean</span>(wratA))</span>
+<span id="cb189-5"><a href="week-04-factorial-manova.html#cb189-5" tabindex="-1"></a>meanSSCP_treat<span class="sc">$</span>GM1 <span class="ot">&lt;-</span> <span class="fu">mean</span>(dat<span class="sc">$</span>wratR)</span>
+<span id="cb189-6"><a href="week-04-factorial-manova.html#cb189-6" tabindex="-1"></a>meanSSCP_treat<span class="sc">$</span>GM2 <span class="ot">&lt;-</span> <span class="fu">mean</span>(dat<span class="sc">$</span>wratA)</span>
+<span id="cb189-7"><a href="week-04-factorial-manova.html#cb189-7" tabindex="-1"></a>meanSSCP_treat<span class="sc">$</span>n   <span class="ot">&lt;-</span> <span class="fu">table</span>(dat<span class="sc">$</span>treat)[<span class="dv">1</span>][[<span class="dv">1</span>]] <span class="co"># n per group is 9</span></span>
+<span id="cb189-8"><a href="week-04-factorial-manova.html#cb189-8" tabindex="-1"></a>meanSSCP_treat</span></code></pre></div>
 <pre><code>## # A tibble: 2 × 6
 ##   treat   m_1   m_2   GM1   GM2     n
 ##   &lt;fct&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt;
 ## 1 C      78.3  78.1  89.1  87.2     9
 ## 2 T      99.9  96.3  89.1  87.2     9</code></pre>
-<div class="sourceCode" id="cb192"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb192-1"><a href="week-04-factorial-manova.html#cb192-1" tabindex="-1"></a>sqrs_cps_B <span class="ot">&lt;-</span> meanSSCP_treat <span class="sc">%&gt;%</span> </span>
-<span id="cb192-2"><a href="week-04-factorial-manova.html#cb192-2" tabindex="-1"></a>        <span class="fu">mutate</span>(<span class="at">sq_1tb=</span> (m_1 <span class="sc">-</span> GM1)<span class="sc">^</span><span class="dv">2</span>,</span>
-<span id="cb192-3"><a href="week-04-factorial-manova.html#cb192-3" tabindex="-1"></a>               <span class="at">cp    =</span> (m_1 <span class="sc">-</span> GM1)<span class="sc">*</span>(m_2 <span class="sc">-</span> GM2),</span>
-<span id="cb192-4"><a href="week-04-factorial-manova.html#cb192-4" tabindex="-1"></a>               <span class="at">sq_2tb=</span> (m_2 <span class="sc">-</span> GM2)<span class="sc">^</span><span class="dv">2</span>  )</span>
-<span id="cb192-5"><a href="week-04-factorial-manova.html#cb192-5" tabindex="-1"></a>SSCP_Bs <span class="ot">&lt;-</span> sqrs_cps_B <span class="sc">%&gt;%</span> </span>
-<span id="cb192-6"><a href="week-04-factorial-manova.html#cb192-6" tabindex="-1"></a>        <span class="fu">summarize</span>(<span class="at">SS_1tb =</span> n <span class="sc">*</span> sq_1tb,</span>
-<span id="cb192-7"><a href="week-04-factorial-manova.html#cb192-7" tabindex="-1"></a>                  <span class="at">cp_12  =</span> n <span class="sc">*</span> cp,</span>
-<span id="cb192-8"><a href="week-04-factorial-manova.html#cb192-8" tabindex="-1"></a>                  <span class="at">SS_2tb =</span> n <span class="sc">*</span> sq_2tb  )</span>
-<span id="cb192-9"><a href="week-04-factorial-manova.html#cb192-9" tabindex="-1"></a>B_1 <span class="ot">&lt;-</span> <span class="fu">matrix</span>( <span class="fu">unlist</span>(SSCP_Bs[<span class="dv">1</span>, <span class="fu">c</span>(<span class="st">&quot;SS_1tb&quot;</span>, <span class="st">&quot;cp_12&quot;</span>, <span class="st">&quot;cp_12&quot;</span>, <span class="st">&quot;SS_2tb&quot;</span>)]), <span class="at">nrow =</span> <span class="dv">2</span>)</span>
-<span id="cb192-10"><a href="week-04-factorial-manova.html#cb192-10" tabindex="-1"></a>B_2 <span class="ot">&lt;-</span> <span class="fu">matrix</span>( <span class="fu">unlist</span>(SSCP_Bs[<span class="dv">2</span>, <span class="fu">c</span>(<span class="st">&quot;SS_1tb&quot;</span>, <span class="st">&quot;cp_12&quot;</span>, <span class="st">&quot;cp_12&quot;</span>, <span class="st">&quot;SS_2tb&quot;</span>)]), <span class="at">nrow =</span> <span class="dv">2</span>)</span>
-<span id="cb192-11"><a href="week-04-factorial-manova.html#cb192-11" tabindex="-1"></a>SSCP_treat <span class="ot">&lt;-</span> B_1 <span class="sc">+</span> B_2</span>
-<span id="cb192-12"><a href="week-04-factorial-manova.html#cb192-12" tabindex="-1"></a><span class="fu">colnames</span>(SSCP_treat) <span class="ot">&lt;-</span> <span class="fu">rownames</span>(SSCP_treat) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;wratR&quot;</span>, <span class="st">&quot;wratA&quot;</span>)</span>
-<span id="cb192-13"><a href="week-04-factorial-manova.html#cb192-13" tabindex="-1"></a>SSCP_treat <span class="co"># Could use S to stand for the SSCP matrix to follow T and F</span></span></code></pre></div>
+<div class="sourceCode" id="cb191"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb191-1"><a href="week-04-factorial-manova.html#cb191-1" tabindex="-1"></a>sqrs_cps_B <span class="ot">&lt;-</span> meanSSCP_treat <span class="sc">%&gt;%</span> </span>
+<span id="cb191-2"><a href="week-04-factorial-manova.html#cb191-2" tabindex="-1"></a>        <span class="fu">mutate</span>(<span class="at">sq_1tb=</span> (m_1 <span class="sc">-</span> GM1)<span class="sc">^</span><span class="dv">2</span>,</span>
+<span id="cb191-3"><a href="week-04-factorial-manova.html#cb191-3" tabindex="-1"></a>               <span class="at">cp    =</span> (m_1 <span class="sc">-</span> GM1)<span class="sc">*</span>(m_2 <span class="sc">-</span> GM2),</span>
+<span id="cb191-4"><a href="week-04-factorial-manova.html#cb191-4" tabindex="-1"></a>               <span class="at">sq_2tb=</span> (m_2 <span class="sc">-</span> GM2)<span class="sc">^</span><span class="dv">2</span>  )</span>
+<span id="cb191-5"><a href="week-04-factorial-manova.html#cb191-5" tabindex="-1"></a>SSCP_Bs <span class="ot">&lt;-</span> sqrs_cps_B <span class="sc">%&gt;%</span> </span>
+<span id="cb191-6"><a href="week-04-factorial-manova.html#cb191-6" tabindex="-1"></a>        <span class="fu">summarize</span>(<span class="at">SS_1tb =</span> n <span class="sc">*</span> sq_1tb,</span>
+<span id="cb191-7"><a href="week-04-factorial-manova.html#cb191-7" tabindex="-1"></a>                  <span class="at">cp_12  =</span> n <span class="sc">*</span> cp,</span>
+<span id="cb191-8"><a href="week-04-factorial-manova.html#cb191-8" tabindex="-1"></a>                  <span class="at">SS_2tb =</span> n <span class="sc">*</span> sq_2tb  )</span>
+<span id="cb191-9"><a href="week-04-factorial-manova.html#cb191-9" tabindex="-1"></a>B_1 <span class="ot">&lt;-</span> <span class="fu">matrix</span>( <span class="fu">unlist</span>(SSCP_Bs[<span class="dv">1</span>, <span class="fu">c</span>(<span class="st">&quot;SS_1tb&quot;</span>, <span class="st">&quot;cp_12&quot;</span>, <span class="st">&quot;cp_12&quot;</span>, <span class="st">&quot;SS_2tb&quot;</span>)]), <span class="at">nrow =</span> <span class="dv">2</span>)</span>
+<span id="cb191-10"><a href="week-04-factorial-manova.html#cb191-10" tabindex="-1"></a>B_2 <span class="ot">&lt;-</span> <span class="fu">matrix</span>( <span class="fu">unlist</span>(SSCP_Bs[<span class="dv">2</span>, <span class="fu">c</span>(<span class="st">&quot;SS_1tb&quot;</span>, <span class="st">&quot;cp_12&quot;</span>, <span class="st">&quot;cp_12&quot;</span>, <span class="st">&quot;SS_2tb&quot;</span>)]), <span class="at">nrow =</span> <span class="dv">2</span>)</span>
+<span id="cb191-11"><a href="week-04-factorial-manova.html#cb191-11" tabindex="-1"></a>SSCP_treat <span class="ot">&lt;-</span> B_1 <span class="sc">+</span> B_2</span>
+<span id="cb191-12"><a href="week-04-factorial-manova.html#cb191-12" tabindex="-1"></a><span class="fu">colnames</span>(SSCP_treat) <span class="ot">&lt;-</span> <span class="fu">rownames</span>(SSCP_treat) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;wratR&quot;</span>, <span class="st">&quot;wratA&quot;</span>)</span>
+<span id="cb191-13"><a href="week-04-factorial-manova.html#cb191-13" tabindex="-1"></a>SSCP_treat <span class="co"># Could use S to stand for the SSCP matrix to follow T and F</span></span></code></pre></div>
 <pre><code>##          wratR    wratA
 ## wratR 2090.889 1767.556
 ## wratA 1767.556 1494.222</code></pre>
 <p>Let’s look at the main effect of <code>disab</code>:</p>
-<div class="sourceCode" id="cb194"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb194-1"><a href="week-04-factorial-manova.html#cb194-1" tabindex="-1"></a>meanSSCP_disab <span class="ot">&lt;-</span> dat <span class="sc">%&gt;%</span> </span>
-<span id="cb194-2"><a href="week-04-factorial-manova.html#cb194-2" tabindex="-1"></a>        <span class="fu">group_by</span>(disab) <span class="sc">%&gt;%</span> <span class="co"># We&#39;re conducting the analysis by level of disab.</span></span>
-<span id="cb194-3"><a href="week-04-factorial-manova.html#cb194-3" tabindex="-1"></a>        <span class="fu">summarize</span>(<span class="at">m_1 =</span> <span class="fu">mean</span>(wratR),</span>
-<span id="cb194-4"><a href="week-04-factorial-manova.html#cb194-4" tabindex="-1"></a>                  <span class="at">m_2 =</span> <span class="fu">mean</span>(wratA))</span>
-<span id="cb194-5"><a href="week-04-factorial-manova.html#cb194-5" tabindex="-1"></a>meanSSCP_disab<span class="sc">$</span>GM1 <span class="ot">&lt;-</span> <span class="fu">mean</span>(dat<span class="sc">$</span>wratR)</span>
-<span id="cb194-6"><a href="week-04-factorial-manova.html#cb194-6" tabindex="-1"></a>meanSSCP_disab<span class="sc">$</span>GM2 <span class="ot">&lt;-</span> <span class="fu">mean</span>(dat<span class="sc">$</span>wratA)</span>
-<span id="cb194-7"><a href="week-04-factorial-manova.html#cb194-7" tabindex="-1"></a>meanSSCP_disab<span class="sc">$</span>n   <span class="ot">&lt;-</span> <span class="fu">table</span>(dat<span class="sc">$</span>disab)[<span class="dv">1</span>][[<span class="dv">1</span>]] <span class="co"># n per group is 6</span></span>
-<span id="cb194-8"><a href="week-04-factorial-manova.html#cb194-8" tabindex="-1"></a>meanSSCP_disab</span></code></pre></div>
+<div class="sourceCode" id="cb193"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb193-1"><a href="week-04-factorial-manova.html#cb193-1" tabindex="-1"></a>meanSSCP_disab <span class="ot">&lt;-</span> dat <span class="sc">%&gt;%</span> </span>
+<span id="cb193-2"><a href="week-04-factorial-manova.html#cb193-2" tabindex="-1"></a>        <span class="fu">group_by</span>(disab) <span class="sc">%&gt;%</span> <span class="co"># We&#39;re conducting the analysis by level of disab.</span></span>
+<span id="cb193-3"><a href="week-04-factorial-manova.html#cb193-3" tabindex="-1"></a>        <span class="fu">summarize</span>(<span class="at">m_1 =</span> <span class="fu">mean</span>(wratR),</span>
+<span id="cb193-4"><a href="week-04-factorial-manova.html#cb193-4" tabindex="-1"></a>                  <span class="at">m_2 =</span> <span class="fu">mean</span>(wratA))</span>
+<span id="cb193-5"><a href="week-04-factorial-manova.html#cb193-5" tabindex="-1"></a>meanSSCP_disab<span class="sc">$</span>GM1 <span class="ot">&lt;-</span> <span class="fu">mean</span>(dat<span class="sc">$</span>wratR)</span>
+<span id="cb193-6"><a href="week-04-factorial-manova.html#cb193-6" tabindex="-1"></a>meanSSCP_disab<span class="sc">$</span>GM2 <span class="ot">&lt;-</span> <span class="fu">mean</span>(dat<span class="sc">$</span>wratA)</span>
+<span id="cb193-7"><a href="week-04-factorial-manova.html#cb193-7" tabindex="-1"></a>meanSSCP_disab<span class="sc">$</span>n   <span class="ot">&lt;-</span> <span class="fu">table</span>(dat<span class="sc">$</span>disab)[<span class="dv">1</span>][[<span class="dv">1</span>]] <span class="co"># n per group is 6</span></span>
+<span id="cb193-8"><a href="week-04-factorial-manova.html#cb193-8" tabindex="-1"></a>meanSSCP_disab</span></code></pre></div>
 <pre><code>## # A tibble: 3 × 6
 ##   disab      m_1   m_2   GM1   GM2     n
 ##   &lt;fct&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt;
 ## 1 Mild      95.8  96.5  89.1  87.2     6
 ## 2 Moderate  88.8  88    89.1  87.2     6
 ## 3 Severe    82.7  77.2  89.1  87.2     6</code></pre>
-<div class="sourceCode" id="cb196"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb196-1"><a href="week-04-factorial-manova.html#cb196-1" tabindex="-1"></a>sqrs_cps_B <span class="ot">&lt;-</span> meanSSCP_disab <span class="sc">%&gt;%</span> </span>
-<span id="cb196-2"><a href="week-04-factorial-manova.html#cb196-2" tabindex="-1"></a>        <span class="fu">mutate</span>(<span class="at">sq_1tb=</span> (m_1 <span class="sc">-</span> GM1)<span class="sc">^</span><span class="dv">2</span>,</span>
-<span id="cb196-3"><a href="week-04-factorial-manova.html#cb196-3" tabindex="-1"></a>               <span class="at">cp    =</span> (m_1 <span class="sc">-</span> GM1)<span class="sc">*</span>(m_2 <span class="sc">-</span> GM2),</span>
-<span id="cb196-4"><a href="week-04-factorial-manova.html#cb196-4" tabindex="-1"></a>               <span class="at">sq_2tb=</span> (m_2 <span class="sc">-</span> GM2)<span class="sc">^</span><span class="dv">2</span>  )</span>
-<span id="cb196-5"><a href="week-04-factorial-manova.html#cb196-5" tabindex="-1"></a>SSCP_Bs <span class="ot">&lt;-</span> sqrs_cps_B <span class="sc">%&gt;%</span> </span>
-<span id="cb196-6"><a href="week-04-factorial-manova.html#cb196-6" tabindex="-1"></a>        <span class="fu">summarize</span>(<span class="at">SS_1tb =</span> n <span class="sc">*</span> sq_1tb,</span>
-<span id="cb196-7"><a href="week-04-factorial-manova.html#cb196-7" tabindex="-1"></a>                  <span class="at">cp_12  =</span> n <span class="sc">*</span> cp,</span>
-<span id="cb196-8"><a href="week-04-factorial-manova.html#cb196-8" tabindex="-1"></a>                  <span class="at">SS_2tb =</span> n <span class="sc">*</span> sq_2tb  )</span>
-<span id="cb196-9"><a href="week-04-factorial-manova.html#cb196-9" tabindex="-1"></a>B_1 <span class="ot">&lt;-</span> <span class="fu">matrix</span>( <span class="fu">unlist</span>(SSCP_Bs[<span class="dv">1</span>, <span class="fu">c</span>(<span class="st">&quot;SS_1tb&quot;</span>, <span class="st">&quot;cp_12&quot;</span>, <span class="st">&quot;cp_12&quot;</span>, <span class="st">&quot;SS_2tb&quot;</span>)]), <span class="at">nrow =</span> <span class="dv">2</span>)</span>
-<span id="cb196-10"><a href="week-04-factorial-manova.html#cb196-10" tabindex="-1"></a>B_2 <span class="ot">&lt;-</span> <span class="fu">matrix</span>( <span class="fu">unlist</span>(SSCP_Bs[<span class="dv">2</span>, <span class="fu">c</span>(<span class="st">&quot;SS_1tb&quot;</span>, <span class="st">&quot;cp_12&quot;</span>, <span class="st">&quot;cp_12&quot;</span>, <span class="st">&quot;SS_2tb&quot;</span>)]), <span class="at">nrow =</span> <span class="dv">2</span>)</span>
-<span id="cb196-11"><a href="week-04-factorial-manova.html#cb196-11" tabindex="-1"></a>B_3 <span class="ot">&lt;-</span> <span class="fu">matrix</span>( <span class="fu">unlist</span>(SSCP_Bs[<span class="dv">3</span>, <span class="fu">c</span>(<span class="st">&quot;SS_1tb&quot;</span>, <span class="st">&quot;cp_12&quot;</span>, <span class="st">&quot;cp_12&quot;</span>, <span class="st">&quot;SS_2tb&quot;</span>)]), <span class="at">nrow =</span> <span class="dv">2</span>)</span>
-<span id="cb196-12"><a href="week-04-factorial-manova.html#cb196-12" tabindex="-1"></a>SSCP_disab <span class="ot">&lt;-</span> B_1 <span class="sc">+</span> B_2 <span class="sc">+</span> B_3</span>
-<span id="cb196-13"><a href="week-04-factorial-manova.html#cb196-13" tabindex="-1"></a>SSCP_disab</span></code></pre></div>
+<div class="sourceCode" id="cb195"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb195-1"><a href="week-04-factorial-manova.html#cb195-1" tabindex="-1"></a>sqrs_cps_B <span class="ot">&lt;-</span> meanSSCP_disab <span class="sc">%&gt;%</span> </span>
+<span id="cb195-2"><a href="week-04-factorial-manova.html#cb195-2" tabindex="-1"></a>        <span class="fu">mutate</span>(<span class="at">sq_1tb=</span> (m_1 <span class="sc">-</span> GM1)<span class="sc">^</span><span class="dv">2</span>,</span>
+<span id="cb195-3"><a href="week-04-factorial-manova.html#cb195-3" tabindex="-1"></a>               <span class="at">cp    =</span> (m_1 <span class="sc">-</span> GM1)<span class="sc">*</span>(m_2 <span class="sc">-</span> GM2),</span>
+<span id="cb195-4"><a href="week-04-factorial-manova.html#cb195-4" tabindex="-1"></a>               <span class="at">sq_2tb=</span> (m_2 <span class="sc">-</span> GM2)<span class="sc">^</span><span class="dv">2</span>  )</span>
+<span id="cb195-5"><a href="week-04-factorial-manova.html#cb195-5" tabindex="-1"></a>SSCP_Bs <span class="ot">&lt;-</span> sqrs_cps_B <span class="sc">%&gt;%</span> </span>
+<span id="cb195-6"><a href="week-04-factorial-manova.html#cb195-6" tabindex="-1"></a>        <span class="fu">summarize</span>(<span class="at">SS_1tb =</span> n <span class="sc">*</span> sq_1tb,</span>
+<span id="cb195-7"><a href="week-04-factorial-manova.html#cb195-7" tabindex="-1"></a>                  <span class="at">cp_12  =</span> n <span class="sc">*</span> cp,</span>
+<span id="cb195-8"><a href="week-04-factorial-manova.html#cb195-8" tabindex="-1"></a>                  <span class="at">SS_2tb =</span> n <span class="sc">*</span> sq_2tb  )</span>
+<span id="cb195-9"><a href="week-04-factorial-manova.html#cb195-9" tabindex="-1"></a>B_1 <span class="ot">&lt;-</span> <span class="fu">matrix</span>( <span class="fu">unlist</span>(SSCP_Bs[<span class="dv">1</span>, <span class="fu">c</span>(<span class="st">&quot;SS_1tb&quot;</span>, <span class="st">&quot;cp_12&quot;</span>, <span class="st">&quot;cp_12&quot;</span>, <span class="st">&quot;SS_2tb&quot;</span>)]), <span class="at">nrow =</span> <span class="dv">2</span>)</span>
+<span id="cb195-10"><a href="week-04-factorial-manova.html#cb195-10" tabindex="-1"></a>B_2 <span class="ot">&lt;-</span> <span class="fu">matrix</span>( <span class="fu">unlist</span>(SSCP_Bs[<span class="dv">2</span>, <span class="fu">c</span>(<span class="st">&quot;SS_1tb&quot;</span>, <span class="st">&quot;cp_12&quot;</span>, <span class="st">&quot;cp_12&quot;</span>, <span class="st">&quot;SS_2tb&quot;</span>)]), <span class="at">nrow =</span> <span class="dv">2</span>)</span>
+<span id="cb195-11"><a href="week-04-factorial-manova.html#cb195-11" tabindex="-1"></a>B_3 <span class="ot">&lt;-</span> <span class="fu">matrix</span>( <span class="fu">unlist</span>(SSCP_Bs[<span class="dv">3</span>, <span class="fu">c</span>(<span class="st">&quot;SS_1tb&quot;</span>, <span class="st">&quot;cp_12&quot;</span>, <span class="st">&quot;cp_12&quot;</span>, <span class="st">&quot;SS_2tb&quot;</span>)]), <span class="at">nrow =</span> <span class="dv">2</span>)</span>
+<span id="cb195-12"><a href="week-04-factorial-manova.html#cb195-12" tabindex="-1"></a>SSCP_disab <span class="ot">&lt;-</span> B_1 <span class="sc">+</span> B_2 <span class="sc">+</span> B_3</span>
+<span id="cb195-13"><a href="week-04-factorial-manova.html#cb195-13" tabindex="-1"></a>SSCP_disab</span></code></pre></div>
 <pre><code>##          [,1]      [,2]
 ## [1,] 520.7778  761.7222
 ## [2,] 761.7222 1126.7778</code></pre>
@@ -630,52 +633,52 @@ Let’s look at the main effect of <code>treat</code>:</p>
 <div id="mathbfsscp_between-for-the-interaction" class="section level3 hasAnchor" number="5.1.3">
 <h3><span class="header-section-number">5.1.3</span> <span class="math inline">\(\mathbf{SSCP_{Between}}\)</span> for the interaction<a href="week-04-factorial-manova.html#mathbfsscp_between-for-the-interaction" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Let’s look at the interaction:</p>
-<div class="sourceCode" id="cb198"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb198-1"><a href="week-04-factorial-manova.html#cb198-1" tabindex="-1"></a>means_intxn <span class="ot">&lt;-</span> dat <span class="sc">%&gt;%</span> </span>
-<span id="cb198-2"><a href="week-04-factorial-manova.html#cb198-2" tabindex="-1"></a>        <span class="fu">group_by</span>(treat, disab) <span class="sc">%&gt;%</span>  <span class="co"># by cell</span></span>
-<span id="cb198-3"><a href="week-04-factorial-manova.html#cb198-3" tabindex="-1"></a>        <span class="fu">summarize</span>(<span class="at">m_1 =</span> <span class="fu">mean</span>(wratR),</span>
-<span id="cb198-4"><a href="week-04-factorial-manova.html#cb198-4" tabindex="-1"></a>                  <span class="at">m_2 =</span> <span class="fu">mean</span>(wratA))</span>
-<span id="cb198-5"><a href="week-04-factorial-manova.html#cb198-5" tabindex="-1"></a>means_intxn<span class="sc">$</span>GM1 <span class="ot">&lt;-</span> <span class="fu">mean</span>(dat<span class="sc">$</span>wratR)</span>
-<span id="cb198-6"><a href="week-04-factorial-manova.html#cb198-6" tabindex="-1"></a>means_intxn<span class="sc">$</span>GM2 <span class="ot">&lt;-</span> <span class="fu">mean</span>(dat<span class="sc">$</span>wratA)</span>
-<span id="cb198-7"><a href="week-04-factorial-manova.html#cb198-7" tabindex="-1"></a>means_intxn<span class="sc">$</span>n   <span class="ot">&lt;-</span> <span class="dv">3</span> <span class="co"># n per group</span></span>
-<span id="cb198-8"><a href="week-04-factorial-manova.html#cb198-8" tabindex="-1"></a></span>
-<span id="cb198-9"><a href="week-04-factorial-manova.html#cb198-9" tabindex="-1"></a>sqrs_cps_B <span class="ot">&lt;-</span> means_intxn <span class="sc">%&gt;%</span> </span>
-<span id="cb198-10"><a href="week-04-factorial-manova.html#cb198-10" tabindex="-1"></a>        <span class="fu">mutate</span>(<span class="at">sq_1tb=</span> (m_1 <span class="sc">-</span> GM1)<span class="sc">^</span><span class="dv">2</span>,</span>
-<span id="cb198-11"><a href="week-04-factorial-manova.html#cb198-11" tabindex="-1"></a>               <span class="at">cp    =</span> (m_1 <span class="sc">-</span> GM1)<span class="sc">*</span>(m_2 <span class="sc">-</span> GM2),</span>
-<span id="cb198-12"><a href="week-04-factorial-manova.html#cb198-12" tabindex="-1"></a>               <span class="at">sq_2tb=</span> (m_2 <span class="sc">-</span> GM2)<span class="sc">^</span><span class="dv">2</span>  )</span>
-<span id="cb198-13"><a href="week-04-factorial-manova.html#cb198-13" tabindex="-1"></a>SSCP_Bs <span class="ot">&lt;-</span> sqrs_cps_B <span class="sc">%&gt;%</span> </span>
-<span id="cb198-14"><a href="week-04-factorial-manova.html#cb198-14" tabindex="-1"></a>        <span class="fu">summarize</span>(<span class="at">SS_1tb =</span> n <span class="sc">*</span> sq_1tb,</span>
-<span id="cb198-15"><a href="week-04-factorial-manova.html#cb198-15" tabindex="-1"></a>                  <span class="at">cp_12  =</span> n <span class="sc">*</span> cp,</span>
-<span id="cb198-16"><a href="week-04-factorial-manova.html#cb198-16" tabindex="-1"></a>                  <span class="at">SS_2tb =</span> n <span class="sc">*</span> sq_2tb  )</span>
-<span id="cb198-17"><a href="week-04-factorial-manova.html#cb198-17" tabindex="-1"></a></span>
-<span id="cb198-18"><a href="week-04-factorial-manova.html#cb198-18" tabindex="-1"></a>B_1 <span class="ot">&lt;-</span> <span class="fu">matrix</span>( <span class="fu">unlist</span>(SSCP_Bs[<span class="dv">1</span>, <span class="fu">c</span>(<span class="st">&quot;SS_1tb&quot;</span>, <span class="st">&quot;cp_12&quot;</span>, <span class="st">&quot;cp_12&quot;</span>, <span class="st">&quot;SS_2tb&quot;</span>)]), <span class="at">nrow =</span> <span class="dv">2</span>)</span>
-<span id="cb198-19"><a href="week-04-factorial-manova.html#cb198-19" tabindex="-1"></a>B_2 <span class="ot">&lt;-</span> <span class="fu">matrix</span>( <span class="fu">unlist</span>(SSCP_Bs[<span class="dv">2</span>, <span class="fu">c</span>(<span class="st">&quot;SS_1tb&quot;</span>, <span class="st">&quot;cp_12&quot;</span>, <span class="st">&quot;cp_12&quot;</span>, <span class="st">&quot;SS_2tb&quot;</span>)]), <span class="at">nrow =</span> <span class="dv">2</span>)</span>
-<span id="cb198-20"><a href="week-04-factorial-manova.html#cb198-20" tabindex="-1"></a>B_3 <span class="ot">&lt;-</span> <span class="fu">matrix</span>( <span class="fu">unlist</span>(SSCP_Bs[<span class="dv">3</span>, <span class="fu">c</span>(<span class="st">&quot;SS_1tb&quot;</span>, <span class="st">&quot;cp_12&quot;</span>, <span class="st">&quot;cp_12&quot;</span>, <span class="st">&quot;SS_2tb&quot;</span>)]), <span class="at">nrow =</span> <span class="dv">2</span>)</span>
-<span id="cb198-21"><a href="week-04-factorial-manova.html#cb198-21" tabindex="-1"></a>B_4 <span class="ot">&lt;-</span> <span class="fu">matrix</span>( <span class="fu">unlist</span>(SSCP_Bs[<span class="dv">4</span>, <span class="fu">c</span>(<span class="st">&quot;SS_1tb&quot;</span>, <span class="st">&quot;cp_12&quot;</span>, <span class="st">&quot;cp_12&quot;</span>, <span class="st">&quot;SS_2tb&quot;</span>)]), <span class="at">nrow =</span> <span class="dv">2</span>)</span>
-<span id="cb198-22"><a href="week-04-factorial-manova.html#cb198-22" tabindex="-1"></a>B_5 <span class="ot">&lt;-</span> <span class="fu">matrix</span>( <span class="fu">unlist</span>(SSCP_Bs[<span class="dv">5</span>, <span class="fu">c</span>(<span class="st">&quot;SS_1tb&quot;</span>, <span class="st">&quot;cp_12&quot;</span>, <span class="st">&quot;cp_12&quot;</span>, <span class="st">&quot;SS_2tb&quot;</span>)]), <span class="at">nrow =</span> <span class="dv">2</span>)</span>
-<span id="cb198-23"><a href="week-04-factorial-manova.html#cb198-23" tabindex="-1"></a>B_6 <span class="ot">&lt;-</span> <span class="fu">matrix</span>( <span class="fu">unlist</span>(SSCP_Bs[<span class="dv">6</span>, <span class="fu">c</span>(<span class="st">&quot;SS_1tb&quot;</span>, <span class="st">&quot;cp_12&quot;</span>, <span class="st">&quot;cp_12&quot;</span>, <span class="st">&quot;SS_2tb&quot;</span>)]), <span class="at">nrow =</span> <span class="dv">2</span>)</span>
-<span id="cb198-24"><a href="week-04-factorial-manova.html#cb198-24" tabindex="-1"></a></span>
-<span id="cb198-25"><a href="week-04-factorial-manova.html#cb198-25" tabindex="-1"></a>B_int <span class="ot">&lt;-</span> B_1 <span class="sc">+</span> B_2 <span class="sc">+</span> B_3 <span class="sc">+</span> B_4 <span class="sc">+</span> B_5 <span class="sc">+</span> B_6 </span>
-<span id="cb198-26"><a href="week-04-factorial-manova.html#cb198-26" tabindex="-1"></a>B_int</span></code></pre></div>
+<div class="sourceCode" id="cb197"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb197-1"><a href="week-04-factorial-manova.html#cb197-1" tabindex="-1"></a>means_intxn <span class="ot">&lt;-</span> dat <span class="sc">%&gt;%</span> </span>
+<span id="cb197-2"><a href="week-04-factorial-manova.html#cb197-2" tabindex="-1"></a>        <span class="fu">group_by</span>(treat, disab) <span class="sc">%&gt;%</span>  <span class="co"># by cell</span></span>
+<span id="cb197-3"><a href="week-04-factorial-manova.html#cb197-3" tabindex="-1"></a>        <span class="fu">summarize</span>(<span class="at">m_1 =</span> <span class="fu">mean</span>(wratR),</span>
+<span id="cb197-4"><a href="week-04-factorial-manova.html#cb197-4" tabindex="-1"></a>                  <span class="at">m_2 =</span> <span class="fu">mean</span>(wratA))</span>
+<span id="cb197-5"><a href="week-04-factorial-manova.html#cb197-5" tabindex="-1"></a>means_intxn<span class="sc">$</span>GM1 <span class="ot">&lt;-</span> <span class="fu">mean</span>(dat<span class="sc">$</span>wratR)</span>
+<span id="cb197-6"><a href="week-04-factorial-manova.html#cb197-6" tabindex="-1"></a>means_intxn<span class="sc">$</span>GM2 <span class="ot">&lt;-</span> <span class="fu">mean</span>(dat<span class="sc">$</span>wratA)</span>
+<span id="cb197-7"><a href="week-04-factorial-manova.html#cb197-7" tabindex="-1"></a>means_intxn<span class="sc">$</span>n   <span class="ot">&lt;-</span> <span class="dv">3</span> <span class="co"># n per group</span></span>
+<span id="cb197-8"><a href="week-04-factorial-manova.html#cb197-8" tabindex="-1"></a></span>
+<span id="cb197-9"><a href="week-04-factorial-manova.html#cb197-9" tabindex="-1"></a>sqrs_cps_B <span class="ot">&lt;-</span> means_intxn <span class="sc">%&gt;%</span> </span>
+<span id="cb197-10"><a href="week-04-factorial-manova.html#cb197-10" tabindex="-1"></a>        <span class="fu">mutate</span>(<span class="at">sq_1tb=</span> (m_1 <span class="sc">-</span> GM1)<span class="sc">^</span><span class="dv">2</span>,</span>
+<span id="cb197-11"><a href="week-04-factorial-manova.html#cb197-11" tabindex="-1"></a>               <span class="at">cp    =</span> (m_1 <span class="sc">-</span> GM1)<span class="sc">*</span>(m_2 <span class="sc">-</span> GM2),</span>
+<span id="cb197-12"><a href="week-04-factorial-manova.html#cb197-12" tabindex="-1"></a>               <span class="at">sq_2tb=</span> (m_2 <span class="sc">-</span> GM2)<span class="sc">^</span><span class="dv">2</span>  )</span>
+<span id="cb197-13"><a href="week-04-factorial-manova.html#cb197-13" tabindex="-1"></a>SSCP_Bs <span class="ot">&lt;-</span> sqrs_cps_B <span class="sc">%&gt;%</span> </span>
+<span id="cb197-14"><a href="week-04-factorial-manova.html#cb197-14" tabindex="-1"></a>        <span class="fu">summarize</span>(<span class="at">SS_1tb =</span> n <span class="sc">*</span> sq_1tb,</span>
+<span id="cb197-15"><a href="week-04-factorial-manova.html#cb197-15" tabindex="-1"></a>                  <span class="at">cp_12  =</span> n <span class="sc">*</span> cp,</span>
+<span id="cb197-16"><a href="week-04-factorial-manova.html#cb197-16" tabindex="-1"></a>                  <span class="at">SS_2tb =</span> n <span class="sc">*</span> sq_2tb  )</span>
+<span id="cb197-17"><a href="week-04-factorial-manova.html#cb197-17" tabindex="-1"></a></span>
+<span id="cb197-18"><a href="week-04-factorial-manova.html#cb197-18" tabindex="-1"></a>B_1 <span class="ot">&lt;-</span> <span class="fu">matrix</span>( <span class="fu">unlist</span>(SSCP_Bs[<span class="dv">1</span>, <span class="fu">c</span>(<span class="st">&quot;SS_1tb&quot;</span>, <span class="st">&quot;cp_12&quot;</span>, <span class="st">&quot;cp_12&quot;</span>, <span class="st">&quot;SS_2tb&quot;</span>)]), <span class="at">nrow =</span> <span class="dv">2</span>)</span>
+<span id="cb197-19"><a href="week-04-factorial-manova.html#cb197-19" tabindex="-1"></a>B_2 <span class="ot">&lt;-</span> <span class="fu">matrix</span>( <span class="fu">unlist</span>(SSCP_Bs[<span class="dv">2</span>, <span class="fu">c</span>(<span class="st">&quot;SS_1tb&quot;</span>, <span class="st">&quot;cp_12&quot;</span>, <span class="st">&quot;cp_12&quot;</span>, <span class="st">&quot;SS_2tb&quot;</span>)]), <span class="at">nrow =</span> <span class="dv">2</span>)</span>
+<span id="cb197-20"><a href="week-04-factorial-manova.html#cb197-20" tabindex="-1"></a>B_3 <span class="ot">&lt;-</span> <span class="fu">matrix</span>( <span class="fu">unlist</span>(SSCP_Bs[<span class="dv">3</span>, <span class="fu">c</span>(<span class="st">&quot;SS_1tb&quot;</span>, <span class="st">&quot;cp_12&quot;</span>, <span class="st">&quot;cp_12&quot;</span>, <span class="st">&quot;SS_2tb&quot;</span>)]), <span class="at">nrow =</span> <span class="dv">2</span>)</span>
+<span id="cb197-21"><a href="week-04-factorial-manova.html#cb197-21" tabindex="-1"></a>B_4 <span class="ot">&lt;-</span> <span class="fu">matrix</span>( <span class="fu">unlist</span>(SSCP_Bs[<span class="dv">4</span>, <span class="fu">c</span>(<span class="st">&quot;SS_1tb&quot;</span>, <span class="st">&quot;cp_12&quot;</span>, <span class="st">&quot;cp_12&quot;</span>, <span class="st">&quot;SS_2tb&quot;</span>)]), <span class="at">nrow =</span> <span class="dv">2</span>)</span>
+<span id="cb197-22"><a href="week-04-factorial-manova.html#cb197-22" tabindex="-1"></a>B_5 <span class="ot">&lt;-</span> <span class="fu">matrix</span>( <span class="fu">unlist</span>(SSCP_Bs[<span class="dv">5</span>, <span class="fu">c</span>(<span class="st">&quot;SS_1tb&quot;</span>, <span class="st">&quot;cp_12&quot;</span>, <span class="st">&quot;cp_12&quot;</span>, <span class="st">&quot;SS_2tb&quot;</span>)]), <span class="at">nrow =</span> <span class="dv">2</span>)</span>
+<span id="cb197-23"><a href="week-04-factorial-manova.html#cb197-23" tabindex="-1"></a>B_6 <span class="ot">&lt;-</span> <span class="fu">matrix</span>( <span class="fu">unlist</span>(SSCP_Bs[<span class="dv">6</span>, <span class="fu">c</span>(<span class="st">&quot;SS_1tb&quot;</span>, <span class="st">&quot;cp_12&quot;</span>, <span class="st">&quot;cp_12&quot;</span>, <span class="st">&quot;SS_2tb&quot;</span>)]), <span class="at">nrow =</span> <span class="dv">2</span>)</span>
+<span id="cb197-24"><a href="week-04-factorial-manova.html#cb197-24" tabindex="-1"></a></span>
+<span id="cb197-25"><a href="week-04-factorial-manova.html#cb197-25" tabindex="-1"></a>B_int <span class="ot">&lt;-</span> B_1 <span class="sc">+</span> B_2 <span class="sc">+</span> B_3 <span class="sc">+</span> B_4 <span class="sc">+</span> B_5 <span class="sc">+</span> B_6 </span>
+<span id="cb197-26"><a href="week-04-factorial-manova.html#cb197-26" tabindex="-1"></a>B_int</span></code></pre></div>
 <pre><code>##          [,1]     [,2]
 ## [1,] 2613.778 2534.556
 ## [2,] 2534.556 2673.778</code></pre>
 <p>From this, we then subtract the SSCP for each of the two main effects:</p>
-<div class="sourceCode" id="cb200"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb200-1"><a href="week-04-factorial-manova.html#cb200-1" tabindex="-1"></a>SSCP_intrxn <span class="ot">&lt;-</span> (B_int <span class="sc">-</span> SSCP_treat <span class="sc">-</span> SSCP_disab)</span>
-<span id="cb200-2"><a href="week-04-factorial-manova.html#cb200-2" tabindex="-1"></a></span>
-<span id="cb200-3"><a href="week-04-factorial-manova.html#cb200-3" tabindex="-1"></a><span class="co"># We can see these same four matrices reported on p. 259:</span></span>
-<span id="cb200-4"><a href="week-04-factorial-manova.html#cb200-4" tabindex="-1"></a>SSCP_disab <span class="co"># T and F have a typo in their first cell of 570.78.</span></span></code></pre></div>
+<div class="sourceCode" id="cb199"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb199-1"><a href="week-04-factorial-manova.html#cb199-1" tabindex="-1"></a>SSCP_intrxn <span class="ot">&lt;-</span> (B_int <span class="sc">-</span> SSCP_treat <span class="sc">-</span> SSCP_disab)</span>
+<span id="cb199-2"><a href="week-04-factorial-manova.html#cb199-2" tabindex="-1"></a></span>
+<span id="cb199-3"><a href="week-04-factorial-manova.html#cb199-3" tabindex="-1"></a><span class="co"># We can see these same four matrices reported on p. 259:</span></span>
+<span id="cb199-4"><a href="week-04-factorial-manova.html#cb199-4" tabindex="-1"></a>SSCP_disab <span class="co"># T and F have a typo in their first cell of 570.78.</span></span></code></pre></div>
 <pre><code>##          [,1]      [,2]
 ## [1,] 520.7778  761.7222
 ## [2,] 761.7222 1126.7778</code></pre>
-<div class="sourceCode" id="cb202"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb202-1"><a href="week-04-factorial-manova.html#cb202-1" tabindex="-1"></a>SSCP_treat</span></code></pre></div>
+<div class="sourceCode" id="cb201"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb201-1"><a href="week-04-factorial-manova.html#cb201-1" tabindex="-1"></a>SSCP_treat</span></code></pre></div>
 <pre><code>##          wratR    wratA
 ## wratR 2090.889 1767.556
 ## wratA 1767.556 1494.222</code></pre>
-<div class="sourceCode" id="cb204"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb204-1"><a href="week-04-factorial-manova.html#cb204-1" tabindex="-1"></a>SSCP_intrxn</span></code></pre></div>
+<div class="sourceCode" id="cb203"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb203-1"><a href="week-04-factorial-manova.html#cb203-1" tabindex="-1"></a>SSCP_intrxn</span></code></pre></div>
 <pre><code>##          wratR     wratA
 ## wratR 2.111111  5.277778
 ## wratA 5.277778 52.777778</code></pre>
-<div class="sourceCode" id="cb206"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb206-1"><a href="week-04-factorial-manova.html#cb206-1" tabindex="-1"></a>SSCP_W</span></code></pre></div>
+<div class="sourceCode" id="cb205"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb205-1"><a href="week-04-factorial-manova.html#cb205-1" tabindex="-1"></a>SSCP_W</span></code></pre></div>
 <pre><code>##       wratR    wratA
 ## wratR   544  31.0000
 ## wratA    31 539.3333</code></pre>
@@ -686,8 +689,8 @@ Let’s look at the main effect of <code>treat</code>:</p>
 <code>(B_int - fit_summary$SS$treat -  fit_summary$SS$disab)</code>
 <code>fit_summary$SS$treat:disab</code></p>
 <p>If we wanted the total SSCP, we could use this code. We don’t really need <span class="math inline">\(\mathbf{SSCP_{total}}\)</span> except maybe for reporting in a MANOVA table.</p>
-<div class="sourceCode" id="cb208"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb208-1"><a href="week-04-factorial-manova.html#cb208-1" tabindex="-1"></a>SSCP_tot <span class="ot">=</span> SSCP_treat <span class="sc">+</span> SSCP_disab <span class="sc">+</span> SSCP_intrxn <span class="sc">+</span> SSCP_W</span>
-<span id="cb208-2"><a href="week-04-factorial-manova.html#cb208-2" tabindex="-1"></a>SSCP_tot</span></code></pre></div>
+<div class="sourceCode" id="cb207"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb207-1"><a href="week-04-factorial-manova.html#cb207-1" tabindex="-1"></a>SSCP_tot <span class="ot">=</span> SSCP_treat <span class="sc">+</span> SSCP_disab <span class="sc">+</span> SSCP_intrxn <span class="sc">+</span> SSCP_W</span>
+<span id="cb207-2"><a href="week-04-factorial-manova.html#cb207-2" tabindex="-1"></a>SSCP_tot</span></code></pre></div>
 <pre><code>##          wratR    wratA
 ## wratR 3157.778 2565.556
 ## wratA 2565.556 3213.111</code></pre>
@@ -695,20 +698,20 @@ Let’s look at the main effect of <code>treat</code>:</p>
 <div id="calculating-the-generalized-variance" class="section level3 hasAnchor" number="5.1.5">
 <h3><span class="header-section-number">5.1.5</span> Calculating the generalized variance<a href="week-04-factorial-manova.html#calculating-the-generalized-variance" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>We can use the determinant function, <code>det()</code>, to get the generalized variance of each matrix used to test the effects. These are slightly different from those reported in Tabachnick and Fidell because they rounded and because of their typo.</p>
-<div class="sourceCode" id="cb210"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb210-1"><a href="week-04-factorial-manova.html#cb210-1" tabindex="-1"></a><span class="fu">det</span>(SSCP_W)        <span class="co"># generalized within variance (i.e., residuals, or error)</span></span></code></pre></div>
+<div class="sourceCode" id="cb209"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb209-1"><a href="week-04-factorial-manova.html#cb209-1" tabindex="-1"></a><span class="fu">det</span>(SSCP_W)        <span class="co"># generalized within variance (i.e., residuals, or error)</span></span></code></pre></div>
 <pre><code>## [1] 292436.3</code></pre>
-<div class="sourceCode" id="cb212"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb212-1"><a href="week-04-factorial-manova.html#cb212-1" tabindex="-1"></a><span class="fu">det</span>(SSCP_disab <span class="sc">+</span> SSCP_W) <span class="co"># T and F have a typo in their first cell of 570.78.</span></span></code></pre></div>
+<div class="sourceCode" id="cb211"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb211-1"><a href="week-04-factorial-manova.html#cb211-1" tabindex="-1"></a><span class="fu">det</span>(SSCP_disab <span class="sc">+</span> SSCP_W) <span class="co"># T and F have a typo in their first cell of 570.78.</span></span></code></pre></div>
 <pre><code>## [1] 1145630</code></pre>
-<div class="sourceCode" id="cb214"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb214-1"><a href="week-04-factorial-manova.html#cb214-1" tabindex="-1"></a><span class="fu">det</span>(SSCP_treat <span class="sc">+</span> SSCP_W)</span></code></pre></div>
+<div class="sourceCode" id="cb213"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb213-1"><a href="week-04-factorial-manova.html#cb213-1" tabindex="-1"></a><span class="fu">det</span>(SSCP_treat <span class="sc">+</span> SSCP_W)</span></code></pre></div>
 <pre><code>## [1] 2123391</code></pre>
-<div class="sourceCode" id="cb216"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb216-1"><a href="week-04-factorial-manova.html#cb216-1" tabindex="-1"></a><span class="fu">det</span>(SSCP_intrxn <span class="sc">+</span> SSCP_W)</span></code></pre></div>
+<div class="sourceCode" id="cb215"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb215-1"><a href="week-04-factorial-manova.html#cb215-1" tabindex="-1"></a><span class="fu">det</span>(SSCP_intrxn <span class="sc">+</span> SSCP_W)</span></code></pre></div>
 <pre><code>## [1] 322042.4</code></pre>
 <p>We can calculate Wilks’ Lambda, as reported on p. 261:</p>
-<div class="sourceCode" id="cb218"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb218-1"><a href="week-04-factorial-manova.html#cb218-1" tabindex="-1"></a>numerator <span class="ot">&lt;-</span> <span class="fu">det</span>(SSCP_W) </span>
-<span id="cb218-2"><a href="week-04-factorial-manova.html#cb218-2" tabindex="-1"></a>numerator</span>
-<span id="cb218-3"><a href="week-04-factorial-manova.html#cb218-3" tabindex="-1"></a>denomintr <span class="ot">&lt;-</span> <span class="fu">det</span>(SSCP_intrxn <span class="sc">+</span> SSCP_W)</span>
-<span id="cb218-4"><a href="week-04-factorial-manova.html#cb218-4" tabindex="-1"></a>denomintr</span>
-<span id="cb218-5"><a href="week-04-factorial-manova.html#cb218-5" tabindex="-1"></a>numerator <span class="sc">/</span> denomintr</span></code></pre></div>
+<div class="sourceCode" id="cb217"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb217-1"><a href="week-04-factorial-manova.html#cb217-1" tabindex="-1"></a>numerator <span class="ot">&lt;-</span> <span class="fu">det</span>(SSCP_W) </span>
+<span id="cb217-2"><a href="week-04-factorial-manova.html#cb217-2" tabindex="-1"></a>numerator</span>
+<span id="cb217-3"><a href="week-04-factorial-manova.html#cb217-3" tabindex="-1"></a>denomintr <span class="ot">&lt;-</span> <span class="fu">det</span>(SSCP_intrxn <span class="sc">+</span> SSCP_W)</span>
+<span id="cb217-4"><a href="week-04-factorial-manova.html#cb217-4" tabindex="-1"></a>denomintr</span>
+<span id="cb217-5"><a href="week-04-factorial-manova.html#cb217-5" tabindex="-1"></a>numerator <span class="sc">/</span> denomintr</span></code></pre></div>
 <pre><code>## [1] 292436.3
 ## [1] 322042.4
 ## [1] 0.9080679</code></pre>
@@ -717,16 +720,16 @@ Let’s look at the main effect of <code>treat</code>:</p>
 <div id="calculating-wilks-lambda" class="section level2 hasAnchor" number="5.2">
 <h2><span class="header-section-number">5.2</span> Calculating Wilks’ Lambda<a href="week-04-factorial-manova.html#calculating-wilks-lambda" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Here’s the Wilks’ Lambda for the main effect of disability, reported in Table 7.2:</p>
-<div class="sourceCode" id="cb220"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb220-1"><a href="week-04-factorial-manova.html#cb220-1" tabindex="-1"></a><span class="fu">det</span>(SSCP_W) <span class="sc">/</span> <span class="fu">det</span>(SSCP_disab <span class="sc">+</span> SSCP_W)</span></code></pre></div>
+<div class="sourceCode" id="cb219"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb219-1"><a href="week-04-factorial-manova.html#cb219-1" tabindex="-1"></a><span class="fu">det</span>(SSCP_W) <span class="sc">/</span> <span class="fu">det</span>(SSCP_disab <span class="sc">+</span> SSCP_W)</span></code></pre></div>
 <pre><code>## [1] 0.2552626</code></pre>
 <p>And for the main effect of treatment:</p>
-<div class="sourceCode" id="cb222"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb222-1"><a href="week-04-factorial-manova.html#cb222-1" tabindex="-1"></a><span class="fu">det</span>(SSCP_W) <span class="sc">/</span> <span class="fu">det</span>(SSCP_treat <span class="sc">+</span> SSCP_W)</span></code></pre></div>
+<div class="sourceCode" id="cb221"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb221-1"><a href="week-04-factorial-manova.html#cb221-1" tabindex="-1"></a><span class="fu">det</span>(SSCP_W) <span class="sc">/</span> <span class="fu">det</span>(SSCP_treat <span class="sc">+</span> SSCP_W)</span></code></pre></div>
 <pre><code>## [1] 0.1377214</code></pre>
 <div id="fit-the-factorial-manova" class="section level3 hasAnchor" number="5.2.1">
 <h3><span class="header-section-number">5.2.1</span> Fit the factorial MANOVA<a href="week-04-factorial-manova.html#fit-the-factorial-manova" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Let’s try using the <code>manova()</code> function to fit the model and peak under the hood to see if indeed Tabachnick and Fidell are telling the truth about these matrices and how to calculate Wilks’ Lambda:</p>
-<div class="sourceCode" id="cb224"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb224-1"><a href="week-04-factorial-manova.html#cb224-1" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">manova</span>(<span class="fu">cbind</span>(wratR, wratA) <span class="sc">~</span> treat<span class="sc">*</span>disab, <span class="at">data =</span> dat)</span>
-<span id="cb224-2"><a href="week-04-factorial-manova.html#cb224-2" tabindex="-1"></a><span class="fu">summary</span>(fit, <span class="at">test =</span> <span class="st">&quot;Wilks&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb223"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb223-1"><a href="week-04-factorial-manova.html#cb223-1" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">manova</span>(<span class="fu">cbind</span>(wratR, wratA) <span class="sc">~</span> treat<span class="sc">*</span>disab, <span class="at">data =</span> dat)</span>
+<span id="cb223-2"><a href="week-04-factorial-manova.html#cb223-2" tabindex="-1"></a><span class="fu">summary</span>(fit, <span class="at">test =</span> <span class="st">&quot;Wilks&quot;</span>)</span></code></pre></div>
 <pre><code>##             Df   Wilks approx F num Df den Df    Pr(&gt;F)    
 ## treat        1 0.13772   34.436      2     11 1.839e-05 ***
 ## disab        2 0.25526    5.386      4     22  0.003528 ** 
@@ -735,8 +738,8 @@ Let’s look at the main effect of <code>treat</code>:</p>
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 <p>We can look at the matrices. These are the same as those on p. 259 (save their typo):</p>
-<div class="sourceCode" id="cb226"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb226-1"><a href="week-04-factorial-manova.html#cb226-1" tabindex="-1"></a>fit_summary <span class="ot">&lt;-</span> <span class="fu">summary.manova</span>(fit)</span>
-<span id="cb226-2"><a href="week-04-factorial-manova.html#cb226-2" tabindex="-1"></a>fit_summary<span class="sc">$</span>SS</span></code></pre></div>
+<div class="sourceCode" id="cb225"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb225-1"><a href="week-04-factorial-manova.html#cb225-1" tabindex="-1"></a>fit_summary <span class="ot">&lt;-</span> <span class="fu">summary.manova</span>(fit)</span>
+<span id="cb225-2"><a href="week-04-factorial-manova.html#cb225-2" tabindex="-1"></a>fit_summary<span class="sc">$</span>SS</span></code></pre></div>
 <pre><code>## $treat
 ##          wratR    wratA
 ## wratR 2090.889 1767.556
@@ -757,28 +760,28 @@ Let’s look at the main effect of <code>treat</code>:</p>
 ## wratR   544  31.0000
 ## wratA    31 539.3333</code></pre>
 <p>Notice that the sum of these SSCP matrices will be the total:</p>
-<div class="sourceCode" id="cb228"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb228-1"><a href="week-04-factorial-manova.html#cb228-1" tabindex="-1"></a>DVs <span class="ot">&lt;-</span> <span class="fu">cbind</span>(dat[, <span class="fu">c</span>(<span class="st">&quot;wratR&quot;</span>, <span class="st">&quot;wratA&quot;</span>)])</span>
-<span id="cb228-2"><a href="week-04-factorial-manova.html#cb228-2" tabindex="-1"></a>    N <span class="ot">&lt;-</span> <span class="fu">nrow</span>(dat)</span>
-<span id="cb228-3"><a href="week-04-factorial-manova.html#cb228-3" tabindex="-1"></a>    <span class="fu">cov</span>(DVs) <span class="sc">*</span> (N<span class="dv">-1</span>) <span class="co"># Compare this matrix to the sum from the MANOVA object:</span></span></code></pre></div>
+<div class="sourceCode" id="cb227"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb227-1"><a href="week-04-factorial-manova.html#cb227-1" tabindex="-1"></a>DVs <span class="ot">&lt;-</span> <span class="fu">cbind</span>(dat[, <span class="fu">c</span>(<span class="st">&quot;wratR&quot;</span>, <span class="st">&quot;wratA&quot;</span>)])</span>
+<span id="cb227-2"><a href="week-04-factorial-manova.html#cb227-2" tabindex="-1"></a>    N <span class="ot">&lt;-</span> <span class="fu">nrow</span>(dat)</span>
+<span id="cb227-3"><a href="week-04-factorial-manova.html#cb227-3" tabindex="-1"></a>    <span class="fu">cov</span>(DVs) <span class="sc">*</span> (N<span class="dv">-1</span>) <span class="co"># Compare this matrix to the sum from the MANOVA object:</span></span></code></pre></div>
 <pre><code>##          wratR    wratA
 ## wratR 3157.778 2565.556
 ## wratA 2565.556 3213.111</code></pre>
-<div class="sourceCode" id="cb230"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb230-1"><a href="week-04-factorial-manova.html#cb230-1" tabindex="-1"></a>    fit_summary<span class="sc">$</span>SS<span class="sc">$</span>treat <span class="sc">+</span> </span>
-<span id="cb230-2"><a href="week-04-factorial-manova.html#cb230-2" tabindex="-1"></a>      fit_summary<span class="sc">$</span>SS<span class="sc">$</span>disab <span class="sc">+</span> </span>
-<span id="cb230-3"><a href="week-04-factorial-manova.html#cb230-3" tabindex="-1"></a>      fit_summary<span class="sc">$</span>SS<span class="sc">$</span><span class="st">`</span><span class="at">treat:disab</span><span class="st">`</span> <span class="sc">+</span> </span>
-<span id="cb230-4"><a href="week-04-factorial-manova.html#cb230-4" tabindex="-1"></a>      fit_summary<span class="sc">$</span>SS<span class="sc">$</span>Residuals</span></code></pre></div>
+<div class="sourceCode" id="cb229"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb229-1"><a href="week-04-factorial-manova.html#cb229-1" tabindex="-1"></a>    fit_summary<span class="sc">$</span>SS<span class="sc">$</span>treat <span class="sc">+</span> </span>
+<span id="cb229-2"><a href="week-04-factorial-manova.html#cb229-2" tabindex="-1"></a>      fit_summary<span class="sc">$</span>SS<span class="sc">$</span>disab <span class="sc">+</span> </span>
+<span id="cb229-3"><a href="week-04-factorial-manova.html#cb229-3" tabindex="-1"></a>      fit_summary<span class="sc">$</span>SS<span class="sc">$</span><span class="st">`</span><span class="at">treat:disab</span><span class="st">`</span> <span class="sc">+</span> </span>
+<span id="cb229-4"><a href="week-04-factorial-manova.html#cb229-4" tabindex="-1"></a>      fit_summary<span class="sc">$</span>SS<span class="sc">$</span>Residuals</span></code></pre></div>
 <pre><code>##          wratR    wratA
 ## wratR 3157.778 2565.556
 ## wratA 2565.556 3213.111</code></pre>
 <p>Again, like we did above, we can use the <code>det()</code> function to get the determinant of each matrix and calculate Wilks’ Lambda:</p>
-<div class="sourceCode" id="cb232"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb232-1"><a href="week-04-factorial-manova.html#cb232-1" tabindex="-1"></a>numerator <span class="ot">&lt;-</span> <span class="fu">det</span>(fit_summary<span class="sc">$</span>SS<span class="sc">$</span>Residuals)</span>
-<span id="cb232-2"><a href="week-04-factorial-manova.html#cb232-2" tabindex="-1"></a>numerator</span>
-<span id="cb232-3"><a href="week-04-factorial-manova.html#cb232-3" tabindex="-1"></a>denomintr <span class="ot">&lt;-</span> <span class="fu">det</span>(fit_summary<span class="sc">$</span>SS<span class="sc">$</span><span class="st">`</span><span class="at">treat:disab</span><span class="st">`</span> <span class="sc">+</span> fit_summary<span class="sc">$</span>SS<span class="sc">$</span>Residuals)</span>
-<span id="cb232-4"><a href="week-04-factorial-manova.html#cb232-4" tabindex="-1"></a>denomintr</span></code></pre></div>
+<div class="sourceCode" id="cb231"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb231-1"><a href="week-04-factorial-manova.html#cb231-1" tabindex="-1"></a>numerator <span class="ot">&lt;-</span> <span class="fu">det</span>(fit_summary<span class="sc">$</span>SS<span class="sc">$</span>Residuals)</span>
+<span id="cb231-2"><a href="week-04-factorial-manova.html#cb231-2" tabindex="-1"></a>numerator</span>
+<span id="cb231-3"><a href="week-04-factorial-manova.html#cb231-3" tabindex="-1"></a>denomintr <span class="ot">&lt;-</span> <span class="fu">det</span>(fit_summary<span class="sc">$</span>SS<span class="sc">$</span><span class="st">`</span><span class="at">treat:disab</span><span class="st">`</span> <span class="sc">+</span> fit_summary<span class="sc">$</span>SS<span class="sc">$</span>Residuals)</span>
+<span id="cb231-4"><a href="week-04-factorial-manova.html#cb231-4" tabindex="-1"></a>denomintr</span></code></pre></div>
 <pre><code>## [1] 292436.3
 ## [1] 322042.4</code></pre>
 <p>Here’s Wilks’ lambda, as reported on p. 261:</p>
-<div class="sourceCode" id="cb234"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb234-1"><a href="week-04-factorial-manova.html#cb234-1" tabindex="-1"></a>numerator <span class="sc">/</span> denomintr</span></code></pre></div>
+<div class="sourceCode" id="cb233"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb233-1"><a href="week-04-factorial-manova.html#cb233-1" tabindex="-1"></a>numerator <span class="sc">/</span> denomintr</span></code></pre></div>
 <pre><code>## [1] 0.9080679</code></pre>
 </div>
 </div>
@@ -836,8 +839,8 @@ H_0: \text{ }
 <div id="mancova-example" class="section level3 hasAnchor" number="5.3.1">
 <h3><span class="header-section-number">5.3.1</span> MANCOVA example<a href="week-04-factorial-manova.html#mancova-example" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>We can include <code>IQ</code> as a covariate because presumably it was measured and recorded before the treatment intervention was carried out. The following code is one way—not the best way perhaps—of including the covariate:</p>
-<div class="sourceCode" id="cb236"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb236-1"><a href="week-04-factorial-manova.html#cb236-1" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">manova</span>(<span class="fu">cbind</span>(wratR, wratA) <span class="sc">~</span> treat <span class="sc">+</span> disab <span class="sc">+</span> IQ <span class="sc">+</span> treat<span class="sc">:</span>disab, <span class="at">data =</span> dat)</span>
-<span id="cb236-2"><a href="week-04-factorial-manova.html#cb236-2" tabindex="-1"></a><span class="fu">summary.manova</span>(fit, <span class="at">test =</span> <span class="st">&quot;Pillai&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb235"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb235-1"><a href="week-04-factorial-manova.html#cb235-1" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">manova</span>(<span class="fu">cbind</span>(wratR, wratA) <span class="sc">~</span> treat <span class="sc">+</span> disab <span class="sc">+</span> IQ <span class="sc">+</span> treat<span class="sc">:</span>disab, <span class="at">data =</span> dat)</span>
+<span id="cb235-2"><a href="week-04-factorial-manova.html#cb235-2" tabindex="-1"></a><span class="fu">summary.manova</span>(fit, <span class="at">test =</span> <span class="st">&quot;Pillai&quot;</span>)</span></code></pre></div>
 <pre><code>##             Df  Pillai approx F num Df den Df    Pr(&gt;F)    
 ## treat        1 0.90138   45.701      2     10 9.328e-06 ***
 ## disab        2 0.83269    3.923      4     22   0.01494 *  
@@ -846,7 +849,7 @@ H_0: \text{ }
 ## Residuals   11                                             
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
-<div class="sourceCode" id="cb238"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb238-1"><a href="week-04-factorial-manova.html#cb238-1" tabindex="-1"></a><span class="fu">summary.manova</span>(fit, <span class="at">test =</span> <span class="st">&quot;Wilks&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb237"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb237-1"><a href="week-04-factorial-manova.html#cb237-1" tabindex="-1"></a><span class="fu">summary.manova</span>(fit, <span class="at">test =</span> <span class="st">&quot;Wilks&quot;</span>)</span></code></pre></div>
 <pre><code>##             Df   Wilks approx F num Df den Df    Pr(&gt;F)    
 ## treat        1 0.09862   45.701      2     10 9.328e-06 ***
 ## disab        2 0.17401    6.986      4     20  0.001089 ** 
@@ -857,14 +860,14 @@ H_0: \text{ }
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 <p>The results differ from what was reported in the chapter with SPSS because R <code>manova()</code> uses Type I sums of squares, where the order of entry of the independent variable is important. In contrast, SPSS uses Type III sums of squares, where every variable is adjusted for every other variable.</p>
 <p>There is a package written for conducting MANCOVA (and MANOVA) which has some nice output. This <code>mancova()</code> procedure enters the covariate <em>after</em> the main effects whereas if we include our covariate in <code>manova()</code>, we have more control over its order into the model, which comes into play when we make our case about how to specify the model.</p>
-<div class="sourceCode" id="cb240"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb240-1"><a href="week-04-factorial-manova.html#cb240-1" tabindex="-1"></a><span class="fu">library</span>(jmv)</span>
-<span id="cb240-2"><a href="week-04-factorial-manova.html#cb240-2" tabindex="-1"></a>manc.fit <span class="ot">&lt;-</span> jmv<span class="sc">::</span><span class="fu">mancova</span>(<span class="at">data =</span> dat,</span>
-<span id="cb240-3"><a href="week-04-factorial-manova.html#cb240-3" tabindex="-1"></a>                    <span class="at">deps =</span> <span class="fu">vars</span>(wratR, wratA),</span>
-<span id="cb240-4"><a href="week-04-factorial-manova.html#cb240-4" tabindex="-1"></a>                    <span class="at">covs =</span> IQ,</span>
-<span id="cb240-5"><a href="week-04-factorial-manova.html#cb240-5" tabindex="-1"></a>                    <span class="at">factors =</span> <span class="fu">c</span>(treat, disab), </span>
-<span id="cb240-6"><a href="week-04-factorial-manova.html#cb240-6" tabindex="-1"></a>                    <span class="at">multivar =</span> <span class="fu">list</span>(<span class="st">&quot;wilks&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb239"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb239-1"><a href="week-04-factorial-manova.html#cb239-1" tabindex="-1"></a><span class="fu">library</span>(jmv)</span>
+<span id="cb239-2"><a href="week-04-factorial-manova.html#cb239-2" tabindex="-1"></a>manc.fit <span class="ot">&lt;-</span> jmv<span class="sc">::</span><span class="fu">mancova</span>(<span class="at">data =</span> dat,</span>
+<span id="cb239-3"><a href="week-04-factorial-manova.html#cb239-3" tabindex="-1"></a>                    <span class="at">deps =</span> <span class="fu">vars</span>(wratR, wratA),</span>
+<span id="cb239-4"><a href="week-04-factorial-manova.html#cb239-4" tabindex="-1"></a>                    <span class="at">covs =</span> IQ,</span>
+<span id="cb239-5"><a href="week-04-factorial-manova.html#cb239-5" tabindex="-1"></a>                    <span class="at">factors =</span> <span class="fu">c</span>(treat, disab), </span>
+<span id="cb239-6"><a href="week-04-factorial-manova.html#cb239-6" tabindex="-1"></a>                    <span class="at">multivar =</span> <span class="fu">list</span>(<span class="st">&quot;wilks&quot;</span>))</span></code></pre></div>
 <p>This code does not print to PDF but you can run it in R to see the results. This is from the Jamovi package, which also has a point-and-click version of R. The output looks nice.</p>
-<div class="sourceCode" id="cb241"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb241-1"><a href="week-04-factorial-manova.html#cb241-1" tabindex="-1"></a>manc.fit<span class="sc">$</span>multivar </span></code></pre></div>
+<div class="sourceCode" id="cb240"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb240-1"><a href="week-04-factorial-manova.html#cb240-1" tabindex="-1"></a>manc.fit<span class="sc">$</span>multivar </span></code></pre></div>
 <!-- ```{r echo = F} -->
 <!-- anc.fit <- jmv::ancova(data = dat, -->
 <!--                     dep = wratR, -->
@@ -875,18 +878,18 @@ H_0: \text{ }
 <!-- anc.fit$main  -->
 <!-- ``` -->
 <p>We can also see the output as a data frame. There may be a way to use the broom package to get a pretty output but for now, we can use the <code>round()</code> function on the relevent columns of the output to make it slightly more readable.</p>
-<div class="sourceCode" id="cb242"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb242-1"><a href="week-04-factorial-manova.html#cb242-1" tabindex="-1"></a>mancova.jamovi <span class="ot">&lt;-</span>manc.fit<span class="sc">$</span>multivar<span class="sc">$</span>asDF</span>
-<span id="cb242-2"><a href="week-04-factorial-manova.html#cb242-2" tabindex="-1"></a><span class="fu">row.names</span>(mancova.jamovi) <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
-<span id="cb242-3"><a href="week-04-factorial-manova.html#cb242-3" tabindex="-1"></a>mancova.jamovi[, <span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">7</span>)] <span class="ot">&lt;-</span> <span class="fu">round</span>( mancova.jamovi[, <span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">7</span>)], <span class="dv">3</span>)</span>
-<span id="cb242-4"><a href="week-04-factorial-manova.html#cb242-4" tabindex="-1"></a>mancova.jamovi</span></code></pre></div>
+<div class="sourceCode" id="cb241"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb241-1"><a href="week-04-factorial-manova.html#cb241-1" tabindex="-1"></a>mancova.jamovi <span class="ot">&lt;-</span>manc.fit<span class="sc">$</span>multivar<span class="sc">$</span>asDF</span>
+<span id="cb241-2"><a href="week-04-factorial-manova.html#cb241-2" tabindex="-1"></a><span class="fu">row.names</span>(mancova.jamovi) <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
+<span id="cb241-3"><a href="week-04-factorial-manova.html#cb241-3" tabindex="-1"></a>mancova.jamovi[, <span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">7</span>)] <span class="ot">&lt;-</span> <span class="fu">round</span>( mancova.jamovi[, <span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">7</span>)], <span class="dv">3</span>)</span>
+<span id="cb241-4"><a href="week-04-factorial-manova.html#cb241-4" tabindex="-1"></a>mancova.jamovi</span></code></pre></div>
 <pre><code>##   term[wilks]   test[wilks] stat[wilks] f[wilks] df1[wilks] df2[wilks] p[wilks]
 ## 1       treat Wilks&#39; Lambda       0.099   45.701          2         10    0.000
 ## 2       disab Wilks&#39; Lambda       0.174    6.986          4         20    0.001
 ## 3 treat:disab Wilks&#39; Lambda       0.939    0.160          4         20    0.956
 ## 4          IQ Wilks&#39; Lambda       0.551    4.069          2         10    0.051</code></pre>
 <p>Let’s compare those results to that of the MANOVA model <strong>without</strong> the covariate:</p>
-<div class="sourceCode" id="cb244"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb244-1"><a href="week-04-factorial-manova.html#cb244-1" tabindex="-1"></a>man.fit <span class="ot">&lt;-</span> <span class="fu">manova</span>(<span class="fu">cbind</span>(wratR, wratA) <span class="sc">~</span> treat <span class="sc">+</span> disab <span class="sc">+</span> treat<span class="sc">:</span>disab, <span class="at">data =</span> dat)</span>
-<span id="cb244-2"><a href="week-04-factorial-manova.html#cb244-2" tabindex="-1"></a>(man.sum <span class="ot">&lt;-</span> <span class="fu">summary.manova</span>(man.fit, <span class="at">test =</span> <span class="st">&quot;Wilks&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb243"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb243-1"><a href="week-04-factorial-manova.html#cb243-1" tabindex="-1"></a>man.fit <span class="ot">&lt;-</span> <span class="fu">manova</span>(<span class="fu">cbind</span>(wratR, wratA) <span class="sc">~</span> treat <span class="sc">+</span> disab <span class="sc">+</span> treat<span class="sc">:</span>disab, <span class="at">data =</span> dat)</span>
+<span id="cb243-2"><a href="week-04-factorial-manova.html#cb243-2" tabindex="-1"></a>(man.sum <span class="ot">&lt;-</span> <span class="fu">summary.manova</span>(man.fit, <span class="at">test =</span> <span class="st">&quot;Wilks&quot;</span>))</span></code></pre></div>
 <pre><code>##             Df   Wilks approx F num Df den Df    Pr(&gt;F)    
 ## treat        1 0.13772   34.436      2     11 1.839e-05 ***
 ## disab        2 0.25526    5.386      4     22  0.003528 ** 
@@ -894,8 +897,8 @@ H_0: \text{ }
 ## Residuals   12                                             
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
-<div class="sourceCode" id="cb246"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb246-1"><a href="week-04-factorial-manova.html#cb246-1" tabindex="-1"></a>manc.fit <span class="ot">&lt;-</span> <span class="fu">manova</span>(<span class="fu">cbind</span>(wratR, wratA) <span class="sc">~</span> treat <span class="sc">+</span> disab <span class="sc">+</span> IQ <span class="sc">+</span> treat<span class="sc">:</span>disab, <span class="at">data =</span> dat)</span>
-<span id="cb246-2"><a href="week-04-factorial-manova.html#cb246-2" tabindex="-1"></a>(manc.sum <span class="ot">&lt;-</span> <span class="fu">summary.manova</span>(manc.fit, <span class="at">test =</span> <span class="st">&quot;Wilks&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb245"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb245-1"><a href="week-04-factorial-manova.html#cb245-1" tabindex="-1"></a>manc.fit <span class="ot">&lt;-</span> <span class="fu">manova</span>(<span class="fu">cbind</span>(wratR, wratA) <span class="sc">~</span> treat <span class="sc">+</span> disab <span class="sc">+</span> IQ <span class="sc">+</span> treat<span class="sc">:</span>disab, <span class="at">data =</span> dat)</span>
+<span id="cb245-2"><a href="week-04-factorial-manova.html#cb245-2" tabindex="-1"></a>(manc.sum <span class="ot">&lt;-</span> <span class="fu">summary.manova</span>(manc.fit, <span class="at">test =</span> <span class="st">&quot;Wilks&quot;</span>))</span></code></pre></div>
 <pre><code>##             Df   Wilks approx F num Df den Df    Pr(&gt;F)    
 ## treat        1 0.09862   45.701      2     10 9.328e-06 ***
 ## disab        2 0.17401    6.986      4     20  0.001089 ** 
@@ -906,13 +909,13 @@ H_0: \text{ }
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 <p>What do you notice about the <em>F</em>-statistic and <em>p</em>-values for the treatment variable?</p>
 <p>We can also compare the error SSCP matrices. We see that the model with the covariate has lower covariance matrix elements and a lower generalized variance.</p>
-<div class="sourceCode" id="cb248"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb248-1"><a href="week-04-factorial-manova.html#cb248-1" tabindex="-1"></a><span class="fu">det</span>(man.sum<span class="sc">$</span>SS<span class="sc">$</span>Residuals)</span></code></pre></div>
+<div class="sourceCode" id="cb247"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb247-1"><a href="week-04-factorial-manova.html#cb247-1" tabindex="-1"></a><span class="fu">det</span>(man.sum<span class="sc">$</span>SS<span class="sc">$</span>Residuals)</span></code></pre></div>
 <pre><code>## [1] 292436.3</code></pre>
-<div class="sourceCode" id="cb250"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb250-1"><a href="week-04-factorial-manova.html#cb250-1" tabindex="-1"></a><span class="fu">det</span>(manc.sum<span class="sc">$</span>SS<span class="sc">$</span>Residuals)</span></code></pre></div>
+<div class="sourceCode" id="cb249"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb249-1"><a href="week-04-factorial-manova.html#cb249-1" tabindex="-1"></a><span class="fu">det</span>(manc.sum<span class="sc">$</span>SS<span class="sc">$</span>Residuals)</span></code></pre></div>
 <pre><code>## [1] 171032.8</code></pre>
 <p>Compare that to the following model, which has the covariate with a different specification. What do you notice about the ordering of the variables in the right side of the equation? And, what do you notice about the effects of (a) the covariate and (b) the treatment variable compared to the previous MANCOVA model?</p>
-<div class="sourceCode" id="cb252"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb252-1"><a href="week-04-factorial-manova.html#cb252-1" tabindex="-1"></a>manc.fit.IQ1 <span class="ot">&lt;-</span> <span class="fu">manova</span>(<span class="fu">cbind</span>(wratR, wratA) <span class="sc">~</span> IQ <span class="sc">+</span> treat <span class="sc">+</span> disab <span class="sc">+</span> treat<span class="sc">:</span>disab, <span class="at">data =</span> dat)</span>
-<span id="cb252-2"><a href="week-04-factorial-manova.html#cb252-2" tabindex="-1"></a>(manc.sum.IQ1 <span class="ot">&lt;-</span> <span class="fu">summary.manova</span>(manc.fit.IQ1, <span class="at">test =</span> <span class="st">&quot;Wilks&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb251"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb251-1"><a href="week-04-factorial-manova.html#cb251-1" tabindex="-1"></a>manc.fit.IQ1 <span class="ot">&lt;-</span> <span class="fu">manova</span>(<span class="fu">cbind</span>(wratR, wratA) <span class="sc">~</span> IQ <span class="sc">+</span> treat <span class="sc">+</span> disab <span class="sc">+</span> treat<span class="sc">:</span>disab, <span class="at">data =</span> dat)</span>
+<span id="cb251-2"><a href="week-04-factorial-manova.html#cb251-2" tabindex="-1"></a>(manc.sum.IQ1 <span class="ot">&lt;-</span> <span class="fu">summary.manova</span>(manc.fit.IQ1, <span class="at">test =</span> <span class="st">&quot;Wilks&quot;</span>))</span></code></pre></div>
 <pre><code>##             Df   Wilks approx F num Df den Df    Pr(&gt;F)    
 ## IQ           1 0.23880   15.938      2     10 0.0007765 ***
 ## treat        1 0.10427   42.952      2     10 1.233e-05 ***
@@ -922,8 +925,8 @@ H_0: \text{ }
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 <p>This next model below is <strong>not</strong> a MANCOVA because we are including interactions with the covariate. However, we can use this model to examine whether the effect of treatment (or disability) <em><em>depends</em></em> on the level of IQ. If it does, we can<strong>not</strong> conduct a MANCOVA because this also suggests that the assumption of homogeneity of regression slopes has been violated. As an alternative, we can a multivariate regression with the interaction in the model—if that is appropriate for our research question. Fortunately, in this case, the interaction is not significant, so we can conduct a MANOVA (we probably should have done that first.)</p>
-<div class="sourceCode" id="cb254"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb254-1"><a href="week-04-factorial-manova.html#cb254-1" tabindex="-1"></a>manc.fit.IQints <span class="ot">&lt;-</span> <span class="fu">manova</span>(<span class="fu">cbind</span>(wratR, wratA) <span class="sc">~</span> IQ <span class="sc">+</span> treat <span class="sc">+</span> disab <span class="sc">+</span> IQ<span class="sc">:</span>treat <span class="sc">+</span> IQ<span class="sc">:</span>disab <span class="sc">+</span> treat<span class="sc">:</span>disab, <span class="at">data =</span> dat)</span>
-<span id="cb254-2"><a href="week-04-factorial-manova.html#cb254-2" tabindex="-1"></a>(manc.sum.IQints <span class="ot">&lt;-</span> <span class="fu">summary.manova</span>(manc.fit.IQints, <span class="at">test =</span> <span class="st">&quot;Wilks&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb253"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb253-1"><a href="week-04-factorial-manova.html#cb253-1" tabindex="-1"></a>manc.fit.IQints <span class="ot">&lt;-</span> <span class="fu">manova</span>(<span class="fu">cbind</span>(wratR, wratA) <span class="sc">~</span> IQ <span class="sc">+</span> treat <span class="sc">+</span> disab <span class="sc">+</span> IQ<span class="sc">:</span>treat <span class="sc">+</span> IQ<span class="sc">:</span>disab <span class="sc">+</span> treat<span class="sc">:</span>disab, <span class="at">data =</span> dat)</span>
+<span id="cb253-2"><a href="week-04-factorial-manova.html#cb253-2" tabindex="-1"></a>(manc.sum.IQints <span class="ot">&lt;-</span> <span class="fu">summary.manova</span>(manc.fit.IQints, <span class="at">test =</span> <span class="st">&quot;Wilks&quot;</span>))</span></code></pre></div>
 <pre><code>##             Df   Wilks approx F num Df den Df    Pr(&gt;F)    
 ## IQ           1 0.21243   12.976      2      7 0.0044185 ** 
 ## treat        1 0.08324   38.547      2      7 0.0001664 ***
@@ -943,8 +946,8 @@ H_0: \text{ }
 <p>If we use Type I sums of squares, it is important to report that we used Type I sums of squares and that we report the order we included them in the model. It makes sense to include earlier in the equation the variables that are not likely affected by the other variables. For example, if the study takes into account pre-test scores before the intervention was conducted, they can be included first, as we are taking into account all of the variation in the outcome variables that are explained by those pre-intervention test scores. This can also be done for demographic variables that that are not determined by the treatment or other factors in the model.</p>
 <p>Another way to approach it is to consider if our primary research question was based on an experiment (which is the purpose for which MANOVA was developed), such that cases had been randomly assigned to treatment or control conditions. If that were the case, we could place our treatment factor variable as the first variable in the equation. The rationale is that in expectation the levels of the treatment variable will be identical. Only by random luck (or lack thereof) will the levels of the treatment differ in the covariate means.</p>
 <p>Let’s examine the model with the covariate as the first entry in the equation. Notice how the parameter for <code>treat</code> has changed.</p>
-<div class="sourceCode" id="cb256"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb256-1"><a href="week-04-factorial-manova.html#cb256-1" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">manova</span>(<span class="fu">cbind</span>(wratR, wratA) <span class="sc">~</span> IQ <span class="sc">+</span> treat <span class="sc">+</span> disab <span class="sc">+</span> treat<span class="sc">:</span>disab, <span class="at">data =</span> dat)</span>
-<span id="cb256-2"><a href="week-04-factorial-manova.html#cb256-2" tabindex="-1"></a><span class="fu">summary.manova</span>(fit, <span class="at">test =</span> <span class="st">&quot;Wilks&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb255"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb255-1"><a href="week-04-factorial-manova.html#cb255-1" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">manova</span>(<span class="fu">cbind</span>(wratR, wratA) <span class="sc">~</span> IQ <span class="sc">+</span> treat <span class="sc">+</span> disab <span class="sc">+</span> treat<span class="sc">:</span>disab, <span class="at">data =</span> dat)</span>
+<span id="cb255-2"><a href="week-04-factorial-manova.html#cb255-2" tabindex="-1"></a><span class="fu">summary.manova</span>(fit, <span class="at">test =</span> <span class="st">&quot;Wilks&quot;</span>)</span></code></pre></div>
 <pre><code>##             Df   Wilks approx F num Df den Df    Pr(&gt;F)    
 ## IQ           1 0.23880   15.938      2     10 0.0007765 ***
 ## treat        1 0.10427   42.952      2     10 1.233e-05 ***
@@ -956,10 +959,10 @@ H_0: \text{ }
 <div id="adjusted-means" class="section level4 hasAnchor" number="5.3.2.1">
 <h4><span class="header-section-number">5.3.2.1</span> Adjusted means<a href="week-04-factorial-manova.html#adjusted-means" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>Using the <code>effect()</code> function from the effects package on the output of the <code>aov()</code> model, we can obtain the adjusted means per group; that is, the mean on a DV after partialing out the variance due to the <code>IQ</code> covariate. We can specify the sums-of-squares type with the <code>type =</code> argument, which came from the car package.</p>
-<div class="sourceCode" id="cb258"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb258-1"><a href="week-04-factorial-manova.html#cb258-1" tabindex="-1"></a><span class="fu">library</span>(effects)</span>
-<span id="cb258-2"><a href="week-04-factorial-manova.html#cb258-2" tabindex="-1"></a><span class="fu">library</span>(car)</span>
-<span id="cb258-3"><a href="week-04-factorial-manova.html#cb258-3" tabindex="-1"></a>a1 <span class="ot">&lt;-</span> <span class="fu">aov</span>(wratR <span class="sc">~</span> IQ <span class="sc">+</span> treat <span class="sc">+</span> disab <span class="sc">+</span>  treat<span class="sc">:</span>disab, <span class="at">data =</span> dat)</span>
-<span id="cb258-4"><a href="week-04-factorial-manova.html#cb258-4" tabindex="-1"></a><span class="fu">summary</span>(a1, <span class="at">type =</span> <span class="st">&quot;III&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb257"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb257-1"><a href="week-04-factorial-manova.html#cb257-1" tabindex="-1"></a><span class="fu">library</span>(effects)</span>
+<span id="cb257-2"><a href="week-04-factorial-manova.html#cb257-2" tabindex="-1"></a><span class="fu">library</span>(car)</span>
+<span id="cb257-3"><a href="week-04-factorial-manova.html#cb257-3" tabindex="-1"></a>a1 <span class="ot">&lt;-</span> <span class="fu">aov</span>(wratR <span class="sc">~</span> IQ <span class="sc">+</span> treat <span class="sc">+</span> disab <span class="sc">+</span>  treat<span class="sc">:</span>disab, <span class="at">data =</span> dat)</span>
+<span id="cb257-4"><a href="week-04-factorial-manova.html#cb257-4" tabindex="-1"></a><span class="fu">summary</span>(a1, <span class="at">type =</span> <span class="st">&quot;III&quot;</span>)</span></code></pre></div>
 <pre><code>##             Df Sum Sq Mean Sq F value   Pr(&gt;F)    
 ## IQ           1  215.7   215.7   4.490   0.0577 .  
 ## treat        1 2020.3  2020.3  42.049 4.52e-05 ***
@@ -968,10 +971,10 @@ H_0: \text{ }
 ## Residuals   11  528.5    48.0                     
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
-<div class="sourceCode" id="cb260"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb260-1"><a href="week-04-factorial-manova.html#cb260-1" tabindex="-1"></a>adj.mean.int <span class="ot">&lt;-</span> <span class="fu">effect</span>(<span class="st">&quot;treat:disab&quot;</span>, a1, <span class="at">se =</span> <span class="cn">TRUE</span>) </span>
-<span id="cb260-2"><a href="week-04-factorial-manova.html#cb260-2" tabindex="-1"></a><span class="co"># but this interaction was NS, so we don&#39;t need this.</span></span>
-<span id="cb260-3"><a href="week-04-factorial-manova.html#cb260-3" tabindex="-1"></a>adj.mean.treat <span class="ot">&lt;-</span> <span class="fu">effect</span>(<span class="st">&quot;treat&quot;</span>, a1, <span class="at">se =</span> <span class="cn">TRUE</span>) </span>
-<span id="cb260-4"><a href="week-04-factorial-manova.html#cb260-4" tabindex="-1"></a><span class="fu">summary</span>(adj.mean.treat)</span></code></pre></div>
+<div class="sourceCode" id="cb259"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb259-1"><a href="week-04-factorial-manova.html#cb259-1" tabindex="-1"></a>adj.mean.int <span class="ot">&lt;-</span> <span class="fu">effect</span>(<span class="st">&quot;treat:disab&quot;</span>, a1, <span class="at">se =</span> <span class="cn">TRUE</span>) </span>
+<span id="cb259-2"><a href="week-04-factorial-manova.html#cb259-2" tabindex="-1"></a><span class="co"># but this interaction was NS, so we don&#39;t need this.</span></span>
+<span id="cb259-3"><a href="week-04-factorial-manova.html#cb259-3" tabindex="-1"></a>adj.mean.treat <span class="ot">&lt;-</span> <span class="fu">effect</span>(<span class="st">&quot;treat&quot;</span>, a1, <span class="at">se =</span> <span class="cn">TRUE</span>) </span>
+<span id="cb259-4"><a href="week-04-factorial-manova.html#cb259-4" tabindex="-1"></a><span class="fu">summary</span>(adj.mean.treat)</span></code></pre></div>
 <pre><code>## 
 ##  treat effect
 ## treat
@@ -987,8 +990,8 @@ H_0: \text{ }
 ## treat
 ##        C        T 
 ##  83.4833 104.9202</code></pre>
-<div class="sourceCode" id="cb262"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb262-1"><a href="week-04-factorial-manova.html#cb262-1" tabindex="-1"></a>adj.mean.disab <span class="ot">&lt;-</span> <span class="fu">effect</span>(<span class="st">&quot;disab&quot;</span>, a1, <span class="at">se =</span> <span class="cn">TRUE</span>) </span>
-<span id="cb262-2"><a href="week-04-factorial-manova.html#cb262-2" tabindex="-1"></a><span class="fu">summary</span>(adj.mean.disab)</span></code></pre></div>
+<div class="sourceCode" id="cb261"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb261-1"><a href="week-04-factorial-manova.html#cb261-1" tabindex="-1"></a>adj.mean.disab <span class="ot">&lt;-</span> <span class="fu">effect</span>(<span class="st">&quot;disab&quot;</span>, a1, <span class="at">se =</span> <span class="cn">TRUE</span>) </span>
+<span id="cb261-2"><a href="week-04-factorial-manova.html#cb261-2" tabindex="-1"></a><span class="fu">summary</span>(adj.mean.disab)</span></code></pre></div>
 <pre><code>## 
 ##  disab effect
 ## disab

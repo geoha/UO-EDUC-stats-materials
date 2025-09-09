@@ -4,23 +4,23 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>6 Week 05, Discriminant Function Analysis | EDUC 644 Applied Multivariate Statistics</title>
-  <meta name="description" content="Course materials for multivariate statistics" />
+  <title>6 Week 05, Discriminant Function Analysis | Guidebook for Using R in Applied Multivariate Statistics</title>
+  <meta name="description" content="Course guidebook for multivariate statistics" />
   <meta name="generator" content="bookdown 0.44 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="6 Week 05, Discriminant Function Analysis | EDUC 644 Applied Multivariate Statistics" />
+  <meta property="og:title" content="6 Week 05, Discriminant Function Analysis | Guidebook for Using R in Applied Multivariate Statistics" />
   <meta property="og:type" content="book" />
   
-  <meta property="og:description" content="Course materials for multivariate statistics" />
+  <meta property="og:description" content="Course guidebook for multivariate statistics" />
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="6 Week 05, Discriminant Function Analysis | EDUC 644 Applied Multivariate Statistics" />
+  <meta name="twitter:title" content="6 Week 05, Discriminant Function Analysis | Guidebook for Using R in Applied Multivariate Statistics" />
   
-  <meta name="twitter:description" content="Course materials for multivariate statistics" />
+  <meta name="twitter:description" content="Course guidebook for multivariate statistics" />
   
 
-<meta name="author" content="George Harrison" />
+<meta name="author" content="George M. Harrison" />
 
 
 
@@ -171,7 +171,10 @@ div.csl-indent {
 <ul>
 <li class="chapter" data-level="1.1" data-path="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#scalars"><i class="fa fa-check"></i><b>1.1</b> Scalars</a></li>
 <li class="chapter" data-level="1.2" data-path="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#vectors"><i class="fa fa-check"></i><b>1.2</b> Vectors</a></li>
-<li class="chapter" data-level="1.3" data-path="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#matrices"><i class="fa fa-check"></i><b>1.3</b> Matrices</a></li>
+<li class="chapter" data-level="1.3" data-path="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#matrices"><i class="fa fa-check"></i><b>1.3</b> Matrices</a>
+<ul>
+<li class="chapter" data-level="1.3.1" data-path="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#data-files-as-matrices"><i class="fa fa-check"></i><b>1.3.1</b> Data Files as Matrices</a></li>
+</ul></li>
 <li class="chapter" data-level="1.4" data-path="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#symmetrical-matrices"><i class="fa fa-check"></i><b>1.4</b> Symmetrical Matrices</a>
 <ul>
 <li class="chapter" data-level="1.4.1" data-path="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#variance-covariance-matrices"><i class="fa fa-check"></i><b>1.4.1</b> Variance-covariance Matrices</a></li>
@@ -390,7 +393,7 @@ div.csl-indent {
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">EDUC 644 Applied Multivariate Statistics</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Guidebook for Using R in Applied Multivariate Statistics</a>
           </h1>
         </div>
 
@@ -402,12 +405,12 @@ div.csl-indent {
 <h1><span class="header-section-number">6</span> Week 05, Discriminant Function Analysis<a href="week-05-discriminant-function-analysis.html#week-05-discriminant-function-analysis" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>The following code follows the first example in Chapter 10 of Pituch and Stevens. The results are not exactly the same, with some discriminant-function scores being opposite in sign or slightly different from those in SPSS. This is because the algorithms in SPSS and R differ; however, the interpretations are the same.</p>
 <p>The data are the same as those from previous chapters, in the <code>SENIORWISE.sav</code> data set.</p>
-<div class="sourceCode" id="cb264"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb264-1"><a href="week-05-discriminant-function-analysis.html#cb264-1" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb264-2"><a href="week-05-discriminant-function-analysis.html#cb264-2" tabindex="-1"></a><span class="fu">library</span>(haven)</span>
-<span id="cb264-3"><a href="week-05-discriminant-function-analysis.html#cb264-3" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">read_sav</span>(<span class="st">&quot;SENIORWISE.sav&quot;</span>)</span>
-<span id="cb264-4"><a href="week-05-discriminant-function-analysis.html#cb264-4" tabindex="-1"></a><span class="fu">names</span>(dat) <span class="ot">&lt;-</span> <span class="fu">tolower</span>(<span class="fu">names</span>(dat))</span>
-<span id="cb264-5"><a href="week-05-discriminant-function-analysis.html#cb264-5" tabindex="-1"></a>dat<span class="sc">$</span>group <span class="ot">&lt;-</span> haven<span class="sc">::</span><span class="fu">as_factor</span>(dat<span class="sc">$</span>group)</span>
-<span id="cb264-6"><a href="week-05-discriminant-function-analysis.html#cb264-6" tabindex="-1"></a><span class="fu">glimpse</span>(dat)</span></code></pre></div>
+<div class="sourceCode" id="cb263"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb263-1"><a href="week-05-discriminant-function-analysis.html#cb263-1" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb263-2"><a href="week-05-discriminant-function-analysis.html#cb263-2" tabindex="-1"></a><span class="fu">library</span>(haven)</span>
+<span id="cb263-3"><a href="week-05-discriminant-function-analysis.html#cb263-3" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">read_sav</span>(<span class="st">&quot;SENIORWISE.sav&quot;</span>)</span>
+<span id="cb263-4"><a href="week-05-discriminant-function-analysis.html#cb263-4" tabindex="-1"></a><span class="fu">names</span>(dat) <span class="ot">&lt;-</span> <span class="fu">tolower</span>(<span class="fu">names</span>(dat))</span>
+<span id="cb263-5"><a href="week-05-discriminant-function-analysis.html#cb263-5" tabindex="-1"></a>dat<span class="sc">$</span>group <span class="ot">&lt;-</span> haven<span class="sc">::</span><span class="fu">as_factor</span>(dat<span class="sc">$</span>group)</span>
+<span id="cb263-6"><a href="week-05-discriminant-function-analysis.html#cb263-6" tabindex="-1"></a><span class="fu">glimpse</span>(dat)</span></code></pre></div>
 <pre><code>## Rows: 300
 ## Columns: 5
 ## $ self_efficacy &lt;dbl&gt; 71.12113, 52.79091, 48.47966, 44.68057, 63.27477, 57.46376, 63.44811, 55.29445…
@@ -420,20 +423,20 @@ div.csl-indent {
 <p>As is usual in R, there are many different ways to accomplish the same thing. The MASS package, and its <code>lda()</code> function seems to be one frequently used function for conducting linear discriminant function analysis in R.</p>
 <p>More conveniently, the <a href="https://rdrr.io/cran/DFA.CANCOR/man/DFA.html">DFA.CANCOR</a> package provides output that is similar to that of SPSS and SAS and provides an output that is easy to use.</p>
 <p>In the <code>DFA.CANCOR::DFA()</code> function, we specify the data, the group variable, the discriminant variables (which were the dependent variables in MANOVA), and we set <code>predictive = FALSE</code> because we’re doing <em>descriptive</em> discriminant analysis (rather than classification, which is discussed later in the chapter). I also set <code>verbos = FALSE</code> but you can set it to <code>TRUE</code> (the default) if you want to see the lengthy output. We can save the output to an object and request specific information, stored as lists (which we can read about in the help file), from that output. You can examine the plot they provide if you set that the <code>TRUE</code>.</p>
-<div class="sourceCode" id="cb266"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb266-1"><a href="week-05-discriminant-function-analysis.html#cb266-1" tabindex="-1"></a><span class="co"># install.packages(&quot;DFA.CANCOR&quot;)</span></span>
-<span id="cb266-2"><a href="week-05-discriminant-function-analysis.html#cb266-2" tabindex="-1"></a><span class="fu">library</span>(DFA.CANCOR)</span>
-<span id="cb266-3"><a href="week-05-discriminant-function-analysis.html#cb266-3" tabindex="-1"></a>fit.dfa <span class="ot">&lt;-</span> <span class="fu">DFA</span>(<span class="at">data =</span> dat, </span>
-<span id="cb266-4"><a href="week-05-discriminant-function-analysis.html#cb266-4" tabindex="-1"></a>            <span class="at">groups =</span> <span class="st">&quot;group&quot;</span>, </span>
-<span id="cb266-5"><a href="week-05-discriminant-function-analysis.html#cb266-5" tabindex="-1"></a>            <span class="at">variables =</span> <span class="fu">c</span>(<span class="st">&quot;self_efficacy&quot;</span>, <span class="st">&quot;verbal&quot;</span>, <span class="st">&quot;dafs&quot;</span>),</span>
-<span id="cb266-6"><a href="week-05-discriminant-function-analysis.html#cb266-6" tabindex="-1"></a>            <span class="at">predictive =</span> <span class="cn">FALSE</span>,</span>
-<span id="cb266-7"><a href="week-05-discriminant-function-analysis.html#cb266-7" tabindex="-1"></a>            <span class="at">plot =</span> <span class="cn">FALSE</span>,</span>
-<span id="cb266-8"><a href="week-05-discriminant-function-analysis.html#cb266-8" tabindex="-1"></a>            <span class="at">verbos =</span> <span class="cn">FALSE</span>) <span class="co"># verbose = TRUE is the default and outputs everything.</span></span></code></pre></div>
+<div class="sourceCode" id="cb265"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb265-1"><a href="week-05-discriminant-function-analysis.html#cb265-1" tabindex="-1"></a><span class="co"># install.packages(&quot;DFA.CANCOR&quot;)</span></span>
+<span id="cb265-2"><a href="week-05-discriminant-function-analysis.html#cb265-2" tabindex="-1"></a><span class="fu">library</span>(DFA.CANCOR)</span>
+<span id="cb265-3"><a href="week-05-discriminant-function-analysis.html#cb265-3" tabindex="-1"></a>fit.dfa <span class="ot">&lt;-</span> <span class="fu">DFA</span>(<span class="at">data =</span> dat, </span>
+<span id="cb265-4"><a href="week-05-discriminant-function-analysis.html#cb265-4" tabindex="-1"></a>            <span class="at">groups =</span> <span class="st">&quot;group&quot;</span>, </span>
+<span id="cb265-5"><a href="week-05-discriminant-function-analysis.html#cb265-5" tabindex="-1"></a>            <span class="at">variables =</span> <span class="fu">c</span>(<span class="st">&quot;self_efficacy&quot;</span>, <span class="st">&quot;verbal&quot;</span>, <span class="st">&quot;dafs&quot;</span>),</span>
+<span id="cb265-6"><a href="week-05-discriminant-function-analysis.html#cb265-6" tabindex="-1"></a>            <span class="at">predictive =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb265-7"><a href="week-05-discriminant-function-analysis.html#cb265-7" tabindex="-1"></a>            <span class="at">plot =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb265-8"><a href="week-05-discriminant-function-analysis.html#cb265-8" tabindex="-1"></a>            <span class="at">verbos =</span> <span class="cn">FALSE</span>) <span class="co"># verbose = TRUE is the default and outputs everything.</span></span></code></pre></div>
 </div>
 <div id="dimension-reduction-analysis" class="section level3 hasAnchor" number="6.0.2">
 <h3><span class="header-section-number">6.0.2</span> Dimension reduction analysis<a href="week-05-discriminant-function-analysis.html#dimension-reduction-analysis" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Here are the results reported in Table 10.4 (p. 401) of our reading.</p>
 <p>Here are the eigenvalues:</p>
-<div class="sourceCode" id="cb267"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb267-1"><a href="week-05-discriminant-function-analysis.html#cb267-1" tabindex="-1"></a>fit.dfa<span class="sc">$</span>evals</span></code></pre></div>
+<div class="sourceCode" id="cb266"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb266-1"><a href="week-05-discriminant-function-analysis.html#cb266-1" tabindex="-1"></a>fit.dfa<span class="sc">$</span>evals</span></code></pre></div>
 <pre><code>##  Function eigenvalue proportion of variance canonical r
 ##         1 0.29047037             0.91909386   0.4744352
 ##         2 0.02556957             0.08090614   0.1578989</code></pre>
@@ -442,42 +445,42 @@ div.csl-indent {
 It can also be calculated from the eigenvalues as
 <span class="math display">\[\Lambda = \frac{1}{1 + \phi_1} \times \frac{1}{1 + \phi_2} \times \cdots \times \frac{1}{1 + \phi_r}\]</span>
 In R, we can use the following code to compute this equation:</p>
-<div class="sourceCode" id="cb269"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb269-1"><a href="week-05-discriminant-function-analysis.html#cb269-1" tabindex="-1"></a>Wilks.Lambda <span class="ot">&lt;-</span> <span class="fu">prod</span>( <span class="dv">1</span> <span class="sc">/</span> (<span class="dv">1</span> <span class="sc">+</span> fit.dfa<span class="sc">$</span>evals[ ,<span class="dv">2</span>]) )</span>
-<span id="cb269-2"><a href="week-05-discriminant-function-analysis.html#cb269-2" tabindex="-1"></a>Wilks.Lambda</span></code></pre></div>
+<div class="sourceCode" id="cb268"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb268-1"><a href="week-05-discriminant-function-analysis.html#cb268-1" tabindex="-1"></a>Wilks.Lambda <span class="ot">&lt;-</span> <span class="fu">prod</span>( <span class="dv">1</span> <span class="sc">/</span> (<span class="dv">1</span> <span class="sc">+</span> fit.dfa<span class="sc">$</span>evals[ ,<span class="dv">2</span>]) )</span>
+<span id="cb268-2"><a href="week-05-discriminant-function-analysis.html#cb268-2" tabindex="-1"></a>Wilks.Lambda</span></code></pre></div>
 <pre><code>## [1] 0.7555911</code></pre>
 <p>The statistical test is distributed as a <span class="math inline">\(\chi^2\)</span> with <span class="math inline">\(p(k-1)\)</span> degrees of freedom.</p>
-<div class="sourceCode" id="cb271"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb271-1"><a href="week-05-discriminant-function-analysis.html#cb271-1" tabindex="-1"></a>N <span class="ot">&lt;-</span> <span class="fu">nrow</span>(dat)</span>
-<span id="cb271-2"><a href="week-05-discriminant-function-analysis.html#cb271-2" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="dv">3</span> <span class="co"># number of discriminant variables (DVs if we were doing MANOVA)</span></span>
-<span id="cb271-3"><a href="week-05-discriminant-function-analysis.html#cb271-3" tabindex="-1"></a>k <span class="ot">&lt;-</span> <span class="fu">length</span>(<span class="fu">levels</span>(dat<span class="sc">$</span>group))</span>
-<span id="cb271-4"><a href="week-05-discriminant-function-analysis.html#cb271-4" tabindex="-1"></a>df <span class="ot">&lt;-</span> p<span class="sc">*</span>(k<span class="dv">-1</span>)</span>
-<span id="cb271-5"><a href="week-05-discriminant-function-analysis.html#cb271-5" tabindex="-1"></a>eigenvalues <span class="ot">&lt;-</span> fit.dfa<span class="sc">$</span>evals[ ,<span class="dv">2</span>]</span>
-<span id="cb271-6"><a href="week-05-discriminant-function-analysis.html#cb271-6" tabindex="-1"></a>Chi.sqr <span class="ot">&lt;-</span> (N <span class="sc">-</span> <span class="dv">1</span> <span class="sc">-</span> (p <span class="sc">+</span> k) <span class="sc">/</span> <span class="dv">2</span>) <span class="sc">*</span> <span class="fu">sum</span>(<span class="fu">log</span>(<span class="dv">1</span> <span class="sc">+</span> eigenvalues))</span>
-<span id="cb271-7"><a href="week-05-discriminant-function-analysis.html#cb271-7" tabindex="-1"></a>Chi.sqr</span></code></pre></div>
+<div class="sourceCode" id="cb270"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb270-1"><a href="week-05-discriminant-function-analysis.html#cb270-1" tabindex="-1"></a>N <span class="ot">&lt;-</span> <span class="fu">nrow</span>(dat)</span>
+<span id="cb270-2"><a href="week-05-discriminant-function-analysis.html#cb270-2" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="dv">3</span> <span class="co"># number of discriminant variables (DVs if we were doing MANOVA)</span></span>
+<span id="cb270-3"><a href="week-05-discriminant-function-analysis.html#cb270-3" tabindex="-1"></a>k <span class="ot">&lt;-</span> <span class="fu">length</span>(<span class="fu">levels</span>(dat<span class="sc">$</span>group))</span>
+<span id="cb270-4"><a href="week-05-discriminant-function-analysis.html#cb270-4" tabindex="-1"></a>df <span class="ot">&lt;-</span> p<span class="sc">*</span>(k<span class="dv">-1</span>)</span>
+<span id="cb270-5"><a href="week-05-discriminant-function-analysis.html#cb270-5" tabindex="-1"></a>eigenvalues <span class="ot">&lt;-</span> fit.dfa<span class="sc">$</span>evals[ ,<span class="dv">2</span>]</span>
+<span id="cb270-6"><a href="week-05-discriminant-function-analysis.html#cb270-6" tabindex="-1"></a>Chi.sqr <span class="ot">&lt;-</span> (N <span class="sc">-</span> <span class="dv">1</span> <span class="sc">-</span> (p <span class="sc">+</span> k) <span class="sc">/</span> <span class="dv">2</span>) <span class="sc">*</span> <span class="fu">sum</span>(<span class="fu">log</span>(<span class="dv">1</span> <span class="sc">+</span> eigenvalues))</span>
+<span id="cb270-7"><a href="week-05-discriminant-function-analysis.html#cb270-7" tabindex="-1"></a>Chi.sqr</span></code></pre></div>
 <pre><code>## [1] 82.95546</code></pre>
 <p>And here is the <em>p</em>-value:</p>
-<div class="sourceCode" id="cb273"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb273-1"><a href="week-05-discriminant-function-analysis.html#cb273-1" tabindex="-1"></a><span class="fu">pchisq</span>(Chi.sqr, <span class="at">df =</span> df, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb272"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb272-1"><a href="week-05-discriminant-function-analysis.html#cb272-1" tabindex="-1"></a><span class="fu">pchisq</span>(Chi.sqr, <span class="at">df =</span> df, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
 <pre><code>## [1] 8.74953e-16</code></pre>
 <p>With the second discriminant function, we use the rest of the eigenvalues in the equation. In this case, there is only one:</p>
-<div class="sourceCode" id="cb275"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb275-1"><a href="week-05-discriminant-function-analysis.html#cb275-1" tabindex="-1"></a>Wilks.Lambda2 <span class="ot">&lt;-</span> <span class="fu">prod</span>( <span class="dv">1</span> <span class="sc">/</span> (<span class="dv">1</span> <span class="sc">+</span> eigenvalues[<span class="dv">2</span>] ) )</span>
-<span id="cb275-2"><a href="week-05-discriminant-function-analysis.html#cb275-2" tabindex="-1"></a>Wilks.Lambda2</span></code></pre></div>
+<div class="sourceCode" id="cb274"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb274-1"><a href="week-05-discriminant-function-analysis.html#cb274-1" tabindex="-1"></a>Wilks.Lambda2 <span class="ot">&lt;-</span> <span class="fu">prod</span>( <span class="dv">1</span> <span class="sc">/</span> (<span class="dv">1</span> <span class="sc">+</span> eigenvalues[<span class="dv">2</span>] ) )</span>
+<span id="cb274-2"><a href="week-05-discriminant-function-analysis.html#cb274-2" tabindex="-1"></a>Wilks.Lambda2</span></code></pre></div>
 <pre><code>## [1] 0.9750679</code></pre>
 <p>The statistical test is now of the remaining function(s):</p>
-<div class="sourceCode" id="cb277"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb277-1"><a href="week-05-discriminant-function-analysis.html#cb277-1" tabindex="-1"></a>df2 <span class="ot">&lt;-</span> (p<span class="dv">-1</span>)<span class="sc">*</span>(k<span class="dv">-2</span>)</span>
-<span id="cb277-2"><a href="week-05-discriminant-function-analysis.html#cb277-2" tabindex="-1"></a>Chi.sqr <span class="ot">&lt;-</span> (N <span class="sc">-</span> <span class="dv">1</span> <span class="sc">-</span> (p <span class="sc">+</span> k) <span class="sc">/</span> <span class="dv">2</span>) <span class="sc">*</span> <span class="fu">sum</span>(<span class="fu">log</span>(<span class="dv">1</span> <span class="sc">+</span> fit.dfa<span class="sc">$</span>evals[<span class="dv">2</span>,<span class="dv">2</span>]))</span>
-<span id="cb277-3"><a href="week-05-discriminant-function-analysis.html#cb277-3" tabindex="-1"></a>p.value <span class="ot">&lt;-</span> <span class="fu">pchisq</span>(Chi.sqr, <span class="at">df =</span> df2, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb277-4"><a href="week-05-discriminant-function-analysis.html#cb277-4" tabindex="-1"></a></span>
-<span id="cb277-5"><a href="week-05-discriminant-function-analysis.html#cb277-5" tabindex="-1"></a>Chi.sqr</span></code></pre></div>
+<div class="sourceCode" id="cb276"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb276-1"><a href="week-05-discriminant-function-analysis.html#cb276-1" tabindex="-1"></a>df2 <span class="ot">&lt;-</span> (p<span class="dv">-1</span>)<span class="sc">*</span>(k<span class="dv">-2</span>)</span>
+<span id="cb276-2"><a href="week-05-discriminant-function-analysis.html#cb276-2" tabindex="-1"></a>Chi.sqr <span class="ot">&lt;-</span> (N <span class="sc">-</span> <span class="dv">1</span> <span class="sc">-</span> (p <span class="sc">+</span> k) <span class="sc">/</span> <span class="dv">2</span>) <span class="sc">*</span> <span class="fu">sum</span>(<span class="fu">log</span>(<span class="dv">1</span> <span class="sc">+</span> fit.dfa<span class="sc">$</span>evals[<span class="dv">2</span>,<span class="dv">2</span>]))</span>
+<span id="cb276-3"><a href="week-05-discriminant-function-analysis.html#cb276-3" tabindex="-1"></a>p.value <span class="ot">&lt;-</span> <span class="fu">pchisq</span>(Chi.sqr, <span class="at">df =</span> df2, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb276-4"><a href="week-05-discriminant-function-analysis.html#cb276-4" tabindex="-1"></a></span>
+<span id="cb276-5"><a href="week-05-discriminant-function-analysis.html#cb276-5" tabindex="-1"></a>Chi.sqr</span></code></pre></div>
 <pre><code>## [1] 7.473449</code></pre>
-<div class="sourceCode" id="cb279"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb279-1"><a href="week-05-discriminant-function-analysis.html#cb279-1" tabindex="-1"></a>p.value</span></code></pre></div>
+<div class="sourceCode" id="cb278"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb278-1"><a href="week-05-discriminant-function-analysis.html#cb278-1" tabindex="-1"></a>p.value</span></code></pre></div>
 <pre><code>## [1] 0.02383204</code></pre>
 <p>Alternatively, we can pull up the results from our output of the <code>DFA()</code> function.</p>
 <p>Here are the statistical tests:</p>
-<div class="sourceCode" id="cb281"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb281-1"><a href="week-05-discriminant-function-analysis.html#cb281-1" tabindex="-1"></a>fit.dfa<span class="sc">$</span>mv_Wilk</span></code></pre></div>
+<div class="sourceCode" id="cb280"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb280-1"><a href="week-05-discriminant-function-analysis.html#cb280-1" tabindex="-1"></a>fit.dfa<span class="sc">$</span>mv_Wilk</span></code></pre></div>
 <pre><code>##             Wilk&#39;s Lambda F-approx. df1 df2            p
 ## 1 through 2     0.7555911 14.791342   6 590 8.764499e-16
 ## 2 through 2     0.9750679  3.784297   2 296 2.383204e-02</code></pre>
 <p>Because Wilk’s Lambda with the second discriminant function resulted in <code>NaN</code>, let’s look at the Pillai’s trace statistics:</p>
-<div class="sourceCode" id="cb283"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb283-1"><a href="week-05-discriminant-function-analysis.html#cb283-1" tabindex="-1"></a>fit.dfa<span class="sc">$</span>mv_Pillai</span></code></pre></div>
+<div class="sourceCode" id="cb282"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb282-1"><a href="week-05-discriminant-function-analysis.html#cb282-1" tabindex="-1"></a>fit.dfa<span class="sc">$</span>mv_Pillai</span></code></pre></div>
 <pre><code>##             Pillai-Bartlett Trace F-approx. df1 df2            p
 ## 1 through 2            0.25002083 14.096580   6 592 4.933440e-15
 ## 2 through 2            0.02493207  3.809866   2 596 2.269257e-02</code></pre>
@@ -486,21 +489,21 @@ In R, we can use the following code to compute this equation:</p>
 <div id="effect-sizes" class="section level4 hasAnchor" number="6.0.2.1">
 <h4><span class="header-section-number">6.0.2.1</span> Effect sizes<a href="week-05-discriminant-function-analysis.html#effect-sizes" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>We can look at the effect size in two different ways: 1) as the proportion of between-group variance that is accounted for by each discriminant function, and 2) the proportion of variance in the discriminant variable that is between groups. Here’s the first one, which uses the sums-of-squares.<a href="#fn26" class="footnote-ref" id="fnref26"><sup>26</sup></a></p>
-<div class="sourceCode" id="cb285"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb285-1"><a href="week-05-discriminant-function-analysis.html#cb285-1" tabindex="-1"></a>(N <span class="sc">-</span> k)<span class="sc">*</span>eigenvalues <span class="sc">/</span> <span class="fu">sum</span>((N <span class="sc">-</span> k)<span class="sc">*</span>eigenvalues )</span></code></pre></div>
+<div class="sourceCode" id="cb284"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb284-1"><a href="week-05-discriminant-function-analysis.html#cb284-1" tabindex="-1"></a>(N <span class="sc">-</span> k)<span class="sc">*</span>eigenvalues <span class="sc">/</span> <span class="fu">sum</span>((N <span class="sc">-</span> k)<span class="sc">*</span>eigenvalues )</span></code></pre></div>
 <pre><code>##                       
 ## 0.91909386 0.08090614</code></pre>
 <p>Which are the same values in the <code>proportion of variance</code> column in the output:</p>
-<div class="sourceCode" id="cb287"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb287-1"><a href="week-05-discriminant-function-analysis.html#cb287-1" tabindex="-1"></a>fit.dfa<span class="sc">$</span>evals</span></code></pre></div>
+<div class="sourceCode" id="cb286"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb286-1"><a href="week-05-discriminant-function-analysis.html#cb286-1" tabindex="-1"></a>fit.dfa<span class="sc">$</span>evals</span></code></pre></div>
 <pre><code>##  Function eigenvalue proportion of variance canonical r
 ##         1 0.29047037             0.91909386   0.4744352
 ##         2 0.02556957             0.08090614   0.1578989</code></pre>
 <p>The first discriminant function explains 92% of the between-group variance, which is a strong effect. The second one was 8.10% of the variance, which is much lower.</p>
 <p>The other effect size is the proportion of variance in the discriminating variable that is explained by the group, which is analogous to eta-squared.</p>
-<div class="sourceCode" id="cb289"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb289-1"><a href="week-05-discriminant-function-analysis.html#cb289-1" tabindex="-1"></a>canon.cor <span class="ot">&lt;-</span> fit.dfa<span class="sc">$</span>evals[, <span class="dv">4</span>]</span>
-<span id="cb289-2"><a href="week-05-discriminant-function-analysis.html#cb289-2" tabindex="-1"></a>canon.cor</span></code></pre></div>
+<div class="sourceCode" id="cb288"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb288-1"><a href="week-05-discriminant-function-analysis.html#cb288-1" tabindex="-1"></a>canon.cor <span class="ot">&lt;-</span> fit.dfa<span class="sc">$</span>evals[, <span class="dv">4</span>]</span>
+<span id="cb288-2"><a href="week-05-discriminant-function-analysis.html#cb288-2" tabindex="-1"></a>canon.cor</span></code></pre></div>
 <pre><code>##                     
 ## 0.4744352 0.1578989</code></pre>
-<div class="sourceCode" id="cb291"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb291-1"><a href="week-05-discriminant-function-analysis.html#cb291-1" tabindex="-1"></a>canon.cor<span class="sc">^</span><span class="dv">2</span></span></code></pre></div>
+<div class="sourceCode" id="cb290"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb290-1"><a href="week-05-discriminant-function-analysis.html#cb290-1" tabindex="-1"></a>canon.cor<span class="sc">^</span><span class="dv">2</span></span></code></pre></div>
 <pre><code>##                       
 ## 0.22508876 0.02493207</code></pre>
 <p>So, about 23% of the variance in the first discriminant function is explained by the group variable; about 2.50% of that of the second discriminant function is explained by the group variable.</p>
@@ -509,12 +512,12 @@ In R, we can use the following code to compute this equation:</p>
 <div id="structure-and-standardized-discriminant-function-coefficients" class="section level3 hasAnchor" number="6.0.3">
 <h3><span class="header-section-number">6.0.3</span> Structure and standardized discriminant function coefficients<a href="week-05-discriminant-function-analysis.html#structure-and-standardized-discriminant-function-coefficients" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Here are the results that are displayed in Table 10.5 (p. 403) of the text.</p>
-<div class="sourceCode" id="cb293"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb293-1"><a href="week-05-discriminant-function-analysis.html#cb293-1" tabindex="-1"></a>fit.dfa<span class="sc">$</span>coefs_structure</span></code></pre></div>
+<div class="sourceCode" id="cb292"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb292-1"><a href="week-05-discriminant-function-analysis.html#cb292-1" tabindex="-1"></a>fit.dfa<span class="sc">$</span>coefs_structure</span></code></pre></div>
 <pre><code>##               Function 1 Function 2
 ## self_efficacy -0.8199226  0.3637932
 ## verbal        -0.7656266 -0.6366741
 ## dafs          -0.6760304  0.2335248</code></pre>
-<div class="sourceCode" id="cb295"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb295-1"><a href="week-05-discriminant-function-analysis.html#cb295-1" tabindex="-1"></a>fit.dfa<span class="sc">$</span>coefs_standardized</span></code></pre></div>
+<div class="sourceCode" id="cb294"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb294-1"><a href="week-05-discriminant-function-analysis.html#cb294-1" tabindex="-1"></a>fit.dfa<span class="sc">$</span>coefs_standardized</span></code></pre></div>
 <pre><code>##               Function 1 Function 2
 ## self_efficacy -0.5714374  0.5478547
 ## verbal        -0.4399244 -1.0593537
@@ -525,7 +528,7 @@ In R, we can use the following code to compute this equation:</p>
 <div id="discriminant-function-scores" class="section level3 hasAnchor" number="6.0.4">
 <h3><span class="header-section-number">6.0.4</span> Discriminant function scores<a href="week-05-discriminant-function-analysis.html#discriminant-function-scores" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Each case in our data set has a discriminant function score. This is their score on the composite (AKA discriminant function), which is calculated based on the unstandardized (raw) coefficients.</p>
-<div class="sourceCode" id="cb297"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb297-1"><a href="week-05-discriminant-function-analysis.html#cb297-1" tabindex="-1"></a>fit.dfa<span class="sc">$</span>coefs_raw</span></code></pre></div>
+<div class="sourceCode" id="cb296"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb296-1"><a href="week-05-discriminant-function-analysis.html#cb296-1" tabindex="-1"></a>fit.dfa<span class="sc">$</span>coefs_raw</span></code></pre></div>
 <pre><code>##                Function 1  Function 2
 ## self_efficacy -0.06128037  0.05875138
 ## verbal        -0.04621916 -0.11129737
@@ -533,15 +536,15 @@ In R, we can use the following code to compute this equation:</p>
 <p>For example, Case 1 has a discriminant function score of
 <span class="math display">\[d_{(i=1),1} = -2.67\]</span></p>
 <p>which comes from the raw coefficients and an intercept. Here are the raw scores on the discriminant variables (the DVs if we do MANOVA) for Case 1 (using some excessive tidyverse coding to get around the troubles with tibbles):</p>
-<div class="sourceCode" id="cb299"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb299-1"><a href="week-05-discriminant-function-analysis.html#cb299-1" tabindex="-1"></a>(dat[<span class="dv">1</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>]) <span class="sc">%&gt;%</span> <span class="fu">data.frame</span>() <span class="sc">%&gt;%</span> <span class="fu">round</span>(., <span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb298"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb298-1"><a href="week-05-discriminant-function-analysis.html#cb298-1" tabindex="-1"></a>(dat[<span class="dv">1</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>]) <span class="sc">%&gt;%</span> <span class="fu">data.frame</span>() <span class="sc">%&gt;%</span> <span class="fu">round</span>(., <span class="dv">2</span>)</span></code></pre></div>
 <pre><code>##   self_efficacy verbal  dafs
 ## 1         71.12  68.78 84.17</code></pre>
 <p>Their discriminant function score is calculated as</p>
 <p><span class="math display">\[d_{(i=1),1} = 7.37 +
 -0.0613 (71.12) + -0.0462 (68.78) + -0.0297 (84.17) \]</span></p>
 <p>Here are the results that are displayed in Table 10.9 (p. 407) of the text. We’ll use these to calculate the centroids that are reported in Table 10.6. Each person’s discriminant-function score is recorded in the output, which we can attach to the data. Here, I’m labeling discriminant function 1 and 2 <code>d1</code> and <code>d2</code>.</p>
-<div class="sourceCode" id="cb301"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb301-1"><a href="week-05-discriminant-function-analysis.html#cb301-1" tabindex="-1"></a>dat[, <span class="fu">c</span>(<span class="st">&quot;d1&quot;</span>, <span class="st">&quot;d2&quot;</span>)] <span class="ot">&lt;-</span> fit.dfa<span class="sc">$</span>dfa_scores[, <span class="sc">-</span><span class="dv">1</span>]</span>
-<span id="cb301-2"><a href="week-05-discriminant-function-analysis.html#cb301-2" tabindex="-1"></a><span class="fu">head</span>(dat, <span class="dv">10</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb300"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb300-1"><a href="week-05-discriminant-function-analysis.html#cb300-1" tabindex="-1"></a>dat[, <span class="fu">c</span>(<span class="st">&quot;d1&quot;</span>, <span class="st">&quot;d2&quot;</span>)] <span class="ot">&lt;-</span> fit.dfa<span class="sc">$</span>dfa_scores[, <span class="sc">-</span><span class="dv">1</span>]</span>
+<span id="cb300-2"><a href="week-05-discriminant-function-analysis.html#cb300-2" tabindex="-1"></a><span class="fu">head</span>(dat, <span class="dv">10</span>)</span></code></pre></div>
 <pre><code>## # A tibble: 10 × 7
 ##    self_efficacy verbal  dafs group            case     d1      d2
 ##            &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;fct&gt;           &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;
@@ -559,16 +562,16 @@ In R, we can use the following code to compute this equation:</p>
 <div id="group-means-centroids-of-the-discriminant-function-scores" class="section level3 hasAnchor" number="6.0.5">
 <h3><span class="header-section-number">6.0.5</span> Group means (centroids) of the discriminant-function scores<a href="week-05-discriminant-function-analysis.html#group-means-centroids-of-the-discriminant-function-scores" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Here are the results that are displayed in Table 10.6 (p. 404) of the text. We can use dplyr’s <code>group_by()</code> and <code>summarize()</code> functions, then save the means as a small data frame, which we’ll use in the plot reported in our reading. We can also add the standard deviations.<a href="#fn27" class="footnote-ref" id="fnref27"><sup>27</sup></a> If we want, we can also include the raw scores of the discriminant variables, though these would be earlier in the report when we reported the descriptive statistics.</p>
-<div class="sourceCode" id="cb303"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb303-1"><a href="week-05-discriminant-function-analysis.html#cb303-1" tabindex="-1"></a>grpcentroids <span class="ot">&lt;-</span> dat <span class="sc">%&gt;%</span></span>
-<span id="cb303-2"><a href="week-05-discriminant-function-analysis.html#cb303-2" tabindex="-1"></a>  <span class="fu">group_by</span>(group) <span class="sc">%&gt;%</span> </span>
-<span id="cb303-3"><a href="week-05-discriminant-function-analysis.html#cb303-3" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">M1 =</span> <span class="fu">mean</span>(d1),</span>
-<span id="cb303-4"><a href="week-05-discriminant-function-analysis.html#cb303-4" tabindex="-1"></a>            <span class="at">M2 =</span> <span class="fu">mean</span>(d2),</span>
-<span id="cb303-5"><a href="week-05-discriminant-function-analysis.html#cb303-5" tabindex="-1"></a>            <span class="at">SD1 =</span> <span class="fu">sd</span>(d1),</span>
-<span id="cb303-6"><a href="week-05-discriminant-function-analysis.html#cb303-6" tabindex="-1"></a>            <span class="at">SD2 =</span> <span class="fu">sd</span>(d2),</span>
-<span id="cb303-7"><a href="week-05-discriminant-function-analysis.html#cb303-7" tabindex="-1"></a>            <span class="at">m_sef=</span> <span class="fu">mean</span>(self_efficacy),</span>
-<span id="cb303-8"><a href="week-05-discriminant-function-analysis.html#cb303-8" tabindex="-1"></a>            <span class="at">m_ver=</span> <span class="fu">mean</span>(verbal),</span>
-<span id="cb303-9"><a href="week-05-discriminant-function-analysis.html#cb303-9" tabindex="-1"></a>            <span class="at">m_daf=</span> <span class="fu">mean</span>(dafs))</span>
-<span id="cb303-10"><a href="week-05-discriminant-function-analysis.html#cb303-10" tabindex="-1"></a>grpcentroids <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">where</span>(is.numeric), round, <span class="dv">2</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb302"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb302-1"><a href="week-05-discriminant-function-analysis.html#cb302-1" tabindex="-1"></a>grpcentroids <span class="ot">&lt;-</span> dat <span class="sc">%&gt;%</span></span>
+<span id="cb302-2"><a href="week-05-discriminant-function-analysis.html#cb302-2" tabindex="-1"></a>  <span class="fu">group_by</span>(group) <span class="sc">%&gt;%</span> </span>
+<span id="cb302-3"><a href="week-05-discriminant-function-analysis.html#cb302-3" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">M1 =</span> <span class="fu">mean</span>(d1),</span>
+<span id="cb302-4"><a href="week-05-discriminant-function-analysis.html#cb302-4" tabindex="-1"></a>            <span class="at">M2 =</span> <span class="fu">mean</span>(d2),</span>
+<span id="cb302-5"><a href="week-05-discriminant-function-analysis.html#cb302-5" tabindex="-1"></a>            <span class="at">SD1 =</span> <span class="fu">sd</span>(d1),</span>
+<span id="cb302-6"><a href="week-05-discriminant-function-analysis.html#cb302-6" tabindex="-1"></a>            <span class="at">SD2 =</span> <span class="fu">sd</span>(d2),</span>
+<span id="cb302-7"><a href="week-05-discriminant-function-analysis.html#cb302-7" tabindex="-1"></a>            <span class="at">m_sef=</span> <span class="fu">mean</span>(self_efficacy),</span>
+<span id="cb302-8"><a href="week-05-discriminant-function-analysis.html#cb302-8" tabindex="-1"></a>            <span class="at">m_ver=</span> <span class="fu">mean</span>(verbal),</span>
+<span id="cb302-9"><a href="week-05-discriminant-function-analysis.html#cb302-9" tabindex="-1"></a>            <span class="at">m_daf=</span> <span class="fu">mean</span>(dafs))</span>
+<span id="cb302-10"><a href="week-05-discriminant-function-analysis.html#cb302-10" tabindex="-1"></a>grpcentroids <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">where</span>(is.numeric), round, <span class="dv">2</span>))</span></code></pre></div>
 <pre><code>## # A tibble: 3 × 8
 ##   group              M1    M2   SD1   SD2 m_sef m_ver m_daf
 ##   &lt;fct&gt;           &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
@@ -576,7 +579,7 @@ In R, we can use the following code to compute this equation:</p>
 ## 2 Health Training  0.36  0.2   0.99  0.95  50.6  50.8  52.4
 ## 3 Control          0.4  -0.19  1.01  0.98  49.0  52.9  51.2</code></pre>
 <p>Alternatively, we can use the output from the function to get the same report of the centroid means.</p>
-<div class="sourceCode" id="cb305"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb305-1"><a href="week-05-discriminant-function-analysis.html#cb305-1" tabindex="-1"></a>fit.dfa<span class="sc">$</span>centroids</span></code></pre></div>
+<div class="sourceCode" id="cb304"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb304-1"><a href="week-05-discriminant-function-analysis.html#cb304-1" tabindex="-1"></a>fit.dfa<span class="sc">$</span>centroids</span></code></pre></div>
 <pre><code>##                 Function 1  Function 2
 ## Memory Training -0.7579728 -0.01040184
 ## Health Training  0.3575702  0.19985504
@@ -585,12 +588,12 @@ In R, we can use the following code to compute this equation:</p>
 <div id="bivariate-scatterplot" class="section level3 hasAnchor" number="6.0.6">
 <h3><span class="header-section-number">6.0.6</span> Bivariate scatterplot<a href="week-05-discriminant-function-analysis.html#bivariate-scatterplot" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>The plot like that in Figure 10.2 is not automatically generated by the <code>DFA()</code> function, probably because this is only meaningful when we have two discriminant functions, but we can use ggplot with the discriminant-function scores to do something similar. Here, we’re using the discriminant-function scores we had attached to the data, plotting them on a scatterplot, and then using the group centroids we just calculated and saved to the <code>grpcentroids</code> object to overlay the group means. Note that the sign of the discriminant functions is reversed compared to that of SPSS—in other words, those who scored positive in SPSS scored negative in R. What we’re interested in is the difference between the groups, not in their signs, so the interpretation is the same.</p>
-<div class="sourceCode" id="cb307"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb307-1"><a href="week-05-discriminant-function-analysis.html#cb307-1" tabindex="-1"></a>dat <span class="sc">%&gt;%</span> </span>
-<span id="cb307-2"><a href="week-05-discriminant-function-analysis.html#cb307-2" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> d1, <span class="at">y =</span> d2)) <span class="sc">+</span> </span>
-<span id="cb307-3"><a href="week-05-discriminant-function-analysis.html#cb307-3" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> .<span class="dv">2</span>) <span class="sc">+</span> </span>
-<span id="cb307-4"><a href="week-05-discriminant-function-analysis.html#cb307-4" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> grpcentroids, <span class="fu">aes</span>(<span class="at">x =</span> M1, <span class="at">y =</span> M2, <span class="at">shape =</span> group), </span>
-<span id="cb307-5"><a href="week-05-discriminant-function-analysis.html#cb307-5" tabindex="-1"></a>             <span class="at">color =</span> <span class="st">&quot;dark red&quot;</span>, </span>
-<span id="cb307-6"><a href="week-05-discriminant-function-analysis.html#cb307-6" tabindex="-1"></a>             <span class="at">size =</span> <span class="dv">4</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb306"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb306-1"><a href="week-05-discriminant-function-analysis.html#cb306-1" tabindex="-1"></a>dat <span class="sc">%&gt;%</span> </span>
+<span id="cb306-2"><a href="week-05-discriminant-function-analysis.html#cb306-2" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> d1, <span class="at">y =</span> d2)) <span class="sc">+</span> </span>
+<span id="cb306-3"><a href="week-05-discriminant-function-analysis.html#cb306-3" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> .<span class="dv">2</span>) <span class="sc">+</span> </span>
+<span id="cb306-4"><a href="week-05-discriminant-function-analysis.html#cb306-4" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> grpcentroids, <span class="fu">aes</span>(<span class="at">x =</span> M1, <span class="at">y =</span> M2, <span class="at">shape =</span> group), </span>
+<span id="cb306-5"><a href="week-05-discriminant-function-analysis.html#cb306-5" tabindex="-1"></a>             <span class="at">color =</span> <span class="st">&quot;dark red&quot;</span>, </span>
+<span id="cb306-6"><a href="week-05-discriminant-function-analysis.html#cb306-6" tabindex="-1"></a>             <span class="at">size =</span> <span class="dv">4</span>)</span></code></pre></div>
 <p><img src="multivariate_stats_files/figure-html/unnamed-chunk-149-1.png" width="672" /></p>
 </div>
 <div id="write-up" class="section level2 hasAnchor" number="6.1">

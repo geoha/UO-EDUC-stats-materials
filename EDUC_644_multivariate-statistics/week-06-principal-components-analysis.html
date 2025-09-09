@@ -4,23 +4,23 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>7 Week 06: Principal Components Analysis | EDUC 644 Applied Multivariate Statistics</title>
-  <meta name="description" content="Course materials for multivariate statistics" />
+  <title>7 Week 06: Principal Components Analysis | Guidebook for Using R in Applied Multivariate Statistics</title>
+  <meta name="description" content="Course guidebook for multivariate statistics" />
   <meta name="generator" content="bookdown 0.44 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="7 Week 06: Principal Components Analysis | EDUC 644 Applied Multivariate Statistics" />
+  <meta property="og:title" content="7 Week 06: Principal Components Analysis | Guidebook for Using R in Applied Multivariate Statistics" />
   <meta property="og:type" content="book" />
   
-  <meta property="og:description" content="Course materials for multivariate statistics" />
+  <meta property="og:description" content="Course guidebook for multivariate statistics" />
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="7 Week 06: Principal Components Analysis | EDUC 644 Applied Multivariate Statistics" />
+  <meta name="twitter:title" content="7 Week 06: Principal Components Analysis | Guidebook for Using R in Applied Multivariate Statistics" />
   
-  <meta name="twitter:description" content="Course materials for multivariate statistics" />
+  <meta name="twitter:description" content="Course guidebook for multivariate statistics" />
   
 
-<meta name="author" content="George Harrison" />
+<meta name="author" content="George M. Harrison" />
 
 
 
@@ -171,7 +171,10 @@ div.csl-indent {
 <ul>
 <li class="chapter" data-level="1.1" data-path="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#scalars"><i class="fa fa-check"></i><b>1.1</b> Scalars</a></li>
 <li class="chapter" data-level="1.2" data-path="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#vectors"><i class="fa fa-check"></i><b>1.2</b> Vectors</a></li>
-<li class="chapter" data-level="1.3" data-path="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#matrices"><i class="fa fa-check"></i><b>1.3</b> Matrices</a></li>
+<li class="chapter" data-level="1.3" data-path="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#matrices"><i class="fa fa-check"></i><b>1.3</b> Matrices</a>
+<ul>
+<li class="chapter" data-level="1.3.1" data-path="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#data-files-as-matrices"><i class="fa fa-check"></i><b>1.3.1</b> Data Files as Matrices</a></li>
+</ul></li>
 <li class="chapter" data-level="1.4" data-path="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#symmetrical-matrices"><i class="fa fa-check"></i><b>1.4</b> Symmetrical Matrices</a>
 <ul>
 <li class="chapter" data-level="1.4.1" data-path="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html"><a href="terminology-and-matrix-manipulations-used-in-multivariate-statistics.html#variance-covariance-matrices"><i class="fa fa-check"></i><b>1.4.1</b> Variance-covariance Matrices</a></li>
@@ -390,7 +393,7 @@ div.csl-indent {
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">EDUC 644 Applied Multivariate Statistics</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Guidebook for Using R in Applied Multivariate Statistics</a>
           </h1>
         </div>
 
@@ -405,24 +408,24 @@ div.csl-indent {
 <div id="example-1-to-see-some-properties-of-pca" class="section level2 hasAnchor" number="7.1">
 <h2><span class="header-section-number">7.1</span> Example 1, to see some properties of PCA<a href="week-06-principal-components-analysis.html#example-1-to-see-some-properties-of-pca" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Here is the correlation matrix from the chapter. (I simply copied and pasted this and reformatted it, so there might be rounding error discrepancies with what is reported in the chapter.) The <em>N</em>-size is 72 but we do not have individual cases’ data.</p>
-<div class="sourceCode" id="cb308"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb308-1"><a href="week-06-principal-components-analysis.html#cb308-1" tabindex="-1"></a>varbnames <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;rblood&quot;</span>, <span class="st">&quot;plate&quot;</span>, <span class="st">&quot;wblood&quot;</span>, <span class="st">&quot;neut&quot;</span>, <span class="st">&quot;lymph&quot;</span>, <span class="st">&quot;bilir&quot;</span>, <span class="st">&quot;sodium&quot;</span>, <span class="st">&quot;potass&quot;</span>)</span>
-<span id="cb308-2"><a href="week-06-principal-components-analysis.html#cb308-2" tabindex="-1"></a></span>
-<span id="cb308-3"><a href="week-06-principal-components-analysis.html#cb308-3" tabindex="-1"></a>blood_corr <span class="ot">&lt;-</span> <span class="fu">matrix</span>(</span>
-<span id="cb308-4"><a href="week-06-principal-components-analysis.html#cb308-4" tabindex="-1"></a>  <span class="fu">c</span>(    <span class="dv">1</span>,   <span class="fl">0.29</span>,   <span class="fl">0.202</span>, <span class="sc">-</span><span class="fl">0.055</span>, <span class="sc">-</span><span class="fl">0.105</span>, <span class="sc">-</span><span class="fl">0.252</span>, <span class="sc">-</span><span class="fl">0.229</span>,  <span class="fl">0.058</span>,</span>
-<span id="cb308-5"><a href="week-06-principal-components-analysis.html#cb308-5" tabindex="-1"></a>    <span class="fl">0.290</span>,      <span class="dv">1</span>,   <span class="fl">0.415</span>,  <span class="fl">0.285</span>, <span class="sc">-</span><span class="fl">0.376</span>, <span class="sc">-</span><span class="fl">0.349</span>, <span class="sc">-</span><span class="fl">0.164</span>, <span class="sc">-</span><span class="fl">0.129</span>,</span>
-<span id="cb308-6"><a href="week-06-principal-components-analysis.html#cb308-6" tabindex="-1"></a>    <span class="fl">0.202</span>,  <span class="fl">0.415</span>,       <span class="dv">1</span>,  <span class="fl">0.419</span>, <span class="sc">-</span><span class="fl">0.521</span>, <span class="sc">-</span><span class="fl">0.441</span>, <span class="sc">-</span><span class="fl">0.145</span>, <span class="sc">-</span><span class="fl">0.076</span>,</span>
-<span id="cb308-7"><a href="week-06-principal-components-analysis.html#cb308-7" tabindex="-1"></a>   <span class="sc">-</span><span class="fl">0.055</span>,  <span class="fl">0.285</span>,   <span class="fl">0.419</span>,      <span class="dv">1</span>, <span class="sc">-</span><span class="fl">0.877</span>, <span class="sc">-</span><span class="fl">0.076</span>,  <span class="fl">0.023</span>, <span class="sc">-</span><span class="fl">0.131</span>,</span>
-<span id="cb308-8"><a href="week-06-principal-components-analysis.html#cb308-8" tabindex="-1"></a>   <span class="sc">-</span><span class="fl">0.105</span>, <span class="sc">-</span><span class="fl">0.376</span>,  <span class="sc">-</span><span class="fl">0.521</span>, <span class="sc">-</span><span class="fl">0.877</span>,      <span class="dv">1</span>,  <span class="fl">0.206</span>,  <span class="fl">0.034</span>,  <span class="fl">0.151</span>,</span>
-<span id="cb308-9"><a href="week-06-principal-components-analysis.html#cb308-9" tabindex="-1"></a>   <span class="sc">-</span><span class="fl">0.252</span>, <span class="sc">-</span><span class="fl">0.349</span>,  <span class="sc">-</span><span class="fl">0.441</span>, <span class="sc">-</span><span class="fl">0.076</span>,  <span class="fl">0.206</span>,      <span class="dv">1</span>,  <span class="fl">0.192</span>,  <span class="fl">0.077</span>,</span>
-<span id="cb308-10"><a href="week-06-principal-components-analysis.html#cb308-10" tabindex="-1"></a>   <span class="sc">-</span><span class="fl">0.229</span>, <span class="sc">-</span><span class="fl">0.164</span>,  <span class="sc">-</span><span class="fl">0.145</span>,  <span class="fl">0.023</span>,  <span class="fl">0.034</span>,  <span class="fl">0.192</span>,      <span class="dv">1</span>,  <span class="fl">0.423</span>,</span>
-<span id="cb308-11"><a href="week-06-principal-components-analysis.html#cb308-11" tabindex="-1"></a>    <span class="fl">0.058</span>, <span class="sc">-</span><span class="fl">0.129</span>,  <span class="sc">-</span><span class="fl">0.076</span>, <span class="sc">-</span><span class="fl">0.131</span>,  <span class="fl">0.151</span>,  <span class="fl">0.077</span>,  <span class="fl">0.423</span>,      <span class="dv">1</span>),</span>
-<span id="cb308-12"><a href="week-06-principal-components-analysis.html#cb308-12" tabindex="-1"></a>  <span class="at">ncol =</span> <span class="dv">8</span>, <span class="at">byrow =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb308-13"><a href="week-06-principal-components-analysis.html#cb308-13" tabindex="-1"></a>  <span class="at">dimnames =</span>  <span class="fu">list</span>(varbnames, varbnames) )</span>
-<span id="cb308-14"><a href="week-06-principal-components-analysis.html#cb308-14" tabindex="-1"></a></span>
-<span id="cb308-15"><a href="week-06-principal-components-analysis.html#cb308-15" tabindex="-1"></a>blood_sd <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">0.371</span>,    <span class="fl">41.253</span>, <span class="fl">1.935</span>,  <span class="fl">0.077</span>,  <span class="fl">0.071</span>,  <span class="fl">4.037</span>,  <span class="fl">2.732</span>,  <span class="fl">0.297</span>)</span>
-<span id="cb308-16"><a href="week-06-principal-components-analysis.html#cb308-16" tabindex="-1"></a><span class="fu">names</span>(blood_sd) <span class="ot">&lt;-</span> varbnames</span></code></pre></div>
+<div class="sourceCode" id="cb307"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb307-1"><a href="week-06-principal-components-analysis.html#cb307-1" tabindex="-1"></a>varbnames <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;rblood&quot;</span>, <span class="st">&quot;plate&quot;</span>, <span class="st">&quot;wblood&quot;</span>, <span class="st">&quot;neut&quot;</span>, <span class="st">&quot;lymph&quot;</span>, <span class="st">&quot;bilir&quot;</span>, <span class="st">&quot;sodium&quot;</span>, <span class="st">&quot;potass&quot;</span>)</span>
+<span id="cb307-2"><a href="week-06-principal-components-analysis.html#cb307-2" tabindex="-1"></a></span>
+<span id="cb307-3"><a href="week-06-principal-components-analysis.html#cb307-3" tabindex="-1"></a>blood_corr <span class="ot">&lt;-</span> <span class="fu">matrix</span>(</span>
+<span id="cb307-4"><a href="week-06-principal-components-analysis.html#cb307-4" tabindex="-1"></a>  <span class="fu">c</span>(    <span class="dv">1</span>,   <span class="fl">0.29</span>,   <span class="fl">0.202</span>, <span class="sc">-</span><span class="fl">0.055</span>, <span class="sc">-</span><span class="fl">0.105</span>, <span class="sc">-</span><span class="fl">0.252</span>, <span class="sc">-</span><span class="fl">0.229</span>,  <span class="fl">0.058</span>,</span>
+<span id="cb307-5"><a href="week-06-principal-components-analysis.html#cb307-5" tabindex="-1"></a>    <span class="fl">0.290</span>,      <span class="dv">1</span>,   <span class="fl">0.415</span>,  <span class="fl">0.285</span>, <span class="sc">-</span><span class="fl">0.376</span>, <span class="sc">-</span><span class="fl">0.349</span>, <span class="sc">-</span><span class="fl">0.164</span>, <span class="sc">-</span><span class="fl">0.129</span>,</span>
+<span id="cb307-6"><a href="week-06-principal-components-analysis.html#cb307-6" tabindex="-1"></a>    <span class="fl">0.202</span>,  <span class="fl">0.415</span>,       <span class="dv">1</span>,  <span class="fl">0.419</span>, <span class="sc">-</span><span class="fl">0.521</span>, <span class="sc">-</span><span class="fl">0.441</span>, <span class="sc">-</span><span class="fl">0.145</span>, <span class="sc">-</span><span class="fl">0.076</span>,</span>
+<span id="cb307-7"><a href="week-06-principal-components-analysis.html#cb307-7" tabindex="-1"></a>   <span class="sc">-</span><span class="fl">0.055</span>,  <span class="fl">0.285</span>,   <span class="fl">0.419</span>,      <span class="dv">1</span>, <span class="sc">-</span><span class="fl">0.877</span>, <span class="sc">-</span><span class="fl">0.076</span>,  <span class="fl">0.023</span>, <span class="sc">-</span><span class="fl">0.131</span>,</span>
+<span id="cb307-8"><a href="week-06-principal-components-analysis.html#cb307-8" tabindex="-1"></a>   <span class="sc">-</span><span class="fl">0.105</span>, <span class="sc">-</span><span class="fl">0.376</span>,  <span class="sc">-</span><span class="fl">0.521</span>, <span class="sc">-</span><span class="fl">0.877</span>,      <span class="dv">1</span>,  <span class="fl">0.206</span>,  <span class="fl">0.034</span>,  <span class="fl">0.151</span>,</span>
+<span id="cb307-9"><a href="week-06-principal-components-analysis.html#cb307-9" tabindex="-1"></a>   <span class="sc">-</span><span class="fl">0.252</span>, <span class="sc">-</span><span class="fl">0.349</span>,  <span class="sc">-</span><span class="fl">0.441</span>, <span class="sc">-</span><span class="fl">0.076</span>,  <span class="fl">0.206</span>,      <span class="dv">1</span>,  <span class="fl">0.192</span>,  <span class="fl">0.077</span>,</span>
+<span id="cb307-10"><a href="week-06-principal-components-analysis.html#cb307-10" tabindex="-1"></a>   <span class="sc">-</span><span class="fl">0.229</span>, <span class="sc">-</span><span class="fl">0.164</span>,  <span class="sc">-</span><span class="fl">0.145</span>,  <span class="fl">0.023</span>,  <span class="fl">0.034</span>,  <span class="fl">0.192</span>,      <span class="dv">1</span>,  <span class="fl">0.423</span>,</span>
+<span id="cb307-11"><a href="week-06-principal-components-analysis.html#cb307-11" tabindex="-1"></a>    <span class="fl">0.058</span>, <span class="sc">-</span><span class="fl">0.129</span>,  <span class="sc">-</span><span class="fl">0.076</span>, <span class="sc">-</span><span class="fl">0.131</span>,  <span class="fl">0.151</span>,  <span class="fl">0.077</span>,  <span class="fl">0.423</span>,      <span class="dv">1</span>),</span>
+<span id="cb307-12"><a href="week-06-principal-components-analysis.html#cb307-12" tabindex="-1"></a>  <span class="at">ncol =</span> <span class="dv">8</span>, <span class="at">byrow =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb307-13"><a href="week-06-principal-components-analysis.html#cb307-13" tabindex="-1"></a>  <span class="at">dimnames =</span>  <span class="fu">list</span>(varbnames, varbnames) )</span>
+<span id="cb307-14"><a href="week-06-principal-components-analysis.html#cb307-14" tabindex="-1"></a></span>
+<span id="cb307-15"><a href="week-06-principal-components-analysis.html#cb307-15" tabindex="-1"></a>blood_sd <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">0.371</span>,    <span class="fl">41.253</span>, <span class="fl">1.935</span>,  <span class="fl">0.077</span>,  <span class="fl">0.071</span>,  <span class="fl">4.037</span>,  <span class="fl">2.732</span>,  <span class="fl">0.297</span>)</span>
+<span id="cb307-16"><a href="week-06-principal-components-analysis.html#cb307-16" tabindex="-1"></a><span class="fu">names</span>(blood_sd) <span class="ot">&lt;-</span> varbnames</span></code></pre></div>
 <p>Let’s print the correlation matrix to be sure it is what we expect:</p>
-<div class="sourceCode" id="cb309"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb309-1"><a href="week-06-principal-components-analysis.html#cb309-1" tabindex="-1"></a>blood_corr</span></code></pre></div>
+<div class="sourceCode" id="cb308"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb308-1"><a href="week-06-principal-components-analysis.html#cb308-1" tabindex="-1"></a>blood_corr</span></code></pre></div>
 <pre><code>##        rblood  plate wblood   neut  lymph  bilir sodium potass
 ## rblood  1.000  0.290  0.202 -0.055 -0.105 -0.252 -0.229  0.058
 ## plate   0.290  1.000  0.415  0.285 -0.376 -0.349 -0.164 -0.129
@@ -433,12 +436,12 @@ div.csl-indent {
 ## sodium -0.229 -0.164 -0.145  0.023  0.034  0.192  1.000  0.423
 ## potass  0.058 -0.129 -0.076 -0.131  0.151  0.077  0.423  1.000</code></pre>
 <p>Here is the vector of standard deviations, which are needed to calculate the covariance matrix, which we only look at for comparison purposes:</p>
-<div class="sourceCode" id="cb311"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb311-1"><a href="week-06-principal-components-analysis.html#cb311-1" tabindex="-1"></a>blood_sd</span></code></pre></div>
+<div class="sourceCode" id="cb310"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb310-1"><a href="week-06-principal-components-analysis.html#cb310-1" tabindex="-1"></a>blood_sd</span></code></pre></div>
 <pre><code>## rblood  plate wblood   neut  lymph  bilir sodium potass 
 ##  0.371 41.253  1.935  0.077  0.071  4.037  2.732  0.297</code></pre>
 <p>Given the standard deviations and the correlation matrix, we can get the covariance matrix using some matrix algebra. Recall that to get from covariance to correlation, we divide each cell by the product of the two standard-deviations corresponding to the row and column. Here, we’re going in the opposite direction, so we’re multiplying each cell by the product of the row and column standard deviations. <a href="#fn29" class="footnote-ref" id="fnref29"><sup>29</sup></a> Everitt and Hothorn are using the covariance matrix for demonstration of the difference between covariance and correlation—and of what not to do—so we normally wouldn’t care about this if we have the correlation matrix.</p>
-<div class="sourceCode" id="cb313"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb313-1"><a href="week-06-principal-components-analysis.html#cb313-1" tabindex="-1"></a>blood_cov <span class="ot">&lt;-</span> <span class="fu">diag</span>(blood_sd) <span class="sc">%*%</span> blood_corr <span class="sc">%*%</span> <span class="fu">diag</span>(blood_sd)</span>
-<span id="cb313-2"><a href="week-06-principal-components-analysis.html#cb313-2" tabindex="-1"></a><span class="fu">round</span>(blood_cov, <span class="dv">2</span> )</span></code></pre></div>
+<div class="sourceCode" id="cb312"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb312-1"><a href="week-06-principal-components-analysis.html#cb312-1" tabindex="-1"></a>blood_cov <span class="ot">&lt;-</span> <span class="fu">diag</span>(blood_sd) <span class="sc">%*%</span> blood_corr <span class="sc">%*%</span> <span class="fu">diag</span>(blood_sd)</span>
+<span id="cb312-2"><a href="week-06-principal-components-analysis.html#cb312-2" tabindex="-1"></a><span class="fu">round</span>(blood_cov, <span class="dv">2</span> )</span></code></pre></div>
 <pre><code>##       [,1]    [,2]  [,3]  [,4]  [,5]   [,6]   [,7]  [,8]
 ## [1,]  0.14    4.44  0.15  0.00  0.00  -0.38  -0.23  0.01
 ## [2,]  4.44 1701.81 33.13  0.91 -1.10 -58.12 -18.48 -1.58
@@ -452,8 +455,8 @@ div.csl-indent {
 <h3><span class="header-section-number">7.1.1</span> PCA with Covariance vs. Correlation<a href="week-06-principal-components-analysis.html#pca-with-covariance-vs.-correlation" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>We can use a PCA on a covariance matrix, correlation matrix, or the raw data. The correlation matrix is better than the covariance matrix if the observed variables are not on the same scale (which is most of the time). Conducting a PCA on the raw data is useful if we want to save each case’s composite scores and use them later on, say, in a regression or a plot.</p>
 <p>Here is the PCA on the <strong>covariance matrix</strong>, which is on the original scale of the variables. The results of this are reported on Page 67 of the chapter.</p>
-<div class="sourceCode" id="cb315"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb315-1"><a href="week-06-principal-components-analysis.html#cb315-1" tabindex="-1"></a>blood_pcacov <span class="ot">&lt;-</span> <span class="fu">princomp</span>(<span class="at">covmat =</span> blood_cov)</span>
-<span id="cb315-2"><a href="week-06-principal-components-analysis.html#cb315-2" tabindex="-1"></a><span class="fu">summary</span>(blood_pcacov, <span class="at">loadings =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb314"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb314-1"><a href="week-06-principal-components-analysis.html#cb314-1" tabindex="-1"></a>blood_pcacov <span class="ot">&lt;-</span> <span class="fu">princomp</span>(<span class="at">covmat =</span> blood_cov)</span>
+<span id="cb314-2"><a href="week-06-principal-components-analysis.html#cb314-2" tabindex="-1"></a><span class="fu">summary</span>(blood_pcacov, <span class="at">loadings =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 <pre><code>## Importance of components:
 ##                            Comp.1      Comp.2     Comp.3      Comp.4      Comp.5       Comp.6
 ## Standard deviation     41.2877486 3.880212624 2.64197339 1.624583979 0.353951757 2.561722e-01
@@ -477,8 +480,8 @@ div.csl-indent {
 <p>In this output under the label <code>Loadings:</code>, the eigenvector coefficients with very low absolute values (less than 0.10, it seems) are left blank in the printout. These coefficients actually do exist, and we can see them if we ask for them using <code>blood_pcacov$loadings[1:64]</code>, where 64 is the number of cells in the eigenvector matrix (8 eigenvectors across 8 items).</p>
 <p>What do you notice about the first component? How much of the total variance does it explain? Which observed variables have the largest coefficients? (Refer back to the standard deviations of the raw data and look at which variable seems to have a much larger scale, as reflected by the standard deviations.)</p>
 <p>And, for comparison, here is the PCA on the <strong>correlation matrix</strong>, which is the preferred method.</p>
-<div class="sourceCode" id="cb317"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb317-1"><a href="week-06-principal-components-analysis.html#cb317-1" tabindex="-1"></a>blood_pcacor <span class="ot">&lt;-</span> <span class="fu">princomp</span>(<span class="at">covmat =</span> blood_corr)</span>
-<span id="cb317-2"><a href="week-06-principal-components-analysis.html#cb317-2" tabindex="-1"></a><span class="fu">summary</span>(blood_pcacor, <span class="at">loadings =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb316"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb316-1"><a href="week-06-principal-components-analysis.html#cb316-1" tabindex="-1"></a>blood_pcacor <span class="ot">&lt;-</span> <span class="fu">princomp</span>(<span class="at">covmat =</span> blood_corr)</span>
+<span id="cb316-2"><a href="week-06-principal-components-analysis.html#cb316-2" tabindex="-1"></a><span class="fu">summary</span>(blood_pcacor, <span class="at">loadings =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 <pre><code>## Importance of components:
 ##                           Comp.1    Comp.2    Comp.3     Comp.4     Comp.5     Comp.6     Comp.7
 ## Standard deviation     1.6710100 1.2375848 1.1177138 0.88227419 0.78839505 0.69917350 0.66002394
@@ -507,7 +510,7 @@ div.csl-indent {
 <p><span class="math display">\[\mathbf{a}^*_i = \mathbf{a}_i\sqrt{\lambda}_i \]</span>
 where <span class="math inline">\(i\)</span> refers to the component number—in this example we have eight possible components. Following Everitt and Hothorn’s labeling system, <span class="math inline">\(\mathbf{a}_i\)</span> represents the eigenvector for component <span class="math inline">\(i\)</span>, and the rescaled eigenvector has an asterisk. Also, the lowercase lambda, <span class="math inline">\(\lambda_i\)</span>, represents the eigenvalue of component <span class="math inline">\(i\)</span>. If we stuck these eight columns of vectors side-by-side in a matrix, we have a matrix of eigenvectors, <span class="math inline">\(\mathbf{A}\)</span> and <span class="math inline">\(\mathbf{A^*}\)</span>, for the unscaled and scaled eigenvectors respectively (described on pp. 70–71 in the chapter).</p>
 <p>Here are the eight eigenvectors, as they’re reported in the <code>princomp()</code> function under each column, labeled by the component. (Again, these are <strong>not</strong> loadings—they’re unscaled eigenvectors.)</p>
-<div class="sourceCode" id="cb319"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb319-1"><a href="week-06-principal-components-analysis.html#cb319-1" tabindex="-1"></a>blood_pcacor<span class="sc">$</span>loadings</span></code></pre></div>
+<div class="sourceCode" id="cb318"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb318-1"><a href="week-06-principal-components-analysis.html#cb318-1" tabindex="-1"></a>blood_pcacor<span class="sc">$</span>loadings</span></code></pre></div>
 <pre><code>## 
 ## Loadings:
 ##        Comp.1 Comp.2 Comp.3 Comp.4 Comp.5 Comp.6 Comp.7 Comp.8
@@ -525,7 +528,7 @@ where <span class="math inline">\(i\)</span> refers to the component number—in
 ## Proportion Var  0.125  0.125  0.125  0.125  0.125  0.125  0.125  0.125
 ## Cumulative Var  0.125  0.250  0.375  0.500  0.625  0.750  0.875  1.000</code></pre>
 <p>The eigenvalues are available from the output, as well. The <code>$sdev</code> includes the standard deviations of each component (based on the <strong>unscaled</strong> eigenvector coefficients). If we square those, we have the component’s variance, or eigenvalue. There are eight eigenvalues—one for each component and these represent the repackaged variances when we create these components from the variables.</p>
-<div class="sourceCode" id="cb321"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb321-1"><a href="week-06-principal-components-analysis.html#cb321-1" tabindex="-1"></a>blood_pcacor<span class="sc">$</span>sdev<span class="sc">^</span><span class="dv">2</span></span></code></pre></div>
+<div class="sourceCode" id="cb320"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb320-1"><a href="week-06-principal-components-analysis.html#cb320-1" tabindex="-1"></a>blood_pcacor<span class="sc">$</span>sdev<span class="sc">^</span><span class="dv">2</span></span></code></pre></div>
 <pre><code>##    Comp.1    Comp.2    Comp.3    Comp.4    Comp.5    Comp.6    Comp.7    Comp.8 
 ## 2.7922743 1.5316161 1.2492841 0.7784077 0.6215668 0.4888436 0.4356316 0.1023758</code></pre>
 <p>The components with higher eigenvalues explain more variability in the data. The first component, (which is the “principal” component that Pearson originally looked at), explains most of the variability in our data set.</p>
@@ -539,8 +542,8 @@ where <span class="math inline">\(i\)</span> refers to the component number—in
 </ol>
 <p>Let’s check this out:</p>
 <p>Here’s our first eigenvector:</p>
-<div class="sourceCode" id="cb323"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb323-1"><a href="week-06-principal-components-analysis.html#cb323-1" tabindex="-1"></a>a1 <span class="ot">&lt;-</span> blood_pcacor<span class="sc">$</span>loadings[, <span class="dv">1</span>]</span>
-<span id="cb323-2"><a href="week-06-principal-components-analysis.html#cb323-2" tabindex="-1"></a>a1</span></code></pre></div>
+<div class="sourceCode" id="cb322"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb322-1"><a href="week-06-principal-components-analysis.html#cb322-1" tabindex="-1"></a>a1 <span class="ot">&lt;-</span> blood_pcacor<span class="sc">$</span>loadings[, <span class="dv">1</span>]</span>
+<span id="cb322-2"><a href="week-06-principal-components-analysis.html#cb322-2" tabindex="-1"></a>a1</span></code></pre></div>
 <pre><code>##     rblood      plate     wblood       neut      lymph      bilir     sodium     potass 
 ##  0.1942203  0.4003625  0.4588793  0.4303359 -0.4937748 -0.3194549 -0.1768857 -0.1705160</code></pre>
 <p>Does <span class="math inline">\(\mathbf{a}_1\prime\mathbf{a}_1 = 1\)</span>?</p>
@@ -551,19 +554,19 @@ where <span class="math inline">\(i\)</span> refers to the component number—in
 \begin{bmatrix}
   0.19 \\  0.40  \\ 0.46 \\  0.43 \\ -0.49 \\ -0.32 \\ -0.18 \\ -0.17
 \end{bmatrix} = 1 \text{ ?}\]</span></p>
-<div class="sourceCode" id="cb325"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb325-1"><a href="week-06-principal-components-analysis.html#cb325-1" tabindex="-1"></a><span class="fu">t</span>(a1) <span class="sc">%*%</span> a1</span></code></pre></div>
+<div class="sourceCode" id="cb324"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb324-1"><a href="week-06-principal-components-analysis.html#cb324-1" tabindex="-1"></a><span class="fu">t</span>(a1) <span class="sc">%*%</span> a1</span></code></pre></div>
 <pre><code>##      [,1]
 ## [1,]    1</code></pre>
 <p>It does.</p>
 <p>Here’s our second eigenvector:</p>
-<div class="sourceCode" id="cb327"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb327-1"><a href="week-06-principal-components-analysis.html#cb327-1" tabindex="-1"></a>a2 <span class="ot">&lt;-</span> blood_pcacor<span class="sc">$</span>loadings[, <span class="dv">2</span>]</span>
-<span id="cb327-2"><a href="week-06-principal-components-analysis.html#cb327-2" tabindex="-1"></a>a2</span></code></pre></div>
+<div class="sourceCode" id="cb326"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb326-1"><a href="week-06-principal-components-analysis.html#cb326-1" tabindex="-1"></a>a2 <span class="ot">&lt;-</span> blood_pcacor<span class="sc">$</span>loadings[, <span class="dv">2</span>]</span>
+<span id="cb326-2"><a href="week-06-principal-components-analysis.html#cb326-2" tabindex="-1"></a>a2</span></code></pre></div>
 <pre><code>##        rblood         plate        wblood          neut         lymph         bilir        sodium 
 ##  0.4171230843  0.1539289974 -0.0002984974 -0.4724424229  0.3604497505 -0.3201664742 -0.5352734751 
 ##        potass 
 ## -0.2452834631</code></pre>
 <p>Does <span class="math inline">\(\mathbf{a}_2\prime\mathbf{a}_2 = 1\)</span>?</p>
-<div class="sourceCode" id="cb329"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb329-1"><a href="week-06-principal-components-analysis.html#cb329-1" tabindex="-1"></a><span class="fu">t</span>(a2) <span class="sc">%*%</span> a2</span></code></pre></div>
+<div class="sourceCode" id="cb328"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb328-1"><a href="week-06-principal-components-analysis.html#cb328-1" tabindex="-1"></a><span class="fu">t</span>(a2) <span class="sc">%*%</span> a2</span></code></pre></div>
 <pre><code>##      [,1]
 ## [1,]    1</code></pre>
 <p>It does. This also sums to 1.</p>
@@ -574,7 +577,7 @@ where <span class="math inline">\(i\)</span> refers to the component number—in
 \begin{bmatrix}
   0.42 \\  0.15 \\   0.00 \\  -0.47  \\  0.36 \\  -0.32 \\  -0.54 \\  -0.25
 \end{bmatrix} = 0 \text{ ?}\]</span></p>
-<div class="sourceCode" id="cb331"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb331-1"><a href="week-06-principal-components-analysis.html#cb331-1" tabindex="-1"></a><span class="fu">round</span>( <span class="fu">t</span>(a1) <span class="sc">%*%</span> a2 , <span class="dv">3</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb330"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb330-1"><a href="week-06-principal-components-analysis.html#cb330-1" tabindex="-1"></a><span class="fu">round</span>( <span class="fu">t</span>(a1) <span class="sc">%*%</span> a2 , <span class="dv">3</span>)</span></code></pre></div>
 <pre><code>##      [,1]
 ## [1,]    0</code></pre>
 <p>Indeed it does.</p>
@@ -586,15 +589,15 @@ where <span class="math inline">\(i\)</span> refers to the component number—in
 <span class="math display">\[\sum{\lambda_i = s^2_1 + s^2_2 + \cdots + s^2_p} \text{ ?}\]</span>
 In our case, we fit the PCA to the data’s correlation matrix, which includes <code>1</code> on the diagonal, meaning that the variables are scaled to have a variance (and standard deviation) of <code>1</code>. With that, the sum of our eigenvalues (before we reduce the number of components) should be the number of variables.</p>
 <p>So we can ask whether the sum of the eigenvalues is 8, given that we have eight variables.</p>
-<div class="sourceCode" id="cb333"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb333-1"><a href="week-06-principal-components-analysis.html#cb333-1" tabindex="-1"></a><span class="fu">sum</span>(blood_pcacor<span class="sc">$</span>sdev<span class="sc">^</span><span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb332"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb332-1"><a href="week-06-principal-components-analysis.html#cb332-1" tabindex="-1"></a><span class="fu">sum</span>(blood_pcacor<span class="sc">$</span>sdev<span class="sc">^</span><span class="dv">2</span>)</span></code></pre></div>
 <pre><code>## [1] 8</code></pre>
 <p>This demonstrates that the amount of variance is the same as it is in our original data, just repackaged.</p>
 </div>
 <div id="each-components-proportion-of-variance" class="section level4 hasAnchor" number="7.1.3.2">
 <h4><span class="header-section-number">7.1.3.2</span> Each component’s proportion of variance<a href="week-06-principal-components-analysis.html#each-components-proportion-of-variance" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>What is the proportion of variance that each component explains? Given that we know the total variance, and each eigenvalue, we can use this code:</p>
-<div class="sourceCode" id="cb335"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb335-1"><a href="week-06-principal-components-analysis.html#cb335-1" tabindex="-1"></a>props <span class="ot">&lt;-</span> blood_pcacor<span class="sc">$</span>sdev<span class="sc">^</span><span class="dv">2</span> <span class="sc">/</span> <span class="fu">sum</span>(blood_pcacor<span class="sc">$</span>sdev<span class="sc">^</span><span class="dv">2</span>)</span>
-<span id="cb335-2"><a href="week-06-principal-components-analysis.html#cb335-2" tabindex="-1"></a><span class="fu">round</span>(props, <span class="dv">3</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb334"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb334-1"><a href="week-06-principal-components-analysis.html#cb334-1" tabindex="-1"></a>props <span class="ot">&lt;-</span> blood_pcacor<span class="sc">$</span>sdev<span class="sc">^</span><span class="dv">2</span> <span class="sc">/</span> <span class="fu">sum</span>(blood_pcacor<span class="sc">$</span>sdev<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb334-2"><a href="week-06-principal-components-analysis.html#cb334-2" tabindex="-1"></a><span class="fu">round</span>(props, <span class="dv">3</span>)</span></code></pre></div>
 <pre><code>## Comp.1 Comp.2 Comp.3 Comp.4 Comp.5 Comp.6 Comp.7 Comp.8 
 ##  0.349  0.191  0.156  0.097  0.078  0.061  0.054  0.013</code></pre>
 <p>If we look up above to the results of <code>summary(blood_pcacor, loadings = TRUE)</code>, we see these same values reported in the <code>Proportion of Variance</code> row.</p>
@@ -604,8 +607,8 @@ In our case, we fit the PCA to the data’s correlation matrix, which includes <
 <p>Let’s calculate the rescaled eigenvalues so they can be more easily interpreted. These coefficients represent the correlation between the observed variable and the component. These are what are outputted in SPSS and in the psych package’s <code>pca()</code> function, which we’ll use for our actual analysis. First, let’s calculate</p>
 <p><span class="math display">\[\mathbf{a}^*_i = \mathbf{a}_i\sqrt{\lambda}_i \]</span></p>
 <p>We could get the unscaled eigenvalues from the <code>princomp()</code> object using <code>blood_pcacor$loadings[1:64]</code> but that is less convenient (and not as easily reproducible in R code). Instead, we can use the <code>eigen()</code> function on the correlation matrix to get each component’s eigenvector and eigenvalue.</p>
-<div class="sourceCode" id="cb337"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb337-1"><a href="week-06-principal-components-analysis.html#cb337-1" tabindex="-1"></a>vals.and.vects <span class="ot">&lt;-</span> <span class="fu">eigen</span>(blood_corr)</span>
-<span id="cb337-2"><a href="week-06-principal-components-analysis.html#cb337-2" tabindex="-1"></a>vals.and.vects</span></code></pre></div>
+<div class="sourceCode" id="cb336"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb336-1"><a href="week-06-principal-components-analysis.html#cb336-1" tabindex="-1"></a>vals.and.vects <span class="ot">&lt;-</span> <span class="fu">eigen</span>(blood_corr)</span>
+<span id="cb336-2"><a href="week-06-principal-components-analysis.html#cb336-2" tabindex="-1"></a>vals.and.vects</span></code></pre></div>
 <pre><code>## eigen() decomposition
 ## $values
 ## [1] 2.7922743 1.5316161 1.2492841 0.7784077 0.6215668 0.4888436 0.4356316 0.1023758
@@ -621,8 +624,8 @@ In our case, we fit the PCA to the data’s correlation matrix, which includes <
 ## [7,]  0.1768857 -0.5352734751  0.41027697 -0.16314269 -0.2988956  0.51279925  0.3670544 -0.01484605
 ## [8,]  0.1705160 -0.2452834631  0.70861094  0.08690517  0.1978511 -0.46913476 -0.3757113  0.02620828</code></pre>
 <p>Let’s plug these into our equation, <span class="math inline">\(\mathbf{a}^*_i = \mathbf{a}_i\sqrt{\lambda}_i\)</span>. We could do each rescaled eigenvector at a time, or we could use this fancy matrix operation.</p>
-<div class="sourceCode" id="cb339"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb339-1"><a href="week-06-principal-components-analysis.html#cb339-1" tabindex="-1"></a>loads <span class="ot">&lt;-</span> vals.and.vects<span class="sc">$</span>vectors <span class="sc">%*%</span> <span class="fu">diag</span>(<span class="fu">sqrt</span>(vals.and.vects<span class="sc">$</span>values))</span>
-<span id="cb339-2"><a href="week-06-principal-components-analysis.html#cb339-2" tabindex="-1"></a><span class="fu">round</span>(loads, <span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb338"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb338-1"><a href="week-06-principal-components-analysis.html#cb338-1" tabindex="-1"></a>loads <span class="ot">&lt;-</span> vals.and.vects<span class="sc">$</span>vectors <span class="sc">%*%</span> <span class="fu">diag</span>(<span class="fu">sqrt</span>(vals.and.vects<span class="sc">$</span>values))</span>
+<span id="cb338-2"><a href="week-06-principal-components-analysis.html#cb338-2" tabindex="-1"></a><span class="fu">round</span>(loads, <span class="dv">2</span>)</span></code></pre></div>
 <pre><code>##       [,1]  [,2]  [,3]  [,4]  [,5]  [,6]  [,7]  [,8]
 ## [1,] -0.32  0.52  0.45  0.57  0.14  0.25  0.12 -0.03
 ## [2,] -0.67  0.19  0.19  0.06 -0.67 -0.16 -0.07  0.00
@@ -663,9 +666,9 @@ In our case, we fit the PCA to the data’s correlation matrix, which includes <
 <h4><span class="header-section-number">7.1.3.4</span> Reproducing the covariance (or correlation) matrix<a href="week-06-principal-components-analysis.html#reproducing-the-covariance-or-correlation-matrix" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>We can reproduce the matrix from which we performed the principal components analysis on (in this case, the correlation matrix) using the equation at the top of Page 71 in the chapter:</p>
 <p><span class="math display">\[\mathbf{S} =  \mathbf{A^*}\mathbf{A^*}^\prime \]</span></p>
-<div class="sourceCode" id="cb341"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb341-1"><a href="week-06-principal-components-analysis.html#cb341-1" tabindex="-1"></a>A.star <span class="ot">&lt;-</span> loads</span>
-<span id="cb341-2"><a href="week-06-principal-components-analysis.html#cb341-2" tabindex="-1"></a>R.reprod <span class="ot">&lt;-</span> A.star <span class="sc">%*%</span> <span class="fu">t</span>(A.star)</span>
-<span id="cb341-3"><a href="week-06-principal-components-analysis.html#cb341-3" tabindex="-1"></a><span class="fu">round</span>( R.reprod, <span class="dv">3</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb340"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb340-1"><a href="week-06-principal-components-analysis.html#cb340-1" tabindex="-1"></a>A.star <span class="ot">&lt;-</span> loads</span>
+<span id="cb340-2"><a href="week-06-principal-components-analysis.html#cb340-2" tabindex="-1"></a>R.reprod <span class="ot">&lt;-</span> A.star <span class="sc">%*%</span> <span class="fu">t</span>(A.star)</span>
+<span id="cb340-3"><a href="week-06-principal-components-analysis.html#cb340-3" tabindex="-1"></a><span class="fu">round</span>( R.reprod, <span class="dv">3</span>)</span></code></pre></div>
 <pre><code>##        [,1]   [,2]   [,3]   [,4]   [,5]   [,6]   [,7]   [,8]
 ## [1,]  1.000  0.290  0.202 -0.055 -0.105 -0.252 -0.229  0.058
 ## [2,]  0.290  1.000  0.415  0.285 -0.376 -0.349 -0.164 -0.129
@@ -676,7 +679,7 @@ In our case, we fit the PCA to the data’s correlation matrix, which includes <
 ## [7,] -0.229 -0.164 -0.145  0.023  0.034  0.192  1.000  0.423
 ## [8,]  0.058 -0.129 -0.076 -0.131  0.151  0.077  0.423  1.000</code></pre>
 <p>We can get the <strong>residual covariance matrix</strong> from this by subtracting the reproduced covariance from the original covariance (or correlations in this case):</p>
-<div class="sourceCode" id="cb343"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb343-1"><a href="week-06-principal-components-analysis.html#cb343-1" tabindex="-1"></a><span class="fu">round</span>( blood_corr <span class="sc">-</span> R.reprod, <span class="dv">3</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb342"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb342-1"><a href="week-06-principal-components-analysis.html#cb342-1" tabindex="-1"></a><span class="fu">round</span>( blood_corr <span class="sc">-</span> R.reprod, <span class="dv">3</span>)</span></code></pre></div>
 <pre><code>##        rblood plate wblood neut lymph bilir sodium potass
 ## rblood      0     0      0    0     0     0      0      0
 ## plate       0     0      0    0     0     0      0      0
@@ -688,8 +691,8 @@ In our case, we fit the PCA to the data’s correlation matrix, which includes <
 ## potass      0     0      0    0     0     0      0      0</code></pre>
 <p>This reproduced correlation is indeed the same as our raw correlation matrix. (If we had conducted the PCA on the covariance matrix, it would return the covariance matrix). This demonstrates that the linear recombination of the variables stil represents the covariance of the raw data.</p>
 <p>But, <strong>what if we used only seven of those components instead of all eight</strong>? Our reproduced covariance or correlation matrix will be very similar, but not identical to, the original matrix because that last component was explaining some proportion of the variance. Now, we see some residuals. The seven components do not perfectly explain the data.</p>
-<div class="sourceCode" id="cb345"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb345-1"><a href="week-06-principal-components-analysis.html#cb345-1" tabindex="-1"></a>R.reprod3 <span class="ot">&lt;-</span> A.star[,<span class="dv">1</span><span class="sc">:</span><span class="dv">7</span>] <span class="sc">%*%</span> <span class="fu">t</span>( (A.star)[,<span class="dv">1</span><span class="sc">:</span><span class="dv">7</span>] )</span>
-<span id="cb345-2"><a href="week-06-principal-components-analysis.html#cb345-2" tabindex="-1"></a><span class="fu">round</span>( blood_corr <span class="sc">-</span> R.reprod3, <span class="dv">3</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb344"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb344-1"><a href="week-06-principal-components-analysis.html#cb344-1" tabindex="-1"></a>R.reprod3 <span class="ot">&lt;-</span> A.star[,<span class="dv">1</span><span class="sc">:</span><span class="dv">7</span>] <span class="sc">%*%</span> <span class="fu">t</span>( (A.star)[,<span class="dv">1</span><span class="sc">:</span><span class="dv">7</span>] )</span>
+<span id="cb344-2"><a href="week-06-principal-components-analysis.html#cb344-2" tabindex="-1"></a><span class="fu">round</span>( blood_corr <span class="sc">-</span> R.reprod3, <span class="dv">3</span>)</span></code></pre></div>
 <pre><code>##        rblood plate wblood   neut  lymph  bilir sodium potass
 ## rblood  0.001 0.000  0.001  0.007  0.008 -0.001  0.000  0.000
 ## plate   0.000 0.000  0.000  0.001  0.001  0.000  0.000  0.000
@@ -732,8 +735,8 @@ In our case, we fit the PCA to the data’s correlation matrix, which includes <
 <blockquote>
 <p>An eigenvalue matrix is related to the eigevectors and correlation matrix, <span class="math inline">\(\mathbf{\Lambda} = \mathbf{A}^\prime \mathbf{R} \mathbf{A}\)</span></p>
 </blockquote>
-<div class="sourceCode" id="cb347"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb347-1"><a href="week-06-principal-components-analysis.html#cb347-1" tabindex="-1"></a>Lambda <span class="ot">&lt;-</span> <span class="fu">t</span>(vals.and.vects<span class="sc">$</span>vectors) <span class="sc">%*%</span> blood_corr <span class="sc">%*%</span> vals.and.vects<span class="sc">$</span>vectors </span>
-<span id="cb347-2"><a href="week-06-principal-components-analysis.html#cb347-2" tabindex="-1"></a><span class="fu">round</span>(Lambda, <span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb346"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb346-1"><a href="week-06-principal-components-analysis.html#cb346-1" tabindex="-1"></a>Lambda <span class="ot">&lt;-</span> <span class="fu">t</span>(vals.and.vects<span class="sc">$</span>vectors) <span class="sc">%*%</span> blood_corr <span class="sc">%*%</span> vals.and.vects<span class="sc">$</span>vectors </span>
+<span id="cb346-2"><a href="week-06-principal-components-analysis.html#cb346-2" tabindex="-1"></a><span class="fu">round</span>(Lambda, <span class="dv">2</span>)</span></code></pre></div>
 <pre><code>##      [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8]
 ## [1,] 2.79 0.00 0.00 0.00 0.00 0.00 0.00  0.0
 ## [2,] 0.00 1.53 0.00 0.00 0.00 0.00 0.00  0.0
@@ -746,8 +749,8 @@ In our case, we fit the PCA to the data’s correlation matrix, which includes <
 <blockquote>
 <p>A correlation is reproduced from the eigenvectors and eigenvalues, <span class="math inline">\(\mathbf{R} = \mathbf{A} \mathbf{\Lambda} \mathbf{A}^\prime\)</span>, or <span class="math inline">\(\mathbf{R} = (\mathbf{A} \mathbf{\Lambda^{1/2}})( \mathbf{\Lambda^{1/2}} \mathbf{A}^\prime)\)</span></p>
 </blockquote>
-<div class="sourceCode" id="cb349"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb349-1"><a href="week-06-principal-components-analysis.html#cb349-1" tabindex="-1"></a>R <span class="ot">&lt;-</span> vals.and.vects<span class="sc">$</span>vectors <span class="sc">%*%</span> Lambda <span class="sc">%*%</span> <span class="fu">t</span>(vals.and.vects<span class="sc">$</span>vectors) </span>
-<span id="cb349-2"><a href="week-06-principal-components-analysis.html#cb349-2" tabindex="-1"></a><span class="fu">round</span>(R, <span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb348"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb348-1"><a href="week-06-principal-components-analysis.html#cb348-1" tabindex="-1"></a>R <span class="ot">&lt;-</span> vals.and.vects<span class="sc">$</span>vectors <span class="sc">%*%</span> Lambda <span class="sc">%*%</span> <span class="fu">t</span>(vals.and.vects<span class="sc">$</span>vectors) </span>
+<span id="cb348-2"><a href="week-06-principal-components-analysis.html#cb348-2" tabindex="-1"></a><span class="fu">round</span>(R, <span class="dv">2</span>)</span></code></pre></div>
 <pre><code>##       [,1]  [,2]  [,3]  [,4]  [,5]  [,6]  [,7]  [,8]
 ## [1,]  1.00  0.29  0.20 -0.06 -0.11 -0.25 -0.23  0.06
 ## [2,]  0.29  1.00  0.42  0.29 -0.38 -0.35 -0.16 -0.13
@@ -763,11 +766,11 @@ In our case, we fit the PCA to the data’s correlation matrix, which includes <
 <h3><span class="header-section-number">7.1.4</span> Using the psych package<a href="week-06-principal-components-analysis.html#using-the-psych-package" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>The psych package’s <code>pca()</code> function reports results that are ready for interpretation. It automatically uses the correlation matrix rather than the covariance matrix.</p>
 <p>We specify the correlation matrix or the raw data, the number of factors we wish to extract, which in a preliminary analysis is the number of observed variables (8 in our example). In PCA, we can avoid rotating the solution for now.</p>
-<div class="sourceCode" id="cb351"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb351-1"><a href="week-06-principal-components-analysis.html#cb351-1" tabindex="-1"></a><span class="fu">library</span>(psych)</span>
-<span id="cb351-2"><a href="week-06-principal-components-analysis.html#cb351-2" tabindex="-1"></a>pc_psy <span class="ot">&lt;-</span> psych<span class="sc">::</span><span class="fu">pca</span>(blood_corr,   <span class="co"># can also use the raw data as input.</span></span>
-<span id="cb351-3"><a href="week-06-principal-components-analysis.html#cb351-3" tabindex="-1"></a>              <span class="at">nfactors =</span> <span class="dv">8</span>, </span>
-<span id="cb351-4"><a href="week-06-principal-components-analysis.html#cb351-4" tabindex="-1"></a>              <span class="at">rotate =</span> <span class="st">&#39;none&#39;</span>)</span>
-<span id="cb351-5"><a href="week-06-principal-components-analysis.html#cb351-5" tabindex="-1"></a><span class="fu">print</span>(pc_psy,<span class="at">digits=</span><span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb350"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb350-1"><a href="week-06-principal-components-analysis.html#cb350-1" tabindex="-1"></a><span class="fu">library</span>(psych)</span>
+<span id="cb350-2"><a href="week-06-principal-components-analysis.html#cb350-2" tabindex="-1"></a>pc_psy <span class="ot">&lt;-</span> psych<span class="sc">::</span><span class="fu">pca</span>(blood_corr,   <span class="co"># can also use the raw data as input.</span></span>
+<span id="cb350-3"><a href="week-06-principal-components-analysis.html#cb350-3" tabindex="-1"></a>              <span class="at">nfactors =</span> <span class="dv">8</span>, </span>
+<span id="cb350-4"><a href="week-06-principal-components-analysis.html#cb350-4" tabindex="-1"></a>              <span class="at">rotate =</span> <span class="st">&#39;none&#39;</span>)</span>
+<span id="cb350-5"><a href="week-06-principal-components-analysis.html#cb350-5" tabindex="-1"></a><span class="fu">print</span>(pc_psy,<span class="at">digits=</span><span class="dv">2</span>)</span></code></pre></div>
 <pre><code>## Principal Components Analysis
 ## Call: principal(r = r, nfactors = nfactors, residuals = residuals, 
 ##     rotate = rotate, n.obs = n.obs, covar = covar, scores = scores, 
@@ -805,7 +808,7 @@ In our case, we fit the PCA to the data’s correlation matrix, which includes <
 <div id="kaisers-rule" class="section level4 hasAnchor" number="7.1.5.1">
 <h4><span class="header-section-number">7.1.5.1</span> 1. Kaiser’s rule<a href="week-06-principal-components-analysis.html#kaisers-rule" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>The eigenvalue-greater-than-one approach, also called the K1 criterion named after the Kaiser’s <span class="citation">(<a href="#ref-kaiser_index_1974">1974</a>)</span> work, can be used in PCA to determine the number of factors to retain.</p>
-<div class="sourceCode" id="cb353"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb353-1"><a href="week-06-principal-components-analysis.html#cb353-1" tabindex="-1"></a>pc_psy<span class="sc">$</span>loadings</span></code></pre></div>
+<div class="sourceCode" id="cb352"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb352-1"><a href="week-06-principal-components-analysis.html#cb352-1" tabindex="-1"></a>pc_psy<span class="sc">$</span>loadings</span></code></pre></div>
 <pre><code>## 
 ## Loadings:
 ##        PC1    PC2    PC3    PC4    PC5    PC6    PC7    PC8   
@@ -828,15 +831,15 @@ In our case, we fit the PCA to the data’s correlation matrix, which includes <
 <h4><span class="header-section-number">7.1.5.2</span> 2. Scree plot<a href="week-06-principal-components-analysis.html#scree-plot" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>Let’s generate a scree plot. We can use this to not only see those components with eigenvalues that exceed 1.00 but we can see where the plot levels off.</p>
 <p>Though there are packages that can do this for us, we can do this with ggplot.<a href="#fn30" class="footnote-ref" id="fnref30"><sup>30</sup></a> First, we create a data frame that includes the component number and the eigenvalue. For this, we can get the eigenvalues from the <code>psych::pca()</code> outputted object with the <code>$values</code>.</p>
-<div class="sourceCode" id="cb355"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb355-1"><a href="week-06-principal-components-analysis.html#cb355-1" tabindex="-1"></a>vals.and.vects <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Component.number =</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(pc_psy<span class="sc">$</span>values), </span>
-<span id="cb355-2"><a href="week-06-principal-components-analysis.html#cb355-2" tabindex="-1"></a>                             <span class="at">Eigenvalue =</span> pc_psy<span class="sc">$</span>values)</span>
-<span id="cb355-3"><a href="week-06-principal-components-analysis.html#cb355-3" tabindex="-1"></a><span class="co"># Commented out here is the corresponding code if we used the object outputted </span></span>
-<span id="cb355-4"><a href="week-06-principal-components-analysis.html#cb355-4" tabindex="-1"></a><span class="co"># from the `princomp()` function.</span></span>
-<span id="cb355-5"><a href="week-06-principal-components-analysis.html#cb355-5" tabindex="-1"></a><span class="co"># vals.and.vects &lt;- data.frame(Component.number = 1:length(blood_pcacor$sdev^2), </span></span>
-<span id="cb355-6"><a href="week-06-principal-components-analysis.html#cb355-6" tabindex="-1"></a><span class="co">#                    Eigenvalue    = blood_pcacor$sdev^2)</span></span>
-<span id="cb355-7"><a href="week-06-principal-components-analysis.html#cb355-7" tabindex="-1"></a><span class="fu">ggplot</span>(vals.and.vects, <span class="fu">aes</span>(<span class="at">x =</span> Component.number, <span class="at">y =</span> Eigenvalue ) ) <span class="sc">+</span></span>
-<span id="cb355-8"><a href="week-06-principal-components-analysis.html#cb355-8" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
-<span id="cb355-9"><a href="week-06-principal-components-analysis.html#cb355-9" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb354"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb354-1"><a href="week-06-principal-components-analysis.html#cb354-1" tabindex="-1"></a>vals.and.vects <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Component.number =</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(pc_psy<span class="sc">$</span>values), </span>
+<span id="cb354-2"><a href="week-06-principal-components-analysis.html#cb354-2" tabindex="-1"></a>                             <span class="at">Eigenvalue =</span> pc_psy<span class="sc">$</span>values)</span>
+<span id="cb354-3"><a href="week-06-principal-components-analysis.html#cb354-3" tabindex="-1"></a><span class="co"># Commented out here is the corresponding code if we used the object outputted </span></span>
+<span id="cb354-4"><a href="week-06-principal-components-analysis.html#cb354-4" tabindex="-1"></a><span class="co"># from the `princomp()` function.</span></span>
+<span id="cb354-5"><a href="week-06-principal-components-analysis.html#cb354-5" tabindex="-1"></a><span class="co"># vals.and.vects &lt;- data.frame(Component.number = 1:length(blood_pcacor$sdev^2), </span></span>
+<span id="cb354-6"><a href="week-06-principal-components-analysis.html#cb354-6" tabindex="-1"></a><span class="co">#                    Eigenvalue    = blood_pcacor$sdev^2)</span></span>
+<span id="cb354-7"><a href="week-06-principal-components-analysis.html#cb354-7" tabindex="-1"></a><span class="fu">ggplot</span>(vals.and.vects, <span class="fu">aes</span>(<span class="at">x =</span> Component.number, <span class="at">y =</span> Eigenvalue ) ) <span class="sc">+</span></span>
+<span id="cb354-8"><a href="week-06-principal-components-analysis.html#cb354-8" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb354-9"><a href="week-06-principal-components-analysis.html#cb354-9" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code></pre></div>
 <p><img src="multivariate_stats_files/figure-html/unnamed-chunk-175-1.png" width="672" /></p>
 <p>With this plot, we seek to find where the slope changes. The first component is clearly present, as the slope is much steeper from the first to second component than it is from the second to third component, whose slope resembles the rest of the scree. In other words, if we drew a line of best for all of the eigenvalues from Component 2 through 8, such a line would have the points close to it. However, we might decide to retain three components because the eigenvalues after Component 3 seem to flatten out. This is a good example of when this eyeballing technique is not so straightforward.</p>
 </div>
@@ -845,25 +848,25 @@ In our case, we fit the PCA to the data’s correlation matrix, which includes <
 <p>The parallel analysis <span class="citation">(<a href="#ref-horn_rationale_1965">Horn 1965</a>)</span> provides a method for comparing our data to randomly generated data sets having the same number of cases and observed variables. After ranking these randomly generated data from low to high, the procedure can estimate the eigenvalue at each <span class="math inline">\(n\)</span>th component at the 95 percentile level. We compare the eigenvalues calculated from our observed data with those of the randomly generated data. If with a given model, such as one with <span class="math inline">\(n\)</span> components, 95% of the randomly drawn samples have eigenvalues that <strong>are lower than</strong> what we observe in our data, we can assume that the component structure in our data lies outside that 0-to-95 percent range (in other words, our extreme eigenvalues do not likely to occur by random luck). The last component to meet this criterion is the number of components to retain. Up to that point, the components explain more of the variance than would occur by chance at the 95% cutoff.</p>
 <p>We can use the <code>parallel()</code> function from the nFactors package <span class="citation">(<a href="#ref-R-nFactors">Raiche and Magis 2025</a>)</span> to perform a parallel analysis. The parallel analysis takes random draws of data and estimates the eigenvalues that would occur randomly in each random draw. The mean of the random draws is reported, along with the 95 percentile. We want to use the 95 percentile.</p>
 <p>The first step is to compute the eigenvalues, which we did above with the scree plot.</p>
-<div class="sourceCode" id="cb356"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb356-1"><a href="week-06-principal-components-analysis.html#cb356-1" tabindex="-1"></a><span class="fu">library</span>(nFactors)</span>
-<span id="cb356-2"><a href="week-06-principal-components-analysis.html#cb356-2" tabindex="-1"></a><span class="co"># help(package=&quot;nFactors&quot;)</span></span>
-<span id="cb356-3"><a href="week-06-principal-components-analysis.html#cb356-3" tabindex="-1"></a>n_i  <span class="ot">&lt;-</span> <span class="dv">72</span> <span class="co"># The number of cases in our data</span></span>
-<span id="cb356-4"><a href="week-06-principal-components-analysis.html#cb356-4" tabindex="-1"></a>n_p <span class="ot">&lt;-</span> <span class="fu">ncol</span>(blood_corr) <span class="co"># The number of variables in our data</span></span>
-<span id="cb356-5"><a href="week-06-principal-components-analysis.html#cb356-5" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)            <span class="co"># To reproduce our randomly generated results.</span></span>
-<span id="cb356-6"><a href="week-06-principal-components-analysis.html#cb356-6" tabindex="-1"></a>Eigs <span class="ot">&lt;-</span> pc_psy<span class="sc">$</span>values    <span class="co"># The eigenvalues</span></span>
-<span id="cb356-7"><a href="week-06-principal-components-analysis.html#cb356-7" tabindex="-1"></a>n_components  <span class="ot">&lt;-</span> <span class="fu">length</span>(Eigs) <span class="co"># number of components</span></span>
-<span id="cb356-8"><a href="week-06-principal-components-analysis.html#cb356-8" tabindex="-1"></a>paral <span class="ot">&lt;-</span> <span class="fu">parallel</span>(<span class="at">subject =</span> n_i,  <span class="co"># The number of cases in our data</span></span>
-<span id="cb356-9"><a href="week-06-principal-components-analysis.html#cb356-9" tabindex="-1"></a>                      <span class="at">var =</span> n_p,  <span class="co"># The number of variables in our data</span></span>
-<span id="cb356-10"><a href="week-06-principal-components-analysis.html#cb356-10" tabindex="-1"></a>                      <span class="at">rep =</span> <span class="dv">100</span>,</span>
-<span id="cb356-11"><a href="week-06-principal-components-analysis.html#cb356-11" tabindex="-1"></a>                 <span class="at">quantile =</span> .<span class="dv">95</span>,</span>
-<span id="cb356-12"><a href="week-06-principal-components-analysis.html#cb356-12" tabindex="-1"></a>                   <span class="at">model  =</span> <span class="st">&quot;components&quot;</span>)</span>
-<span id="cb356-13"><a href="week-06-principal-components-analysis.html#cb356-13" tabindex="-1"></a></span>
-<span id="cb356-14"><a href="week-06-principal-components-analysis.html#cb356-14" tabindex="-1"></a>ParallelAna <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Ncomponent  =</span> <span class="dv">1</span><span class="sc">:</span>n_components,</span>
-<span id="cb356-15"><a href="week-06-principal-components-analysis.html#cb356-15" tabindex="-1"></a>                           Eigs,</span>
-<span id="cb356-16"><a href="week-06-principal-components-analysis.html#cb356-16" tabindex="-1"></a>                           <span class="at">RandEigM =</span> paral<span class="sc">$</span>eigen<span class="sc">$</span>mevpea,</span>
-<span id="cb356-17"><a href="week-06-principal-components-analysis.html#cb356-17" tabindex="-1"></a>                           <span class="at">RandEig95=</span> paral<span class="sc">$</span>eigen<span class="sc">$</span>qevpea)</span>
-<span id="cb356-18"><a href="week-06-principal-components-analysis.html#cb356-18" tabindex="-1"></a>ParallelAna <span class="ot">&lt;-</span> <span class="fu">round</span>(ParallelAna, <span class="dv">3</span>)</span>
-<span id="cb356-19"><a href="week-06-principal-components-analysis.html#cb356-19" tabindex="-1"></a>ParallelAna</span></code></pre></div>
+<div class="sourceCode" id="cb355"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb355-1"><a href="week-06-principal-components-analysis.html#cb355-1" tabindex="-1"></a><span class="fu">library</span>(nFactors)</span>
+<span id="cb355-2"><a href="week-06-principal-components-analysis.html#cb355-2" tabindex="-1"></a><span class="co"># help(package=&quot;nFactors&quot;)</span></span>
+<span id="cb355-3"><a href="week-06-principal-components-analysis.html#cb355-3" tabindex="-1"></a>n_i  <span class="ot">&lt;-</span> <span class="dv">72</span> <span class="co"># The number of cases in our data</span></span>
+<span id="cb355-4"><a href="week-06-principal-components-analysis.html#cb355-4" tabindex="-1"></a>n_p <span class="ot">&lt;-</span> <span class="fu">ncol</span>(blood_corr) <span class="co"># The number of variables in our data</span></span>
+<span id="cb355-5"><a href="week-06-principal-components-analysis.html#cb355-5" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)            <span class="co"># To reproduce our randomly generated results.</span></span>
+<span id="cb355-6"><a href="week-06-principal-components-analysis.html#cb355-6" tabindex="-1"></a>Eigs <span class="ot">&lt;-</span> pc_psy<span class="sc">$</span>values    <span class="co"># The eigenvalues</span></span>
+<span id="cb355-7"><a href="week-06-principal-components-analysis.html#cb355-7" tabindex="-1"></a>n_components  <span class="ot">&lt;-</span> <span class="fu">length</span>(Eigs) <span class="co"># number of components</span></span>
+<span id="cb355-8"><a href="week-06-principal-components-analysis.html#cb355-8" tabindex="-1"></a>paral <span class="ot">&lt;-</span> <span class="fu">parallel</span>(<span class="at">subject =</span> n_i,  <span class="co"># The number of cases in our data</span></span>
+<span id="cb355-9"><a href="week-06-principal-components-analysis.html#cb355-9" tabindex="-1"></a>                      <span class="at">var =</span> n_p,  <span class="co"># The number of variables in our data</span></span>
+<span id="cb355-10"><a href="week-06-principal-components-analysis.html#cb355-10" tabindex="-1"></a>                      <span class="at">rep =</span> <span class="dv">100</span>,</span>
+<span id="cb355-11"><a href="week-06-principal-components-analysis.html#cb355-11" tabindex="-1"></a>                 <span class="at">quantile =</span> .<span class="dv">95</span>,</span>
+<span id="cb355-12"><a href="week-06-principal-components-analysis.html#cb355-12" tabindex="-1"></a>                   <span class="at">model  =</span> <span class="st">&quot;components&quot;</span>)</span>
+<span id="cb355-13"><a href="week-06-principal-components-analysis.html#cb355-13" tabindex="-1"></a></span>
+<span id="cb355-14"><a href="week-06-principal-components-analysis.html#cb355-14" tabindex="-1"></a>ParallelAna <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Ncomponent  =</span> <span class="dv">1</span><span class="sc">:</span>n_components,</span>
+<span id="cb355-15"><a href="week-06-principal-components-analysis.html#cb355-15" tabindex="-1"></a>                           Eigs,</span>
+<span id="cb355-16"><a href="week-06-principal-components-analysis.html#cb355-16" tabindex="-1"></a>                           <span class="at">RandEigM =</span> paral<span class="sc">$</span>eigen<span class="sc">$</span>mevpea,</span>
+<span id="cb355-17"><a href="week-06-principal-components-analysis.html#cb355-17" tabindex="-1"></a>                           <span class="at">RandEig95=</span> paral<span class="sc">$</span>eigen<span class="sc">$</span>qevpea)</span>
+<span id="cb355-18"><a href="week-06-principal-components-analysis.html#cb355-18" tabindex="-1"></a>ParallelAna <span class="ot">&lt;-</span> <span class="fu">round</span>(ParallelAna, <span class="dv">3</span>)</span>
+<span id="cb355-19"><a href="week-06-principal-components-analysis.html#cb355-19" tabindex="-1"></a>ParallelAna</span></code></pre></div>
 <pre><code>##   Ncomponent  Eigs RandEigM RandEig95
 ## 1          1 2.792    1.527     1.707
 ## 2          2 1.532    1.315     1.454
@@ -881,11 +884,11 @@ In our case, we fit the PCA to the data’s correlation matrix, which includes <
 </div>
 <div id="reduced-pca-model" class="section level3 hasAnchor" number="7.1.6">
 <h3><span class="header-section-number">7.1.6</span> Reduced PCA model<a href="week-06-principal-components-analysis.html#reduced-pca-model" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb358"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb358-1"><a href="week-06-principal-components-analysis.html#cb358-1" tabindex="-1"></a><span class="fu">library</span>(psych)</span>
-<span id="cb358-2"><a href="week-06-principal-components-analysis.html#cb358-2" tabindex="-1"></a>pc_psy <span class="ot">&lt;-</span> psych<span class="sc">::</span><span class="fu">pca</span>(blood_corr, </span>
-<span id="cb358-3"><a href="week-06-principal-components-analysis.html#cb358-3" tabindex="-1"></a>              <span class="at">nfactors =</span> <span class="dv">2</span>, </span>
-<span id="cb358-4"><a href="week-06-principal-components-analysis.html#cb358-4" tabindex="-1"></a>              <span class="at">rotate =</span> <span class="st">&#39;none&#39;</span>)</span>
-<span id="cb358-5"><a href="week-06-principal-components-analysis.html#cb358-5" tabindex="-1"></a><span class="fu">print</span>(pc_psy, <span class="at">digits =</span> <span class="dv">3</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb357"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb357-1"><a href="week-06-principal-components-analysis.html#cb357-1" tabindex="-1"></a><span class="fu">library</span>(psych)</span>
+<span id="cb357-2"><a href="week-06-principal-components-analysis.html#cb357-2" tabindex="-1"></a>pc_psy <span class="ot">&lt;-</span> psych<span class="sc">::</span><span class="fu">pca</span>(blood_corr, </span>
+<span id="cb357-3"><a href="week-06-principal-components-analysis.html#cb357-3" tabindex="-1"></a>              <span class="at">nfactors =</span> <span class="dv">2</span>, </span>
+<span id="cb357-4"><a href="week-06-principal-components-analysis.html#cb357-4" tabindex="-1"></a>              <span class="at">rotate =</span> <span class="st">&#39;none&#39;</span>)</span>
+<span id="cb357-5"><a href="week-06-principal-components-analysis.html#cb357-5" tabindex="-1"></a><span class="fu">print</span>(pc_psy, <span class="at">digits =</span> <span class="dv">3</span>)</span></code></pre></div>
 <pre><code>## Principal Components Analysis
 ## Call: principal(r = r, nfactors = nfactors, residuals = residuals, 
 ##     rotate = rotate, n.obs = n.obs, covar = covar, scores = scores, 
@@ -925,8 +928,8 @@ In our case, we fit the PCA to the data’s correlation matrix, which includes <
 <h4><span class="header-section-number">7.1.7.1</span> Plot<a href="week-06-principal-components-analysis.html#plot" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>Let’s create a plot of the component scores.</p>
 <p>To prepare for this, let’s save the rescaled eigenvector matrix (the loadings). We’ll use the <code>cbind()</code> function on the <code>$loadings</code> part of the outputted object from our PCA model.</p>
-<div class="sourceCode" id="cb360"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb360-1"><a href="week-06-principal-components-analysis.html#cb360-1" tabindex="-1"></a>A <span class="ot">&lt;-</span> <span class="fu">cbind</span>(pc_psy<span class="sc">$</span>loadings) </span>
-<span id="cb360-2"><a href="week-06-principal-components-analysis.html#cb360-2" tabindex="-1"></a>A</span></code></pre></div>
+<div class="sourceCode" id="cb359"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb359-1"><a href="week-06-principal-components-analysis.html#cb359-1" tabindex="-1"></a>A <span class="ot">&lt;-</span> <span class="fu">cbind</span>(pc_psy<span class="sc">$</span>loadings) </span>
+<span id="cb359-2"><a href="week-06-principal-components-analysis.html#cb359-2" tabindex="-1"></a>A</span></code></pre></div>
 <pre><code>##               PC1           PC2
 ## rblood  0.3245441 -0.5162251871
 ## plate   0.6690097 -0.1905001868
@@ -936,16 +939,16 @@ In our case, we fit the PCA to the data’s correlation matrix, which includes <
 ## bilir  -0.5338122  0.3962331606
 ## sodium -0.2955777  0.6624463145
 ## potass -0.2849339  0.3035590847</code></pre>
-<div class="sourceCode" id="cb362"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb362-1"><a href="week-06-principal-components-analysis.html#cb362-1" tabindex="-1"></a>A <span class="sc">%&gt;%</span> </span>
-<span id="cb362-2"><a href="week-06-principal-components-analysis.html#cb362-2" tabindex="-1"></a>  <span class="fu">data.frame</span>(.) <span class="sc">%&gt;%</span> </span>
-<span id="cb362-3"><a href="week-06-principal-components-analysis.html#cb362-3" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> PC1, <span class="at">y =</span> PC2)) <span class="sc">+</span></span>
-<span id="cb362-4"><a href="week-06-principal-components-analysis.html#cb362-4" tabindex="-1"></a>  <span class="fu">geom_vline</span>( <span class="fu">aes</span>(<span class="at">xintercept =</span> <span class="dv">0</span>) ) <span class="sc">+</span></span>
-<span id="cb362-5"><a href="week-06-principal-components-analysis.html#cb362-5" tabindex="-1"></a>  <span class="fu">geom_hline</span>( <span class="fu">aes</span>(<span class="at">yintercept =</span> <span class="dv">0</span>) ) <span class="sc">+</span></span>
-<span id="cb362-6"><a href="week-06-principal-components-analysis.html#cb362-6" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb362-7"><a href="week-06-principal-components-analysis.html#cb362-7" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">limits=</span><span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>,<span class="dv">1</span>)) <span class="sc">+</span></span>
-<span id="cb362-8"><a href="week-06-principal-components-analysis.html#cb362-8" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">limits=</span><span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>,<span class="dv">1</span>)) <span class="sc">+</span></span>
-<span id="cb362-9"><a href="week-06-principal-components-analysis.html#cb362-9" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="at">hjust=</span><span class="sc">-</span>.<span class="dv">2</span>, <span class="at">vjust=</span><span class="dv">0</span>, <span class="at">label =</span> <span class="fu">rownames</span>(A)) <span class="sc">+</span></span>
-<span id="cb362-10"><a href="week-06-principal-components-analysis.html#cb362-10" tabindex="-1"></a>  <span class="fu">labs</span>( <span class="at">title =</span> <span class="st">&quot;Unrotated PCA Solution&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb361"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb361-1"><a href="week-06-principal-components-analysis.html#cb361-1" tabindex="-1"></a>A <span class="sc">%&gt;%</span> </span>
+<span id="cb361-2"><a href="week-06-principal-components-analysis.html#cb361-2" tabindex="-1"></a>  <span class="fu">data.frame</span>(.) <span class="sc">%&gt;%</span> </span>
+<span id="cb361-3"><a href="week-06-principal-components-analysis.html#cb361-3" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> PC1, <span class="at">y =</span> PC2)) <span class="sc">+</span></span>
+<span id="cb361-4"><a href="week-06-principal-components-analysis.html#cb361-4" tabindex="-1"></a>  <span class="fu">geom_vline</span>( <span class="fu">aes</span>(<span class="at">xintercept =</span> <span class="dv">0</span>) ) <span class="sc">+</span></span>
+<span id="cb361-5"><a href="week-06-principal-components-analysis.html#cb361-5" tabindex="-1"></a>  <span class="fu">geom_hline</span>( <span class="fu">aes</span>(<span class="at">yintercept =</span> <span class="dv">0</span>) ) <span class="sc">+</span></span>
+<span id="cb361-6"><a href="week-06-principal-components-analysis.html#cb361-6" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb361-7"><a href="week-06-principal-components-analysis.html#cb361-7" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">limits=</span><span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>,<span class="dv">1</span>)) <span class="sc">+</span></span>
+<span id="cb361-8"><a href="week-06-principal-components-analysis.html#cb361-8" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">limits=</span><span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>,<span class="dv">1</span>)) <span class="sc">+</span></span>
+<span id="cb361-9"><a href="week-06-principal-components-analysis.html#cb361-9" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="at">hjust=</span><span class="sc">-</span>.<span class="dv">2</span>, <span class="at">vjust=</span><span class="dv">0</span>, <span class="at">label =</span> <span class="fu">rownames</span>(A)) <span class="sc">+</span></span>
+<span id="cb361-10"><a href="week-06-principal-components-analysis.html#cb361-10" tabindex="-1"></a>  <span class="fu">labs</span>( <span class="at">title =</span> <span class="st">&quot;Unrotated PCA Solution&quot;</span>)</span></code></pre></div>
 <p><img src="multivariate_stats_files/figure-html/unnamed-chunk-180-1.png" width="672" /></p>
 <p>This kind of plot helps us to see which variables are more strongly explaining which component. Those closest to the horizontal axis and farther away from the origin are more strongly contributing to Component 1. Those closer to the vertical axis and farther away from the origin more strongly explain Component 2, which in this case does not seem to include many; sodium is the strongest one with Component 2.</p>
 </div>
@@ -953,11 +956,11 @@ In our case, we fit the PCA to the data’s correlation matrix, which includes <
 <div id="interpretation-of-the-rotated-solution" class="section level3 hasAnchor" number="7.1.8">
 <h3><span class="header-section-number">7.1.8</span> Interpretation of the rotated solution<a href="week-06-principal-components-analysis.html#interpretation-of-the-rotated-solution" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Some researchers caution against rotating the solution, as it changes structure. Others argue for it, as it helps us to explain the components. We specify <code>rotate = varimax</code> for varimax rotation so that the PCA solution remains orthogonal; that is, so that the components do not correlate with each other but rather explain unrelated features of the combination of variables.<a href="#fn33" class="footnote-ref" id="fnref33"><sup>33</sup></a> This type of orthogonal rotation is probably fine with data that are assumed to exist in the world rather. With data that are based on social or psychological constructions, such as academic proficiency, orthogonal rotation makes less sense.</p>
-<div class="sourceCode" id="cb363"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb363-1"><a href="week-06-principal-components-analysis.html#cb363-1" tabindex="-1"></a><span class="fu">library</span>(psych)</span>
-<span id="cb363-2"><a href="week-06-principal-components-analysis.html#cb363-2" tabindex="-1"></a>pc_psy_rot <span class="ot">&lt;-</span> psych<span class="sc">::</span><span class="fu">pca</span>(blood_corr, </span>
-<span id="cb363-3"><a href="week-06-principal-components-analysis.html#cb363-3" tabindex="-1"></a>              <span class="at">nfactors =</span> <span class="dv">2</span>, </span>
-<span id="cb363-4"><a href="week-06-principal-components-analysis.html#cb363-4" tabindex="-1"></a>              <span class="at">rotate =</span> <span class="st">&#39;varimax&#39;</span>)</span>
-<span id="cb363-5"><a href="week-06-principal-components-analysis.html#cb363-5" tabindex="-1"></a><span class="fu">print</span>(pc_psy_rot, <span class="at">digits =</span> <span class="dv">3</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb362"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb362-1"><a href="week-06-principal-components-analysis.html#cb362-1" tabindex="-1"></a><span class="fu">library</span>(psych)</span>
+<span id="cb362-2"><a href="week-06-principal-components-analysis.html#cb362-2" tabindex="-1"></a>pc_psy_rot <span class="ot">&lt;-</span> psych<span class="sc">::</span><span class="fu">pca</span>(blood_corr, </span>
+<span id="cb362-3"><a href="week-06-principal-components-analysis.html#cb362-3" tabindex="-1"></a>              <span class="at">nfactors =</span> <span class="dv">2</span>, </span>
+<span id="cb362-4"><a href="week-06-principal-components-analysis.html#cb362-4" tabindex="-1"></a>              <span class="at">rotate =</span> <span class="st">&#39;varimax&#39;</span>)</span>
+<span id="cb362-5"><a href="week-06-principal-components-analysis.html#cb362-5" tabindex="-1"></a><span class="fu">print</span>(pc_psy_rot, <span class="at">digits =</span> <span class="dv">3</span>)</span></code></pre></div>
 <pre><code>## Principal Components Analysis
 ## Call: principal(r = r, nfactors = nfactors, residuals = residuals, 
 ##     rotate = rotate, n.obs = n.obs, covar = covar, scores = scores, 
@@ -988,18 +991,18 @@ In our case, we fit the PCA to the data’s correlation matrix, which includes <
 ## 
 ## Fit based upon off diagonal values = 0.823</code></pre>
 <p>In this rotated structure, we see it is easier to give a label to the first component as being explained by lymphocyte and neutrophil levels (in opposite directions), and white blood cell and platelet counts.</p>
-<div class="sourceCode" id="cb365"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb365-1"><a href="week-06-principal-components-analysis.html#cb365-1" tabindex="-1"></a>A_rot <span class="ot">&lt;-</span> <span class="fu">cbind</span>(pc_psy_rot<span class="sc">$</span>loadings) </span>
-<span id="cb365-2"><a href="week-06-principal-components-analysis.html#cb365-2" tabindex="-1"></a></span>
-<span id="cb365-3"><a href="week-06-principal-components-analysis.html#cb365-3" tabindex="-1"></a>A_rot <span class="sc">%&gt;%</span> </span>
-<span id="cb365-4"><a href="week-06-principal-components-analysis.html#cb365-4" tabindex="-1"></a>  <span class="fu">data.frame</span>(.) <span class="sc">%&gt;%</span> </span>
-<span id="cb365-5"><a href="week-06-principal-components-analysis.html#cb365-5" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> RC1, <span class="at">y =</span> RC2)) <span class="sc">+</span></span>
-<span id="cb365-6"><a href="week-06-principal-components-analysis.html#cb365-6" tabindex="-1"></a>  <span class="fu">geom_vline</span>( <span class="fu">aes</span>(<span class="at">xintercept =</span> <span class="dv">0</span>) ) <span class="sc">+</span></span>
-<span id="cb365-7"><a href="week-06-principal-components-analysis.html#cb365-7" tabindex="-1"></a>  <span class="fu">geom_hline</span>( <span class="fu">aes</span>(<span class="at">yintercept =</span> <span class="dv">0</span>) ) <span class="sc">+</span></span>
-<span id="cb365-8"><a href="week-06-principal-components-analysis.html#cb365-8" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb365-9"><a href="week-06-principal-components-analysis.html#cb365-9" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">limits=</span><span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>,<span class="dv">1</span>)) <span class="sc">+</span></span>
-<span id="cb365-10"><a href="week-06-principal-components-analysis.html#cb365-10" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">limits=</span><span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>,<span class="dv">1</span>)) <span class="sc">+</span></span>
-<span id="cb365-11"><a href="week-06-principal-components-analysis.html#cb365-11" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="at">hjust=</span><span class="sc">-</span>.<span class="dv">2</span>, <span class="at">vjust=</span><span class="dv">0</span>, <span class="at">label =</span> <span class="fu">rownames</span>(A)) <span class="sc">+</span></span>
-<span id="cb365-12"><a href="week-06-principal-components-analysis.html#cb365-12" tabindex="-1"></a>  <span class="fu">labs</span>( <span class="at">title =</span> <span class="st">&quot;Rotated PCA Solution&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb364"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb364-1"><a href="week-06-principal-components-analysis.html#cb364-1" tabindex="-1"></a>A_rot <span class="ot">&lt;-</span> <span class="fu">cbind</span>(pc_psy_rot<span class="sc">$</span>loadings) </span>
+<span id="cb364-2"><a href="week-06-principal-components-analysis.html#cb364-2" tabindex="-1"></a></span>
+<span id="cb364-3"><a href="week-06-principal-components-analysis.html#cb364-3" tabindex="-1"></a>A_rot <span class="sc">%&gt;%</span> </span>
+<span id="cb364-4"><a href="week-06-principal-components-analysis.html#cb364-4" tabindex="-1"></a>  <span class="fu">data.frame</span>(.) <span class="sc">%&gt;%</span> </span>
+<span id="cb364-5"><a href="week-06-principal-components-analysis.html#cb364-5" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> RC1, <span class="at">y =</span> RC2)) <span class="sc">+</span></span>
+<span id="cb364-6"><a href="week-06-principal-components-analysis.html#cb364-6" tabindex="-1"></a>  <span class="fu">geom_vline</span>( <span class="fu">aes</span>(<span class="at">xintercept =</span> <span class="dv">0</span>) ) <span class="sc">+</span></span>
+<span id="cb364-7"><a href="week-06-principal-components-analysis.html#cb364-7" tabindex="-1"></a>  <span class="fu">geom_hline</span>( <span class="fu">aes</span>(<span class="at">yintercept =</span> <span class="dv">0</span>) ) <span class="sc">+</span></span>
+<span id="cb364-8"><a href="week-06-principal-components-analysis.html#cb364-8" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb364-9"><a href="week-06-principal-components-analysis.html#cb364-9" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">limits=</span><span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>,<span class="dv">1</span>)) <span class="sc">+</span></span>
+<span id="cb364-10"><a href="week-06-principal-components-analysis.html#cb364-10" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">limits=</span><span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>,<span class="dv">1</span>)) <span class="sc">+</span></span>
+<span id="cb364-11"><a href="week-06-principal-components-analysis.html#cb364-11" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="at">hjust=</span><span class="sc">-</span>.<span class="dv">2</span>, <span class="at">vjust=</span><span class="dv">0</span>, <span class="at">label =</span> <span class="fu">rownames</span>(A)) <span class="sc">+</span></span>
+<span id="cb364-12"><a href="week-06-principal-components-analysis.html#cb364-12" tabindex="-1"></a>  <span class="fu">labs</span>( <span class="at">title =</span> <span class="st">&quot;Rotated PCA Solution&quot;</span>)</span></code></pre></div>
 <p><img src="multivariate_stats_files/figure-html/unnamed-chunk-182-1.png" width="672" />
 In this plot, the variables all remain in same space relative to each other. It is the component axes that have moved. In comparing this to the unrotated solution, it looks like we rotated the axes about 45 degrees.</p>
 <p>We see that with the rotated solution, the axes of the components have been moved closer to the observed variables, thereby reducing their complexity and making it easier to associate some variables with individual components. This comes at a cost, however, as we also see that now, compared to our unrotated model, the platelet and white-blood cell variables are now somewhere in between the two components. Their complexities are now high whereas before in the unrotated model, they were low because they were both close to the first component axis (the horizontal axis). Whether to rotate or not is a decision made by the researcher. In the social sciences, we tend to rotate the components, though in the social sciences, we should not usually use PCA because we tend to think more about latent constructs, which are best estimated using EFA.</p>
@@ -1009,17 +1012,17 @@ In this plot, the variables all remain in same space relative to each other. It 
 <h2><span class="header-section-number">7.2</span> Example Two<a href="week-06-principal-components-analysis.html#example-two" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Everitt and Hothorn use a data set called <code>headsize</code> which I copied and pasted and saved as a csv file. Each case in this data set is a family and the two observed variables being analyzed are <code>head1</code> and <code>head2</code> for the head size of the first and second born male child in the family.</p>
 <p>This provides an example of how we can perform PCA on a data set instead of the correlation matrix. It also allows for us to see how we can obtain a component score for each observation. There are several ways to calculate component scores (unfortunately).</p>
-<div class="sourceCode" id="cb366"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb366-1"><a href="week-06-principal-components-analysis.html#cb366-1" tabindex="-1"></a>headsize <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;headsize.csv&quot;</span>)</span>
-<span id="cb366-2"><a href="week-06-principal-components-analysis.html#cb366-2" tabindex="-1"></a>head_dat <span class="ot">&lt;-</span> headsize <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(head1, head2)</span></code></pre></div>
+<div class="sourceCode" id="cb365"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb365-1"><a href="week-06-principal-components-analysis.html#cb365-1" tabindex="-1"></a>headsize <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;headsize.csv&quot;</span>)</span>
+<span id="cb365-2"><a href="week-06-principal-components-analysis.html#cb365-2" tabindex="-1"></a>head_dat <span class="ot">&lt;-</span> headsize <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(head1, head2)</span></code></pre></div>
 <p>Let’s try the <code>prcomp()</code> function for the PCA. This is similar to the <code>princomp()</code> function, which they used in the chapter with these data, but it’s easier to use its output.</p>
 <div id="pca-on-unstandardized-scores" class="section level3 hasAnchor" number="7.2.1">
 <h3><span class="header-section-number">7.2.1</span> PCA on Unstandardized Scores<a href="week-06-principal-components-analysis.html#pca-on-unstandardized-scores" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Here’s the PCA Everitt and Hothorn conducted, which was on the raw data and in the original scale. Normally, we do <strong>not</strong> perform PCA on the unstandardized scale of the data because, as we saw above, variables with larger scales are given more weight.<a href="#fn34" class="footnote-ref" id="fnref34"><sup>34</sup></a></p>
-<div class="sourceCode" id="cb367"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb367-1"><a href="week-06-principal-components-analysis.html#cb367-1" tabindex="-1"></a>head_pca <span class="ot">&lt;-</span> <span class="fu">prcomp</span>(<span class="sc">~</span> head1 <span class="sc">+</span> head2, </span>
-<span id="cb367-2"><a href="week-06-principal-components-analysis.html#cb367-2" tabindex="-1"></a>                 <span class="at">data  =</span> head_dat,</span>
-<span id="cb367-3"><a href="week-06-principal-components-analysis.html#cb367-3" tabindex="-1"></a>                 <span class="at">retx  =</span> <span class="cn">FALSE</span>, <span class="co"># Not rotating</span></span>
-<span id="cb367-4"><a href="week-06-principal-components-analysis.html#cb367-4" tabindex="-1"></a>                 <span class="at">scale =</span> <span class="cn">FALSE</span>) <span class="co"># Using raw data scores instead of standardized scores.</span></span>
-<span id="cb367-5"><a href="week-06-principal-components-analysis.html#cb367-5" tabindex="-1"></a>head_pca</span></code></pre></div>
+<div class="sourceCode" id="cb366"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb366-1"><a href="week-06-principal-components-analysis.html#cb366-1" tabindex="-1"></a>head_pca <span class="ot">&lt;-</span> <span class="fu">prcomp</span>(<span class="sc">~</span> head1 <span class="sc">+</span> head2, </span>
+<span id="cb366-2"><a href="week-06-principal-components-analysis.html#cb366-2" tabindex="-1"></a>                 <span class="at">data  =</span> head_dat,</span>
+<span id="cb366-3"><a href="week-06-principal-components-analysis.html#cb366-3" tabindex="-1"></a>                 <span class="at">retx  =</span> <span class="cn">FALSE</span>, <span class="co"># Not rotating</span></span>
+<span id="cb366-4"><a href="week-06-principal-components-analysis.html#cb366-4" tabindex="-1"></a>                 <span class="at">scale =</span> <span class="cn">FALSE</span>) <span class="co"># Using raw data scores instead of standardized scores.</span></span>
+<span id="cb366-5"><a href="week-06-principal-components-analysis.html#cb366-5" tabindex="-1"></a>head_pca</span></code></pre></div>
 <pre><code>## Standard deviations (1, .., p=2):
 ## [1] 12.952459  5.322951
 ## 
@@ -1027,7 +1030,7 @@ In this plot, the variables all remain in same space relative to each other. It 
 ##              PC1        PC2
 ## head1 -0.6929858  0.7209512
 ## head2 -0.7209512 -0.6929858</code></pre>
-<div class="sourceCode" id="cb369"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb369-1"><a href="week-06-principal-components-analysis.html#cb369-1" tabindex="-1"></a><span class="fu">summary</span>(head_pca)</span></code></pre></div>
+<div class="sourceCode" id="cb368"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb368-1"><a href="week-06-principal-components-analysis.html#cb368-1" tabindex="-1"></a><span class="fu">summary</span>(head_pca)</span></code></pre></div>
 <pre><code>## Importance of components:
 ##                            PC1    PC2
 ## Standard deviation     12.9525 5.3230
@@ -1040,10 +1043,10 @@ In this plot, the variables all remain in same space relative to each other. It 
 <p><span class="math display">\[ C_{i1} = 0.693(x_{i1} - \bar{x}_1) + .721(x_{i2} - \bar{x}_2) \]</span>
 <span class="math display">\[ C_{i2} = .721(x_{i1} - \bar{x}_1) - .693(x_{i2} - \bar{x}_2) \]</span></p>
 <p>We can do this in tidyverse:</p>
-<div class="sourceCode" id="cb371"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb371-1"><a href="week-06-principal-components-analysis.html#cb371-1" tabindex="-1"></a>head_dat <span class="ot">&lt;-</span> head_dat <span class="sc">%&gt;%</span></span>
-<span id="cb371-2"><a href="week-06-principal-components-analysis.html#cb371-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">C1.cent =</span> <span class="fl">0.693</span> <span class="sc">*</span>(head1 <span class="sc">-</span> <span class="fu">mean</span>(head1)) <span class="sc">+</span> .<span class="dv">721</span><span class="sc">*</span>(head2 <span class="sc">-</span> <span class="fu">mean</span>(head2)),</span>
-<span id="cb371-3"><a href="week-06-principal-components-analysis.html#cb371-3" tabindex="-1"></a>         <span class="at">C2.cent =</span> <span class="fl">0.721</span> <span class="sc">*</span>(head1 <span class="sc">-</span> <span class="fu">mean</span>(head1)) <span class="sc">-</span> .<span class="dv">693</span><span class="sc">*</span>(head2 <span class="sc">-</span> <span class="fu">mean</span>(head2)) )</span>
-<span id="cb371-4"><a href="week-06-principal-components-analysis.html#cb371-4" tabindex="-1"></a><span class="fu">head</span>(head_dat) <span class="co"># PCA can be very ... heady `groan() = TRUE`.</span></span></code></pre></div>
+<div class="sourceCode" id="cb370"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb370-1"><a href="week-06-principal-components-analysis.html#cb370-1" tabindex="-1"></a>head_dat <span class="ot">&lt;-</span> head_dat <span class="sc">%&gt;%</span></span>
+<span id="cb370-2"><a href="week-06-principal-components-analysis.html#cb370-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">C1.cent =</span> <span class="fl">0.693</span> <span class="sc">*</span>(head1 <span class="sc">-</span> <span class="fu">mean</span>(head1)) <span class="sc">+</span> .<span class="dv">721</span><span class="sc">*</span>(head2 <span class="sc">-</span> <span class="fu">mean</span>(head2)),</span>
+<span id="cb370-3"><a href="week-06-principal-components-analysis.html#cb370-3" tabindex="-1"></a>         <span class="at">C2.cent =</span> <span class="fl">0.721</span> <span class="sc">*</span>(head1 <span class="sc">-</span> <span class="fu">mean</span>(head1)) <span class="sc">-</span> .<span class="dv">693</span><span class="sc">*</span>(head2 <span class="sc">-</span> <span class="fu">mean</span>(head2)) )</span>
+<span id="cb370-4"><a href="week-06-principal-components-analysis.html#cb370-4" tabindex="-1"></a><span class="fu">head</span>(head_dat) <span class="co"># PCA can be very ... heady `groan() = TRUE`.</span></span></code></pre></div>
 <pre><code>##   head1 head2  C1.cent C2.cent
 ## 1   191   179   0.1694   7.161
 ## 2   195   201  18.8034  -5.201
@@ -1052,12 +1055,12 @@ In this plot, the variables all remain in same space relative to each other. It 
 ## 5   176   171 -15.9936   1.890
 ## 6   208   192  21.3234  10.409</code></pre>
 <p>A more reproducible way to do this same calculation is with the matrix of eigenvectors and the raw scores. Also, whereas above, we calculated the centered scores by hand, we can use the <code>scale()</code> function in Base R to get centered scores, with the arguments <code>center = TRUE</code> and <code>scale = FALSE</code>. (If we set <code>scale = TRUE</code>, we get standardized scores.) We also need to save the eigenvectors as a matrix using <code>A &lt;- cbind(head_pca$rotation)</code>. Then we can matrix multiply the matrix of centered scores by the matrix of eigenvectors, <span class="math inline">\(\mathbf{A}\)</span></p>
-<div class="sourceCode" id="cb373"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb373-1"><a href="week-06-principal-components-analysis.html#cb373-1" tabindex="-1"></a>head_centrd <span class="ot">&lt;-</span> <span class="fu">cbind</span>( <span class="fu">scale</span>(head_dat[ , <span class="fu">c</span>(<span class="st">&quot;head1&quot;</span>, <span class="st">&quot;head2&quot;</span>)], </span>
-<span id="cb373-2"><a href="week-06-principal-components-analysis.html#cb373-2" tabindex="-1"></a>                            <span class="at">center =</span> <span class="cn">TRUE</span>, </span>
-<span id="cb373-3"><a href="week-06-principal-components-analysis.html#cb373-3" tabindex="-1"></a>                            <span class="at">scale  =</span> <span class="cn">FALSE</span>) )</span>
-<span id="cb373-4"><a href="week-06-principal-components-analysis.html#cb373-4" tabindex="-1"></a>A <span class="ot">&lt;-</span> <span class="fu">cbind</span>(head_pca<span class="sc">$</span>rotation)</span>
-<span id="cb373-5"><a href="week-06-principal-components-analysis.html#cb373-5" tabindex="-1"></a>head_dat[, <span class="fu">c</span>(<span class="st">&quot;C1.cent&quot;</span>, <span class="st">&quot;C2.cent&quot;</span>)] <span class="ot">&lt;-</span> head_centrd <span class="sc">%*%</span> A </span>
-<span id="cb373-6"><a href="week-06-principal-components-analysis.html#cb373-6" tabindex="-1"></a><span class="fu">head</span>(head_dat)</span></code></pre></div>
+<div class="sourceCode" id="cb372"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb372-1"><a href="week-06-principal-components-analysis.html#cb372-1" tabindex="-1"></a>head_centrd <span class="ot">&lt;-</span> <span class="fu">cbind</span>( <span class="fu">scale</span>(head_dat[ , <span class="fu">c</span>(<span class="st">&quot;head1&quot;</span>, <span class="st">&quot;head2&quot;</span>)], </span>
+<span id="cb372-2"><a href="week-06-principal-components-analysis.html#cb372-2" tabindex="-1"></a>                            <span class="at">center =</span> <span class="cn">TRUE</span>, </span>
+<span id="cb372-3"><a href="week-06-principal-components-analysis.html#cb372-3" tabindex="-1"></a>                            <span class="at">scale  =</span> <span class="cn">FALSE</span>) )</span>
+<span id="cb372-4"><a href="week-06-principal-components-analysis.html#cb372-4" tabindex="-1"></a>A <span class="ot">&lt;-</span> <span class="fu">cbind</span>(head_pca<span class="sc">$</span>rotation)</span>
+<span id="cb372-5"><a href="week-06-principal-components-analysis.html#cb372-5" tabindex="-1"></a>head_dat[, <span class="fu">c</span>(<span class="st">&quot;C1.cent&quot;</span>, <span class="st">&quot;C2.cent&quot;</span>)] <span class="ot">&lt;-</span> head_centrd <span class="sc">%*%</span> A </span>
+<span id="cb372-6"><a href="week-06-principal-components-analysis.html#cb372-6" tabindex="-1"></a><span class="fu">head</span>(head_dat)</span></code></pre></div>
 <pre><code>##   head1 head2     C1.cent   C2.cent
 ## 1   191   179  -0.1695614  7.160674
 ## 2   195   201 -18.8024312 -5.201210
@@ -1066,9 +1069,9 @@ In this plot, the variables all remain in same space relative to each other. It 
 ## 5   176   171  15.9928357  1.890292
 ## 6   208   192 -21.3226862 10.408028</code></pre>
 <p>We learned that the eigenvalues are the variances of the composite variables. Let’s look into this.</p>
-<div class="sourceCode" id="cb375"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb375-1"><a href="week-06-principal-components-analysis.html#cb375-1" tabindex="-1"></a>head_dat <span class="sc">%&gt;%</span></span>
-<span id="cb375-2"><a href="week-06-principal-components-analysis.html#cb375-2" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">varC1 =</span> <span class="fu">var</span>(C1.cent),</span>
-<span id="cb375-3"><a href="week-06-principal-components-analysis.html#cb375-3" tabindex="-1"></a>            <span class="at">varC2 =</span> <span class="fu">var</span>(C2.cent))</span></code></pre></div>
+<div class="sourceCode" id="cb374"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb374-1"><a href="week-06-principal-components-analysis.html#cb374-1" tabindex="-1"></a>head_dat <span class="sc">%&gt;%</span></span>
+<span id="cb374-2"><a href="week-06-principal-components-analysis.html#cb374-2" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">varC1 =</span> <span class="fu">var</span>(C1.cent),</span>
+<span id="cb374-3"><a href="week-06-principal-components-analysis.html#cb374-3" tabindex="-1"></a>            <span class="at">varC2 =</span> <span class="fu">var</span>(C2.cent))</span></code></pre></div>
 <pre><code>##      varC1    varC2
 ## 1 167.7662 28.33381</code></pre>
 <p>These are the same as the square of the standard deviations reported in the output, <span class="math inline">\(12.9525^2\)</span> and <span class="math inline">\(5.3230^2\)</span>, resulting in the two eigenvalues, <span class="math inline">\(167.767\)</span> and <span class="math inline">\(28.334\)</span>.</p>
@@ -1078,8 +1081,8 @@ In this plot, the variables all remain in same space relative to each other. It 
 <h3><span class="header-section-number">7.2.2</span> PCA on the Standardized Scores<a href="week-06-principal-components-analysis.html#pca-on-the-standardized-scores" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>We almost always conduct a PCA on the standardized observed data rather than on the unstandardized data because it ensures that some variables, with excessive variance, do not take up all of the variance in the PCA solution.</p>
 <p>Let’s take a look at the standardized observed scores.</p>
-<div class="sourceCode" id="cb377"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb377-1"><a href="week-06-principal-components-analysis.html#cb377-1" tabindex="-1"></a>stdz_scores <span class="ot">&lt;-</span> <span class="fu">scale</span>(head_dat[ ,<span class="fu">c</span>(<span class="st">&quot;head1&quot;</span>, <span class="st">&quot;head2&quot;</span>)], <span class="at">scale =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb377-2"><a href="week-06-principal-components-analysis.html#cb377-2" tabindex="-1"></a><span class="fu">head</span>(stdz_scores)</span></code></pre></div>
+<div class="sourceCode" id="cb376"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb376-1"><a href="week-06-principal-components-analysis.html#cb376-1" tabindex="-1"></a>stdz_scores <span class="ot">&lt;-</span> <span class="fu">scale</span>(head_dat[ ,<span class="fu">c</span>(<span class="st">&quot;head1&quot;</span>, <span class="st">&quot;head2&quot;</span>)], <span class="at">scale =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb376-2"><a href="week-06-principal-components-analysis.html#cb376-2" tabindex="-1"></a><span class="fu">head</span>(stdz_scores)</span></code></pre></div>
 <pre><code>##           head1      head2
 ## [1,]  0.5408822 -0.4820596
 ## [2,]  0.9506414  1.7091204
@@ -1089,15 +1092,15 @@ In this plot, the variables all remain in same space relative to each other. It 
 ## [6,]  2.2823588  0.8127286</code></pre>
 <p>These scores, by definition, have a mean of zero and a standard deviation of one.</p>
 <p>We can also recognize that (a) the correlation and covariance matrices are the same when we have standardized data, and (b) the <code>eigen()</code> function on this covariance matrix returns the same eigenvalues and eigenvectors as we will observe in our output below. This simply confirms that a PCA on the standardized observed scores will yield the same PCA results as a PCA on the correlation matrix.</p>
-<div class="sourceCode" id="cb379"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb379-1"><a href="week-06-principal-components-analysis.html#cb379-1" tabindex="-1"></a><span class="fu">cor</span>(stdz_scores) </span></code></pre></div>
+<div class="sourceCode" id="cb378"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb378-1"><a href="week-06-principal-components-analysis.html#cb378-1" tabindex="-1"></a><span class="fu">cor</span>(stdz_scores) </span></code></pre></div>
 <pre><code>##           head1     head2
 ## head1 1.0000000 0.7107518
 ## head2 0.7107518 1.0000000</code></pre>
-<div class="sourceCode" id="cb381"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb381-1"><a href="week-06-principal-components-analysis.html#cb381-1" tabindex="-1"></a><span class="fu">cov</span>(stdz_scores)</span></code></pre></div>
+<div class="sourceCode" id="cb380"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb380-1"><a href="week-06-principal-components-analysis.html#cb380-1" tabindex="-1"></a><span class="fu">cov</span>(stdz_scores)</span></code></pre></div>
 <pre><code>##           head1     head2
 ## head1 1.0000000 0.7107518
 ## head2 0.7107518 1.0000000</code></pre>
-<div class="sourceCode" id="cb383"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb383-1"><a href="week-06-principal-components-analysis.html#cb383-1" tabindex="-1"></a><span class="fu">eigen</span>(<span class="fu">cov</span>(stdz_scores))</span></code></pre></div>
+<div class="sourceCode" id="cb382"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb382-1"><a href="week-06-principal-components-analysis.html#cb382-1" tabindex="-1"></a><span class="fu">eigen</span>(<span class="fu">cov</span>(stdz_scores))</span></code></pre></div>
 <pre><code>## eigen() decomposition
 ## $values
 ## [1] 1.7107518 0.2892482
@@ -1107,11 +1110,11 @@ In this plot, the variables all remain in same space relative to each other. It 
 ## [1,] 0.7071068 -0.7071068
 ## [2,] 0.7071068  0.7071068</code></pre>
 <p>Let’s now go back to our <code>prcomp()</code> function and now use <code>scale = TRUE</code> in the function, which does the scaling for us. We can compare this output with the output above with the PCA on the standardized scores.</p>
-<div class="sourceCode" id="cb385"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb385-1"><a href="week-06-principal-components-analysis.html#cb385-1" tabindex="-1"></a>pc_out <span class="ot">&lt;-</span> <span class="fu">prcomp</span>(<span class="sc">~</span> head1 <span class="sc">+</span> head2, </span>
-<span id="cb385-2"><a href="week-06-principal-components-analysis.html#cb385-2" tabindex="-1"></a>                 <span class="at">data  =</span> head_dat,</span>
-<span id="cb385-3"><a href="week-06-principal-components-analysis.html#cb385-3" tabindex="-1"></a>                 <span class="at">retx  =</span> <span class="cn">FALSE</span>, <span class="co"># Not rotating</span></span>
-<span id="cb385-4"><a href="week-06-principal-components-analysis.html#cb385-4" tabindex="-1"></a>                 <span class="at">scale =</span> <span class="cn">TRUE</span>)  <span class="co"># Standardize scores, then perform PCA.</span></span>
-<span id="cb385-5"><a href="week-06-principal-components-analysis.html#cb385-5" tabindex="-1"></a>pc_out</span></code></pre></div>
+<div class="sourceCode" id="cb384"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb384-1"><a href="week-06-principal-components-analysis.html#cb384-1" tabindex="-1"></a>pc_out <span class="ot">&lt;-</span> <span class="fu">prcomp</span>(<span class="sc">~</span> head1 <span class="sc">+</span> head2, </span>
+<span id="cb384-2"><a href="week-06-principal-components-analysis.html#cb384-2" tabindex="-1"></a>                 <span class="at">data  =</span> head_dat,</span>
+<span id="cb384-3"><a href="week-06-principal-components-analysis.html#cb384-3" tabindex="-1"></a>                 <span class="at">retx  =</span> <span class="cn">FALSE</span>, <span class="co"># Not rotating</span></span>
+<span id="cb384-4"><a href="week-06-principal-components-analysis.html#cb384-4" tabindex="-1"></a>                 <span class="at">scale =</span> <span class="cn">TRUE</span>)  <span class="co"># Standardize scores, then perform PCA.</span></span>
+<span id="cb384-5"><a href="week-06-principal-components-analysis.html#cb384-5" tabindex="-1"></a>pc_out</span></code></pre></div>
 <pre><code>## Standard deviations (1, .., p=2):
 ## [1] 1.307957 0.537818
 ## 
@@ -1119,7 +1122,7 @@ In this plot, the variables all remain in same space relative to each other. It 
 ##              PC1        PC2
 ## head1 -0.7071068  0.7071068
 ## head2 -0.7071068 -0.7071068</code></pre>
-<div class="sourceCode" id="cb387"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb387-1"><a href="week-06-principal-components-analysis.html#cb387-1" tabindex="-1"></a><span class="fu">summary</span>(pc_out)</span></code></pre></div>
+<div class="sourceCode" id="cb386"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb386-1"><a href="week-06-principal-components-analysis.html#cb386-1" tabindex="-1"></a><span class="fu">summary</span>(pc_out)</span></code></pre></div>
 <pre><code>## Importance of components:
 ##                           PC1    PC2
 ## Standard deviation     1.3080 0.5378
@@ -1129,17 +1132,17 @@ In this plot, the variables all remain in same space relative to each other. It 
 <div id="calculating-component-scores" class="section level4 hasAnchor" number="7.2.2.1">
 <h4><span class="header-section-number">7.2.2.1</span> Calculating component scores<a href="week-06-principal-components-analysis.html#calculating-component-scores" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>First let’s save and look at the unscaled eigenvectors from the standardized data.</p>
-<div class="sourceCode" id="cb389"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb389-1"><a href="week-06-principal-components-analysis.html#cb389-1" tabindex="-1"></a>A <span class="ot">&lt;-</span> <span class="fu">cbind</span>(pc_out<span class="sc">$</span>rotation)</span>
-<span id="cb389-2"><a href="week-06-principal-components-analysis.html#cb389-2" tabindex="-1"></a>A <span class="co"># The two eigenvectors</span></span></code></pre></div>
+<div class="sourceCode" id="cb388"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb388-1"><a href="week-06-principal-components-analysis.html#cb388-1" tabindex="-1"></a>A <span class="ot">&lt;-</span> <span class="fu">cbind</span>(pc_out<span class="sc">$</span>rotation)</span>
+<span id="cb388-2"><a href="week-06-principal-components-analysis.html#cb388-2" tabindex="-1"></a>A <span class="co"># The two eigenvectors</span></span></code></pre></div>
 <pre><code>##              PC1        PC2
 ## head1 -0.7071068  0.7071068
 ## head2 -0.7071068 -0.7071068</code></pre>
 <p>Here are the eigenvalues:</p>
-<div class="sourceCode" id="cb391"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb391-1"><a href="week-06-principal-components-analysis.html#cb391-1" tabindex="-1"></a>pc_out<span class="sc">$</span>sdev<span class="sc">^</span><span class="dv">2</span></span></code></pre></div>
+<div class="sourceCode" id="cb390"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb390-1"><a href="week-06-principal-components-analysis.html#cb390-1" tabindex="-1"></a>pc_out<span class="sc">$</span>sdev<span class="sc">^</span><span class="dv">2</span></span></code></pre></div>
 <pre><code>## [1] 1.7107518 0.2892482</code></pre>
 <p>Here are the component scores from this model:</p>
-<div class="sourceCode" id="cb393"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb393-1"><a href="week-06-principal-components-analysis.html#cb393-1" tabindex="-1"></a>head_dat[, <span class="fu">c</span>(<span class="st">&quot;C1.stdz&quot;</span>, <span class="st">&quot;C2.stdz&quot;</span>)] <span class="ot">&lt;-</span> stdz_scores <span class="sc">%*%</span> A </span>
-<span id="cb393-2"><a href="week-06-principal-components-analysis.html#cb393-2" tabindex="-1"></a><span class="fu">head</span>( head_dat )</span></code></pre></div>
+<div class="sourceCode" id="cb392"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb392-1"><a href="week-06-principal-components-analysis.html#cb392-1" tabindex="-1"></a>head_dat[, <span class="fu">c</span>(<span class="st">&quot;C1.stdz&quot;</span>, <span class="st">&quot;C2.stdz&quot;</span>)] <span class="ot">&lt;-</span> stdz_scores <span class="sc">%*%</span> A </span>
+<span id="cb392-2"><a href="week-06-principal-components-analysis.html#cb392-2" tabindex="-1"></a><span class="fu">head</span>( head_dat )</span></code></pre></div>
 <pre><code>##   head1 head2     C1.cent   C2.cent     C1.stdz    C2.stdz
 ## 1   191   179  -0.1695614  7.160674 -0.04159384  0.7233291
 ## 2   195   201 -18.8024312 -5.201210 -1.88073559 -0.5363257
@@ -1148,23 +1151,23 @@ In this plot, the variables all remain in same space relative to each other. It 
 ## 5   176   171  15.9928357  1.890292  1.60836191  0.2002084
 ## 6   208   192 -21.3226862 10.408028 -2.18855730  1.0391855</code></pre>
 <p>Again, we see that the sample variances of the component scores are the same as the eigenvalues.</p>
-<div class="sourceCode" id="cb395"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb395-1"><a href="week-06-principal-components-analysis.html#cb395-1" tabindex="-1"></a>head_dat <span class="sc">%&gt;%</span></span>
-<span id="cb395-2"><a href="week-06-principal-components-analysis.html#cb395-2" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">varC1 =</span> <span class="fu">var</span>(C1.stdz),</span>
-<span id="cb395-3"><a href="week-06-principal-components-analysis.html#cb395-3" tabindex="-1"></a>            <span class="at">varC2 =</span> <span class="fu">var</span>(C2.stdz))</span></code></pre></div>
+<div class="sourceCode" id="cb394"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb394-1"><a href="week-06-principal-components-analysis.html#cb394-1" tabindex="-1"></a>head_dat <span class="sc">%&gt;%</span></span>
+<span id="cb394-2"><a href="week-06-principal-components-analysis.html#cb394-2" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">varC1 =</span> <span class="fu">var</span>(C1.stdz),</span>
+<span id="cb394-3"><a href="week-06-principal-components-analysis.html#cb394-3" tabindex="-1"></a>            <span class="at">varC2 =</span> <span class="fu">var</span>(C2.stdz))</span></code></pre></div>
 <pre><code>##      varC1     varC2
 ## 1 1.710752 0.2892482</code></pre>
 </div>
 <div id="using-the-rescaled-eigenvectors-to-interpret-the-components" class="section level4 hasAnchor" number="7.2.2.2">
 <h4><span class="header-section-number">7.2.2.2</span> Using the rescaled eigenvectors to interpret the components<a href="week-06-principal-components-analysis.html#using-the-rescaled-eigenvectors-to-interpret-the-components" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>To get the rescaled eigevectors (or “loadings”), we first get the square root of the eigenvalues. Here are the eigenvalues, again, but this time we’ll place them in a diagonal matrix, <span class="math inline">\(\mathbf{L}\)</span>, which has zeros on the off diagonal because we can then use this for matrix multiplication.</p>
-<div class="sourceCode" id="cb397"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb397-1"><a href="week-06-principal-components-analysis.html#cb397-1" tabindex="-1"></a>L <span class="ot">&lt;-</span> <span class="fu">diag</span>(pc_out<span class="sc">$</span>sdev<span class="sc">^</span><span class="dv">2</span>) <span class="co">#Eigenvalues</span></span>
-<span id="cb397-2"><a href="week-06-principal-components-analysis.html#cb397-2" tabindex="-1"></a>L <span class="co"># We&#39;ll use &quot;L&quot; for capital Lambda. This is the eigenvalue matrix</span></span></code></pre></div>
+<div class="sourceCode" id="cb396"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb396-1"><a href="week-06-principal-components-analysis.html#cb396-1" tabindex="-1"></a>L <span class="ot">&lt;-</span> <span class="fu">diag</span>(pc_out<span class="sc">$</span>sdev<span class="sc">^</span><span class="dv">2</span>) <span class="co">#Eigenvalues</span></span>
+<span id="cb396-2"><a href="week-06-principal-components-analysis.html#cb396-2" tabindex="-1"></a>L <span class="co"># We&#39;ll use &quot;L&quot; for capital Lambda. This is the eigenvalue matrix</span></span></code></pre></div>
 <pre><code>##          [,1]      [,2]
 ## [1,] 1.710752 0.0000000
 ## [2,] 0.000000 0.2892482</code></pre>
 <p>Here are the scaled eigenvectors, with elements interpreted as correlations with component.<a href="#fn35" class="footnote-ref" id="fnref35"><sup>35</sup></a></p>
-<div class="sourceCode" id="cb399"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb399-1"><a href="week-06-principal-components-analysis.html#cb399-1" tabindex="-1"></a>A_star <span class="ot">&lt;-</span> A <span class="sc">%*%</span> (<span class="fu">sqrt</span>(L)) </span>
-<span id="cb399-2"><a href="week-06-principal-components-analysis.html#cb399-2" tabindex="-1"></a><span class="fu">round</span>(A_star, <span class="dv">3</span>) </span></code></pre></div>
+<div class="sourceCode" id="cb398"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb398-1"><a href="week-06-principal-components-analysis.html#cb398-1" tabindex="-1"></a>A_star <span class="ot">&lt;-</span> A <span class="sc">%*%</span> (<span class="fu">sqrt</span>(L)) </span>
+<span id="cb398-2"><a href="week-06-principal-components-analysis.html#cb398-2" tabindex="-1"></a><span class="fu">round</span>(A_star, <span class="dv">3</span>) </span></code></pre></div>
 <pre><code>##         [,1]  [,2]
 ## head1 -0.925  0.38
 ## head2 -0.925 -0.38</code></pre>
@@ -1175,12 +1178,12 @@ In this plot, the variables all remain in same space relative to each other. It 
 <h3><span class="header-section-number">7.2.3</span> Let the Psych Package Do the Work<a href="week-06-principal-components-analysis.html#let-the-psych-package-do-the-work" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Having done all that work, let’s use the psych package and let it report the rescaled eigenvalues (loadings). This, by default, uses the correlation matrix rather than the covariance matrix.</p>
 <p>We can also add a <code>scores = TRUE</code> argument to obtain the component scores; these component scores have been rescaled to be standardized. There seems to be a lot of standardization going on here—we’ve standardized the observed variables and now we’re standardizing the component scores, which is really for aiding interpretation because component scores themselves have no intrinsic scale; by standardizing them, we can at least interpret the component scores as standard-deviation units away from the mean.</p>
-<div class="sourceCode" id="cb401"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb401-1"><a href="week-06-principal-components-analysis.html#cb401-1" tabindex="-1"></a><span class="fu">library</span>(psych)</span>
-<span id="cb401-2"><a href="week-06-principal-components-analysis.html#cb401-2" tabindex="-1"></a>pc_psy <span class="ot">&lt;-</span> psych<span class="sc">::</span><span class="fu">pca</span>(head_dat[, <span class="fu">c</span>(<span class="st">&quot;head1&quot;</span>, <span class="st">&quot;head2&quot;</span>)], </span>
-<span id="cb401-3"><a href="week-06-principal-components-analysis.html#cb401-3" tabindex="-1"></a>              <span class="at">nfactors =</span> <span class="dv">2</span>, </span>
-<span id="cb401-4"><a href="week-06-principal-components-analysis.html#cb401-4" tabindex="-1"></a>              <span class="at">rotate =</span> <span class="st">&#39;none&#39;</span>,</span>
-<span id="cb401-5"><a href="week-06-principal-components-analysis.html#cb401-5" tabindex="-1"></a>              <span class="at">scores =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb401-6"><a href="week-06-principal-components-analysis.html#cb401-6" tabindex="-1"></a><span class="fu">print</span>(pc_psy, <span class="at">digits =</span> <span class="dv">3</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb400"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb400-1"><a href="week-06-principal-components-analysis.html#cb400-1" tabindex="-1"></a><span class="fu">library</span>(psych)</span>
+<span id="cb400-2"><a href="week-06-principal-components-analysis.html#cb400-2" tabindex="-1"></a>pc_psy <span class="ot">&lt;-</span> psych<span class="sc">::</span><span class="fu">pca</span>(head_dat[, <span class="fu">c</span>(<span class="st">&quot;head1&quot;</span>, <span class="st">&quot;head2&quot;</span>)], </span>
+<span id="cb400-3"><a href="week-06-principal-components-analysis.html#cb400-3" tabindex="-1"></a>              <span class="at">nfactors =</span> <span class="dv">2</span>, </span>
+<span id="cb400-4"><a href="week-06-principal-components-analysis.html#cb400-4" tabindex="-1"></a>              <span class="at">rotate =</span> <span class="st">&#39;none&#39;</span>,</span>
+<span id="cb400-5"><a href="week-06-principal-components-analysis.html#cb400-5" tabindex="-1"></a>              <span class="at">scores =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb400-6"><a href="week-06-principal-components-analysis.html#cb400-6" tabindex="-1"></a><span class="fu">print</span>(pc_psy, <span class="at">digits =</span> <span class="dv">3</span>)</span></code></pre></div>
 <pre><code>## Principal Components Analysis
 ## Call: principal(r = r, nfactors = nfactors, residuals = residuals, 
 ##     rotate = rotate, n.obs = n.obs, covar = covar, scores = scores, 
@@ -1209,18 +1212,18 @@ In this plot, the variables all remain in same space relative to each other. It 
 <div id="view-the-component-scores" class="section level4 hasAnchor" number="7.2.3.1">
 <h4><span class="header-section-number">7.2.3.1</span> View the component scores<a href="week-06-principal-components-analysis.html#view-the-component-scores" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>We can obtain the component scores for each case from the outputted object. They are a matrix of however many components we have, which we can save to our data:</p>
-<div class="sourceCode" id="cb403"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb403-1"><a href="week-06-principal-components-analysis.html#cb403-1" tabindex="-1"></a>head_dat[, <span class="fu">c</span>(<span class="st">&quot;C1.zscore&quot;</span>, <span class="st">&quot;C2.zscore&quot;</span>) ]  <span class="ot">&lt;-</span> pc_psy<span class="sc">$</span>scores</span></code></pre></div>
+<div class="sourceCode" id="cb402"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb402-1"><a href="week-06-principal-components-analysis.html#cb402-1" tabindex="-1"></a>head_dat[, <span class="fu">c</span>(<span class="st">&quot;C1.zscore&quot;</span>, <span class="st">&quot;C2.zscore&quot;</span>) ]  <span class="ot">&lt;-</span> pc_psy<span class="sc">$</span>scores</span></code></pre></div>
 <p>We can verify that these are indeed standardized component scores.</p>
-<div class="sourceCode" id="cb404"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb404-1"><a href="week-06-principal-components-analysis.html#cb404-1" tabindex="-1"></a>head_dat <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(C1.zscore, C2.zscore) <span class="sc">%&gt;%</span> </span>
-<span id="cb404-2"><a href="week-06-principal-components-analysis.html#cb404-2" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">MC1 =</span> <span class="fu">round</span>( <span class="fu">mean</span>(C1.zscore), <span class="dv">2</span>),</span>
-<span id="cb404-3"><a href="week-06-principal-components-analysis.html#cb404-3" tabindex="-1"></a>            <span class="at">MC2 =</span> <span class="fu">round</span>( <span class="fu">mean</span>(C2.zscore), <span class="dv">2</span>),</span>
-<span id="cb404-4"><a href="week-06-principal-components-analysis.html#cb404-4" tabindex="-1"></a>            <span class="at">varC1 =</span> <span class="fu">var</span>(C1.zscore),</span>
-<span id="cb404-5"><a href="week-06-principal-components-analysis.html#cb404-5" tabindex="-1"></a>            <span class="at">varC2 =</span> <span class="fu">var</span>(C2.zscore))</span></code></pre></div>
+<div class="sourceCode" id="cb403"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb403-1"><a href="week-06-principal-components-analysis.html#cb403-1" tabindex="-1"></a>head_dat <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(C1.zscore, C2.zscore) <span class="sc">%&gt;%</span> </span>
+<span id="cb403-2"><a href="week-06-principal-components-analysis.html#cb403-2" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">MC1 =</span> <span class="fu">round</span>( <span class="fu">mean</span>(C1.zscore), <span class="dv">2</span>),</span>
+<span id="cb403-3"><a href="week-06-principal-components-analysis.html#cb403-3" tabindex="-1"></a>            <span class="at">MC2 =</span> <span class="fu">round</span>( <span class="fu">mean</span>(C2.zscore), <span class="dv">2</span>),</span>
+<span id="cb403-4"><a href="week-06-principal-components-analysis.html#cb403-4" tabindex="-1"></a>            <span class="at">varC1 =</span> <span class="fu">var</span>(C1.zscore),</span>
+<span id="cb403-5"><a href="week-06-principal-components-analysis.html#cb403-5" tabindex="-1"></a>            <span class="at">varC2 =</span> <span class="fu">var</span>(C2.zscore))</span></code></pre></div>
 <pre><code>##   MC1 MC2 varC1 varC2
 ## 1   0   0     1     1</code></pre>
 <p>We also see that these scores correlate perfectly with the other component scores we calculated earlier from the coefficients. The difference in sign is because the <code>prcomp()</code> function arbitrarily assigns the sign. We also see that the two component scores, no matter how we calculate them, are orthogonal to each other.</p>
-<div class="sourceCode" id="cb406"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb406-1"><a href="week-06-principal-components-analysis.html#cb406-1" tabindex="-1"></a><span class="fu">round</span>( <span class="fu">cor</span>(head_dat[, <span class="fu">c</span>(<span class="st">&quot;C1.cent&quot;</span>, <span class="st">&quot;C2.cent&quot;</span>, <span class="st">&quot;C1.stdz&quot;</span>, <span class="st">&quot;C2.stdz&quot;</span>, </span>
-<span id="cb406-2"><a href="week-06-principal-components-analysis.html#cb406-2" tabindex="-1"></a><span class="st">&quot;C1.zscore&quot;</span>, <span class="st">&quot;C2.zscore&quot;</span>) ] ) , <span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb405"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb405-1"><a href="week-06-principal-components-analysis.html#cb405-1" tabindex="-1"></a><span class="fu">round</span>( <span class="fu">cor</span>(head_dat[, <span class="fu">c</span>(<span class="st">&quot;C1.cent&quot;</span>, <span class="st">&quot;C2.cent&quot;</span>, <span class="st">&quot;C1.stdz&quot;</span>, <span class="st">&quot;C2.stdz&quot;</span>, </span>
+<span id="cb405-2"><a href="week-06-principal-components-analysis.html#cb405-2" tabindex="-1"></a><span class="st">&quot;C1.zscore&quot;</span>, <span class="st">&quot;C2.zscore&quot;</span>) ] ) , <span class="dv">2</span>)</span></code></pre></div>
 <pre><code>##           C1.cent C2.cent C1.stdz C2.stdz C1.zscore C2.zscore
 ## C1.cent      1.00    0.00    1.00    0.01     -1.00     -0.01
 ## C2.cent      0.00    1.00   -0.01    1.00      0.01     -1.00
@@ -1245,8 +1248,8 @@ In this plot, the variables all remain in same space relative to each other. It 
 </ol>
 <div id="data-and-data-cleaning" class="section level3 hasAnchor" number="7.3.1">
 <h3><span class="header-section-number">7.3.1</span> Data and data cleaning<a href="week-06-principal-components-analysis.html#data-and-data-cleaning" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb408"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb408-1"><a href="week-06-principal-components-analysis.html#cb408-1" tabindex="-1"></a>hepdat <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;heptathlon.csv&quot;</span>)</span>
-<span id="cb408-2"><a href="week-06-principal-components-analysis.html#cb408-2" tabindex="-1"></a><span class="fu">str</span>(hepdat)</span></code></pre></div>
+<div class="sourceCode" id="cb407"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb407-1"><a href="week-06-principal-components-analysis.html#cb407-1" tabindex="-1"></a>hepdat <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;heptathlon.csv&quot;</span>)</span>
+<span id="cb407-2"><a href="week-06-principal-components-analysis.html#cb407-2" tabindex="-1"></a><span class="fu">str</span>(hepdat)</span></code></pre></div>
 <pre><code>## &#39;data.frame&#39;:    25 obs. of  9 variables:
 ##  $ athlete : chr  &quot;Joyner-Kersee (USA)&quot; &quot;John (GDR)&quot; &quot;Behmer (GDR)&quot; &quot;Sablovskaite (URS)&quot; ...
 ##  $ hurdles : num  12.7 12.8 13.2 13.6 13.5 ...
@@ -1258,37 +1261,37 @@ In this plot, the variables all remain in same space relative to each other. It 
 ##  $ run800m : num  129 126 124 132 128 ...
 ##  $ score   : int  7291 6897 6858 6540 6540 6411 6351 6297 6252 6252 ...</code></pre>
 <p>Everitt and Hothorn (2011) reversed the scores of the events in which a lower score is a better score to make the direction of the scores consistent in terms of athletic performance.</p>
-<div class="sourceCode" id="cb410"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb410-1"><a href="week-06-principal-components-analysis.html#cb410-1" tabindex="-1"></a>dat <span class="ot">&lt;-</span> hepdat <span class="sc">%&gt;%</span> </span>
-<span id="cb410-2"><a href="week-06-principal-components-analysis.html#cb410-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">hurdles =</span> <span class="fu">max</span>(hurdles) <span class="sc">-</span> hurdles,</span>
-<span id="cb410-3"><a href="week-06-principal-components-analysis.html#cb410-3" tabindex="-1"></a>         <span class="at">run200m =</span> <span class="fu">max</span>(run200m) <span class="sc">-</span> run200m,</span>
-<span id="cb410-4"><a href="week-06-principal-components-analysis.html#cb410-4" tabindex="-1"></a>         <span class="at">run800m =</span> <span class="fu">max</span>(run800m) <span class="sc">-</span> run800m)</span></code></pre></div>
+<div class="sourceCode" id="cb409"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb409-1"><a href="week-06-principal-components-analysis.html#cb409-1" tabindex="-1"></a>dat <span class="ot">&lt;-</span> hepdat <span class="sc">%&gt;%</span> </span>
+<span id="cb409-2"><a href="week-06-principal-components-analysis.html#cb409-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">hurdles =</span> <span class="fu">max</span>(hurdles) <span class="sc">-</span> hurdles,</span>
+<span id="cb409-3"><a href="week-06-principal-components-analysis.html#cb409-3" tabindex="-1"></a>         <span class="at">run200m =</span> <span class="fu">max</span>(run200m) <span class="sc">-</span> run200m,</span>
+<span id="cb409-4"><a href="week-06-principal-components-analysis.html#cb409-4" tabindex="-1"></a>         <span class="at">run800m =</span> <span class="fu">max</span>(run800m) <span class="sc">-</span> run800m)</span></code></pre></div>
 <p>I’m also going to save the variable names in case I need them because I’m too lazy to type them out.</p>
-<div class="sourceCode" id="cb411"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb411-1"><a href="week-06-principal-components-analysis.html#cb411-1" tabindex="-1"></a>varbnames <span class="ot">&lt;-</span> <span class="fu">names</span>(dat)[<span class="dv">2</span><span class="sc">:</span><span class="dv">8</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb410"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb410-1"><a href="week-06-principal-components-analysis.html#cb410-1" tabindex="-1"></a>varbnames <span class="ot">&lt;-</span> <span class="fu">names</span>(dat)[<span class="dv">2</span><span class="sc">:</span><span class="dv">8</span>]</span></code></pre></div>
 </div>
 <div id="examine-assumption-of-linearity" class="section level3 hasAnchor" number="7.3.2">
 <h3><span class="header-section-number">7.3.2</span> Examine assumption of linearity<a href="week-06-principal-components-analysis.html#examine-assumption-of-linearity" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>We can generate a scatterplot matrix using this simple code on the data with our variables.</p>
-<div class="sourceCode" id="cb412"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb412-1"><a href="week-06-principal-components-analysis.html#cb412-1" tabindex="-1"></a><span class="fu">plot</span>(dat[, varbnames])</span></code></pre></div>
+<div class="sourceCode" id="cb411"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb411-1"><a href="week-06-principal-components-analysis.html#cb411-1" tabindex="-1"></a><span class="fu">plot</span>(dat[, varbnames])</span></code></pre></div>
 <p><img src="multivariate_stats_files/figure-html/unnamed-chunk-204-1.png" width="672" /></p>
 <p>The variables do not seem to show non-linear relationships. However, in many cells, except for in the javelin and shot-put events, there seems to be a single case that is an outlier. This might be the same athlete across events. I would guess that this athlete had a leg injury that prevented her from performing well in the events that required running.</p>
 </div>
 <div id="multivariate-normality-and-outliers" class="section level3 hasAnchor" number="7.3.3">
 <h3><span class="header-section-number">7.3.3</span> Multivariate normality and outliers<a href="week-06-principal-components-analysis.html#multivariate-normality-and-outliers" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Let’s examine the Mahalanobis distances to see if we can identify this and any other outlying cases:</p>
-<div class="sourceCode" id="cb413"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb413-1"><a href="week-06-principal-components-analysis.html#cb413-1" tabindex="-1"></a>varbs <span class="ot">&lt;-</span> <span class="fu">cbind</span>(dat[, varbnames])</span>
-<span id="cb413-2"><a href="week-06-principal-components-analysis.html#cb413-2" tabindex="-1"></a>distances <span class="ot">&lt;-</span> <span class="fu">mahalanobis</span>(varbs, </span>
-<span id="cb413-3"><a href="week-06-principal-components-analysis.html#cb413-3" tabindex="-1"></a>                         <span class="at">center =</span> <span class="fu">colMeans</span>(varbs), </span>
-<span id="cb413-4"><a href="week-06-principal-components-analysis.html#cb413-4" tabindex="-1"></a>                         <span class="at">cov =</span> <span class="fu">cov</span>(varbs))</span>
-<span id="cb413-5"><a href="week-06-principal-components-analysis.html#cb413-5" tabindex="-1"></a>dat<span class="sc">$</span>distances <span class="ot">&lt;-</span> distances</span>
-<span id="cb413-6"><a href="week-06-principal-components-analysis.html#cb413-6" tabindex="-1"></a></span>
-<span id="cb413-7"><a href="week-06-principal-components-analysis.html#cb413-7" tabindex="-1"></a><span class="co"># Let&#39;s check for those who exceed the p &lt; .001 criterion:</span></span>
-<span id="cb413-8"><a href="week-06-principal-components-analysis.html#cb413-8" tabindex="-1"></a>dat<span class="sc">$</span>p <span class="ot">&lt;-</span> <span class="fu">pchisq</span>(distances,</span>
-<span id="cb413-9"><a href="week-06-principal-components-analysis.html#cb413-9" tabindex="-1"></a>                <span class="at">df =</span> (<span class="fu">ncol</span>(varbs)<span class="sc">-</span><span class="dv">1</span>), <span class="co"># df is number of variables - 1</span></span>
-<span id="cb413-10"><a href="week-06-principal-components-analysis.html#cb413-10" tabindex="-1"></a>                <span class="at">lower.tail =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb413-11"><a href="week-06-principal-components-analysis.html#cb413-11" tabindex="-1"></a></span>
-<span id="cb413-12"><a href="week-06-principal-components-analysis.html#cb413-12" tabindex="-1"></a>dat<span class="sc">$</span>outlier <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(dat<span class="sc">$</span>p <span class="sc">&lt;</span> .<span class="dv">001</span>, <span class="dv">1</span>, <span class="dv">0</span>)</span>
-<span id="cb413-13"><a href="week-06-principal-components-analysis.html#cb413-13" tabindex="-1"></a><span class="co"># Temporarily sort the data by p-values and outlier status and get first n rows.</span></span>
-<span id="cb413-14"><a href="week-06-principal-components-analysis.html#cb413-14" tabindex="-1"></a>dat <span class="sc">%&gt;%</span> <span class="fu">arrange</span>(<span class="fu">desc</span>(outlier), p) <span class="sc">%&gt;%</span> <span class="fu">slice_head</span>(<span class="at">n =</span> <span class="dv">5</span>) </span></code></pre></div>
+<div class="sourceCode" id="cb412"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb412-1"><a href="week-06-principal-components-analysis.html#cb412-1" tabindex="-1"></a>varbs <span class="ot">&lt;-</span> <span class="fu">cbind</span>(dat[, varbnames])</span>
+<span id="cb412-2"><a href="week-06-principal-components-analysis.html#cb412-2" tabindex="-1"></a>distances <span class="ot">&lt;-</span> <span class="fu">mahalanobis</span>(varbs, </span>
+<span id="cb412-3"><a href="week-06-principal-components-analysis.html#cb412-3" tabindex="-1"></a>                         <span class="at">center =</span> <span class="fu">colMeans</span>(varbs), </span>
+<span id="cb412-4"><a href="week-06-principal-components-analysis.html#cb412-4" tabindex="-1"></a>                         <span class="at">cov =</span> <span class="fu">cov</span>(varbs))</span>
+<span id="cb412-5"><a href="week-06-principal-components-analysis.html#cb412-5" tabindex="-1"></a>dat<span class="sc">$</span>distances <span class="ot">&lt;-</span> distances</span>
+<span id="cb412-6"><a href="week-06-principal-components-analysis.html#cb412-6" tabindex="-1"></a></span>
+<span id="cb412-7"><a href="week-06-principal-components-analysis.html#cb412-7" tabindex="-1"></a><span class="co"># Let&#39;s check for those who exceed the p &lt; .001 criterion:</span></span>
+<span id="cb412-8"><a href="week-06-principal-components-analysis.html#cb412-8" tabindex="-1"></a>dat<span class="sc">$</span>p <span class="ot">&lt;-</span> <span class="fu">pchisq</span>(distances,</span>
+<span id="cb412-9"><a href="week-06-principal-components-analysis.html#cb412-9" tabindex="-1"></a>                <span class="at">df =</span> (<span class="fu">ncol</span>(varbs)<span class="sc">-</span><span class="dv">1</span>), <span class="co"># df is number of variables - 1</span></span>
+<span id="cb412-10"><a href="week-06-principal-components-analysis.html#cb412-10" tabindex="-1"></a>                <span class="at">lower.tail =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb412-11"><a href="week-06-principal-components-analysis.html#cb412-11" tabindex="-1"></a></span>
+<span id="cb412-12"><a href="week-06-principal-components-analysis.html#cb412-12" tabindex="-1"></a>dat<span class="sc">$</span>outlier <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(dat<span class="sc">$</span>p <span class="sc">&lt;</span> .<span class="dv">001</span>, <span class="dv">1</span>, <span class="dv">0</span>)</span>
+<span id="cb412-13"><a href="week-06-principal-components-analysis.html#cb412-13" tabindex="-1"></a><span class="co"># Temporarily sort the data by p-values and outlier status and get first n rows.</span></span>
+<span id="cb412-14"><a href="week-06-principal-components-analysis.html#cb412-14" tabindex="-1"></a>dat <span class="sc">%&gt;%</span> <span class="fu">arrange</span>(<span class="fu">desc</span>(outlier), p) <span class="sc">%&gt;%</span> <span class="fu">slice_head</span>(<span class="at">n =</span> <span class="dv">5</span>) </span></code></pre></div>
 <pre><code>##               athlete hurdles highjump  shot run200m longjump javelin run800m score distances
 ## 1         Launa (PNG)    0.00     1.50 11.78    0.45     4.88   46.38    0.00  4566 18.828022
 ## 2 Joyner-Kersee (USA)    3.73     1.86 15.80    4.05     7.27   45.66   34.92  7291 10.153130
@@ -1301,55 +1304,55 @@ In this plot, the variables all remain in same space relative to each other. It 
 ## 3 0.120445638       0
 ## 4 0.146071466       0
 ## 5 0.163729573       0</code></pre>
-<div class="sourceCode" id="cb415"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb415-1"><a href="week-06-principal-components-analysis.html#cb415-1" tabindex="-1"></a><span class="fu">library</span>(car)</span>
-<span id="cb415-2"><a href="week-06-principal-components-analysis.html#cb415-2" tabindex="-1"></a>car<span class="sc">::</span><span class="fu">qqPlot</span>(distances, </span>
-<span id="cb415-3"><a href="week-06-principal-components-analysis.html#cb415-3" tabindex="-1"></a>            <span class="at">distribution =</span> <span class="st">&quot;chisq&quot;</span>, <span class="at">df =</span> <span class="fu">mean</span>(distances), </span>
-<span id="cb415-4"><a href="week-06-principal-components-analysis.html#cb415-4" tabindex="-1"></a>            <span class="at">lwd =</span> <span class="dv">1</span>, </span>
-<span id="cb415-5"><a href="week-06-principal-components-analysis.html#cb415-5" tabindex="-1"></a>            <span class="at">grid =</span> <span class="cn">FALSE</span>, </span>
-<span id="cb415-6"><a href="week-06-principal-components-analysis.html#cb415-6" tabindex="-1"></a>            <span class="at">main =</span> <span class="st">&quot;Multi-normal Q-Q Plot on Residuals&quot;</span>, </span>
-<span id="cb415-7"><a href="week-06-principal-components-analysis.html#cb415-7" tabindex="-1"></a>            <span class="at">xlab =</span> <span class="fu">expression</span>(chi<span class="sc">^</span><span class="dv">2</span> <span class="sc">*</span> <span class="st">&quot; quantiles&quot;</span>), </span>
-<span id="cb415-8"><a href="week-06-principal-components-analysis.html#cb415-8" tabindex="-1"></a>            <span class="at">ylab =</span> <span class="fu">expression</span>(<span class="st">&quot;Mahalanobis distances &quot;</span><span class="sc">^</span><span class="dv">2</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb414"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb414-1"><a href="week-06-principal-components-analysis.html#cb414-1" tabindex="-1"></a><span class="fu">library</span>(car)</span>
+<span id="cb414-2"><a href="week-06-principal-components-analysis.html#cb414-2" tabindex="-1"></a>car<span class="sc">::</span><span class="fu">qqPlot</span>(distances, </span>
+<span id="cb414-3"><a href="week-06-principal-components-analysis.html#cb414-3" tabindex="-1"></a>            <span class="at">distribution =</span> <span class="st">&quot;chisq&quot;</span>, <span class="at">df =</span> <span class="fu">mean</span>(distances), </span>
+<span id="cb414-4"><a href="week-06-principal-components-analysis.html#cb414-4" tabindex="-1"></a>            <span class="at">lwd =</span> <span class="dv">1</span>, </span>
+<span id="cb414-5"><a href="week-06-principal-components-analysis.html#cb414-5" tabindex="-1"></a>            <span class="at">grid =</span> <span class="cn">FALSE</span>, </span>
+<span id="cb414-6"><a href="week-06-principal-components-analysis.html#cb414-6" tabindex="-1"></a>            <span class="at">main =</span> <span class="st">&quot;Multi-normal Q-Q Plot on Residuals&quot;</span>, </span>
+<span id="cb414-7"><a href="week-06-principal-components-analysis.html#cb414-7" tabindex="-1"></a>            <span class="at">xlab =</span> <span class="fu">expression</span>(chi<span class="sc">^</span><span class="dv">2</span> <span class="sc">*</span> <span class="st">&quot; quantiles&quot;</span>), </span>
+<span id="cb414-8"><a href="week-06-principal-components-analysis.html#cb414-8" tabindex="-1"></a>            <span class="at">ylab =</span> <span class="fu">expression</span>(<span class="st">&quot;Mahalanobis distances &quot;</span><span class="sc">^</span><span class="dv">2</span>))</span></code></pre></div>
 <p><img src="multivariate_stats_files/figure-html/unnamed-chunk-205-1.png" width="672" /></p>
 <pre><code>## [1] 25  8</code></pre>
 <p>We see that the 25th row in the data frame includes a case that is far above (or below) the rest. Let’s examine this row:</p>
-<div class="sourceCode" id="cb417"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb417-1"><a href="week-06-principal-components-analysis.html#cb417-1" tabindex="-1"></a>dat[<span class="dv">25</span>, ]</span></code></pre></div>
+<div class="sourceCode" id="cb416"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb416-1"><a href="week-06-principal-components-analysis.html#cb416-1" tabindex="-1"></a>dat[<span class="dv">25</span>, ]</span></code></pre></div>
 <pre><code>##        athlete hurdles highjump  shot run200m longjump javelin run800m score distances           p
 ## 25 Launa (PNG)       0      1.5 11.78    0.45     4.88   46.38       0  4566  18.82802 0.004464155
 ##    outlier
 ## 25       0</code></pre>
 <p>It appears that the athlete from Papua New Guinea was the outlier, though not enough to merit removal because she was within the error band and did not have a statistically significant Mahalanobis distance from the rest. However, let’s follow the text’s example and remove this observation from the data. We can compare the results with and without this athlete in a sensitivity analysis if we were doing a complete analysis.</p>
-<div class="sourceCode" id="cb419"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb419-1"><a href="week-06-principal-components-analysis.html#cb419-1" tabindex="-1"></a>dat <span class="ot">&lt;-</span> dat[<span class="sc">!</span>dat<span class="sc">$</span>athlete <span class="sc">==</span> <span class="st">&quot;Launa (PNG)&quot;</span>, ]</span></code></pre></div>
+<div class="sourceCode" id="cb418"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb418-1"><a href="week-06-principal-components-analysis.html#cb418-1" tabindex="-1"></a>dat <span class="ot">&lt;-</span> dat[<span class="sc">!</span>dat<span class="sc">$</span>athlete <span class="sc">==</span> <span class="st">&quot;Launa (PNG)&quot;</span>, ]</span></code></pre></div>
 <p>We should also perform a test of multivariate normality. With this small data set, it will likely not result in a statistically significant difference. Let’s get to the analysis and pretend we had done that part.</p>
 </div>
 <div id="re-examine-linearity-and-normality" class="section level3 hasAnchor" number="7.3.4">
 <h3><span class="header-section-number">7.3.4</span> Re-examine linearity and normality<a href="week-06-principal-components-analysis.html#re-examine-linearity-and-normality" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb420"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb420-1"><a href="week-06-principal-components-analysis.html#cb420-1" tabindex="-1"></a><span class="fu">plot</span>(dat[, varbnames], <span class="at">main =</span> <span class="st">&quot;After removal of multivariate outlier&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb419"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb419-1"><a href="week-06-principal-components-analysis.html#cb419-1" tabindex="-1"></a><span class="fu">plot</span>(dat[, varbnames], <span class="at">main =</span> <span class="st">&quot;After removal of multivariate outlier&quot;</span>)</span></code></pre></div>
 <p><img src="multivariate_stats_files/figure-html/unnamed-chunk-208-1.png" width="672" /></p>
 <p>The scatterplots show that the removal of this outlier resulted in scatterplots with data that are dispersed across the ranges of the variables. Linearity seems to hold.</p>
-<div class="sourceCode" id="cb421"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb421-1"><a href="week-06-principal-components-analysis.html#cb421-1" tabindex="-1"></a>varbs <span class="ot">&lt;-</span> <span class="fu">cbind</span>(dat[, varbnames])</span>
-<span id="cb421-2"><a href="week-06-principal-components-analysis.html#cb421-2" tabindex="-1"></a>distances <span class="ot">&lt;-</span> <span class="fu">mahalanobis</span>(varbs, </span>
-<span id="cb421-3"><a href="week-06-principal-components-analysis.html#cb421-3" tabindex="-1"></a>                         <span class="at">center =</span> <span class="fu">colMeans</span>(varbs), </span>
-<span id="cb421-4"><a href="week-06-principal-components-analysis.html#cb421-4" tabindex="-1"></a>                         <span class="at">cov =</span> <span class="fu">cov</span>(varbs))</span>
-<span id="cb421-5"><a href="week-06-principal-components-analysis.html#cb421-5" tabindex="-1"></a>dat<span class="sc">$</span>distances <span class="ot">&lt;-</span> distances</span>
-<span id="cb421-6"><a href="week-06-principal-components-analysis.html#cb421-6" tabindex="-1"></a></span>
-<span id="cb421-7"><a href="week-06-principal-components-analysis.html#cb421-7" tabindex="-1"></a><span class="fu">library</span>(car)</span>
-<span id="cb421-8"><a href="week-06-principal-components-analysis.html#cb421-8" tabindex="-1"></a>car<span class="sc">::</span><span class="fu">qqPlot</span>(distances, </span>
-<span id="cb421-9"><a href="week-06-principal-components-analysis.html#cb421-9" tabindex="-1"></a>            <span class="at">distribution =</span> <span class="st">&quot;chisq&quot;</span>, <span class="at">df =</span> <span class="fu">mean</span>(distances), </span>
-<span id="cb421-10"><a href="week-06-principal-components-analysis.html#cb421-10" tabindex="-1"></a>            <span class="at">lwd =</span> <span class="dv">1</span>, </span>
-<span id="cb421-11"><a href="week-06-principal-components-analysis.html#cb421-11" tabindex="-1"></a>            <span class="at">grid =</span> <span class="cn">FALSE</span>, </span>
-<span id="cb421-12"><a href="week-06-principal-components-analysis.html#cb421-12" tabindex="-1"></a>            <span class="at">main =</span> <span class="st">&quot;After removal of multivariate outlier&quot;</span>, </span>
-<span id="cb421-13"><a href="week-06-principal-components-analysis.html#cb421-13" tabindex="-1"></a>            <span class="at">xlab =</span> <span class="fu">expression</span>(chi<span class="sc">^</span><span class="dv">2</span> <span class="sc">*</span> <span class="st">&quot; quantiles&quot;</span>), </span>
-<span id="cb421-14"><a href="week-06-principal-components-analysis.html#cb421-14" tabindex="-1"></a>            <span class="at">ylab =</span> <span class="fu">expression</span>(<span class="st">&quot;Mahalanobis distances &quot;</span><span class="sc">^</span><span class="dv">2</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb420"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb420-1"><a href="week-06-principal-components-analysis.html#cb420-1" tabindex="-1"></a>varbs <span class="ot">&lt;-</span> <span class="fu">cbind</span>(dat[, varbnames])</span>
+<span id="cb420-2"><a href="week-06-principal-components-analysis.html#cb420-2" tabindex="-1"></a>distances <span class="ot">&lt;-</span> <span class="fu">mahalanobis</span>(varbs, </span>
+<span id="cb420-3"><a href="week-06-principal-components-analysis.html#cb420-3" tabindex="-1"></a>                         <span class="at">center =</span> <span class="fu">colMeans</span>(varbs), </span>
+<span id="cb420-4"><a href="week-06-principal-components-analysis.html#cb420-4" tabindex="-1"></a>                         <span class="at">cov =</span> <span class="fu">cov</span>(varbs))</span>
+<span id="cb420-5"><a href="week-06-principal-components-analysis.html#cb420-5" tabindex="-1"></a>dat<span class="sc">$</span>distances <span class="ot">&lt;-</span> distances</span>
+<span id="cb420-6"><a href="week-06-principal-components-analysis.html#cb420-6" tabindex="-1"></a></span>
+<span id="cb420-7"><a href="week-06-principal-components-analysis.html#cb420-7" tabindex="-1"></a><span class="fu">library</span>(car)</span>
+<span id="cb420-8"><a href="week-06-principal-components-analysis.html#cb420-8" tabindex="-1"></a>car<span class="sc">::</span><span class="fu">qqPlot</span>(distances, </span>
+<span id="cb420-9"><a href="week-06-principal-components-analysis.html#cb420-9" tabindex="-1"></a>            <span class="at">distribution =</span> <span class="st">&quot;chisq&quot;</span>, <span class="at">df =</span> <span class="fu">mean</span>(distances), </span>
+<span id="cb420-10"><a href="week-06-principal-components-analysis.html#cb420-10" tabindex="-1"></a>            <span class="at">lwd =</span> <span class="dv">1</span>, </span>
+<span id="cb420-11"><a href="week-06-principal-components-analysis.html#cb420-11" tabindex="-1"></a>            <span class="at">grid =</span> <span class="cn">FALSE</span>, </span>
+<span id="cb420-12"><a href="week-06-principal-components-analysis.html#cb420-12" tabindex="-1"></a>            <span class="at">main =</span> <span class="st">&quot;After removal of multivariate outlier&quot;</span>, </span>
+<span id="cb420-13"><a href="week-06-principal-components-analysis.html#cb420-13" tabindex="-1"></a>            <span class="at">xlab =</span> <span class="fu">expression</span>(chi<span class="sc">^</span><span class="dv">2</span> <span class="sc">*</span> <span class="st">&quot; quantiles&quot;</span>), </span>
+<span id="cb420-14"><a href="week-06-principal-components-analysis.html#cb420-14" tabindex="-1"></a>            <span class="at">ylab =</span> <span class="fu">expression</span>(<span class="st">&quot;Mahalanobis distances &quot;</span><span class="sc">^</span><span class="dv">2</span>))</span></code></pre></div>
 <p><img src="multivariate_stats_files/figure-html/unnamed-chunk-209-1.png" width="672" /></p>
 <pre><code>## [1]  8 15</code></pre>
 <p>The Q-Q plot of the multivariate distances suggested that the cases are arguably not violating the assumption of multivariate normality.</p>
 </div>
 <div id="fit-the-initial-pca" class="section level3 hasAnchor" number="7.3.5">
 <h3><span class="header-section-number">7.3.5</span> Fit the initial PCA<a href="week-06-principal-components-analysis.html#fit-the-initial-pca" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb423"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb423-1"><a href="week-06-principal-components-analysis.html#cb423-1" tabindex="-1"></a>fit.pca <span class="ot">&lt;-</span> psych<span class="sc">::</span><span class="fu">pca</span>(dat[ ,varbnames], </span>
-<span id="cb423-2"><a href="week-06-principal-components-analysis.html#cb423-2" tabindex="-1"></a>                      <span class="at">nfactors =</span> <span class="fu">length</span>(varbnames),</span>
-<span id="cb423-3"><a href="week-06-principal-components-analysis.html#cb423-3" tabindex="-1"></a>                      <span class="at">rotate =</span> <span class="st">&quot;none&quot;</span> )</span>
-<span id="cb423-4"><a href="week-06-principal-components-analysis.html#cb423-4" tabindex="-1"></a><span class="fu">print</span>( fit.pca, <span class="at">digits  =</span> <span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb422"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb422-1"><a href="week-06-principal-components-analysis.html#cb422-1" tabindex="-1"></a>fit.pca <span class="ot">&lt;-</span> psych<span class="sc">::</span><span class="fu">pca</span>(dat[ ,varbnames], </span>
+<span id="cb422-2"><a href="week-06-principal-components-analysis.html#cb422-2" tabindex="-1"></a>                      <span class="at">nfactors =</span> <span class="fu">length</span>(varbnames),</span>
+<span id="cb422-3"><a href="week-06-principal-components-analysis.html#cb422-3" tabindex="-1"></a>                      <span class="at">rotate =</span> <span class="st">&quot;none&quot;</span> )</span>
+<span id="cb422-4"><a href="week-06-principal-components-analysis.html#cb422-4" tabindex="-1"></a><span class="fu">print</span>( fit.pca, <span class="at">digits  =</span> <span class="dv">2</span>)</span></code></pre></div>
 <pre><code>## Principal Components Analysis
 ## Call: principal(r = r, nfactors = nfactors, residuals = residuals, 
 ##     rotate = rotate, n.obs = n.obs, covar = covar, scores = scores, 
@@ -1382,7 +1385,7 @@ In this plot, the variables all remain in same space relative to each other. It 
 </div>
 <div id="determine-the-number-of-components-to-retain" class="section level3 hasAnchor" number="7.3.6">
 <h3><span class="header-section-number">7.3.6</span> Determine the number of components to retain<a href="week-06-principal-components-analysis.html#determine-the-number-of-components-to-retain" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb425"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb425-1"><a href="week-06-principal-components-analysis.html#cb425-1" tabindex="-1"></a>fit.pca<span class="sc">$</span>Vaccounted</span></code></pre></div>
+<div class="sourceCode" id="cb424"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb424-1"><a href="week-06-principal-components-analysis.html#cb424-1" tabindex="-1"></a>fit.pca<span class="sc">$</span>Vaccounted</span></code></pre></div>
 <pre><code>##                             PC1       PC2       PC3        PC4        PC5        PC6         PC7
 ## SS loadings           4.3236422 0.8989944 0.8297417 0.46675769 0.29832218 0.11387578 0.068666022
 ## Proportion Var        0.6176632 0.1284278 0.1185345 0.06667967 0.04261745 0.01626797 0.009809432
@@ -1391,7 +1394,7 @@ In this plot, the variables all remain in same space relative to each other. It 
 ## Cumulative Proportion 0.6176632 0.7460909 0.8646255 0.93130515 0.97392260 0.99019057 1.000000000</code></pre>
 <p>We see that the first variable explained 62% of the variance in the seven events. the second and third components explained an additional 13% and 12% each, whereas the fourth component only explained about 7% of the variation. With this, it may be worthwhile to retain the first three components. Let’s look at the eigenvalues, the scree plot, and the parallel analysis results.</p>
 <p>Looking at the output, where it says <code>SS loadings</code>, we can see the eigenvalues. Based on this solution, if we were to follow the Kaiser rule of eigenvalues <span class="math inline">\(\ge 1\)</span>, a single component stands out above the rest. We wanted, we could verify this with the <code>eigen()</code> function.</p>
-<div class="sourceCode" id="cb427"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb427-1"><a href="week-06-principal-components-analysis.html#cb427-1" tabindex="-1"></a><span class="fu">eigen</span>(<span class="fu">cor</span>(dat[ ,varbnames]))</span></code></pre></div>
+<div class="sourceCode" id="cb426"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb426-1"><a href="week-06-principal-components-analysis.html#cb426-1" tabindex="-1"></a><span class="fu">eigen</span>(<span class="fu">cor</span>(dat[ ,varbnames]))</span></code></pre></div>
 <pre><code>## eigen() decomposition
 ## $values
 ## [1] 4.32364217 0.89899445 0.82974172 0.46675769 0.29832218 0.11387578 0.06866602
@@ -1406,31 +1409,31 @@ In this plot, the variables all remain in same space relative to each other. It 
 ## [6,] -0.2423079 -0.32572229  0.8806995 -0.06024757  0.07874396  0.07193437 -0.21108138
 ## [7,] -0.3029068  0.65650503  0.1930020  0.57418128  0.31880178 -0.05217664  0.07718616</code></pre>
 <p>To continue the exercise, we can also examine the scree plot and conduct a parallel analysis. Before, we used the <code>parallel()</code> function from the <code>nFactors</code> package to conduct the parallel analysis. That is a better method for reporting, as we can be certain about the 95% cutoff. Another, much easier, option is to use the <code>fa.parallel()</code> function from the psych package. Because we’re using principal components analysis (not factor analysis), we need to specify the model using the argument <code>fa = "pc"</code>. We’ll also specify the number of factors as the same as the number fo variables.</p>
-<div class="sourceCode" id="cb429"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb429-1"><a href="week-06-principal-components-analysis.html#cb429-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)   <span class="co"># To reproduce our randomly generated results.</span></span>
-<span id="cb429-2"><a href="week-06-principal-components-analysis.html#cb429-2" tabindex="-1"></a>para.psych <span class="ot">&lt;-</span> psych<span class="sc">::</span><span class="fu">fa.parallel</span>(dat[,varbnames], </span>
-<span id="cb429-3"><a href="week-06-principal-components-analysis.html#cb429-3" tabindex="-1"></a>                   <span class="at">fa =</span> <span class="st">&quot;pc&quot;</span>,</span>
-<span id="cb429-4"><a href="week-06-principal-components-analysis.html#cb429-4" tabindex="-1"></a>                   <span class="at">nfactors =</span> <span class="fu">length</span>(varbnames))</span></code></pre></div>
+<div class="sourceCode" id="cb428"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb428-1"><a href="week-06-principal-components-analysis.html#cb428-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)   <span class="co"># To reproduce our randomly generated results.</span></span>
+<span id="cb428-2"><a href="week-06-principal-components-analysis.html#cb428-2" tabindex="-1"></a>para.psych <span class="ot">&lt;-</span> psych<span class="sc">::</span><span class="fu">fa.parallel</span>(dat[,varbnames], </span>
+<span id="cb428-3"><a href="week-06-principal-components-analysis.html#cb428-3" tabindex="-1"></a>                   <span class="at">fa =</span> <span class="st">&quot;pc&quot;</span>,</span>
+<span id="cb428-4"><a href="week-06-principal-components-analysis.html#cb428-4" tabindex="-1"></a>                   <span class="at">nfactors =</span> <span class="fu">length</span>(varbnames))</span></code></pre></div>
 <p><img src="multivariate_stats_files/figure-html/unnamed-chunk-213-1.png" width="672" /></p>
 <pre><code>## Parallel analysis suggests that the number of factors =  NA  and the number of components =  1</code></pre>
 <p>These results clearly indicate that we can reduce the number of dimensions from seven to 1. To be sure, we should examine the 95 percentile with nFactors package’s <code>parallel()</code> function results.</p>
-<div class="sourceCode" id="cb431"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb431-1"><a href="week-06-principal-components-analysis.html#cb431-1" tabindex="-1"></a><span class="fu">library</span>(nFactors)</span>
-<span id="cb431-2"><a href="week-06-principal-components-analysis.html#cb431-2" tabindex="-1"></a>n_i  <span class="ot">&lt;-</span> <span class="fu">nrow</span>(dat) <span class="co"># The number of cases in our data</span></span>
-<span id="cb431-3"><a href="week-06-principal-components-analysis.html#cb431-3" tabindex="-1"></a>n_p <span class="ot">&lt;-</span> <span class="fu">length</span>(varbnames) <span class="co"># The number of variables in our data</span></span>
-<span id="cb431-4"><a href="week-06-principal-components-analysis.html#cb431-4" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">456</span>)            <span class="co"># To reproduce our randomly generated results.</span></span>
-<span id="cb431-5"><a href="week-06-principal-components-analysis.html#cb431-5" tabindex="-1"></a>Eigs <span class="ot">&lt;-</span> fit.pca<span class="sc">$</span>values    <span class="co"># The eigenvalues</span></span>
-<span id="cb431-6"><a href="week-06-principal-components-analysis.html#cb431-6" tabindex="-1"></a>n_components  <span class="ot">&lt;-</span> <span class="fu">length</span>(Eigs) <span class="co"># number of components</span></span>
-<span id="cb431-7"><a href="week-06-principal-components-analysis.html#cb431-7" tabindex="-1"></a>paral <span class="ot">&lt;-</span> <span class="fu">parallel</span>(<span class="at">subject =</span> n_i,  <span class="co"># The number of cases in our data</span></span>
-<span id="cb431-8"><a href="week-06-principal-components-analysis.html#cb431-8" tabindex="-1"></a>                      <span class="at">var =</span> n_p,  <span class="co"># The number of variables in our data</span></span>
-<span id="cb431-9"><a href="week-06-principal-components-analysis.html#cb431-9" tabindex="-1"></a>                      <span class="at">rep =</span> <span class="dv">100</span>,</span>
-<span id="cb431-10"><a href="week-06-principal-components-analysis.html#cb431-10" tabindex="-1"></a>                 <span class="at">quantile =</span> .<span class="dv">95</span>,</span>
-<span id="cb431-11"><a href="week-06-principal-components-analysis.html#cb431-11" tabindex="-1"></a>                   <span class="at">model  =</span> <span class="st">&quot;components&quot;</span>)</span>
-<span id="cb431-12"><a href="week-06-principal-components-analysis.html#cb431-12" tabindex="-1"></a></span>
-<span id="cb431-13"><a href="week-06-principal-components-analysis.html#cb431-13" tabindex="-1"></a>ParallelAna <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Ncomponent  =</span> <span class="dv">1</span><span class="sc">:</span>n_components,</span>
-<span id="cb431-14"><a href="week-06-principal-components-analysis.html#cb431-14" tabindex="-1"></a>                           Eigs,</span>
-<span id="cb431-15"><a href="week-06-principal-components-analysis.html#cb431-15" tabindex="-1"></a>                           <span class="at">RandEigM =</span> paral<span class="sc">$</span>eigen<span class="sc">$</span>mevpea,</span>
-<span id="cb431-16"><a href="week-06-principal-components-analysis.html#cb431-16" tabindex="-1"></a>                           <span class="at">RandEig95=</span> paral<span class="sc">$</span>eigen<span class="sc">$</span>qevpea)</span>
-<span id="cb431-17"><a href="week-06-principal-components-analysis.html#cb431-17" tabindex="-1"></a>ParallelAna <span class="ot">&lt;-</span> <span class="fu">round</span>(ParallelAna, <span class="dv">3</span>)</span>
-<span id="cb431-18"><a href="week-06-principal-components-analysis.html#cb431-18" tabindex="-1"></a>ParallelAna</span></code></pre></div>
+<div class="sourceCode" id="cb430"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb430-1"><a href="week-06-principal-components-analysis.html#cb430-1" tabindex="-1"></a><span class="fu">library</span>(nFactors)</span>
+<span id="cb430-2"><a href="week-06-principal-components-analysis.html#cb430-2" tabindex="-1"></a>n_i  <span class="ot">&lt;-</span> <span class="fu">nrow</span>(dat) <span class="co"># The number of cases in our data</span></span>
+<span id="cb430-3"><a href="week-06-principal-components-analysis.html#cb430-3" tabindex="-1"></a>n_p <span class="ot">&lt;-</span> <span class="fu">length</span>(varbnames) <span class="co"># The number of variables in our data</span></span>
+<span id="cb430-4"><a href="week-06-principal-components-analysis.html#cb430-4" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">456</span>)            <span class="co"># To reproduce our randomly generated results.</span></span>
+<span id="cb430-5"><a href="week-06-principal-components-analysis.html#cb430-5" tabindex="-1"></a>Eigs <span class="ot">&lt;-</span> fit.pca<span class="sc">$</span>values    <span class="co"># The eigenvalues</span></span>
+<span id="cb430-6"><a href="week-06-principal-components-analysis.html#cb430-6" tabindex="-1"></a>n_components  <span class="ot">&lt;-</span> <span class="fu">length</span>(Eigs) <span class="co"># number of components</span></span>
+<span id="cb430-7"><a href="week-06-principal-components-analysis.html#cb430-7" tabindex="-1"></a>paral <span class="ot">&lt;-</span> <span class="fu">parallel</span>(<span class="at">subject =</span> n_i,  <span class="co"># The number of cases in our data</span></span>
+<span id="cb430-8"><a href="week-06-principal-components-analysis.html#cb430-8" tabindex="-1"></a>                      <span class="at">var =</span> n_p,  <span class="co"># The number of variables in our data</span></span>
+<span id="cb430-9"><a href="week-06-principal-components-analysis.html#cb430-9" tabindex="-1"></a>                      <span class="at">rep =</span> <span class="dv">100</span>,</span>
+<span id="cb430-10"><a href="week-06-principal-components-analysis.html#cb430-10" tabindex="-1"></a>                 <span class="at">quantile =</span> .<span class="dv">95</span>,</span>
+<span id="cb430-11"><a href="week-06-principal-components-analysis.html#cb430-11" tabindex="-1"></a>                   <span class="at">model  =</span> <span class="st">&quot;components&quot;</span>)</span>
+<span id="cb430-12"><a href="week-06-principal-components-analysis.html#cb430-12" tabindex="-1"></a></span>
+<span id="cb430-13"><a href="week-06-principal-components-analysis.html#cb430-13" tabindex="-1"></a>ParallelAna <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Ncomponent  =</span> <span class="dv">1</span><span class="sc">:</span>n_components,</span>
+<span id="cb430-14"><a href="week-06-principal-components-analysis.html#cb430-14" tabindex="-1"></a>                           Eigs,</span>
+<span id="cb430-15"><a href="week-06-principal-components-analysis.html#cb430-15" tabindex="-1"></a>                           <span class="at">RandEigM =</span> paral<span class="sc">$</span>eigen<span class="sc">$</span>mevpea,</span>
+<span id="cb430-16"><a href="week-06-principal-components-analysis.html#cb430-16" tabindex="-1"></a>                           <span class="at">RandEig95=</span> paral<span class="sc">$</span>eigen<span class="sc">$</span>qevpea)</span>
+<span id="cb430-17"><a href="week-06-principal-components-analysis.html#cb430-17" tabindex="-1"></a>ParallelAna <span class="ot">&lt;-</span> <span class="fu">round</span>(ParallelAna, <span class="dv">3</span>)</span>
+<span id="cb430-18"><a href="week-06-principal-components-analysis.html#cb430-18" tabindex="-1"></a>ParallelAna</span></code></pre></div>
 <pre><code>##   Ncomponent  Eigs RandEigM RandEig95
 ## 1          1 4.324    1.857     2.242
 ## 2          2 0.899    1.447     1.639
@@ -1440,19 +1443,19 @@ In this plot, the variables all remain in same space relative to each other. It 
 ## 6          6 0.114    0.528     0.680
 ## 7          7 0.069    0.318     0.505</code></pre>
 <p>This code here might be easier to read, though less reproducible. I also changed the repetitions to 1000 to get a more stable result (though the conclusion is the same).</p>
-<div class="sourceCode" id="cb433"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb433-1"><a href="week-06-principal-components-analysis.html#cb433-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">994</span>)</span>
-<span id="cb433-2"><a href="week-06-principal-components-analysis.html#cb433-2" tabindex="-1"></a>paral <span class="ot">&lt;-</span> nFactors<span class="sc">::</span><span class="fu">parallel</span>(<span class="at">subject =</span> <span class="dv">24</span>,  <span class="co"># The number of cases</span></span>
-<span id="cb433-3"><a href="week-06-principal-components-analysis.html#cb433-3" tabindex="-1"></a>                      <span class="at">var =</span> <span class="dv">7</span>,             <span class="co"># The number of variables</span></span>
-<span id="cb433-4"><a href="week-06-principal-components-analysis.html#cb433-4" tabindex="-1"></a>                      <span class="at">rep =</span> <span class="dv">1000</span>,</span>
-<span id="cb433-5"><a href="week-06-principal-components-analysis.html#cb433-5" tabindex="-1"></a>                 <span class="at">quantile =</span> .<span class="dv">95</span>,</span>
-<span id="cb433-6"><a href="week-06-principal-components-analysis.html#cb433-6" tabindex="-1"></a>                   <span class="at">model  =</span> <span class="st">&quot;components&quot;</span>)</span>
-<span id="cb433-7"><a href="week-06-principal-components-analysis.html#cb433-7" tabindex="-1"></a></span>
-<span id="cb433-8"><a href="week-06-principal-components-analysis.html#cb433-8" tabindex="-1"></a>ParallelAna <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Ncomponent  =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">7</span>, <span class="co"># We have 7 components</span></span>
-<span id="cb433-9"><a href="week-06-principal-components-analysis.html#cb433-9" tabindex="-1"></a>                           Eigs,</span>
-<span id="cb433-10"><a href="week-06-principal-components-analysis.html#cb433-10" tabindex="-1"></a>                           <span class="at">RandEigM =</span> paral<span class="sc">$</span>eigen<span class="sc">$</span>mevpea,</span>
-<span id="cb433-11"><a href="week-06-principal-components-analysis.html#cb433-11" tabindex="-1"></a>                           <span class="at">RandEig95=</span> paral<span class="sc">$</span>eigen<span class="sc">$</span>qevpea)</span>
-<span id="cb433-12"><a href="week-06-principal-components-analysis.html#cb433-12" tabindex="-1"></a>ParallelAna <span class="ot">&lt;-</span> <span class="fu">round</span>(ParallelAna, <span class="dv">3</span>)</span>
-<span id="cb433-13"><a href="week-06-principal-components-analysis.html#cb433-13" tabindex="-1"></a>ParallelAna</span></code></pre></div>
+<div class="sourceCode" id="cb432"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb432-1"><a href="week-06-principal-components-analysis.html#cb432-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">994</span>)</span>
+<span id="cb432-2"><a href="week-06-principal-components-analysis.html#cb432-2" tabindex="-1"></a>paral <span class="ot">&lt;-</span> nFactors<span class="sc">::</span><span class="fu">parallel</span>(<span class="at">subject =</span> <span class="dv">24</span>,  <span class="co"># The number of cases</span></span>
+<span id="cb432-3"><a href="week-06-principal-components-analysis.html#cb432-3" tabindex="-1"></a>                      <span class="at">var =</span> <span class="dv">7</span>,             <span class="co"># The number of variables</span></span>
+<span id="cb432-4"><a href="week-06-principal-components-analysis.html#cb432-4" tabindex="-1"></a>                      <span class="at">rep =</span> <span class="dv">1000</span>,</span>
+<span id="cb432-5"><a href="week-06-principal-components-analysis.html#cb432-5" tabindex="-1"></a>                 <span class="at">quantile =</span> .<span class="dv">95</span>,</span>
+<span id="cb432-6"><a href="week-06-principal-components-analysis.html#cb432-6" tabindex="-1"></a>                   <span class="at">model  =</span> <span class="st">&quot;components&quot;</span>)</span>
+<span id="cb432-7"><a href="week-06-principal-components-analysis.html#cb432-7" tabindex="-1"></a></span>
+<span id="cb432-8"><a href="week-06-principal-components-analysis.html#cb432-8" tabindex="-1"></a>ParallelAna <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Ncomponent  =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">7</span>, <span class="co"># We have 7 components</span></span>
+<span id="cb432-9"><a href="week-06-principal-components-analysis.html#cb432-9" tabindex="-1"></a>                           Eigs,</span>
+<span id="cb432-10"><a href="week-06-principal-components-analysis.html#cb432-10" tabindex="-1"></a>                           <span class="at">RandEigM =</span> paral<span class="sc">$</span>eigen<span class="sc">$</span>mevpea,</span>
+<span id="cb432-11"><a href="week-06-principal-components-analysis.html#cb432-11" tabindex="-1"></a>                           <span class="at">RandEig95=</span> paral<span class="sc">$</span>eigen<span class="sc">$</span>qevpea)</span>
+<span id="cb432-12"><a href="week-06-principal-components-analysis.html#cb432-12" tabindex="-1"></a>ParallelAna <span class="ot">&lt;-</span> <span class="fu">round</span>(ParallelAna, <span class="dv">3</span>)</span>
+<span id="cb432-13"><a href="week-06-principal-components-analysis.html#cb432-13" tabindex="-1"></a>ParallelAna</span></code></pre></div>
 <pre><code>##   Ncomponent  Eigs RandEigM RandEig95
 ## 1          1 4.324    1.862     2.242
 ## 2          2 0.899    1.446     1.683
@@ -1466,11 +1469,11 @@ In this plot, the variables all remain in same space relative to each other. It 
 <div id="refit-the-pca-model-using-rotation-if-that-is-acceptable-in-your-field" class="section level3 hasAnchor" number="7.3.7">
 <h3><span class="header-section-number">7.3.7</span> Refit the PCA model, using rotation if that is acceptable in your field<a href="week-06-principal-components-analysis.html#refit-the-pca-model-using-rotation-if-that-is-acceptable-in-your-field" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Let’s refit the PCA model to have a single component. If we had a solution with more than two components, we could use rotation, such as with <code>rotate = "varimax"</code>. Here, rotation does not matter because there is a single component.</p>
-<div class="sourceCode" id="cb435"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb435-1"><a href="week-06-principal-components-analysis.html#cb435-1" tabindex="-1"></a>fit.pca1 <span class="ot">&lt;-</span> psych<span class="sc">::</span><span class="fu">pca</span>(dat[ ,varbnames], </span>
-<span id="cb435-2"><a href="week-06-principal-components-analysis.html#cb435-2" tabindex="-1"></a>                      <span class="at">nfactors =</span> <span class="dv">1</span>,</span>
-<span id="cb435-3"><a href="week-06-principal-components-analysis.html#cb435-3" tabindex="-1"></a>                      <span class="at">rotate =</span> <span class="st">&quot;varimax&quot;</span>,</span>
-<span id="cb435-4"><a href="week-06-principal-components-analysis.html#cb435-4" tabindex="-1"></a>                      <span class="at">scores =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb435-5"><a href="week-06-principal-components-analysis.html#cb435-5" tabindex="-1"></a><span class="fu">print</span>( fit.pca1, <span class="at">digits  =</span> <span class="dv">3</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb434"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb434-1"><a href="week-06-principal-components-analysis.html#cb434-1" tabindex="-1"></a>fit.pca1 <span class="ot">&lt;-</span> psych<span class="sc">::</span><span class="fu">pca</span>(dat[ ,varbnames], </span>
+<span id="cb434-2"><a href="week-06-principal-components-analysis.html#cb434-2" tabindex="-1"></a>                      <span class="at">nfactors =</span> <span class="dv">1</span>,</span>
+<span id="cb434-3"><a href="week-06-principal-components-analysis.html#cb434-3" tabindex="-1"></a>                      <span class="at">rotate =</span> <span class="st">&quot;varimax&quot;</span>,</span>
+<span id="cb434-4"><a href="week-06-principal-components-analysis.html#cb434-4" tabindex="-1"></a>                      <span class="at">scores =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb434-5"><a href="week-06-principal-components-analysis.html#cb434-5" tabindex="-1"></a><span class="fu">print</span>( fit.pca1, <span class="at">digits  =</span> <span class="dv">3</span>)</span></code></pre></div>
 <pre><code>## Principal Components Analysis
 ## Call: principal(r = r, nfactors = nfactors, residuals = residuals, 
 ##     rotate = rotate, n.obs = n.obs, covar = covar, scores = scores, 
@@ -1505,11 +1508,11 @@ In this plot, the variables all remain in same space relative to each other. It 
 <div id="saving-the-scores" class="section level3 hasAnchor" number="7.3.9">
 <h3><span class="header-section-number">7.3.9</span> Saving the scores<a href="week-06-principal-components-analysis.html#saving-the-scores" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>We had asked for <code>scores = TRUE</code> when fitting the one-component model. We can attach the scores to the data frame.</p>
-<div class="sourceCode" id="cb437"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb437-1"><a href="week-06-principal-components-analysis.html#cb437-1" tabindex="-1"></a>dat<span class="sc">$</span>C.score <span class="ot">&lt;-</span> fit.pca1<span class="sc">$</span>scores</span></code></pre></div>
+<div class="sourceCode" id="cb436"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb436-1"><a href="week-06-principal-components-analysis.html#cb436-1" tabindex="-1"></a>dat<span class="sc">$</span>C.score <span class="ot">&lt;-</span> fit.pca1<span class="sc">$</span>scores</span></code></pre></div>
 <p>Let’s merge the scores into the dat dataframe so we can compare the component score with the scores allotted in the competition.</p>
-<div class="sourceCode" id="cb438"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb438-1"><a href="week-06-principal-components-analysis.html#cb438-1" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">left_join</span>(dat, hepdat)</span></code></pre></div>
+<div class="sourceCode" id="cb437"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb437-1"><a href="week-06-principal-components-analysis.html#cb437-1" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">left_join</span>(dat, hepdat)</span></code></pre></div>
 <p>Let’s examine the correlation between the component score and the observed score from the competition:</p>
-<div class="sourceCode" id="cb439"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb439-1"><a href="week-06-principal-components-analysis.html#cb439-1" tabindex="-1"></a><span class="fu">cor</span>(dat[ , <span class="fu">c</span>(<span class="st">&quot;C.score&quot;</span>, <span class="st">&quot;score&quot;</span>)] )</span></code></pre></div>
+<div class="sourceCode" id="cb438"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb438-1"><a href="week-06-principal-components-analysis.html#cb438-1" tabindex="-1"></a><span class="fu">cor</span>(dat[ , <span class="fu">c</span>(<span class="st">&quot;C.score&quot;</span>, <span class="st">&quot;score&quot;</span>)] )</span></code></pre></div>
 <pre><code>##           C.score     score
 ## C.score 1.0000000 0.9931168
 ## score   0.9931168 1.0000000</code></pre>
@@ -1520,8 +1523,8 @@ In this plot, the variables all remain in same space relative to each other. It 
 <h2><span class="header-section-number">7.4</span> Other example from later in the chapter (not assigned)<a href="week-06-principal-components-analysis.html#other-example-from-later-in-the-chapter-not-assigned" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <div id="usairpollution-data" class="section level3 hasAnchor" number="7.4.1">
 <h3><span class="header-section-number">7.4.1</span> USairpollution Data<a href="week-06-principal-components-analysis.html#usairpollution-data" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb441"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb441-1"><a href="week-06-principal-components-analysis.html#cb441-1" tabindex="-1"></a>USair <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;USairpollution.csv&quot;</span>)</span>
-<span id="cb441-2"><a href="week-06-principal-components-analysis.html#cb441-2" tabindex="-1"></a><span class="fu">str</span>(USair)</span></code></pre></div>
+<div class="sourceCode" id="cb440"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb440-1"><a href="week-06-principal-components-analysis.html#cb440-1" tabindex="-1"></a>USair <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;USairpollution.csv&quot;</span>)</span>
+<span id="cb440-2"><a href="week-06-principal-components-analysis.html#cb440-2" tabindex="-1"></a><span class="fu">str</span>(USair)</span></code></pre></div>
 <pre><code>## &#39;data.frame&#39;:    41 obs. of  8 variables:
 ##  $ city   : chr  &quot;Albany&quot; &quot;Albuquerque&quot; &quot;Atlanta&quot; &quot;Baltimore&quot; ...
 ##  $ SO2    : int  46 11 24 47 11 31 110 23 65 26 ...
@@ -1531,8 +1534,8 @@ In this plot, the variables all remain in same space relative to each other. It 
 ##  $ wind   : num  8.8 8.9 9.1 9.6 12.4 6.5 10.4 7.1 10.9 8.6 ...
 ##  $ precip : num  33.36 7.77 48.34 41.31 36.11 ...
 ##  $ predays: int  135 58 115 111 166 148 122 132 155 134 ...</code></pre>
-<div class="sourceCode" id="cb443"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb443-1"><a href="week-06-principal-components-analysis.html#cb443-1" tabindex="-1"></a>air <span class="ot">&lt;-</span> USair <span class="sc">%&gt;%</span> </span>
-<span id="cb443-2"><a href="week-06-principal-components-analysis.html#cb443-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">precip =</span> <span class="fu">max</span>(precip) <span class="sc">-</span> precip) <span class="co"># Reverse scoring precipitation</span></span></code></pre></div>
+<div class="sourceCode" id="cb442"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb442-1"><a href="week-06-principal-components-analysis.html#cb442-1" tabindex="-1"></a>air <span class="ot">&lt;-</span> USair <span class="sc">%&gt;%</span> </span>
+<span id="cb442-2"><a href="week-06-principal-components-analysis.html#cb442-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">precip =</span> <span class="fu">max</span>(precip) <span class="sc">-</span> precip) <span class="co"># Reverse scoring precipitation</span></span></code></pre></div>
 </div>
 </div>
 <div id="another-resource" class="section level2 hasAnchor" number="7.5">

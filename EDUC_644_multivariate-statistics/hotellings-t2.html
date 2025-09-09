@@ -4,23 +4,23 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>2 Hotelling’s \(T^2\) | EDUC 644 Applied Multivariate Statistics</title>
-  <meta name="description" content="Course materials for multivariate statistics" />
+  <title>2 Hotelling’s \(T^2\) | Guidebook for Using R in Applied Multivariate Statistics</title>
+  <meta name="description" content="Course guidebook for multivariate statistics" />
   <meta name="generator" content="bookdown 0.44 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="2 Hotelling’s \(T^2\) | EDUC 644 Applied Multivariate Statistics" />
+  <meta property="og:title" content="2 Hotelling’s \(T^2\) | Guidebook for Using R in Applied Multivariate Statistics" />
   <meta property="og:type" content="book" />
   
-  <meta property="og:description" content="Course materials for multivariate statistics" />
+  <meta property="og:description" content="Course guidebook for multivariate statistics" />
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="2 Hotelling’s \(T^2\) | EDUC 644 Applied Multivariate Statistics" />
+  <meta name="twitter:title" content="2 Hotelling’s \(T^2\) | Guidebook for Using R in Applied Multivariate Statistics" />
   
-  <meta name="twitter:description" content="Course materials for multivariate statistics" />
+  <meta name="twitter:description" content="Course guidebook for multivariate statistics" />
   
 
-<meta name="author" content="George Harrison" />
+<meta name="author" content="George M. Harrison" />
 
 
 
@@ -51,6 +51,10 @@
 <link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
 <link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+<link href="libs/tabwid-1.1.3/tabwid.css" rel="stylesheet" />
+<script src="libs/tabwid-1.1.3/tabwid.js"></script>
 
 
 <style type="text/css">
@@ -121,6 +125,29 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <style type="text/css">
   
   div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
 </style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
@@ -366,7 +393,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">EDUC 644 Applied Multivariate Statistics</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Guidebook for Using R in Applied Multivariate Statistics</a>
           </h1>
         </div>
 
@@ -377,13 +404,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="hotellings-t2" class="section level1 hasAnchor" number="2">
 <h1><span class="header-section-number">2</span> Hotelling’s <span class="math inline">\(T^2\)</span><a href="hotellings-t2.html#hotellings-t2" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>Here is our data set, again. Let’s make the <code>grp</code> variable a factor, representing two different types of treatment, behavior modification and cognitive method. The dependent variables are <code>sa</code> (client satisfaction) and <code>csa</code> (client self acceptance).</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="hotellings-t2.html#cb1-1" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb1-2"><a href="hotellings-t2.html#cb1-2" tabindex="-1"></a>  <span class="at">id  =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">9</span>,</span>
-<span id="cb1-3"><a href="hotellings-t2.html#cb1-3" tabindex="-1"></a>  <span class="at">grp =</span> <span class="fu">factor</span>(<span class="fu">c</span>(<span class="fu">rep</span>(<span class="st">&quot;behavmod&quot;</span>, <span class="dv">3</span>), <span class="fu">rep</span>(<span class="st">&quot;cogmethod&quot;</span>,<span class="dv">6</span>))),</span>
-<span id="cb1-4"><a href="hotellings-t2.html#cb1-4" tabindex="-1"></a>  <span class="at">sa  =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">6</span>, <span class="dv">6</span>, <span class="dv">5</span>, <span class="dv">5</span>, <span class="dv">4</span>),</span>
-<span id="cb1-5"><a href="hotellings-t2.html#cb1-5" tabindex="-1"></a>  <span class="at">csa =</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">7</span>, <span class="dv">2</span>, <span class="dv">6</span>, <span class="dv">8</span>, <span class="dv">8</span>,<span class="dv">10</span>,<span class="dv">10</span>, <span class="dv">6</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="hotellings-t2.html#cb3-1" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb3-2"><a href="hotellings-t2.html#cb3-2" tabindex="-1"></a>  <span class="at">id  =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">9</span>,</span>
+<span id="cb3-3"><a href="hotellings-t2.html#cb3-3" tabindex="-1"></a>  <span class="at">grp =</span> <span class="fu">factor</span>(<span class="fu">c</span>(<span class="fu">rep</span>(<span class="st">&quot;behavmod&quot;</span>, <span class="dv">3</span>), <span class="fu">rep</span>(<span class="st">&quot;cogmethod&quot;</span>,<span class="dv">6</span>))),</span>
+<span id="cb3-4"><a href="hotellings-t2.html#cb3-4" tabindex="-1"></a>  <span class="at">sa  =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">6</span>, <span class="dv">6</span>, <span class="dv">5</span>, <span class="dv">5</span>, <span class="dv">4</span>),</span>
+<span id="cb3-5"><a href="hotellings-t2.html#cb3-5" tabindex="-1"></a>  <span class="at">csa =</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">7</span>, <span class="dv">2</span>, <span class="dv">6</span>, <span class="dv">8</span>, <span class="dv">8</span>,<span class="dv">10</span>,<span class="dv">10</span>, <span class="dv">6</span>))</span></code></pre></div>
 <table>
-<caption><span id="tab:unnamed-chunk-6">Table 2.1: </span>Our data set</caption>
+<caption><span id="tab:unnamed-chunk-23">Table 2.1: </span>Our data set</caption>
 <thead>
 <tr class="header">
 <th align="right">id</th>
@@ -453,12 +480,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">2.1</span> Within-group covariance matrices<a href="hotellings-t2.html#within-group-covariance-matrices" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>In ANOVA, we are often interested in partitioning the variance into the between-groups variance and the within-groups variance. The between-groups variance represents how much the groups differ from each other on the variable of interest whereas the within-group variance, or residual variance, represents how much of the variance our statistical model does not explain.
 In MANOVA, we use covariance matrices for this same approach. In our example, we have two dependent variables, <code>sa</code> and <code>csa</code>, and one independent variable, <code>grp</code>. Let’s obtain the within-group covariance. Basically, we’re splitting the data by group and then obtaining the covariance matrix:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="hotellings-t2.html#cb2-1" tabindex="-1"></a><span class="co"># Separately by group:</span></span>
-<span id="cb2-2"><a href="hotellings-t2.html#cb2-2" tabindex="-1"></a>(cov_W1 <span class="ot">&lt;-</span> <span class="fu">cov</span>(<span class="fu">subset</span>(dat, grp <span class="sc">==</span> <span class="st">&quot;behavmod&quot;</span>)[,<span class="fu">c</span>(<span class="st">&quot;sa&quot;</span>, <span class="st">&quot;csa&quot;</span>)]) )</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="hotellings-t2.html#cb4-1" tabindex="-1"></a><span class="co"># Separately by group:</span></span>
+<span id="cb4-2"><a href="hotellings-t2.html#cb4-2" tabindex="-1"></a>(cov_W1 <span class="ot">&lt;-</span> <span class="fu">cov</span>(<span class="fu">subset</span>(dat, grp <span class="sc">==</span> <span class="st">&quot;behavmod&quot;</span>)[,<span class="fu">c</span>(<span class="st">&quot;sa&quot;</span>, <span class="st">&quot;csa&quot;</span>)]) )</span></code></pre></div>
 <pre><code>##     sa csa
 ## sa   1   2
 ## csa  2   7</code></pre>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="hotellings-t2.html#cb4-1" tabindex="-1"></a>(cov_W2 <span class="ot">&lt;-</span> <span class="fu">cov</span>(<span class="fu">subset</span>(dat, grp <span class="sc">==</span> <span class="st">&quot;cogmethod&quot;</span>)[,<span class="fu">c</span>(<span class="st">&quot;sa&quot;</span>, <span class="st">&quot;csa&quot;</span>)]) )</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="hotellings-t2.html#cb6-1" tabindex="-1"></a>(cov_W2 <span class="ot">&lt;-</span> <span class="fu">cov</span>(<span class="fu">subset</span>(dat, grp <span class="sc">==</span> <span class="st">&quot;cogmethod&quot;</span>)[,<span class="fu">c</span>(<span class="st">&quot;sa&quot;</span>, <span class="st">&quot;csa&quot;</span>)]) )</span></code></pre></div>
 <pre><code>##      sa csa
 ## sa  0.8 0.8
 ## csa 0.8 3.2</code></pre>
@@ -466,14 +493,14 @@ In MANOVA, we use covariance matrices for this same approach. In our example, we
 <div id="sscp-matrices" class="section level2 hasAnchor" number="2.2">
 <h2><span class="header-section-number">2.2</span> SSCP matrices<a href="hotellings-t2.html#sscp-matrices" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>In ANOVA, the sum of the squared deviations (or sums of squares, <em>SS</em>, for short) is often used. The SS is the numerator in the calculation of the variance, <span class="math inline">\(\frac{\Sigma(y_i-\bar{y})^2}{n-1}\)</span>, so if our computer program outputs the variance, we can get the SS by multiplying the variance by the denominator (the degrees of freedom), <span class="math inline">\(SS_y = \frac{\Sigma(y_i-\bar{y})^2}{n-1} (n-1)\)</span></p>
-<p>In MANOVA, we use the matrix version of SS, which is the sum-of-squares-and-cross-products (<strong>SSCP</strong>) matrix. With matrices, we can multiply each element by a single number (also called a <em>scalar</em>) and get a new matrix. Here, we’re multiplying each group’s within-group variance by its degrees of freedom (which is <span class="math inline">\(n-1\)</span> for each group) to get each group’s SSCP matrix.<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a></p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="hotellings-t2.html#cb6-1" tabindex="-1"></a>n_1 <span class="ot">&lt;-</span> <span class="fu">nrow</span>(<span class="fu">subset</span>(dat, grp <span class="sc">==</span> <span class="st">&quot;behavmod&quot;</span>))</span>
-<span id="cb6-2"><a href="hotellings-t2.html#cb6-2" tabindex="-1"></a>n_2 <span class="ot">&lt;-</span> <span class="fu">nrow</span>(<span class="fu">subset</span>(dat, grp <span class="sc">==</span> <span class="st">&quot;cogmethod&quot;</span>))</span>
-<span id="cb6-3"><a href="hotellings-t2.html#cb6-3" tabindex="-1"></a>(SSCP_W1 <span class="ot">&lt;-</span> cov_W1 <span class="sc">*</span> (n_1 <span class="sc">-</span> <span class="dv">1</span>) )  </span></code></pre></div>
+<p>In MANOVA, we use the matrix version of SS, which is the sum-of-squares-and-cross-products (<strong>SSCP</strong>) matrix. With matrices, we can multiply each element by a single number (also called a <em>scalar</em>) and get a new matrix. Here, we’re multiplying each group’s within-group variance by its degrees of freedom (which is <span class="math inline">\(n-1\)</span> for each group) to get each group’s SSCP matrix.<a href="#fn13" class="footnote-ref" id="fnref13"><sup>13</sup></a></p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="hotellings-t2.html#cb8-1" tabindex="-1"></a>n_1 <span class="ot">&lt;-</span> <span class="fu">nrow</span>(<span class="fu">subset</span>(dat, grp <span class="sc">==</span> <span class="st">&quot;behavmod&quot;</span>))</span>
+<span id="cb8-2"><a href="hotellings-t2.html#cb8-2" tabindex="-1"></a>n_2 <span class="ot">&lt;-</span> <span class="fu">nrow</span>(<span class="fu">subset</span>(dat, grp <span class="sc">==</span> <span class="st">&quot;cogmethod&quot;</span>))</span>
+<span id="cb8-3"><a href="hotellings-t2.html#cb8-3" tabindex="-1"></a>(SSCP_W1 <span class="ot">&lt;-</span> cov_W1 <span class="sc">*</span> (n_1 <span class="sc">-</span> <span class="dv">1</span>) )  </span></code></pre></div>
 <pre><code>##     sa csa
 ## sa   2   4
 ## csa  4  14</code></pre>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="hotellings-t2.html#cb8-1" tabindex="-1"></a>(SSCP_W2 <span class="ot">&lt;-</span> cov_W2 <span class="sc">*</span> (n_2 <span class="sc">-</span> <span class="dv">1</span>) )</span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="hotellings-t2.html#cb10-1" tabindex="-1"></a>(SSCP_W2 <span class="ot">&lt;-</span> cov_W2 <span class="sc">*</span> (n_2 <span class="sc">-</span> <span class="dv">1</span>) )</span></code></pre></div>
 <pre><code>##     sa csa
 ## sa   4   4
 ## csa  4  16</code></pre>
@@ -481,12 +508,12 @@ In MANOVA, we use covariance matrices for this same approach. In our example, we
 <p><span class="math display">\[\mathbf{W_2} = \begin{bmatrix} 4.00&amp; 4.00 \\ 4.00&amp;16.00 \\\end{bmatrix}\]</span>
 These are the same within-group matrices reported on p. 148 of Pituch and Stevens (2016).</p>
 <p>The pooled within SSCP is the sum of these two matrices, which is in the SPSS output and labeled as error SSCP:</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="hotellings-t2.html#cb10-1" tabindex="-1"></a>SSCP_W1 <span class="sc">+</span> SSCP_W2</span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="hotellings-t2.html#cb12-1" tabindex="-1"></a>SSCP_W1 <span class="sc">+</span> SSCP_W2</span></code></pre></div>
 <pre><code>##     sa csa
 ## sa   6   8
 ## csa  8  30</code></pre>
 <p>In MANOVA, the error term is the pooled within-Covariance matrix, which is the SSCP divided by the degrees of freedom, as displayed on p. 149 of Pituch and Stevens (2016).</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="hotellings-t2.html#cb12-1" tabindex="-1"></a>(S <span class="ot">&lt;-</span> (SSCP_W1 <span class="sc">+</span> SSCP_W2) <span class="sc">/</span> (n_1 <span class="sc">+</span> n_2 <span class="sc">-</span> <span class="dv">2</span>) )</span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="hotellings-t2.html#cb14-1" tabindex="-1"></a>(S <span class="ot">&lt;-</span> (SSCP_W1 <span class="sc">+</span> SSCP_W2) <span class="sc">/</span> (n_1 <span class="sc">+</span> n_2 <span class="sc">-</span> <span class="dv">2</span>) )</span></code></pre></div>
 <pre><code>##            sa      csa
 ## sa  0.8571429 1.142857
 ## csa 1.1428571 4.285714</code></pre>
@@ -502,69 +529,69 @@ which can be algebraically manipulated to this, after it is squared:
 <span class="math display">\[T^2 = \frac{n_1n_2}{n_1 + n_2}(\mathbf{\bar{y}_1 - \bar{y}_2)^\prime{}}\mathbf{S^{-1}}(\mathbf{\bar{y}_1 - \bar{y}_2)}\]</span></p>
 <p>which is more succinctly presented as
 <span class="math display">\[T^2 = k\mathbf{d}^{\prime}\mathbf{S^{-1}}\mathbf{d}\]</span></p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="hotellings-t2.html#cb14-1" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb14-2"><a href="hotellings-t2.html#cb14-2" tabindex="-1"></a>m_bygrp <span class="ot">&lt;-</span> dat <span class="sc">%&gt;%</span> </span>
-<span id="cb14-3"><a href="hotellings-t2.html#cb14-3" tabindex="-1"></a>  <span class="fu">group_by</span>(grp) <span class="sc">%&gt;%</span> </span>
-<span id="cb14-4"><a href="hotellings-t2.html#cb14-4" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">m_y1 =</span> <span class="fu">mean</span>(sa),</span>
-<span id="cb14-5"><a href="hotellings-t2.html#cb14-5" tabindex="-1"></a>            <span class="at">m_y2 =</span> <span class="fu">mean</span>(csa) ) </span>
-<span id="cb14-6"><a href="hotellings-t2.html#cb14-6" tabindex="-1"></a>m_bygrp </span></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="hotellings-t2.html#cb16-1" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb16-2"><a href="hotellings-t2.html#cb16-2" tabindex="-1"></a>m_bygrp <span class="ot">&lt;-</span> dat <span class="sc">%&gt;%</span> </span>
+<span id="cb16-3"><a href="hotellings-t2.html#cb16-3" tabindex="-1"></a>  <span class="fu">group_by</span>(grp) <span class="sc">%&gt;%</span> </span>
+<span id="cb16-4"><a href="hotellings-t2.html#cb16-4" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">m_y1 =</span> <span class="fu">mean</span>(sa),</span>
+<span id="cb16-5"><a href="hotellings-t2.html#cb16-5" tabindex="-1"></a>            <span class="at">m_y2 =</span> <span class="fu">mean</span>(csa) ) </span>
+<span id="cb16-6"><a href="hotellings-t2.html#cb16-6" tabindex="-1"></a>m_bygrp </span></code></pre></div>
 <pre><code>## # A tibble: 2 × 3
 ##   grp        m_y1  m_y2
 ##   &lt;fct&gt;     &lt;dbl&gt; &lt;dbl&gt;
 ## 1 behavmod      2     4
 ## 2 cogmethod     5     8</code></pre>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="hotellings-t2.html#cb16-1" tabindex="-1"></a><span class="co"># using a fancy function to transpose the table</span></span>
-<span id="cb16-2"><a href="hotellings-t2.html#cb16-2" tabindex="-1"></a><span class="co"># install.packages(&quot;sjmisc&quot;)</span></span>
-<span id="cb16-3"><a href="hotellings-t2.html#cb16-3" tabindex="-1"></a><span class="fu">library</span>(sjmisc)</span>
-<span id="cb16-4"><a href="hotellings-t2.html#cb16-4" tabindex="-1"></a>m_bygrp <span class="ot">&lt;-</span> m_bygrp <span class="sc">%&gt;%</span> <span class="fu">rotate_df</span>(<span class="at">cn =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb16-5"><a href="hotellings-t2.html#cb16-5" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">m_diff =</span> behavmod <span class="sc">-</span> cogmethod)</span></code></pre></div>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="hotellings-t2.html#cb17-1" tabindex="-1"></a>k <span class="ot">&lt;-</span> (n_1<span class="sc">*</span>n_2)<span class="sc">/</span>(n_1 <span class="sc">+</span> n_2)</span>
-<span id="cb17-2"><a href="hotellings-t2.html#cb17-2" tabindex="-1"></a>d <span class="ot">&lt;-</span> m_bygrp<span class="sc">$</span>m_diff</span>
-<span id="cb17-3"><a href="hotellings-t2.html#cb17-3" tabindex="-1"></a>d <span class="co"># vector of mean differences</span></span></code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="hotellings-t2.html#cb18-1" tabindex="-1"></a><span class="co"># using a fancy function to transpose the table</span></span>
+<span id="cb18-2"><a href="hotellings-t2.html#cb18-2" tabindex="-1"></a><span class="co"># install.packages(&quot;sjmisc&quot;)</span></span>
+<span id="cb18-3"><a href="hotellings-t2.html#cb18-3" tabindex="-1"></a><span class="fu">library</span>(sjmisc)</span>
+<span id="cb18-4"><a href="hotellings-t2.html#cb18-4" tabindex="-1"></a>m_bygrp <span class="ot">&lt;-</span> m_bygrp <span class="sc">%&gt;%</span> <span class="fu">rotate_df</span>(<span class="at">cn =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb18-5"><a href="hotellings-t2.html#cb18-5" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">m_diff =</span> behavmod <span class="sc">-</span> cogmethod)</span></code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="hotellings-t2.html#cb19-1" tabindex="-1"></a>k <span class="ot">&lt;-</span> (n_1<span class="sc">*</span>n_2)<span class="sc">/</span>(n_1 <span class="sc">+</span> n_2)</span>
+<span id="cb19-2"><a href="hotellings-t2.html#cb19-2" tabindex="-1"></a>d <span class="ot">&lt;-</span> m_bygrp<span class="sc">$</span>m_diff</span>
+<span id="cb19-3"><a href="hotellings-t2.html#cb19-3" tabindex="-1"></a>d <span class="co"># vector of mean differences</span></span></code></pre></div>
 <pre><code>## [1] -3 -4</code></pre>
 <p>We can rely on software to calculate the inverse of the within-variance matrix:</p>
-<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="hotellings-t2.html#cb19-1" tabindex="-1"></a><span class="fu">solve</span>(S)</span></code></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="hotellings-t2.html#cb21-1" tabindex="-1"></a><span class="fu">solve</span>(S)</span></code></pre></div>
 <pre><code>##             sa        csa
 ## sa   1.8103448 -0.4827586
 ## csa -0.4827586  0.3620690</code></pre>
 <p><span class="math display">\[\mathbf{S^{-1}} = \begin{bmatrix} 1.81&amp;-0.48 \\-0.48&amp; 0.36 \\\end{bmatrix}\]</span></p>
-<p>Here is our calculation of Hotelling’s <span class="math inline">\(T^2\)</span> test statistic:<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a></p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="hotellings-t2.html#cb21-1" tabindex="-1"></a>T_sq <span class="ot">&lt;-</span> k <span class="sc">*</span> <span class="fu">t</span>(d) <span class="sc">%*%</span> <span class="fu">solve</span>(S) <span class="sc">%*%</span> d</span>
-<span id="cb21-2"><a href="hotellings-t2.html#cb21-2" tabindex="-1"></a>T_sq</span></code></pre></div>
+<p>Here is our calculation of Hotelling’s <span class="math inline">\(T^2\)</span> test statistic:<a href="#fn14" class="footnote-ref" id="fnref14"><sup>14</sup></a></p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="hotellings-t2.html#cb23-1" tabindex="-1"></a>T_sq <span class="ot">&lt;-</span> k <span class="sc">*</span> <span class="fu">t</span>(d) <span class="sc">%*%</span> <span class="fu">solve</span>(S) <span class="sc">%*%</span> d</span>
+<span id="cb23-2"><a href="hotellings-t2.html#cb23-2" tabindex="-1"></a>T_sq</span></code></pre></div>
 <pre><code>##      [,1]
 ## [1,]   21</code></pre>
 <p>We can use Hotelling’s formula for the exact <em>F</em> from a <span class="math inline">\(T^2\)</span> to estimate the F test statistic, which we can subsequently test against our critical <em>F</em> with <span class="math inline">\(df_1 = p\)</span> (i.e., the number of dependent variables), and <span class="math inline">\(df_2 = N - p - 1\)</span>.
 <span class="math display">\[F = \frac{n_1 + n_2 - p - 1}{(n_1 + n_2 - 2)p}T^2 = 21\]</span></p>
-<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="hotellings-t2.html#cb23-1" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="dv">2</span> <span class="co"># number of DVs</span></span>
-<span id="cb23-2"><a href="hotellings-t2.html#cb23-2" tabindex="-1"></a>( F_exact <span class="ot">&lt;-</span> (n_1 <span class="sc">+</span> n_2 <span class="sc">-</span> p <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">/</span> ((n_1 <span class="sc">+</span> n_2 <span class="sc">-</span> <span class="dv">2</span>)<span class="sc">*</span>p) <span class="sc">*</span> T_sq )</span></code></pre></div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="hotellings-t2.html#cb25-1" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="dv">2</span> <span class="co"># number of DVs</span></span>
+<span id="cb25-2"><a href="hotellings-t2.html#cb25-2" tabindex="-1"></a>( F_exact <span class="ot">&lt;-</span> (n_1 <span class="sc">+</span> n_2 <span class="sc">-</span> p <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">/</span> ((n_1 <span class="sc">+</span> n_2 <span class="sc">-</span> <span class="dv">2</span>)<span class="sc">*</span>p) <span class="sc">*</span> T_sq )</span></code></pre></div>
 <pre><code>##      [,1]
 ## [1,]    9</code></pre>
-<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="hotellings-t2.html#cb25-1" tabindex="-1"></a>(F_crit <span class="ot">&lt;-</span> <span class="fu">qf</span>(<span class="at">p =</span> .<span class="dv">05</span>, <span class="co"># alpha for critical value of F</span></span>
-<span id="cb25-2"><a href="hotellings-t2.html#cb25-2" tabindex="-1"></a>              <span class="at">df1 =</span> p, </span>
-<span id="cb25-3"><a href="hotellings-t2.html#cb25-3" tabindex="-1"></a>              <span class="at">df2 =</span> (n_1 <span class="sc">+</span> n_2 <span class="sc">-</span> p <span class="sc">-</span> <span class="dv">1</span>), </span>
-<span id="cb25-4"><a href="hotellings-t2.html#cb25-4" tabindex="-1"></a>              <span class="at">lower.tail =</span> <span class="cn">FALSE</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="hotellings-t2.html#cb27-1" tabindex="-1"></a>(F_crit <span class="ot">&lt;-</span> <span class="fu">qf</span>(<span class="at">p =</span> .<span class="dv">05</span>, <span class="co"># alpha for critical value of F</span></span>
+<span id="cb27-2"><a href="hotellings-t2.html#cb27-2" tabindex="-1"></a>              <span class="at">df1 =</span> p, </span>
+<span id="cb27-3"><a href="hotellings-t2.html#cb27-3" tabindex="-1"></a>              <span class="at">df2 =</span> (n_1 <span class="sc">+</span> n_2 <span class="sc">-</span> p <span class="sc">-</span> <span class="dv">1</span>), </span>
+<span id="cb27-4"><a href="hotellings-t2.html#cb27-4" tabindex="-1"></a>              <span class="at">lower.tail =</span> <span class="cn">FALSE</span>))</span></code></pre></div>
 <pre><code>## [1] 5.143253</code></pre>
-<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="hotellings-t2.html#cb27-1" tabindex="-1"></a>F_exact <span class="sc">&gt;</span> F_crit <span class="co"># If TRUE, then we can reject null hypothesis at alpha.</span></span></code></pre></div>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="hotellings-t2.html#cb29-1" tabindex="-1"></a>F_exact <span class="sc">&gt;</span> F_crit <span class="co"># If TRUE, then we can reject null hypothesis at alpha.</span></span></code></pre></div>
 <pre><code>##      [,1]
 ## [1,] TRUE</code></pre>
 </div>
 <div id="conducting-the-test-using-functions" class="section level2 hasAnchor" number="2.3">
 <h2><span class="header-section-number">2.3</span> Conducting the Test using Functions<a href="hotellings-t2.html#conducting-the-test-using-functions" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>To avoid making coding mistakes with all of those calculations, we can use functions to conduct the tests. Here is one specifically for Hotelling’s <span class="math inline">\(T^2\)</span> from the Hotelling package and another using the <code>manova()</code> function in Base R.<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a></p>
-<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="hotellings-t2.html#cb29-1" tabindex="-1"></a><span class="co"># install.packages(&quot;Hotelling&quot;)</span></span>
-<span id="cb29-2"><a href="hotellings-t2.html#cb29-2" tabindex="-1"></a><span class="fu">library</span>(Hotelling)</span>
-<span id="cb29-3"><a href="hotellings-t2.html#cb29-3" tabindex="-1"></a><span class="co"># saving the dependent variable data as a matrix</span></span>
-<span id="cb29-4"><a href="hotellings-t2.html#cb29-4" tabindex="-1"></a>dvs <span class="ot">&lt;-</span> <span class="fu">as.matrix</span>(dat[ , <span class="fu">c</span>(<span class="st">&quot;sa&quot;</span>,<span class="st">&quot;csa&quot;</span>)] ) </span>
-<span id="cb29-5"><a href="hotellings-t2.html#cb29-5" tabindex="-1"></a>hot_mod <span class="ot">&lt;-</span> <span class="fu">hotelling.test</span>(<span class="at">x =</span> dvs[<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>, ],</span>
-<span id="cb29-6"><a href="hotellings-t2.html#cb29-6" tabindex="-1"></a>                          <span class="at">y =</span> dvs[<span class="dv">4</span><span class="sc">:</span><span class="dv">9</span>, ] )</span>
-<span id="cb29-7"><a href="hotellings-t2.html#cb29-7" tabindex="-1"></a>hot_mod</span></code></pre></div>
+<p>To avoid making coding mistakes with all of those calculations, we can use functions to conduct the tests. Here is one specifically for Hotelling’s <span class="math inline">\(T^2\)</span> from the Hotelling package and another using the <code>manova()</code> function in Base R.<a href="#fn15" class="footnote-ref" id="fnref15"><sup>15</sup></a></p>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="hotellings-t2.html#cb31-1" tabindex="-1"></a><span class="co"># install.packages(&quot;Hotelling&quot;)</span></span>
+<span id="cb31-2"><a href="hotellings-t2.html#cb31-2" tabindex="-1"></a><span class="fu">library</span>(Hotelling)</span>
+<span id="cb31-3"><a href="hotellings-t2.html#cb31-3" tabindex="-1"></a><span class="co"># saving the dependent variable data as a matrix</span></span>
+<span id="cb31-4"><a href="hotellings-t2.html#cb31-4" tabindex="-1"></a>dvs <span class="ot">&lt;-</span> <span class="fu">as.matrix</span>(dat[ , <span class="fu">c</span>(<span class="st">&quot;sa&quot;</span>,<span class="st">&quot;csa&quot;</span>)] ) </span>
+<span id="cb31-5"><a href="hotellings-t2.html#cb31-5" tabindex="-1"></a>hot_mod <span class="ot">&lt;-</span> <span class="fu">hotelling.test</span>(<span class="at">x =</span> dvs[<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>, ],</span>
+<span id="cb31-6"><a href="hotellings-t2.html#cb31-6" tabindex="-1"></a>                          <span class="at">y =</span> dvs[<span class="dv">4</span><span class="sc">:</span><span class="dv">9</span>, ] )</span>
+<span id="cb31-7"><a href="hotellings-t2.html#cb31-7" tabindex="-1"></a>hot_mod</span></code></pre></div>
 <pre><code>## Test stat:  21 
 ## Numerator df:  2 
 ## Denominator df:  6 
 ## P-value:  0.01562</code></pre>
-<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="hotellings-t2.html#cb31-1" tabindex="-1"></a>dvs <span class="ot">&lt;-</span> <span class="fu">as.matrix</span>(dat[ , <span class="fu">c</span>(<span class="st">&quot;sa&quot;</span>,<span class="st">&quot;csa&quot;</span>)] )</span>
-<span id="cb31-2"><a href="hotellings-t2.html#cb31-2" tabindex="-1"></a>man_mod <span class="ot">&lt;-</span> <span class="fu">manova</span>(dvs <span class="sc">~</span> grp, <span class="at">data =</span> dat)</span>
-<span id="cb31-3"><a href="hotellings-t2.html#cb31-3" tabindex="-1"></a><span class="fu">summary</span>(man_mod, <span class="at">test =</span> <span class="st">&quot;Hotelling&quot;</span> )</span></code></pre></div>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="hotellings-t2.html#cb33-1" tabindex="-1"></a>dvs <span class="ot">&lt;-</span> <span class="fu">as.matrix</span>(dat[ , <span class="fu">c</span>(<span class="st">&quot;sa&quot;</span>,<span class="st">&quot;csa&quot;</span>)] )</span>
+<span id="cb33-2"><a href="hotellings-t2.html#cb33-2" tabindex="-1"></a>man_mod <span class="ot">&lt;-</span> <span class="fu">manova</span>(dvs <span class="sc">~</span> grp, <span class="at">data =</span> dat)</span>
+<span id="cb33-3"><a href="hotellings-t2.html#cb33-3" tabindex="-1"></a><span class="fu">summary</span>(man_mod, <span class="at">test =</span> <span class="st">&quot;Hotelling&quot;</span> )</span></code></pre></div>
 <pre><code>##           Df Hotelling-Lawley approx F num Df den Df  Pr(&gt;F)  
 ## grp        1                3        9      2      6 0.01563 *
 ## Residuals  7                                                  
@@ -576,10 +603,10 @@ which can be algebraically manipulated to this, after it is squared:
 </div>
 <div class="footnotes">
 <hr />
-<ol start="1">
-<li id="fn1"><p>In R, the <code>nrow()</code> function can be used to count the number of observations in the data frame.<a href="hotellings-t2.html#fnref1" class="footnote-back">↩︎</a></p></li>
-<li id="fn2"><p>In R, we use <code>%*%</code> for matrix multiplication.<a href="hotellings-t2.html#fnref2" class="footnote-back">↩︎</a></p></li>
-<li id="fn3"><p>The <code>hotelling.test()</code> function has a <code>var.equal =</code> argument, which is handy if we do not meet the assumption of equal variances and we want to use robust SE for a more cautious test of statistical significance (set <code>var.equal = FALSE</code>). <a href="hotellings-t2.html#fnref3" class="footnote-back">↩︎</a></p></li>
+<ol start="13">
+<li id="fn13"><p>In R, the <code>nrow()</code> function can be used to count the number of observations in the data frame.<a href="hotellings-t2.html#fnref13" class="footnote-back">↩︎</a></p></li>
+<li id="fn14"><p>In R, we use <code>%*%</code> for matrix multiplication.<a href="hotellings-t2.html#fnref14" class="footnote-back">↩︎</a></p></li>
+<li id="fn15"><p>The <code>hotelling.test()</code> function has a <code>var.equal =</code> argument, which is handy if we do not meet the assumption of equal variances and we want to use robust SE for a more cautious test of statistical significance (set <code>var.equal = FALSE</code>). <a href="hotellings-t2.html#fnref15" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
             </section>
