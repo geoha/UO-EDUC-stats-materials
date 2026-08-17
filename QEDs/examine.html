@@ -1,0 +1,1230 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Part 3 Examining and Summarizing Data | Using R for Quasi-Experimental Designs</title>
+  <meta name="description" content="QEDs in R" />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Part 3 Examining and Summarizing Data | Using R for Quasi-Experimental Designs" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="QEDs in R" />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Part 3 Examining and Summarizing Data | Using R for Quasi-Experimental Designs" />
+  
+  <meta name="twitter:description" content="QEDs in R" />
+  
+
+<meta name="author" content="George M. Harrison  University of Hawai‘i at Mānoa, College of Education" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="basics.html"/>
+<link rel="next" href="rct.html"/>
+<script src="libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+<link href="libs/bsTable-3.3.7/bootstrapTable.min.css" rel="stylesheet" />
+<script src="libs/bsTable-3.3.7/bootstrapTable.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 1em;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#what-is-r"><i class="fa fa-check"></i><b>1.1</b> What is R</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="basics.html"><a href="basics.html"><i class="fa fa-check"></i><b>2</b> Some Fundamentals of Coding in R</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="basics.html"><a href="basics.html#objectives"><i class="fa fa-check"></i><b>2.1</b> Objectives</a></li>
+<li class="chapter" data-level="2.2" data-path="basics.html"><a href="basics.html#creating-an-r-script-file"><i class="fa fa-check"></i><b>2.2</b> Creating an R Script File</a></li>
+<li class="chapter" data-level="2.3" data-path="basics.html"><a href="basics.html#creating-objects-by-assigning-information-to-them"><i class="fa fa-check"></i><b>2.3</b> Creating objects by assigning information to them</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="basics.html"><a href="basics.html#assigning-character-strings-to-an-object"><i class="fa fa-check"></i><b>2.3.1</b> Assigning Character Strings to an Object</a></li>
+<li class="chapter" data-level="2.3.2" data-path="basics.html"><a href="basics.html#assigning-numeric-elements-to-an-object"><i class="fa fa-check"></i><b>2.3.2</b> Assigning Numeric Elements to an Object</a></li>
+<li class="chapter" data-level="2.3.3" data-path="basics.html"><a href="basics.html#creating-vectors"><i class="fa fa-check"></i><b>2.3.3</b> Creating Vectors</a></li>
+<li class="chapter" data-level="2.3.4" data-path="basics.html"><a href="basics.html#performing-operations-on-vectors"><i class="fa fa-check"></i><b>2.3.4</b> Performing Operations on Vectors</a></li>
+<li class="chapter" data-level="2.3.5" data-path="basics.html"><a href="basics.html#using-functions"><i class="fa fa-check"></i><b>2.3.5</b> Using Functions</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="basics.html"><a href="basics.html#create-a-data-frame-from-code"><i class="fa fa-check"></i><b>2.4</b> Create a data frame from code</a></li>
+<li class="chapter" data-level="2.5" data-path="basics.html"><a href="basics.html#working-with-matrices"><i class="fa fa-check"></i><b>2.5</b> Working with Matrices</a></li>
+<li class="chapter" data-level="2.6" data-path="basics.html"><a href="basics.html#dffromcsv"><i class="fa fa-check"></i><b>2.6</b> Creating a Data Frame from a CSV File</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="examine.html"><a href="examine.html"><i class="fa fa-check"></i><b>3</b> Examining and Summarizing Data</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="examine.html"><a href="examine.html#objectives-1"><i class="fa fa-check"></i><b>3.1</b> Objectives</a></li>
+<li class="chapter" data-level="3.2" data-path="examine.html"><a href="examine.html#examining-the-data"><i class="fa fa-check"></i><b>3.2</b> Examining the Data</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="examine.html"><a href="examine.html#the-data-frame"><i class="fa fa-check"></i><b>3.2.1</b> The Data Frame</a></li>
+<li class="chapter" data-level="3.2.2" data-path="examine.html"><a href="examine.html#subsetting-by-rows"><i class="fa fa-check"></i><b>3.2.2</b> Subsetting by Rows</a></li>
+<li class="chapter" data-level="3.2.3" data-path="examine.html"><a href="examine.html#subsetting-by-columns"><i class="fa fa-check"></i><b>3.2.3</b> Subsetting by Columns</a></li>
+<li class="chapter" data-level="3.2.4" data-path="examine.html"><a href="examine.html#descriptive-statistics"><i class="fa fa-check"></i><b>3.2.4</b> Descriptive Statistics</a></li>
+<li class="chapter" data-level="3.2.5" data-path="examine.html"><a href="examine.html#creating-a-custom-function-to-estimate-the-confidence-interval-of-the-mean"><i class="fa fa-check"></i><b>3.2.5</b> Creating a Custom Function to Estimate the Confidence Interval of the Mean</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="examine.html"><a href="examine.html#summarizing-data-by-group-and-an-introduction-to-lists"><i class="fa fa-check"></i><b>3.3</b> Summarizing Data by Group (and an introduction to lists)</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="examine.html"><a href="examine.html#calculating-standardized-mean-difference-and-variance-ratio-of-a-covariate"><i class="fa fa-check"></i><b>3.3.1</b> Calculating Standardized Mean Difference and Variance Ratio of a Covariate</a></li>
+<li class="chapter" data-level="3.3.2" data-path="examine.html"><a href="examine.html#creating-a-factor-variable-from-a-numeric-variable"><i class="fa fa-check"></i><b>3.3.2</b> Creating a Factor Variable from a Numeric Variable</a></li>
+<li class="chapter" data-level="3.3.3" data-path="examine.html"><a href="examine.html#aggregate_explain"><i class="fa fa-check"></i><b>3.3.3</b> The <code>aggregate()</code> function</a></li>
+<li class="chapter" data-level="3.3.4" data-path="examine.html"><a href="examine.html#plotting-data-by-group"><i class="fa fa-check"></i><b>3.3.4</b> Plotting data by group</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="examine.html"><a href="examine.html#extra-stuff"><i class="fa fa-check"></i><b>3.4</b> Extra Stuff</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="examine.html"><a href="examine.html#using-ggplot"><i class="fa fa-check"></i><b>3.4.1</b> Using ggplot</a></li>
+<li class="chapter" data-level="3.4.2" data-path="examine.html"><a href="examine.html#subsetting-data-and-separately-analyzing-each-group"><i class="fa fa-check"></i><b>3.4.2</b> Subsetting data and separately analyzing each group</a></li>
+<li class="chapter" data-level="3.4.3" data-path="examine.html"><a href="examine.html#the-tidyverse-approach-to-by-group-analyses"><i class="fa fa-check"></i><b>3.4.3</b> The Tidyverse Approach to By-Group Analyses</a></li>
+<li class="chapter" data-level="3.4.4" data-path="examine.html"><a href="examine.html#plotting-summary-statistics"><i class="fa fa-check"></i><b>3.4.4</b> Plotting summary statistics</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="rct.html"><a href="rct.html"><i class="fa fa-check"></i><b>4</b> Examples with Randomized Experiments</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="rct.html"><a href="rct.html#objectives-2"><i class="fa fa-check"></i><b>4.1</b> Objectives</a></li>
+<li class="chapter" data-level="4.2" data-path="rct.html"><a href="rct.html#preparation"><i class="fa fa-check"></i><b>4.2</b> Preparation</a></li>
+<li class="chapter" data-level="4.3" data-path="rct.html"><a href="rct.html#analysis-of-linear-models"><i class="fa fa-check"></i><b>4.3</b> Analysis of Linear Models</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="rct.html"><a href="rct.html#independent-samples-t-test-approach"><i class="fa fa-check"></i><b>4.3.1</b> Independent samples <em>t</em>-test approach</a></li>
+<li class="chapter" data-level="4.3.2" data-path="rct.html"><a href="rct.html#simple-linear-regression"><i class="fa fa-check"></i><b>4.3.2</b> Simple Linear Regression</a></li>
+<li class="chapter" data-level="4.3.3" data-path="rct.html"><a href="rct.html#multiple-linear-regression"><i class="fa fa-check"></i><b>4.3.3</b> Multiple Linear Regression</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="rct.html"><a href="rct.html#bootstrapping-to-get-confidence-intervals"><i class="fa fa-check"></i><b>4.4</b> Bootstrapping to Get Confidence Intervals</a>
+<ul>
+<li class="chapter" data-level="4.4.1" data-path="rct.html"><a href="rct.html#the-value-of-bootstrapping"><i class="fa fa-check"></i><b>4.4.1</b> The value of bootstrapping</a></li>
+<li class="chapter" data-level="4.4.2" data-path="rct.html"><a href="rct.html#another-way-to-bootstrap-the-standard-error-of-mean-differences"><i class="fa fa-check"></i><b>4.4.2</b> Another way to bootstrap the standard error of mean differences</a></li>
+<li class="chapter" data-level="4.4.3" data-path="rct.html"><a href="rct.html#simple-regression"><i class="fa fa-check"></i><b>4.4.3</b> Simple regression</a></li>
+<li class="chapter" data-level="4.4.4" data-path="rct.html"><a href="rct.html#multiple-regression"><i class="fa fa-check"></i><b>4.4.4</b> Multiple regression</a></li>
+<li class="chapter" data-level="4.4.5" data-path="rct.html"><a href="rct.html#summary-on-bootstrapping"><i class="fa fa-check"></i><b>4.4.5</b> Summary on Bootstrapping</a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="rct.html"><a href="rct.html#estimating-the-average-treatment-on-the-treated-att"><i class="fa fa-check"></i><b>4.5</b> Estimating the Average Treatment on the Treated (ATT)</a>
+<ul>
+<li class="chapter" data-level="4.5.1" data-path="rct.html"><a href="rct.html#artificially-introducing-no-shows"><i class="fa fa-check"></i><b>4.5.1</b> Artificially Introducing No-shows</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="DID.html"><a href="DID.html"><i class="fa fa-check"></i><b>5</b> Difference in Differences</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="DID.html"><a href="DID.html#objectives-3"><i class="fa fa-check"></i><b>5.1</b> Objectives</a></li>
+<li class="chapter" data-level="5.2" data-path="DID.html"><a href="DID.html#import-and-prepare-the-data"><i class="fa fa-check"></i><b>5.2</b> Import and Prepare the Data</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="DID.html"><a href="DID.html#prepare-the-data"><i class="fa fa-check"></i><b>5.2.1</b> Prepare the data</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="DID.html"><a href="DID.html#using-the-survey-package"><i class="fa fa-check"></i><b>5.3</b> Using the survey package</a></li>
+<li class="chapter" data-level="5.4" data-path="DID.html"><a href="DID.html#direct-estimates-as-shown-in-table-8.1-on-page-143"><i class="fa fa-check"></i><b>5.4</b> Direct estimates, as shown in Table 8.1 on page 143</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="DID.html"><a href="DID.html#first-difference-direct-estimate-in-panel-a."><i class="fa fa-check"></i><b>5.4.1</b> First difference, direct estimate in Panel A.</a></li>
+<li class="chapter" data-level="5.4.2" data-path="DID.html"><a href="DID.html#estimate-from-the-linear-probability-model-ols-estimate-shown-in-table-8.1-on-page-143-panel-b."><i class="fa fa-check"></i><b>5.4.2</b> Estimate from the linear-probability model (OLS) estimate shown in Table 8.1 on page 143, Panel B.</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="DID.html"><a href="DID.html#difference-in-differences-simple-approach-table-8.2-p.-157"><i class="fa fa-check"></i><b>5.5</b> Difference in differences, simple approach (Table 8.2, p. 157)</a></li>
+<li class="chapter" data-level="5.6" data-path="DID.html"><a href="DID.html#difference-in-differences-using-regression"><i class="fa fa-check"></i><b>5.6</b> Difference in differences using regression</a>
+<ul>
+<li class="chapter" data-level="5.6.1" data-path="DID.html"><a href="DID.html#compare-the-results-from-the-four-different-strategies"><i class="fa fa-check"></i><b>5.6.1</b> Compare the results from the four different strategies</a></li>
+</ul></li>
+<li class="chapter" data-level="5.7" data-path="DID.html"><a href="DID.html#summary-of-the-did-model-strategy"><i class="fa fa-check"></i><b>5.7</b> Summary of the DID model strategy</a></li>
+<li class="chapter" data-level="5.8" data-path="DID.html"><a href="DID.html#accounting-for-the-binary-y-variable"><i class="fa fa-check"></i><b>5.8</b> Accounting for the binary Y variable</a></li>
+<li class="chapter" data-level="5.9" data-path="DID.html"><a href="DID.html#plotting-the-difference-in-differences"><i class="fa fa-check"></i><b>5.9</b> Plotting the difference in differences</a>
+<ul>
+<li class="chapter" data-level="5.9.1" data-path="DID.html"><a href="DID.html#plotfrompred"><i class="fa fa-check"></i><b>5.9.1</b> Plotting from the predicted values of the model</a></li>
+<li class="chapter" data-level="5.9.2" data-path="DID.html"><a href="DID.html#doing-it-in-ggplot2"><i class="fa fa-check"></i><b>5.9.2</b> Doing it in ggplot2</a></li>
+<li class="chapter" data-level="5.9.3" data-path="DID.html"><a href="DID.html#seeing-where-the-regression-estimate-is-in-the-plot"><i class="fa fa-check"></i><b>5.9.3</b> Seeing where the regression estimate is in the plot</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="RD1.html"><a href="RD1.html"><i class="fa fa-check"></i><b>6</b> Regression Discontinuity, Part 1</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="RD1.html"><a href="RD1.html#objectives-4"><i class="fa fa-check"></i><b>6.1</b> Objectives</a></li>
+<li class="chapter" data-level="6.2" data-path="RD1.html"><a href="RD1.html#import-and-prepare-the-data-1"><i class="fa fa-check"></i><b>6.2</b> Import and Prepare the Data</a></li>
+<li class="chapter" data-level="6.3" data-path="RD1.html"><a href="RD1.html#different-difference-in-differences"><i class="fa fa-check"></i><b>6.3</b> Different Difference in Differences</a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="RD1.html"><a href="RD1.html#our-first-difference"><i class="fa fa-check"></i><b>6.3.1</b> Our first difference</a></li>
+<li class="chapter" data-level="6.3.2" data-path="RD1.html"><a href="RD1.html#a-plausible-second-difference"><i class="fa fa-check"></i><b>6.3.2</b> A plausible second difference</a></li>
+<li class="chapter" data-level="6.3.3" data-path="RD1.html"><a href="RD1.html#another-plausible-second-difference"><i class="fa fa-check"></i><b>6.3.3</b> Another plausible second difference</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="RD1.html"><a href="RD1.html#mread3640"><i class="fa fa-check"></i><b>6.4</b> Broadening the bandwidth</a></li>
+<li class="chapter" data-level="6.5" data-path="RD1.html"><a href="RD1.html#summary-up-to-this-point"><i class="fa fa-check"></i><b>6.5</b> Summary up to this point</a></li>
+<li class="chapter" data-level="6.6" data-path="RD1.html"><a href="RD1.html#examining-if-the-results-are-consistent-with-different-bandwidths"><i class="fa fa-check"></i><b>6.6</b> Examining if the results are consistent with different bandwidths</a></li>
+<li class="chapter" data-level="6.7" data-path="RD1.html"><a href="RD1.html#functional-form-in-rdd"><i class="fa fa-check"></i><b>6.7</b> Functional Form in RDD</a>
+<ul>
+<li class="chapter" data-level="6.7.1" data-path="RD1.html"><a href="RD1.html#plotting-the-two-sides-allowing-different-slopes"><i class="fa fa-check"></i><b>6.7.1</b> Plotting the two sides, allowing different slopes</a></li>
+<li class="chapter" data-level="6.7.2" data-path="RD1.html"><a href="RD1.html#broader-analytic-windows"><i class="fa fa-check"></i><b>6.7.2</b> Broader analytic windows</a></li>
+</ul></li>
+<li class="chapter" data-level="6.8" data-path="RD1.html"><a href="RD1.html#using-the-rddtools-package"><i class="fa fa-check"></i><b>6.8</b> Using the rddtools Package</a>
+<ul>
+<li class="chapter" data-level="6.8.1" data-path="RD1.html"><a href="RD1.html#examining-the-bandwidth-identified-by-the-package"><i class="fa fa-check"></i><b>6.8.1</b> Examining the bandwidth identified by the package</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="RD2.html"><a href="RD2.html"><i class="fa fa-check"></i><b>7</b> Regression Discontinuity, Part 2</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="RD2.html"><a href="RD2.html#here-are-the-steps-we-will-take"><i class="fa fa-check"></i><b>7.1</b> Here are the steps we will take:</a></li>
+<li class="chapter" data-level="7.2" data-path="RD2.html"><a href="RD2.html#the-data"><i class="fa fa-check"></i><b>7.2</b> The Data</a></li>
+<li class="chapter" data-level="7.3" data-path="RD2.html"><a href="RD2.html#examine-the-data-the-assignment-rule-adherence-and-compliance"><i class="fa fa-check"></i><b>7.3</b> Examine the Data, the Assignment-rule Adherence, and Compliance</a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="RD2.html"><a href="RD2.html#assignment-rule-adherence"><i class="fa fa-check"></i><b>7.3.1</b> Assignment-rule adherence</a></li>
+<li class="chapter" data-level="7.3.2" data-path="RD2.html"><a href="RD2.html#compliance"><i class="fa fa-check"></i><b>7.3.2</b> Compliance</a></li>
+<li class="chapter" data-level="7.3.3" data-path="RD2.html"><a href="RD2.html#create-bins-of-the-assignment-variable"><i class="fa fa-check"></i><b>7.3.3</b> Create Bins of the Assignment Variable</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="RD2.html"><a href="RD2.html#examining-assumptions"><i class="fa fa-check"></i><b>7.4</b> Examining Assumptions</a>
+<ul>
+<li class="chapter" data-level="7.4.1" data-path="RD2.html"><a href="RD2.html#assumption-1the-continuity-assumption"><i class="fa fa-check"></i><b>7.4.1</b> Assumption 1—the continuity assumption</a></li>
+<li class="chapter" data-level="7.4.2" data-path="RD2.html"><a href="RD2.html#assumption-2discontinuities-in-the-covariates"><i class="fa fa-check"></i><b>7.4.2</b> Assumption 2—Discontinuities in the covariates</a></li>
+<li class="chapter" data-level="7.4.3" data-path="RD2.html"><a href="RD2.html#assumption-3checking-for-pseudo-cut-offs-in-the-outcome"><i class="fa fa-check"></i><b>7.4.3</b> Assumption 3—Checking for pseudo-cut-offs in the outcome</a></li>
+</ul></li>
+<li class="chapter" data-level="7.5" data-path="RD2.html"><a href="RD2.html#examining-the-parametric-functional-form"><i class="fa fa-check"></i><b>7.5</b> Examining the Parametric Functional Form</a>
+<ul>
+<li class="chapter" data-level="7.5.1" data-path="RD2.html"><a href="RD2.html#restricting-bandwidth"><i class="fa fa-check"></i><b>7.5.1</b> Restricting bandwidth</a></li>
+</ul></li>
+<li class="chapter" data-level="7.6" data-path="RD2.html"><a href="RD2.html#restband"><i class="fa fa-check"></i><b>7.6</b> Estimating the Effect</a>
+<ul>
+<li class="chapter" data-level="7.6.1" data-path="RD2.html"><a href="RD2.html#parametric-model"><i class="fa fa-check"></i><b>7.6.1</b> Parametric Model</a></li>
+<li class="chapter" data-level="7.6.2" data-path="RD2.html"><a href="RD2.html#non-parametric-model-local-linear-estimation"><i class="fa fa-check"></i><b>7.6.2</b> Non-parametric Model: Local Linear Estimation</a></li>
+<li class="chapter" data-level="7.6.3" data-path="RD2.html"><a href="RD2.html#including-covariates"><i class="fa fa-check"></i><b>7.6.3</b> Including covariates</a></li>
+</ul></li>
+<li class="chapter" data-level="7.7" data-path="RD2.html"><a href="RD2.html#sensitivity-analysis"><i class="fa fa-check"></i><b>7.7</b> Sensitivity Analysis</a></li>
+<li class="chapter" data-level="7.8" data-path="RD2.html"><a href="RD2.html#accounting-for-fuzziness"><i class="fa fa-check"></i><b>7.8</b> Accounting for Fuzziness</a>
+<ul>
+<li class="chapter" data-level="7.8.1" data-path="RD2.html"><a href="RD2.html#fuzzy-non-parametric-model"><i class="fa fa-check"></i><b>7.8.1</b> Fuzzy non-parametric model</a></li>
+<li class="chapter" data-level="7.8.2" data-path="RD2.html"><a href="RD2.html#summary-about-fuzzy-rdd"><i class="fa fa-check"></i><b>7.8.2</b> Summary about fuzzy RDD</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="IVE.html"><a href="IVE.html"><i class="fa fa-check"></i><b>8</b> Instrumental Variable Estimation</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="IVE.html"><a href="IVE.html#objectives-5"><i class="fa fa-check"></i><b>8.1</b> Objectives</a></li>
+<li class="chapter" data-level="8.2" data-path="IVE.html"><a href="IVE.html#preparation-1"><i class="fa fa-check"></i><b>8.2</b> Preparation</a>
+<ul>
+<li class="chapter" data-level="8.2.1" data-path="IVE.html"><a href="IVE.html#examining-the-data-1"><i class="fa fa-check"></i><b>8.2.1</b> Examining the data</a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="IVE.html"><a href="IVE.html#moments-reported-in-table-10.2-p.-219"><i class="fa fa-check"></i><b>8.3</b> Moments reported in Table 10.2 (p. 219)</a></li>
+<li class="chapter" data-level="8.4" data-path="IVE.html"><a href="IVE.html#two-stage-least-squares-1"><i class="fa fa-check"></i><b>8.4</b> Two-stage Least Squares</a>
+<ul>
+<li class="chapter" data-level="8.4.1" data-path="IVE.html"><a href="IVE.html#first-stage"><i class="fa fa-check"></i><b>8.4.1</b> First stage</a></li>
+<li class="chapter" data-level="8.4.2" data-path="IVE.html"><a href="IVE.html#second-stage"><i class="fa fa-check"></i><b>8.4.2</b> Second stage</a></li>
+<li class="chapter" data-level="8.4.3" data-path="IVE.html"><a href="IVE.html#obtaining-the-correct-standard-errors"><i class="fa fa-check"></i><b>8.4.3</b> Obtaining the correct standard errors</a></li>
+<li class="chapter" data-level="8.4.4" data-path="IVE.html"><a href="IVE.html#letting-the-software-do-the-work"><i class="fa fa-check"></i><b>8.4.4</b> Letting the software do the work</a></li>
+<li class="chapter" data-level="8.4.5" data-path="IVE.html"><a href="IVE.html#noticing-the-covariance-between-errors"><i class="fa fa-check"></i><b>8.4.5</b> Noticing the covariance between errors</a></li>
+</ul></li>
+<li class="chapter" data-level="8.5" data-path="IVE.html"><a href="IVE.html#two-stage-least-squares-with-covariates"><i class="fa fa-check"></i><b>8.5</b> Two-Stage Least Squares with Covariates</a></li>
+<li class="chapter" data-level="8.6" data-path="IVE.html"><a href="IVE.html#using-multiple-instruments"><i class="fa fa-check"></i><b>8.6</b> Using Multiple Instruments</a>
+<ul>
+<li class="chapter" data-level="8.6.1" data-path="IVE.html"><a href="IVE.html#system-of-equations"><i class="fa fa-check"></i><b>8.6.1</b> System of equations</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="IVE2.html"><a href="IVE2.html"><i class="fa fa-check"></i><b>9</b> Practice with Instrumental Variable Estimation</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="IVE2.html"><a href="IVE2.html#objectives-6"><i class="fa fa-check"></i><b>9.1</b> Objectives</a></li>
+<li class="chapter" data-level="9.2" data-path="IVE2.html"><a href="IVE2.html#import-and-prepare-the-data-2"><i class="fa fa-check"></i><b>9.2</b> Import and Prepare the Data</a>
+<ul>
+<li class="chapter" data-level="9.2.1" data-path="IVE2.html"><a href="IVE2.html#descriptive-statistics-1"><i class="fa fa-check"></i><b>9.2.1</b> Descriptive statistics</a></li>
+</ul></li>
+<li class="chapter" data-level="9.3" data-path="IVE2.html"><a href="IVE2.html#covariate-balance"><i class="fa fa-check"></i><b>9.3</b> Covariate Balance</a>
+<ul>
+<li class="chapter" data-level="9.3.1" data-path="IVE2.html"><a href="IVE2.html#covariate-balance-on-d"><i class="fa fa-check"></i><b>9.3.1</b> Covariate balance on <span class="math inline">\(D\)</span></a></li>
+</ul></li>
+<li class="chapter" data-level="9.4" data-path="IVE2.html"><a href="IVE2.html#compliance-table-1"><i class="fa fa-check"></i><b>9.4</b> Compliance Table</a></li>
+<li class="chapter" data-level="9.5" data-path="IVE2.html"><a href="IVE2.html#estimating-the-causal-effect"><i class="fa fa-check"></i><b>9.5</b> Estimating the Causal Effect</a>
+<ul>
+<li class="chapter" data-level="9.5.1" data-path="IVE2.html"><a href="IVE2.html#the-naïve-estimate"><i class="fa fa-check"></i><b>9.5.1</b> The naïve estimate</a></li>
+<li class="chapter" data-level="9.5.2" data-path="IVE2.html"><a href="IVE2.html#the-late-estimate-from-ive"><i class="fa fa-check"></i><b>9.5.2</b> The LATE estimate from IVE</a></li>
+<li class="chapter" data-level="9.5.3" data-path="IVE2.html"><a href="IVE2.html#making-the-intercept-meaningful"><i class="fa fa-check"></i><b>9.5.3</b> Making the intercept meaningful</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="PScore1.html"><a href="PScore1.html"><i class="fa fa-check"></i><b>10</b> Propensity Score Analysis 1: The underlying logic</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="PScore1.html"><a href="PScore1.html#import-the-data-and-prepare-for-analysis"><i class="fa fa-check"></i><b>10.1</b> Import the Data and Prepare for Analysis</a>
+<ul>
+<li class="chapter" data-level="10.1.1" data-path="PScore1.html"><a href="PScore1.html#creating-a-numeric-version-of-the-base-income-variables"><i class="fa fa-check"></i><b>10.1.1</b> Creating a numeric version of the base-income variables</a></li>
+<li class="chapter" data-level="10.1.2" data-path="PScore1.html"><a href="PScore1.html#creating-some-custom-functions"><i class="fa fa-check"></i><b>10.1.2</b> Creating some custom functions</a></li>
+</ul></li>
+<li class="chapter" data-level="10.2" data-path="PScore1.html"><a href="PScore1.html#stratifying-on-a-covariate"><i class="fa fa-check"></i><b>10.2</b> Stratifying on a Covariate</a>
+<ul>
+<li class="chapter" data-level="10.2.1" data-path="PScore1.html"><a href="PScore1.html#checking-the-imbalance-in-the-treatment-status"><i class="fa fa-check"></i><b>10.2.1</b> Checking the imbalance in the treatment status</a></li>
+<li class="chapter" data-level="10.2.2" data-path="PScore1.html"><a href="PScore1.html#creating-the-strata-from-the-covariate"><i class="fa fa-check"></i><b>10.2.2</b> Creating the strata from the covariate</a></li>
+<li class="chapter" data-level="10.2.3" data-path="PScore1.html"><a href="PScore1.html#checking-for-imbalance-within-each-stratum"><i class="fa fa-check"></i><b>10.2.3</b> Checking for imbalance within each stratum</a></li>
+<li class="chapter" data-level="10.2.4" data-path="PScore1.html"><a href="PScore1.html#using-tidyverse-to-check-imbalance"><i class="fa fa-check"></i><b>10.2.4</b> Using Tidyverse to check imbalance</a></li>
+<li class="chapter" data-level="10.2.5" data-path="PScore1.html"><a href="PScore1.html#ate-and-att"><i class="fa fa-check"></i><b>10.2.5</b> ATE and ATT</a></li>
+<li class="chapter" data-level="10.2.6" data-path="PScore1.html"><a href="PScore1.html#pooling-across-strata-to-calculate-the-ate-and-att"><i class="fa fa-check"></i><b>10.2.6</b> Pooling across strata to calculate the ATE and ATT</a></li>
+</ul></li>
+<li class="chapter" data-level="10.3" data-path="PScore1.html"><a href="PScore1.html#stratifying-on-two-covariates"><i class="fa fa-check"></i><b>10.3</b> Stratifying on Two Covariates</a>
+<ul>
+<li class="chapter" data-level="10.3.1" data-path="PScore1.html"><a href="PScore1.html#calculating-the-ate-and-att"><i class="fa fa-check"></i><b>10.3.1</b> Calculating the ATE and ATT</a></li>
+<li class="chapter" data-level="10.3.2" data-path="PScore1.html"><a href="PScore1.html#tidyverse-approach"><i class="fa fa-check"></i><b>10.3.2</b> Tidyverse approach</a></li>
+</ul></li>
+<li class="chapter" data-level="10.4" data-path="PScore1.html"><a href="PScore1.html#estimating-propensity-scores"><i class="fa fa-check"></i><b>10.4</b> Estimating Propensity Scores</a></li>
+<li class="chapter" data-level="10.5" data-path="PScore1.html"><a href="PScore1.html#creating-strata-from-propensity-scores"><i class="fa fa-check"></i><b>10.5</b> Creating Strata from Propensity Scores</a>
+<ul>
+<li class="chapter" data-level="10.5.1" data-path="PScore1.html"><a href="PScore1.html#adding-more-covariates"><i class="fa fa-check"></i><b>10.5.1</b> Adding more covariates</a></li>
+<li class="chapter" data-level="10.5.2" data-path="PScore1.html"><a href="PScore1.html#ate-and-att-for-the-five-stratum-model"><i class="fa fa-check"></i><b>10.5.2</b> ATE and ATT for the five-stratum model</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="PScore2.html"><a href="PScore2.html"><i class="fa fa-check"></i><b>11</b> Propensity Score Analysis 2: Weighting</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="PScore2.html"><a href="PScore2.html#import-the-data-and-prepare-for-analysis-1"><i class="fa fa-check"></i><b>11.1</b> Import the Data and Prepare for Analysis</a></li>
+<li class="chapter" data-level="11.2" data-path="PScore2.html"><a href="PScore2.html#specify-custom-functions"><i class="fa fa-check"></i><b>11.2</b> Specify Custom Functions</a>
+<ul>
+<li class="chapter" data-level="11.2.1" data-path="PScore2.html"><a href="PScore2.html#imbalance-functions"><i class="fa fa-check"></i><b>11.2.1</b> Imbalance functions</a></li>
+<li class="chapter" data-level="11.2.2" data-path="PScore2.html"><a href="PScore2.html#overlap-functions"><i class="fa fa-check"></i><b>11.2.2</b> Overlap functions</a></li>
+</ul></li>
+<li class="chapter" data-level="11.3" data-path="PScore2.html"><a href="PScore2.html#assess-imbalance-in-observed-covariates"><i class="fa fa-check"></i><b>11.3</b> Assess Imbalance in Observed Covariates</a></li>
+<li class="chapter" data-level="11.4" data-path="PScore2.html"><a href="PScore2.html#check-overlap"><i class="fa fa-check"></i><b>11.4</b> Check Overlap</a></li>
+<li class="chapter" data-level="11.5" data-path="PScore2.html"><a href="PScore2.html#calculate-the-weights"><i class="fa fa-check"></i><b>11.5</b> Calculate the Weights</a>
+<ul>
+<li class="chapter" data-level="11.5.1" data-path="PScore2.html"><a href="PScore2.html#dealing-with-extreme-weights"><i class="fa fa-check"></i><b>11.5.1</b> Dealing with extreme weights</a></li>
+<li class="chapter" data-level="11.5.2" data-path="PScore2.html"><a href="PScore2.html#specifying-whether-to-estimate-ate-or-att"><i class="fa fa-check"></i><b>11.5.2</b> Specifying whether to estimate ATE or ATT</a></li>
+</ul></li>
+<li class="chapter" data-level="11.6" data-path="PScore2.html"><a href="PScore2.html#conduct-balance-checks-after-weighting"><i class="fa fa-check"></i><b>11.6</b> Conduct balance checks after weighting</a></li>
+<li class="chapter" data-level="11.7" data-path="PScore2.html"><a href="PScore2.html#estimate-the-treatment-effect"><i class="fa fa-check"></i><b>11.7</b> Estimate the Treatment Effect</a>
+<ul>
+<li class="chapter" data-level="11.7.1" data-path="PScore2.html"><a href="PScore2.html#estimating-the-correct-standard-error"><i class="fa fa-check"></i><b>11.7.1</b> Estimating the correct standard error</a></li>
+<li class="chapter" data-level="11.7.2" data-path="PScore2.html"><a href="PScore2.html#use-a-doubly-robust-estimate"><i class="fa fa-check"></i><b>11.7.2</b> Use a doubly robust estimate</a></li>
+</ul></li>
+<li class="chapter" data-level="11.8" data-path="PScore2.html"><a href="PScore2.html#using-the-twang-package"><i class="fa fa-check"></i><b>11.8</b> Using the Twang Package</a>
+<ul>
+<li class="chapter" data-level="11.8.1" data-path="PScore2.html"><a href="PScore2.html#examining-covariate-balance"><i class="fa fa-check"></i><b>11.8.1</b> Examining covariate balance</a></li>
+<li class="chapter" data-level="11.8.2" data-path="PScore2.html"><a href="PScore2.html#estimating-the-propensity-scores-and-getting-the-weights"><i class="fa fa-check"></i><b>11.8.2</b> Estimating the propensity scores and getting the weights</a></li>
+<li class="chapter" data-level="11.8.3" data-path="PScore2.html"><a href="PScore2.html#estimating-the-effect"><i class="fa fa-check"></i><b>11.8.3</b> Estimating the effect</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="PScore3.html"><a href="PScore3.html"><i class="fa fa-check"></i><b>12</b> Propensity Score Analysis 3: Stratification and Matching</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="PScore3.html"><a href="PScore3.html#calculate-the-mmwss-from-the-propensity-scores"><i class="fa fa-check"></i><b>12.1</b> Calculate the MMWSs from the propensity scores</a>
+<ul>
+<li class="chapter" data-level="12.1.1" data-path="PScore3.html"><a href="PScore3.html#estimate-the-propensity-scores"><i class="fa fa-check"></i><b>12.1.1</b> Estimate the propensity scores</a></li>
+<li class="chapter" data-level="12.1.2" data-path="PScore3.html"><a href="PScore3.html#calculate-the-quintiles"><i class="fa fa-check"></i><b>12.1.2</b> Calculate the quintiles</a></li>
+<li class="chapter" data-level="12.1.3" data-path="PScore3.html"><a href="PScore3.html#examine-the-strata"><i class="fa fa-check"></i><b>12.1.3</b> Examine the strata</a></li>
+<li class="chapter" data-level="12.1.4" data-path="PScore3.html"><a href="PScore3.html#calculate-the-mmwss"><i class="fa fa-check"></i><b>12.1.4</b> Calculate the MMWSs</a></li>
+</ul></li>
+<li class="chapter" data-level="12.2" data-path="PScore3.html"><a href="PScore3.html#conduct-balance-checks-after-weighting-1"><i class="fa fa-check"></i><b>12.2</b> Conduct balance checks after weighting</a></li>
+<li class="chapter" data-level="12.3" data-path="PScore3.html"><a href="PScore3.html#estimate-the-ate"><i class="fa fa-check"></i><b>12.3</b> Estimate the ATE</a></li>
+<li class="chapter" data-level="12.4" data-path="PScore3.html"><a href="PScore3.html#using-the-matchit-package"><i class="fa fa-check"></i><b>12.4</b> Using the MatchIt Package</a>
+<ul>
+<li class="chapter" data-level="12.4.1" data-path="PScore3.html"><a href="PScore3.html#examining-balance"><i class="fa fa-check"></i><b>12.4.1</b> Examining Balance</a></li>
+<li class="chapter" data-level="12.4.2" data-path="PScore3.html"><a href="PScore3.html#estimate-the-effect"><i class="fa fa-check"></i><b>12.4.2</b> Estimate the Effect</a></li>
+</ul></li>
+<li class="chapter" data-level="12.5" data-path="PScore3.html"><a href="PScore3.html#matching"><i class="fa fa-check"></i><b>12.5</b> Matching</a>
+<ul>
+<li class="chapter" data-level="12.5.1" data-path="PScore3.html"><a href="PScore3.html#estimate-the-effect-1"><i class="fa fa-check"></i><b>12.5.1</b> Estimate the Effect</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Using R for Quasi-Experimental Designs</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="examine" class="section level1" number="3">
+<h1><span class="header-section-number">Part 3</span> Examining and Summarizing Data</h1>
+<div id="objectives-1" class="section level2" number="3.1">
+<h2><span class="header-section-number">3.1</span> Objectives</h2>
+<ol style="list-style-type: decimal">
+<li>Examine and summarize the Ch. 4 data.
+<ol style="list-style-type: lower-alpha">
+<li>Create and use a custom function</li>
+</ol></li>
+<li>Summarize data by group (treatment and control):
+<ol style="list-style-type: lower-alpha">
+<li>Use the <code>by()</code> function</li>
+<li>Calculate standardized mean difference and variance ratio on a covariate</li>
+<li>Create a factor variable from a numeric variable</li>
+<li>Plot data by group</li>
+</ol></li>
+</ol>
+</div>
+<div id="examining-the-data" class="section level2" number="3.2">
+<h2><span class="header-section-number">3.2</span> Examining the Data</h2>
+<p>Let’s read in some data:</p>
+<div class="sourceCode" id="cb129"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb129-1"><a href="examine.html#cb129-1" aria-hidden="true" tabindex="-1"></a>ny <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;Ch04_ny.csv&quot;</span>)</span></code></pre></div>
+<p>It’s a good idea to look at our data frame and make sure it is in the format we expect. We should verify that the object is a data frame, that the number of observations and variables is as we expect, and that we have a list of the variable names.</p>
+<div id="the-data-frame" class="section level3" number="3.2.1">
+<h3><span class="header-section-number">3.2.1</span> The Data Frame</h3>
+<p>Let’s examine the data. We can look at the list of variables, using the <code>str()</code> function, as we did in <a href="basics.html#dffromcsv" target="_blank">an earlier part</a></p>
+<div class="sourceCode" id="cb130"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb130-1"><a href="examine.html#cb130-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(ny)</span></code></pre></div>
+<pre><code>## &#39;data.frame&#39;:    521 obs. of  4 variables:
+##  $ s_id    : int  42 194 218 261 304 323 339 348 349 386 ...
+##  $ voucher : int  0 0 1 1 1 1 1 1 1 0 ...
+##  $ pre_ach : num  74 7.5 2.5 0 11 8.5 0 37 71 24 ...
+##  $ post_ach: num  83 4 3.5 26.5 2 15 23.5 52 60 13 ...</code></pre>
+<div id="checking-for-missing-data" class="section level4" number="3.2.1.1">
+<h4><span class="header-section-number">3.2.1.1</span> Checking for Missing Data</h4>
+<p>Let’s see if there are any missing data in each column. We’ll use this code <code>sum(is.na(x))</code>. In Base R language, the code is like mathematics, where we go from the inside out. So, <code>is.na(x)</code> is done first—we’ll replace <code>x</code> with our vector when we use this—and then the <code>sum()</code> function is performed on that result.</p>
+<p>The <code>is.na()</code> function is a logical test, where if a cell in our vector is <code>NA</code> (i.e., missing), it is coded as <code>TRUE</code>. As we mentioned in the previous part of this tutorial, logical values (<code>TRUE</code> and <code>FALSE</code>) are treated as numeric (<code>1</code> and <code>0</code> respectively), meaning that we can perform some mathematical operations on them. So, if we use the <code>sum()</code> function on those values, it counts the number of cells in a vector that are missing.</p>
+<p>We can use our custom function on a column of our data frame. Let’s use it on the <code>pre_ach</code> variable:</p>
+<div class="sourceCode" id="cb132"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb132-1"><a href="examine.html#cb132-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">is.na</span>(ny[, <span class="st">&quot;pre_ach&quot;</span>]))</span></code></pre></div>
+<pre><code>## [1] 0</code></pre>
+<p>There are no missing data in this column of our data.</p>
+<p>Let’s do this on every column of the data frame, using the <code>apply()</code> function around it. There are three arguments in the <code>apply()</code> function: The first one is the data frame, the second is the margin (which I always forget, but <code>1</code> refers to doing this operation on the rows (across the columns) and <code>2</code> refers to performing the operation on the columns (across the rows). The third argument is the operation. Because we’re actually using two of Base R’s functions together, <code>is.na()</code> and <code>sum()</code>, it is not a single function. To get the <code>apply()</code> function to work, we can create a short custom function. Here, we use the <code>function()</code> function and define an argument, <code>x</code> as a placeholder for the vector that we’ll apply this function on. After that, we include the code <code>sum(is.na(x))</code>. This tells the <code>apply()</code> function to do this operation on every column of the data.<a href="#fn6" class="footnote-ref" id="fnref6"><sup>6</sup></a></p>
+<div class="sourceCode" id="cb134"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb134-1"><a href="examine.html#cb134-1" aria-hidden="true" tabindex="-1"></a><span class="fu">apply</span>(ny[ , ], <span class="dv">2</span>, <span class="cf">function</span>(x) <span class="fu">sum</span>(<span class="fu">is.na</span>(x)) )</span></code></pre></div>
+<pre><code>##     s_id  voucher  pre_ach post_ach 
+##        0        0        0        0</code></pre>
+<p>We’ll practice a lot with custom functions in this course. Later in this particular lesson, we’ll see this process further explained.</p>
+</div>
+<div id="other-functions-for-examining-a-data-frame" class="section level4" number="3.2.1.2">
+<h4><span class="header-section-number">3.2.1.2</span> Other Functions for Examining a Data Frame</h4>
+<p>Some other functions we can use to look at the data frame are. <code>dim()</code>, <code>str(inc)</code>, <code>head()</code>,and <code>tail()</code> are common. <code>class()</code> tells us what type of R format the thing is (e.g., if it is a matrix, a vector, a data frame, and so forth).</p>
+<div class="sourceCode" id="cb136"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb136-1"><a href="examine.html#cb136-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(ny)   </span>
+<span id="cb136-2"><a href="examine.html#cb136-2" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(ny) </span>
+<span id="cb136-3"><a href="examine.html#cb136-3" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(ny) <span class="co">#names of the columns</span></span>
+<span id="cb136-4"><a href="examine.html#cb136-4" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(ny)  </span>
+<span id="cb136-5"><a href="examine.html#cb136-5" aria-hidden="true" tabindex="-1"></a><span class="fu">tail</span>(ny)  </span>
+<span id="cb136-6"><a href="examine.html#cb136-6" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(ny) </span></code></pre></div>
+</div>
+<div id="column-and-row-names" class="section level4" number="3.2.1.3">
+<h4><span class="header-section-number">3.2.1.3</span> Column and Row Names</h4>
+<p>The <code>names()</code> function displays the names of the columns. We can use that later. Sometimes when we many column names and we want to use them in our code, we don’t want to type them all the time. A handy function is <code>dput()</code>, as this will output the list of names into the console in a format we can then copy and paste in our code. Try this:</p>
+<div class="sourceCode" id="cb137"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb137-1"><a href="examine.html#cb137-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dput</span>(<span class="fu">names</span>(ny))</span></code></pre></div>
+<pre><code>## c(&quot;s_id&quot;, &quot;voucher&quot;, &quot;pre_ach&quot;, &quot;post_ach&quot;)</code></pre>
+<p>If we copied that and pasted it into our code, we can mess around with it. For instance, if I wanted to remove the ID column, I could use delete that part and include this <code>c("voucher", "pre_ach", "post_ach")</code>.</p>
+<p>There’s also a <code>rownames()</code> function. Right now, our rows do not have names, but we could make them the same as their ID.</p>
+<div class="sourceCode" id="cb139"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb139-1"><a href="examine.html#cb139-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(ny) <span class="ot">&lt;-</span> ny<span class="sc">$</span>s_id</span></code></pre></div>
+</div>
+</div>
+<div id="subsetting-by-rows" class="section level3" number="3.2.2">
+<h3><span class="header-section-number">3.2.2</span> Subsetting by Rows</h3>
+<p>Now, we can use the name in our indexing. For example, <code>ny["21825",]</code> includes the row of data of the person whose ID was 21825.<a href="#fn7" class="footnote-ref" id="fnref7"><sup>7</sup></a></p>
+<div class="sourceCode" id="cb140"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb140-1"><a href="examine.html#cb140-1" aria-hidden="true" tabindex="-1"></a>ny[<span class="st">&quot;21825&quot;</span>,]</span></code></pre></div>
+<pre><code>##        s_id voucher pre_ach post_ach
+## 21825 21825       1      22        6</code></pre>
+<p>Row names and column names should, of course, be unique.</p>
+<p>An alternative code, if we don’t want to use row names is this:</p>
+<div class="sourceCode" id="cb142"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb142-1"><a href="examine.html#cb142-1" aria-hidden="true" tabindex="-1"></a>ny[ny<span class="sc">$</span>s_id <span class="sc">==</span> <span class="dv">21825</span>, ]</span></code></pre></div>
+<pre><code>##        s_id voucher pre_ach post_ach
+## 21825 21825       1      22        6</code></pre>
+<p>The <code>ny$s_id == "21825"</code> in the row part of the index says to include only rows with this value. We can use this to select all observations with a value, such as all of the people who received a voucher (in the treatment group, in this example). (The output is suppressed from this code because it would be long on the webpage.)</p>
+<div class="sourceCode" id="cb144"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb144-1"><a href="examine.html#cb144-1" aria-hidden="true" tabindex="-1"></a>ny[ny<span class="sc">$</span>voucher <span class="sc">==</span> <span class="dv">1</span>, ]</span></code></pre></div>
+</div>
+<div id="subsetting-by-columns" class="section level3" number="3.2.3">
+<h3><span class="header-section-number">3.2.3</span> Subsetting by Columns</h3>
+<p>We used the <code>dput()</code> function above to get the names of the columns in a format that is amenable to our code. Let’s use that stuff, the <code>c("s_id", "voucher", "pre_ach", "post_ach")</code> but with out the ID variable. We can also index the first 5 observations.</p>
+<div class="sourceCode" id="cb145"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb145-1"><a href="examine.html#cb145-1" aria-hidden="true" tabindex="-1"></a>ny[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, <span class="fu">c</span>(<span class="st">&quot;voucher&quot;</span>, <span class="st">&quot;pre_ach&quot;</span>, <span class="st">&quot;post_ach&quot;</span>)]</span></code></pre></div>
+<pre><code>##     voucher pre_ach post_ach
+## 42        0    74.0     83.0
+## 194       0     7.5      4.0
+## 218       1     2.5      3.5
+## 261       1     0.0     26.5
+## 304       1    11.0      2.0</code></pre>
+<p>Notice that we need quotes around column names. But, we can assign a set of names to an object and use that object in the same way:</p>
+<div class="sourceCode" id="cb147"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb147-1"><a href="examine.html#cb147-1" aria-hidden="true" tabindex="-1"></a>mycolnames <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;voucher&quot;</span>, <span class="st">&quot;pre_ach&quot;</span>, <span class="st">&quot;post_ach&quot;</span>)</span>
+<span id="cb147-2"><a href="examine.html#cb147-2" aria-hidden="true" tabindex="-1"></a>ny[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, mycolnames]</span></code></pre></div>
+<pre><code>##     voucher pre_ach post_ach
+## 42        0    74.0     83.0
+## 194       0     7.5      4.0
+## 218       1     2.5      3.5
+## 261       1     0.0     26.5
+## 304       1    11.0      2.0</code></pre>
+<p>Objects are not enclosed in quotes.</p>
+</div>
+<div id="descriptive-statistics" class="section level3" number="3.2.4">
+<h3><span class="header-section-number">3.2.4</span> Descriptive Statistics</h3>
+<p>We can use the <code>summary()</code> function to get a limited set of descriptive statistics:</p>
+<div class="sourceCode" id="cb149"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb149-1"><a href="examine.html#cb149-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(ny[ , mycolnames ])</span></code></pre></div>
+<pre><code>##     voucher          pre_ach         post_ach    
+##  Min.   :0.0000   Min.   : 0.00   Min.   : 0.00  
+##  1st Qu.:0.0000   1st Qu.: 6.50   1st Qu.: 8.00  
+##  Median :1.0000   Median :15.50   Median :18.00  
+##  Mean   :0.5585   Mean   :20.16   Mean   :23.87  
+##  3rd Qu.:1.0000   3rd Qu.:28.50   3rd Qu.:35.00  
+##  Max.   :1.0000   Max.   :92.00   Max.   :89.00</code></pre>
+<p>Notice that <code>voucher</code> is a dichotomous variable, coded as <code>0</code> or <code>1</code>. Because it is numeric, the mean is the proportion of the sample that is coded as <code>1</code>, so here 55.85% of the observations were in the treatment group. We can see the range, mean, and 1st, 2nd, and 3rd quartiles of the other two variables. It seems like the top of the range is really high above the 3rd quartiles. Students are not scoring high.</p>
+<p>We can use Base R’s built in functions, too, such as <code>mean()</code>, <code>sd()</code>, and <code>var()</code>. We can use <code>length()</code> for the number of cells in a column (or row), and we can use <code>sum(!is.na())</code> for the number of non-missing data. Here <code>!</code> stands for “not,” so this sums the number of non-missing observations. In our data set, there are no missing data, so these return the same value of <span class="math inline">\(521\)</span>:</p>
+<div class="sourceCode" id="cb151"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb151-1"><a href="examine.html#cb151-1" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(ny<span class="sc">$</span>pre_ach)</span></code></pre></div>
+<pre><code>## [1] 521</code></pre>
+<div class="sourceCode" id="cb153"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb153-1"><a href="examine.html#cb153-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="sc">!</span><span class="fu">is.na</span>(ny<span class="sc">$</span>pre_ach))</span></code></pre></div>
+<pre><code>## [1] 521</code></pre>
+</div>
+<div id="creating-a-custom-function-to-estimate-the-confidence-interval-of-the-mean" class="section level3" number="3.2.5">
+<h3><span class="header-section-number">3.2.5</span> Creating a Custom Function to Estimate the Confidence Interval of the Mean</h3>
+<p>Let’s create our own function to examine the confidence intervals around the mean. We can use base R’s functions inside of our custom function.</p>
+<p>Let’s start with a simple example of how to create a custom function. The result here should give us the same result as R’s built-in function, <code>mean()</code>:</p>
+<div class="sourceCode" id="cb155"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb155-1"><a href="examine.html#cb155-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(ny<span class="sc">$</span>post_ach)</span></code></pre></div>
+<pre><code>## [1] 23.8666</code></pre>
+<p>Here, we’re calling our custom function <code>MyMean()</code>. We should use names for our functions that are not already used by Base R (unless we don’t care about replacing them during our session.) For example, we would not use <code>mean</code> for our custom function name, but we could use <code>mymean</code> or <code>MyMean</code>. If in doubt use “my” as a prefix. You can also search if there are any existing functions with a name by using <code>?</code> before a word in R to see if it comes up in the help (or, if you’re in RStudio, clicking on it and pressing F1 on your keyboard). If it does, you can tell it is a function.<a href="#fn8" class="footnote-ref" id="fnref8"><sup>8</sup></a></p>
+<p>Come to think of if, for <strong><em>any</em></strong> object we create in R, we should not use existing function names. For example, we should <strong>not</strong> write this code <code>mean &lt;- mean(ny$post_ach)</code> because the object we would be creating and naming <code>mean</code> would be a name that is already taken by the <code>mean()</code> function in Base R. Instead, we could use upper case, <code>Mean</code>, because that is not a function in R, or we could use <code>M</code> or <code>mean_x</code> or something like that.</p>
+<p>Here is our custom function:</p>
+<div class="sourceCode" id="cb157"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb157-1"><a href="examine.html#cb157-1" aria-hidden="true" tabindex="-1"></a>MyMean <span class="ot">&lt;-</span> <span class="cf">function</span>(x){</span>
+<span id="cb157-2"><a href="examine.html#cb157-2" aria-hidden="true" tabindex="-1"></a>    M <span class="ot">&lt;-</span> <span class="fu">sum</span>(x)<span class="sc">/</span><span class="fu">length</span>(x)</span>
+<span id="cb157-3"><a href="examine.html#cb157-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(M)</span>
+<span id="cb157-4"><a href="examine.html#cb157-4" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb157-5"><a href="examine.html#cb157-5" aria-hidden="true" tabindex="-1"></a><span class="fu">MyMean</span>(ny<span class="sc">$</span>post_ach)</span></code></pre></div>
+<pre><code>## [1] 23.8666</code></pre>
+<p>What we’re doing is using the <code>function()</code> function to create an operation. We include in parentheses the list of arguments in our function. Here we only have one argument, <code>x</code>, which represents the vector we’re going to use this operation on. Then, within the braces (<code>{</code> and <code>}</code>), we place our set of functions on those arguments. In this example, we’re summing the values in a vector and dividing by the number of elements in that vector, then we’re assigning that result to an object, <code>M</code>, which is outputted. The <code>return()</code> function is on the last line and is used to explicitly output the final result. Often, we are lazy and simply type the object we want printed, so we could replace <code>return(M)</code> with <code>M</code> and get the same result.</p>
+<p>Let’s create our custom function to estimate the confidence interval and other descriptive statistics. Here, we’re calling our function <code>myci</code> for “my confidence intervaller” or something like that. We’re getting the standard error of the mean, using a <em>t</em> distribution (which is more conservative than a <em>z</em> distribution when we have small samples) to get the margin of error on both sides of the point estimate (i.e., of the mean) to get the lower and upper bound of the confidence interval. If you want to use a <em>z</em> distribution, use <code>qnorm()</code> (e.g., <code>qnorm(.975)</code>). In this data set, these are really similar, about <span class="math inline">\(1.96\)</span> because the <em>n</em>-size (used for the degrees of freedom in the <em>t</em> statistic) is fairly big.<a href="#fn9" class="footnote-ref" id="fnref9"><sup>9</sup></a></p>
+<p>The final line is what is outputted. We’re naming the variables, <code>N</code>, <code>Var</code>, <code>M</code>, and so forth.</p>
+<div class="sourceCode" id="cb159"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb159-1"><a href="examine.html#cb159-1" aria-hidden="true" tabindex="-1"></a>myci <span class="ot">&lt;-</span> <span class="cf">function</span>(x){</span>
+<span id="cb159-2"><a href="examine.html#cb159-2" aria-hidden="true" tabindex="-1"></a>  m   <span class="ot">&lt;-</span> <span class="fu">mean</span>(x)</span>
+<span id="cb159-3"><a href="examine.html#cb159-3" aria-hidden="true" tabindex="-1"></a>  v   <span class="ot">&lt;-</span> <span class="fu">var</span>(x)</span>
+<span id="cb159-4"><a href="examine.html#cb159-4" aria-hidden="true" tabindex="-1"></a>  n   <span class="ot">&lt;-</span> <span class="fu">length</span>(x)</span>
+<span id="cb159-5"><a href="examine.html#cb159-5" aria-hidden="true" tabindex="-1"></a>  se  <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(v<span class="sc">/</span>n)</span>
+<span id="cb159-6"><a href="examine.html#cb159-6" aria-hidden="true" tabindex="-1"></a>  tcut<span class="ot">&lt;-</span> <span class="fu">qt</span>(.<span class="dv">975</span>, <span class="at">df =</span> n<span class="dv">-1</span>, <span class="at">lower.tail =</span> T) <span class="co"># qnorm(.975, lower.tail = T) </span></span>
+<span id="cb159-7"><a href="examine.html#cb159-7" aria-hidden="true" tabindex="-1"></a>  moe <span class="ot">&lt;-</span> tcut<span class="sc">*</span>se</span>
+<span id="cb159-8"><a href="examine.html#cb159-8" aria-hidden="true" tabindex="-1"></a>  lb  <span class="ot">&lt;-</span> m<span class="sc">-</span>moe</span>
+<span id="cb159-9"><a href="examine.html#cb159-9" aria-hidden="true" tabindex="-1"></a>  ub  <span class="ot">&lt;-</span> m<span class="sc">+</span>moe</span>
+<span id="cb159-10"><a href="examine.html#cb159-10" aria-hidden="true" tabindex="-1"></a>  ci  <span class="ot">&lt;-</span> <span class="fu">c</span>(lb,ub)</span>
+<span id="cb159-11"><a href="examine.html#cb159-11" aria-hidden="true" tabindex="-1"></a> <span class="fu">round</span>( <span class="fu">c</span>(<span class="at">N=</span>n, <span class="at">Var=</span>v, <span class="at">M=</span>m, <span class="at">SEm=</span>se, <span class="at">CI_lb=</span>lb, <span class="at">CI_ub=</span>ub),<span class="dv">3</span>)</span>
+<span id="cb159-12"><a href="examine.html#cb159-12" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p>Let’s try out our custom function:</p>
+<div class="sourceCode" id="cb160"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb160-1"><a href="examine.html#cb160-1" aria-hidden="true" tabindex="-1"></a><span class="fu">myci</span>(ny<span class="sc">$</span>post_ach)</span></code></pre></div>
+<pre><code>##       N     Var       M     SEm   CI_lb   CI_ub 
+## 521.000 368.982  23.867   0.842  22.213  25.520</code></pre>
+<p>Sometimes, we can use functions with the <code>apply()</code> function to get the results across two or more columns:<a href="#fn10" class="footnote-ref" id="fnref10"><sup>10</sup></a></p>
+<div class="sourceCode" id="cb162"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb162-1"><a href="examine.html#cb162-1" aria-hidden="true" tabindex="-1"></a><span class="fu">apply</span>(ny[, <span class="fu">c</span>(<span class="st">&quot;pre_ach&quot;</span>, <span class="st">&quot;post_ach&quot;</span>)], <span class="dv">2</span>, myci)</span></code></pre></div>
+<pre><code>##       pre_ach post_ach
+## N     521.000  521.000
+## Var   333.253  368.982
+## M      20.164   23.867
+## SEm     0.800    0.842
+## CI_lb  18.593   22.213
+## CI_ub  21.735   25.520</code></pre>
+<p>We also might want to transpose this, using the <code>t()</code> function, and save it to an object:</p>
+<div class="sourceCode" id="cb164"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb164-1"><a href="examine.html#cb164-1" aria-hidden="true" tabindex="-1"></a>MyDesc <span class="ot">&lt;-</span> <span class="fu">t</span>(<span class="fu">apply</span>(ny[, <span class="fu">c</span>(<span class="st">&quot;pre_ach&quot;</span>, <span class="st">&quot;post_ach&quot;</span>)], <span class="dv">2</span>, myci))</span>
+<span id="cb164-2"><a href="examine.html#cb164-2" aria-hidden="true" tabindex="-1"></a>MyDesc</span></code></pre></div>
+<pre><code>##            N     Var      M   SEm  CI_lb  CI_ub
+## pre_ach  521 333.253 20.164 0.800 18.593 21.735
+## post_ach 521 368.982 23.867 0.842 22.213 25.520</code></pre>
+<div id="plots" class="section level4" number="3.2.5.1">
+<h4><span class="header-section-number">3.2.5.1</span> Plots</h4>
+<p>Let’s examine some simple histograms and then some box plots. We expect the pre-condition achievement data to be positively skewed because one of the criteria for inclusion in the voucher program study was low achievement scores (though if the pre-test were used, the data would be truncated). Let’s see if this is the case:</p>
+<div class="sourceCode" id="cb166"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb166-1"><a href="examine.html#cb166-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(ny<span class="sc">$</span>pre_ach)   </span></code></pre></div>
+<p><img src="QEDs-in-R_files/figure-html/unnamed-chunk-77-1.png" width="672" /></p>
+<p>Yes, the scores are positively skewed.</p>
+<p>Is it the same for the post test?</p>
+<div class="sourceCode" id="cb167"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb167-1"><a href="examine.html#cb167-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(ny<span class="sc">$</span>post_ach)</span></code></pre></div>
+<p><img src="QEDs-in-R_files/figure-html/unnamed-chunk-78-1.png" width="672" /></p>
+<p>It is. Notice that the pre- and post-test histograms differ in the range in their X axes. Let’s set the X axis limits to be <span class="math inline">\(0\)</span> to <span class="math inline">\(100\)</span>. We can also add main titles and axis labels.<a href="#fn11" class="footnote-ref" id="fnref11"><sup>11</sup></a></p>
+<div class="sourceCode" id="cb168"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb168-1"><a href="examine.html#cb168-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(ny<span class="sc">$</span>pre_ach, <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">100</span>),</span>
+<span id="cb168-2"><a href="examine.html#cb168-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">&quot;Pre-condition&quot;</span> , <span class="at">xlab =</span> <span class="st">&quot;Achievement&quot;</span>)  </span></code></pre></div>
+<p><img src="QEDs-in-R_files/figure-html/unnamed-chunk-79-1.png" width="672" /></p>
+<div class="sourceCode" id="cb169"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb169-1"><a href="examine.html#cb169-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(ny<span class="sc">$</span>post_ach, <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">100</span>),</span>
+<span id="cb169-2"><a href="examine.html#cb169-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">&quot;Post-condition&quot;</span>, <span class="at">xlab =</span> <span class="st">&quot;Achievement&quot;</span>)</span></code></pre></div>
+<p><img src="QEDs-in-R_files/figure-html/unnamed-chunk-79-2.png" width="672" /></p>
+<p>The histogram for the post test is slightly less positively skewed than that for the pre-test. It seems as though the test got slightly less difficult (assuming there is not an instrumentation effect or if the two tests are scaled to be the same level of difficulty).</p>
+<p>Let’s look at a box plot of the data. As is typical of boxplots, here are the meanings of the components: The middle horizontal line is the median, the box is the inter-quartile range (IQR) (i.e., 3rd quartile <span class="math inline">\(-\)</span> 1st quartile), with the top and bottom of the box being quartiles 1 and 3, (so, the box is the middle 50%) and the whiskers being at <span class="math inline">\(1.5(IQR) + Q3\)</span> on top and <span class="math inline">\(1.5(IQR) - Q1\)</span> on the bottom (or the minimum of 0, in this case). The circles are outliers.</p>
+<div class="sourceCode" id="cb170"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb170-1"><a href="examine.html#cb170-1" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(ny<span class="sc">$</span>post_ach,</span>
+<span id="cb170-2"><a href="examine.html#cb170-2" aria-hidden="true" tabindex="-1"></a>        <span class="at">main =</span> <span class="st">&quot;Post-intervention Achievement&quot;</span>)</span></code></pre></div>
+<p><img src="QEDs-in-R_files/figure-html/unnamed-chunk-80-1.png" width="672" /></p>
+<p>For fun, let’s add a point to the boxplot that shows where the mean is. First, we create an object that has the mean, then add the point to the plot:</p>
+<div class="sourceCode" id="cb171"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb171-1"><a href="examine.html#cb171-1" aria-hidden="true" tabindex="-1"></a>postmean <span class="ot">&lt;-</span> <span class="fu">mean</span>(ny<span class="sc">$</span>post_ach)</span>
+<span id="cb171-2"><a href="examine.html#cb171-2" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(ny<span class="sc">$</span>post_ach,</span>
+<span id="cb171-3"><a href="examine.html#cb171-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">main =</span> <span class="st">&quot;Post-intervention Achievement&quot;</span>)</span>
+<span id="cb171-4"><a href="examine.html#cb171-4" aria-hidden="true" tabindex="-1"></a>        <span class="fu">points</span>(postmean, </span>
+<span id="cb171-5"><a href="examine.html#cb171-5" aria-hidden="true" tabindex="-1"></a>               <span class="at">col =</span> <span class="st">&quot;blue&quot;</span>, </span>
+<span id="cb171-6"><a href="examine.html#cb171-6" aria-hidden="true" tabindex="-1"></a>               <span class="at">pch =</span> <span class="dv">16</span>, </span>
+<span id="cb171-7"><a href="examine.html#cb171-7" aria-hidden="true" tabindex="-1"></a>               <span class="at">cex =</span> <span class="fl">1.5</span>)</span></code></pre></div>
+<p><img src="QEDs-in-R_files/figure-html/unnamed-chunk-81-1.png" width="672" /></p>
+<p>R automatically added this <code>points()</code> function information to the most recent plot. Here, we added a point at the location on the Y axis (<code>postmean</code>), the location of which is inside the box of the box plot. We made the point color blue, specified the type of point (see <code>?pch</code> for more plot character options), and made the size of the point 50% bigger than the default with <code>cex = 1.5</code>. (cex stands for <strong>c</strong>haracter <strong>ex</strong>pansion, with 1 being 100% of the default size, values &lt; 1 making it smaller (e.g., <code>cex = 0.75</code> for 75% of the size), and values &gt; 1 making bigger (e.g., <code>cex = 2</code> for twice as big as the default). Try messing around with these numbers to see what happens.</p>
+<p>In looking at the boxplot, we can again see that the data are positively skewed, which makes sense because eligibility into the study was based on low-SES status (as described on p. 47 of Murnane &amp; Willet).</p>
+</div>
+</div>
+</div>
+<div id="summarizing-data-by-group-and-an-introduction-to-lists" class="section level2" number="3.3">
+<h2><span class="header-section-number">3.3</span> Summarizing Data by Group (and an introduction to lists)</h2>
+<p>There are many ways to accomplish the same thing in R. One way to examine data by group is with the <code>by()</code> function. This function puts the output into a <em>list</em> format (which is annoying, but we’ll work with that).</p>
+<div class="sourceCode" id="cb172"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb172-1"><a href="examine.html#cb172-1" aria-hidden="true" tabindex="-1"></a>grpci.pre <span class="ot">&lt;-</span> <span class="fu">by</span>(ny<span class="sc">$</span>pre_ach, ny<span class="sc">$</span>voucher, myci)</span>
+<span id="cb172-2"><a href="examine.html#cb172-2" aria-hidden="true" tabindex="-1"></a>grpci.pre</span></code></pre></div>
+<pre><code>## ny$voucher: 0
+##       N     Var       M     SEm   CI_lb   CI_ub 
+## 230.000 311.993  19.513   1.165  17.218  21.808 
+## ------------------------------------------------------------ 
+## ny$voucher: 1
+##       N     Var       M     SEm   CI_lb   CI_ub 
+## 291.000 350.589  20.679   1.098  18.518  22.839</code></pre>
+<p>The arguments are the variable, the group, and the function, which here is our custom function, <code>myci()</code>.</p>
+<div class="sourceCode" id="cb174"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb174-1"><a href="examine.html#cb174-1" aria-hidden="true" tabindex="-1"></a>grpci.post <span class="ot">&lt;-</span> <span class="fu">by</span>(ny<span class="sc">$</span>post_ach, ny<span class="sc">$</span>voucher, myci)</span>
+<span id="cb174-2"><a href="examine.html#cb174-2" aria-hidden="true" tabindex="-1"></a>grpci.post</span></code></pre></div>
+<pre><code>## ny$voucher: 0
+##       N     Var       M     SEm   CI_lb   CI_ub 
+## 230.000 330.234  21.130   1.198  18.769  23.491 
+## ------------------------------------------------------------ 
+## ny$voucher: 1
+##       N     Var       M     SEm   CI_lb   CI_ub 
+## 291.000 390.221  26.029   1.158  23.750  28.308</code></pre>
+<p>What type of object is the output, <code>grpci.post</code>? Maybe we can use the <code>class()</code> function:</p>
+<div class="sourceCode" id="cb176"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb176-1"><a href="examine.html#cb176-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(grpci.post)</span></code></pre></div>
+<pre><code>## [1] &quot;by&quot;</code></pre>
+<p>Useless! The <code>class()</code> function labels this object by the function we used; this isn’t informative at all. Usually, the <code>class()</code> function is helpful. Not now (welcome to Base R language).</p>
+<p>Let’s try <code>is.matrix()</code>, <code>is.vector()</code>, <code>is.logical()</code> and so forth:</p>
+<div class="sourceCode" id="cb178"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb178-1"><a href="examine.html#cb178-1" aria-hidden="true" tabindex="-1"></a><span class="fu">is.matrix</span>(grpci.post)</span></code></pre></div>
+<pre><code>## [1] FALSE</code></pre>
+<p>It’s not a matrix.</p>
+<div class="sourceCode" id="cb180"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb180-1"><a href="examine.html#cb180-1" aria-hidden="true" tabindex="-1"></a><span class="fu">is.vector</span>(grpci.post) </span></code></pre></div>
+<pre><code>## [1] FALSE</code></pre>
+<p>Not a vector.</p>
+<div class="sourceCode" id="cb182"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb182-1"><a href="examine.html#cb182-1" aria-hidden="true" tabindex="-1"></a><span class="fu">is.data.frame</span>(grpci.post) </span></code></pre></div>
+<pre><code>## [1] FALSE</code></pre>
+<p>Nor a data frame.</p>
+<div class="sourceCode" id="cb184"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb184-1"><a href="examine.html#cb184-1" aria-hidden="true" tabindex="-1"></a><span class="fu">is.list</span>(grpci.post)</span></code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+<p>It is a list.</p>
+<p>Outputs from <code>by()</code> functions are in the format of a list. Lists can contain a collection and variety of components, each of which can be a matrix, vector, data frame, or even another list. Let’s change our outputted list into a vector or data frame so we can actually use the output.</p>
+<p>In the next lines, the brackets returns the component in that position in the list. For instance, <code>grpci.post[1]</code> returns the <code>ny$voucher 0</code> component of our group, which in our list is a numeric vector.</p>
+<div class="sourceCode" id="cb186"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb186-1"><a href="examine.html#cb186-1" aria-hidden="true" tabindex="-1"></a>grpci.post[<span class="dv">1</span>]   </span></code></pre></div>
+<pre><code>## $`0`
+##       N     Var       M     SEm   CI_lb   CI_ub 
+## 230.000 330.234  21.130   1.198  18.769  23.491</code></pre>
+<p>In the output, after the dollar sign, we see the name of the group, which in this case is <code>0</code>, which is our control group.</p>
+<p>We sometimes use double brackets to extract the elements within a list component (i.e., without the dollar sign and zero part).</p>
+<div class="sourceCode" id="cb188"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb188-1"><a href="examine.html#cb188-1" aria-hidden="true" tabindex="-1"></a>grpci.post[[<span class="dv">1</span>]] </span></code></pre></div>
+<pre><code>##       N     Var       M     SEm   CI_lb   CI_ub 
+## 230.000 330.234  21.130   1.198  18.769  23.491</code></pre>
+<p>Using the <code>unlist()</code> function, let’s <strong>unlist</strong> the contents from the voucher and nonvoucher components of our list. Unlisting creates a vector.</p>
+<div class="sourceCode" id="cb190"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb190-1"><a href="examine.html#cb190-1" aria-hidden="true" tabindex="-1"></a>NoVouchPost <span class="ot">&lt;-</span> <span class="fu">unlist</span>(grpci.post[[<span class="dv">1</span>]])</span>
+<span id="cb190-2"><a href="examine.html#cb190-2" aria-hidden="true" tabindex="-1"></a> <span class="fu">is.vector</span>(NoVouchPost)                <span class="co"># Now it&#39;s a vector</span></span></code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+<p>And now for the treatment group:</p>
+<div class="sourceCode" id="cb192"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb192-1"><a href="examine.html#cb192-1" aria-hidden="true" tabindex="-1"></a>VoucherPost <span class="ot">&lt;-</span> <span class="fu">unlist</span>(grpci.post[[<span class="dv">2</span>]])</span>
+<span id="cb192-2"><a href="examine.html#cb192-2" aria-hidden="true" tabindex="-1"></a> <span class="fu">is.vector</span>(VoucherPost)</span></code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+<p>Let’s append these two vectors, as rows in an object:</p>
+<div class="sourceCode" id="cb194"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb194-1"><a href="examine.html#cb194-1" aria-hidden="true" tabindex="-1"></a>(post <span class="ot">&lt;-</span> <span class="fu">rbind</span>(VoucherPost, NoVouchPost))</span></code></pre></div>
+<pre><code>##               N     Var      M   SEm  CI_lb  CI_ub
+## VoucherPost 291 390.221 26.029 1.158 23.750 28.308
+## NoVouchPost 230 330.234 21.130 1.198 18.769 23.491</code></pre>
+<p>Is this a data frame?</p>
+<div class="sourceCode" id="cb196"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb196-1"><a href="examine.html#cb196-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(post)</span></code></pre></div>
+<pre><code>## [1] &quot;matrix&quot; &quot;array&quot;</code></pre>
+<p>No. It’s a matrix. If we combine vectors together, they form a matrix. The <code>rbind()</code> function appends rows together (it binds rows), so these two numeric strings are now in a matrix.</p>
+<p>Let’s coerce this to be in a data frame:<a href="#fn12" class="footnote-ref" id="fnref12"><sup>12</sup></a></p>
+<div class="sourceCode" id="cb198"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb198-1"><a href="examine.html#cb198-1" aria-hidden="true" tabindex="-1"></a>post <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(post)</span>
+<span id="cb198-2"><a href="examine.html#cb198-2" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(post)</span></code></pre></div>
+<pre><code>## [1] &quot;data.frame&quot;</code></pre>
+<div class="sourceCode" id="cb200"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb200-1"><a href="examine.html#cb200-1" aria-hidden="true" tabindex="-1"></a>post</span></code></pre></div>
+<pre><code>##               N     Var      M   SEm  CI_lb  CI_ub
+## VoucherPost 291 390.221 26.029 1.158 23.750 28.308
+## NoVouchPost 230 330.234 21.130 1.198 18.769 23.491</code></pre>
+<div id="calculating-standardized-mean-difference-and-variance-ratio-of-a-covariate" class="section level3" number="3.3.1">
+<h3><span class="header-section-number">3.3.1</span> Calculating Standardized Mean Difference and Variance Ratio of a Covariate</h3>
+<p>Let’s use the <code>by()</code> function to examine pre-achievement differences between the control and treatment groups’ means. We will also examine the ratio of these two groups’ variances. This is a way to examine balance in our sample. In the population of many randomized group-assignment procedures, balance will be perfect because of equivalence of expectation. That is, the mean difference will be <span class="math inline">\(0\)</span> and the variance ratio will be <span class="math inline">\(1\)</span>. But, ours is but one possible randomization, so we might wish to investigate this to determine whether we have an idiosyncratic sample.</p>
+<p>Here, we’re storing the mean of the control (mc) and treatment group (mt) and their variances (vc and vt). Then, we’re calculating the standardized difference between the means, using the pooled std. deviation (like Cohen’s <em>d</em>) and the variance ratio.</p>
+<div class="sourceCode" id="cb202"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb202-1"><a href="examine.html#cb202-1" aria-hidden="true" tabindex="-1"></a>(mby  <span class="ot">&lt;-</span> <span class="fu">unlist</span>(<span class="fu">by</span>(ny<span class="sc">$</span>pre_ach, ny<span class="sc">$</span>voucher, mean)))</span></code></pre></div>
+<pre><code>## ny$voucher: 0
+## [1] 19.51304
+## ------------------------------------------------------------ 
+## ny$voucher: 1
+## [1] 20.67869</code></pre>
+<div class="sourceCode" id="cb204"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb204-1"><a href="examine.html#cb204-1" aria-hidden="true" tabindex="-1"></a>mc    <span class="ot">&lt;-</span> mby[<span class="dv">1</span>]</span>
+<span id="cb204-2"><a href="examine.html#cb204-2" aria-hidden="true" tabindex="-1"></a>mt    <span class="ot">&lt;-</span> mby[<span class="dv">2</span>]</span>
+<span id="cb204-3"><a href="examine.html#cb204-3" aria-hidden="true" tabindex="-1"></a>Mdiff <span class="ot">&lt;-</span> mt<span class="sc">-</span>mc</span></code></pre></div>
+<p>So, Mdiff contains the mean difference between the treatment and control groups on this variable. We’ll use this as the numerator in the estimation of the standardized mean difference.</p>
+<p>Here’s are the variances, to be used in the variance ratio.</p>
+<div class="sourceCode" id="cb205"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb205-1"><a href="examine.html#cb205-1" aria-hidden="true" tabindex="-1"></a>(vby  <span class="ot">&lt;-</span> <span class="fu">unlist</span>(<span class="fu">by</span>(ny<span class="sc">$</span>pre_ach, ny<span class="sc">$</span>voucher, var)))</span></code></pre></div>
+<pre><code>## ny$voucher: 0
+## [1] 311.9933
+## ------------------------------------------------------------ 
+## ny$voucher: 1
+## [1] 350.5886</code></pre>
+<div class="sourceCode" id="cb207"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb207-1"><a href="examine.html#cb207-1" aria-hidden="true" tabindex="-1"></a>vc    <span class="ot">&lt;-</span> vby[<span class="dv">1</span>]</span>
+<span id="cb207-2"><a href="examine.html#cb207-2" aria-hidden="true" tabindex="-1"></a>vt    <span class="ot">&lt;-</span> vby[<span class="dv">2</span>]</span></code></pre></div>
+<p>Now to calculate the standardized mean difference:</p>
+<div class="sourceCode" id="cb208"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb208-1"><a href="examine.html#cb208-1" aria-hidden="true" tabindex="-1"></a>B     <span class="ot">&lt;-</span> Mdiff<span class="sc">/</span><span class="fu">sqrt</span>((vt<span class="sc">+</span>vc)<span class="sc">/</span><span class="dv">2</span>)</span></code></pre></div>
+<p>The variance ratio:</p>
+<div class="sourceCode" id="cb209"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb209-1"><a href="examine.html#cb209-1" aria-hidden="true" tabindex="-1"></a>R     <span class="ot">&lt;-</span> vt<span class="sc">/</span>vc</span></code></pre></div>
+<p>And, here they are together for the report of the imbalance statistics</p>
+<div class="sourceCode" id="cb210"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb210-1"><a href="examine.html#cb210-1" aria-hidden="true" tabindex="-1"></a>imbal <span class="ot">&lt;-</span> <span class="fu">c</span>(Mdiff, B, R)</span>
+<span id="cb210-2"><a href="examine.html#cb210-2" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(imbal) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Mean.Diff&quot;</span>, <span class="st">&quot;Std.Mean.Diff&quot;</span>, <span class="st">&quot;Var.Ratio&quot;</span>)</span>
+<span id="cb210-3"><a href="examine.html#cb210-3" aria-hidden="true" tabindex="-1"></a>imbal</span></code></pre></div>
+<pre><code>##     Mean.Diff Std.Mean.Diff     Var.Ratio 
+##    1.16565068    0.06404181    1.12370577</code></pre>
+<p>In a subsequent lesson, we’ll stick all of this in a customized function and apply it to multiple covariates.</p>
+<div id="plotting-the-standardized-mean-difference-variance-ratio" class="section level4" number="3.3.1.1">
+<h4><span class="header-section-number">3.3.1.1</span> Plotting the Standardized Mean Difference &amp; Variance Ratio</h4>
+<p>We can use a plot to visually represent whether there is imbalance. Here, the standardized mean difference is on the X axis and the variance ratio is on the Y axis. We’re also placing lines at Rubin’s benchmarks. The <code>abline()</code> function adds lines (with “a” and “b” representing traditional regression a parameter for the intercept and b parameter for the slope); the <code>h = 1</code> creates a horizontal line at a value of <span class="math inline">\(1\)</span> on the Y axis; the <code>v = 0</code> creates a vertical line at <span class="math inline">\(0\)</span> on the X axis. The <code>lty =</code> argument specifies the line type (solid in this case). See <a href="https://www.statmethods.net/advgraphs/parameters.html" target="_blank">https://www.statmethods.net/advgraphs/parameters.html</a> for a list of other plot options. Here, we used the <code>text()</code> option to add a label to our point; this will become useful when we do this with more covariates.</p>
+<div class="sourceCode" id="cb212"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb212-1"><a href="examine.html#cb212-1" aria-hidden="true" tabindex="-1"></a>B <span class="ot">&lt;-</span> imbal[<span class="st">&quot;Std.Mean.Diff&quot;</span>]</span>
+<span id="cb212-2"><a href="examine.html#cb212-2" aria-hidden="true" tabindex="-1"></a>R <span class="ot">&lt;-</span> imbal[<span class="st">&quot;Var.Ratio&quot;</span>]</span>
+<span id="cb212-3"><a href="examine.html#cb212-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(B, R, </span>
+<span id="cb212-4"><a href="examine.html#cb212-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">1</span>), </span>
+<span id="cb212-5"><a href="examine.html#cb212-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylim =</span> <span class="fu">c</span>(.<span class="dv">6</span>, <span class="fl">1.6</span>), </span>
+<span id="cb212-6"><a href="examine.html#cb212-6" aria-hidden="true" tabindex="-1"></a>     <span class="at">pch =</span> <span class="dv">16</span>, </span>
+<span id="cb212-7"><a href="examine.html#cb212-7" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">&#39;Imbalance&#39;</span>, </span>
+<span id="cb212-8"><a href="examine.html#cb212-8" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&#39;Std. Mean Difference&#39;</span>, </span>
+<span id="cb212-9"><a href="examine.html#cb212-9" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">&#39;Variance Ratio&#39;</span>)</span>
+<span id="cb212-10"><a href="examine.html#cb212-10" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> <span class="dv">1</span>, </span>
+<span id="cb212-11"><a href="examine.html#cb212-11" aria-hidden="true" tabindex="-1"></a>       <span class="at">v =</span> <span class="dv">0</span>)</span>
+<span id="cb212-12"><a href="examine.html#cb212-12" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> <span class="fu">c</span>(<span class="dv">4</span><span class="sc">/</span><span class="dv">5</span>, <span class="dv">5</span><span class="sc">/</span><span class="dv">4</span>), <span class="co"># adding Rubin&#39;s benchmarks</span></span>
+<span id="cb212-13"><a href="examine.html#cb212-13" aria-hidden="true" tabindex="-1"></a>       <span class="at">v =</span> <span class="fu">c</span>(<span class="sc">-</span>.<span class="dv">1</span>, .<span class="dv">1</span>), </span>
+<span id="cb212-14"><a href="examine.html#cb212-14" aria-hidden="true" tabindex="-1"></a>       <span class="at">lty =</span> <span class="dv">3</span>)   </span>
+<span id="cb212-15"><a href="examine.html#cb212-15" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="at">x =</span> B, <span class="at">y =</span> R, <span class="at">labels =</span> <span class="st">&quot;Prescore&quot;</span>, </span>
+<span id="cb212-16"><a href="examine.html#cb212-16" aria-hidden="true" tabindex="-1"></a>     <span class="at">pos =</span> <span class="dv">4</span>, <span class="at">offset =</span> .<span class="dv">4</span>, <span class="at">cex =</span> <span class="dv">1</span>)</span></code></pre></div>
+<p><img src="QEDs-in-R_files/figure-html/unnamed-chunk-101-1.png" width="672" /></p>
+<p>Because the point is within Rubin’s benchmarks, the assignment variable was not out of balance on the pre-achievement variable. This makes sense because the assignment was random. If we had noticed there was imbalance, and we had not yet conducted the experiment (and not yet collected post-achievement data), we could re-randomize our data (though, then the question emerges about the extent to which it is truly random because now we’re meddling with the randomization—there might be some way to adjust the statistical significance if this is a worry).</p>
+<p>This type of plot is useful when we have many covariates to examine for balance, particularly when the assignment process was <strong>not</strong> random. I hope this foreshadows what we will do later in the course.</p>
+</div>
+</div>
+<div id="creating-a-factor-variable-from-a-numeric-variable" class="section level3" number="3.3.2">
+<h3><span class="header-section-number">3.3.2</span> Creating a Factor Variable from a Numeric Variable</h3>
+<p>Before we use the <code>aggregate()</code> function, let’s create a factor variable for our plots.</p>
+<p>Factors are nice for graphs and <em>t</em> tests. Let’s create a factor from our numeric version of this variable. Because <code>0</code> and <code>1</code> are the original numeric levels in the voucher variable, we need to include them in the <code>levels = c()</code> argument. These (<code>0</code> and <code>1</code>) get coded as the names of the two levels; that is, they are no longer numeric values—they’re kind of like characters.</p>
+<div class="sourceCode" id="cb213"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb213-1"><a href="examine.html#cb213-1" aria-hidden="true" tabindex="-1"></a>ny<span class="sc">$</span>vouchF <span class="ot">&lt;-</span> <span class="fu">factor</span>(ny<span class="sc">$</span>voucher,</span>
+<span id="cb213-2"><a href="examine.html#cb213-2" aria-hidden="true" tabindex="-1"></a>                   <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>))  </span>
+<span id="cb213-3"><a href="examine.html#cb213-3" aria-hidden="true" tabindex="-1"></a><span class="fu">levels</span>(ny<span class="sc">$</span>vouchF) </span></code></pre></div>
+<pre><code>## [1] &quot;0&quot; &quot;1&quot;</code></pre>
+<p>We can see that the levels are <code>0</code> and <code>1</code>, which correspond to the no-voucher and voucher conditions.</p>
+<div class="sourceCode" id="cb215"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb215-1"><a href="examine.html#cb215-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(ny<span class="sc">$</span>vouchF)</span></code></pre></div>
+<pre><code>##   0   1 
+## 230 291</code></pre>
+<p>We see that summary now reports the frequency counts instead of the mean, median, and so forth that we get with numeric variables.</p>
+<p>Let’s look at the structure of our data frame. Notice that R labels these levels as <code>0</code> and <code>1</code>, as we expect, but uses the factor codes <code>1</code> and <code>2</code> (for 1st and 2nd level) under the hood.</p>
+<div class="sourceCode" id="cb217"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb217-1"><a href="examine.html#cb217-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(ny)</span></code></pre></div>
+<pre><code>## &#39;data.frame&#39;:    521 obs. of  5 variables:
+##  $ s_id    : int  42 194 218 261 304 323 339 348 349 386 ...
+##  $ voucher : int  0 0 1 1 1 1 1 1 1 0 ...
+##  $ pre_ach : num  74 7.5 2.5 0 11 8.5 0 37 71 24 ...
+##  $ post_ach: num  83 4 3.5 26.5 2 15 23.5 52 60 13 ...
+##  $ vouchF  : Factor w/ 2 levels &quot;0&quot;,&quot;1&quot;: 1 1 2 2 2 2 2 2 2 1 ...</code></pre>
+<p>This is confusing, so let’s change the levels so that we can better keep track of them (the order of names is important here, so our level names should be the same order as our original levels):</p>
+<div class="sourceCode" id="cb219"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb219-1"><a href="examine.html#cb219-1" aria-hidden="true" tabindex="-1"></a><span class="fu">levels</span>(ny<span class="sc">$</span>vouchF) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;NoVouch&quot;</span>, <span class="st">&quot;Voucher&quot;</span>)  </span></code></pre></div>
+<p>Let’s make sure the level assignment was done correctly:</p>
+<div class="sourceCode" id="cb220"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb220-1"><a href="examine.html#cb220-1" aria-hidden="true" tabindex="-1"></a><span class="fu">levels</span>(ny<span class="sc">$</span>vouchF)</span></code></pre></div>
+<pre><code>## [1] &quot;NoVouch&quot; &quot;Voucher&quot;</code></pre>
+<p>Let’s make sure the frequency of observations in the two levels is the same as with <code>0</code> and <code>1</code> levels:</p>
+<div class="sourceCode" id="cb222"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb222-1"><a href="examine.html#cb222-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(ny<span class="sc">$</span>vouchF)</span></code></pre></div>
+<pre><code>## NoVouch Voucher 
+##     230     291</code></pre>
+<p>We can also see if the factor levels are labeled the way we want.</p>
+<div class="sourceCode" id="cb224"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb224-1"><a href="examine.html#cb224-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(ny)</span></code></pre></div>
+<pre><code>##     s_id voucher pre_ach post_ach  vouchF
+## 42    42       0    74.0     83.0 NoVouch
+## 194  194       0     7.5      4.0 NoVouch
+## 218  218       1     2.5      3.5 Voucher
+## 261  261       1     0.0     26.5 Voucher
+## 304  304       1    11.0      2.0 Voucher
+## 323  323       1     8.5     15.0 Voucher</code></pre>
+<p>Behind the scenes, R still codes these as 1 and 2 respectively:</p>
+<div class="sourceCode" id="cb226"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb226-1"><a href="examine.html#cb226-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(ny)</span></code></pre></div>
+<pre><code>## &#39;data.frame&#39;:    521 obs. of  5 variables:
+##  $ s_id    : int  42 194 218 261 304 323 339 348 349 386 ...
+##  $ voucher : int  0 0 1 1 1 1 1 1 1 0 ...
+##  $ pre_ach : num  74 7.5 2.5 0 11 8.5 0 37 71 24 ...
+##  $ post_ach: num  83 4 3.5 26.5 2 15 23.5 52 60 13 ...
+##  $ vouchF  : Factor w/ 2 levels &quot;NoVouch&quot;,&quot;Voucher&quot;: 1 1 2 2 2 2 2 2 2 1 ...</code></pre>
+<p>This ordering affects the order in which the factors are printed out in graphs. It also affects which level <em>t</em>-tests treat as the comparison condition. Let’s reverse the order so we’ll see the treatment first in plots and so that our <em>t</em>-test (later on) will treat the <code>NoVouch</code> group as the control condition. We re-order levels by creating a factor variable from our existing factor variable, and labeling the levels exactly the same as before, but in the order we want:</p>
+<div class="sourceCode" id="cb228"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb228-1"><a href="examine.html#cb228-1" aria-hidden="true" tabindex="-1"></a>ny<span class="sc">$</span>vouchF<span class="ot">&lt;-</span> <span class="fu">factor</span>(ny<span class="sc">$</span>vouchF, </span>
+<span id="cb228-2"><a href="examine.html#cb228-2" aria-hidden="true" tabindex="-1"></a>                   <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">&quot;Voucher&quot;</span>, <span class="st">&quot;NoVouch&quot;</span>) )</span></code></pre></div>
+<p>The labels “Voucher” and “NoVouch” are now the 1st and 2nd level, respectively:</p>
+<div class="sourceCode" id="cb229"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb229-1"><a href="examine.html#cb229-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(ny)</span></code></pre></div>
+<pre><code>## &#39;data.frame&#39;:    521 obs. of  5 variables:
+##  $ s_id    : int  42 194 218 261 304 323 339 348 349 386 ...
+##  $ voucher : int  0 0 1 1 1 1 1 1 1 0 ...
+##  $ pre_ach : num  74 7.5 2.5 0 11 8.5 0 37 71 24 ...
+##  $ post_ach: num  83 4 3.5 26.5 2 15 23.5 52 60 13 ...
+##  $ vouchF  : Factor w/ 2 levels &quot;Voucher&quot;,&quot;NoVouch&quot;: 2 2 1 1 1 1 1 1 1 2 ...</code></pre>
+<p>The behind-the-scenes factors are now <code>2</code> for <code>NoVouch</code> and <code>1</code> for <code>Voucher</code>. Let’s look at some observations to verify that on the front end our labels are still correct. That is, the <code>NoVouch</code> in our factor variable (<code>vouchF</code>) corresponds with <code>0</code> in our numeric variable (<code>voucher</code>):</p>
+<div class="sourceCode" id="cb231"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb231-1"><a href="examine.html#cb231-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(ny) </span></code></pre></div>
+<pre><code>##     s_id voucher pre_ach post_ach  vouchF
+## 42    42       0    74.0     83.0 NoVouch
+## 194  194       0     7.5      4.0 NoVouch
+## 218  218       1     2.5      3.5 Voucher
+## 261  261       1     0.0     26.5 Voucher
+## 304  304       1    11.0      2.0 Voucher
+## 323  323       1     8.5     15.0 Voucher</code></pre>
+<div class="sourceCode" id="cb233"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb233-1"><a href="examine.html#cb233-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(ny) </span></code></pre></div>
+<pre><code>##       s_id          voucher          pre_ach         post_ach         vouchF   
+##  Min.   :   42   Min.   :0.0000   Min.   : 0.00   Min.   : 0.00   Voucher:291  
+##  1st Qu.: 4187   1st Qu.:0.0000   1st Qu.: 6.50   1st Qu.: 8.00   NoVouch:230  
+##  Median :11141   Median :1.0000   Median :15.50   Median :18.00                
+##  Mean   :10436   Mean   :0.5585   Mean   :20.16   Mean   :23.87                
+##  3rd Qu.:15928   3rd Qu.:1.0000   3rd Qu.:28.50   3rd Qu.:35.00                
+##  Max.   :21825   Max.   :1.0000   Max.   :92.00   Max.   :89.00</code></pre>
+<p>It is sometimes a good idea to include both a numeric (dummy contrast code) and a factor version of our dichotomous variables, like we’re doing here. Use <code>0</code> and <code>1</code> for the numeric version, and names for the factor version. I like to add uppercase “F” to my factor variables so I can distinguish them from numeric versions. We can use the factor version in <em>t</em>-tests and the numeric versions in regression (glm).</p>
+</div>
+<div id="aggregate_explain" class="section level3" number="3.3.3">
+<h3><span class="header-section-number">3.3.3</span> The <code>aggregate()</code> function</h3>
+<p>To me, this should really be called disaggregate function because that’s what it does. This is similar to the <code>by()</code> function but this is great when you just want a single operation (such as the mean or variance) to be done on each of the two groups. The <code>aggregate()</code> function can use the formula format for the first argument (i.e., <code>y ~ x</code>); so, we can imagine that our outcome variable, <code>post_ach</code> is being predicted by our grouping variable, <code>vouchF</code> (though we’re not testing significance). We can specify the data frame in the <code>data =</code> argument, and the function we want to use (the mean in this case) in the <code>FUN =</code> argument. (We can delete <code>FUN =</code> and still get the result.)</p>
+<div class="sourceCode" id="cb235"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb235-1"><a href="examine.html#cb235-1" aria-hidden="true" tabindex="-1"></a>grpm <span class="ot">&lt;-</span> <span class="fu">aggregate</span>(post_ach <span class="sc">~</span> vouchF, </span>
+<span id="cb235-2"><a href="examine.html#cb235-2" aria-hidden="true" tabindex="-1"></a>                  <span class="at">data =</span> ny, </span>
+<span id="cb235-3"><a href="examine.html#cb235-3" aria-hidden="true" tabindex="-1"></a>                  <span class="at">FUN =</span> mean)</span>
+<span id="cb235-4"><a href="examine.html#cb235-4" aria-hidden="true" tabindex="-1"></a>grpm</span></code></pre></div>
+<pre><code>##    vouchF post_ach
+## 1 Voucher 26.02921
+## 2 NoVouch 21.13043</code></pre>
+<p>The object we just created is a dataframe, with the by-variable as Column 1 and the function result as Column 2.</p>
+<div class="sourceCode" id="cb237"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb237-1"><a href="examine.html#cb237-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(grpm) </span></code></pre></div>
+<pre><code>## [1] &quot;data.frame&quot;</code></pre>
+</div>
+<div id="plotting-data-by-group" class="section level3" number="3.3.4">
+<h3><span class="header-section-number">3.3.4</span> Plotting data by group</h3>
+<p>Let’s look at a box plot of the two groups. First, let’s verify the order of names in the group factor:</p>
+<div class="sourceCode" id="cb239"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb239-1"><a href="examine.html#cb239-1" aria-hidden="true" tabindex="-1"></a><span class="fu">levels</span>(ny<span class="sc">$</span>vouchF) </span></code></pre></div>
+<pre><code>## [1] &quot;Voucher&quot; &quot;NoVouch&quot;</code></pre>
+<p>Okay, <code>Voucher</code> comes before <code>NoVouch</code>. We’ll use this order in the plot. Let’s make the Y axis <code>post_achievement</code> and the group <code>vouchF</code>. This is our first argument: <code>post_ach ~ vouchF</code> (just like the formula format in the <code>aggregate()</code> function). The <code>data =</code> argument specifies the data set; the <code>names =</code> argument is for the group names, in the correct order; the <code>main =</code> argument is for the main title of the plot.</p>
+<div class="sourceCode" id="cb241"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb241-1"><a href="examine.html#cb241-1" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(post_ach <span class="sc">~</span> vouchF, </span>
+<span id="cb241-2"><a href="examine.html#cb241-2" aria-hidden="true" tabindex="-1"></a>        <span class="at">data  =</span> ny,</span>
+<span id="cb241-3"><a href="examine.html#cb241-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">names =</span> <span class="fu">c</span>(<span class="st">&#39;treatment (voucher)&#39;</span>, <span class="st">&#39;control (no voucher)&#39;</span>),</span>
+<span id="cb241-4"><a href="examine.html#cb241-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">main  =</span> <span class="st">&quot;Post-intervention achievement&quot;</span>)</span></code></pre></div>
+<p><img src="QEDs-in-R_files/figure-html/unnamed-chunk-116-1.png" width="672" /></p>
+<div id="extra-plotting-stuff" class="section level4" number="3.3.4.1">
+<h4><span class="header-section-number">3.3.4.1</span> Extra Plotting Stuff</h4>
+<p>If you have patience and are curious, make a slightly fancier version of this plot:</p>
+<p>We can add colors or shades. We can also add a point for each group’s mean. Let’s use the <code>grpm</code> object we created using <code>aggregate()</code> to tell R where to add points:</p>
+<div class="sourceCode" id="cb242"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb242-1"><a href="examine.html#cb242-1" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(post_ach <span class="sc">~</span> vouchF, </span>
+<span id="cb242-2"><a href="examine.html#cb242-2" aria-hidden="true" tabindex="-1"></a>        <span class="at">data =</span> ny,</span>
+<span id="cb242-3"><a href="examine.html#cb242-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">names =</span> <span class="fu">c</span>(<span class="st">&#39;Treatment (voucher)&#39;</span>, <span class="st">&#39;Control (no voucher)&#39;</span>), </span>
+<span id="cb242-4"><a href="examine.html#cb242-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">cex.axis =</span> <span class="fl">1.25</span>,</span>
+<span id="cb242-5"><a href="examine.html#cb242-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">main =</span> <span class="st">&quot;Post-intervention achievement&quot;</span>, </span>
+<span id="cb242-6"><a href="examine.html#cb242-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">cex.main =</span> <span class="fl">1.5</span>,</span>
+<span id="cb242-7"><a href="examine.html#cb242-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">col =</span> <span class="fu">c</span>(<span class="st">&quot;ivory&quot;</span>, <span class="st">&quot;gray&quot;</span>))</span>
+<span id="cb242-8"><a href="examine.html#cb242-8" aria-hidden="true" tabindex="-1"></a>        <span class="fu">points</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>, grpm<span class="sc">$</span>post_ach, <span class="at">col =</span> <span class="st">&quot;black&quot;</span>, <span class="at">pch =</span> <span class="dv">19</span>)</span>
+<span id="cb242-9"><a href="examine.html#cb242-9" aria-hidden="true" tabindex="-1"></a>        <span class="fu">text</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>, grpm<span class="sc">$</span>post_ach <span class="sc">+</span> <span class="dv">4</span>, <span class="at">labels =</span> <span class="fu">round</span>(grpm<span class="sc">$</span>post_ach, <span class="dv">2</span>)) </span></code></pre></div>
+<p><img src="QEDs-in-R_files/figure-html/unnamed-chunk-117-1.png" width="672" /></p>
+<p>We’ve added some things: We’ve made the group names 25% bigger with <code>cex.axis = 1.25</code>; (note that <code>cex</code> stands for <strong>c</strong>haracter <strong>ex</strong>pansion", with <code>1</code> being 100%, positive values &lt; 1 making it smaller, &amp; values &gt; 1 making bigger); we’ve made the main plot label 50% bigger, <code>cex.main = 1.5</code>; we’ve specified colors (<code>col =</code>) for the two groups (you can look up other color names or try out standard names); and we’ve added points in the order that are in the <code>grpm</code> data frame we created, along with their color and the type of plotting character for the point (<code>pch =</code>). You can see more types of plotting character points in help by running <code>?pch</code>. Try <code>pch = 18</code>, or <code>23</code> in your plot to see different results (though you may have to clear the earlier plots). The <code>text</code> line adds text to the points, from the grpm object, with the first argument as the position of the label and a vertical adjustment of <code>+ 4</code> points on the Y axis (scores). Try replacing <code>4</code> with some other number to see the result. This may look better on your screen with it set at <code>2</code>. The labels of the points are the means, after rounding them to two decimal places using the <code>round()</code> function.</p>
+<p>This was an example of what you can do with plots. (Plots are not a course requirement, but they can be satisfying and illustrate information about our data.) You can learn more about boxplot options in R’s help or online.</p>
+</div>
+</div>
+</div>
+<div id="extra-stuff" class="section level2" number="3.4">
+<h2><span class="header-section-number">3.4</span> Extra Stuff</h2>
+<div id="using-ggplot" class="section level3" number="3.4.1">
+<h3><span class="header-section-number">3.4.1</span> Using ggplot</h3>
+<p>An alternative to Base R’s plots is a ggplot. For this approach, we use the ggplot2 <span class="citation">(<a href="#ref-R-ggplot2" role="doc-biblioref">Wickham, Chang, et al., 2021</a>)</span> package. If you don’t already have it installed, install it using <code>install.packages("ggplot2")</code>. It is one of many packages that are in the <a href="https://www.tidyverse.org/" target="_blank">Tidyverse community</a>.<a href="#fn13" class="footnote-ref" id="fnref13"><sup>13</sup></a></p>
+<div class="sourceCode" id="cb243"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb243-1"><a href="examine.html#cb243-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb243-2"><a href="examine.html#cb243-2" aria-hidden="true" tabindex="-1"></a>bar <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(ny, <span class="fu">aes</span>(<span class="at">x =</span> vouchF, <span class="at">y =</span> post_ach))</span>
+<span id="cb243-3"><a href="examine.html#cb243-3" aria-hidden="true" tabindex="-1"></a>bar <span class="sc">+</span> <span class="fu">stat_summary</span>(<span class="at">fun =</span> mean, </span>
+<span id="cb243-4"><a href="examine.html#cb243-4" aria-hidden="true" tabindex="-1"></a>                   <span class="at">geom =</span> <span class="st">&quot;bar&quot;</span>, </span>
+<span id="cb243-5"><a href="examine.html#cb243-5" aria-hidden="true" tabindex="-1"></a>                   <span class="at">fill =</span> <span class="st">&quot;aquamarine4&quot;</span>, </span>
+<span id="cb243-6"><a href="examine.html#cb243-6" aria-hidden="true" tabindex="-1"></a>                   <span class="at">color =</span> <span class="st">&quot;black&quot;</span>) <span class="sc">+</span></span>
+<span id="cb243-7"><a href="examine.html#cb243-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="at">fun.data =</span> mean_cl_normal, </span>
+<span id="cb243-8"><a href="examine.html#cb243-8" aria-hidden="true" tabindex="-1"></a>               <span class="at">geom =</span> <span class="st">&quot;errorbar&quot;</span>, </span>
+<span id="cb243-9"><a href="examine.html#cb243-9" aria-hidden="true" tabindex="-1"></a>               <span class="at">width =</span>.<span class="dv">1</span>) <span class="sc">+</span> </span>
+<span id="cb243-10"><a href="examine.html#cb243-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Voucher offer&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Achievement test&quot;</span>) <span class="sc">+</span></span>
+<span id="cb243-11"><a href="examine.html#cb243-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">20</span>)) <span class="sc">+</span></span>
+<span id="cb243-12"><a href="examine.html#cb243-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="at">from =</span> <span class="dv">0</span>, <span class="at">to =</span> <span class="dv">50</span>, <span class="at">by =</span> <span class="dv">5</span>))</span></code></pre></div>
+<p><img src="QEDs-in-R_files/figure-html/unnamed-chunk-118-1.png" width="672" /></p>
+<p>The primary function is <code>ggplot()</code>. Its first argument is the data frame (<code>ny</code> in this case). The second is the aesthetics statement <code>aes()</code> where we can list the X and Y coordinates.</p>
+<p>You can specify <code>geom = "pointrange"</code> in place of <code>"errorbar"</code> to see a different version.</p>
+<p>We created the <code>grpmean</code> object above to see mean of each grp. We’ll use that in this box-and-whisker plot to add a point showing the group’s mean.</p>
+<div class="sourceCode" id="cb244"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb244-1"><a href="examine.html#cb244-1" aria-hidden="true" tabindex="-1"></a>grpmean <span class="ot">&lt;-</span> grpm</span>
+<span id="cb244-2"><a href="examine.html#cb244-2" aria-hidden="true" tabindex="-1"></a>box <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(ny, <span class="fu">aes</span>(vouchF, post_ach))</span>
+<span id="cb244-3"><a href="examine.html#cb244-3" aria-hidden="true" tabindex="-1"></a>box <span class="sc">+</span> <span class="fu">geom_boxplot</span>(  <span class="at">fill =</span> <span class="st">&quot;slategray3&quot;</span>) <span class="sc">+</span></span>
+<span id="cb244-4"><a href="examine.html#cb244-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="at">fun =</span> mean, </span>
+<span id="cb244-5"><a href="examine.html#cb244-5" aria-hidden="true" tabindex="-1"></a>               <span class="at">color =</span> <span class="st">&quot;darkred&quot;</span>, </span>
+<span id="cb244-6"><a href="examine.html#cb244-6" aria-hidden="true" tabindex="-1"></a>               <span class="at">geom =</span> <span class="st">&quot;point&quot;</span>,</span>
+<span id="cb244-7"><a href="examine.html#cb244-7" aria-hidden="true" tabindex="-1"></a>               <span class="at">shape =</span> <span class="dv">18</span>, </span>
+<span id="cb244-8"><a href="examine.html#cb244-8" aria-hidden="true" tabindex="-1"></a>               <span class="at">size =</span> <span class="fl">2.5</span>) <span class="sc">+</span></span>
+<span id="cb244-9"><a href="examine.html#cb244-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">20</span>)) <span class="sc">+</span></span>
+<span id="cb244-10"><a href="examine.html#cb244-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="at">data =</span> grpmean, <span class="fu">aes</span>(<span class="at">label =</span> <span class="fu">round</span>(post_ach, <span class="at">digits =</span> <span class="dv">2</span>), <span class="at">y =</span> post_ach <span class="sc">+</span> <span class="fl">3.5</span>)) <span class="sc">+</span></span>
+<span id="cb244-11"><a href="examine.html#cb244-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Voucher offer&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Achievement test&quot;</span>) <span class="sc">+</span></span>
+<span id="cb244-12"><a href="examine.html#cb244-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="at">from =</span> <span class="dv">0</span>, <span class="at">to =</span> <span class="dv">50</span>, <span class="at">by =</span> <span class="dv">10</span>))</span></code></pre></div>
+<p><img src="QEDs-in-R_files/figure-html/unnamed-chunk-119-1.png" width="672" /></p>
+<p>There are other ways to examine data by group:</p>
+<div class="sourceCode" id="cb245"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb245-1"><a href="examine.html#cb245-1" aria-hidden="true" tabindex="-1"></a>prepost <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;pre_ach&quot;</span>, <span class="st">&quot;post_ach&quot;</span>)  <span class="co"># a vector of the two variables names</span></span></code></pre></div>
+</div>
+<div id="subsetting-data-and-separately-analyzing-each-group" class="section level3" number="3.4.2">
+<h3><span class="header-section-number">3.4.2</span> Subsetting data and separately analyzing each group</h3>
+<p>A simpler method, though less reproducible for later code, is to analyze each group on its own and then combine data. In other words, we can subset to data into the voucher group and non-voucher groups and then apply our function.</p>
+<div class="sourceCode" id="cb246"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb246-1"><a href="examine.html#cb246-1" aria-hidden="true" tabindex="-1"></a>vg  <span class="ot">&lt;-</span>  <span class="fu">subset</span>(ny, voucher <span class="sc">&gt;</span> <span class="dv">0</span>)   <span class="co">#Voucher group</span></span>
+<span id="cb246-2"><a href="examine.html#cb246-2" aria-hidden="true" tabindex="-1"></a>nvg <span class="ot">&lt;-</span>  <span class="fu">subset</span>(ny, voucher <span class="sc">&lt;</span> <span class="dv">1</span>)   <span class="co">#No-voucher group</span></span>
+<span id="cb246-3"><a href="examine.html#cb246-3" aria-hidden="true" tabindex="-1"></a>(vg.descr  <span class="ot">&lt;-</span> <span class="fu">apply</span>( vg[,prepost], <span class="dv">2</span>, myci))</span></code></pre></div>
+<pre><code>##       pre_ach post_ach
+## N     291.000  291.000
+## Var   350.589  390.221
+## M      20.679   26.029
+## SEm     1.098    1.158
+## CI_lb  18.518   23.750
+## CI_ub  22.839   28.308</code></pre>
+<div class="sourceCode" id="cb248"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb248-1"><a href="examine.html#cb248-1" aria-hidden="true" tabindex="-1"></a>(nvg.descr <span class="ot">&lt;-</span> <span class="fu">apply</span>(nvg[,prepost], <span class="dv">2</span>, myci))</span></code></pre></div>
+<pre><code>##       pre_ach post_ach
+## N     230.000  230.000
+## Var   311.993  330.234
+## M      19.513   21.130
+## SEm     1.165    1.198
+## CI_lb  17.218   18.769
+## CI_ub  21.808   23.491</code></pre>
+<p>The outputs from <code>apply()</code> functions are matrices:</p>
+<div class="sourceCode" id="cb250"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb250-1"><a href="examine.html#cb250-1" aria-hidden="true" tabindex="-1"></a><span class="fu">is.matrix</span>(vg.descr)</span></code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+<p>We can round and transpose matrices:</p>
+<div class="sourceCode" id="cb252"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb252-1"><a href="examine.html#cb252-1" aria-hidden="true" tabindex="-1"></a><span class="fu">t</span>(<span class="fu">round</span>( vg.descr, <span class="dv">2</span>))</span></code></pre></div>
+<pre><code>##            N    Var     M  SEm CI_lb CI_ub
+## pre_ach  291 350.59 20.68 1.10 18.52 22.84
+## post_ach 291 390.22 26.03 1.16 23.75 28.31</code></pre>
+<div class="sourceCode" id="cb254"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb254-1"><a href="examine.html#cb254-1" aria-hidden="true" tabindex="-1"></a><span class="fu">t</span>(<span class="fu">round</span>(nvg.descr, <span class="dv">2</span>))</span></code></pre></div>
+<pre><code>##            N    Var     M  SEm CI_lb CI_ub
+## pre_ach  230 311.99 19.51 1.17 17.22 21.81
+## post_ach 230 330.23 21.13 1.20 18.77 23.49</code></pre>
+</div>
+<div id="the-tidyverse-approach-to-by-group-analyses" class="section level3" number="3.4.3">
+<h3><span class="header-section-number">3.4.3</span> The Tidyverse Approach to By-Group Analyses</h3>
+<p>Let’s use the dplyr package <span class="citation">(<a href="#ref-R-dplyr" role="doc-biblioref">Wickham, François, et al., 2021</a>)</span> to do a by-group analysis.</p>
+<div class="sourceCode" id="cb256"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb256-1"><a href="examine.html#cb256-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span></code></pre></div>
+<p>We use Tidyverse’s pipe operator, <code>%&gt;%</code> to take stuff on the left of this operator and then do the stuff that is on the right side. This order of syntax is more similar to how we read a language, whereas Base R operations are more mathematical, going from the inside out, such as by enclosing the first operations inside parentheses and then the next step in parentheses one layer out. <strong><em>Shortcut.</em></strong> Use <code>Ctrl</code> + <code>Shift</code> + <code>M</code> (or <code>Command</code> on Mac) to insert the Tidyverse pipe into R. The <code>%&gt;%</code> pipe always goes on the same line in the code as the stuff on its left. Stuff on the right can go on the next line (or stay on that same line).</p>
+<p>So, let’s take the data frame, <code>ny</code> then group it by the <code>vouchF</code> variable (or the <code>voucher</code> variable if you prefer) using the <code>group_by()</code> function, and after that use the <code>summarize()</code> function to assign the results of the <code>mean()</code> function to a column we’ll call <code>M</code>:</p>
+<div class="sourceCode" id="cb257"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb257-1"><a href="examine.html#cb257-1" aria-hidden="true" tabindex="-1"></a>ny <span class="sc">%&gt;%</span> </span>
+<span id="cb257-2"><a href="examine.html#cb257-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(vouchF) <span class="sc">%&gt;%</span> </span>
+<span id="cb257-3"><a href="examine.html#cb257-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">M =</span> <span class="fu">mean</span>(post_ach)) </span></code></pre></div>
+<pre><code>## # A tibble: 2 x 2
+##   vouchF      M
+##   &lt;fct&gt;   &lt;dbl&gt;
+## 1 Voucher  26.0
+## 2 NoVouch  21.1</code></pre>
+<p>Notice that our column names do not have quotes.Tidyverse often does not use quotes around column names, which is what is going on with the functions from this package.</p>
+<p>We can save the output to an object, which we can label as <code>mygrp_Ms</code>. Also, Tidyverse saves data frames as tibbles. I prefer data frames, so I am adding <code>%&gt;% data.frame()</code> to our syntax:</p>
+<div class="sourceCode" id="cb259"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb259-1"><a href="examine.html#cb259-1" aria-hidden="true" tabindex="-1"></a>mygrp_Ms <span class="ot">&lt;-</span> ny <span class="sc">%&gt;%</span> </span>
+<span id="cb259-2"><a href="examine.html#cb259-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(vouchF) <span class="sc">%&gt;%</span> </span>
+<span id="cb259-3"><a href="examine.html#cb259-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">M =</span> <span class="fu">mean</span>(post_ach)) <span class="sc">%&gt;%</span> <span class="fu">data.frame</span>()</span>
+<span id="cb259-4"><a href="examine.html#cb259-4" aria-hidden="true" tabindex="-1"></a>mygrp_Ms</span></code></pre></div>
+<pre><code>##    vouchF        M
+## 1 Voucher 26.02921
+## 2 NoVouch 21.13043</code></pre>
+<p>With functions that output more than one number, such as from our custom function to report the confidence-interval, the <code>summarize()</code> function is hard to interpret.</p>
+<div class="sourceCode" id="cb261"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb261-1"><a href="examine.html#cb261-1" aria-hidden="true" tabindex="-1"></a>ny <span class="sc">%&gt;%</span> </span>
+<span id="cb261-2"><a href="examine.html#cb261-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(vouchF) <span class="sc">%&gt;%</span> </span>
+<span id="cb261-3"><a href="examine.html#cb261-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">N   =</span> <span class="fu">myci</span>(post_ach)) <span class="sc">%&gt;%</span> </span>
+<span id="cb261-4"><a href="examine.html#cb261-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">data.frame</span>()</span></code></pre></div>
+<pre><code>##     vouchF       N
+## 1  Voucher 291.000
+## 2  Voucher 390.221
+## 3  Voucher  26.029
+## 4  Voucher   1.158
+## 5  Voucher  23.750
+## 6  Voucher  28.308
+## 7  NoVouch 230.000
+## 8  NoVouch 330.234
+## 9  NoVouch  21.130
+## 10 NoVouch   1.198
+## 11 NoVouch  18.769
+## 12 NoVouch  23.491</code></pre>
+<p>One trick we can sometimes use is to use the index of the function and provide it a column label that it will have in the output:</p>
+<div class="sourceCode" id="cb263"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb263-1"><a href="examine.html#cb263-1" aria-hidden="true" tabindex="-1"></a>ny <span class="sc">%&gt;%</span> </span>
+<span id="cb263-2"><a href="examine.html#cb263-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(vouchF) <span class="sc">%&gt;%</span> </span>
+<span id="cb263-3"><a href="examine.html#cb263-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">N   =</span> <span class="fu">myci</span>(post_ach)[<span class="dv">1</span>],</span>
+<span id="cb263-4"><a href="examine.html#cb263-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">Var =</span> <span class="fu">myci</span>(post_ach)[<span class="dv">2</span>],</span>
+<span id="cb263-5"><a href="examine.html#cb263-5" aria-hidden="true" tabindex="-1"></a>              <span class="at">M =</span> <span class="fu">myci</span>(post_ach)[<span class="dv">3</span>],</span>
+<span id="cb263-6"><a href="examine.html#cb263-6" aria-hidden="true" tabindex="-1"></a>            <span class="at">SEm =</span> <span class="fu">myci</span>(post_ach)[<span class="dv">4</span>],</span>
+<span id="cb263-7"><a href="examine.html#cb263-7" aria-hidden="true" tabindex="-1"></a>             <span class="at">CI_lb =</span> <span class="fu">myci</span>(post_ach)[<span class="dv">5</span>],</span>
+<span id="cb263-8"><a href="examine.html#cb263-8" aria-hidden="true" tabindex="-1"></a>             <span class="at">CI_ub =</span> <span class="fu">myci</span>(post_ach)[<span class="dv">6</span>],) <span class="sc">%&gt;%</span> </span>
+<span id="cb263-9"><a href="examine.html#cb263-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">data.frame</span>()</span></code></pre></div>
+<pre><code>##    vouchF   N     Var      M   SEm  CI_lb  CI_ub
+## 1 Voucher 291 390.221 26.029 1.158 23.750 28.308
+## 2 NoVouch 230 330.234 21.130 1.198 18.769 23.491</code></pre>
+<p>It can be risky using numbers in the indexes if we had changed the function. Above, we assumed that <code>N</code> was the first index, <code>Var</code> was the second, and so forth. We can look at our function to see what the last line is and see how we had ordered these in the output:</p>
+<div class="sourceCode" id="cb265"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb265-1"><a href="examine.html#cb265-1" aria-hidden="true" tabindex="-1"></a>myci</span></code></pre></div>
+<pre><code>## function(x){
+##   m   &lt;- mean(x)
+##   v   &lt;- var(x)
+##   n   &lt;- length(x)
+##   se  &lt;- sqrt(v/n)
+##   tcut&lt;- qt(.975, df = n-1, lower.tail = T) # qnorm(.975, lower.tail = T) 
+##   moe &lt;- tcut*se
+##   lb  &lt;- m-moe
+##   ub  &lt;- m+moe
+##   ci  &lt;- c(lb,ub)
+##  round( c(N=n, Var=v, M=m, SEm=se, CI_lb=lb, CI_ub=ub),3)
+## }
+## &lt;bytecode: 0x00000000126e1178&gt;</code></pre>
+<p>The last line, <code>round( c(N=n, Var=v, M=m, SEm=se, CI_lb=lb, CI_ub=ub),3)</code>, includes my variables, so the first index is <code>N</code>, the second is <code>Var</code>, and so forth.
+It is probably safer to use these names in the index instead of the numbers.</p>
+<div class="sourceCode" id="cb267"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb267-1"><a href="examine.html#cb267-1" aria-hidden="true" tabindex="-1"></a>my_CIs <span class="ot">&lt;-</span> ny <span class="sc">%&gt;%</span> </span>
+<span id="cb267-2"><a href="examine.html#cb267-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(vouchF) <span class="sc">%&gt;%</span> </span>
+<span id="cb267-3"><a href="examine.html#cb267-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">N   =</span> <span class="fu">myci</span>(post_ach)[<span class="st">&quot;N&quot;</span>],</span>
+<span id="cb267-4"><a href="examine.html#cb267-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">Var =</span> <span class="fu">myci</span>(post_ach)[<span class="st">&quot;Var&quot;</span>],</span>
+<span id="cb267-5"><a href="examine.html#cb267-5" aria-hidden="true" tabindex="-1"></a>              <span class="at">M =</span> <span class="fu">myci</span>(post_ach)[<span class="st">&quot;M&quot;</span>],</span>
+<span id="cb267-6"><a href="examine.html#cb267-6" aria-hidden="true" tabindex="-1"></a>            <span class="at">SEm =</span> <span class="fu">myci</span>(post_ach)[<span class="st">&quot;SEm&quot;</span>],</span>
+<span id="cb267-7"><a href="examine.html#cb267-7" aria-hidden="true" tabindex="-1"></a>             <span class="at">CI_lb =</span> <span class="fu">myci</span>(post_ach)[<span class="st">&quot;CI_lb&quot;</span>],</span>
+<span id="cb267-8"><a href="examine.html#cb267-8" aria-hidden="true" tabindex="-1"></a>             <span class="at">CI_ub =</span> <span class="fu">myci</span>(post_ach)[<span class="st">&quot;CI_ub&quot;</span>],) <span class="sc">%&gt;%</span> </span>
+<span id="cb267-9"><a href="examine.html#cb267-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">data.frame</span>()</span>
+<span id="cb267-10"><a href="examine.html#cb267-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb267-11"><a href="examine.html#cb267-11" aria-hidden="true" tabindex="-1"></a>my_CIs</span></code></pre></div>
+<pre><code>##    vouchF   N     Var      M   SEm  CI_lb  CI_ub
+## 1 Voucher 291 390.221 26.029 1.158 23.750 28.308
+## 2 NoVouch 230 330.234 21.130 1.198 18.769 23.491</code></pre>
+</div>
+<div id="plotting-summary-statistics" class="section level3" number="3.4.4">
+<h3><span class="header-section-number">3.4.4</span> Plotting summary statistics</h3>
+<p>Using the <code>ggplot()</code> function from the ggplot2 package, we can create a plot based on the summary report, which we had saved as a data frame in the object <code>my_CIs</code>. We can pipe in the data frame to the <code>ggplot()</code> function (though we coud have used <code>ggplot(data = my_CIs,... )</code> instead). Within the <code>ggplot()</code> function, there are <code>+</code>s between each line, which adds stuff to the plot.</p>
+<div class="sourceCode" id="cb269"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb269-1"><a href="examine.html#cb269-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb269-2"><a href="examine.html#cb269-2" aria-hidden="true" tabindex="-1"></a>my_CIs <span class="sc">%&gt;%</span> </span>
+<span id="cb269-3"><a href="examine.html#cb269-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> vouchF, <span class="at">y =</span> M, <span class="at">fill =</span> vouchF)) <span class="sc">+</span></span>
+<span id="cb269-4"><a href="examine.html#cb269-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>() <span class="sc">+</span> </span>
+<span id="cb269-5"><a href="examine.html#cb269-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_errorbar</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> CI_lb, <span class="at">ymax =</span> CI_ub), <span class="at">width =</span> .<span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb269-6"><a href="examine.html#cb269-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_viridis_d</span>(<span class="at">begin =</span> .<span class="dv">2</span>, <span class="at">end =</span> .<span class="dv">9</span>, <span class="at">guide =</span> <span class="st">&quot;none&quot;</span>)<span class="sc">+</span></span>
+<span id="cb269-7"><a href="examine.html#cb269-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Voucher offer&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Achievement test&quot;</span>) <span class="sc">+</span></span>
+<span id="cb269-8"><a href="examine.html#cb269-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">20</span>)) <span class="sc">+</span></span>
+<span id="cb269-9"><a href="examine.html#cb269-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">40</span>),</span>
+<span id="cb269-10"><a href="examine.html#cb269-10" aria-hidden="true" tabindex="-1"></a>                     <span class="at">breaks =</span> <span class="fu">seq</span>(<span class="at">from =</span> <span class="dv">0</span>, <span class="at">to =</span> <span class="dv">40</span>, <span class="at">by =</span> <span class="dv">5</span>))</span></code></pre></div>
+<p><img src="QEDs-in-R_files/figure-html/unnamed-chunk-131-1.png" width="672" /></p>
+<p>So, what we’ve done is taken the data frame <code>my_CIs</code> and piped it into the <code>ggplot()</code> function. For the aesthetics—that is, for defining what goes in the map of plot—we specified the X and Y axes and we added one called <code>fill =</code>. Here, the X axis was our grouping variable and the Y axis was the mean of the <code>post_ach</code>, which in our data frame is the column labeled <code>M</code>. The <code>fill = vouchF</code> defined which variable to use when we filled in colors of areas in the plot.</p>
+<p>The next line is the type of geometric shape to include in the plot. These are called geoms in ggplot2. Here, we’ll use a column plot, so let’s use <code>geom_col()</code>. Typically, when we plot a bar plot of data that are already summarized, we use this geom. If we use raw data with a <code>stat_summary()</code> function, as we did a few steps earlier, we could use a bar plot, such as <code>geom_bar()</code>.</p>
+<p>The <code>geom_errorbar()</code> adds a new geom to the plot. This is an error bar. Some geoms require aesthetics. Here, we need to specify the <code>ymin =</code> and <code>ymax =</code> aesthetics. We could use something like <code>ymin = M - SEm</code> if we wanted the margin of error to be one standard error in length. In our plot, we are using the confidence interval that we calculated based on the <em>t</em>-statistic, so the bottom and top of the error bar in each group is its <code>CI_lb</code> and <code>CI_ub</code>, which are columns in our data frame of the summary statistics. The <code>width =</code> specified the width of the line in the error bar.</p>
+<p>The <code>scale_fill_viridis_d(begin = .2, end = .9, guide = FALSE)</code> line is optional. It changes the color palette to be more amenable to most types of color blindness. The <code>guide = FALSE</code> removes the legend. The <code>begin =</code> and <code>end =</code> specify the range in the palette to use, with the default being <code>0</code> and <code>1</code> respectively.</p>
+<p>The <code>scale_y_continuous()</code> line allows us to specify the boundaries of the Y axis and what the interval of the breaks for labeling. We could have set the limits to <code>0</code> and <code>100</code> to allow for the full range on the outcome variable. This would display a more accurate picture of the outcome variable and how much better the voucher group did in that original scale.</p>
+<!-- ### 2. The `tapply()` function for applying across groups  -->
+<!-- We can also use `tapply()` to get a descriptive summary for each group using. I don't think we can apply this to multiple variables, as we did with `by()`. `tapply()` applies a function (argument 3) on a variable (argument 1) by group (argument 2). -->
+<!-- ```{r} -->
+<!-- (post.by <- tapply(ny$post_ach,ny$vouchF,myci)) # I use post.by as short for "post_ach by group" -->
+<!-- ``` -->
+<!-- This output appears to be a list: -->
+<!-- ```{r} -->
+<!--  is.list(post.by) -->
+<!-- ``` -->
+<!-- With lists, we can use brackets to get components or double brackets to get elements of components: -->
+<!-- ```{r} -->
+<!--  post.by[[2]]   -->
+<!-- ``` -->
+<!-- The second component **contains** the `NoVouch` data themselves; here, they're a numeric vector: -->
+<!-- ```{r} -->
+<!--  is.vector(post.by[[2]]) -->
+<!--  is.numeric(post.by[[2]]) -->
+<!--  is.list(post.by[[2]]) -->
+<!-- ``` -->
+<!-- But the second component, with the contents and the name is still a list: -->
+<!-- ```{r} -->
+<!--  is.numeric(post.by[2]) -->
+<!--  is.list(post.by[2]) -->
+<!-- ``` -->
+<!-- We can (usually) use the `unlist()` function to turn a component into a vector: -->
+<!-- ```{r} -->
+<!--  is.numeric(unlist(post.by[2])) -->
+<!--  is.list(unlist(post.by[2])) -->
+<!-- ``` -->
+<!-- ### 3. The `aggregate()` function with multiple variables. -->
+<!-- The `aggregate()` function can take columns as the first argument. The by-group is the second argument, `by = `. Here, in the `list()` function in the `by = ` argument, we specified `vouchF = `. If we had not done this, the variable would be labeled as `Group.1`. The third argument here is the function. -->
+<!-- ```{r} -->
+<!-- grpm2 <-  aggregate(ny[,prepost],  -->
+<!--                     by = list(vouchF = ny$vouchF),  -->
+<!--                     mean) -->
+<!-- grpm2 -->
+<!-- ``` -->
+<!-- The output is a data frame: -->
+<!-- ```{r} -->
+<!-- is.data.frame(grpm2) -->
+<!-- grpvar2<- aggregate(ny[,prepost],  -->
+<!--                     by = list(vouchF = ny$vouchF),  -->
+<!--                     var) -->
+<!-- grpvar2 -->
+<!-- ``` -->
+
+</div>
+</div>
+</div>
+<h3>References</h3>
+<div id="refs" class="references csl-bib-body hanging-indent" entry-spacing="1">
+<div id="ref-R-ggplot2" class="csl-entry">
+Wickham, H., Chang, W., Henry, L., Pedersen, T. L., Takahashi, K., Wilke, C., Woo, K., Yutani, H., &amp; Dunnington, D. (2021). <em>ggplot2: Create elegant data visualisations using the grammar of graphics</em>. <a href="https://CRAN.R-project.org/package=ggplot2">https://CRAN.R-project.org/package=ggplot2</a>
+</div>
+<div id="ref-R-dplyr" class="csl-entry">
+Wickham, H., François, R., Henry, L., &amp; Müller, K. (2021). <em>Dplyr: A grammar of data manipulation</em>. <a href="https://CRAN.R-project.org/package=dplyr">https://CRAN.R-project.org/package=dplyr</a>
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="6">
+<li id="fn6"><p>An easier-to-read method would be to create a custom function first and then use that in the <code>apply()</code> function in place of all of this <code>function(x) sum(is.na(x))</code> business.<a href="examine.html#fnref6" class="footnote-back">↩︎</a></p></li>
+<li id="fn7"><p>Bonus: we can use the <code>formatC()</code> function to format the character to have a specified width with leading zeroes; e.g., <code>rownames(ny) &lt;- formatC(ny$s_id, width = 5,format = "d", flag = "0")</code>.<a href="examine.html#fnref7" class="footnote-back">↩︎</a></p></li>
+<li id="fn8"><p>Functions, like objects, also should begin with a letter and not include special characters except for underscores and maybe periods.<a href="examine.html#fnref8" class="footnote-back">↩︎</a></p></li>
+<li id="fn9"><p>Sometimes, people calculate the 95% confidence interval around the mean as <span class="math inline">\((mean ±2*std.error)\)</span> to get a rough estimate of these two values. Compare <code>qt(.975, df=520, lower.tail=T)</code> and <code>qnorm(.975, lower.tail = T)</code>.<a href="examine.html#fnref9" class="footnote-back">↩︎</a></p></li>
+<li id="fn10"><p>The <code>apply()</code> function will not work with a single column.<a href="examine.html#fnref10" class="footnote-back">↩︎</a></p></li>
+<li id="fn11"><p>We can set the Y axis limits, too, with <code>ylim =</code>.<a href="examine.html#fnref11" class="footnote-back">↩︎</a></p></li>
+<li id="fn12"><p>Sometimes <code>as.data.frame()</code> works.<a href="examine.html#fnref12" class="footnote-back">↩︎</a></p></li>
+<li id="fn13"><p>We can install multiple Tidyverse packages at one time once using <code>install.packages("tidyverse")</code>.<a href="examine.html#fnref13" class="footnote-back">↩︎</a></p></li>
+</ol>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="basics.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="rct.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

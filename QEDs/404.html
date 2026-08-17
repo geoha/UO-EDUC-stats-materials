@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Page not found | Using R for Quasi-Experimental Designs</title>
+  <meta name="description" content="QEDs in R" />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Page not found | Using R for Quasi-Experimental Designs" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="QEDs in R" />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Page not found | Using R for Quasi-Experimental Designs" />
+  
+  <meta name="twitter:description" content="QEDs in R" />
+  
+
+<meta name="author" content="George M. Harrison  University of Hawai‘i at Mānoa, College of Education" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+
+
+<script src="libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+<link href="libs/bsTable-3.3.7/bootstrapTable.min.css" rel="stylesheet" />
+<script src="libs/bsTable-3.3.7/bootstrapTable.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 1em;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#what-is-r"><i class="fa fa-check"></i><b>1.1</b> What is R</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="basics.html"><a href="basics.html"><i class="fa fa-check"></i><b>2</b> Some Fundamentals of Coding in R</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="basics.html"><a href="basics.html#objectives"><i class="fa fa-check"></i><b>2.1</b> Objectives</a></li>
+<li class="chapter" data-level="2.2" data-path="basics.html"><a href="basics.html#creating-an-r-script-file"><i class="fa fa-check"></i><b>2.2</b> Creating an R Script File</a></li>
+<li class="chapter" data-level="2.3" data-path="basics.html"><a href="basics.html#creating-objects-by-assigning-information-to-them"><i class="fa fa-check"></i><b>2.3</b> Creating objects by assigning information to them</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="basics.html"><a href="basics.html#assigning-character-strings-to-an-object"><i class="fa fa-check"></i><b>2.3.1</b> Assigning Character Strings to an Object</a></li>
+<li class="chapter" data-level="2.3.2" data-path="basics.html"><a href="basics.html#assigning-numeric-elements-to-an-object"><i class="fa fa-check"></i><b>2.3.2</b> Assigning Numeric Elements to an Object</a></li>
+<li class="chapter" data-level="2.3.3" data-path="basics.html"><a href="basics.html#creating-vectors"><i class="fa fa-check"></i><b>2.3.3</b> Creating Vectors</a></li>
+<li class="chapter" data-level="2.3.4" data-path="basics.html"><a href="basics.html#performing-operations-on-vectors"><i class="fa fa-check"></i><b>2.3.4</b> Performing Operations on Vectors</a></li>
+<li class="chapter" data-level="2.3.5" data-path="basics.html"><a href="basics.html#using-functions"><i class="fa fa-check"></i><b>2.3.5</b> Using Functions</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="basics.html"><a href="basics.html#create-a-data-frame-from-code"><i class="fa fa-check"></i><b>2.4</b> Create a data frame from code</a></li>
+<li class="chapter" data-level="2.5" data-path="basics.html"><a href="basics.html#working-with-matrices"><i class="fa fa-check"></i><b>2.5</b> Working with Matrices</a></li>
+<li class="chapter" data-level="2.6" data-path="basics.html"><a href="basics.html#dffromcsv"><i class="fa fa-check"></i><b>2.6</b> Creating a Data Frame from a CSV File</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="examine.html"><a href="examine.html"><i class="fa fa-check"></i><b>3</b> Examining and Summarizing Data</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="examine.html"><a href="examine.html#objectives-1"><i class="fa fa-check"></i><b>3.1</b> Objectives</a></li>
+<li class="chapter" data-level="3.2" data-path="examine.html"><a href="examine.html#examining-the-data"><i class="fa fa-check"></i><b>3.2</b> Examining the Data</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="examine.html"><a href="examine.html#the-data-frame"><i class="fa fa-check"></i><b>3.2.1</b> The Data Frame</a></li>
+<li class="chapter" data-level="3.2.2" data-path="examine.html"><a href="examine.html#subsetting-by-rows"><i class="fa fa-check"></i><b>3.2.2</b> Subsetting by Rows</a></li>
+<li class="chapter" data-level="3.2.3" data-path="examine.html"><a href="examine.html#subsetting-by-columns"><i class="fa fa-check"></i><b>3.2.3</b> Subsetting by Columns</a></li>
+<li class="chapter" data-level="3.2.4" data-path="examine.html"><a href="examine.html#descriptive-statistics"><i class="fa fa-check"></i><b>3.2.4</b> Descriptive Statistics</a></li>
+<li class="chapter" data-level="3.2.5" data-path="examine.html"><a href="examine.html#creating-a-custom-function-to-estimate-the-confidence-interval-of-the-mean"><i class="fa fa-check"></i><b>3.2.5</b> Creating a Custom Function to Estimate the Confidence Interval of the Mean</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="examine.html"><a href="examine.html#summarizing-data-by-group-and-an-introduction-to-lists"><i class="fa fa-check"></i><b>3.3</b> Summarizing Data by Group (and an introduction to lists)</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="examine.html"><a href="examine.html#calculating-standardized-mean-difference-and-variance-ratio-of-a-covariate"><i class="fa fa-check"></i><b>3.3.1</b> Calculating Standardized Mean Difference and Variance Ratio of a Covariate</a></li>
+<li class="chapter" data-level="3.3.2" data-path="examine.html"><a href="examine.html#creating-a-factor-variable-from-a-numeric-variable"><i class="fa fa-check"></i><b>3.3.2</b> Creating a Factor Variable from a Numeric Variable</a></li>
+<li class="chapter" data-level="3.3.3" data-path="examine.html"><a href="examine.html#aggregate_explain"><i class="fa fa-check"></i><b>3.3.3</b> The <code>aggregate()</code> function</a></li>
+<li class="chapter" data-level="3.3.4" data-path="examine.html"><a href="examine.html#plotting-data-by-group"><i class="fa fa-check"></i><b>3.3.4</b> Plotting data by group</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="examine.html"><a href="examine.html#extra-stuff"><i class="fa fa-check"></i><b>3.4</b> Extra Stuff</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="examine.html"><a href="examine.html#using-ggplot"><i class="fa fa-check"></i><b>3.4.1</b> Using ggplot</a></li>
+<li class="chapter" data-level="3.4.2" data-path="examine.html"><a href="examine.html#subsetting-data-and-separately-analyzing-each-group"><i class="fa fa-check"></i><b>3.4.2</b> Subsetting data and separately analyzing each group</a></li>
+<li class="chapter" data-level="3.4.3" data-path="examine.html"><a href="examine.html#the-tidyverse-approach-to-by-group-analyses"><i class="fa fa-check"></i><b>3.4.3</b> The Tidyverse Approach to By-Group Analyses</a></li>
+<li class="chapter" data-level="3.4.4" data-path="examine.html"><a href="examine.html#plotting-summary-statistics"><i class="fa fa-check"></i><b>3.4.4</b> Plotting summary statistics</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="rct.html"><a href="rct.html"><i class="fa fa-check"></i><b>4</b> Examples with Randomized Experiments</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="rct.html"><a href="rct.html#objectives-2"><i class="fa fa-check"></i><b>4.1</b> Objectives</a></li>
+<li class="chapter" data-level="4.2" data-path="rct.html"><a href="rct.html#preparation"><i class="fa fa-check"></i><b>4.2</b> Preparation</a></li>
+<li class="chapter" data-level="4.3" data-path="rct.html"><a href="rct.html#analysis-of-linear-models"><i class="fa fa-check"></i><b>4.3</b> Analysis of Linear Models</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="rct.html"><a href="rct.html#independent-samples-t-test-approach"><i class="fa fa-check"></i><b>4.3.1</b> Independent samples <em>t</em>-test approach</a></li>
+<li class="chapter" data-level="4.3.2" data-path="rct.html"><a href="rct.html#simple-linear-regression"><i class="fa fa-check"></i><b>4.3.2</b> Simple Linear Regression</a></li>
+<li class="chapter" data-level="4.3.3" data-path="rct.html"><a href="rct.html#multiple-linear-regression"><i class="fa fa-check"></i><b>4.3.3</b> Multiple Linear Regression</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="rct.html"><a href="rct.html#bootstrapping-to-get-confidence-intervals"><i class="fa fa-check"></i><b>4.4</b> Bootstrapping to Get Confidence Intervals</a>
+<ul>
+<li class="chapter" data-level="4.4.1" data-path="rct.html"><a href="rct.html#the-value-of-bootstrapping"><i class="fa fa-check"></i><b>4.4.1</b> The value of bootstrapping</a></li>
+<li class="chapter" data-level="4.4.2" data-path="rct.html"><a href="rct.html#another-way-to-bootstrap-the-standard-error-of-mean-differences"><i class="fa fa-check"></i><b>4.4.2</b> Another way to bootstrap the standard error of mean differences</a></li>
+<li class="chapter" data-level="4.4.3" data-path="rct.html"><a href="rct.html#simple-regression"><i class="fa fa-check"></i><b>4.4.3</b> Simple regression</a></li>
+<li class="chapter" data-level="4.4.4" data-path="rct.html"><a href="rct.html#multiple-regression"><i class="fa fa-check"></i><b>4.4.4</b> Multiple regression</a></li>
+<li class="chapter" data-level="4.4.5" data-path="rct.html"><a href="rct.html#summary-on-bootstrapping"><i class="fa fa-check"></i><b>4.4.5</b> Summary on Bootstrapping</a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="rct.html"><a href="rct.html#estimating-the-average-treatment-on-the-treated-att"><i class="fa fa-check"></i><b>4.5</b> Estimating the Average Treatment on the Treated (ATT)</a>
+<ul>
+<li class="chapter" data-level="4.5.1" data-path="rct.html"><a href="rct.html#artificially-introducing-no-shows"><i class="fa fa-check"></i><b>4.5.1</b> Artificially Introducing No-shows</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="DID.html"><a href="DID.html"><i class="fa fa-check"></i><b>5</b> Difference in Differences</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="DID.html"><a href="DID.html#objectives-3"><i class="fa fa-check"></i><b>5.1</b> Objectives</a></li>
+<li class="chapter" data-level="5.2" data-path="DID.html"><a href="DID.html#import-and-prepare-the-data"><i class="fa fa-check"></i><b>5.2</b> Import and Prepare the Data</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="DID.html"><a href="DID.html#prepare-the-data"><i class="fa fa-check"></i><b>5.2.1</b> Prepare the data</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="DID.html"><a href="DID.html#using-the-survey-package"><i class="fa fa-check"></i><b>5.3</b> Using the survey package</a></li>
+<li class="chapter" data-level="5.4" data-path="DID.html"><a href="DID.html#direct-estimates-as-shown-in-table-8.1-on-page-143"><i class="fa fa-check"></i><b>5.4</b> Direct estimates, as shown in Table 8.1 on page 143</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="DID.html"><a href="DID.html#first-difference-direct-estimate-in-panel-a."><i class="fa fa-check"></i><b>5.4.1</b> First difference, direct estimate in Panel A.</a></li>
+<li class="chapter" data-level="5.4.2" data-path="DID.html"><a href="DID.html#estimate-from-the-linear-probability-model-ols-estimate-shown-in-table-8.1-on-page-143-panel-b."><i class="fa fa-check"></i><b>5.4.2</b> Estimate from the linear-probability model (OLS) estimate shown in Table 8.1 on page 143, Panel B.</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="DID.html"><a href="DID.html#difference-in-differences-simple-approach-table-8.2-p.-157"><i class="fa fa-check"></i><b>5.5</b> Difference in differences, simple approach (Table 8.2, p. 157)</a></li>
+<li class="chapter" data-level="5.6" data-path="DID.html"><a href="DID.html#difference-in-differences-using-regression"><i class="fa fa-check"></i><b>5.6</b> Difference in differences using regression</a>
+<ul>
+<li class="chapter" data-level="5.6.1" data-path="DID.html"><a href="DID.html#compare-the-results-from-the-four-different-strategies"><i class="fa fa-check"></i><b>5.6.1</b> Compare the results from the four different strategies</a></li>
+</ul></li>
+<li class="chapter" data-level="5.7" data-path="DID.html"><a href="DID.html#summary-of-the-did-model-strategy"><i class="fa fa-check"></i><b>5.7</b> Summary of the DID model strategy</a></li>
+<li class="chapter" data-level="5.8" data-path="DID.html"><a href="DID.html#accounting-for-the-binary-y-variable"><i class="fa fa-check"></i><b>5.8</b> Accounting for the binary Y variable</a></li>
+<li class="chapter" data-level="5.9" data-path="DID.html"><a href="DID.html#plotting-the-difference-in-differences"><i class="fa fa-check"></i><b>5.9</b> Plotting the difference in differences</a>
+<ul>
+<li class="chapter" data-level="5.9.1" data-path="DID.html"><a href="DID.html#plotfrompred"><i class="fa fa-check"></i><b>5.9.1</b> Plotting from the predicted values of the model</a></li>
+<li class="chapter" data-level="5.9.2" data-path="DID.html"><a href="DID.html#doing-it-in-ggplot2"><i class="fa fa-check"></i><b>5.9.2</b> Doing it in ggplot2</a></li>
+<li class="chapter" data-level="5.9.3" data-path="DID.html"><a href="DID.html#seeing-where-the-regression-estimate-is-in-the-plot"><i class="fa fa-check"></i><b>5.9.3</b> Seeing where the regression estimate is in the plot</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="RD1.html"><a href="RD1.html"><i class="fa fa-check"></i><b>6</b> Regression Discontinuity, Part 1</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="RD1.html"><a href="RD1.html#objectives-4"><i class="fa fa-check"></i><b>6.1</b> Objectives</a></li>
+<li class="chapter" data-level="6.2" data-path="RD1.html"><a href="RD1.html#import-and-prepare-the-data-1"><i class="fa fa-check"></i><b>6.2</b> Import and Prepare the Data</a></li>
+<li class="chapter" data-level="6.3" data-path="RD1.html"><a href="RD1.html#different-difference-in-differences"><i class="fa fa-check"></i><b>6.3</b> Different Difference in Differences</a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="RD1.html"><a href="RD1.html#our-first-difference"><i class="fa fa-check"></i><b>6.3.1</b> Our first difference</a></li>
+<li class="chapter" data-level="6.3.2" data-path="RD1.html"><a href="RD1.html#a-plausible-second-difference"><i class="fa fa-check"></i><b>6.3.2</b> A plausible second difference</a></li>
+<li class="chapter" data-level="6.3.3" data-path="RD1.html"><a href="RD1.html#another-plausible-second-difference"><i class="fa fa-check"></i><b>6.3.3</b> Another plausible second difference</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="RD1.html"><a href="RD1.html#mread3640"><i class="fa fa-check"></i><b>6.4</b> Broadening the bandwidth</a></li>
+<li class="chapter" data-level="6.5" data-path="RD1.html"><a href="RD1.html#summary-up-to-this-point"><i class="fa fa-check"></i><b>6.5</b> Summary up to this point</a></li>
+<li class="chapter" data-level="6.6" data-path="RD1.html"><a href="RD1.html#examining-if-the-results-are-consistent-with-different-bandwidths"><i class="fa fa-check"></i><b>6.6</b> Examining if the results are consistent with different bandwidths</a></li>
+<li class="chapter" data-level="6.7" data-path="RD1.html"><a href="RD1.html#functional-form-in-rdd"><i class="fa fa-check"></i><b>6.7</b> Functional Form in RDD</a>
+<ul>
+<li class="chapter" data-level="6.7.1" data-path="RD1.html"><a href="RD1.html#plotting-the-two-sides-allowing-different-slopes"><i class="fa fa-check"></i><b>6.7.1</b> Plotting the two sides, allowing different slopes</a></li>
+<li class="chapter" data-level="6.7.2" data-path="RD1.html"><a href="RD1.html#broader-analytic-windows"><i class="fa fa-check"></i><b>6.7.2</b> Broader analytic windows</a></li>
+</ul></li>
+<li class="chapter" data-level="6.8" data-path="RD1.html"><a href="RD1.html#using-the-rddtools-package"><i class="fa fa-check"></i><b>6.8</b> Using the rddtools Package</a>
+<ul>
+<li class="chapter" data-level="6.8.1" data-path="RD1.html"><a href="RD1.html#examining-the-bandwidth-identified-by-the-package"><i class="fa fa-check"></i><b>6.8.1</b> Examining the bandwidth identified by the package</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="RD2.html"><a href="RD2.html"><i class="fa fa-check"></i><b>7</b> Regression Discontinuity, Part 2</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="RD2.html"><a href="RD2.html#here-are-the-steps-we-will-take"><i class="fa fa-check"></i><b>7.1</b> Here are the steps we will take:</a></li>
+<li class="chapter" data-level="7.2" data-path="RD2.html"><a href="RD2.html#the-data"><i class="fa fa-check"></i><b>7.2</b> The Data</a></li>
+<li class="chapter" data-level="7.3" data-path="RD2.html"><a href="RD2.html#examine-the-data-the-assignment-rule-adherence-and-compliance"><i class="fa fa-check"></i><b>7.3</b> Examine the Data, the Assignment-rule Adherence, and Compliance</a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="RD2.html"><a href="RD2.html#assignment-rule-adherence"><i class="fa fa-check"></i><b>7.3.1</b> Assignment-rule adherence</a></li>
+<li class="chapter" data-level="7.3.2" data-path="RD2.html"><a href="RD2.html#compliance"><i class="fa fa-check"></i><b>7.3.2</b> Compliance</a></li>
+<li class="chapter" data-level="7.3.3" data-path="RD2.html"><a href="RD2.html#create-bins-of-the-assignment-variable"><i class="fa fa-check"></i><b>7.3.3</b> Create Bins of the Assignment Variable</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="RD2.html"><a href="RD2.html#examining-assumptions"><i class="fa fa-check"></i><b>7.4</b> Examining Assumptions</a>
+<ul>
+<li class="chapter" data-level="7.4.1" data-path="RD2.html"><a href="RD2.html#assumption-1the-continuity-assumption"><i class="fa fa-check"></i><b>7.4.1</b> Assumption 1—the continuity assumption</a></li>
+<li class="chapter" data-level="7.4.2" data-path="RD2.html"><a href="RD2.html#assumption-2discontinuities-in-the-covariates"><i class="fa fa-check"></i><b>7.4.2</b> Assumption 2—Discontinuities in the covariates</a></li>
+<li class="chapter" data-level="7.4.3" data-path="RD2.html"><a href="RD2.html#assumption-3checking-for-pseudo-cut-offs-in-the-outcome"><i class="fa fa-check"></i><b>7.4.3</b> Assumption 3—Checking for pseudo-cut-offs in the outcome</a></li>
+</ul></li>
+<li class="chapter" data-level="7.5" data-path="RD2.html"><a href="RD2.html#examining-the-parametric-functional-form"><i class="fa fa-check"></i><b>7.5</b> Examining the Parametric Functional Form</a>
+<ul>
+<li class="chapter" data-level="7.5.1" data-path="RD2.html"><a href="RD2.html#restricting-bandwidth"><i class="fa fa-check"></i><b>7.5.1</b> Restricting bandwidth</a></li>
+</ul></li>
+<li class="chapter" data-level="7.6" data-path="RD2.html"><a href="RD2.html#restband"><i class="fa fa-check"></i><b>7.6</b> Estimating the Effect</a>
+<ul>
+<li class="chapter" data-level="7.6.1" data-path="RD2.html"><a href="RD2.html#parametric-model"><i class="fa fa-check"></i><b>7.6.1</b> Parametric Model</a></li>
+<li class="chapter" data-level="7.6.2" data-path="RD2.html"><a href="RD2.html#non-parametric-model-local-linear-estimation"><i class="fa fa-check"></i><b>7.6.2</b> Non-parametric Model: Local Linear Estimation</a></li>
+<li class="chapter" data-level="7.6.3" data-path="RD2.html"><a href="RD2.html#including-covariates"><i class="fa fa-check"></i><b>7.6.3</b> Including covariates</a></li>
+</ul></li>
+<li class="chapter" data-level="7.7" data-path="RD2.html"><a href="RD2.html#sensitivity-analysis"><i class="fa fa-check"></i><b>7.7</b> Sensitivity Analysis</a></li>
+<li class="chapter" data-level="7.8" data-path="RD2.html"><a href="RD2.html#accounting-for-fuzziness"><i class="fa fa-check"></i><b>7.8</b> Accounting for Fuzziness</a>
+<ul>
+<li class="chapter" data-level="7.8.1" data-path="RD2.html"><a href="RD2.html#fuzzy-non-parametric-model"><i class="fa fa-check"></i><b>7.8.1</b> Fuzzy non-parametric model</a></li>
+<li class="chapter" data-level="7.8.2" data-path="RD2.html"><a href="RD2.html#summary-about-fuzzy-rdd"><i class="fa fa-check"></i><b>7.8.2</b> Summary about fuzzy RDD</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="IVE.html"><a href="IVE.html"><i class="fa fa-check"></i><b>8</b> Instrumental Variable Estimation</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="IVE.html"><a href="IVE.html#objectives-5"><i class="fa fa-check"></i><b>8.1</b> Objectives</a></li>
+<li class="chapter" data-level="8.2" data-path="IVE.html"><a href="IVE.html#preparation-1"><i class="fa fa-check"></i><b>8.2</b> Preparation</a>
+<ul>
+<li class="chapter" data-level="8.2.1" data-path="IVE.html"><a href="IVE.html#examining-the-data-1"><i class="fa fa-check"></i><b>8.2.1</b> Examining the data</a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="IVE.html"><a href="IVE.html#moments-reported-in-table-10.2-p.-219"><i class="fa fa-check"></i><b>8.3</b> Moments reported in Table 10.2 (p. 219)</a></li>
+<li class="chapter" data-level="8.4" data-path="IVE.html"><a href="IVE.html#two-stage-least-squares-1"><i class="fa fa-check"></i><b>8.4</b> Two-stage Least Squares</a>
+<ul>
+<li class="chapter" data-level="8.4.1" data-path="IVE.html"><a href="IVE.html#first-stage"><i class="fa fa-check"></i><b>8.4.1</b> First stage</a></li>
+<li class="chapter" data-level="8.4.2" data-path="IVE.html"><a href="IVE.html#second-stage"><i class="fa fa-check"></i><b>8.4.2</b> Second stage</a></li>
+<li class="chapter" data-level="8.4.3" data-path="IVE.html"><a href="IVE.html#obtaining-the-correct-standard-errors"><i class="fa fa-check"></i><b>8.4.3</b> Obtaining the correct standard errors</a></li>
+<li class="chapter" data-level="8.4.4" data-path="IVE.html"><a href="IVE.html#letting-the-software-do-the-work"><i class="fa fa-check"></i><b>8.4.4</b> Letting the software do the work</a></li>
+<li class="chapter" data-level="8.4.5" data-path="IVE.html"><a href="IVE.html#noticing-the-covariance-between-errors"><i class="fa fa-check"></i><b>8.4.5</b> Noticing the covariance between errors</a></li>
+</ul></li>
+<li class="chapter" data-level="8.5" data-path="IVE.html"><a href="IVE.html#two-stage-least-squares-with-covariates"><i class="fa fa-check"></i><b>8.5</b> Two-Stage Least Squares with Covariates</a></li>
+<li class="chapter" data-level="8.6" data-path="IVE.html"><a href="IVE.html#using-multiple-instruments"><i class="fa fa-check"></i><b>8.6</b> Using Multiple Instruments</a>
+<ul>
+<li class="chapter" data-level="8.6.1" data-path="IVE.html"><a href="IVE.html#system-of-equations"><i class="fa fa-check"></i><b>8.6.1</b> System of equations</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="IVE2.html"><a href="IVE2.html"><i class="fa fa-check"></i><b>9</b> Practice with Instrumental Variable Estimation</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="IVE2.html"><a href="IVE2.html#objectives-6"><i class="fa fa-check"></i><b>9.1</b> Objectives</a></li>
+<li class="chapter" data-level="9.2" data-path="IVE2.html"><a href="IVE2.html#import-and-prepare-the-data-2"><i class="fa fa-check"></i><b>9.2</b> Import and Prepare the Data</a>
+<ul>
+<li class="chapter" data-level="9.2.1" data-path="IVE2.html"><a href="IVE2.html#descriptive-statistics-1"><i class="fa fa-check"></i><b>9.2.1</b> Descriptive statistics</a></li>
+</ul></li>
+<li class="chapter" data-level="9.3" data-path="IVE2.html"><a href="IVE2.html#covariate-balance"><i class="fa fa-check"></i><b>9.3</b> Covariate Balance</a>
+<ul>
+<li class="chapter" data-level="9.3.1" data-path="IVE2.html"><a href="IVE2.html#covariate-balance-on-d"><i class="fa fa-check"></i><b>9.3.1</b> Covariate balance on <span class="math inline">\(D\)</span></a></li>
+</ul></li>
+<li class="chapter" data-level="9.4" data-path="IVE2.html"><a href="IVE2.html#compliance-table-1"><i class="fa fa-check"></i><b>9.4</b> Compliance Table</a></li>
+<li class="chapter" data-level="9.5" data-path="IVE2.html"><a href="IVE2.html#estimating-the-causal-effect"><i class="fa fa-check"></i><b>9.5</b> Estimating the Causal Effect</a>
+<ul>
+<li class="chapter" data-level="9.5.1" data-path="IVE2.html"><a href="IVE2.html#the-naïve-estimate"><i class="fa fa-check"></i><b>9.5.1</b> The naïve estimate</a></li>
+<li class="chapter" data-level="9.5.2" data-path="IVE2.html"><a href="IVE2.html#the-late-estimate-from-ive"><i class="fa fa-check"></i><b>9.5.2</b> The LATE estimate from IVE</a></li>
+<li class="chapter" data-level="9.5.3" data-path="IVE2.html"><a href="IVE2.html#making-the-intercept-meaningful"><i class="fa fa-check"></i><b>9.5.3</b> Making the intercept meaningful</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="PScore1.html"><a href="PScore1.html"><i class="fa fa-check"></i><b>10</b> Propensity Score Analysis 1: The underlying logic</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="PScore1.html"><a href="PScore1.html#import-the-data-and-prepare-for-analysis"><i class="fa fa-check"></i><b>10.1</b> Import the Data and Prepare for Analysis</a>
+<ul>
+<li class="chapter" data-level="10.1.1" data-path="PScore1.html"><a href="PScore1.html#creating-a-numeric-version-of-the-base-income-variables"><i class="fa fa-check"></i><b>10.1.1</b> Creating a numeric version of the base-income variables</a></li>
+<li class="chapter" data-level="10.1.2" data-path="PScore1.html"><a href="PScore1.html#creating-some-custom-functions"><i class="fa fa-check"></i><b>10.1.2</b> Creating some custom functions</a></li>
+</ul></li>
+<li class="chapter" data-level="10.2" data-path="PScore1.html"><a href="PScore1.html#stratifying-on-a-covariate"><i class="fa fa-check"></i><b>10.2</b> Stratifying on a Covariate</a>
+<ul>
+<li class="chapter" data-level="10.2.1" data-path="PScore1.html"><a href="PScore1.html#checking-the-imbalance-in-the-treatment-status"><i class="fa fa-check"></i><b>10.2.1</b> Checking the imbalance in the treatment status</a></li>
+<li class="chapter" data-level="10.2.2" data-path="PScore1.html"><a href="PScore1.html#creating-the-strata-from-the-covariate"><i class="fa fa-check"></i><b>10.2.2</b> Creating the strata from the covariate</a></li>
+<li class="chapter" data-level="10.2.3" data-path="PScore1.html"><a href="PScore1.html#checking-for-imbalance-within-each-stratum"><i class="fa fa-check"></i><b>10.2.3</b> Checking for imbalance within each stratum</a></li>
+<li class="chapter" data-level="10.2.4" data-path="PScore1.html"><a href="PScore1.html#using-tidyverse-to-check-imbalance"><i class="fa fa-check"></i><b>10.2.4</b> Using Tidyverse to check imbalance</a></li>
+<li class="chapter" data-level="10.2.5" data-path="PScore1.html"><a href="PScore1.html#ate-and-att"><i class="fa fa-check"></i><b>10.2.5</b> ATE and ATT</a></li>
+<li class="chapter" data-level="10.2.6" data-path="PScore1.html"><a href="PScore1.html#pooling-across-strata-to-calculate-the-ate-and-att"><i class="fa fa-check"></i><b>10.2.6</b> Pooling across strata to calculate the ATE and ATT</a></li>
+</ul></li>
+<li class="chapter" data-level="10.3" data-path="PScore1.html"><a href="PScore1.html#stratifying-on-two-covariates"><i class="fa fa-check"></i><b>10.3</b> Stratifying on Two Covariates</a>
+<ul>
+<li class="chapter" data-level="10.3.1" data-path="PScore1.html"><a href="PScore1.html#calculating-the-ate-and-att"><i class="fa fa-check"></i><b>10.3.1</b> Calculating the ATE and ATT</a></li>
+<li class="chapter" data-level="10.3.2" data-path="PScore1.html"><a href="PScore1.html#tidyverse-approach"><i class="fa fa-check"></i><b>10.3.2</b> Tidyverse approach</a></li>
+</ul></li>
+<li class="chapter" data-level="10.4" data-path="PScore1.html"><a href="PScore1.html#estimating-propensity-scores"><i class="fa fa-check"></i><b>10.4</b> Estimating Propensity Scores</a></li>
+<li class="chapter" data-level="10.5" data-path="PScore1.html"><a href="PScore1.html#creating-strata-from-propensity-scores"><i class="fa fa-check"></i><b>10.5</b> Creating Strata from Propensity Scores</a>
+<ul>
+<li class="chapter" data-level="10.5.1" data-path="PScore1.html"><a href="PScore1.html#adding-more-covariates"><i class="fa fa-check"></i><b>10.5.1</b> Adding more covariates</a></li>
+<li class="chapter" data-level="10.5.2" data-path="PScore1.html"><a href="PScore1.html#ate-and-att-for-the-five-stratum-model"><i class="fa fa-check"></i><b>10.5.2</b> ATE and ATT for the five-stratum model</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="PScore2.html"><a href="PScore2.html"><i class="fa fa-check"></i><b>11</b> Propensity Score Analysis 2: Weighting</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="PScore2.html"><a href="PScore2.html#import-the-data-and-prepare-for-analysis-1"><i class="fa fa-check"></i><b>11.1</b> Import the Data and Prepare for Analysis</a></li>
+<li class="chapter" data-level="11.2" data-path="PScore2.html"><a href="PScore2.html#specify-custom-functions"><i class="fa fa-check"></i><b>11.2</b> Specify Custom Functions</a>
+<ul>
+<li class="chapter" data-level="11.2.1" data-path="PScore2.html"><a href="PScore2.html#imbalance-functions"><i class="fa fa-check"></i><b>11.2.1</b> Imbalance functions</a></li>
+<li class="chapter" data-level="11.2.2" data-path="PScore2.html"><a href="PScore2.html#overlap-functions"><i class="fa fa-check"></i><b>11.2.2</b> Overlap functions</a></li>
+</ul></li>
+<li class="chapter" data-level="11.3" data-path="PScore2.html"><a href="PScore2.html#assess-imbalance-in-observed-covariates"><i class="fa fa-check"></i><b>11.3</b> Assess Imbalance in Observed Covariates</a></li>
+<li class="chapter" data-level="11.4" data-path="PScore2.html"><a href="PScore2.html#check-overlap"><i class="fa fa-check"></i><b>11.4</b> Check Overlap</a></li>
+<li class="chapter" data-level="11.5" data-path="PScore2.html"><a href="PScore2.html#calculate-the-weights"><i class="fa fa-check"></i><b>11.5</b> Calculate the Weights</a>
+<ul>
+<li class="chapter" data-level="11.5.1" data-path="PScore2.html"><a href="PScore2.html#dealing-with-extreme-weights"><i class="fa fa-check"></i><b>11.5.1</b> Dealing with extreme weights</a></li>
+<li class="chapter" data-level="11.5.2" data-path="PScore2.html"><a href="PScore2.html#specifying-whether-to-estimate-ate-or-att"><i class="fa fa-check"></i><b>11.5.2</b> Specifying whether to estimate ATE or ATT</a></li>
+</ul></li>
+<li class="chapter" data-level="11.6" data-path="PScore2.html"><a href="PScore2.html#conduct-balance-checks-after-weighting"><i class="fa fa-check"></i><b>11.6</b> Conduct balance checks after weighting</a></li>
+<li class="chapter" data-level="11.7" data-path="PScore2.html"><a href="PScore2.html#estimate-the-treatment-effect"><i class="fa fa-check"></i><b>11.7</b> Estimate the Treatment Effect</a>
+<ul>
+<li class="chapter" data-level="11.7.1" data-path="PScore2.html"><a href="PScore2.html#estimating-the-correct-standard-error"><i class="fa fa-check"></i><b>11.7.1</b> Estimating the correct standard error</a></li>
+<li class="chapter" data-level="11.7.2" data-path="PScore2.html"><a href="PScore2.html#use-a-doubly-robust-estimate"><i class="fa fa-check"></i><b>11.7.2</b> Use a doubly robust estimate</a></li>
+</ul></li>
+<li class="chapter" data-level="11.8" data-path="PScore2.html"><a href="PScore2.html#using-the-twang-package"><i class="fa fa-check"></i><b>11.8</b> Using the Twang Package</a>
+<ul>
+<li class="chapter" data-level="11.8.1" data-path="PScore2.html"><a href="PScore2.html#examining-covariate-balance"><i class="fa fa-check"></i><b>11.8.1</b> Examining covariate balance</a></li>
+<li class="chapter" data-level="11.8.2" data-path="PScore2.html"><a href="PScore2.html#estimating-the-propensity-scores-and-getting-the-weights"><i class="fa fa-check"></i><b>11.8.2</b> Estimating the propensity scores and getting the weights</a></li>
+<li class="chapter" data-level="11.8.3" data-path="PScore2.html"><a href="PScore2.html#estimating-the-effect"><i class="fa fa-check"></i><b>11.8.3</b> Estimating the effect</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="PScore3.html"><a href="PScore3.html"><i class="fa fa-check"></i><b>12</b> Propensity Score Analysis 3: Stratification and Matching</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="PScore3.html"><a href="PScore3.html#calculate-the-mmwss-from-the-propensity-scores"><i class="fa fa-check"></i><b>12.1</b> Calculate the MMWSs from the propensity scores</a>
+<ul>
+<li class="chapter" data-level="12.1.1" data-path="PScore3.html"><a href="PScore3.html#estimate-the-propensity-scores"><i class="fa fa-check"></i><b>12.1.1</b> Estimate the propensity scores</a></li>
+<li class="chapter" data-level="12.1.2" data-path="PScore3.html"><a href="PScore3.html#calculate-the-quintiles"><i class="fa fa-check"></i><b>12.1.2</b> Calculate the quintiles</a></li>
+<li class="chapter" data-level="12.1.3" data-path="PScore3.html"><a href="PScore3.html#examine-the-strata"><i class="fa fa-check"></i><b>12.1.3</b> Examine the strata</a></li>
+<li class="chapter" data-level="12.1.4" data-path="PScore3.html"><a href="PScore3.html#calculate-the-mmwss"><i class="fa fa-check"></i><b>12.1.4</b> Calculate the MMWSs</a></li>
+</ul></li>
+<li class="chapter" data-level="12.2" data-path="PScore3.html"><a href="PScore3.html#conduct-balance-checks-after-weighting-1"><i class="fa fa-check"></i><b>12.2</b> Conduct balance checks after weighting</a></li>
+<li class="chapter" data-level="12.3" data-path="PScore3.html"><a href="PScore3.html#estimate-the-ate"><i class="fa fa-check"></i><b>12.3</b> Estimate the ATE</a></li>
+<li class="chapter" data-level="12.4" data-path="PScore3.html"><a href="PScore3.html#using-the-matchit-package"><i class="fa fa-check"></i><b>12.4</b> Using the MatchIt Package</a>
+<ul>
+<li class="chapter" data-level="12.4.1" data-path="PScore3.html"><a href="PScore3.html#examining-balance"><i class="fa fa-check"></i><b>12.4.1</b> Examining Balance</a></li>
+<li class="chapter" data-level="12.4.2" data-path="PScore3.html"><a href="PScore3.html#estimate-the-effect"><i class="fa fa-check"></i><b>12.4.2</b> Estimate the Effect</a></li>
+</ul></li>
+<li class="chapter" data-level="12.5" data-path="PScore3.html"><a href="PScore3.html#matching"><i class="fa fa-check"></i><b>12.5</b> Matching</a>
+<ul>
+<li class="chapter" data-level="12.5.1" data-path="PScore3.html"><a href="PScore3.html#estimate-the-effect-1"><i class="fa fa-check"></i><b>12.5.1</b> Estimate the Effect</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Using R for Quasi-Experimental Designs</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="page-not-found" class="section level1">
+<h1>Page not found</h1>
+<p>The page you requested cannot be found (perhaps it was moved or renamed).</p>
+<p>You may want to try searching to find the page's new location, or use
+the table of contents to find the page you are looking for.</p>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

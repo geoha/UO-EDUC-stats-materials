@@ -1,0 +1,1078 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Part 8 Instrumental Variable Estimation | Using R for Quasi-Experimental Designs</title>
+  <meta name="description" content="QEDs in R" />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Part 8 Instrumental Variable Estimation | Using R for Quasi-Experimental Designs" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="QEDs in R" />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Part 8 Instrumental Variable Estimation | Using R for Quasi-Experimental Designs" />
+  
+  <meta name="twitter:description" content="QEDs in R" />
+  
+
+<meta name="author" content="George M. Harrison  University of Hawai‘i at Mānoa, College of Education" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="RD2.html"/>
+<link rel="next" href="IVE2.html"/>
+<script src="libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+<link href="libs/bsTable-3.3.7/bootstrapTable.min.css" rel="stylesheet" />
+<script src="libs/bsTable-3.3.7/bootstrapTable.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 1em;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#what-is-r"><i class="fa fa-check"></i><b>1.1</b> What is R</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="basics.html"><a href="basics.html"><i class="fa fa-check"></i><b>2</b> Some Fundamentals of Coding in R</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="basics.html"><a href="basics.html#objectives"><i class="fa fa-check"></i><b>2.1</b> Objectives</a></li>
+<li class="chapter" data-level="2.2" data-path="basics.html"><a href="basics.html#creating-an-r-script-file"><i class="fa fa-check"></i><b>2.2</b> Creating an R Script File</a></li>
+<li class="chapter" data-level="2.3" data-path="basics.html"><a href="basics.html#creating-objects-by-assigning-information-to-them"><i class="fa fa-check"></i><b>2.3</b> Creating objects by assigning information to them</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="basics.html"><a href="basics.html#assigning-character-strings-to-an-object"><i class="fa fa-check"></i><b>2.3.1</b> Assigning Character Strings to an Object</a></li>
+<li class="chapter" data-level="2.3.2" data-path="basics.html"><a href="basics.html#assigning-numeric-elements-to-an-object"><i class="fa fa-check"></i><b>2.3.2</b> Assigning Numeric Elements to an Object</a></li>
+<li class="chapter" data-level="2.3.3" data-path="basics.html"><a href="basics.html#creating-vectors"><i class="fa fa-check"></i><b>2.3.3</b> Creating Vectors</a></li>
+<li class="chapter" data-level="2.3.4" data-path="basics.html"><a href="basics.html#performing-operations-on-vectors"><i class="fa fa-check"></i><b>2.3.4</b> Performing Operations on Vectors</a></li>
+<li class="chapter" data-level="2.3.5" data-path="basics.html"><a href="basics.html#using-functions"><i class="fa fa-check"></i><b>2.3.5</b> Using Functions</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="basics.html"><a href="basics.html#create-a-data-frame-from-code"><i class="fa fa-check"></i><b>2.4</b> Create a data frame from code</a></li>
+<li class="chapter" data-level="2.5" data-path="basics.html"><a href="basics.html#working-with-matrices"><i class="fa fa-check"></i><b>2.5</b> Working with Matrices</a></li>
+<li class="chapter" data-level="2.6" data-path="basics.html"><a href="basics.html#dffromcsv"><i class="fa fa-check"></i><b>2.6</b> Creating a Data Frame from a CSV File</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="examine.html"><a href="examine.html"><i class="fa fa-check"></i><b>3</b> Examining and Summarizing Data</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="examine.html"><a href="examine.html#objectives-1"><i class="fa fa-check"></i><b>3.1</b> Objectives</a></li>
+<li class="chapter" data-level="3.2" data-path="examine.html"><a href="examine.html#examining-the-data"><i class="fa fa-check"></i><b>3.2</b> Examining the Data</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="examine.html"><a href="examine.html#the-data-frame"><i class="fa fa-check"></i><b>3.2.1</b> The Data Frame</a></li>
+<li class="chapter" data-level="3.2.2" data-path="examine.html"><a href="examine.html#subsetting-by-rows"><i class="fa fa-check"></i><b>3.2.2</b> Subsetting by Rows</a></li>
+<li class="chapter" data-level="3.2.3" data-path="examine.html"><a href="examine.html#subsetting-by-columns"><i class="fa fa-check"></i><b>3.2.3</b> Subsetting by Columns</a></li>
+<li class="chapter" data-level="3.2.4" data-path="examine.html"><a href="examine.html#descriptive-statistics"><i class="fa fa-check"></i><b>3.2.4</b> Descriptive Statistics</a></li>
+<li class="chapter" data-level="3.2.5" data-path="examine.html"><a href="examine.html#creating-a-custom-function-to-estimate-the-confidence-interval-of-the-mean"><i class="fa fa-check"></i><b>3.2.5</b> Creating a Custom Function to Estimate the Confidence Interval of the Mean</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="examine.html"><a href="examine.html#summarizing-data-by-group-and-an-introduction-to-lists"><i class="fa fa-check"></i><b>3.3</b> Summarizing Data by Group (and an introduction to lists)</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="examine.html"><a href="examine.html#calculating-standardized-mean-difference-and-variance-ratio-of-a-covariate"><i class="fa fa-check"></i><b>3.3.1</b> Calculating Standardized Mean Difference and Variance Ratio of a Covariate</a></li>
+<li class="chapter" data-level="3.3.2" data-path="examine.html"><a href="examine.html#creating-a-factor-variable-from-a-numeric-variable"><i class="fa fa-check"></i><b>3.3.2</b> Creating a Factor Variable from a Numeric Variable</a></li>
+<li class="chapter" data-level="3.3.3" data-path="examine.html"><a href="examine.html#aggregate_explain"><i class="fa fa-check"></i><b>3.3.3</b> The <code>aggregate()</code> function</a></li>
+<li class="chapter" data-level="3.3.4" data-path="examine.html"><a href="examine.html#plotting-data-by-group"><i class="fa fa-check"></i><b>3.3.4</b> Plotting data by group</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="examine.html"><a href="examine.html#extra-stuff"><i class="fa fa-check"></i><b>3.4</b> Extra Stuff</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="examine.html"><a href="examine.html#using-ggplot"><i class="fa fa-check"></i><b>3.4.1</b> Using ggplot</a></li>
+<li class="chapter" data-level="3.4.2" data-path="examine.html"><a href="examine.html#subsetting-data-and-separately-analyzing-each-group"><i class="fa fa-check"></i><b>3.4.2</b> Subsetting data and separately analyzing each group</a></li>
+<li class="chapter" data-level="3.4.3" data-path="examine.html"><a href="examine.html#the-tidyverse-approach-to-by-group-analyses"><i class="fa fa-check"></i><b>3.4.3</b> The Tidyverse Approach to By-Group Analyses</a></li>
+<li class="chapter" data-level="3.4.4" data-path="examine.html"><a href="examine.html#plotting-summary-statistics"><i class="fa fa-check"></i><b>3.4.4</b> Plotting summary statistics</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="rct.html"><a href="rct.html"><i class="fa fa-check"></i><b>4</b> Examples with Randomized Experiments</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="rct.html"><a href="rct.html#objectives-2"><i class="fa fa-check"></i><b>4.1</b> Objectives</a></li>
+<li class="chapter" data-level="4.2" data-path="rct.html"><a href="rct.html#preparation"><i class="fa fa-check"></i><b>4.2</b> Preparation</a></li>
+<li class="chapter" data-level="4.3" data-path="rct.html"><a href="rct.html#analysis-of-linear-models"><i class="fa fa-check"></i><b>4.3</b> Analysis of Linear Models</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="rct.html"><a href="rct.html#independent-samples-t-test-approach"><i class="fa fa-check"></i><b>4.3.1</b> Independent samples <em>t</em>-test approach</a></li>
+<li class="chapter" data-level="4.3.2" data-path="rct.html"><a href="rct.html#simple-linear-regression"><i class="fa fa-check"></i><b>4.3.2</b> Simple Linear Regression</a></li>
+<li class="chapter" data-level="4.3.3" data-path="rct.html"><a href="rct.html#multiple-linear-regression"><i class="fa fa-check"></i><b>4.3.3</b> Multiple Linear Regression</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="rct.html"><a href="rct.html#bootstrapping-to-get-confidence-intervals"><i class="fa fa-check"></i><b>4.4</b> Bootstrapping to Get Confidence Intervals</a>
+<ul>
+<li class="chapter" data-level="4.4.1" data-path="rct.html"><a href="rct.html#the-value-of-bootstrapping"><i class="fa fa-check"></i><b>4.4.1</b> The value of bootstrapping</a></li>
+<li class="chapter" data-level="4.4.2" data-path="rct.html"><a href="rct.html#another-way-to-bootstrap-the-standard-error-of-mean-differences"><i class="fa fa-check"></i><b>4.4.2</b> Another way to bootstrap the standard error of mean differences</a></li>
+<li class="chapter" data-level="4.4.3" data-path="rct.html"><a href="rct.html#simple-regression"><i class="fa fa-check"></i><b>4.4.3</b> Simple regression</a></li>
+<li class="chapter" data-level="4.4.4" data-path="rct.html"><a href="rct.html#multiple-regression"><i class="fa fa-check"></i><b>4.4.4</b> Multiple regression</a></li>
+<li class="chapter" data-level="4.4.5" data-path="rct.html"><a href="rct.html#summary-on-bootstrapping"><i class="fa fa-check"></i><b>4.4.5</b> Summary on Bootstrapping</a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="rct.html"><a href="rct.html#estimating-the-average-treatment-on-the-treated-att"><i class="fa fa-check"></i><b>4.5</b> Estimating the Average Treatment on the Treated (ATT)</a>
+<ul>
+<li class="chapter" data-level="4.5.1" data-path="rct.html"><a href="rct.html#artificially-introducing-no-shows"><i class="fa fa-check"></i><b>4.5.1</b> Artificially Introducing No-shows</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="DID.html"><a href="DID.html"><i class="fa fa-check"></i><b>5</b> Difference in Differences</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="DID.html"><a href="DID.html#objectives-3"><i class="fa fa-check"></i><b>5.1</b> Objectives</a></li>
+<li class="chapter" data-level="5.2" data-path="DID.html"><a href="DID.html#import-and-prepare-the-data"><i class="fa fa-check"></i><b>5.2</b> Import and Prepare the Data</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="DID.html"><a href="DID.html#prepare-the-data"><i class="fa fa-check"></i><b>5.2.1</b> Prepare the data</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="DID.html"><a href="DID.html#using-the-survey-package"><i class="fa fa-check"></i><b>5.3</b> Using the survey package</a></li>
+<li class="chapter" data-level="5.4" data-path="DID.html"><a href="DID.html#direct-estimates-as-shown-in-table-8.1-on-page-143"><i class="fa fa-check"></i><b>5.4</b> Direct estimates, as shown in Table 8.1 on page 143</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="DID.html"><a href="DID.html#first-difference-direct-estimate-in-panel-a."><i class="fa fa-check"></i><b>5.4.1</b> First difference, direct estimate in Panel A.</a></li>
+<li class="chapter" data-level="5.4.2" data-path="DID.html"><a href="DID.html#estimate-from-the-linear-probability-model-ols-estimate-shown-in-table-8.1-on-page-143-panel-b."><i class="fa fa-check"></i><b>5.4.2</b> Estimate from the linear-probability model (OLS) estimate shown in Table 8.1 on page 143, Panel B.</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="DID.html"><a href="DID.html#difference-in-differences-simple-approach-table-8.2-p.-157"><i class="fa fa-check"></i><b>5.5</b> Difference in differences, simple approach (Table 8.2, p. 157)</a></li>
+<li class="chapter" data-level="5.6" data-path="DID.html"><a href="DID.html#difference-in-differences-using-regression"><i class="fa fa-check"></i><b>5.6</b> Difference in differences using regression</a>
+<ul>
+<li class="chapter" data-level="5.6.1" data-path="DID.html"><a href="DID.html#compare-the-results-from-the-four-different-strategies"><i class="fa fa-check"></i><b>5.6.1</b> Compare the results from the four different strategies</a></li>
+</ul></li>
+<li class="chapter" data-level="5.7" data-path="DID.html"><a href="DID.html#summary-of-the-did-model-strategy"><i class="fa fa-check"></i><b>5.7</b> Summary of the DID model strategy</a></li>
+<li class="chapter" data-level="5.8" data-path="DID.html"><a href="DID.html#accounting-for-the-binary-y-variable"><i class="fa fa-check"></i><b>5.8</b> Accounting for the binary Y variable</a></li>
+<li class="chapter" data-level="5.9" data-path="DID.html"><a href="DID.html#plotting-the-difference-in-differences"><i class="fa fa-check"></i><b>5.9</b> Plotting the difference in differences</a>
+<ul>
+<li class="chapter" data-level="5.9.1" data-path="DID.html"><a href="DID.html#plotfrompred"><i class="fa fa-check"></i><b>5.9.1</b> Plotting from the predicted values of the model</a></li>
+<li class="chapter" data-level="5.9.2" data-path="DID.html"><a href="DID.html#doing-it-in-ggplot2"><i class="fa fa-check"></i><b>5.9.2</b> Doing it in ggplot2</a></li>
+<li class="chapter" data-level="5.9.3" data-path="DID.html"><a href="DID.html#seeing-where-the-regression-estimate-is-in-the-plot"><i class="fa fa-check"></i><b>5.9.3</b> Seeing where the regression estimate is in the plot</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="RD1.html"><a href="RD1.html"><i class="fa fa-check"></i><b>6</b> Regression Discontinuity, Part 1</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="RD1.html"><a href="RD1.html#objectives-4"><i class="fa fa-check"></i><b>6.1</b> Objectives</a></li>
+<li class="chapter" data-level="6.2" data-path="RD1.html"><a href="RD1.html#import-and-prepare-the-data-1"><i class="fa fa-check"></i><b>6.2</b> Import and Prepare the Data</a></li>
+<li class="chapter" data-level="6.3" data-path="RD1.html"><a href="RD1.html#different-difference-in-differences"><i class="fa fa-check"></i><b>6.3</b> Different Difference in Differences</a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="RD1.html"><a href="RD1.html#our-first-difference"><i class="fa fa-check"></i><b>6.3.1</b> Our first difference</a></li>
+<li class="chapter" data-level="6.3.2" data-path="RD1.html"><a href="RD1.html#a-plausible-second-difference"><i class="fa fa-check"></i><b>6.3.2</b> A plausible second difference</a></li>
+<li class="chapter" data-level="6.3.3" data-path="RD1.html"><a href="RD1.html#another-plausible-second-difference"><i class="fa fa-check"></i><b>6.3.3</b> Another plausible second difference</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="RD1.html"><a href="RD1.html#mread3640"><i class="fa fa-check"></i><b>6.4</b> Broadening the bandwidth</a></li>
+<li class="chapter" data-level="6.5" data-path="RD1.html"><a href="RD1.html#summary-up-to-this-point"><i class="fa fa-check"></i><b>6.5</b> Summary up to this point</a></li>
+<li class="chapter" data-level="6.6" data-path="RD1.html"><a href="RD1.html#examining-if-the-results-are-consistent-with-different-bandwidths"><i class="fa fa-check"></i><b>6.6</b> Examining if the results are consistent with different bandwidths</a></li>
+<li class="chapter" data-level="6.7" data-path="RD1.html"><a href="RD1.html#functional-form-in-rdd"><i class="fa fa-check"></i><b>6.7</b> Functional Form in RDD</a>
+<ul>
+<li class="chapter" data-level="6.7.1" data-path="RD1.html"><a href="RD1.html#plotting-the-two-sides-allowing-different-slopes"><i class="fa fa-check"></i><b>6.7.1</b> Plotting the two sides, allowing different slopes</a></li>
+<li class="chapter" data-level="6.7.2" data-path="RD1.html"><a href="RD1.html#broader-analytic-windows"><i class="fa fa-check"></i><b>6.7.2</b> Broader analytic windows</a></li>
+</ul></li>
+<li class="chapter" data-level="6.8" data-path="RD1.html"><a href="RD1.html#using-the-rddtools-package"><i class="fa fa-check"></i><b>6.8</b> Using the rddtools Package</a>
+<ul>
+<li class="chapter" data-level="6.8.1" data-path="RD1.html"><a href="RD1.html#examining-the-bandwidth-identified-by-the-package"><i class="fa fa-check"></i><b>6.8.1</b> Examining the bandwidth identified by the package</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="RD2.html"><a href="RD2.html"><i class="fa fa-check"></i><b>7</b> Regression Discontinuity, Part 2</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="RD2.html"><a href="RD2.html#here-are-the-steps-we-will-take"><i class="fa fa-check"></i><b>7.1</b> Here are the steps we will take:</a></li>
+<li class="chapter" data-level="7.2" data-path="RD2.html"><a href="RD2.html#the-data"><i class="fa fa-check"></i><b>7.2</b> The Data</a></li>
+<li class="chapter" data-level="7.3" data-path="RD2.html"><a href="RD2.html#examine-the-data-the-assignment-rule-adherence-and-compliance"><i class="fa fa-check"></i><b>7.3</b> Examine the Data, the Assignment-rule Adherence, and Compliance</a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="RD2.html"><a href="RD2.html#assignment-rule-adherence"><i class="fa fa-check"></i><b>7.3.1</b> Assignment-rule adherence</a></li>
+<li class="chapter" data-level="7.3.2" data-path="RD2.html"><a href="RD2.html#compliance"><i class="fa fa-check"></i><b>7.3.2</b> Compliance</a></li>
+<li class="chapter" data-level="7.3.3" data-path="RD2.html"><a href="RD2.html#create-bins-of-the-assignment-variable"><i class="fa fa-check"></i><b>7.3.3</b> Create Bins of the Assignment Variable</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="RD2.html"><a href="RD2.html#examining-assumptions"><i class="fa fa-check"></i><b>7.4</b> Examining Assumptions</a>
+<ul>
+<li class="chapter" data-level="7.4.1" data-path="RD2.html"><a href="RD2.html#assumption-1the-continuity-assumption"><i class="fa fa-check"></i><b>7.4.1</b> Assumption 1—the continuity assumption</a></li>
+<li class="chapter" data-level="7.4.2" data-path="RD2.html"><a href="RD2.html#assumption-2discontinuities-in-the-covariates"><i class="fa fa-check"></i><b>7.4.2</b> Assumption 2—Discontinuities in the covariates</a></li>
+<li class="chapter" data-level="7.4.3" data-path="RD2.html"><a href="RD2.html#assumption-3checking-for-pseudo-cut-offs-in-the-outcome"><i class="fa fa-check"></i><b>7.4.3</b> Assumption 3—Checking for pseudo-cut-offs in the outcome</a></li>
+</ul></li>
+<li class="chapter" data-level="7.5" data-path="RD2.html"><a href="RD2.html#examining-the-parametric-functional-form"><i class="fa fa-check"></i><b>7.5</b> Examining the Parametric Functional Form</a>
+<ul>
+<li class="chapter" data-level="7.5.1" data-path="RD2.html"><a href="RD2.html#restricting-bandwidth"><i class="fa fa-check"></i><b>7.5.1</b> Restricting bandwidth</a></li>
+</ul></li>
+<li class="chapter" data-level="7.6" data-path="RD2.html"><a href="RD2.html#restband"><i class="fa fa-check"></i><b>7.6</b> Estimating the Effect</a>
+<ul>
+<li class="chapter" data-level="7.6.1" data-path="RD2.html"><a href="RD2.html#parametric-model"><i class="fa fa-check"></i><b>7.6.1</b> Parametric Model</a></li>
+<li class="chapter" data-level="7.6.2" data-path="RD2.html"><a href="RD2.html#non-parametric-model-local-linear-estimation"><i class="fa fa-check"></i><b>7.6.2</b> Non-parametric Model: Local Linear Estimation</a></li>
+<li class="chapter" data-level="7.6.3" data-path="RD2.html"><a href="RD2.html#including-covariates"><i class="fa fa-check"></i><b>7.6.3</b> Including covariates</a></li>
+</ul></li>
+<li class="chapter" data-level="7.7" data-path="RD2.html"><a href="RD2.html#sensitivity-analysis"><i class="fa fa-check"></i><b>7.7</b> Sensitivity Analysis</a></li>
+<li class="chapter" data-level="7.8" data-path="RD2.html"><a href="RD2.html#accounting-for-fuzziness"><i class="fa fa-check"></i><b>7.8</b> Accounting for Fuzziness</a>
+<ul>
+<li class="chapter" data-level="7.8.1" data-path="RD2.html"><a href="RD2.html#fuzzy-non-parametric-model"><i class="fa fa-check"></i><b>7.8.1</b> Fuzzy non-parametric model</a></li>
+<li class="chapter" data-level="7.8.2" data-path="RD2.html"><a href="RD2.html#summary-about-fuzzy-rdd"><i class="fa fa-check"></i><b>7.8.2</b> Summary about fuzzy RDD</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="IVE.html"><a href="IVE.html"><i class="fa fa-check"></i><b>8</b> Instrumental Variable Estimation</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="IVE.html"><a href="IVE.html#objectives-5"><i class="fa fa-check"></i><b>8.1</b> Objectives</a></li>
+<li class="chapter" data-level="8.2" data-path="IVE.html"><a href="IVE.html#preparation-1"><i class="fa fa-check"></i><b>8.2</b> Preparation</a>
+<ul>
+<li class="chapter" data-level="8.2.1" data-path="IVE.html"><a href="IVE.html#examining-the-data-1"><i class="fa fa-check"></i><b>8.2.1</b> Examining the data</a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="IVE.html"><a href="IVE.html#moments-reported-in-table-10.2-p.-219"><i class="fa fa-check"></i><b>8.3</b> Moments reported in Table 10.2 (p. 219)</a></li>
+<li class="chapter" data-level="8.4" data-path="IVE.html"><a href="IVE.html#two-stage-least-squares-1"><i class="fa fa-check"></i><b>8.4</b> Two-stage Least Squares</a>
+<ul>
+<li class="chapter" data-level="8.4.1" data-path="IVE.html"><a href="IVE.html#first-stage"><i class="fa fa-check"></i><b>8.4.1</b> First stage</a></li>
+<li class="chapter" data-level="8.4.2" data-path="IVE.html"><a href="IVE.html#second-stage"><i class="fa fa-check"></i><b>8.4.2</b> Second stage</a></li>
+<li class="chapter" data-level="8.4.3" data-path="IVE.html"><a href="IVE.html#obtaining-the-correct-standard-errors"><i class="fa fa-check"></i><b>8.4.3</b> Obtaining the correct standard errors</a></li>
+<li class="chapter" data-level="8.4.4" data-path="IVE.html"><a href="IVE.html#letting-the-software-do-the-work"><i class="fa fa-check"></i><b>8.4.4</b> Letting the software do the work</a></li>
+<li class="chapter" data-level="8.4.5" data-path="IVE.html"><a href="IVE.html#noticing-the-covariance-between-errors"><i class="fa fa-check"></i><b>8.4.5</b> Noticing the covariance between errors</a></li>
+</ul></li>
+<li class="chapter" data-level="8.5" data-path="IVE.html"><a href="IVE.html#two-stage-least-squares-with-covariates"><i class="fa fa-check"></i><b>8.5</b> Two-Stage Least Squares with Covariates</a></li>
+<li class="chapter" data-level="8.6" data-path="IVE.html"><a href="IVE.html#using-multiple-instruments"><i class="fa fa-check"></i><b>8.6</b> Using Multiple Instruments</a>
+<ul>
+<li class="chapter" data-level="8.6.1" data-path="IVE.html"><a href="IVE.html#system-of-equations"><i class="fa fa-check"></i><b>8.6.1</b> System of equations</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="IVE2.html"><a href="IVE2.html"><i class="fa fa-check"></i><b>9</b> Practice with Instrumental Variable Estimation</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="IVE2.html"><a href="IVE2.html#objectives-6"><i class="fa fa-check"></i><b>9.1</b> Objectives</a></li>
+<li class="chapter" data-level="9.2" data-path="IVE2.html"><a href="IVE2.html#import-and-prepare-the-data-2"><i class="fa fa-check"></i><b>9.2</b> Import and Prepare the Data</a>
+<ul>
+<li class="chapter" data-level="9.2.1" data-path="IVE2.html"><a href="IVE2.html#descriptive-statistics-1"><i class="fa fa-check"></i><b>9.2.1</b> Descriptive statistics</a></li>
+</ul></li>
+<li class="chapter" data-level="9.3" data-path="IVE2.html"><a href="IVE2.html#covariate-balance"><i class="fa fa-check"></i><b>9.3</b> Covariate Balance</a>
+<ul>
+<li class="chapter" data-level="9.3.1" data-path="IVE2.html"><a href="IVE2.html#covariate-balance-on-d"><i class="fa fa-check"></i><b>9.3.1</b> Covariate balance on <span class="math inline">\(D\)</span></a></li>
+</ul></li>
+<li class="chapter" data-level="9.4" data-path="IVE2.html"><a href="IVE2.html#compliance-table-1"><i class="fa fa-check"></i><b>9.4</b> Compliance Table</a></li>
+<li class="chapter" data-level="9.5" data-path="IVE2.html"><a href="IVE2.html#estimating-the-causal-effect"><i class="fa fa-check"></i><b>9.5</b> Estimating the Causal Effect</a>
+<ul>
+<li class="chapter" data-level="9.5.1" data-path="IVE2.html"><a href="IVE2.html#the-naïve-estimate"><i class="fa fa-check"></i><b>9.5.1</b> The naïve estimate</a></li>
+<li class="chapter" data-level="9.5.2" data-path="IVE2.html"><a href="IVE2.html#the-late-estimate-from-ive"><i class="fa fa-check"></i><b>9.5.2</b> The LATE estimate from IVE</a></li>
+<li class="chapter" data-level="9.5.3" data-path="IVE2.html"><a href="IVE2.html#making-the-intercept-meaningful"><i class="fa fa-check"></i><b>9.5.3</b> Making the intercept meaningful</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="PScore1.html"><a href="PScore1.html"><i class="fa fa-check"></i><b>10</b> Propensity Score Analysis 1: The underlying logic</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="PScore1.html"><a href="PScore1.html#import-the-data-and-prepare-for-analysis"><i class="fa fa-check"></i><b>10.1</b> Import the Data and Prepare for Analysis</a>
+<ul>
+<li class="chapter" data-level="10.1.1" data-path="PScore1.html"><a href="PScore1.html#creating-a-numeric-version-of-the-base-income-variables"><i class="fa fa-check"></i><b>10.1.1</b> Creating a numeric version of the base-income variables</a></li>
+<li class="chapter" data-level="10.1.2" data-path="PScore1.html"><a href="PScore1.html#creating-some-custom-functions"><i class="fa fa-check"></i><b>10.1.2</b> Creating some custom functions</a></li>
+</ul></li>
+<li class="chapter" data-level="10.2" data-path="PScore1.html"><a href="PScore1.html#stratifying-on-a-covariate"><i class="fa fa-check"></i><b>10.2</b> Stratifying on a Covariate</a>
+<ul>
+<li class="chapter" data-level="10.2.1" data-path="PScore1.html"><a href="PScore1.html#checking-the-imbalance-in-the-treatment-status"><i class="fa fa-check"></i><b>10.2.1</b> Checking the imbalance in the treatment status</a></li>
+<li class="chapter" data-level="10.2.2" data-path="PScore1.html"><a href="PScore1.html#creating-the-strata-from-the-covariate"><i class="fa fa-check"></i><b>10.2.2</b> Creating the strata from the covariate</a></li>
+<li class="chapter" data-level="10.2.3" data-path="PScore1.html"><a href="PScore1.html#checking-for-imbalance-within-each-stratum"><i class="fa fa-check"></i><b>10.2.3</b> Checking for imbalance within each stratum</a></li>
+<li class="chapter" data-level="10.2.4" data-path="PScore1.html"><a href="PScore1.html#using-tidyverse-to-check-imbalance"><i class="fa fa-check"></i><b>10.2.4</b> Using Tidyverse to check imbalance</a></li>
+<li class="chapter" data-level="10.2.5" data-path="PScore1.html"><a href="PScore1.html#ate-and-att"><i class="fa fa-check"></i><b>10.2.5</b> ATE and ATT</a></li>
+<li class="chapter" data-level="10.2.6" data-path="PScore1.html"><a href="PScore1.html#pooling-across-strata-to-calculate-the-ate-and-att"><i class="fa fa-check"></i><b>10.2.6</b> Pooling across strata to calculate the ATE and ATT</a></li>
+</ul></li>
+<li class="chapter" data-level="10.3" data-path="PScore1.html"><a href="PScore1.html#stratifying-on-two-covariates"><i class="fa fa-check"></i><b>10.3</b> Stratifying on Two Covariates</a>
+<ul>
+<li class="chapter" data-level="10.3.1" data-path="PScore1.html"><a href="PScore1.html#calculating-the-ate-and-att"><i class="fa fa-check"></i><b>10.3.1</b> Calculating the ATE and ATT</a></li>
+<li class="chapter" data-level="10.3.2" data-path="PScore1.html"><a href="PScore1.html#tidyverse-approach"><i class="fa fa-check"></i><b>10.3.2</b> Tidyverse approach</a></li>
+</ul></li>
+<li class="chapter" data-level="10.4" data-path="PScore1.html"><a href="PScore1.html#estimating-propensity-scores"><i class="fa fa-check"></i><b>10.4</b> Estimating Propensity Scores</a></li>
+<li class="chapter" data-level="10.5" data-path="PScore1.html"><a href="PScore1.html#creating-strata-from-propensity-scores"><i class="fa fa-check"></i><b>10.5</b> Creating Strata from Propensity Scores</a>
+<ul>
+<li class="chapter" data-level="10.5.1" data-path="PScore1.html"><a href="PScore1.html#adding-more-covariates"><i class="fa fa-check"></i><b>10.5.1</b> Adding more covariates</a></li>
+<li class="chapter" data-level="10.5.2" data-path="PScore1.html"><a href="PScore1.html#ate-and-att-for-the-five-stratum-model"><i class="fa fa-check"></i><b>10.5.2</b> ATE and ATT for the five-stratum model</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="PScore2.html"><a href="PScore2.html"><i class="fa fa-check"></i><b>11</b> Propensity Score Analysis 2: Weighting</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="PScore2.html"><a href="PScore2.html#import-the-data-and-prepare-for-analysis-1"><i class="fa fa-check"></i><b>11.1</b> Import the Data and Prepare for Analysis</a></li>
+<li class="chapter" data-level="11.2" data-path="PScore2.html"><a href="PScore2.html#specify-custom-functions"><i class="fa fa-check"></i><b>11.2</b> Specify Custom Functions</a>
+<ul>
+<li class="chapter" data-level="11.2.1" data-path="PScore2.html"><a href="PScore2.html#imbalance-functions"><i class="fa fa-check"></i><b>11.2.1</b> Imbalance functions</a></li>
+<li class="chapter" data-level="11.2.2" data-path="PScore2.html"><a href="PScore2.html#overlap-functions"><i class="fa fa-check"></i><b>11.2.2</b> Overlap functions</a></li>
+</ul></li>
+<li class="chapter" data-level="11.3" data-path="PScore2.html"><a href="PScore2.html#assess-imbalance-in-observed-covariates"><i class="fa fa-check"></i><b>11.3</b> Assess Imbalance in Observed Covariates</a></li>
+<li class="chapter" data-level="11.4" data-path="PScore2.html"><a href="PScore2.html#check-overlap"><i class="fa fa-check"></i><b>11.4</b> Check Overlap</a></li>
+<li class="chapter" data-level="11.5" data-path="PScore2.html"><a href="PScore2.html#calculate-the-weights"><i class="fa fa-check"></i><b>11.5</b> Calculate the Weights</a>
+<ul>
+<li class="chapter" data-level="11.5.1" data-path="PScore2.html"><a href="PScore2.html#dealing-with-extreme-weights"><i class="fa fa-check"></i><b>11.5.1</b> Dealing with extreme weights</a></li>
+<li class="chapter" data-level="11.5.2" data-path="PScore2.html"><a href="PScore2.html#specifying-whether-to-estimate-ate-or-att"><i class="fa fa-check"></i><b>11.5.2</b> Specifying whether to estimate ATE or ATT</a></li>
+</ul></li>
+<li class="chapter" data-level="11.6" data-path="PScore2.html"><a href="PScore2.html#conduct-balance-checks-after-weighting"><i class="fa fa-check"></i><b>11.6</b> Conduct balance checks after weighting</a></li>
+<li class="chapter" data-level="11.7" data-path="PScore2.html"><a href="PScore2.html#estimate-the-treatment-effect"><i class="fa fa-check"></i><b>11.7</b> Estimate the Treatment Effect</a>
+<ul>
+<li class="chapter" data-level="11.7.1" data-path="PScore2.html"><a href="PScore2.html#estimating-the-correct-standard-error"><i class="fa fa-check"></i><b>11.7.1</b> Estimating the correct standard error</a></li>
+<li class="chapter" data-level="11.7.2" data-path="PScore2.html"><a href="PScore2.html#use-a-doubly-robust-estimate"><i class="fa fa-check"></i><b>11.7.2</b> Use a doubly robust estimate</a></li>
+</ul></li>
+<li class="chapter" data-level="11.8" data-path="PScore2.html"><a href="PScore2.html#using-the-twang-package"><i class="fa fa-check"></i><b>11.8</b> Using the Twang Package</a>
+<ul>
+<li class="chapter" data-level="11.8.1" data-path="PScore2.html"><a href="PScore2.html#examining-covariate-balance"><i class="fa fa-check"></i><b>11.8.1</b> Examining covariate balance</a></li>
+<li class="chapter" data-level="11.8.2" data-path="PScore2.html"><a href="PScore2.html#estimating-the-propensity-scores-and-getting-the-weights"><i class="fa fa-check"></i><b>11.8.2</b> Estimating the propensity scores and getting the weights</a></li>
+<li class="chapter" data-level="11.8.3" data-path="PScore2.html"><a href="PScore2.html#estimating-the-effect"><i class="fa fa-check"></i><b>11.8.3</b> Estimating the effect</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="PScore3.html"><a href="PScore3.html"><i class="fa fa-check"></i><b>12</b> Propensity Score Analysis 3: Stratification and Matching</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="PScore3.html"><a href="PScore3.html#calculate-the-mmwss-from-the-propensity-scores"><i class="fa fa-check"></i><b>12.1</b> Calculate the MMWSs from the propensity scores</a>
+<ul>
+<li class="chapter" data-level="12.1.1" data-path="PScore3.html"><a href="PScore3.html#estimate-the-propensity-scores"><i class="fa fa-check"></i><b>12.1.1</b> Estimate the propensity scores</a></li>
+<li class="chapter" data-level="12.1.2" data-path="PScore3.html"><a href="PScore3.html#calculate-the-quintiles"><i class="fa fa-check"></i><b>12.1.2</b> Calculate the quintiles</a></li>
+<li class="chapter" data-level="12.1.3" data-path="PScore3.html"><a href="PScore3.html#examine-the-strata"><i class="fa fa-check"></i><b>12.1.3</b> Examine the strata</a></li>
+<li class="chapter" data-level="12.1.4" data-path="PScore3.html"><a href="PScore3.html#calculate-the-mmwss"><i class="fa fa-check"></i><b>12.1.4</b> Calculate the MMWSs</a></li>
+</ul></li>
+<li class="chapter" data-level="12.2" data-path="PScore3.html"><a href="PScore3.html#conduct-balance-checks-after-weighting-1"><i class="fa fa-check"></i><b>12.2</b> Conduct balance checks after weighting</a></li>
+<li class="chapter" data-level="12.3" data-path="PScore3.html"><a href="PScore3.html#estimate-the-ate"><i class="fa fa-check"></i><b>12.3</b> Estimate the ATE</a></li>
+<li class="chapter" data-level="12.4" data-path="PScore3.html"><a href="PScore3.html#using-the-matchit-package"><i class="fa fa-check"></i><b>12.4</b> Using the MatchIt Package</a>
+<ul>
+<li class="chapter" data-level="12.4.1" data-path="PScore3.html"><a href="PScore3.html#examining-balance"><i class="fa fa-check"></i><b>12.4.1</b> Examining Balance</a></li>
+<li class="chapter" data-level="12.4.2" data-path="PScore3.html"><a href="PScore3.html#estimate-the-effect"><i class="fa fa-check"></i><b>12.4.2</b> Estimate the Effect</a></li>
+</ul></li>
+<li class="chapter" data-level="12.5" data-path="PScore3.html"><a href="PScore3.html#matching"><i class="fa fa-check"></i><b>12.5</b> Matching</a>
+<ul>
+<li class="chapter" data-level="12.5.1" data-path="PScore3.html"><a href="PScore3.html#estimate-the-effect-1"><i class="fa fa-check"></i><b>12.5.1</b> Estimate the Effect</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Using R for Quasi-Experimental Designs</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="IVE" class="section level1" number="8">
+<h1><span class="header-section-number">Part 8</span> Instrumental Variable Estimation</h1>
+<p>This is an introduction to instrument variable estimation (IVE), following Chapter 10 of Murnane and Willett <span class="citation">(<a href="#ref-murnane_methods_2011" role="doc-biblioref">2011</a>)</span>.</p>
+<div id="objectives-5" class="section level2" number="8.1">
+<h2><span class="header-section-number">8.1</span> Objectives</h2>
+<ol style="list-style-type: decimal">
+<li>Calculate the local average treatement effect (LATE) using the method of moments</li>
+<li>Estimate LATE using two-stage least squares
+<ol style="list-style-type: lower-alpha">
+<li>Noticing the covariance among residuals in the two stages</li>
+</ol></li>
+<li>Include covariates in the two-stage least squares model</li>
+<li>Use multiple instruments and model a system of equations to estimate LATE</li>
+</ol>
+<p>We’ll use these packages:</p>
+<ul>
+<li>sem <span class="citation">(<a href="#ref-R-sem" role="doc-biblioref">Fox et al., 2020</a>)</span>,</li>
+<li>AER <span class="citation">(<a href="#ref-R-AER" role="doc-biblioref">Kleiber &amp; Zeileis, 2020</a>)</span>, and</li>
+<li>systemfit<span class="citation">(<a href="#ref-R-systemfit" role="doc-biblioref">Henningsen &amp; Hamann, 2019</a>)</span>.</li>
+</ul>
+<p>We had used the sem package in a previous lesson for fitting two-stage least squares models. The AER package is another one that provides the same functionality plus the <em>R</em><sup>2</sup> estimates of the model. The systemfit package is good for complex IV estimation models. In this lesson, we use it to fit the model presented in Table 10.8 (p. 249).</p>
+<p>For help on these packages’ functions, we can use can use the question mark and the double colon between the package name and function name, for example <code>?AER::ivreg</code>. To see the help files for a package, we can use <code>help(package = "AER")</code>.</p>
+</div>
+<div id="preparation-1" class="section level2" number="8.2">
+<h2><span class="header-section-number">8.2</span> Preparation</h2>
+<p>Read in the data:</p>
+<div class="sourceCode" id="cb760"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb760-1"><a href="IVE.html#cb760-1" aria-hidden="true" tabindex="-1"></a>dee <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;Ch_10_dee.csv&quot;</span>)</span></code></pre></div>
+<p>Let’s see if there are any missing data and take a look at the structure of the data set we imported.</p>
+<div class="sourceCode" id="cb761"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb761-1"><a href="IVE.html#cb761-1" aria-hidden="true" tabindex="-1"></a><span class="fu">apply</span>(dee, <span class="dv">2</span>, <span class="cf">function</span>(x){<span class="fu">sum</span>(<span class="fu">is.na</span>(x))})</span></code></pre></div>
+<pre><code>##  schoolid  hispanic   college     black otherrace    female  register  distance 
+##         0         0         0         0         0         0         0         0</code></pre>
+<div class="sourceCode" id="cb763"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb763-1"><a href="IVE.html#cb763-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(dee)</span></code></pre></div>
+<pre><code>## &#39;data.frame&#39;:    9227 obs. of  8 variables:
+##  $ schoolid : int  1032 1032 1032 1032 1032 1032 1037 1037 1037 1037 ...
+##  $ hispanic : int  0 0 0 0 0 0 0 0 0 0 ...
+##  $ college  : int  1 1 0 0 0 0 1 1 1 1 ...
+##  $ black    : int  1 1 0 1 1 1 0 0 0 0 ...
+##  $ otherrace: int  0 0 1 0 0 0 1 1 1 1 ...
+##  $ female   : int  1 1 1 0 1 1 0 0 1 0 ...
+##  $ register : int  1 1 1 0 0 1 1 1 0 1 ...
+##  $ distance : num  4 4 4 4 4 4 4 4 4 4 ...</code></pre>
+<p>We have an ID variable in the first column and seven variables. It looks like most of the variables are dichotomous except for distance. Let’s take quick look at the data:</p>
+<div id="examining-the-data-1" class="section level3" number="8.2.1">
+<h3><span class="header-section-number">8.2.1</span> Examining the data</h3>
+<div class="sourceCode" id="cb765"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb765-1"><a href="IVE.html#cb765-1" aria-hidden="true" tabindex="-1"></a>varbs <span class="ot">&lt;-</span> <span class="fu">names</span>(dee)[<span class="sc">-</span><span class="dv">1</span>]</span>
+<span id="cb765-2"><a href="IVE.html#cb765-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(dee[,varbs])</span></code></pre></div>
+<pre><code>##     hispanic         college           black          otherrace      
+##  Min.   :0.0000   Min.   :0.0000   Min.   :0.0000   Min.   :0.00000  
+##  1st Qu.:0.0000   1st Qu.:0.0000   1st Qu.:0.0000   1st Qu.:0.00000  
+##  Median :0.0000   Median :1.0000   Median :0.0000   Median :0.00000  
+##  Mean   :0.1989   Mean   :0.5471   Mean   :0.1254   Mean   :0.04931  
+##  3rd Qu.:0.0000   3rd Qu.:1.0000   3rd Qu.:0.0000   3rd Qu.:0.00000  
+##  Max.   :1.0000   Max.   :1.0000   Max.   :1.0000   Max.   :1.00000  
+##      female          register         distance     
+##  Min.   :0.0000   Min.   :0.0000   Min.   : 0.000  
+##  1st Qu.:0.0000   1st Qu.:0.0000   1st Qu.: 3.000  
+##  Median :1.0000   Median :1.0000   Median : 7.000  
+##  Mean   :0.5172   Mean   :0.6709   Mean   : 9.736  
+##  3rd Qu.:1.0000   3rd Qu.:1.0000   3rd Qu.:15.000  
+##  Max.   :1.0000   Max.   :1.0000   Max.   :35.000</code></pre>
+<p>Let’s see if we get the same mean and standard deviation as is reported in Table 10.1 (p. 207). We can, of course, use the <code>sd()</code> and <code>mean()</code> functions with these two variables. For fun, we can use a custom function, which we can use later on, too.</p>
+<div class="sourceCode" id="cb767"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb767-1"><a href="IVE.html#cb767-1" aria-hidden="true" tabindex="-1"></a>msd <span class="ot">&lt;-</span> <span class="cf">function</span>(x){</span>
+<span id="cb767-2"><a href="IVE.html#cb767-2" aria-hidden="true" tabindex="-1"></a>      <span class="fu">c</span>(<span class="at">M =</span> <span class="fu">mean</span>(x, <span class="at">na.rm=</span><span class="cn">TRUE</span>), <span class="at">SD =</span> <span class="fu">sd</span>(x, <span class="at">na.rm=</span><span class="cn">TRUE</span>))</span>
+<span id="cb767-3"><a href="IVE.html#cb767-3" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb767-4"><a href="IVE.html#cb767-4" aria-hidden="true" tabindex="-1"></a>T10<span class="fl">.1</span>a <span class="ot">&lt;-</span> <span class="fu">apply</span>(dee[,<span class="fu">c</span>(<span class="st">&quot;register&quot;</span>,<span class="st">&quot;college&quot;</span>)], <span class="dv">2</span>, msd)</span>
+<span id="cb767-5"><a href="IVE.html#cb767-5" aria-hidden="true" tabindex="-1"></a><span class="fu">t</span>(<span class="fu">round</span>(T10<span class="fl">.1</span>a, <span class="dv">4</span>)) <span class="co"># transposing and rounding the output</span></span></code></pre></div>
+<pre><code>##               M     SD
+## register 0.6709 0.4699
+## college  0.5471 0.4978</code></pre>
+<p>We see that about two-thirds of the sample registered to vote and a little more than half attended college.</p>
+<p>Let’s get the correlation and variance-covariance matrices. We can use the <code>cor()</code> and <code>cov()</code> functions with these two variables.<a href="#fn46" class="footnote-ref" id="fnref46"><sup>46</sup></a> Rounding the output makes it easier to read.</p>
+<div class="sourceCode" id="cb769"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb769-1"><a href="IVE.html#cb769-1" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">cor</span>(dee[ ,<span class="fu">c</span>(<span class="st">&quot;register&quot;</span>,<span class="st">&quot;college&quot;</span>) ]), <span class="dv">4</span>)</span></code></pre></div>
+<pre><code>##          register college
+## register   1.0000  0.1874
+## college    0.1874  1.0000</code></pre>
+<p>Here’s the covariance matrix:</p>
+<div class="sourceCode" id="cb771"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb771-1"><a href="IVE.html#cb771-1" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">cov</span>(dee[ ,<span class="fu">c</span>(<span class="st">&quot;register&quot;</span>,<span class="st">&quot;college&quot;</span>) ]), <span class="dv">4</span>)</span></code></pre></div>
+<pre><code>##          register college
+## register   0.2208  0.0438
+## college    0.0438  0.2478</code></pre>
+<p>We see the variance of <code>register</code> and <code>college</code> on the diagonal. Given that these data are on a dichotomous scale (with the highest possible possible variance being .25), these are pretty high.<a href="#fn47" class="footnote-ref" id="fnref47"><sup>47</sup></a></p>
+<p>If we wanted to, we could conduct an inferential test of the correlation using R’s <code>cor.test()</code> function, as in <code>cor.test(dee$register, dee$college)</code>. Another is to use the <code>rcorr()</code> function from the Hmisc package (though we need to specify the columns of the data frame as a matrix first).<a href="#fn48" class="footnote-ref" id="fnref48"><sup>48</sup></a></p>
+<p>Here are the OLS linear regression results, reported in Panel C of the table:</p>
+<div class="sourceCode" id="cb773"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb773-1"><a href="IVE.html#cb773-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">lm</span>(register <span class="sc">~</span> college, </span>
+<span id="cb773-2"><a href="IVE.html#cb773-2" aria-hidden="true" tabindex="-1"></a>           <span class="at">data =</span> dee))</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = register ~ college, data = dee)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -0.7510 -0.5741  0.2490  0.4259  0.4259 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 0.574061   0.007141   80.39   &lt;2e-16 ***
+## college     0.176930   0.009654   18.33   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 0.4616 on 9225 degrees of freedom
+## Multiple R-squared:  0.03513,    Adjusted R-squared:  0.03502 
+## F-statistic: 335.9 on 1 and 9225 DF,  p-value: &lt; 2.2e-16</code></pre>
+<p>In addition to what is reported in Table 10.1, we can also look at the proportions, similar to the compliance tables we looked at in previous lessons. For instance, we can look at the proportion of college-going people who registered and the proportion of non-college-going people who registered.</p>
+<div class="sourceCode" id="cb775"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb775-1"><a href="IVE.html#cb775-1" aria-hidden="true" tabindex="-1"></a>comptable <span class="ot">&lt;-</span> <span class="fu">with</span>(dee, <span class="fu">table</span>(college, register))</span>
+<span id="cb775-2"><a href="IVE.html#cb775-2" aria-hidden="true" tabindex="-1"></a><span class="fu">prop.table</span>(comptable, <span class="at">margin =</span> <span class="dv">1</span>) <span class="co"># Margin 1 is for proportions of each row margin.</span></span></code></pre></div>
+<pre><code>##        register
+## college         0         1
+##       0 0.4259392 0.5740608
+##       1 0.2490095 0.7509905</code></pre>
+<p>About 75% of the college goers registered to vote compared to 57% of their counterparts.</p>
+</div>
+</div>
+<div id="moments-reported-in-table-10.2-p.-219" class="section level2" number="8.3">
+<h2><span class="header-section-number">8.3</span> Moments reported in Table 10.2 (p. 219)</h2>
+<p>Let’s take a moment (sorry!) and report again the first and second moments—the means, standard deviations, and variance-covariance matrices, this time with the outcome instrumental variable, <code>distance</code>.</p>
+<div class="sourceCode" id="cb777"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb777-1"><a href="IVE.html#cb777-1" aria-hidden="true" tabindex="-1"></a>my10<span class="fl">.2</span>varbs <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;register&quot;</span>, <span class="st">&quot;college&quot;</span>, <span class="st">&quot;distance&quot;</span>)</span>
+<span id="cb777-2"><a href="IVE.html#cb777-2" aria-hidden="true" tabindex="-1"></a>T10<span class="fl">.2</span>a      <span class="ot">&lt;-</span> <span class="fu">apply</span>(dee[, my10<span class="fl">.2</span>varbs ], <span class="dv">2</span>, msd)</span>
+<span id="cb777-3"><a href="IVE.html#cb777-3" aria-hidden="true" tabindex="-1"></a><span class="fu">t</span>(<span class="fu">round</span>(T10<span class="fl">.2</span>a,<span class="dv">4</span>))</span></code></pre></div>
+<pre><code>##               M     SD
+## register 0.6709 0.4699
+## college  0.5471 0.4978
+## distance 9.7360 8.7023</code></pre>
+<p>Here are the correlation and covariance matrices.</p>
+<div class="sourceCode" id="cb779"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb779-1"><a href="IVE.html#cb779-1" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">cor</span>(dee[, my10<span class="fl">.2</span>varbs]),<span class="dv">4</span>)</span></code></pre></div>
+<pre><code>##          register college distance
+## register   1.0000  0.1874  -0.0335
+## college    0.1874  1.0000  -0.1114
+## distance  -0.0335 -0.1114   1.0000</code></pre>
+<p>Because the covariance matrix includes the variances and covariances, we can calculate the estimated causal effect of college on voter registration.</p>
+<div class="sourceCode" id="cb781"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb781-1"><a href="IVE.html#cb781-1" aria-hidden="true" tabindex="-1"></a>deecov <span class="ot">&lt;-</span> <span class="fu">cov</span>(dee[, my10<span class="fl">.2</span>varbs])</span>
+<span id="cb781-2"><a href="IVE.html#cb781-2" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(deecov, <span class="dv">4</span>)</span></code></pre></div>
+<pre><code>##          register college distance
+## register   0.2208  0.0438  -0.1369
+## college    0.0438  0.2478  -0.4825
+## distance  -0.1369 -0.4825  75.7298</code></pre>
+<p>Here’s the method-of-moments IVE estimate, which is the same as the Wald estimator. From our covariance matrix, we’re using the cell that contains the covariance between the the outcome variable (<code>register</code>) and instrument (<code>distance</code>), <span class="math inline">\(\sigma_{YI}\)</span>, and the covariance between the question predictor (<code>college</code>) and the instrument, <span class="math inline">\(\sigma_{XI}\)</span>, then finding that ratio:</p>
+<p><span class="math display" id="eq:mmoments">\[\begin{eqnarray}
+\beta_1 = \frac{\sigma_{YI}}{\sigma_{XI}} = \frac{-0.1369}{-0.4825} = 0.2837
+  \tag{8.1}
+\end{eqnarray}\]</span></p>
+<div class="sourceCode" id="cb783"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb783-1"><a href="IVE.html#cb783-1" aria-hidden="true" tabindex="-1"></a>sigma_YI <span class="ot">&lt;-</span> deecov[<span class="dv">1</span>,<span class="dv">3</span>]</span>
+<span id="cb783-2"><a href="IVE.html#cb783-2" aria-hidden="true" tabindex="-1"></a>sigma_XI <span class="ot">&lt;-</span> deecov[<span class="dv">2</span>,<span class="dv">3</span>]</span>
+<span id="cb783-3"><a href="IVE.html#cb783-3" aria-hidden="true" tabindex="-1"></a>IVE_estimate <span class="ot">&lt;-</span> sigma_YI<span class="sc">/</span>sigma_XI</span>
+<span id="cb783-4"><a href="IVE.html#cb783-4" aria-hidden="true" tabindex="-1"></a><span class="fu">rbind</span>(sigma_YI, sigma_XI, IVE_estimate)</span></code></pre></div>
+<pre><code>##                    [,1]
+## sigma_YI     -0.1368732
+## sigma_XI     -0.4824722
+## IVE_estimate  0.2836913</code></pre>
+<p>Murnane and Willett present this same ratio in Figure 10.4 (p. 236). Putting this into words, The denominator is the carved out portion of the question predictor that we believe is exogenous; the numerator is the part of that exogenous variance that is shared with the outcome variable. This method-of-moments represents the logic underlying IV estimation.</p>
+</div>
+<div id="two-stage-least-squares-1" class="section level2" number="8.4">
+<h2><span class="header-section-number">8.4</span> Two-stage Least Squares</h2>
+<div id="first-stage" class="section level3" number="8.4.1">
+<h3><span class="header-section-number">8.4.1</span> First stage</h3>
+<p>First, let’s look at the first stage, with ordinary least squares (OLS), which is what is reported in Table 10.3 (p. 228). As we did with the method-of-moments equation, we can use generic symbols, with <span class="math inline">\(X\)</span> for our question predictor of interest and <span class="math inline">\(I\)</span> for the instrument.<a href="#fn49" class="footnote-ref" id="fnref49"><sup>49</sup></a></p>
+<p><span class="math display" id="eq:Stage1LM">\[\begin{equation}
+X_i = \alpha_0 + \alpha_1I_i + \delta_i
+ \tag{8.2}
+\end{equation}\]</span></p>
+<p>In our example, this first-stage equation is
+<span class="math display">\[\text{college}_i = \alpha_0 + \alpha_1\text{distance}_i + \delta_i \text{ .}\]</span></p>
+<div class="sourceCode" id="cb785"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb785-1"><a href="IVE.html#cb785-1" aria-hidden="true" tabindex="-1"></a>s1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(college <span class="sc">~</span> distance, <span class="at">data=</span>dee)</span>
+<span id="cb785-2"><a href="IVE.html#cb785-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(s1)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = college ~ distance, data = dee)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -0.6091 -0.5518  0.3972  0.4419  0.6139 
+## 
+## Coefficients:
+##               Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  0.6091178  0.0077287   78.81   &lt;2e-16 ***
+## distance    -0.0063710  0.0005919  -10.76   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 0.4947 on 9225 degrees of freedom
+## Multiple R-squared:  0.0124, Adjusted R-squared:  0.0123 
+## F-statistic: 115.9 on 1 and 9225 DF,  p-value: &lt; 2.2e-16</code></pre>
+<p>The model’s <em>F</em>-statistic and residual standard error are reported at the bottom of the output. If we wanted an ANOVA table, we could use the <code>anova()</code> function on the model output, as in <code>anova(s1)</code>.</p>
+<p>Notice that the <em>F</em>-statistic (115.86) exceeds the <span class="math inline">\(F \geq 10\)</span> rule of thumb that many people use for examining whether an IV is strong enough to use.</p>
+</div>
+<div id="second-stage" class="section level3" number="8.4.2">
+<h3><span class="header-section-number">8.4.2</span> Second stage</h3>
+<p>Here’s the second stage, with OLS.</p>
+<p><span class="math display" id="eq:Stage2LM">\[\begin{equation}
+Y_i = \beta_0 + \beta_1\widehat{X}_i + \epsilon_i
+ \tag{8.3}
+\end{equation}\]</span></p>
+<p>In the code, we’re first estimating the predicted college attendance, based on the first stage’s model.<a href="#fn50" class="footnote-ref" id="fnref50"><sup>50</sup></a> The estimate is correct but the standard error is <strong>not</strong> yet adjusted for the Stage 1 portion, so the model results are not what we would provide in our report.</p>
+<div class="sourceCode" id="cb787"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb787-1"><a href="IVE.html#cb787-1" aria-hidden="true" tabindex="-1"></a>dee<span class="sc">$</span>pred_coll <span class="ot">&lt;-</span> <span class="fu">fitted</span>(s1) </span>
+<span id="cb787-2"><a href="IVE.html#cb787-2" aria-hidden="true" tabindex="-1"></a>s2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(register <span class="sc">~</span> pred_coll, <span class="at">data =</span> dee)</span>
+<span id="cb787-3"><a href="IVE.html#cb787-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(s2)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = register ~ pred_coll, data = dee)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -0.6885 -0.6613  0.3170  0.3296  0.3748 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)   0.5157     0.0485  10.632   &lt;2e-16 ***
+## pred_coll     0.2837     0.0882   3.216   0.0013 ** 
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 0.4697 on 9225 degrees of freedom
+## Multiple R-squared:  0.00112,    Adjusted R-squared:  0.001012 
+## F-statistic: 10.35 on 1 and 9225 DF,  p-value: 0.001302</code></pre>
+<p>Notice that the estimate is the same as it was in our method-of-moments approach. This is because we have no covariates. We can also think of the second-stage equation as including the first-stage equation.
+<!-- that excludes the error.  -->
+To expand a little upon the footnote that Murnane and Willett provided (p. 230), we can replace <span class="math inline">\(\hat{X}_i\)</span> in <span class="math inline">\({Y_i = \beta_0 + \beta_1\hat{X}_i + \epsilon_i}\)</span> with what it is in the first stage, <span class="math inline">\(\hat{X}_i = \alpha_0 + \alpha_1I_i\)</span>. Plugging it in, we have <span class="math inline">\({Y_i = \beta_0 + \beta_1(\alpha_0 + \alpha_1I_i) + \epsilon_i}\)</span>, which we can also write as <span class="math inline">\({Y_i = \beta_0 + \beta_1\alpha_0 + \beta_1\alpha_1I_i + \epsilon_i}\)</span>.</p>
+<p>We can plug this into the <span class="math inline">\(Y_i\)</span> part of the covariance in the numerator of the method-of-moments equation <span class="math inline">\(\big(\beta_1 = \frac{\sigma_{YI}}{\sigma_{XI}}\big)\)</span>:
+<span class="math display">\[
+\sigma_{YI} =  {\text{Cov}\Big((\beta_0 + \beta_1\alpha_0 + \beta_1\alpha_1I_i + \epsilon_i}),I_i\Big)
+\]</span>
+We can remove the parts of this covariance that include constants (i.e., the parameter estimates) and residuals.<a href="#fn51" class="footnote-ref" id="fnref51"><sup>51</sup></a>
+<span class="math display">\[
+\begin{eqnarray}
+{\text{Cov}\Big((\beta_0 + \beta_1\alpha_0 + \beta_1\alpha_1I_i + \epsilon_i}),I_i\Big) &amp;=&amp; \text{Cov}(\beta_0,I_i) + \text{Cov}(\beta_1\alpha_0,I_i) + \text{Cov}(\beta_1\alpha_1I_i,I_i) + \text{Cov}(\epsilon_i,I_I)\\[5pt]
+&amp;=&amp; 0 + 0 + \text{Cov}(\beta_1\alpha_1I_i,I_i) + 0
+\end{eqnarray}
+\]</span>
+Pulling the constants out, we have <span class="math inline">\(\sigma_{YI} = \beta_1\alpha_1\text{Cov}(I_i,I_i) \text{ .}\)</span> And, because the covariance of a variable with itself is its variance, we have <span class="math inline">\(\sigma_{YI} = \beta_1\alpha_1\sigma_I^2 \text{ ,}\)</span> which we can re-arrange as</p>
+<p><span class="math display">\[\begin{eqnarray} 
+\frac{\sigma_{YI}}{\alpha_1\sigma_I^2} &amp;=&amp; \beta_1  \text{ , and then}\\[5pt]
+ \beta_1 &amp;=&amp; \frac{\sigma_{YI}}{\sigma_I^2} \times \frac{1}{\alpha_1}
+\end{eqnarray}\]</span></p>
+<!-- https://bookdown.org/yihui/bookdown/markdown-extensions-by-bookdown.html -->
+<p>Because the slope in a simple regression is <span class="math inline">\(\frac{\sigma_{xy}}{\sigma_x^2}\)</span>, we can replace <span class="math inline">\(\alpha_1\)</span> with <span class="math inline">\(\frac{\sigma_{XI}}{\sigma_I^2}\)</span> and we end up with the same ratio we use in the method of moments.</p>
+<p><span class="math display">\[\begin{eqnarray}
+\beta_1 &amp;=&amp; \frac{\sigma_{YI}}{\sigma_I^2} \times \frac{1}{\frac{\sigma_{XI}}{\sigma_I^2}} \\[5pt]
+ &amp;=&amp; \frac{\sigma_{YI}}{\sigma_{XI}}
+\end{eqnarray}\]</span></p>
+<!-- $$\beta_1 = \frac{\sigma_{YI}}{\sigma_I^2} \times \frac{1}{\frac{\sigma_{XI}}{\sigma_I^2}} = \frac{\sigma_{YI}}{\sigma_{XI}}\text{ .}$$ -->
+<p>All that is to say that the <span class="math inline">\(\beta_1\)</span> in the second-stage equation is the same as the <span class="math inline">\(\beta_1\)</span> in the ratio that we had earlier used in the method-of-moments LATE estimation, Equation <a href="IVE.html#eq:mmoments">(8.1)</a>. Again, this ratio represents the underlying logic of IVE, and is nicely presented in Figure 10.4 of Murnane and Willett.</p>
+</div>
+<div id="obtaining-the-correct-standard-errors" class="section level3" number="8.4.3">
+<h3><span class="header-section-number">8.4.3</span> Obtaining the correct standard errors</h3>
+<p>The standard error of our parameter of interest, <span class="math inline">\(\beta_1\)</span>, in regular OLS estimation of the second stage, in Equation <a href="IVE.html#eq:Stage2LM">(8.3)</a>, is not correct. We can calculate this by hand using the following three steps:</p>
+<p>We first plug into the Stage 2 equation the <em><em>observed</em></em> values on the question predictor, <span class="math inline">\(X_i\)</span>, and save the residuals, which we’ll call <span class="math inline">\(\eta_i\)</span>. We calculate its standard deviation, which we’ll call <span class="math inline">\(\sigma_{\eta}\)</span>. We’ll use this in the equation in the third step.</p>
+<div class="sourceCode" id="cb789"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb789-1"><a href="IVE.html#cb789-1" aria-hidden="true" tabindex="-1"></a>preds <span class="ot">&lt;-</span> <span class="fu">predict</span>(s2, </span>
+<span id="cb789-2"><a href="IVE.html#cb789-2" aria-hidden="true" tabindex="-1"></a>                 <span class="at">newdata =</span> <span class="fu">data.frame</span>(<span class="at">register  =</span> dee<span class="sc">$</span>register, </span>
+<span id="cb789-3"><a href="IVE.html#cb789-3" aria-hidden="true" tabindex="-1"></a>                                      <span class="at">pred_coll =</span> dee<span class="sc">$</span>college))</span>
+<span id="cb789-4"><a href="IVE.html#cb789-4" aria-hidden="true" tabindex="-1"></a>eta_i <span class="ot">&lt;-</span> dee<span class="sc">$</span>register <span class="sc">-</span> preds</span>
+<span id="cb789-5"><a href="IVE.html#cb789-5" aria-hidden="true" tabindex="-1"></a>(sd_eta <span class="ot">&lt;-</span> <span class="fu">sd</span>(eta_i))</span></code></pre></div>
+<pre><code>## [1] 0.4646491</code></pre>
+<p>Second, we calculate the standard deviation of the predicted values in the Stage 1 equation. Let’s call this <span class="math inline">\(\sigma_{\hat{X}}\)</span>.</p>
+<div class="sourceCode" id="cb791"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb791-1"><a href="IVE.html#cb791-1" aria-hidden="true" tabindex="-1"></a>(sd_pred_coll <span class="ot">&lt;-</span> <span class="fu">sd</span>(s1<span class="sc">$</span>fitted.values))</span></code></pre></div>
+<pre><code>## [1] 0.05544201</code></pre>
+<p>Third, we use the following equation to calculate the correct two-stage-least-squares standard error of our parameter estimate in Equation <a href="IVE.html#eq:Stage2LM">(8.3)</a>:</p>
+<p><span class="math display" id="eq:SEbeta2SLS">\[\begin{equation}
+SE_{\beta_12SLS} = \frac{\sigma_{\eta}}{\sqrt{n} \times \sigma_{\hat{X}}}
+ \tag{8.4}
+\end{equation}\]</span></p>
+<div class="sourceCode" id="cb793"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb793-1"><a href="IVE.html#cb793-1" aria-hidden="true" tabindex="-1"></a>n_dee <span class="ot">&lt;-</span> <span class="fu">sum</span>(<span class="sc">!</span><span class="fu">is.na</span>(eta_i))</span>
+<span id="cb793-2"><a href="IVE.html#cb793-2" aria-hidden="true" tabindex="-1"></a>(se_2SLS <span class="ot">&lt;-</span> sd_eta<span class="sc">/</span>(<span class="fu">sqrt</span>(n_dee)<span class="sc">*</span>sd_pred_coll))</span></code></pre></div>
+<pre><code>## [1] 0.08724808</code></pre>
+<p>With this, our test statistic is now <span class="math inline">\(\frac{0.284}{0.087} = 3.252\text{.}\)</span></p>
+</div>
+<div id="letting-the-software-do-the-work" class="section level3" number="8.4.4">
+<h3><span class="header-section-number">8.4.4</span> Letting the software do the work</h3>
+<p>Instead of going through this mistake-prone by-hand calculation, let’s use a function that does the work for us. Among the packages that offer two-stage-least-squares estimation are the sem, AER, and systemfit packages. Let’s start with the sem package’s <code>tsls()</code> function.<a href="#fn52" class="footnote-ref" id="fnref52"><sup>52</sup></a></p>
+<div class="sourceCode" id="cb795"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb795-1"><a href="IVE.html#cb795-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sem)  </span>
+<span id="cb795-2"><a href="IVE.html#cb795-2" aria-hidden="true" tabindex="-1"></a>ts <span class="ot">&lt;-</span> sem<span class="sc">::</span><span class="fu">tsls</span>(register <span class="sc">~</span> college, <span class="sc">~</span> distance, <span class="at">data =</span> dee)</span>
+<span id="cb795-3"><a href="IVE.html#cb795-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(ts)</span></code></pre></div>
+<pre><code>## 
+##  2SLS Estimates
+## 
+## Model Formula: register ~ college
+## 
+## Instruments: ~distance
+## 
+## Residuals:
+##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+## -0.7993 -0.5157  0.2007  0.0000  0.4843  0.4843 
+## 
+##               Estimate Std. Error  t value   Pr(&gt;|t|)    
+## (Intercept) 0.51565260 0.04798221 10.74675 &lt; 2.22e-16 ***
+## college     0.28369126 0.08725754  3.25119  0.0011533 ** 
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 0.4646743 on 9225 degrees of freedom</code></pre>
+<p>Another package we can use is AER, with the <code>ivreg()</code> function. This output includes the <em>R</em><sup>2</sup> estimate.</p>
+<div class="sourceCode" id="cb797"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb797-1"><a href="IVE.html#cb797-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(AER)</span>
+<span id="cb797-2"><a href="IVE.html#cb797-2" aria-hidden="true" tabindex="-1"></a>ivreg <span class="ot">&lt;-</span> AER<span class="sc">::</span><span class="fu">ivreg</span>(register <span class="sc">~</span> college <span class="sc">|</span> distance, <span class="at">data =</span> dee)</span>
+<span id="cb797-3"><a href="IVE.html#cb797-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(ivreg)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## AER::ivreg(formula = register ~ college | distance, data = dee)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -0.7993 -0.5157  0.2007  0.4843  0.4843 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  0.51565    0.04798  10.747  &lt; 2e-16 ***
+## college      0.28369    0.08726   3.251  0.00115 ** 
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 0.4647 on 9225 degrees of freedom
+## Multiple R-Squared: 0.02234, Adjusted R-squared: 0.02223 
+## Wald test: 10.57 on 1 and 9225 DF,  p-value: 0.001153</code></pre>
+</div>
+<div id="noticing-the-covariance-between-errors" class="section level3" number="8.4.5">
+<h3><span class="header-section-number">8.4.5</span> Noticing the covariance between errors</h3>
+<p>Table 10.4 in Murnane and Willett includes the correlation in errors between the first stage (with OLS) and the second stage (from the 2SLS model):</p>
+<div class="sourceCode" id="cb799"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb799-1"><a href="IVE.html#cb799-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(s1<span class="sc">$</span>residuals, ts<span class="sc">$</span>residuals)</span></code></pre></div>
+<pre><code>## [1] -0.1150957</code></pre>
+<div class="sourceCode" id="cb801"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb801-1"><a href="IVE.html#cb801-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor.test</span>(s1<span class="sc">$</span>residuals, ts<span class="sc">$</span>residuals)</span></code></pre></div>
+<pre><code>## 
+##  Pearson&#39;s product-moment correlation
+## 
+## data:  s1$residuals and ts$residuals
+## t = -11.129, df = 9225, p-value &lt; 2.2e-16
+## alternative hypothesis: true correlation is not equal to 0
+## 95 percent confidence interval:
+##  -0.13518279 -0.09491396
+## sample estimates:
+##        cor 
+## -0.1150957</code></pre>
+<p>The correlation is statistically significant (which is not surprising given that the sample is pretty big). We wouldn’t normally include this in our analysis but it shows that the covariance between the residuals is not likely a random fluke.</p>
+<p>This covariance between residuals represents the portion of the covariance between the question predictor and the outcome that we are not able to capture with our instrument. In other words, this is the non-carved-out covariance that would otherwise bias our estimate if we had simply regressed Y on X. In using an instrumental variable that is exogenous, we are able to set this potentially endogenous covariance aside.</p>
+</div>
+</div>
+<div id="two-stage-least-squares-with-covariates" class="section level2" number="8.5">
+<h2><span class="header-section-number">8.5</span> Two-Stage Least Squares with Covariates</h2>
+<p>There are two reasons to include covariates.</p>
+<ul>
+<li>First, as is generally case in causal models, if the covariates explain what would otherwise be residual variance in the outcome variable, we increase our statistical power in detecting an effect in the parameter of interest <span class="math inline">\(\text{(}\beta_1 \text{,}\)</span> which is the slope for <code>college</code> in our example).</li>
+<li>The second reason is more specific to IVE. We might anticipate critiques from reviewers about the credibility of our <em>exclusion restriction</em>—that is, that the instrumental variable is related to the outcome variable <em><em>only</em></em> through our question predictor. The exclusion-restriction assumption in this study is that any relationship between <code>distance</code> (distance between one’s high school and the nearest college) and <code>registration</code> (whether they registered to vote) is fully explained by whether the person went to college or not. If there are reasons to believe that relationship exists outside of this mechanism, our estimated effect of <code>college</code> can be biased. However, if we have covariates that capture this other mechanism, we can condition on these covariates and provide a stronger case that we have met this assumption. We might then think of our instrument as a <em>conditional instrumental variable</em> <span class="citation">(<a href="#ref-morgan_counterfactuals_2015" role="doc-biblioref">Morgan &amp; Winship, 2015</a>)</span>.</li>
+</ul>
+<p>We can begin by examining the first stage with regular OLS.<a href="#fn53" class="footnote-ref" id="fnref53"><sup>53</sup></a></p>
+<div class="sourceCode" id="cb803"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb803-1"><a href="IVE.html#cb803-1" aria-hidden="true" tabindex="-1"></a>s1_2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(college <span class="sc">~</span> distance <span class="sc">+</span> black <span class="sc">+</span> hispanic <span class="sc">+</span> otherrace, </span>
+<span id="cb803-2"><a href="IVE.html#cb803-2" aria-hidden="true" tabindex="-1"></a>           <span class="at">data =</span> dee)</span>
+<span id="cb803-3"><a href="IVE.html#cb803-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(s1_2)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = college ~ distance + black + hispanic + otherrace, 
+##     data = dee)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -0.6768 -0.5255  0.3638  0.4353  0.7153 
+## 
+## Coefficients:
+##               Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  0.6431460  0.0090535  71.039  &lt; 2e-16 ***
+## distance    -0.0069203  0.0005947 -11.636  &lt; 2e-16 ***
+## black       -0.0576630  0.0159590  -3.613 0.000304 ***
+## hispanic    -0.1162130  0.0132567  -8.766  &lt; 2e-16 ***
+## otherrace    0.0337076  0.0240104   1.404 0.160390    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 0.4925 on 9222 degrees of freedom
+## Multiple R-squared:  0.02174,    Adjusted R-squared:  0.02132 
+## F-statistic: 51.24 on 4 and 9222 DF,  p-value: &lt; 2.2e-16</code></pre>
+<p>Here’s the two-stage-least-squares model results, with the correct standard error.</p>
+<div class="sourceCode" id="cb805"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb805-1"><a href="IVE.html#cb805-1" aria-hidden="true" tabindex="-1"></a>ts2 <span class="ot">&lt;-</span> sem<span class="sc">::</span><span class="fu">tsls</span>(register <span class="sc">~</span> college <span class="sc">+</span> black <span class="sc">+</span> hispanic <span class="sc">+</span> otherrace,</span>
+<span id="cb805-2"><a href="IVE.html#cb805-2" aria-hidden="true" tabindex="-1"></a>                         <span class="sc">~</span> distance <span class="sc">+</span> black <span class="sc">+</span> hispanic <span class="sc">+</span> otherrace, </span>
+<span id="cb805-3"><a href="IVE.html#cb805-3" aria-hidden="true" tabindex="-1"></a>                 <span class="at">data =</span> dee)</span>
+<span id="cb805-4"><a href="IVE.html#cb805-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(ts2)</span></code></pre></div>
+<pre><code>## 
+##  2SLS Estimates
+## 
+## Model Formula: register ~ college + black + hispanic + otherrace
+## 
+## Instruments: ~distance + black + hispanic + otherrace
+## 
+## Residuals:
+##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+## -0.8372 -0.5266  0.2245  0.0000  0.4117  0.5801 
+## 
+##                Estimate  Std. Error  t value   Pr(&gt;|t|)    
+## (Intercept)  0.52659996  0.04630650 11.37205 &lt; 2.22e-16 ***
+## college      0.24886155  0.08060093  3.08758  0.0020239 ** 
+## black        0.06173304  0.01517356  4.06846 4.7719e-05 ***
+## hispanic     0.02829264  0.01483211  1.90753  0.0564835 .  
+## otherrace   -0.10666611  0.02281932 -4.67438 2.9903e-06 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 0.461862 on 9222 degrees of freedom</code></pre>
+<p>In our quest to examine the causal relationship between education and voter registration, our parameter of interest is estimated as <span class="math inline">\(0.2489 \text{,}\)</span> which is big compared to the standard error, <span class="math inline">\(0.0806\)</span>. To report the confidence intervals for this parameter, we can use the <code>confint()</code> function with the index that includes the name of that variable as the row.</p>
+<div class="sourceCode" id="cb807"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb807-1"><a href="IVE.html#cb807-1" aria-hidden="true" tabindex="-1"></a><span class="fu">confint</span>(ts2)[<span class="st">&quot;college&quot;</span>, ]</span></code></pre></div>
+<pre><code>##      2.5 %     97.5 % 
+## 0.09088664 0.40683646</code></pre>
+<p>We can use the AER package and observe the same results, along with a report of the model’s <span class="math inline">\(R^2.\)</span></p>
+<div class="sourceCode" id="cb809"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb809-1"><a href="IVE.html#cb809-1" aria-hidden="true" tabindex="-1"></a>ivreg2 <span class="ot">&lt;-</span> AER<span class="sc">::</span><span class="fu">ivreg</span>(register <span class="sc">~</span> college <span class="sc">+</span> black <span class="sc">+</span> hispanic <span class="sc">+</span> otherrace</span>
+<span id="cb809-2"><a href="IVE.html#cb809-2" aria-hidden="true" tabindex="-1"></a>                             <span class="sc">|</span> distance <span class="sc">+</span> black <span class="sc">+</span> hispanic <span class="sc">+</span> otherrace, </span>
+<span id="cb809-3"><a href="IVE.html#cb809-3" aria-hidden="true" tabindex="-1"></a>                     <span class="at">data =</span> dee)</span>
+<span id="cb809-4"><a href="IVE.html#cb809-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(ivreg2)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## AER::ivreg(formula = register ~ college + black + hispanic + 
+##     otherrace | distance + black + hispanic + otherrace, data = dee)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -0.8372 -0.5266  0.2245  0.4117  0.5801 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  0.52660    0.04631  11.372  &lt; 2e-16 ***
+## college      0.24886    0.08060   3.088  0.00202 ** 
+## black        0.06173    0.01517   4.068 4.77e-05 ***
+## hispanic     0.02829    0.01483   1.908  0.05648 .  
+## otherrace   -0.10667    0.02282  -4.674 2.99e-06 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 0.4619 on 9222 degrees of freedom
+## Multiple R-Squared: 0.03445, Adjusted R-squared: 0.03403 
+## Wald test: 10.85 on 4 and 9222 DF,  p-value: 8.881e-09</code></pre>
+</div>
+<div id="using-multiple-instruments" class="section level2" number="8.6">
+<h2><span class="header-section-number">8.6</span> Using Multiple Instruments</h2>
+<p>Here is how to get the results in Table 10.8 (p. 249).<a href="#fn54" class="footnote-ref" id="fnref54"><sup>54</sup></a> The first four panels in that table correspond with the four first-stage models. The last panel provides the model results we can examine for causality.</p>
+<p>We could use regular OLS for the first-stage equations.</p>
+<div class="sourceCode" id="cb811"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb811-1"><a href="IVE.html#cb811-1" aria-hidden="true" tabindex="-1"></a>out10<span class="fl">.8</span>a1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(college <span class="sc">~</span> distance <span class="sc">+</span> black <span class="sc">+</span> hispanic <span class="sc">+</span> otherrace</span>
+<span id="cb811-2"><a href="IVE.html#cb811-2" aria-hidden="true" tabindex="-1"></a>     <span class="sc">+</span> distance<span class="sc">*</span>(black <span class="sc">+</span> hispanic <span class="sc">+</span> otherrace),</span>
+<span id="cb811-3"><a href="IVE.html#cb811-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">data=</span>dee)</span>
+<span id="cb811-4"><a href="IVE.html#cb811-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(out10<span class="fl">.8</span>a1)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = college ~ distance + black + hispanic + otherrace + 
+##     distance * (black + hispanic + otherrace), data = dee)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -0.7041 -0.5179  0.3619  0.4385  0.6862 
+## 
+## Coefficients:
+##                      Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)         0.6451829  0.0100579  64.147  &lt; 2e-16 ***
+## distance           -0.0071118  0.0007235  -9.830  &lt; 2e-16 ***
+## black              -0.0650566  0.0227625  -2.858  0.00427 ** 
+## hispanic           -0.1275900  0.0193679  -6.588 4.71e-11 ***
+## otherrace           0.0589545  0.0350741   1.681  0.09283 .  
+## distance:black      0.0008900  0.0020121   0.442  0.65826    
+## distance:hispanic   0.0012905  0.0015768   0.818  0.41312    
+## distance:otherrace -0.0029940  0.0029407  -1.018  0.30864    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 0.4925 on 9219 degrees of freedom
+## Multiple R-squared:  0.02196,    Adjusted R-squared:  0.02122 
+## F-statistic: 29.57 on 7 and 9219 DF,  p-value: &lt; 2.2e-16</code></pre>
+<div class="sourceCode" id="cb813"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb813-1"><a href="IVE.html#cb813-1" aria-hidden="true" tabindex="-1"></a>out10<span class="fl">.8</span>a2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="fu">I</span>(college<span class="sc">*</span>black) <span class="sc">~</span> black <span class="sc">+</span> distance<span class="sc">*</span>black, </span>
+<span id="cb813-2"><a href="IVE.html#cb813-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">data=</span>dee)</span>
+<span id="cb813-3"><a href="IVE.html#cb813-3" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(<span class="fu">summary</span>(out10<span class="fl">.8</span>a2))[<span class="fu">c</span>(<span class="st">&quot;black&quot;</span>,<span class="st">&quot;black:distance&quot;</span>), ]</span></code></pre></div>
+<pre><code>##                    Estimate   Std. Error   t value     Pr(&gt;|t|)
+## black           0.580126256 0.0078748876 73.667877 0.000000e+00
+## black:distance -0.006221805 0.0007065884 -8.805417 1.539404e-18</code></pre>
+<div class="sourceCode" id="cb815"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb815-1"><a href="IVE.html#cb815-1" aria-hidden="true" tabindex="-1"></a>out10<span class="fl">.8</span>a3 <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="fu">I</span>(college<span class="sc">*</span>hispanic) <span class="sc">~</span> hispanic <span class="sc">+</span> distance<span class="sc">*</span>hispanic, </span>
+<span id="cb815-2"><a href="IVE.html#cb815-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">data=</span>dee)</span>
+<span id="cb815-3"><a href="IVE.html#cb815-3" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(<span class="fu">summary</span>(out10<span class="fl">.8</span>a3))[<span class="fu">c</span>(<span class="st">&quot;hispanic&quot;</span>, <span class="st">&quot;hispanic:distance&quot;</span>),]</span></code></pre></div>
+<pre><code>##                       Estimate   Std. Error   t value     Pr(&gt;|t|)
+## hispanic           0.517592938 0.0084106792 61.539969 0.000000e+00
+## hispanic:distance -0.005821291 0.0006950438 -8.375431 6.306767e-17</code></pre>
+<div class="sourceCode" id="cb817"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb817-1"><a href="IVE.html#cb817-1" aria-hidden="true" tabindex="-1"></a>out10<span class="fl">.8</span>a4 <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="fu">I</span>(college<span class="sc">*</span>otherrace) <span class="sc">~</span> otherrace <span class="sc">+</span> distance<span class="sc">*</span>otherrace, </span>
+<span id="cb817-2"><a href="IVE.html#cb817-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">data=</span>dee)</span>
+<span id="cb817-3"><a href="IVE.html#cb817-3" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(<span class="fu">summary</span>(out10<span class="fl">.8</span>a4))[<span class="fu">c</span>(<span class="st">&quot;otherrace&quot;</span>,<span class="st">&quot;otherrace:distance&quot;</span>),]    </span></code></pre></div>
+<pre><code>##                       Estimate   Std. Error   t value     Pr(&gt;|t|)
+## otherrace           0.70413738 0.0074573579  94.42183 0.000000e+00
+## otherrace:distance -0.01010585 0.0006293801 -16.05683 3.044367e-57</code></pre>
+<div id="system-of-equations" class="section level3" number="8.6.1">
+<h3><span class="header-section-number">8.6.1</span> System of equations</h3>
+<p>The system of equations also provides estimates of these first four equations along with the fifth equation. Let’s use the systemfit package for this.</p>
+<p>First we define each equation in the systems of equations:</p>
+<div class="sourceCode" id="cb819"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb819-1"><a href="IVE.html#cb819-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(systemfit)</span>
+<span id="cb819-2"><a href="IVE.html#cb819-2" aria-hidden="true" tabindex="-1"></a>eq1 <span class="ot">&lt;-</span> college <span class="sc">~</span> distance <span class="sc">+</span> black <span class="sc">+</span> hispanic <span class="sc">+</span> otherrace <span class="sc">+</span> distance<span class="sc">*</span>(black <span class="sc">+</span> hispanic <span class="sc">+</span> otherrace)</span>
+<span id="cb819-3"><a href="IVE.html#cb819-3" aria-hidden="true" tabindex="-1"></a>eq2 <span class="ot">&lt;-</span> college<span class="sc">*</span>black    <span class="sc">~</span> black    <span class="sc">+</span> distance<span class="sc">*</span>black</span>
+<span id="cb819-4"><a href="IVE.html#cb819-4" aria-hidden="true" tabindex="-1"></a>eq3 <span class="ot">&lt;-</span> college<span class="sc">*</span>hispanic <span class="sc">~</span> hispanic <span class="sc">+</span> distance<span class="sc">*</span>hispanic</span>
+<span id="cb819-5"><a href="IVE.html#cb819-5" aria-hidden="true" tabindex="-1"></a>eq4 <span class="ot">&lt;-</span> college<span class="sc">*</span>otherrace<span class="sc">~</span> otherrace<span class="sc">+</span> distance<span class="sc">*</span>otherrace</span>
+<span id="cb819-6"><a href="IVE.html#cb819-6" aria-hidden="true" tabindex="-1"></a>eq5 <span class="ot">&lt;-</span> register <span class="sc">~</span> college <span class="sc">+</span> black <span class="sc">+</span> hispanic <span class="sc">+</span> otherrace <span class="sc">+</span> college<span class="sc">*</span>(black <span class="sc">+</span> hispanic <span class="sc">+</span> otherrace)</span></code></pre></div>
+<p>Now, we can use those specifications to fit the model. First, we define our instruments. Then, we create a list of the system of equations that we had just created. To fit the model, we use the <code>systemfit()</code> function; the first argument is the formula—our system of equations. For the method, we specify “2SLS.” We list the instruments that we had defined and, of course, the data. The output from <code>summary()</code> is pretty long because it presents all five equations, so we are asking in the last line for our last equation only.</p>
+<div class="sourceCode" id="cb820"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb820-1"><a href="IVE.html#cb820-1" aria-hidden="true" tabindex="-1"></a>inst <span class="ot">&lt;-</span> <span class="er">~</span> distance <span class="sc">+</span> distance<span class="sc">*</span>(black <span class="sc">+</span> hispanic <span class="sc">+</span> otherrace) <span class="co"># defining our instruments</span></span>
+<span id="cb820-2"><a href="IVE.html#cb820-2" aria-hidden="true" tabindex="-1"></a>system <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">eq1 =</span> eq1, <span class="at">eq2 =</span> eq2, <span class="at">eq3 =</span> eq3, <span class="at">eq4 =</span> eq4, <span class="at">eq5 =</span> eq5) <span class="co">#the list of equations</span></span>
+<span id="cb820-3"><a href="IVE.html#cb820-3" aria-hidden="true" tabindex="-1"></a>reg2sls <span class="ot">&lt;-</span> <span class="fu">systemfit</span>(system, </span>
+<span id="cb820-4"><a href="IVE.html#cb820-4" aria-hidden="true" tabindex="-1"></a>                     <span class="at">method =</span> <span class="st">&quot;2SLS&quot;</span>, </span>
+<span id="cb820-5"><a href="IVE.html#cb820-5" aria-hidden="true" tabindex="-1"></a>                     <span class="at">inst =</span> inst, </span>
+<span id="cb820-6"><a href="IVE.html#cb820-6" aria-hidden="true" tabindex="-1"></a>                     <span class="at">data =</span> dee)</span>
+<span id="cb820-7"><a href="IVE.html#cb820-7" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(reg2sls)<span class="sc">$</span>eq[[<span class="dv">5</span>]] <span class="co"># reporting only the last equation.</span></span></code></pre></div>
+<pre><code>## 
+## 2SLS estimates for &#39;eq5&#39; (equation 5)
+## Model Formula: register ~ college + black + hispanic + otherrace + college * 
+##     (black + hispanic + otherrace)
+## Instruments: ~distance + distance * (black + hispanic + otherrace)
+## 
+##                     Estimate Std. Error  t value   Pr(&gt;|t|)    
+## (Intercept)        0.4640456  0.0552995  8.39150 &lt; 2.22e-16 ***
+## college            0.3586927  0.0964921  3.71733 0.00020253 ***
+## black              0.2780238  0.1627012  1.70880 0.08752173 .  
+## hispanic           0.1765485  0.1208190  1.46126 0.14397700    
+## otherrace          0.1742172  0.1755997  0.99213 0.32116145    
+## college:black     -0.3985860  0.3020666 -1.31953 0.18702472    
+## college:hispanic  -0.2929071  0.2478420 -1.18183 0.23730363    
+## college:otherrace -0.4633532  0.2843963 -1.62925 0.10329394    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 0.467148 on 9219 degrees of freedom
+## Number of observations: 9227 Degrees of Freedom: 9219 
+## SSR: 2011.839435 MSE: 0.218228 Root MSE: 0.467148 
+## Multiple R-Squared: 0.012543 Adjusted R-Squared: 0.011793</code></pre>
+<p>Our statistical conclusion for causality is from the parameter estimate of <span class="math inline">\(0.359\)</span>, with a standard error of <span class="math inline">\(0.096\)</span>, which yields a respectable test statistic of <span class="math inline">\(3.717\)</span>.</p>
+
+</div>
+</div>
+</div>
+<h3>References</h3>
+<div id="refs" class="references csl-bib-body hanging-indent" entry-spacing="1">
+<div id="ref-R-sem" class="csl-entry">
+Fox, J., Nie, Z., &amp; Byrnes, J. (2020). <em>Sem: Structural equation models</em>. <a href="https://CRAN.R-project.org/package=sem">https://CRAN.R-project.org/package=sem</a>
+</div>
+<div id="ref-R-systemfit" class="csl-entry">
+Henningsen, A., &amp; Hamann, J. D. (2019). <em>Systemfit: Estimating systems of simultaneous equations</em>. <a href="http://www.systemfit.org">http://www.systemfit.org</a>
+</div>
+<div id="ref-R-AER" class="csl-entry">
+Kleiber, C., &amp; Zeileis, A. (2020). <em>AER: Applied econometrics with r</em>. <a href="https://CRAN.R-project.org/package=AER">https://CRAN.R-project.org/package=AER</a>
+</div>
+<div id="ref-morgan_counterfactuals_2015" class="csl-entry">
+Morgan, S. L., &amp; Winship, C. (2015). <em>Counterfactuals and causal inference: <span>Methods</span> and principles for social research</em> (2nd ed.). Cambridge University Press.
+</div>
+<div id="ref-murnane_methods_2011" class="csl-entry">
+Murnane, R. J., &amp; Willett, J. B. (2011). <em>Methods matter: <span>Improving</span> causal inference in educational and social science research</em>. Oxford University Press.
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="46">
+<li id="fn46"><p>Within the <code>cor()</code> and <code>cov()</code> functions, we are using a single argument, <code>dee[ ,c("register","college") ]</code> to specify the columns in the data frame on which to perform the correlation function. We could have used two arguments, one for each of the two variables, such as <code>cor(dee$register, dee$college)</code>. The indexing approach is good to learn because we can generalize it to more than two variables, e.g., <code>dee[ ,c("register", "college", "distance") ]</code>. Also, with the <code>cov()</code> function, we get not only the covariances, <span class="math inline">\(\frac{\Sigma(x_i - \bar{x})(y_i - \bar{y})}{n-1},\)</span> but also the variances along the diagonal of the matrix (because if we calculate the covariance of a variable with itself, e.g., <span class="math inline">\(\frac{\Sigma(x_i - \bar{x})(x_i - \bar{x})}{n-1}\)</span>, we get its variance).<a href="IVE.html#fnref46" class="footnote-back">↩︎</a></p></li>
+<li id="fn47"><p>The population variance on a dichotomous variable, is <span class="math inline">\(p(1-p)\)</span>, where <span class="math inline">\(p\)</span> is the same as the mean on this dichotomous 0-or-1 scale; for example, with <code>register</code>, we have .6709(1-.6709) = 0.2208.<a href="IVE.html#fnref47" class="footnote-back">↩︎</a></p></li>
+<li id="fn48"><p>For example, to coerce the all of numeric columns of our data set, we might use code like this <code>deem &lt;- as.matrix(dee[,varbs])</code>, where we had earlier created the <code>varbs</code> from all the columns except the first one, <code>varbs &lt;- names(dee)[-1]</code>.<a href="IVE.html#fnref48" class="footnote-back">↩︎</a></p></li>
+<li id="fn49"><p>Many authors, such as Morgan and Winship <span class="citation">(<a href="#ref-morgan_counterfactuals_2015" role="doc-biblioref">2015</a>)</span>, use <span class="math inline">\(D\)</span> for the question predictor and <span class="math inline">\(Z\)</span> for the instrument.<a href="IVE.html#fnref49" class="footnote-back">↩︎</a></p></li>
+<li id="fn50"><p>Instead of the <code>fitted()</code> function, we could also have used the <code>predict()</code> function with the <code>data = dee</code> argument.<a href="IVE.html#fnref50" class="footnote-back">↩︎</a></p></li>
+<li id="fn51"><p>Constants, by definition, have no variance and therefore do not covary with anything else, so <span class="math inline">\(\text{Cov}(\beta_0,I_i) = 0\)</span> and <span class="math inline">\(\text{Cov}(\beta_1\alpha_0,I_i) = 0\)</span>. Residuals in OLS models are assumed to be independent of any other variable, so <span class="math inline">\(\text{Cov}(\epsilon_i,I_i) = 0\)</span>.<a href="IVE.html#fnref51" class="footnote-back">↩︎</a></p></li>
+<li id="fn52"><p>Because other packages might use the <code>tsls()</code> function, we’re writing the function as <code>sem::tsls()</code>. This double colon makes it explicit that we want to use this function from this sem package.<a href="IVE.html#fnref52" class="footnote-back">↩︎</a></p></li>
+<li id="fn53"><p>Alternatively, instead of fitting OLS models in the first stage, we can get a report of the first and second stages in the output from the <code>systemfit()</code> function from the systemfit library. An example of how to use this function is presented in the last part of this lesson.<a href="IVE.html#fnref53" class="footnote-back">↩︎</a></p></li>
+<li id="fn54"><p>Because the data set does not include the <code>Number</code> variable, we cannot replicate Table 10.6 or 10.7.<a href="IVE.html#fnref54" class="footnote-back">↩︎</a></p></li>
+</ol>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="RD2.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="IVE2.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

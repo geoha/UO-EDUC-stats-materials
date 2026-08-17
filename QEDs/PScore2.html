@@ -1,0 +1,1282 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Part 11 Propensity Score Analysis 2: Weighting | Using R for Quasi-Experimental Designs</title>
+  <meta name="description" content="QEDs in R" />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Part 11 Propensity Score Analysis 2: Weighting | Using R for Quasi-Experimental Designs" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="QEDs in R" />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Part 11 Propensity Score Analysis 2: Weighting | Using R for Quasi-Experimental Designs" />
+  
+  <meta name="twitter:description" content="QEDs in R" />
+  
+
+<meta name="author" content="George M. Harrison  University of Hawai‘i at Mānoa, College of Education" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="PScore1.html"/>
+<link rel="next" href="PScore3.html"/>
+<script src="libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+<link href="libs/bsTable-3.3.7/bootstrapTable.min.css" rel="stylesheet" />
+<script src="libs/bsTable-3.3.7/bootstrapTable.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 1em;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#what-is-r"><i class="fa fa-check"></i><b>1.1</b> What is R</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="basics.html"><a href="basics.html"><i class="fa fa-check"></i><b>2</b> Some Fundamentals of Coding in R</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="basics.html"><a href="basics.html#objectives"><i class="fa fa-check"></i><b>2.1</b> Objectives</a></li>
+<li class="chapter" data-level="2.2" data-path="basics.html"><a href="basics.html#creating-an-r-script-file"><i class="fa fa-check"></i><b>2.2</b> Creating an R Script File</a></li>
+<li class="chapter" data-level="2.3" data-path="basics.html"><a href="basics.html#creating-objects-by-assigning-information-to-them"><i class="fa fa-check"></i><b>2.3</b> Creating objects by assigning information to them</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="basics.html"><a href="basics.html#assigning-character-strings-to-an-object"><i class="fa fa-check"></i><b>2.3.1</b> Assigning Character Strings to an Object</a></li>
+<li class="chapter" data-level="2.3.2" data-path="basics.html"><a href="basics.html#assigning-numeric-elements-to-an-object"><i class="fa fa-check"></i><b>2.3.2</b> Assigning Numeric Elements to an Object</a></li>
+<li class="chapter" data-level="2.3.3" data-path="basics.html"><a href="basics.html#creating-vectors"><i class="fa fa-check"></i><b>2.3.3</b> Creating Vectors</a></li>
+<li class="chapter" data-level="2.3.4" data-path="basics.html"><a href="basics.html#performing-operations-on-vectors"><i class="fa fa-check"></i><b>2.3.4</b> Performing Operations on Vectors</a></li>
+<li class="chapter" data-level="2.3.5" data-path="basics.html"><a href="basics.html#using-functions"><i class="fa fa-check"></i><b>2.3.5</b> Using Functions</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="basics.html"><a href="basics.html#create-a-data-frame-from-code"><i class="fa fa-check"></i><b>2.4</b> Create a data frame from code</a></li>
+<li class="chapter" data-level="2.5" data-path="basics.html"><a href="basics.html#working-with-matrices"><i class="fa fa-check"></i><b>2.5</b> Working with Matrices</a></li>
+<li class="chapter" data-level="2.6" data-path="basics.html"><a href="basics.html#dffromcsv"><i class="fa fa-check"></i><b>2.6</b> Creating a Data Frame from a CSV File</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="examine.html"><a href="examine.html"><i class="fa fa-check"></i><b>3</b> Examining and Summarizing Data</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="examine.html"><a href="examine.html#objectives-1"><i class="fa fa-check"></i><b>3.1</b> Objectives</a></li>
+<li class="chapter" data-level="3.2" data-path="examine.html"><a href="examine.html#examining-the-data"><i class="fa fa-check"></i><b>3.2</b> Examining the Data</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="examine.html"><a href="examine.html#the-data-frame"><i class="fa fa-check"></i><b>3.2.1</b> The Data Frame</a></li>
+<li class="chapter" data-level="3.2.2" data-path="examine.html"><a href="examine.html#subsetting-by-rows"><i class="fa fa-check"></i><b>3.2.2</b> Subsetting by Rows</a></li>
+<li class="chapter" data-level="3.2.3" data-path="examine.html"><a href="examine.html#subsetting-by-columns"><i class="fa fa-check"></i><b>3.2.3</b> Subsetting by Columns</a></li>
+<li class="chapter" data-level="3.2.4" data-path="examine.html"><a href="examine.html#descriptive-statistics"><i class="fa fa-check"></i><b>3.2.4</b> Descriptive Statistics</a></li>
+<li class="chapter" data-level="3.2.5" data-path="examine.html"><a href="examine.html#creating-a-custom-function-to-estimate-the-confidence-interval-of-the-mean"><i class="fa fa-check"></i><b>3.2.5</b> Creating a Custom Function to Estimate the Confidence Interval of the Mean</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="examine.html"><a href="examine.html#summarizing-data-by-group-and-an-introduction-to-lists"><i class="fa fa-check"></i><b>3.3</b> Summarizing Data by Group (and an introduction to lists)</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="examine.html"><a href="examine.html#calculating-standardized-mean-difference-and-variance-ratio-of-a-covariate"><i class="fa fa-check"></i><b>3.3.1</b> Calculating Standardized Mean Difference and Variance Ratio of a Covariate</a></li>
+<li class="chapter" data-level="3.3.2" data-path="examine.html"><a href="examine.html#creating-a-factor-variable-from-a-numeric-variable"><i class="fa fa-check"></i><b>3.3.2</b> Creating a Factor Variable from a Numeric Variable</a></li>
+<li class="chapter" data-level="3.3.3" data-path="examine.html"><a href="examine.html#aggregate_explain"><i class="fa fa-check"></i><b>3.3.3</b> The <code>aggregate()</code> function</a></li>
+<li class="chapter" data-level="3.3.4" data-path="examine.html"><a href="examine.html#plotting-data-by-group"><i class="fa fa-check"></i><b>3.3.4</b> Plotting data by group</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="examine.html"><a href="examine.html#extra-stuff"><i class="fa fa-check"></i><b>3.4</b> Extra Stuff</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="examine.html"><a href="examine.html#using-ggplot"><i class="fa fa-check"></i><b>3.4.1</b> Using ggplot</a></li>
+<li class="chapter" data-level="3.4.2" data-path="examine.html"><a href="examine.html#subsetting-data-and-separately-analyzing-each-group"><i class="fa fa-check"></i><b>3.4.2</b> Subsetting data and separately analyzing each group</a></li>
+<li class="chapter" data-level="3.4.3" data-path="examine.html"><a href="examine.html#the-tidyverse-approach-to-by-group-analyses"><i class="fa fa-check"></i><b>3.4.3</b> The Tidyverse Approach to By-Group Analyses</a></li>
+<li class="chapter" data-level="3.4.4" data-path="examine.html"><a href="examine.html#plotting-summary-statistics"><i class="fa fa-check"></i><b>3.4.4</b> Plotting summary statistics</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="rct.html"><a href="rct.html"><i class="fa fa-check"></i><b>4</b> Examples with Randomized Experiments</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="rct.html"><a href="rct.html#objectives-2"><i class="fa fa-check"></i><b>4.1</b> Objectives</a></li>
+<li class="chapter" data-level="4.2" data-path="rct.html"><a href="rct.html#preparation"><i class="fa fa-check"></i><b>4.2</b> Preparation</a></li>
+<li class="chapter" data-level="4.3" data-path="rct.html"><a href="rct.html#analysis-of-linear-models"><i class="fa fa-check"></i><b>4.3</b> Analysis of Linear Models</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="rct.html"><a href="rct.html#independent-samples-t-test-approach"><i class="fa fa-check"></i><b>4.3.1</b> Independent samples <em>t</em>-test approach</a></li>
+<li class="chapter" data-level="4.3.2" data-path="rct.html"><a href="rct.html#simple-linear-regression"><i class="fa fa-check"></i><b>4.3.2</b> Simple Linear Regression</a></li>
+<li class="chapter" data-level="4.3.3" data-path="rct.html"><a href="rct.html#multiple-linear-regression"><i class="fa fa-check"></i><b>4.3.3</b> Multiple Linear Regression</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="rct.html"><a href="rct.html#bootstrapping-to-get-confidence-intervals"><i class="fa fa-check"></i><b>4.4</b> Bootstrapping to Get Confidence Intervals</a>
+<ul>
+<li class="chapter" data-level="4.4.1" data-path="rct.html"><a href="rct.html#the-value-of-bootstrapping"><i class="fa fa-check"></i><b>4.4.1</b> The value of bootstrapping</a></li>
+<li class="chapter" data-level="4.4.2" data-path="rct.html"><a href="rct.html#another-way-to-bootstrap-the-standard-error-of-mean-differences"><i class="fa fa-check"></i><b>4.4.2</b> Another way to bootstrap the standard error of mean differences</a></li>
+<li class="chapter" data-level="4.4.3" data-path="rct.html"><a href="rct.html#simple-regression"><i class="fa fa-check"></i><b>4.4.3</b> Simple regression</a></li>
+<li class="chapter" data-level="4.4.4" data-path="rct.html"><a href="rct.html#multiple-regression"><i class="fa fa-check"></i><b>4.4.4</b> Multiple regression</a></li>
+<li class="chapter" data-level="4.4.5" data-path="rct.html"><a href="rct.html#summary-on-bootstrapping"><i class="fa fa-check"></i><b>4.4.5</b> Summary on Bootstrapping</a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="rct.html"><a href="rct.html#estimating-the-average-treatment-on-the-treated-att"><i class="fa fa-check"></i><b>4.5</b> Estimating the Average Treatment on the Treated (ATT)</a>
+<ul>
+<li class="chapter" data-level="4.5.1" data-path="rct.html"><a href="rct.html#artificially-introducing-no-shows"><i class="fa fa-check"></i><b>4.5.1</b> Artificially Introducing No-shows</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="DID.html"><a href="DID.html"><i class="fa fa-check"></i><b>5</b> Difference in Differences</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="DID.html"><a href="DID.html#objectives-3"><i class="fa fa-check"></i><b>5.1</b> Objectives</a></li>
+<li class="chapter" data-level="5.2" data-path="DID.html"><a href="DID.html#import-and-prepare-the-data"><i class="fa fa-check"></i><b>5.2</b> Import and Prepare the Data</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="DID.html"><a href="DID.html#prepare-the-data"><i class="fa fa-check"></i><b>5.2.1</b> Prepare the data</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="DID.html"><a href="DID.html#using-the-survey-package"><i class="fa fa-check"></i><b>5.3</b> Using the survey package</a></li>
+<li class="chapter" data-level="5.4" data-path="DID.html"><a href="DID.html#direct-estimates-as-shown-in-table-8.1-on-page-143"><i class="fa fa-check"></i><b>5.4</b> Direct estimates, as shown in Table 8.1 on page 143</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="DID.html"><a href="DID.html#first-difference-direct-estimate-in-panel-a."><i class="fa fa-check"></i><b>5.4.1</b> First difference, direct estimate in Panel A.</a></li>
+<li class="chapter" data-level="5.4.2" data-path="DID.html"><a href="DID.html#estimate-from-the-linear-probability-model-ols-estimate-shown-in-table-8.1-on-page-143-panel-b."><i class="fa fa-check"></i><b>5.4.2</b> Estimate from the linear-probability model (OLS) estimate shown in Table 8.1 on page 143, Panel B.</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="DID.html"><a href="DID.html#difference-in-differences-simple-approach-table-8.2-p.-157"><i class="fa fa-check"></i><b>5.5</b> Difference in differences, simple approach (Table 8.2, p. 157)</a></li>
+<li class="chapter" data-level="5.6" data-path="DID.html"><a href="DID.html#difference-in-differences-using-regression"><i class="fa fa-check"></i><b>5.6</b> Difference in differences using regression</a>
+<ul>
+<li class="chapter" data-level="5.6.1" data-path="DID.html"><a href="DID.html#compare-the-results-from-the-four-different-strategies"><i class="fa fa-check"></i><b>5.6.1</b> Compare the results from the four different strategies</a></li>
+</ul></li>
+<li class="chapter" data-level="5.7" data-path="DID.html"><a href="DID.html#summary-of-the-did-model-strategy"><i class="fa fa-check"></i><b>5.7</b> Summary of the DID model strategy</a></li>
+<li class="chapter" data-level="5.8" data-path="DID.html"><a href="DID.html#accounting-for-the-binary-y-variable"><i class="fa fa-check"></i><b>5.8</b> Accounting for the binary Y variable</a></li>
+<li class="chapter" data-level="5.9" data-path="DID.html"><a href="DID.html#plotting-the-difference-in-differences"><i class="fa fa-check"></i><b>5.9</b> Plotting the difference in differences</a>
+<ul>
+<li class="chapter" data-level="5.9.1" data-path="DID.html"><a href="DID.html#plotfrompred"><i class="fa fa-check"></i><b>5.9.1</b> Plotting from the predicted values of the model</a></li>
+<li class="chapter" data-level="5.9.2" data-path="DID.html"><a href="DID.html#doing-it-in-ggplot2"><i class="fa fa-check"></i><b>5.9.2</b> Doing it in ggplot2</a></li>
+<li class="chapter" data-level="5.9.3" data-path="DID.html"><a href="DID.html#seeing-where-the-regression-estimate-is-in-the-plot"><i class="fa fa-check"></i><b>5.9.3</b> Seeing where the regression estimate is in the plot</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="RD1.html"><a href="RD1.html"><i class="fa fa-check"></i><b>6</b> Regression Discontinuity, Part 1</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="RD1.html"><a href="RD1.html#objectives-4"><i class="fa fa-check"></i><b>6.1</b> Objectives</a></li>
+<li class="chapter" data-level="6.2" data-path="RD1.html"><a href="RD1.html#import-and-prepare-the-data-1"><i class="fa fa-check"></i><b>6.2</b> Import and Prepare the Data</a></li>
+<li class="chapter" data-level="6.3" data-path="RD1.html"><a href="RD1.html#different-difference-in-differences"><i class="fa fa-check"></i><b>6.3</b> Different Difference in Differences</a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="RD1.html"><a href="RD1.html#our-first-difference"><i class="fa fa-check"></i><b>6.3.1</b> Our first difference</a></li>
+<li class="chapter" data-level="6.3.2" data-path="RD1.html"><a href="RD1.html#a-plausible-second-difference"><i class="fa fa-check"></i><b>6.3.2</b> A plausible second difference</a></li>
+<li class="chapter" data-level="6.3.3" data-path="RD1.html"><a href="RD1.html#another-plausible-second-difference"><i class="fa fa-check"></i><b>6.3.3</b> Another plausible second difference</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="RD1.html"><a href="RD1.html#mread3640"><i class="fa fa-check"></i><b>6.4</b> Broadening the bandwidth</a></li>
+<li class="chapter" data-level="6.5" data-path="RD1.html"><a href="RD1.html#summary-up-to-this-point"><i class="fa fa-check"></i><b>6.5</b> Summary up to this point</a></li>
+<li class="chapter" data-level="6.6" data-path="RD1.html"><a href="RD1.html#examining-if-the-results-are-consistent-with-different-bandwidths"><i class="fa fa-check"></i><b>6.6</b> Examining if the results are consistent with different bandwidths</a></li>
+<li class="chapter" data-level="6.7" data-path="RD1.html"><a href="RD1.html#functional-form-in-rdd"><i class="fa fa-check"></i><b>6.7</b> Functional Form in RDD</a>
+<ul>
+<li class="chapter" data-level="6.7.1" data-path="RD1.html"><a href="RD1.html#plotting-the-two-sides-allowing-different-slopes"><i class="fa fa-check"></i><b>6.7.1</b> Plotting the two sides, allowing different slopes</a></li>
+<li class="chapter" data-level="6.7.2" data-path="RD1.html"><a href="RD1.html#broader-analytic-windows"><i class="fa fa-check"></i><b>6.7.2</b> Broader analytic windows</a></li>
+</ul></li>
+<li class="chapter" data-level="6.8" data-path="RD1.html"><a href="RD1.html#using-the-rddtools-package"><i class="fa fa-check"></i><b>6.8</b> Using the rddtools Package</a>
+<ul>
+<li class="chapter" data-level="6.8.1" data-path="RD1.html"><a href="RD1.html#examining-the-bandwidth-identified-by-the-package"><i class="fa fa-check"></i><b>6.8.1</b> Examining the bandwidth identified by the package</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="RD2.html"><a href="RD2.html"><i class="fa fa-check"></i><b>7</b> Regression Discontinuity, Part 2</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="RD2.html"><a href="RD2.html#here-are-the-steps-we-will-take"><i class="fa fa-check"></i><b>7.1</b> Here are the steps we will take:</a></li>
+<li class="chapter" data-level="7.2" data-path="RD2.html"><a href="RD2.html#the-data"><i class="fa fa-check"></i><b>7.2</b> The Data</a></li>
+<li class="chapter" data-level="7.3" data-path="RD2.html"><a href="RD2.html#examine-the-data-the-assignment-rule-adherence-and-compliance"><i class="fa fa-check"></i><b>7.3</b> Examine the Data, the Assignment-rule Adherence, and Compliance</a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="RD2.html"><a href="RD2.html#assignment-rule-adherence"><i class="fa fa-check"></i><b>7.3.1</b> Assignment-rule adherence</a></li>
+<li class="chapter" data-level="7.3.2" data-path="RD2.html"><a href="RD2.html#compliance"><i class="fa fa-check"></i><b>7.3.2</b> Compliance</a></li>
+<li class="chapter" data-level="7.3.3" data-path="RD2.html"><a href="RD2.html#create-bins-of-the-assignment-variable"><i class="fa fa-check"></i><b>7.3.3</b> Create Bins of the Assignment Variable</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="RD2.html"><a href="RD2.html#examining-assumptions"><i class="fa fa-check"></i><b>7.4</b> Examining Assumptions</a>
+<ul>
+<li class="chapter" data-level="7.4.1" data-path="RD2.html"><a href="RD2.html#assumption-1the-continuity-assumption"><i class="fa fa-check"></i><b>7.4.1</b> Assumption 1—the continuity assumption</a></li>
+<li class="chapter" data-level="7.4.2" data-path="RD2.html"><a href="RD2.html#assumption-2discontinuities-in-the-covariates"><i class="fa fa-check"></i><b>7.4.2</b> Assumption 2—Discontinuities in the covariates</a></li>
+<li class="chapter" data-level="7.4.3" data-path="RD2.html"><a href="RD2.html#assumption-3checking-for-pseudo-cut-offs-in-the-outcome"><i class="fa fa-check"></i><b>7.4.3</b> Assumption 3—Checking for pseudo-cut-offs in the outcome</a></li>
+</ul></li>
+<li class="chapter" data-level="7.5" data-path="RD2.html"><a href="RD2.html#examining-the-parametric-functional-form"><i class="fa fa-check"></i><b>7.5</b> Examining the Parametric Functional Form</a>
+<ul>
+<li class="chapter" data-level="7.5.1" data-path="RD2.html"><a href="RD2.html#restricting-bandwidth"><i class="fa fa-check"></i><b>7.5.1</b> Restricting bandwidth</a></li>
+</ul></li>
+<li class="chapter" data-level="7.6" data-path="RD2.html"><a href="RD2.html#restband"><i class="fa fa-check"></i><b>7.6</b> Estimating the Effect</a>
+<ul>
+<li class="chapter" data-level="7.6.1" data-path="RD2.html"><a href="RD2.html#parametric-model"><i class="fa fa-check"></i><b>7.6.1</b> Parametric Model</a></li>
+<li class="chapter" data-level="7.6.2" data-path="RD2.html"><a href="RD2.html#non-parametric-model-local-linear-estimation"><i class="fa fa-check"></i><b>7.6.2</b> Non-parametric Model: Local Linear Estimation</a></li>
+<li class="chapter" data-level="7.6.3" data-path="RD2.html"><a href="RD2.html#including-covariates"><i class="fa fa-check"></i><b>7.6.3</b> Including covariates</a></li>
+</ul></li>
+<li class="chapter" data-level="7.7" data-path="RD2.html"><a href="RD2.html#sensitivity-analysis"><i class="fa fa-check"></i><b>7.7</b> Sensitivity Analysis</a></li>
+<li class="chapter" data-level="7.8" data-path="RD2.html"><a href="RD2.html#accounting-for-fuzziness"><i class="fa fa-check"></i><b>7.8</b> Accounting for Fuzziness</a>
+<ul>
+<li class="chapter" data-level="7.8.1" data-path="RD2.html"><a href="RD2.html#fuzzy-non-parametric-model"><i class="fa fa-check"></i><b>7.8.1</b> Fuzzy non-parametric model</a></li>
+<li class="chapter" data-level="7.8.2" data-path="RD2.html"><a href="RD2.html#summary-about-fuzzy-rdd"><i class="fa fa-check"></i><b>7.8.2</b> Summary about fuzzy RDD</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="IVE.html"><a href="IVE.html"><i class="fa fa-check"></i><b>8</b> Instrumental Variable Estimation</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="IVE.html"><a href="IVE.html#objectives-5"><i class="fa fa-check"></i><b>8.1</b> Objectives</a></li>
+<li class="chapter" data-level="8.2" data-path="IVE.html"><a href="IVE.html#preparation-1"><i class="fa fa-check"></i><b>8.2</b> Preparation</a>
+<ul>
+<li class="chapter" data-level="8.2.1" data-path="IVE.html"><a href="IVE.html#examining-the-data-1"><i class="fa fa-check"></i><b>8.2.1</b> Examining the data</a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="IVE.html"><a href="IVE.html#moments-reported-in-table-10.2-p.-219"><i class="fa fa-check"></i><b>8.3</b> Moments reported in Table 10.2 (p. 219)</a></li>
+<li class="chapter" data-level="8.4" data-path="IVE.html"><a href="IVE.html#two-stage-least-squares-1"><i class="fa fa-check"></i><b>8.4</b> Two-stage Least Squares</a>
+<ul>
+<li class="chapter" data-level="8.4.1" data-path="IVE.html"><a href="IVE.html#first-stage"><i class="fa fa-check"></i><b>8.4.1</b> First stage</a></li>
+<li class="chapter" data-level="8.4.2" data-path="IVE.html"><a href="IVE.html#second-stage"><i class="fa fa-check"></i><b>8.4.2</b> Second stage</a></li>
+<li class="chapter" data-level="8.4.3" data-path="IVE.html"><a href="IVE.html#obtaining-the-correct-standard-errors"><i class="fa fa-check"></i><b>8.4.3</b> Obtaining the correct standard errors</a></li>
+<li class="chapter" data-level="8.4.4" data-path="IVE.html"><a href="IVE.html#letting-the-software-do-the-work"><i class="fa fa-check"></i><b>8.4.4</b> Letting the software do the work</a></li>
+<li class="chapter" data-level="8.4.5" data-path="IVE.html"><a href="IVE.html#noticing-the-covariance-between-errors"><i class="fa fa-check"></i><b>8.4.5</b> Noticing the covariance between errors</a></li>
+</ul></li>
+<li class="chapter" data-level="8.5" data-path="IVE.html"><a href="IVE.html#two-stage-least-squares-with-covariates"><i class="fa fa-check"></i><b>8.5</b> Two-Stage Least Squares with Covariates</a></li>
+<li class="chapter" data-level="8.6" data-path="IVE.html"><a href="IVE.html#using-multiple-instruments"><i class="fa fa-check"></i><b>8.6</b> Using Multiple Instruments</a>
+<ul>
+<li class="chapter" data-level="8.6.1" data-path="IVE.html"><a href="IVE.html#system-of-equations"><i class="fa fa-check"></i><b>8.6.1</b> System of equations</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="IVE2.html"><a href="IVE2.html"><i class="fa fa-check"></i><b>9</b> Practice with Instrumental Variable Estimation</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="IVE2.html"><a href="IVE2.html#objectives-6"><i class="fa fa-check"></i><b>9.1</b> Objectives</a></li>
+<li class="chapter" data-level="9.2" data-path="IVE2.html"><a href="IVE2.html#import-and-prepare-the-data-2"><i class="fa fa-check"></i><b>9.2</b> Import and Prepare the Data</a>
+<ul>
+<li class="chapter" data-level="9.2.1" data-path="IVE2.html"><a href="IVE2.html#descriptive-statistics-1"><i class="fa fa-check"></i><b>9.2.1</b> Descriptive statistics</a></li>
+</ul></li>
+<li class="chapter" data-level="9.3" data-path="IVE2.html"><a href="IVE2.html#covariate-balance"><i class="fa fa-check"></i><b>9.3</b> Covariate Balance</a>
+<ul>
+<li class="chapter" data-level="9.3.1" data-path="IVE2.html"><a href="IVE2.html#covariate-balance-on-d"><i class="fa fa-check"></i><b>9.3.1</b> Covariate balance on <span class="math inline">\(D\)</span></a></li>
+</ul></li>
+<li class="chapter" data-level="9.4" data-path="IVE2.html"><a href="IVE2.html#compliance-table-1"><i class="fa fa-check"></i><b>9.4</b> Compliance Table</a></li>
+<li class="chapter" data-level="9.5" data-path="IVE2.html"><a href="IVE2.html#estimating-the-causal-effect"><i class="fa fa-check"></i><b>9.5</b> Estimating the Causal Effect</a>
+<ul>
+<li class="chapter" data-level="9.5.1" data-path="IVE2.html"><a href="IVE2.html#the-naïve-estimate"><i class="fa fa-check"></i><b>9.5.1</b> The naïve estimate</a></li>
+<li class="chapter" data-level="9.5.2" data-path="IVE2.html"><a href="IVE2.html#the-late-estimate-from-ive"><i class="fa fa-check"></i><b>9.5.2</b> The LATE estimate from IVE</a></li>
+<li class="chapter" data-level="9.5.3" data-path="IVE2.html"><a href="IVE2.html#making-the-intercept-meaningful"><i class="fa fa-check"></i><b>9.5.3</b> Making the intercept meaningful</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="PScore1.html"><a href="PScore1.html"><i class="fa fa-check"></i><b>10</b> Propensity Score Analysis 1: The underlying logic</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="PScore1.html"><a href="PScore1.html#import-the-data-and-prepare-for-analysis"><i class="fa fa-check"></i><b>10.1</b> Import the Data and Prepare for Analysis</a>
+<ul>
+<li class="chapter" data-level="10.1.1" data-path="PScore1.html"><a href="PScore1.html#creating-a-numeric-version-of-the-base-income-variables"><i class="fa fa-check"></i><b>10.1.1</b> Creating a numeric version of the base-income variables</a></li>
+<li class="chapter" data-level="10.1.2" data-path="PScore1.html"><a href="PScore1.html#creating-some-custom-functions"><i class="fa fa-check"></i><b>10.1.2</b> Creating some custom functions</a></li>
+</ul></li>
+<li class="chapter" data-level="10.2" data-path="PScore1.html"><a href="PScore1.html#stratifying-on-a-covariate"><i class="fa fa-check"></i><b>10.2</b> Stratifying on a Covariate</a>
+<ul>
+<li class="chapter" data-level="10.2.1" data-path="PScore1.html"><a href="PScore1.html#checking-the-imbalance-in-the-treatment-status"><i class="fa fa-check"></i><b>10.2.1</b> Checking the imbalance in the treatment status</a></li>
+<li class="chapter" data-level="10.2.2" data-path="PScore1.html"><a href="PScore1.html#creating-the-strata-from-the-covariate"><i class="fa fa-check"></i><b>10.2.2</b> Creating the strata from the covariate</a></li>
+<li class="chapter" data-level="10.2.3" data-path="PScore1.html"><a href="PScore1.html#checking-for-imbalance-within-each-stratum"><i class="fa fa-check"></i><b>10.2.3</b> Checking for imbalance within each stratum</a></li>
+<li class="chapter" data-level="10.2.4" data-path="PScore1.html"><a href="PScore1.html#using-tidyverse-to-check-imbalance"><i class="fa fa-check"></i><b>10.2.4</b> Using Tidyverse to check imbalance</a></li>
+<li class="chapter" data-level="10.2.5" data-path="PScore1.html"><a href="PScore1.html#ate-and-att"><i class="fa fa-check"></i><b>10.2.5</b> ATE and ATT</a></li>
+<li class="chapter" data-level="10.2.6" data-path="PScore1.html"><a href="PScore1.html#pooling-across-strata-to-calculate-the-ate-and-att"><i class="fa fa-check"></i><b>10.2.6</b> Pooling across strata to calculate the ATE and ATT</a></li>
+</ul></li>
+<li class="chapter" data-level="10.3" data-path="PScore1.html"><a href="PScore1.html#stratifying-on-two-covariates"><i class="fa fa-check"></i><b>10.3</b> Stratifying on Two Covariates</a>
+<ul>
+<li class="chapter" data-level="10.3.1" data-path="PScore1.html"><a href="PScore1.html#calculating-the-ate-and-att"><i class="fa fa-check"></i><b>10.3.1</b> Calculating the ATE and ATT</a></li>
+<li class="chapter" data-level="10.3.2" data-path="PScore1.html"><a href="PScore1.html#tidyverse-approach"><i class="fa fa-check"></i><b>10.3.2</b> Tidyverse approach</a></li>
+</ul></li>
+<li class="chapter" data-level="10.4" data-path="PScore1.html"><a href="PScore1.html#estimating-propensity-scores"><i class="fa fa-check"></i><b>10.4</b> Estimating Propensity Scores</a></li>
+<li class="chapter" data-level="10.5" data-path="PScore1.html"><a href="PScore1.html#creating-strata-from-propensity-scores"><i class="fa fa-check"></i><b>10.5</b> Creating Strata from Propensity Scores</a>
+<ul>
+<li class="chapter" data-level="10.5.1" data-path="PScore1.html"><a href="PScore1.html#adding-more-covariates"><i class="fa fa-check"></i><b>10.5.1</b> Adding more covariates</a></li>
+<li class="chapter" data-level="10.5.2" data-path="PScore1.html"><a href="PScore1.html#ate-and-att-for-the-five-stratum-model"><i class="fa fa-check"></i><b>10.5.2</b> ATE and ATT for the five-stratum model</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="PScore2.html"><a href="PScore2.html"><i class="fa fa-check"></i><b>11</b> Propensity Score Analysis 2: Weighting</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="PScore2.html"><a href="PScore2.html#import-the-data-and-prepare-for-analysis-1"><i class="fa fa-check"></i><b>11.1</b> Import the Data and Prepare for Analysis</a></li>
+<li class="chapter" data-level="11.2" data-path="PScore2.html"><a href="PScore2.html#specify-custom-functions"><i class="fa fa-check"></i><b>11.2</b> Specify Custom Functions</a>
+<ul>
+<li class="chapter" data-level="11.2.1" data-path="PScore2.html"><a href="PScore2.html#imbalance-functions"><i class="fa fa-check"></i><b>11.2.1</b> Imbalance functions</a></li>
+<li class="chapter" data-level="11.2.2" data-path="PScore2.html"><a href="PScore2.html#overlap-functions"><i class="fa fa-check"></i><b>11.2.2</b> Overlap functions</a></li>
+</ul></li>
+<li class="chapter" data-level="11.3" data-path="PScore2.html"><a href="PScore2.html#assess-imbalance-in-observed-covariates"><i class="fa fa-check"></i><b>11.3</b> Assess Imbalance in Observed Covariates</a></li>
+<li class="chapter" data-level="11.4" data-path="PScore2.html"><a href="PScore2.html#check-overlap"><i class="fa fa-check"></i><b>11.4</b> Check Overlap</a></li>
+<li class="chapter" data-level="11.5" data-path="PScore2.html"><a href="PScore2.html#calculate-the-weights"><i class="fa fa-check"></i><b>11.5</b> Calculate the Weights</a>
+<ul>
+<li class="chapter" data-level="11.5.1" data-path="PScore2.html"><a href="PScore2.html#dealing-with-extreme-weights"><i class="fa fa-check"></i><b>11.5.1</b> Dealing with extreme weights</a></li>
+<li class="chapter" data-level="11.5.2" data-path="PScore2.html"><a href="PScore2.html#specifying-whether-to-estimate-ate-or-att"><i class="fa fa-check"></i><b>11.5.2</b> Specifying whether to estimate ATE or ATT</a></li>
+</ul></li>
+<li class="chapter" data-level="11.6" data-path="PScore2.html"><a href="PScore2.html#conduct-balance-checks-after-weighting"><i class="fa fa-check"></i><b>11.6</b> Conduct balance checks after weighting</a></li>
+<li class="chapter" data-level="11.7" data-path="PScore2.html"><a href="PScore2.html#estimate-the-treatment-effect"><i class="fa fa-check"></i><b>11.7</b> Estimate the Treatment Effect</a>
+<ul>
+<li class="chapter" data-level="11.7.1" data-path="PScore2.html"><a href="PScore2.html#estimating-the-correct-standard-error"><i class="fa fa-check"></i><b>11.7.1</b> Estimating the correct standard error</a></li>
+<li class="chapter" data-level="11.7.2" data-path="PScore2.html"><a href="PScore2.html#use-a-doubly-robust-estimate"><i class="fa fa-check"></i><b>11.7.2</b> Use a doubly robust estimate</a></li>
+</ul></li>
+<li class="chapter" data-level="11.8" data-path="PScore2.html"><a href="PScore2.html#using-the-twang-package"><i class="fa fa-check"></i><b>11.8</b> Using the Twang Package</a>
+<ul>
+<li class="chapter" data-level="11.8.1" data-path="PScore2.html"><a href="PScore2.html#examining-covariate-balance"><i class="fa fa-check"></i><b>11.8.1</b> Examining covariate balance</a></li>
+<li class="chapter" data-level="11.8.2" data-path="PScore2.html"><a href="PScore2.html#estimating-the-propensity-scores-and-getting-the-weights"><i class="fa fa-check"></i><b>11.8.2</b> Estimating the propensity scores and getting the weights</a></li>
+<li class="chapter" data-level="11.8.3" data-path="PScore2.html"><a href="PScore2.html#estimating-the-effect"><i class="fa fa-check"></i><b>11.8.3</b> Estimating the effect</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="PScore3.html"><a href="PScore3.html"><i class="fa fa-check"></i><b>12</b> Propensity Score Analysis 3: Stratification and Matching</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="PScore3.html"><a href="PScore3.html#calculate-the-mmwss-from-the-propensity-scores"><i class="fa fa-check"></i><b>12.1</b> Calculate the MMWSs from the propensity scores</a>
+<ul>
+<li class="chapter" data-level="12.1.1" data-path="PScore3.html"><a href="PScore3.html#estimate-the-propensity-scores"><i class="fa fa-check"></i><b>12.1.1</b> Estimate the propensity scores</a></li>
+<li class="chapter" data-level="12.1.2" data-path="PScore3.html"><a href="PScore3.html#calculate-the-quintiles"><i class="fa fa-check"></i><b>12.1.2</b> Calculate the quintiles</a></li>
+<li class="chapter" data-level="12.1.3" data-path="PScore3.html"><a href="PScore3.html#examine-the-strata"><i class="fa fa-check"></i><b>12.1.3</b> Examine the strata</a></li>
+<li class="chapter" data-level="12.1.4" data-path="PScore3.html"><a href="PScore3.html#calculate-the-mmwss"><i class="fa fa-check"></i><b>12.1.4</b> Calculate the MMWSs</a></li>
+</ul></li>
+<li class="chapter" data-level="12.2" data-path="PScore3.html"><a href="PScore3.html#conduct-balance-checks-after-weighting-1"><i class="fa fa-check"></i><b>12.2</b> Conduct balance checks after weighting</a></li>
+<li class="chapter" data-level="12.3" data-path="PScore3.html"><a href="PScore3.html#estimate-the-ate"><i class="fa fa-check"></i><b>12.3</b> Estimate the ATE</a></li>
+<li class="chapter" data-level="12.4" data-path="PScore3.html"><a href="PScore3.html#using-the-matchit-package"><i class="fa fa-check"></i><b>12.4</b> Using the MatchIt Package</a>
+<ul>
+<li class="chapter" data-level="12.4.1" data-path="PScore3.html"><a href="PScore3.html#examining-balance"><i class="fa fa-check"></i><b>12.4.1</b> Examining Balance</a></li>
+<li class="chapter" data-level="12.4.2" data-path="PScore3.html"><a href="PScore3.html#estimate-the-effect"><i class="fa fa-check"></i><b>12.4.2</b> Estimate the Effect</a></li>
+</ul></li>
+<li class="chapter" data-level="12.5" data-path="PScore3.html"><a href="PScore3.html#matching"><i class="fa fa-check"></i><b>12.5</b> Matching</a>
+<ul>
+<li class="chapter" data-level="12.5.1" data-path="PScore3.html"><a href="PScore3.html#estimate-the-effect-1"><i class="fa fa-check"></i><b>12.5.1</b> Estimate the Effect</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Using R for Quasi-Experimental Designs</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="PScore2" class="section level1" number="11">
+<h1><span class="header-section-number">Part 11</span> Propensity Score Analysis 2: Weighting</h1>
+<p>Inverse probability (or propensity) weighting (IPW) is probably the easiest propensity-score method to use. In this session, we continue with the data from the previous unit but this time we have split it into two data sets: one with all the covariates and another with only the outcome variables. This is good practice because we separate the decisions the researcher makes into two independent steps. The first step involves finding the best combination of covariates, deciding on a method of propensity-score estimation, and deciding which propensity-score adjustment method to use—weighting, stratification, or matching (we use weighting in this unit). In the second step, we estimate the causal effect.</p>
+<p>We will assess imbalance and overlap in our covariates before and after applying the IPW adjustments. We will use some custom functions for this (which we will not elaborate on). For this first part, we will use the same method—logistic regression—for estimating the propensity scores. The outputs of the balance statistics and plots help us in evaluating how well the IPWs worked. After this, we will estimate the effect using the survey package <span class="citation">(<a href="#ref-R-survey" role="doc-biblioref">Lumley, 2021</a>)</span>, which is valuable for correctly estimating the standard error. Finally, we will try out the twang package <span class="citation">(<a href="#ref-R-twang" role="doc-biblioref">Cefalu et al., 2021</a>)</span>, which is one of many propensity-score packages that has functions for estimating propensity scores and applying weighting. With twang, we will not use logistic regression but instead will use a generalized boosted model, which is the default in twang’s function. We end by estimating the causal effect given these GBM inverse probability (IP) weights, again with the survey package.</p>
+<div id="import-the-data-and-prepare-for-analysis-1" class="section level2" number="11.1">
+<h2><span class="header-section-number">11.1</span> Import the Data and Prepare for Analysis</h2>
+<p>Let’s import a version of the data set that has <strong><em>excluded</em></strong> the outcome variable. After we examine how well the propensity score model addressed overlap and covariate balance, we will merge the two data sets—the one with the outcome variable and this one—so we can estimate the ATE and ATT.</p>
+<div class="sourceCode" id="cb1017"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1017-1"><a href="PScore2.html#cb1017-1" aria-hidden="true" tabindex="-1"></a>ca <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;ch12_catholic_WOoutcome.csv&quot;</span>, <span class="at">stringsAsFactors =</span> <span class="cn">TRUE</span>) </span>
+<span id="cb1017-2"><a href="PScore2.html#cb1017-2" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(ca)</span></code></pre></div>
+<pre><code>## &#39;data.frame&#39;:    5671 obs. of  34 variables:
+##  $ id       : int  124902 124915 124916 124932 124944 124966 124968 124970 124972 124974 ...
+##  $ hsgrad   : Factor w/ 2 levels &quot;no&quot;,&quot;yes&quot;: 2 2 2 2 2 2 2 2 2 2 ...
+##  $ inpse    : Factor w/ 2 levels &quot;no&quot;,&quot;yes&quot;: 2 2 2 2 2 2 2 2 2 1 ...
+##  $ catholic : Factor w/ 2 levels &quot;no&quot;,&quot;yes&quot;: 2 2 2 2 2 2 2 2 2 2 ...
+##  $ read8    : num  56 63.1 61 45.3 55.9 ...
+##  $ math8    : num  50.3 51.5 47.6 46.6 60.2 ...
+##  $ female   : Factor w/ 2 levels &quot;no&quot;,&quot;yes&quot;: 1 1 2 2 2 2 1 1 1 1 ...
+##  $ race     : Factor w/ 5 levels &quot;ai&quot;,&quot;api&quot;,&quot;black&quot;,..: 5 5 5 5 5 5 5 5 5 5 ...
+##  $ white    : Factor w/ 2 levels &quot;no&quot;,&quot;yes&quot;: 2 2 2 2 2 2 2 2 2 2 ...
+##  $ black    : Factor w/ 2 levels &quot;no&quot;,&quot;yes&quot;: 1 1 1 1 1 1 1 1 1 1 ...
+##  $ hisp     : Factor w/ 2 levels &quot;no&quot;,&quot;yes&quot;: 1 1 1 1 1 1 1 1 1 1 ...
+##  $ api      : Factor w/ 2 levels &quot;no&quot;,&quot;yes&quot;: 1 1 1 1 1 1 1 1 1 1 ...
+##  $ nativam  : Factor w/ 2 levels &quot;no&quot;,&quot;yes&quot;: 1 1 1 1 1 1 1 1 1 1 ...
+##  $ parmar8  : Factor w/ 6 levels &quot;divorced&quot;,&quot;married&quot;,..: 2 2 2 2 2 2 2 2 2 1 ...
+##  $ faminc8  : Factor w/ 12 levels &quot;$1000-$2999&quot;,..: 5 5 5 5 9 2 5 5 5 3 ...
+##  $ fathed8  : Factor w/ 8 levels &quot;coll &lt;4&quot;,&quot;coll grad&quot;,..: 5 4 8 4 5 8 5 7 6 5 ...
+##  $ mothed8  : Factor w/ 8 levels &quot;coll &lt;4&quot;,&quot;coll grad&quot;,..: 5 4 3 4 5 5 5 6 6 1 ...
+##  $ fhowfar  : Factor w/ 6 levels &quot;coll &lt;4&quot;,&quot;coll grad&quot;,..: 1 1 1 2 2 2 1 2 2 2 ...
+##  $ mhowfar  : Factor w/ 6 levels &quot;coll &lt;4&quot;,&quot;coll grad&quot;,..: 1 2 1 2 2 2 1 2 2 2 ...
+##  $ fight8   : Factor w/ 3 levels &quot;more than twice&quot;,..: 2 2 2 2 2 2 2 3 3 1 ...
+##  $ nohw8    : Factor w/ 2 levels &quot;no&quot;,&quot;yes&quot;: 1 1 1 1 1 1 1 1 1 2 ...
+##  $ disrupt8 : Factor w/ 2 levels &quot;no&quot;,&quot;yes&quot;: 1 1 1 1 1 1 1 2 2 2 ...
+##  $ riskdrop8: int  1 0 0 1 1 1 0 1 0 1 ...
+##  $ catN     : int  1 1 1 1 1 1 1 1 1 1 ...
+##  $ faminc8N : int  10 10 10 10 11 7 10 10 10 8 ...
+##  $ inc8     : num  30 30 30 30 42.5 12.5 30 30 30 17.5 ...
+##  $ mathfam  : num  1508 1546 1427 1398 2559 ...
+##  $ fhowfarN : int  3 3 3 4 4 4 3 4 4 4 ...
+##  $ mhowfarN : int  3 4 3 4 4 4 3 4 4 4 ...
+##  $ fight8N  : int  0 0 0 0 0 0 0 1 1 2 ...
+##  $ nohw8N   : int  0 0 0 0 0 0 0 0 0 1 ...
+##  $ disrupt8N: int  0 0 0 0 0 0 0 1 1 1 ...
+##  $ parmar8N : int  1 1 1 1 1 1 1 1 1 0 ...
+##  $ inc8Sq   : num  900 900 900 900 1806 ...</code></pre>
+<p>Many of these are coded as factors because we used <code>stringsAsFactors = TRUE</code> when we read in our data with <code>read.csv()</code>. We also have the numeric versions of these covariates, which we had created in our previous unit.</p>
+<div class="sourceCode" id="cb1019"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1019-1"><a href="PScore2.html#cb1019-1" aria-hidden="true" tabindex="-1"></a><span class="co"># If we wanted to use all of the covariates, here they are:</span></span>
+<span id="cb1019-2"><a href="PScore2.html#cb1019-2" aria-hidden="true" tabindex="-1"></a><span class="co"># covnames&lt;- c(&quot;female&quot;,  &quot;race&quot;,    &quot;white&quot;,   &quot;black&quot;,    &quot;hisp&quot;,     &quot;api&quot;,     </span></span>
+<span id="cb1019-3"><a href="PScore2.html#cb1019-3" aria-hidden="true" tabindex="-1"></a><span class="co">#              &quot;nativam&quot;, &quot;parmar8&quot;,&quot;parmar8N&quot;, &quot;faminc8&quot;, &quot;fathed8&quot;,  &quot;mothed8&quot;,  </span></span>
+<span id="cb1019-4"><a href="PScore2.html#cb1019-4" aria-hidden="true" tabindex="-1"></a><span class="co">#              &quot;fhowfar&quot;, &quot;fhowfarN&quot;, &quot;mhowfar&quot;, &quot;mhowfarN&quot;, </span></span>
+<span id="cb1019-5"><a href="PScore2.html#cb1019-5" aria-hidden="true" tabindex="-1"></a><span class="co">#              &quot;fight8&quot;, &quot;fight8N&quot;,  &quot;nohw8&quot;,&quot;nohw8N&quot;,  &quot;disrupt8&quot;,&quot;disrupt8N&quot;, &quot;riskdrop8&quot; )</span></span>
+<span id="cb1019-6"><a href="PScore2.html#cb1019-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1019-7"><a href="PScore2.html#cb1019-7" aria-hidden="true" tabindex="-1"></a><span class="co"># covnames&lt;- c(&quot;inc8&quot;, &quot;math8&quot;, &quot;female&quot;,  &quot;white&quot;,   &quot;black&quot;,    &quot;hisp&quot;,     &quot;api&quot;,     #api = Asian or Pacific Islander</span></span>
+<span id="cb1019-8"><a href="PScore2.html#cb1019-8" aria-hidden="true" tabindex="-1"></a><span class="co">#              &quot;nativam&quot;, &quot;parmar8N&quot;, &quot;fhowfarN&quot;, &quot;mhowfarN&quot;, </span></span>
+<span id="cb1019-9"><a href="PScore2.html#cb1019-9" aria-hidden="true" tabindex="-1"></a><span class="co">#              &quot;fight8N&quot;,  &quot;nohw8N&quot;,   &quot;disrupt8N&quot;, &quot;riskdrop8&quot; )</span></span>
+<span id="cb1019-10"><a href="PScore2.html#cb1019-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1019-11"><a href="PScore2.html#cb1019-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Alternatively, if we want to cf to Murnane &amp; Willett&#39;s analysis, we use these:</span></span>
+<span id="cb1019-12"><a href="PScore2.html#cb1019-12" aria-hidden="true" tabindex="-1"></a>covnames<span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;inc8&quot;</span>, <span class="st">&quot;inc8Sq&quot;</span>, <span class="st">&quot;math8&quot;</span>, <span class="st">&quot;mathfam&quot;</span>, <span class="st">&quot;fhowfarN&quot;</span>,</span>
+<span id="cb1019-13"><a href="PScore2.html#cb1019-13" aria-hidden="true" tabindex="-1"></a>               <span class="st">&quot;mhowfarN&quot;</span>, <span class="st">&quot;fight8N&quot;</span>, <span class="st">&quot;nohw8N&quot;</span>, <span class="st">&quot;disrupt8N&quot;</span>, </span>
+<span id="cb1019-14"><a href="PScore2.html#cb1019-14" aria-hidden="true" tabindex="-1"></a>               <span class="st">&quot;riskdrop8&quot;</span>)</span>
+<span id="cb1019-15"><a href="PScore2.html#cb1019-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1019-16"><a href="PScore2.html#cb1019-16" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(ca[,covnames])</span></code></pre></div>
+<pre><code>##       inc8           inc8Sq           math8          mathfam      
+##  Min.   : 0.00   Min.   :   0.0   Min.   :34.48   Min.   :   0.0  
+##  1st Qu.:17.50   1st Qu.: 306.2   1st Qu.:43.45   1st Qu.: 926.8  
+##  Median :30.00   Median : 900.0   Median :50.45   Median :1578.0  
+##  Mean   :32.66   Mean   :1367.1   Mean   :51.49   Mean   :1728.7  
+##  3rd Qu.:42.50   3rd Qu.:1806.2   3rd Qu.:58.55   3rd Qu.:2394.4  
+##  Max.   :62.50   Max.   :3906.2   Max.   :77.20   Max.   :4825.0  
+##     fhowfarN        mhowfarN        fight8N           nohw8N      
+##  Min.   :0.000   Min.   :0.000   Min.   :0.0000   Min.   :0.0000  
+##  1st Qu.:4.000   1st Qu.:4.000   1st Qu.:0.0000   1st Qu.:0.0000  
+##  Median :4.000   Median :4.000   Median :0.0000   Median :0.0000  
+##  Mean   :3.818   Mean   :3.858   Mean   :0.2192   Mean   :0.1434  
+##  3rd Qu.:5.000   3rd Qu.:5.000   3rd Qu.:0.0000   3rd Qu.:0.0000  
+##  Max.   :5.000   Max.   :5.000   Max.   :2.0000   Max.   :1.0000  
+##    disrupt8N        riskdrop8     
+##  Min.   :0.0000   Min.   :0.0000  
+##  1st Qu.:0.0000   1st Qu.:0.0000  
+##  Median :0.0000   Median :0.0000  
+##  Mean   :0.1795   Mean   :0.6237  
+##  3rd Qu.:0.0000   3rd Qu.:1.0000  
+##  Max.   :1.0000   Max.   :5.0000</code></pre>
+</div>
+<div id="specify-custom-functions" class="section level2" number="11.2">
+<h2><span class="header-section-number">11.2</span> Specify Custom Functions</h2>
+<p>Let’s create some custom functions. The first ones are for assessing imbalance due to selection bias. The next are for examining overlap and common support. I credit Peter Steiner with the original versions of these functions, which I have further modified. Any mistakes are due to my own modifications. We can also use functions from packages developed for propensity score analyses, such as twang <span class="citation">(<a href="#ref-R-twang" role="doc-biblioref">Cefalu et al., 2021</a>)</span>, to achieve similar imbalance statistics and plots.</p>
+<div id="imbalance-functions" class="section level3" number="11.2.1">
+<h3><span class="header-section-number">11.2.1</span> Imbalance functions</h3>
+<p>As we have done before, we will assess imbalance in the observed covariates in the levels of the treatment variable, <code>catholic</code>, by examining the standardized mean difference and variance ratio. Here are the three arguments in this function:</p>
+<ul>
+<li><code>x</code> is our baseline covariate,</li>
+<li><code>grp</code> is our grouping variable (<code>catholic</code> in our data), and</li>
+<li><code>wt</code> is the weight applied to the unit.</li>
+</ul>
+<p>This version of our custom function has an additional component that our previous one did not, <code>wt =</code>. In this lesson, the weight is the IPW (the inverse-propensity weight). We can also use this function for stratum weights that use marginal mean weighting through stratification (MMWS). When examine balance before applying IPW or MMWS, we specify the weights of each observation as being the same. We’ve specified this as the default with <code>wt = rep(1, length(x))</code>. Within the function, we estimate the weighted mean and variance of the covariate.<a href="#fn67" class="footnote-ref" id="fnref67"><sup>67</sup></a></p>
+<div class="sourceCode" id="cb1021"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1021-1"><a href="PScore2.html#cb1021-1" aria-hidden="true" tabindex="-1"></a>wselect.diff <span class="ot">&lt;-</span> <span class="cf">function</span>(x, grp, <span class="at">wt =</span> <span class="fu">rep</span>(<span class="dv">1</span>, <span class="fu">length</span>(x))) {</span>
+<span id="cb1021-2"><a href="PScore2.html#cb1021-2" aria-hidden="true" tabindex="-1"></a>   <span class="cf">if</span> (<span class="fu">is.factor</span>(grp)) grp <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(grp) <span class="sc">-</span> <span class="dv">1</span>     <span class="co"># transform dichotomous factor into dummy</span></span>
+<span id="cb1021-3"><a href="PScore2.html#cb1021-3" aria-hidden="true" tabindex="-1"></a>   <span class="cf">if</span> (<span class="fu">is.factor</span>(x)) x <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(x) <span class="sc">-</span> <span class="dv">1</span>           <span class="co"># transform dichotomous factor into dummy</span></span>
+<span id="cb1021-4"><a href="PScore2.html#cb1021-4" aria-hidden="true" tabindex="-1"></a>   stat.wt <span class="ot">&lt;-</span> <span class="cf">function</span>(xw) {                          <span class="co"># function computing weighted mean and variance</span></span>
+<span id="cb1021-5"><a href="PScore2.html#cb1021-5" aria-hidden="true" tabindex="-1"></a>      out <span class="ot">&lt;-</span> <span class="fu">cov.wt</span>(xw[, <span class="dv">1</span>, <span class="at">drop =</span> F], xw[, <span class="dv">2</span>])</span>
+<span id="cb1021-6"><a href="PScore2.html#cb1021-6" aria-hidden="true" tabindex="-1"></a>      <span class="fu">c</span>(<span class="at">mean.wt =</span> out<span class="sc">$</span>center, <span class="at">var.wt =</span> out<span class="sc">$</span>cov)</span>
+<span id="cb1021-7"><a href="PScore2.html#cb1021-7" aria-hidden="true" tabindex="-1"></a>   }</span>
+<span id="cb1021-8"><a href="PScore2.html#cb1021-8" aria-hidden="true" tabindex="-1"></a>   stat <span class="ot">&lt;-</span> <span class="fu">unlist</span>(<span class="fu">by</span>(<span class="fu">cbind</span>(x, wt), grp, stat.wt))     <span class="co"># weighted mean and variance (vector)</span></span>
+<span id="cb1021-9"><a href="PScore2.html#cb1021-9" aria-hidden="true" tabindex="-1"></a>   m <span class="ot">&lt;-</span> stat[<span class="fu">seq</span>(<span class="dv">1</span>, <span class="dv">4</span>, <span class="at">by =</span> <span class="dv">2</span>)]                       <span class="co"># extract means</span></span>
+<span id="cb1021-10"><a href="PScore2.html#cb1021-10" aria-hidden="true" tabindex="-1"></a>   v <span class="ot">&lt;-</span> stat[<span class="fu">seq</span>(<span class="dv">2</span>, <span class="dv">4</span>, <span class="at">by =</span> <span class="dv">2</span>)]                       <span class="co"># extract variances</span></span>
+<span id="cb1021-11"><a href="PScore2.html#cb1021-11" aria-hidden="true" tabindex="-1"></a>   B <span class="ot">&lt;-</span> (m[<span class="dv">2</span>] <span class="sc">-</span> m[<span class="dv">1</span>]) <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="fu">sum</span>(v) <span class="sc">/</span> <span class="dv">2</span>)              <span class="co"># standardized difference in means</span></span>
+<span id="cb1021-12"><a href="PScore2.html#cb1021-12" aria-hidden="true" tabindex="-1"></a>   R <span class="ot">&lt;-</span> v[<span class="dv">2</span>] <span class="sc">/</span> v[<span class="dv">1</span>]                                   <span class="co"># variance ratio</span></span>
+<span id="cb1021-13"><a href="PScore2.html#cb1021-13" aria-hidden="true" tabindex="-1"></a>   rslt <span class="ot">&lt;-</span> <span class="fu">summary</span>(<span class="fu">lm</span>(x <span class="sc">~</span> grp, <span class="at">weights =</span> wt))         <span class="co"># run regression test</span></span>
+<span id="cb1021-14"><a href="PScore2.html#cb1021-14" aria-hidden="true" tabindex="-1"></a>   res <span class="ot">&lt;-</span> <span class="fu">c</span>(rslt<span class="sc">$</span>coef[<span class="dv">2</span>, <span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>, <span class="dv">4</span>)], B, R)</span>
+<span id="cb1021-15"><a href="PScore2.html#cb1021-15" aria-hidden="true" tabindex="-1"></a>   <span class="fu">names</span>(res) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Mean.Diff&quot;</span>, <span class="st">&quot;Std.Error&quot;</span>, <span class="st">&quot;p-value&quot;</span>, <span class="st">&quot;Std.Mean.Diff&quot;</span>, <span class="st">&quot;Var.Ratio&quot;</span>)</span>
+<span id="cb1021-16"><a href="PScore2.html#cb1021-16" aria-hidden="true" tabindex="-1"></a>   res</span>
+<span id="cb1021-17"><a href="PScore2.html#cb1021-17" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p>This next one generates a plot of the imbalance statistics output from the previous function if we have saved the output as a matrix, as we do later on.</p>
+<div class="sourceCode" id="cb1022"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1022-1"><a href="PScore2.html#cb1022-1" aria-hidden="true" tabindex="-1"></a>imbal_plotter <span class="ot">&lt;-</span> <span class="cf">function</span>(imbal_table, <span class="at">subtitle =</span> <span class="cn">NULL</span>){</span>
+<span id="cb1022-2"><a href="PScore2.html#cb1022-2" aria-hidden="true" tabindex="-1"></a>   <span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>))</span>
+<span id="cb1022-3"><a href="PScore2.html#cb1022-3" aria-hidden="true" tabindex="-1"></a>   B4plot <span class="ot">&lt;-</span> imbal_table[, <span class="st">&quot;Std.Mean.Diff&quot;</span>]</span>
+<span id="cb1022-4"><a href="PScore2.html#cb1022-4" aria-hidden="true" tabindex="-1"></a>   R4plot <span class="ot">&lt;-</span> imbal_table[, <span class="st">&quot;Var.Ratio&quot;</span>]</span>
+<span id="cb1022-5"><a href="PScore2.html#cb1022-5" aria-hidden="true" tabindex="-1"></a>   <span class="fu">plot</span>(B4plot, R4plot, <span class="at">xlim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">1</span>), <span class="at">ylim=</span><span class="fu">c</span>(<span class="dv">0</span>, <span class="fu">max</span>(<span class="dv">2</span>,<span class="fu">max</span>(R4plot)) ), <span class="at">pch =</span> <span class="dv">16</span>,</span>
+<span id="cb1022-6"><a href="PScore2.html#cb1022-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">main =</span> <span class="fu">paste</span>(<span class="st">&#39;Imbalance </span><span class="sc">\n</span><span class="st">&#39;</span>, subtitle),</span>
+<span id="cb1022-7"><a href="PScore2.html#cb1022-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">xlab =</span> <span class="st">&#39;Std. Mean Difference&#39;</span>, <span class="at">ylab =</span> <span class="st">&#39;Variance Ratio&#39;</span>)</span>
+<span id="cb1022-8"><a href="PScore2.html#cb1022-8" aria-hidden="true" tabindex="-1"></a>   <span class="fu">abline</span>(<span class="at">h =</span> <span class="dv">1</span>, <span class="at">v =</span> <span class="dv">0</span>)</span>
+<span id="cb1022-9"><a href="PScore2.html#cb1022-9" aria-hidden="true" tabindex="-1"></a>   <span class="fu">abline</span>(<span class="at">h =</span> <span class="fu">c</span>(<span class="dv">4</span><span class="sc">/</span><span class="dv">5</span>, <span class="dv">5</span><span class="sc">/</span><span class="dv">4</span>), <span class="at">v =</span> <span class="fu">c</span>(<span class="sc">-</span>.<span class="dv">1</span>, .<span class="dv">1</span>), <span class="at">lty =</span> <span class="dv">3</span>) <span class="co">#Rubin&#39;s benchmarks</span></span>
+<span id="cb1022-10"><a href="PScore2.html#cb1022-10" aria-hidden="true" tabindex="-1"></a>   <span class="fu">abline</span>(<span class="at">v =</span> <span class="fu">c</span>(<span class="sc">-</span>.<span class="dv">2</span>, .<span class="dv">2</span>), <span class="at">lty =</span> <span class="dv">15</span>, <span class="at">col=</span><span class="st">&quot;brown&quot;</span>)    <span class="co">#More lenient (but common) std.M-diff benchmarks</span></span>
+<span id="cb1022-11"><a href="PScore2.html#cb1022-11" aria-hidden="true" tabindex="-1"></a>   <span class="co"># labels for imbalanced covariates</span></span>
+<span id="cb1022-12"><a href="PScore2.html#cb1022-12" aria-hidden="true" tabindex="-1"></a>   index4plot <span class="ot">&lt;-</span> (<span class="fu">abs</span>(B4plot) <span class="sc">&gt;</span> .<span class="dv">1</span> <span class="sc">|</span> R4plot <span class="sc">&lt;</span> <span class="dv">4</span><span class="sc">/</span><span class="dv">5</span> <span class="sc">|</span> R4plot <span class="sc">&gt;</span> <span class="dv">5</span><span class="sc">/</span><span class="dv">4</span>) </span>
+<span id="cb1022-13"><a href="PScore2.html#cb1022-13" aria-hidden="true" tabindex="-1"></a>   <span class="cf">if</span>(<span class="fu">sum</span>(index4plot)<span class="sc">&gt;</span> <span class="dv">0</span>) <span class="fu">text</span>(B4plot[index4plot], R4plot[index4plot], covnames[index4plot], <span class="at">pos =</span> <span class="dv">2</span> <span class="sc">+</span> <span class="dv">2</span><span class="sc">*</span>(B4plot[index4plot] <span class="sc">&gt;</span> <span class="dv">0</span>), <span class="at">offset =</span> .<span class="dv">4</span>, <span class="at">cex =</span> .<span class="dv">7</span>, <span class="at">xpd =</span> T)</span>
+<span id="cb1022-14"><a href="PScore2.html#cb1022-14" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+</div>
+<div id="overlap-functions" class="section level3" number="11.2.2">
+<h3><span class="header-section-number">11.2.2</span> Overlap functions</h3>
+<p>We can use this function to plot the overlap between the treatment and control group on a covariate.</p>
+<ul>
+<li><code>x</code> is our covariate, as a numeric vector</li>
+<li><code>z</code> is our treatment indicator (dummy coded as 0 and 1)</li>
+<li><code>title</code> is the label to use for the plot title (optional)</li>
+<li><code>xlab</code> is the label of the X axis (optional)</li>
+<li><code>bin</code> is the number of bins for the histogram, defaulting to 20</li>
+</ul>
+<div class="sourceCode" id="cb1023"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1023-1"><a href="PScore2.html#cb1023-1" aria-hidden="true" tabindex="-1"></a>overlap <span class="ot">&lt;-</span> <span class="cf">function</span>(x, z, <span class="at">title =</span> <span class="cn">NULL</span>, <span class="at">xlab =</span> <span class="cn">NULL</span>, <span class="at">bin =</span> <span class="dv">20</span>, <span class="at">Ccol=</span><span class="st">&quot;papayawhip&quot;</span>, <span class="at">Tcol=</span><span class="st">&quot;olivedrab4&quot;</span>)</span>
+<span id="cb1023-2"><a href="PScore2.html#cb1023-2" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb1023-3"><a href="PScore2.html#cb1023-3" aria-hidden="true" tabindex="-1"></a>   r1 <span class="ot">&lt;-</span> <span class="fu">range</span>(x)</span>
+<span id="cb1023-4"><a href="PScore2.html#cb1023-4" aria-hidden="true" tabindex="-1"></a>   <span class="cf">if</span> (<span class="sc">!</span><span class="fu">is.numeric</span>(z)) z <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(z) <span class="sc">-</span> <span class="dv">1</span></span>
+<span id="cb1023-5"><a href="PScore2.html#cb1023-5" aria-hidden="true" tabindex="-1"></a>   c.dat <span class="ot">&lt;-</span> <span class="fu">hist</span>(x[z <span class="sc">==</span> <span class="dv">0</span>], <span class="at">breaks =</span> <span class="fu">seq</span>(r1[<span class="dv">1</span>], r1[<span class="dv">2</span>], <span class="at">length =</span> bin), <span class="at">plot =</span> F)  <span class="co"># histogram data for control (untreated) group</span></span>
+<span id="cb1023-6"><a href="PScore2.html#cb1023-6" aria-hidden="true" tabindex="-1"></a>   t.dat <span class="ot">&lt;-</span> <span class="fu">hist</span>(x[z <span class="sc">==</span> <span class="dv">1</span>], <span class="at">breaks =</span> <span class="fu">seq</span>(r1[<span class="dv">1</span>], r1[<span class="dv">2</span>], <span class="at">length =</span> bin), <span class="at">plot =</span> F)  <span class="co"># histogram data for treated group</span></span>
+<span id="cb1023-7"><a href="PScore2.html#cb1023-7" aria-hidden="true" tabindex="-1"></a>   t.dat<span class="sc">$</span>counts <span class="ot">&lt;-</span> <span class="sc">-</span>t.dat<span class="sc">$</span>counts</span>
+<span id="cb1023-8"><a href="PScore2.html#cb1023-8" aria-hidden="true" tabindex="-1"></a>   <span class="fu">plot</span>(c.dat, <span class="at">axes =</span> F, <span class="at">ylim =</span> <span class="fu">c</span>(<span class="fu">min</span>(t.dat<span class="sc">$</span>counts), <span class="fu">max</span>(c.dat<span class="sc">$</span>counts)),</span>
+<span id="cb1023-9"><a href="PScore2.html#cb1023-9" aria-hidden="true" tabindex="-1"></a>        <span class="at">main =</span> <span class="cn">NULL</span>, <span class="at">xlab =</span> xlab, <span class="at">col=</span>Ccol)</span>
+<span id="cb1023-10"><a href="PScore2.html#cb1023-10" aria-hidden="true" tabindex="-1"></a>   <span class="fu">title</span>(<span class="at">main =</span> title, <span class="at">adj =</span> <span class="dv">0</span>, <span class="at">cex =</span> .<span class="dv">8</span>)</span>
+<span id="cb1023-11"><a href="PScore2.html#cb1023-11" aria-hidden="true" tabindex="-1"></a>   <span class="fu">plot</span>(t.dat, <span class="at">add =</span> T, <span class="at">density =</span> <span class="dv">30</span>, <span class="at">col =</span> Tcol)</span>
+<span id="cb1023-12"><a href="PScore2.html#cb1023-12" aria-hidden="true" tabindex="-1"></a>   <span class="fu">axis</span>(<span class="at">side =</span> <span class="dv">1</span>)</span>
+<span id="cb1023-13"><a href="PScore2.html#cb1023-13" aria-hidden="true" tabindex="-1"></a>   ax.loc <span class="ot">&lt;-</span> <span class="fu">axis</span>(<span class="dv">2</span>, <span class="at">labels =</span> F)</span>
+<span id="cb1023-14"><a href="PScore2.html#cb1023-14" aria-hidden="true" tabindex="-1"></a>   <span class="fu">axis</span>(<span class="dv">2</span>, <span class="at">at =</span> ax.loc, <span class="at">labels =</span> <span class="fu">abs</span>(ax.loc))</span>
+<span id="cb1023-15"><a href="PScore2.html#cb1023-15" aria-hidden="true" tabindex="-1"></a>   y <span class="ot">&lt;-</span> <span class="fu">par</span>(<span class="st">&#39;usr&#39;</span>)[<span class="dv">3</span><span class="sc">:</span><span class="dv">4</span>]</span>
+<span id="cb1023-16"><a href="PScore2.html#cb1023-16" aria-hidden="true" tabindex="-1"></a>   <span class="fu">text</span>(<span class="fu">rep</span>(<span class="fu">max</span>(x), <span class="dv">2</span>), <span class="fu">c</span>(y[<span class="dv">2</span>] <span class="sc">-</span> <span class="fu">diff</span>(y)<span class="sc">*</span>.<span class="dv">05</span>, y[<span class="dv">1</span>] <span class="sc">+</span> <span class="fu">diff</span>(y)<span class="sc">*</span>.<span class="dv">05</span>), </span>
+<span id="cb1023-17"><a href="PScore2.html#cb1023-17" aria-hidden="true" tabindex="-1"></a>        <span class="fu">c</span>(<span class="st">&#39;Untreated&#39;</span>, <span class="st">&#39;Treated&#39;</span>),<span class="at">adj =</span> <span class="dv">1</span>, <span class="at">xpd =</span> T)</span>
+<span id="cb1023-18"><a href="PScore2.html#cb1023-18" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p>Next is our function for generating overlap plots with kernel density estimates. These plots will also illustrate mean differences, with vertical lines superimposed on the plots. This plots kernel-density estimates for each group on the variable, the grouping variable, and with the weights.</p>
+<div class="sourceCode" id="cb1024"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1024-1"><a href="PScore2.html#cb1024-1" aria-hidden="true" tabindex="-1"></a>dnsty <span class="ot">&lt;-</span> <span class="cf">function</span>(x, grp, <span class="at">wt =</span> <span class="fu">rep</span>(<span class="dv">1</span>, <span class="fu">length</span>(x)), <span class="at">main =</span> <span class="cn">NULL</span>, </span>
+<span id="cb1024-2"><a href="PScore2.html#cb1024-2" aria-hidden="true" tabindex="-1"></a>                  <span class="at">lwd =</span> <span class="dv">1</span>, <span class="at">col.vec =</span> <span class="fu">c</span>(<span class="st">&#39;black&#39;</span>, <span class="st">&#39;blue&#39;</span>), <span class="at">legtitle =</span> <span class="cn">NULL</span>, ...) </span>
+<span id="cb1024-3"><a href="PScore2.html#cb1024-3" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb1024-4"><a href="PScore2.html#cb1024-4" aria-hidden="true" tabindex="-1"></a>   lev  <span class="ot">&lt;-</span> <span class="fu">levels</span>(grp)</span>
+<span id="cb1024-5"><a href="PScore2.html#cb1024-5" aria-hidden="true" tabindex="-1"></a>   cmplt <span class="ot">&lt;-</span> <span class="fu">na.omit</span>(<span class="fu">data.frame</span>(x, grp, wt))</span>
+<span id="cb1024-6"><a href="PScore2.html#cb1024-6" aria-hidden="true" tabindex="-1"></a>   x    <span class="ot">&lt;-</span> cmplt<span class="sc">$</span>x</span>
+<span id="cb1024-7"><a href="PScore2.html#cb1024-7" aria-hidden="true" tabindex="-1"></a>   grp  <span class="ot">&lt;-</span> cmplt<span class="sc">$</span>grp</span>
+<span id="cb1024-8"><a href="PScore2.html#cb1024-8" aria-hidden="true" tabindex="-1"></a>   wt   <span class="ot">&lt;-</span> cmplt<span class="sc">$</span>wt</span>
+<span id="cb1024-9"><a href="PScore2.html#cb1024-9" aria-hidden="true" tabindex="-1"></a>   dens <span class="ot">&lt;-</span> <span class="fu">list</span>()</span>
+<span id="cb1024-10"><a href="PScore2.html#cb1024-10" aria-hidden="true" tabindex="-1"></a>   x.m  <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="cn">NA</span>, <span class="fu">length</span>(<span class="fu">table</span>(grp)))</span>
+<span id="cb1024-11"><a href="PScore2.html#cb1024-11" aria-hidden="true" tabindex="-1"></a>   bw   <span class="ot">&lt;-</span> <span class="fu">density</span>(x, <span class="at">weights =</span> wt <span class="sc">/</span> <span class="fu">sum</span>(wt))<span class="sc">$</span>bw</span>
+<span id="cb1024-12"><a href="PScore2.html#cb1024-12" aria-hidden="true" tabindex="-1"></a>   <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(<span class="fu">table</span>(grp))) {</span>
+<span id="cb1024-13"><a href="PScore2.html#cb1024-13" aria-hidden="true" tabindex="-1"></a>      grp.ind <span class="ot">&lt;-</span> grp <span class="sc">==</span> lev[i]</span>
+<span id="cb1024-14"><a href="PScore2.html#cb1024-14" aria-hidden="true" tabindex="-1"></a>      dens[[i]] <span class="ot">&lt;-</span> <span class="cf">if</span> (<span class="fu">is.null</span>(wt)) <span class="fu">density</span>(x[grp <span class="sc">==</span> lev[i]], ...) <span class="cf">else</span></span>
+<span id="cb1024-15"><a href="PScore2.html#cb1024-15" aria-hidden="true" tabindex="-1"></a>                  <span class="fu">density</span>(x[grp.ind], <span class="at">na.rm =</span> T, <span class="at">weights =</span> wt[grp.ind] <span class="sc">/</span> <span class="fu">sum</span>(wt[grp.ind]), <span class="at">bw =</span> bw, ...)</span>
+<span id="cb1024-16"><a href="PScore2.html#cb1024-16" aria-hidden="true" tabindex="-1"></a>      x.m[i] <span class="ot">&lt;-</span> <span class="fu">weighted.mean</span>(x[grp.ind], <span class="at">w =</span> wt[grp.ind]) </span>
+<span id="cb1024-17"><a href="PScore2.html#cb1024-17" aria-hidden="true" tabindex="-1"></a>   }</span>
+<span id="cb1024-18"><a href="PScore2.html#cb1024-18" aria-hidden="true" tabindex="-1"></a>   <span class="fu">plot</span>(dens[[<span class="dv">1</span>]], <span class="at">type =</span> <span class="st">&#39;n&#39;</span>, <span class="at">main =</span> main, <span class="at">xlab =</span> <span class="st">&#39;&#39;</span>, <span class="at">ylab =</span> <span class="st">&#39;&#39;</span>, <span class="at">yaxt =</span> <span class="st">&#39;n&#39;</span>,</span>
+<span id="cb1024-19"><a href="PScore2.html#cb1024-19" aria-hidden="true" tabindex="-1"></a>        <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fu">max</span>(<span class="fu">c</span>(dens[[<span class="dv">1</span>]]<span class="sc">$</span>y, dens[[<span class="dv">2</span>]]<span class="sc">$</span>y))), </span>
+<span id="cb1024-20"><a href="PScore2.html#cb1024-20" aria-hidden="true" tabindex="-1"></a>        <span class="at">xlim =</span> <span class="fu">range</span>(<span class="fu">c</span>(dens[[<span class="dv">1</span>]]<span class="sc">$</span>x, dens[[<span class="dv">2</span>]]<span class="sc">$</span>x)), <span class="at">bty =</span> <span class="st">&#39;l&#39;</span>)</span>
+<span id="cb1024-21"><a href="PScore2.html#cb1024-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1024-22"><a href="PScore2.html#cb1024-22" aria-hidden="true" tabindex="-1"></a>   <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(<span class="fu">table</span>(grp))) {</span>
+<span id="cb1024-23"><a href="PScore2.html#cb1024-23" aria-hidden="true" tabindex="-1"></a>      grp.ind <span class="ot">&lt;-</span> grp <span class="sc">==</span> lev[i]</span>
+<span id="cb1024-24"><a href="PScore2.html#cb1024-24" aria-hidden="true" tabindex="-1"></a>      ind <span class="ot">&lt;-</span> dens[[i]]<span class="sc">$</span>x <span class="sc">-</span> x.m[i]</span>
+<span id="cb1024-25"><a href="PScore2.html#cb1024-25" aria-hidden="true" tabindex="-1"></a>      <span class="fu">lines</span>(dens[[i]], <span class="at">col =</span> col.vec[i], <span class="at">lwd =</span> lwd, <span class="at">lty =</span> <span class="dv">3</span> <span class="sc">-</span> i, <span class="at">xpd =</span> T)</span>
+<span id="cb1024-26"><a href="PScore2.html#cb1024-26" aria-hidden="true" tabindex="-1"></a>      <span class="fu">lines</span>(<span class="fu">rep</span>(x.m[i], <span class="dv">2</span>), <span class="fu">c</span>(<span class="dv">0</span>, dens[[i]]<span class="sc">$</span>y[<span class="fu">abs</span>(ind) <span class="sc">==</span> <span class="fu">min</span>(<span class="fu">abs</span>(ind))][<span class="dv">1</span>]), <span class="at">col =</span> col.vec[i], <span class="at">lwd =</span> lwd, <span class="at">lty =</span> <span class="dv">3</span>)</span>
+<span id="cb1024-27"><a href="PScore2.html#cb1024-27" aria-hidden="true" tabindex="-1"></a>   }</span>
+<span id="cb1024-28"><a href="PScore2.html#cb1024-28" aria-hidden="true" tabindex="-1"></a>   <span class="fu">legend</span>(<span class="st">&#39;topright&#39;</span>, <span class="fu">levels</span>(grp) , <span class="at">title=</span>legtitle,</span>
+<span id="cb1024-29"><a href="PScore2.html#cb1024-29" aria-hidden="true" tabindex="-1"></a>   <span class="at">lty=</span><span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">1</span>), <span class="at">col=</span>col.vec, <span class="at">bty=</span><span class="st">&#39;n&#39;</span>, <span class="at">cex=</span>.<span class="dv">75</span>)</span>
+<span id="cb1024-30"><a href="PScore2.html#cb1024-30" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p>We can use that <code>dnsty()</code> function to plot within for loops. If we do this several times, we might as well write a function that includes the for-loop. This one has several arguments, which feed into the <code>dnsty()</code> function plots. For this particular analysis, we’ll specify these arguments later on as this:</p>
+<ul>
+<li><code>df</code> will be our data frame, <code>ca</code>.</li>
+<li><code>xnames</code> will be the names of the variables we wish to compare between groups. For our covariates, we have created this object, <code>covnames</code>.</li>
+<li><code>grp</code> will be <code>catholic</code>.</li>
+<li><code>wt</code> will not be specified if we are not using weights (i.e., for examining plots before we adjust the observations) and it will be the weights in the data set that we calculate when we plot these after the adjustment.</li>
+<li><code>subtitle</code> is available if we want to add to the plot title, for example <code>"(before the IPW adjustment)"</code>.</li>
+<li><code>legtitle</code> is there if want to specify the name of the treatment group variable, <code>Catholic</code>.</li>
+</ul>
+<div class="sourceCode" id="cb1025"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1025-1"><a href="PScore2.html#cb1025-1" aria-hidden="true" tabindex="-1"></a>dnsty_plotter <span class="ot">&lt;-</span> <span class="cf">function</span>(df , xnames, grp, <span class="at">wt =</span> <span class="fu">rep</span>(<span class="dv">1</span>, <span class="fu">nrow</span>(df)), <span class="at">subtitle =</span> <span class="cn">NULL</span>, <span class="at">legtitle =</span> <span class="cn">NULL</span>){</span>
+<span id="cb1025-2"><a href="PScore2.html#cb1025-2" aria-hidden="true" tabindex="-1"></a>   <span class="cf">if</span> (<span class="fu">length</span>(xnames) <span class="sc">&gt;</span><span class="dv">1</span>)  <span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>))</span>
+<span id="cb1025-3"><a href="PScore2.html#cb1025-3" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(xnames)){</span>
+<span id="cb1025-4"><a href="PScore2.html#cb1025-4" aria-hidden="true" tabindex="-1"></a>   nam <span class="ot">&lt;-</span> xnames[i]</span>
+<span id="cb1025-5"><a href="PScore2.html#cb1025-5" aria-hidden="true" tabindex="-1"></a>   x <span class="ot">&lt;-</span> df[, nam]</span>
+<span id="cb1025-6"><a href="PScore2.html#cb1025-6" aria-hidden="true" tabindex="-1"></a>   <span class="cf">if</span> (<span class="sc">!</span><span class="fu">is.numeric</span>(x)) x <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(x)</span>
+<span id="cb1025-7"><a href="PScore2.html#cb1025-7" aria-hidden="true" tabindex="-1"></a>   <span class="fu">dnsty</span>(x, grp, <span class="at">wt =</span> wt, <span class="at">main =</span> <span class="fu">paste</span>(nam,<span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>, subtitle), <span class="at">legtitle =</span> legtitle)</span>
+<span id="cb1025-8"><a href="PScore2.html#cb1025-8" aria-hidden="true" tabindex="-1"></a> }</span>
+<span id="cb1025-9"><a href="PScore2.html#cb1025-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>))</span>
+<span id="cb1025-10"><a href="PScore2.html#cb1025-10" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+</div>
+</div>
+<div id="assess-imbalance-in-observed-covariates" class="section level2" number="11.3">
+<h2><span class="header-section-number">11.3</span> Assess Imbalance in Observed Covariates</h2>
+<p>Let’s apply our <code>wselect.diff()</code> to all covariates to obtain the imbalance statistics before we have applied any adjustments with the weights.</p>
+<div class="sourceCode" id="cb1026"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1026-1"><a href="PScore2.html#cb1026-1" aria-hidden="true" tabindex="-1"></a>imbal <span class="ot">&lt;-</span> <span class="fu">t</span>(<span class="fu">sapply</span>(ca[, covnames], wselect.diff, <span class="at">grp =</span> ca<span class="sc">$</span>catholic))</span>
+<span id="cb1026-2"><a href="PScore2.html#cb1026-2" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(imbal, <span class="dv">3</span>)</span></code></pre></div>
+<pre><code>##           Mean.Diff Std.Error p-value Std.Mean.Diff Var.Ratio
+## inc8          7.680     0.746   0.000         0.457     0.889
+## inc8Sq      514.586    54.046   0.000         0.404     1.125
+## math8         2.424     0.419   0.000         0.261     0.820
+## mathfam     466.790    44.938   0.000         0.456     0.944
+## fhowfarN      0.318     0.048   0.000         0.320     0.558
+## mhowfarN      0.277     0.047   0.000         0.287     0.552
+## fight8N      -0.041     0.022   0.059        -0.087     0.738
+## nohw8N       -0.087     0.015   0.000        -0.280     0.477
+## disrupt8N    -0.019     0.017   0.245        -0.051     0.916
+## riskdrop8    -0.349     0.039   0.000        -0.453     0.383</code></pre>
+<p>Let’s plot the standardized mean difference and variance ratio for each covariate.</p>
+<div class="sourceCode" id="cb1028"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1028-1"><a href="PScore2.html#cb1028-1" aria-hidden="true" tabindex="-1"></a><span class="fu">imbal_plotter</span>(imbal, <span class="at">subtitle =</span> <span class="st">&quot;(prior to adjustment)&quot;</span>)</span></code></pre></div>
+<p><img src="QEDs-in-R_files/figure-html/unnamed-chunk-545-1.png" width="672" /></p>
+<!-- ```{r} -->
+<!-- B <- imbal[, "Std.Mean.Diff"] -->
+<!-- R <- imbal[, "Var.Ratio"] -->
+<!-- plot(B, R, xlim = c(-1, 1), ylim=c(0, max(2,max(R)) ), pch = 16, -->
+<!--    main = 'Imbalance \n (prior to adjustment)', -->
+<!--    xlab = 'Std. Mean Difference', ylab = 'Variance Ratio') -->
+<!-- abline(h = 1, v = 0) -->
+<!-- abline(h = c(4/5, 5/4), v = c(-.1, .1), lty = 3) #Rubin's benchmarks -->
+<!-- abline(v = c(-.2, .2), lty = 15, col="brown")    #More lenient (but common) std.M-diff benchmarks -->
+<!-- # labels for imbalanced covariates -->
+<!-- ind <- (abs(B) > .1 | R < 4/5 | R > 5/4)  -->
+<!-- if(sum(ind)> 0) text(B[ind], R[ind], covnames[ind], pos = 2 + 2*(B[ind] > 0), offset = .4, cex = .7, xpd = T) -->
+<!-- ``` -->
+</div>
+<div id="check-overlap" class="section level2" number="11.4">
+<h2><span class="header-section-number">11.4</span> Check Overlap</h2>
+<p>Let’s check overlap between the treatment and comparison groups on our baseline achievement covariate, <code>math8</code> (before using any adjustment).</p>
+<div class="sourceCode" id="cb1029"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1029-1"><a href="PScore2.html#cb1029-1" aria-hidden="true" tabindex="-1"></a><span class="fu">overlap</span>(<span class="at">x =</span> ca<span class="sc">$</span>math8, <span class="at">z =</span> ca<span class="sc">$</span>catholic, </span>
+<span id="cb1029-2"><a href="PScore2.html#cb1029-2" aria-hidden="true" tabindex="-1"></a>        <span class="at">title =</span> <span class="st">&quot;Math in Grade 8 by group&quot;</span>)</span></code></pre></div>
+<p><img src="QEDs-in-R_files/figure-html/unnamed-chunk-546-1.png" width="672" /></p>
+<p>We use the same plot function with all of the other covariates as well. The density plots provide similar information, so we turn to that next.</p>
+<div class="sourceCode" id="cb1030"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1030-1"><a href="PScore2.html#cb1030-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dnsty</span>(<span class="at">x =</span> ca<span class="sc">$</span>math8, <span class="at">grp =</span> ca<span class="sc">$</span>catholic, <span class="at">main =</span> <span class="st">&quot;Math in Grade 8&quot;</span>, <span class="at">legtitle=</span><span class="st">&quot;Catholic&quot;</span>)</span></code></pre></div>
+<p>We see that with this covariate, the distribution and means differ between the two treatment groups.</p>
+<p>We can examine all of the covariate plots by putting our customized <code>dnsty()</code> plot function in a for loop. The <code>par(mfrow = c(2,2))</code> option before the plots sets up the dimensions of the plots to have two-by-two panels of the plots instead of the default. After this code, we should reset it to <code>par(mfrow = c(1,1))</code>, which we do below.</p>
+<div class="sourceCode" id="cb1031"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1031-1"><a href="PScore2.html#cb1031-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>)) <span class="co"># Setting the plots to have two-by-two in the printout.</span></span>
+<span id="cb1031-2"><a href="PScore2.html#cb1031-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(covnames)){</span>
+<span id="cb1031-3"><a href="PScore2.html#cb1031-3" aria-hidden="true" tabindex="-1"></a>   nam <span class="ot">&lt;-</span> covnames[i]</span>
+<span id="cb1031-4"><a href="PScore2.html#cb1031-4" aria-hidden="true" tabindex="-1"></a>   x <span class="ot">&lt;-</span> ca[, nam]</span>
+<span id="cb1031-5"><a href="PScore2.html#cb1031-5" aria-hidden="true" tabindex="-1"></a>   <span class="cf">if</span> (<span class="sc">!</span><span class="fu">is.numeric</span>(x)) x <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(x)</span>
+<span id="cb1031-6"><a href="PScore2.html#cb1031-6" aria-hidden="true" tabindex="-1"></a>   <span class="fu">dnsty</span>(x, ca<span class="sc">$</span>catholic, <span class="at">main =</span> nam, <span class="at">legtitle =</span> <span class="st">&quot;Catholic&quot;</span>)</span>
+<span id="cb1031-7"><a href="PScore2.html#cb1031-7" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1031-8"><a href="PScore2.html#cb1031-8" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>)) <span class="co"># Resetting the plots back to the default one-by-one dimension.</span></span></code></pre></div>
+<p>Instead of doing that, let’s use our custom function <code>dnsty_plotter()</code>:</p>
+<div class="sourceCode" id="cb1032"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1032-1"><a href="PScore2.html#cb1032-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dnsty_plotter</span>(ca, covnames, <span class="at">grp =</span> ca<span class="sc">$</span>catholic, </span>
+<span id="cb1032-2"><a href="PScore2.html#cb1032-2" aria-hidden="true" tabindex="-1"></a>              <span class="at">subtitle =</span> <span class="st">&quot;(Before IPTW)&quot;</span>, </span>
+<span id="cb1032-3"><a href="PScore2.html#cb1032-3" aria-hidden="true" tabindex="-1"></a>              <span class="at">legtitle =</span> <span class="st">&quot;Catholic&quot;</span>)</span></code></pre></div>
+<p><img src="QEDs-in-R_files/figure-html/unnamed-chunk-549-1.png" width="672" /><img src="QEDs-in-R_files/figure-html/unnamed-chunk-549-2.png" width="672" /><img src="QEDs-in-R_files/figure-html/unnamed-chunk-549-3.png" width="672" /></p>
+<p>There is room for improvement in overlap for some of these covariates, such as <code>math8</code> and <code>inc8Sq</code>. After we use IPWs, we can see if these distributions become more similar.</p>
+</div>
+<div id="calculate-the-weights" class="section level2" number="11.5">
+<h2><span class="header-section-number">11.5</span> Calculate the Weights</h2>
+<p>Let’s fit an initial propensity-score model and save each <em>i</em>th person’s fitted estimate as the propensity score, which is often symbolized as <span class="math inline">\(\hat{e}(x_i)\)</span>, or more succinctly as <span class="math inline">\(e(x)\)</span>, and which we’ll save in the code as <code>ps</code>.</p>
+<p>We can use our object that contains the names of our covariates, <code>covnames</code> to create the equation for our propensity score model. We can use the <code>as.formula()</code> function with the <code>paste()</code> function. Notice that we have a second paste function inside the first, this <code>paste(covnames, collapse = ' + ')</code> code takes the elements from our <code>covnames</code> object and puts a <code>+</code> between each, which is what is needed in our formula. Notice that our equation does not include polynomials unless we create these up front, as we did with the <code>inc8Sq</code> covariate (from <code>inc8Sq &lt;- ca$inc8^2</code>).</p>
+<div class="sourceCode" id="cb1033"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1033-1"><a href="PScore2.html#cb1033-1" aria-hidden="true" tabindex="-1"></a>(ps_mdl1 <span class="ot">&lt;-</span> <span class="fu">as.formula</span>(<span class="fu">paste</span>(<span class="st">&#39;catholic&#39;</span>, <span class="st">&#39;~&#39;</span>, <span class="fu">paste</span>(covnames, <span class="at">collapse =</span> <span class="st">&#39; + &#39;</span>))))</span></code></pre></div>
+<pre><code>## catholic ~ inc8 + inc8Sq + math8 + mathfam + fhowfarN + mhowfarN + 
+##     fight8N + nohw8N + disrupt8N + riskdrop8</code></pre>
+<p>Let’s use our formula in our propensity-score model</p>
+<div class="sourceCode" id="cb1035"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1035-1"><a href="PScore2.html#cb1035-1" aria-hidden="true" tabindex="-1"></a>out1 <span class="ot">&lt;-</span> <span class="fu">glm</span>(ps_mdl1, <span class="at">data =</span> ca, <span class="at">family =</span> <span class="st">&#39;binomial&#39;</span>)</span>
+<span id="cb1035-2"><a href="PScore2.html#cb1035-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(out1)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## glm(formula = ps_mdl1, family = &quot;binomial&quot;, data = ca)
+## 
+## Deviance Residuals: 
+##     Min       1Q   Median       3Q      Max  
+## -0.7804  -0.5518  -0.4362  -0.2887   3.0352  
+## 
+## Coefficients:
+##               Estimate Std. Error z value Pr(&gt;|z|)    
+## (Intercept) -4.7597835  0.6893936  -6.904 5.05e-12 ***
+## inc8         0.0544244  0.0190915   2.851 0.004362 ** 
+## inc8Sq      -0.0001894  0.0001732  -1.094 0.274104    
+## math8        0.0215572  0.0123655   1.743 0.081275 .  
+## mathfam     -0.0004537  0.0002873  -1.579 0.114328    
+## fhowfarN     0.1963326  0.0866025   2.267 0.023387 *  
+## mhowfarN     0.0256765  0.0869210   0.295 0.767688    
+## fight8N     -0.4742975  0.3246260  -1.461 0.143999    
+## nohw8N      -0.6880268  0.1760060  -3.909 9.26e-05 ***
+## disrupt8N    0.6927506  0.3858716   1.795 0.072608 .  
+## riskdrop8   -0.3033031  0.0843135  -3.597 0.000322 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## (Dispersion parameter for binomial family taken to be 1)
+## 
+##     Null deviance: 3795.3  on 5670  degrees of freedom
+## Residual deviance: 3608.3  on 5660  degrees of freedom
+## AIC: 3630.3
+## 
+## Number of Fisher Scoring iterations: 6</code></pre>
+<div class="sourceCode" id="cb1037"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1037-1"><a href="PScore2.html#cb1037-1" aria-hidden="true" tabindex="-1"></a>ca<span class="sc">$</span>ps <span class="ot">&lt;-</span> out1<span class="sc">$</span>fitted</span></code></pre></div>
+<p>The weights for the ATE are calculated as the inverse of the observation’s propensity to be in the group they are in. For the treatment group, the ATE weight is <span class="math inline">\(W_i = \frac{1}{\hat{e}(x_i)}\)</span>; for the control group, it is <span class="math inline">\(W_i = \frac{1}{1-\hat{e}(x_i)}\)</span>. In a single equation, we can use the treatment group status (<span class="math inline">\(Z_i = 1\)</span> for the treatment and <span class="math inline">\(Z_i = 0\)</span> for the control) as a switch:</p>
+<p><span class="math display" id="eq:ATEWts">\[\begin{equation}
+\text{ATE IPW}  = \frac{Z_i}{\hat{e}(x_i)} + \frac{1-Z_i}{1-\hat{e}(x_i)}
+ \tag{11.1}
+\end{equation}\]</span></p>
+<p>For the ATT, the weights are 1 for the treatment group and the odds for the control group, <span class="math inline">\(\frac{\hat{e}(x_i)}{1-\hat{e}(x_i)}\)</span>. In a single equation,</p>
+<p><span class="math display" id="eq:ATTWts">\[\begin{equation}
+\text{ATT IPW} = {Z_i} + (1-Z_i)\frac{\hat{e}(x_i)}{1-\hat{e}(x_i)}
+ \tag{11.2}
+\end{equation}\]</span></p>
+<p>We can think about the counterfactual in the ATT to help us understand this weighting. We’re interested in the effects on the treated and we seek to know what their counterfactuals would be so we can estimate an unbiased group difference. A control-group person’s odds of being in the treatment group weights them as a counterfactual. In other words, a control-group person with a greater likelihood of selecting into the treatment group will be more heavily weighted in the estimation than will a control-group person who has very little interest in being treated.</p>
+<p>In our data set, we need to use the numeric version of our treatment variable, <code>catN</code>:</p>
+<div class="sourceCode" id="cb1038"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1038-1"><a href="PScore2.html#cb1038-1" aria-hidden="true" tabindex="-1"></a>ca<span class="sc">$</span>ipwt_ATE <span class="ot">&lt;-</span> <span class="fu">with</span>(ca, catN <span class="sc">/</span> ps <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">-</span> catN) <span class="sc">/</span> (<span class="dv">1</span> <span class="sc">-</span> ps)) </span>
+<span id="cb1038-2"><a href="PScore2.html#cb1038-2" aria-hidden="true" tabindex="-1"></a>ca<span class="sc">$</span>ipwt_ATT <span class="ot">&lt;-</span> <span class="fu">with</span>(ca, catN <span class="sc">+</span> (<span class="dv">1</span><span class="sc">-</span> catN) <span class="sc">*</span> ps <span class="sc">/</span> (<span class="dv">1</span> <span class="sc">-</span> ps)) </span></code></pre></div>
+<div id="dealing-with-extreme-weights" class="section level3" number="11.5.1">
+<h3><span class="header-section-number">11.5.1</span> Dealing with extreme weights</h3>
+<p>One potential problem with weighting is having extreme weights. The other potential problem is coverage (we can use density plots). Let’s see if there are any extreme weights:</p>
+<div class="sourceCode" id="cb1039"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1039-1"><a href="PScore2.html#cb1039-1" aria-hidden="true" tabindex="-1"></a><span class="fu">with</span>(ca, <span class="fu">by</span>(ipwt_ATE, catN, summary))</span></code></pre></div>
+<pre><code>## catN: 0
+##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+##   1.003   1.060   1.112   1.117   1.168   1.356 
+## ------------------------------------------------------------ 
+## catN: 1
+##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+##   4.061   5.901   7.377   9.588   9.968 100.097</code></pre>
+<div class="sourceCode" id="cb1041"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1041-1"><a href="PScore2.html#cb1041-1" aria-hidden="true" tabindex="-1"></a><span class="fu">with</span>(ca, <span class="fu">by</span>(ipwt_ATT, catN, summary))</span></code></pre></div>
+<pre><code>## catN: 0
+##     Min.  1st Qu.   Median     Mean  3rd Qu.     Max. 
+## 0.002602 0.059984 0.112218 0.116612 0.168238 0.355953 
+## ------------------------------------------------------------ 
+## catN: 1
+##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+##       1       1       1       1       1       1</code></pre>
+<p>It seems like with the ATE estimation, the treatment-group weights have some outliers:</p>
+<div class="sourceCode" id="cb1043"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1043-1"><a href="PScore2.html#cb1043-1" aria-hidden="true" tabindex="-1"></a><span class="fu">with</span>(ca, <span class="fu">quantile</span>(ipwt_ATE, .<span class="dv">99</span>))</span></code></pre></div>
+<pre><code>##      99% 
+## 14.39635</code></pre>
+<p>Some researchers suggest we truncate to the 99 percentile <span class="citation">(discussed in Leite, <a href="#ref-leite_practical_2017" role="doc-biblioref">2017, p. 51</a>)</span>.</p>
+<div class="sourceCode" id="cb1045"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1045-1"><a href="PScore2.html#cb1045-1" aria-hidden="true" tabindex="-1"></a>ca<span class="sc">$</span>ipwt_ATEtrunc <span class="ot">&lt;-</span> <span class="fu">with</span>(ca, </span>
+<span id="cb1045-2"><a href="PScore2.html#cb1045-2" aria-hidden="true" tabindex="-1"></a>                         <span class="fu">ifelse</span>(ipwt_ATE <span class="sc">&gt;</span> <span class="fu">quantile</span>(ipwt_ATE, .<span class="dv">99</span>), </span>
+<span id="cb1045-3"><a href="PScore2.html#cb1045-3" aria-hidden="true" tabindex="-1"></a>                                <span class="fu">quantile</span>(ipwt_ATE, .<span class="dv">99</span>), <span class="co"># what to do if TRUE</span></span>
+<span id="cb1045-4"><a href="PScore2.html#cb1045-4" aria-hidden="true" tabindex="-1"></a>                                ipwt_ATE )) <span class="co"># What to do otherwise</span></span>
+<span id="cb1045-5"><a href="PScore2.html#cb1045-5" aria-hidden="true" tabindex="-1"></a><span class="fu">with</span>(ca, <span class="fu">by</span>(ipwt_ATEtrunc, catN, summary))</span></code></pre></div>
+<pre><code>## catN: 0
+##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+##   1.003   1.060   1.112   1.117   1.168   1.356 
+## ------------------------------------------------------------ 
+## catN: 1
+##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+##   4.061   5.901   7.377   8.369   9.968  14.396</code></pre>
+<p>Or, we could stabilize the weights (discussed in Leite, p. 52).</p>
+<div class="sourceCode" id="cb1047"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1047-1"><a href="PScore2.html#cb1047-1" aria-hidden="true" tabindex="-1"></a>ca<span class="sc">$</span>C <span class="ot">&lt;-</span> <span class="fu">with</span>(ca, <span class="fu">ifelse</span>(catN <span class="sc">==</span> <span class="dv">1</span>, ps, <span class="dv">1</span><span class="sc">-</span>ps))</span>
+<span id="cb1047-2"><a href="PScore2.html#cb1047-2" aria-hidden="true" tabindex="-1"></a>   constants <span class="ot">&lt;-</span> <span class="fu">with</span>(ca, <span class="fu">by</span>(C, catN,  mean))</span>
+<span id="cb1047-3"><a href="PScore2.html#cb1047-3" aria-hidden="true" tabindex="-1"></a>   const_t   <span class="ot">&lt;-</span> constants[<span class="dv">2</span>]</span>
+<span id="cb1047-4"><a href="PScore2.html#cb1047-4" aria-hidden="true" tabindex="-1"></a>   const_c   <span class="ot">&lt;-</span> constants[<span class="dv">1</span>]</span>
+<span id="cb1047-5"><a href="PScore2.html#cb1047-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Here is Equation 3.7 in Leite:</span></span>
+<span id="cb1047-6"><a href="PScore2.html#cb1047-6" aria-hidden="true" tabindex="-1"></a>ca<span class="sc">$</span>ipwt_ATEstab<span class="ot">&lt;-</span> <span class="fu">with</span>(ca, </span>
+<span id="cb1047-7"><a href="PScore2.html#cb1047-7" aria-hidden="true" tabindex="-1"></a>                  catN <span class="sc">*</span> const_t <span class="sc">/</span> ps <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">-</span> catN) <span class="sc">*</span> const_c <span class="sc">/</span> (<span class="dv">1</span> <span class="sc">-</span> ps))  </span>
+<span id="cb1047-8"><a href="PScore2.html#cb1047-8" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb1047-9"><a href="PScore2.html#cb1047-9" aria-hidden="true" tabindex="-1"></a><span class="fu">with</span>(ca, <span class="fu">by</span>(ipwt_ATEstab, catN, summary))</span></code></pre></div>
+<pre><code>## catN: 0
+##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+##  0.9011  0.9526  0.9996  1.0035  1.0499  1.2186 
+## ------------------------------------------------------------ 
+## catN: 1
+##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+##  0.5324  0.7737  0.9673  1.2571  1.3069 13.1239</code></pre>
+<p>In the rest of this tutorial, we will use the weights as they are rather than using truncation or stabilization. We can see how the plots and estimates are similar to what are described in the latter part of Chapter 12 of Murnane and Willet <span class="citation">(<a href="#ref-murnane_methods_2011" role="doc-biblioref">2011</a>)</span>.</p>
+</div>
+<div id="specifying-whether-to-estimate-ate-or-att" class="section level3" number="11.5.2">
+<h3><span class="header-section-number">11.5.2</span> Specifying whether to estimate ATE or ATT</h3>
+<p>Early in our study, we will have decided whether the ATE or ATT is more appropriate for our research question. With the ATE, we are interested in the average causal effect after accounting for selection bias. With the ATT, we are interested in the effect of being in the treatment group in comparison to that counterfactual condition, which is best estimated by weighting counterparts in the control group based on their likelihood of being in the treatment.</p>
+<p>We can use the code here to switch either the ATE or the ATT on, and then examine the balance and overlap. Try switching on another other and examining balance and overlap. Then, after we’re happy with our design part (our PS model), we can estimate the effect on our outcome.</p>
+<div class="sourceCode" id="cb1049"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1049-1"><a href="PScore2.html#cb1049-1" aria-hidden="true" tabindex="-1"></a>ca<span class="sc">$</span>ipwt <span class="ot">&lt;-</span> ca<span class="sc">$</span>ipwt_ATE</span>
+<span id="cb1049-2"><a href="PScore2.html#cb1049-2" aria-hidden="true" tabindex="-1"></a><span class="co">#ca$ipwt &lt;- ca$ipwt_ATT # Activate this one If we want the ATT</span></span></code></pre></div>
+</div>
+</div>
+<div id="conduct-balance-checks-after-weighting" class="section level2" number="11.6">
+<h2><span class="header-section-number">11.6</span> Conduct balance checks after weighting</h2>
+<p>Let’s use our <code>wselect.diff()</code> to examine the imbalance statistics in the covariates after we have weighted the observations.</p>
+<div class="sourceCode" id="cb1050"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1050-1"><a href="PScore2.html#cb1050-1" aria-hidden="true" tabindex="-1"></a>imbal_adj <span class="ot">&lt;-</span> <span class="fu">t</span>(<span class="fu">sapply</span>(ca[, covnames], </span>
+<span id="cb1050-2"><a href="PScore2.html#cb1050-2" aria-hidden="true" tabindex="-1"></a>                      wselect.diff, <span class="at">grp =</span> ca<span class="sc">$</span>catholic, <span class="at">wt =</span> ca<span class="sc">$</span>ipwt))</span>
+<span id="cb1050-3"><a href="PScore2.html#cb1050-3" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(imbal_adj,<span class="dv">3</span>)</span></code></pre></div>
+<pre><code>##           Mean.Diff Std.Error p-value Std.Mean.Diff Var.Ratio
+## inc8         -0.238     0.465   0.609        -0.014     1.038
+## inc8Sq       -4.996    33.395   0.881        -0.004     1.007
+## math8         0.150     0.249   0.545         0.016     0.833
+## mathfam      -9.241    27.831   0.740        -0.009     1.013
+## fhowfarN      0.006     0.029   0.834         0.006     0.900
+## mhowfarN      0.044     0.027   0.105         0.043     0.788
+## fight8N      -0.033     0.013   0.011        -0.068     0.880
+## nohw8N        0.013     0.009   0.181         0.036     1.075
+## disrupt8N    -0.027     0.010   0.006        -0.074     0.878
+## riskdrop8    -0.025     0.023   0.272        -0.029     0.800</code></pre>
+<p>We have achieved pretty good balance. The IPWs balance the distributions of the observed covariates pretty well. There are two covariates with borderline imbalance in their variance ratios, but this may be acceptable.</p>
+<div class="sourceCode" id="cb1052"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1052-1"><a href="PScore2.html#cb1052-1" aria-hidden="true" tabindex="-1"></a><span class="fu">imbal_plotter</span>(imbal_adj, <span class="at">subtitle =</span> <span class="st">&quot;(after IPTW adjustment)&quot;</span>)</span></code></pre></div>
+<p><img src="QEDs-in-R_files/figure-html/unnamed-chunk-559-1.png" width="672" /></p>
+<!-- ```{r} -->
+<!-- # ::::: plot standardized mean difference & variance ratio ::::: -->
+<!-- B <- imbal_adj[, "Std.Mean.Diff"] -->
+<!-- R <- imbal_adj[, "Var.Ratio"] -->
+<!-- plot(B, R, xlim = c(-1, 1), ylim=c(0, max(2,max(R)) ), pch = 16, -->
+<!--    main = paste('Imbalance','\n(after IPTW ATE wts)'), xlab = 'Std. Mean Difference', ylab = 'Variance Ratio') -->
+<!-- abline(h = 1, v = 0) -->
+<!-- abline(h = c(4/5, 5/4), v = c(-.1, .1), lty = 3) #Rubin's benchmarks -->
+<!-- abline(v = c(-.2, .2), lty = 15, col="brown")    #Lenient benchmarks -->
+<!-- ind <- (abs(B) > .1 | R < 4/5 | R > 5/4)  -->
+<!-- if(sum(ind)> 0) text(B[ind], R[ind], covnames[ind], pos = 2 + 2*(B[ind] > 0), offset = .4, cex = .7, xpd = T) -->
+<!-- ``` -->
+<p>The plot, in comparison to its counterpart prior to adjustment, illustrates this improved balance.</p>
+<p>We can also check the overlap using density plots for each covariate. The vertical lines also show the balance in the mean on the covariate for each group.</p>
+<div class="sourceCode" id="cb1053"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1053-1"><a href="PScore2.html#cb1053-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dnsty_plotter</span>(ca, covnames, <span class="at">grp =</span> ca<span class="sc">$</span>catholic, </span>
+<span id="cb1053-2"><a href="PScore2.html#cb1053-2" aria-hidden="true" tabindex="-1"></a>              <span class="at">wt =</span> ca<span class="sc">$</span>ipwt, </span>
+<span id="cb1053-3"><a href="PScore2.html#cb1053-3" aria-hidden="true" tabindex="-1"></a>              <span class="at">subtitle =</span> <span class="st">&quot;(after IPTW)&quot;</span>)</span></code></pre></div>
+<p><img src="QEDs-in-R_files/figure-html/unnamed-chunk-560-1.png" width="672" /><img src="QEDs-in-R_files/figure-html/unnamed-chunk-560-2.png" width="672" /><img src="QEDs-in-R_files/figure-html/unnamed-chunk-560-3.png" width="672" /></p>
+<!-- ```{r} -->
+<!-- par(mfrow = c(2,2)) -->
+<!-- for (i in 1:length(covnames)){ -->
+<!--    nam <- covnames[i] -->
+<!--    x <- ca[, nam] -->
+<!--    if (!is.numeric(x)) x <- as.numeric(x) -->
+<!--    dnsty(x, ca$catholic, wt = ca$ipwt, main = paste(nam,"\n(after IPTW)")) -->
+<!-- } -->
+<!-- par(mfrow = c(1,1)) -->
+<!-- ``` -->
+<p>We can check the balance and overlap of the (logit of the) propensity score estimates:</p>
+<div class="sourceCode" id="cb1054"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1054-1"><a href="PScore2.html#cb1054-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dnsty</span>(ca<span class="sc">$</span>ps, ca<span class="sc">$</span>catholic, </span>
+<span id="cb1054-2"><a href="PScore2.html#cb1054-2" aria-hidden="true" tabindex="-1"></a>      <span class="at">main =</span> <span class="st">&quot;PS (unadjusted)&quot;</span>, </span>
+<span id="cb1054-3"><a href="PScore2.html#cb1054-3" aria-hidden="true" tabindex="-1"></a>      <span class="at">legtitle=</span><span class="st">&quot;Catholic&quot;</span>)</span></code></pre></div>
+<p><img src="QEDs-in-R_files/figure-html/unnamed-chunk-561-1.png" width="672" /></p>
+<div class="sourceCode" id="cb1055"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1055-1"><a href="PScore2.html#cb1055-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dnsty</span>(ca<span class="sc">$</span>ps, ca<span class="sc">$</span>catholic, </span>
+<span id="cb1055-2"><a href="PScore2.html#cb1055-2" aria-hidden="true" tabindex="-1"></a>      <span class="at">wt =</span> ca<span class="sc">$</span>ipwt_ATT, </span>
+<span id="cb1055-3"><a href="PScore2.html#cb1055-3" aria-hidden="true" tabindex="-1"></a>      <span class="at">main =</span> <span class="st">&quot;PS after IPW weights&quot;</span>, </span>
+<span id="cb1055-4"><a href="PScore2.html#cb1055-4" aria-hidden="true" tabindex="-1"></a>      <span class="at">legtitle=</span><span class="st">&quot;Catholic&quot;</span>)</span></code></pre></div>
+<p><img src="QEDs-in-R_files/figure-html/unnamed-chunk-561-2.png" width="672" /></p>
+<p>These plots of the propensity score densities, by group, help us to make claims about common support. The post-weighting plots we have here provide support for our method of propensity-score estimation, at least with this set of covariates.</p>
+</div>
+<div id="estimate-the-treatment-effect" class="section level2" number="11.7">
+<h2><span class="header-section-number">11.7</span> Estimate the Treatment Effect</h2>
+<p>Now we bring in the data set that has the outcomes.<a href="#fn68" class="footnote-ref" id="fnref68"><sup>68</sup></a></p>
+<div class="sourceCode" id="cb1056"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1056-1"><a href="PScore2.html#cb1056-1" aria-hidden="true" tabindex="-1"></a>outcome <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;ch12_cath_outcomes_only.csv&quot;</span>)</span>
+<span id="cb1056-2"><a href="PScore2.html#cb1056-2" aria-hidden="true" tabindex="-1"></a>ca2     <span class="ot">&lt;-</span> <span class="fu">merge</span>(ca, outcome, <span class="at">by =</span> <span class="st">&quot;id&quot;</span>)</span>
+<span id="cb1056-3"><a href="PScore2.html#cb1056-3" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(ca2[,<span class="fu">c</span>(<span class="dv">1</span>, (<span class="fu">ncol</span>(ca2)<span class="sc">-</span><span class="dv">5</span>)<span class="sc">:</span><span class="fu">ncol</span>(ca2) ) ]) <span class="co"># looking at the first and the last five columns&#39; structure.</span></span></code></pre></div>
+<pre><code>## &#39;data.frame&#39;:    5671 obs. of  7 variables:
+##  $ id           : int  124902 124915 124916 124932 124944 124966 124968 124970 124972 124974 ...
+##  $ ipwt_ATEtrunc: num  13.62 9.99 10.52 11.41 8.9 ...
+##  $ C            : num  0.0734 0.1001 0.095 0.0877 0.1123 ...
+##  $ ipwt_ATEstab : num  1.79 1.31 1.38 1.5 1.17 ...
+##  $ ipwt         : num  13.62 9.99 10.52 11.41 8.9 ...
+##  $ math12       : num  49.8 59.8 50.4 45 54.3 ...
+##  $ read12       : num  61.4 58.3 59.3 49.6 57.6 ...</code></pre>
+<p>The outcome variables, <code>math12</code> and <code>read12</code> (the latter is not included in this lesson), are appended to the last column of the data frame.</p>
+<p>As we did in the previous lesson, we can estimate the naïve (prima facie) effect (i.e., without any propensity-score adjustment). This is a biased estimate, but it is good to have a record of it in case reviewers want to know whether our weighting led to a very different statistical conclusion.</p>
+<div class="sourceCode" id="cb1058"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1058-1"><a href="PScore2.html#cb1058-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">lm</span>(math12 <span class="sc">~</span> catholic, <span class="at">data =</span> ca2)) </span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = math12 ~ catholic, data = ca2)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -21.6195  -7.4845   0.2053   7.3653  20.7254 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  50.6447     0.1323 382.815   &lt;2e-16 ***
+## catholicyes   3.8949     0.4095   9.512   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 9.428 on 5669 degrees of freedom
+## Multiple R-squared:  0.01571,    Adjusted R-squared:  0.01554 
+## F-statistic: 90.48 on 1 and 5669 DF,  p-value: &lt; 2.2e-16</code></pre>
+<p>We could estimate the effect with weighted least squares regression, with the weights being the IPWs. This will give us the correct estimate; however, it will result in the <strong><em>incorrect</em></strong> standard error.</p>
+<div class="sourceCode" id="cb1060"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1060-1"><a href="PScore2.html#cb1060-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">lm</span>(math12 <span class="sc">~</span> catholic, <span class="at">data =</span> ca2, <span class="at">weights =</span> ipwt))</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = math12 ~ catholic, data = ca2, weights = ipwt)
+## 
+## Weighted Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -172.158   -8.282    0.316    8.868   57.434 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  50.9057     0.1743 292.064  &lt; 2e-16 ***
+## catholicyes   1.4711     0.2464   5.969 2.53e-09 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 13.13 on 5669 degrees of freedom
+## Multiple R-squared:  0.006246,   Adjusted R-squared:  0.006071 
+## F-statistic: 35.63 on 1 and 5669 DF,  p-value: 2.529e-09</code></pre>
+<p>We see an estimate of 1.47.<a href="#fn69" class="footnote-ref" id="fnref69"><sup>69</sup></a> Again, the standard error is not correct.</p>
+<div id="estimating-the-correct-standard-error" class="section level3" number="11.7.1">
+<h3><span class="header-section-number">11.7.1</span> Estimating the correct standard error</h3>
+<p>We can estimate the standard errors using the <code>survey()</code> package <span class="citation">(<a href="#ref-R-survey" role="doc-biblioref">Lumley, 2021</a>)</span>.<a href="#fn70" class="footnote-ref" id="fnref70"><sup>70</sup></a></p>
+<p>The first thing we do is create an object that contains the design, using the <code>svydesign()</code> function. The first argument, <code>ids = ~1</code> specifies what the primary sampling unit is. In our case, we use <code>~1</code> because this instructs the function to use each row in the data frame as the primary sampling unit. If we also had used a complex survey design, we might have identified a column in the data that identified the cluster—we’re not using that design in this example. The <code>weights = ~ipwt</code> argument specifies which variable in the data frame is the weights.</p>
+<div class="sourceCode" id="cb1062"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1062-1"><a href="PScore2.html#cb1062-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(survey)</span>
+<span id="cb1062-2"><a href="PScore2.html#cb1062-2" aria-hidden="true" tabindex="-1"></a>sdesign <span class="ot">&lt;-</span> <span class="fu">svydesign</span>(<span class="at">ids =</span> <span class="sc">~</span><span class="dv">1</span>, <span class="at">weights =</span> <span class="sc">~</span>ipwt, <span class="at">data =</span> ca2)</span></code></pre></div>
+<p>Then, we use this design with the package’s <code>svyglm()</code> function, which estimates the linear model with the weights.</p>
+<div class="sourceCode" id="cb1063"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1063-1"><a href="PScore2.html#cb1063-1" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">svyglm</span>(math12 <span class="sc">~</span> catholic, <span class="at">design =</span> sdesign)</span>
+<span id="cb1063-2"><a href="PScore2.html#cb1063-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit)</span>
+<span id="cb1063-3"><a href="PScore2.html#cb1063-3" aria-hidden="true" tabindex="-1"></a><span class="fu">confint</span>(fit)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## svyglm(formula = ..1, design = ..2)
+## 
+## Survey design:
+## survey::svydesign(...)
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  50.9057     0.1337 380.623  &lt; 2e-16 ***
+## catholicyes   1.4711     0.5616   2.619  0.00883 ** 
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## (Dispersion parameter for gaussian family taken to be 86.08982)
+## 
+## Number of Fisher Scoring iterations: 2
+## 
+##                  2.5 %    97.5 %
+## (Intercept) 50.6434967 51.167872
+## catholicyes  0.3700838  2.572023</code></pre>
+<p>We see that the effect is 1.47 with a standard error of 0.56, which is statistically significant and with a 95% confidence interval of 0.37 to 2.57.</p>
+</div>
+<div id="use-a-doubly-robust-estimate" class="section level3" number="11.7.2">
+<h3><span class="header-section-number">11.7.2</span> Use a doubly robust estimate</h3>
+<p>We have applied the inverse-propensity-score weighting approach to adjust our estimate and standard error of the causal effect. To provide an even stronger argument that our estimate has been adjusted based on these covariates, we can use what’s called a <em>doubly robust</em> <span class="citation">(<a href="#ref-bang_doubly_2005" role="doc-biblioref">Bang &amp; Robins, 2005</a>)</span> approach and further condition on any ornery covariates—those that remain somewhat imbalanced even after we have adjusted observations by their propensity scores.</p>
+<p>If we flag any imbalance, such as by arbitrarily setting <span class="math inline">\(\leq .05\)</span> standardized mean difference as the criterion for inclusion, we can determine which covariates, if any, to include in the doubly-robust model.</p>
+<div class="sourceCode" id="cb1065"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1065-1"><a href="PScore2.html#cb1065-1" aria-hidden="true" tabindex="-1"></a>covs_need_robust <span class="ot">&lt;-</span> imbal_adj[ <span class="fu">abs</span>(imbal_adj[,<span class="dv">4</span>]) <span class="sc">&gt;</span> .<span class="dv">05</span>, ] <span class="co">#Just seeing which covariates to include</span></span>
+<span id="cb1065-2"><a href="PScore2.html#cb1065-2" aria-hidden="true" tabindex="-1"></a><span class="fu">row.names</span>(covs_need_robust)</span></code></pre></div>
+<pre><code>## [1] &quot;fight8N&quot;   &quot;disrupt8N&quot;</code></pre>
+<p>With the ATE, there are two covariates we can include.<a href="#fn71" class="footnote-ref" id="fnref71"><sup>71</sup></a></p>
+<p>If we want, we can automate this selection of covariates to include in the robust formula by pulling out the covariate names and using the <code>as.formula()</code> function.</p>
+<div class="sourceCode" id="cb1067"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1067-1"><a href="PScore2.html#cb1067-1" aria-hidden="true" tabindex="-1"></a>covs_for_robust <span class="ot">&lt;-</span> <span class="fu">row.names</span>(covs_need_robust)</span>
+<span id="cb1067-2"><a href="PScore2.html#cb1067-2" aria-hidden="true" tabindex="-1"></a>(robust_formula <span class="ot">&lt;-</span> <span class="fu">as.formula</span>(<span class="fu">paste</span>(<span class="st">&#39;math12&#39;</span>, <span class="st">&#39;~ catholic + &#39;</span>, <span class="fu">paste</span>(covs_for_robust, <span class="at">collapse =</span> <span class="st">&#39; + &#39;</span>)))) </span></code></pre></div>
+<pre><code>## math12 ~ catholic + fight8N + disrupt8N</code></pre>
+<p>Again, we can use the survey package. We already specified the survey design,<code>sdesign</code>.</p>
+<div class="sourceCode" id="cb1069"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1069-1"><a href="PScore2.html#cb1069-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(survey)</span>
+<span id="cb1069-2"><a href="PScore2.html#cb1069-2" aria-hidden="true" tabindex="-1"></a>fit_rob <span class="ot">&lt;-</span> <span class="fu">svyglm</span>(robust_formula, <span class="at">design =</span> sdesign)</span>
+<span id="cb1069-3"><a href="PScore2.html#cb1069-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit_rob)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## svyglm(formula = ..1, design = ..2)
+## 
+## Survey design:
+## survey::svydesign(...)
+## 
+## Coefficients:
+##              Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 51.339068   0.170132 301.761   &lt;2e-16 ***
+## catholicyes  1.406038   0.565228   2.488   0.0129 *  
+## fight8N     -1.982497   1.385668  -1.431   0.1526    
+## disrupt8N    0.005463   1.710385   0.003   0.9975    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## (Dispersion parameter for gaussian family taken to be 85.16889)
+## 
+## Number of Fisher Scoring iterations: 2</code></pre>
+<p>With this doubly-robust method, we see a slight change in the estimated effect and standard error. We have accounted for the selection bias in the set of covariates. With those covariates that were still a little imbalanced, we further accounted for bias.</p>
+</div>
+</div>
+<div id="using-the-twang-package" class="section level2" number="11.8">
+<h2><span class="header-section-number">11.8</span> Using the Twang Package</h2>
+<div id="examining-covariate-balance" class="section level3" number="11.8.1">
+<h3><span class="header-section-number">11.8.1</span> Examining covariate balance</h3>
+<p>There are several packages available for propensity score analyses. The twang package <span class="citation">(<a href="#ref-R-twang" role="doc-biblioref">Cefalu et al., 2021</a>)</span> offers a convenient function (<code>bal.stat()</code>) for examining the balance of our covariates. Here, we are applying it to our data with the weightings. We see very similar estimates to our standardized mean difference column reported earlier. It also conveniently reports the weighted mean and standard deviation in each of the two groups, prefixing them with <code>t</code> for treatment and <code>c</code> for control. The package requires the treatment variable be numeric, so instead of <code>catholic</code>, we use its numeric version, <code>catN</code>, which we had created in the previous lesson.</p>
+<div class="sourceCode" id="cb1071"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1071-1"><a href="PScore2.html#cb1071-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(twang)</span>
+<span id="cb1071-2"><a href="PScore2.html#cb1071-2" aria-hidden="true" tabindex="-1"></a>twang_balout <span class="ot">&lt;-</span> <span class="fu">bal.stat</span>(ca, </span>
+<span id="cb1071-3"><a href="PScore2.html#cb1071-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">vars =</span> covnames,</span>
+<span id="cb1071-4"><a href="PScore2.html#cb1071-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">treat.var =</span> <span class="st">&quot;catN&quot;</span>,</span>
+<span id="cb1071-5"><a href="PScore2.html#cb1071-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">w.all =</span> ca<span class="sc">$</span>ipwt,</span>
+<span id="cb1071-6"><a href="PScore2.html#cb1071-6" aria-hidden="true" tabindex="-1"></a>         <span class="at">sampw =</span> <span class="dv">1</span>, <span class="co"># set to 1 because we don&#39;t have sampling weights</span></span>
+<span id="cb1071-7"><a href="PScore2.html#cb1071-7" aria-hidden="true" tabindex="-1"></a>         <span class="at">estimand =</span> <span class="st">&quot;ATE&quot;</span>,</span>
+<span id="cb1071-8"><a href="PScore2.html#cb1071-8" aria-hidden="true" tabindex="-1"></a>         <span class="at">get.ks =</span> <span class="cn">FALSE</span>, </span>
+<span id="cb1071-9"><a href="PScore2.html#cb1071-9" aria-hidden="true" tabindex="-1"></a>         <span class="at">multinom =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb1071-10"><a href="PScore2.html#cb1071-10" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(twang_balout<span class="sc">$</span>results, <span class="dv">3</span>)</span></code></pre></div>
+<pre><code>##              tx.mn    tx.sd    ct.mn    ct.sd std.eff.sz   stat     p
+## inc8        32.420   17.656   32.658   17.343     -0.014 -0.215 0.830
+## inc8Sq    1362.283 1259.745 1367.279 1255.879     -0.004 -0.075 0.940
+## math8       51.642    8.922   51.491    9.781      0.016  0.300 0.764
+## mathfam   1719.485 1051.287 1728.726 1045.192     -0.009 -0.146 0.884
+## fhowfarN     3.824    1.051    3.818    1.108      0.005  0.082 0.935
+## mhowfarN     3.902    0.957    3.858    1.079      0.041  0.700 0.484
+## fight8N      0.186    0.469    0.219    0.501     -0.066 -1.261 0.207
+## nohw8N       0.156    0.363    0.143    0.350      0.036  0.428 0.669
+## disrupt8N    0.152    0.359    0.179    0.384     -0.071 -1.512 0.131
+## riskdrop8    0.598    0.810    0.624    0.906     -0.028 -0.378 0.706</code></pre>
+</div>
+<div id="estimating-the-propensity-scores-and-getting-the-weights" class="section level3" number="11.8.2">
+<h3><span class="header-section-number">11.8.2</span> Estimating the propensity scores and getting the weights</h3>
+<p>With twang, we can use a formula similar to the one we created using the <code>as.formula()</code> function for the propensity score model using <code>glm()</code>; the difference is we need to specify the outcome variable as our numeric version of the variable, so we’ll use <code>catN</code> instead of <code>catholic</code>. In twang, the <code>ps()</code> function is available for estimating the propensity scores. The default method is <em>generalized boosted modeling</em> (GBM) instead of logistic regression. This procedure takes a minute to run because, compared to regular old logistic regression, GBM uses a more intensive iterative procedure.</p>
+<div class="sourceCode" id="cb1073"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1073-1"><a href="PScore2.html#cb1073-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(twang)</span>
+<span id="cb1073-2"><a href="PScore2.html#cb1073-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Creating a new formula, with catN instead of catholic as the treatment-group variable.</span></span>
+<span id="cb1073-3"><a href="PScore2.html#cb1073-3" aria-hidden="true" tabindex="-1"></a>ps_mdl_4twang <span class="ot">&lt;-</span> <span class="fu">as.formula</span>(<span class="fu">paste</span>(<span class="st">&#39;catN&#39;</span>, <span class="st">&#39;~&#39;</span>, <span class="fu">paste</span>(covnames, <span class="at">collapse =</span> <span class="st">&#39; + &#39;</span>)))</span>
+<span id="cb1073-4"><a href="PScore2.html#cb1073-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1073-5"><a href="PScore2.html#cb1073-5" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">10310210</span>)</span>
+<span id="cb1073-6"><a href="PScore2.html#cb1073-6" aria-hidden="true" tabindex="-1"></a>twang_ps <span class="ot">&lt;-</span> <span class="fu">ps</span>(ps_mdl_4twang, </span>
+<span id="cb1073-7"><a href="PScore2.html#cb1073-7" aria-hidden="true" tabindex="-1"></a>               <span class="at">data =</span> ca,</span>
+<span id="cb1073-8"><a href="PScore2.html#cb1073-8" aria-hidden="true" tabindex="-1"></a>               <span class="at">estimand =</span> <span class="st">&quot;ATE&quot;</span>,</span>
+<span id="cb1073-9"><a href="PScore2.html#cb1073-9" aria-hidden="true" tabindex="-1"></a>               <span class="at">stop.method =</span> <span class="st">&quot;es.mean&quot;</span>, <span class="co"># standardized effect size</span></span>
+<span id="cb1073-10"><a href="PScore2.html#cb1073-10" aria-hidden="true" tabindex="-1"></a>               <span class="at">verbose =</span> <span class="cn">FALSE</span>)         <span class="co"># To prevent the in-progress iterations from printing in the console</span></span></code></pre></div>
+<p>We have saved the outcome of the propensity-score model as an object. We can use twang’s <code>bal.table()</code> function on this to return the balance statistics of all of the covariates used in the model both before and after they were weighted by the inverse-probability weights.</p>
+<div class="sourceCode" id="cb1074"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1074-1"><a href="PScore2.html#cb1074-1" aria-hidden="true" tabindex="-1"></a><span class="fu">bal.table</span>(twang_ps)</span></code></pre></div>
+<p><img src="images/gbm_ATE_bal.png" /></p>
+<p>We can examine plots of the standardized mean difference before and after weighting. This plot is nice because it displays the 0.10 benchmark for evaluating balance. Our remaining culprit here is <code>riskdrop8</code>.</p>
+<div class="sourceCode" id="cb1075"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1075-1"><a href="PScore2.html#cb1075-1" aria-hidden="true" tabindex="-1"></a> <span class="fu">plot</span>(twang_ps, <span class="st">&quot;es&quot;</span>)</span></code></pre></div>
+<p><img src="images/gbm_ATE_bal_plot.png" /></p>
+<p>We can save the GBM-estimated propensity scores to our data set—the one <strong><em>without</em></strong> the outcome variables in case we need to further assess how well the weighting balanced the covariates.</p>
+<div class="sourceCode" id="cb1076"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1076-1"><a href="PScore2.html#cb1076-1" aria-hidden="true" tabindex="-1"></a>ca<span class="sc">$</span>ps_gbm <span class="ot">&lt;-</span> twang_ps<span class="sc">$</span>ps<span class="sc">$</span>es.mean.ATE</span></code></pre></div>
+<p>To get the IP weights, we use the <code>get.weights()</code> function. We need these, of course, when we estimate the effects.</p>
+<div class="sourceCode" id="cb1077"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1077-1"><a href="PScore2.html#cb1077-1" aria-hidden="true" tabindex="-1"></a>ca<span class="sc">$</span>ipw_gbm <span class="ot">&lt;-</span> <span class="fu">get.weights</span>(twang_ps, <span class="at">stop.method =</span> <span class="st">&quot;es.mean&quot;</span>)</span></code></pre></div>
+<p>We might wish to use our custom function, <code>dnsty()</code>, to examine whether common support after adjustment is as nice as it was with our logistic-regression approach to estimating propensity scores.</p>
+<div class="sourceCode" id="cb1078"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1078-1"><a href="PScore2.html#cb1078-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dnsty</span>(ca<span class="sc">$</span>ps_gbm, <span class="at">grp =</span> ca<span class="sc">$</span>catholic,</span>
+<span id="cb1078-2"><a href="PScore2.html#cb1078-2" aria-hidden="true" tabindex="-1"></a>      <span class="at">main =</span> <span class="st">&quot;GBM PS (unadjusted)&quot;</span>,<span class="at">legtitle=</span><span class="st">&quot;Catholic&quot;</span>)</span>
+<span id="cb1078-3"><a href="PScore2.html#cb1078-3" aria-hidden="true" tabindex="-1"></a><span class="fu">dnsty</span>(ca<span class="sc">$</span>ps_gbm, <span class="at">grp =</span> ca<span class="sc">$</span>catholic, <span class="at">wt =</span> ca<span class="sc">$</span>ipw_gbm,  <span class="co"># Weights are now included</span></span>
+<span id="cb1078-4"><a href="PScore2.html#cb1078-4" aria-hidden="true" tabindex="-1"></a>      <span class="at">main =</span> <span class="st">&quot;GBM PS (adjusted)&quot;</span>,<span class="at">legtitle=</span><span class="st">&quot;Catholic&quot;</span>)</span></code></pre></div>
+<p><img src="images/gbm_ps_density_unadj.png" /></p>
+<p><img src="images/gbm_ps_density_adj.png" /></p>
+<p>The GBM IP weights did improve common support over the unadjusted GBM propensity scores but not as well we saw before with the logistic-regression IP weights. We might use this evidence in our decision about whether to use logistic-regression over GBM.</p>
+</div>
+<div id="estimating-the-effect" class="section level3" number="11.8.3">
+<h3><span class="header-section-number">11.8.3</span> Estimating the effect</h3>
+<p>Now that we have the weights, we can merge the data set with the outcome variables with this one and estimate the effect.</p>
+<div class="sourceCode" id="cb1079"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1079-1"><a href="PScore2.html#cb1079-1" aria-hidden="true" tabindex="-1"></a>outcome <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;ch12_cath_outcomes_only.csv&quot;</span>)</span>
+<span id="cb1079-2"><a href="PScore2.html#cb1079-2" aria-hidden="true" tabindex="-1"></a>ca2     <span class="ot">&lt;-</span> <span class="fu">merge</span>(ca, outcome, <span class="at">by =</span> <span class="st">&quot;id&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb1080"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1080-1"><a href="PScore2.html#cb1080-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(survey)</span>
+<span id="cb1080-2"><a href="PScore2.html#cb1080-2" aria-hidden="true" tabindex="-1"></a>sdesign_2 <span class="ot">&lt;-</span> <span class="fu">svydesign</span>(<span class="at">ids =</span> <span class="sc">~</span><span class="dv">1</span>, <span class="at">weights =</span> <span class="sc">~</span>ipw_gbm, <span class="at">data =</span> ca2)</span>
+<span id="cb1080-3"><a href="PScore2.html#cb1080-3" aria-hidden="true" tabindex="-1"></a>fit_gbm   <span class="ot">&lt;-</span> <span class="fu">svyglm</span>(math12 <span class="sc">~</span> catholic, <span class="at">design =</span> sdesign_2)</span>
+<span id="cb1080-4"><a href="PScore2.html#cb1080-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit_gbm)</span>
+<span id="cb1080-5"><a href="PScore2.html#cb1080-5" aria-hidden="true" tabindex="-1"></a><span class="fu">confint</span>(fit_gbm)</span></code></pre></div>
+<p><img src="images/gbm_ATE_Effect.png" /></p>
+<p>With the generalized boosted model approach to estimating the propensity scores with this same set of covariates, we see a slightly higher estimate of the effect compared to the one with logistic regression. However, we have still arrived at the same statistical conclusion in terms of the direction of the effect and statistical significance.</p>
+<!-- ### Estimate the standard errors  -->
+<!-- ### Using bootstrapping -->
+<!-- One way to estimate the standard errors is using bootstrapping. Another way is to use the survey package [@R-survey], which is presented next. -->
+<!-- The code below includes our own function to enclose in a bootstrap. It includes both the design model (PS and IPWs) and the effects estimation model. We can activate a line for truncating the weights if there are extreme values. We could use stabilizing, too, but we could add either in. It may be wiser to explore other propensity-score analysis methods, such as matching or stratification, than to use truncation or stabilization. -->
+<!-- This takes a minute to run. This is **not** the most efficient way to estimate the standard errors, but it's kind of fun to see how bootstrapping can be used. -->
+<!-- ```{r eval = F} -->
+<!-- # First we can create the formulas to include in the models -->
+<!-- # Formula for the PS model: -->
+<!-- ps_mdl1 <- as.formula(paste('catholic', '~', paste(covnames, collapse = ' + ')))  -->
+<!-- # Formula for the estimand model -->
+<!-- est_mdl1 <- as.formula(paste('math12', '~', 'catholic'))  -->
+<!-- # Formula for the doubly-robust estimation: -->
+<!-- robust_formula <- as.formula(paste('math12', '~ catholic + ', paste(covs_for_robust, collapse = ' + '))) -->
+<!-- library(boot) -->
+<!-- PSboot <- function(bdat, i, estimand = "ATE" ){    -->
+<!--    # draw bootstrap sample (done by the boot() function): -->
+<!--    bsmpl <- bdat[i, ]  -->
+<!--    # PS model: -->
+<!--    out1 <- glm(ps_mdl1, data = bsmpl, family = 'binomial') -->
+<!--    # saving propensity scores: -->
+<!--    bsmpl$ps <- out1$fitted -->
+<!--    #Inverse Propensity-score weights, depending on estimand: -->
+<!--    if(estimand == "ATE") bsmpl$ipwt <- with(bsmpl, catN / ps + (1 - catN) / (1 - ps)) -->
+<!--    if(estimand == "ATT") bsmpl$ipwt <- with(bsmpl, catN      + (1- catN) * ps / (1 - ps))  -->
+<!--    # bsmpl$ipwt_trunc <- with(bsmpl, ifelse(ipwt > quantile(ipwt, .99), quantile(ipwt, .99), ipwt )) # Include this line for truncated weights (est. effect = 2.64) -->
+<!--    # Estimate the effect -->
+<!--    est1 <- coef(lm(est_mdl1, data = bsmpl, weights = ipwt_trunc))[2] -->
+<!--    # Doubly-robust estimation of the effect -->
+<!--    est2 <- coef(lm(robust_formula, data = bsmpl, weights = ipwt_trunc))[2] -->
+<!-- c(est1, est2) -->
+<!-- } -->
+<!-- set.seed(10310918) # random seed number  -->
+<!-- (bootstat <- boot(ca2, statistic = PSboot, R = 1000, stype = 'i')) -->
+<!-- boot.ci(bootstat, type = "perc", index=1) -->
+<!-- boot.ci(bootstat, type = "perc", index=2) -->
+<!-- ``` -->
+<!-- ![](images/bootout_PSwts.png) -->
+<!-- In the output, `t1` is the model with no covariates; `t2` is our doubly-robust model (which should include any unbalanced covariates). Note that we used a seed to generate the output.^[Because we can get different results with different seed values, it is good practice to select a seed value for a given operation and commit to it so we can avoid fishing for the effect we desire. I used the month, day, and time for this seed value.] This is valuable because otherwise, the estimated standard errors will vary each time we run this because of the random subsampling procedures. With a seed, we can reproduce these standard error estimates.  -->
+<!-- Based on the confidence intervals, we conclude that the average treatment effect is statistically significant in both models.  -->
+<!-- ### Using the survey package -->
+<!-- A more efficient method for estimating the standard errors is with Taylor series linearlization, which we can get using the `survey()` package [@R-survey]. -->
+<!-- ```{r} -->
+<!-- ca2$ipwt_normlzd <- ca2$ipwt/mean(ca2$ipwt) -->
+<!-- ``` -->
+<!-- ```{r message = F, warning = F} -->
+<!-- library(survey) -->
+<!-- sdesign <- svydesign(ids = ~1, weights = ~ipwt_normlzd, data = ca2) -->
+<!-- ``` -->
+<!-- <!-- # ```{r} -->
+<!-- <!-- # fit <- svyglm(est_mdl1, design = sdesign) -->
+<!-- <!-- # summary(fit) -->
+<!-- <!-- # confint(fit) -->
+<!-- <!-- # ``` -->
+<!-- ```{r} -->
+<!-- fit_rob <- svyglm(robust_formula, design = sdesign) -->
+<!-- summary(fit_rob) -->
+<!-- ``` -->
+<!-- ```{r eval = F} -->
+<!-- #evaluate covariate balance for ATT -->
+<!-- #?twang::bal.stat -->
+<!-- require(twang) -->
+<!-- balanceTable <- bal.stat(ELS.data.imputed, vars= covariateNames, -->
+<!--                         treat.var = "treat",  -->
+<!--                         w.all = ELS.data.imputed$finalWeightBY, get.ks=F, -->
+<!--                         sampw = ELS.data.imputed$bystuwt,  -->
+<!--                         estimand="ATT", multinom=F) -->
+<!-- #Table with results of balance evaluation. The columns are: -->
+<!-- # tx.mn - The mean of the treatment group -->
+<!-- # tx.sd    - The standard deviation of the treatment group -->
+<!-- # ct.mn - The mean of the control group -->
+<!-- # ct.sd    - The standard deviation of the control group -->
+<!-- # std.eff.sz   - The standardized effect size, (tx.mn-ct.mn)/tx.sd.  -->
+<!-- # stat - the t-statistic for numeric variables and the chi-square statistic for categorical variables -->
+<!-- # p    - the p-value for the test associated with stat -->
+<!-- # get.ks=F says we do not want the Kolmogorov Smirnoff test of equality -->
+<!-- balanceTable <- balanceTable$results  -->
+<!--   options(max.print=10000) -->
+<!--   round(balanceTable,3) -->
+<!-- #summarize the covariate balance quality -->
+<!-- (summaryBalance <- summary(abs(balanceTable$std.eff.sz))) #standardized effect sizes -->
+<!-- ``` -->
+
+</div>
+</div>
+</div>
+<h3>References</h3>
+<div id="refs" class="references csl-bib-body hanging-indent" entry-spacing="1">
+<div id="ref-bang_doubly_2005" class="csl-entry">
+Bang, H., &amp; Robins, J. M. (2005). Doubly robust estimation in missing data and causal inference models. <em>Biometrics</em>, <em>61</em>(4), 962–973. <a href="https://doi.org/10.1111/j.1541-0420.2005.00377.x">https://doi.org/10.1111/j.1541-0420.2005.00377.x</a>
+</div>
+<div id="ref-R-twang" class="csl-entry">
+Cefalu, M., Ridgeway, G., McCaffrey, D., Morral, A., Griffin, B. A., &amp; Burgette, L. (2021). <em>Twang: Toolkit for weighting and analysis of nonequivalent groups</em>. <a href="https://CRAN.R-project.org/package=twang">https://CRAN.R-project.org/package=twang</a>
+</div>
+<div id="ref-leite_practical_2017" class="csl-entry">
+Leite, W. (2017). <em>Practical propensity score methods using <span>R</span></em>. Sage.
+</div>
+<div id="ref-R-survey" class="csl-entry">
+Lumley, T. (2021). <em>Survey: Analysis of complex survey samples</em>. <a href="http://r-survey.r-forge.r-project.org/survey/">http://r-survey.r-forge.r-project.org/survey/</a>
+</div>
+<div id="ref-murnane_methods_2011" class="csl-entry">
+Murnane, R. J., &amp; Willett, J. B. (2011). <em>Methods matter: <span>Improving</span> causal inference in educational and social science research</em>. Oxford University Press.
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="67">
+<li id="fn67"><p>We do this with the <code>cov.wt()</code> function, which returns the weighted means as <code>$center</code> and the weighted variance as <code>$cov</code> (because we use <code>cov.wt()</code> with a single variable, there is only one value for each). We use the <code>drop = FALSE</code> argument because the <code>cov.wt()</code> function otherwise expects us to include at least two columns. We use this procedure for each treatment group (within our <code>wselect.diff()</code> function) by creating a custom function, <code>stat.wt()</code>, and applying it to each group with the <code>by()</code> function.<a href="PScore2.html#fnref67" class="footnote-back">↩︎</a></p></li>
+<li id="fn68"><p>Here, we’re using the <code>merge()</code> function; in previous lessons, we had used the <code>left_join()</code> function (from the dplyr package) to achieve the same result (though <code>left_join()</code> is safer because it retains observations in the first data frame that are not matched in the second).<a href="PScore2.html#fnref68" class="footnote-back">↩︎</a></p></li>
+<li id="fn69"><p>This estimate of 1.47 is also reported in Murnane &amp; Willett, p. 327.<a href="PScore2.html#fnref69" class="footnote-back">↩︎</a></p></li>
+<li id="fn70"><p>This standard error estimation uses Taylor series linearization.<a href="PScore2.html#fnref70" class="footnote-back">↩︎</a></p></li>
+<li id="fn71"><p>Note that with the ATT estimate or a different method of adjusting the extreme weights, such as with truncation, we’d probably make different choices.<a href="PScore2.html#fnref71" class="footnote-back">↩︎</a></p></li>
+</ol>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="PScore1.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="PScore3.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

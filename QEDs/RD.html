@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Part 6 Regression Discontinuity | Using R for Quasi-Experimental Designs</title>
+  <meta name="description" content="QEDs in R" />
+  <meta name="generator" content="bookdown 0.23 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Part 6 Regression Discontinuity | Using R for Quasi-Experimental Designs" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="QEDs in R" />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Part 6 Regression Discontinuity | Using R for Quasi-Experimental Designs" />
+  
+  <meta name="twitter:description" content="QEDs in R" />
+  
+
+<meta name="author" content="George M. Harrison  University of Hawai‘i at Mānoa, College of Education" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="DID.html"/>
+<link rel="next" href="references.html"/>
+<script src="libs/header-attrs-2.10/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#what-is-r"><i class="fa fa-check"></i><b>1.1</b> What is R</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="basics.html"><a href="basics.html"><i class="fa fa-check"></i><b>2</b> Some Fundamentals of Coding in R</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="basics.html"><a href="basics.html#objectives"><i class="fa fa-check"></i><b>2.1</b> Objectives</a></li>
+<li class="chapter" data-level="2.2" data-path="basics.html"><a href="basics.html#creating-an-r-script-file"><i class="fa fa-check"></i><b>2.2</b> Creating an R Script File</a></li>
+<li class="chapter" data-level="2.3" data-path="basics.html"><a href="basics.html#creating-objects-by-assigning-information-to-them"><i class="fa fa-check"></i><b>2.3</b> Creating objects by assigning information to them</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="basics.html"><a href="basics.html#assigning-character-strings-to-an-object"><i class="fa fa-check"></i><b>2.3.1</b> Assigning Character Strings to an Object</a></li>
+<li class="chapter" data-level="2.3.2" data-path="basics.html"><a href="basics.html#assigning-numeric-elements-to-an-object"><i class="fa fa-check"></i><b>2.3.2</b> Assigning Numeric Elements to an Object</a></li>
+<li class="chapter" data-level="2.3.3" data-path="basics.html"><a href="basics.html#creating-vectors"><i class="fa fa-check"></i><b>2.3.3</b> Creating Vectors</a></li>
+<li class="chapter" data-level="2.3.4" data-path="basics.html"><a href="basics.html#performing-operations-on-vectors"><i class="fa fa-check"></i><b>2.3.4</b> Performing Operations on Vectors</a></li>
+<li class="chapter" data-level="2.3.5" data-path="basics.html"><a href="basics.html#using-functions"><i class="fa fa-check"></i><b>2.3.5</b> Using Functions</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="basics.html"><a href="basics.html#create-a-data-frame-from-code"><i class="fa fa-check"></i><b>2.4</b> Create a data frame from code</a></li>
+<li class="chapter" data-level="2.5" data-path="basics.html"><a href="basics.html#working-with-matrices"><i class="fa fa-check"></i><b>2.5</b> Working with Matrices</a></li>
+<li class="chapter" data-level="2.6" data-path="basics.html"><a href="basics.html#dffromcsv"><i class="fa fa-check"></i><b>2.6</b> Creating a Data Frame from a CSV File</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="examine.html"><a href="examine.html"><i class="fa fa-check"></i><b>3</b> Examining and Summarizing Data</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="examine.html"><a href="examine.html#objectives-1"><i class="fa fa-check"></i><b>3.1</b> Objectives</a></li>
+<li class="chapter" data-level="3.2" data-path="examine.html"><a href="examine.html#examining-the-data"><i class="fa fa-check"></i><b>3.2</b> Examining the Data</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="examine.html"><a href="examine.html#the-data-frame"><i class="fa fa-check"></i><b>3.2.1</b> The Data Frame</a></li>
+<li class="chapter" data-level="3.2.2" data-path="examine.html"><a href="examine.html#subsetting-by-rows"><i class="fa fa-check"></i><b>3.2.2</b> Subsetting by Rows</a></li>
+<li class="chapter" data-level="3.2.3" data-path="examine.html"><a href="examine.html#subsetting-by-columns"><i class="fa fa-check"></i><b>3.2.3</b> Subsetting by Columns</a></li>
+<li class="chapter" data-level="3.2.4" data-path="examine.html"><a href="examine.html#descriptive-statistics"><i class="fa fa-check"></i><b>3.2.4</b> Descriptive Statistics</a></li>
+<li class="chapter" data-level="3.2.5" data-path="examine.html"><a href="examine.html#creating-a-custom-function-to-estimate-the-confidence-interval-of-the-mean"><i class="fa fa-check"></i><b>3.2.5</b> Creating a Custom Function to Estimate the Confidence Interval of the Mean</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="examine.html"><a href="examine.html#summarizing-data-by-group-and-an-introduction-to-lists"><i class="fa fa-check"></i><b>3.3</b> Summarizing Data by Group (and an introduction to lists)</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="examine.html"><a href="examine.html#calculating-standardized-mean-difference-and-variance-ratio-of-a-covariate"><i class="fa fa-check"></i><b>3.3.1</b> Calculating Standardized Mean Difference and Variance Ratio of a Covariate</a></li>
+<li class="chapter" data-level="3.3.2" data-path="examine.html"><a href="examine.html#creating-a-factor-variable-from-a-numeric-variable"><i class="fa fa-check"></i><b>3.3.2</b> Creating a Factor Variable from a Numeric Variable</a></li>
+<li class="chapter" data-level="3.3.3" data-path="examine.html"><a href="examine.html#aggregate_explain"><i class="fa fa-check"></i><b>3.3.3</b> The <code>aggregate()</code> function</a></li>
+<li class="chapter" data-level="3.3.4" data-path="examine.html"><a href="examine.html#plotting-data-by-group"><i class="fa fa-check"></i><b>3.3.4</b> Plotting data by group</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="examine.html"><a href="examine.html#extra-stuff"><i class="fa fa-check"></i><b>3.4</b> Extra Stuff</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="examine.html"><a href="examine.html#using-ggplot"><i class="fa fa-check"></i><b>3.4.1</b> Using ggplot</a></li>
+<li class="chapter" data-level="3.4.2" data-path="examine.html"><a href="examine.html#subsetting-data-and-separately-analyzing-each-group"><i class="fa fa-check"></i><b>3.4.2</b> Subsetting data and separately analyzing each group</a></li>
+<li class="chapter" data-level="3.4.3" data-path="examine.html"><a href="examine.html#the-tidyverse-approach-to-by-group-analyses"><i class="fa fa-check"></i><b>3.4.3</b> The Tidyverse Approach to By-Group Analyses</a></li>
+<li class="chapter" data-level="3.4.4" data-path="examine.html"><a href="examine.html#plotting-summary-statistics"><i class="fa fa-check"></i><b>3.4.4</b> Plotting summary statistics</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="rct.html"><a href="rct.html"><i class="fa fa-check"></i><b>4</b> Examples with Randomized Experiments</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="rct.html"><a href="rct.html#objectives-2"><i class="fa fa-check"></i><b>4.1</b> Objectives</a></li>
+<li class="chapter" data-level="4.2" data-path="rct.html"><a href="rct.html#preparation"><i class="fa fa-check"></i><b>4.2</b> Preparation</a></li>
+<li class="chapter" data-level="4.3" data-path="rct.html"><a href="rct.html#analysis-of-linear-models"><i class="fa fa-check"></i><b>4.3</b> Analysis of Linear Models</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="rct.html"><a href="rct.html#independent-samples-t-test-approach"><i class="fa fa-check"></i><b>4.3.1</b> Independent samples <em>t</em>-test approach</a></li>
+<li class="chapter" data-level="4.3.2" data-path="rct.html"><a href="rct.html#simple-linear-regression"><i class="fa fa-check"></i><b>4.3.2</b> Simple Linear Regression</a></li>
+<li class="chapter" data-level="4.3.3" data-path="rct.html"><a href="rct.html#multiple-linear-regression"><i class="fa fa-check"></i><b>4.3.3</b> Multiple Linear Regression</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="rct.html"><a href="rct.html#bootstrapping-to-get-confidence-intervals"><i class="fa fa-check"></i><b>4.4</b> Bootstrapping to Get Confidence Intervals</a>
+<ul>
+<li class="chapter" data-level="4.4.1" data-path="rct.html"><a href="rct.html#the-value-of-bootstrapping"><i class="fa fa-check"></i><b>4.4.1</b> The value of bootstrapping</a></li>
+<li class="chapter" data-level="4.4.2" data-path="rct.html"><a href="rct.html#another-way-to-bootstrap-the-standard-error-of-mean-differences"><i class="fa fa-check"></i><b>4.4.2</b> Another way to bootstrap the standard error of mean differences</a></li>
+<li class="chapter" data-level="4.4.3" data-path="rct.html"><a href="rct.html#simple-regression"><i class="fa fa-check"></i><b>4.4.3</b> Simple regression</a></li>
+<li class="chapter" data-level="4.4.4" data-path="rct.html"><a href="rct.html#multiple-regression"><i class="fa fa-check"></i><b>4.4.4</b> Multiple regression</a></li>
+<li class="chapter" data-level="4.4.5" data-path="rct.html"><a href="rct.html#summary-on-bootstrapping"><i class="fa fa-check"></i><b>4.4.5</b> Summary on Bootstrapping</a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="rct.html"><a href="rct.html#estimating-the-average-treatment-on-the-treated-att"><i class="fa fa-check"></i><b>4.5</b> Estimating the Average Treatment on the Treated (ATT)</a>
+<ul>
+<li class="chapter" data-level="4.5.1" data-path="rct.html"><a href="rct.html#artificially-introducing-no-shows"><i class="fa fa-check"></i><b>4.5.1</b> Artificially Introducing No-shows</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="DID.html"><a href="DID.html"><i class="fa fa-check"></i><b>5</b> Difference in Differences</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="DID.html"><a href="DID.html#objectives-3"><i class="fa fa-check"></i><b>5.1</b> Objectives</a></li>
+<li class="chapter" data-level="5.2" data-path="DID.html"><a href="DID.html#import-and-prepare-the-data"><i class="fa fa-check"></i><b>5.2</b> Import and Prepare the Data</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="DID.html"><a href="DID.html#prepare-the-data"><i class="fa fa-check"></i><b>5.2.1</b> Prepare the data</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="DID.html"><a href="DID.html#using-the-survey-package"><i class="fa fa-check"></i><b>5.3</b> Using the survey package</a></li>
+<li class="chapter" data-level="5.4" data-path="DID.html"><a href="DID.html#direct-estimates-as-shown-in-table-8.1-on-page-143"><i class="fa fa-check"></i><b>5.4</b> Direct estimates, as shown in Table 8.1 on page 143</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="DID.html"><a href="DID.html#first-difference-direct-estimate-in-panel-a."><i class="fa fa-check"></i><b>5.4.1</b> First difference, direct estimate in Panel A.</a></li>
+<li class="chapter" data-level="5.4.2" data-path="DID.html"><a href="DID.html#estimate-from-the-linear-probability-model-ols-estimate-shown-in-table-8.1-on-page-143-panel-b."><i class="fa fa-check"></i><b>5.4.2</b> Estimate from the linear-probability model (OLS) estimate shown in Table 8.1 on page 143, Panel B.</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="DID.html"><a href="DID.html#difference-in-differences-simple-approach-table-8.2-p.-157"><i class="fa fa-check"></i><b>5.5</b> Difference in differences, simple approach (Table 8.2, p. 157)</a></li>
+<li class="chapter" data-level="5.6" data-path="DID.html"><a href="DID.html#difference-in-differences-using-regression"><i class="fa fa-check"></i><b>5.6</b> Difference in differences using regression</a>
+<ul>
+<li class="chapter" data-level="5.6.1" data-path="DID.html"><a href="DID.html#compare-the-results-from-the-four-different-strategies"><i class="fa fa-check"></i><b>5.6.1</b> Compare the results from the four different strategies</a></li>
+</ul></li>
+<li class="chapter" data-level="5.7" data-path="DID.html"><a href="DID.html#summary-of-the-did-model-strategy"><i class="fa fa-check"></i><b>5.7</b> Summary of the DID model strategy</a></li>
+<li class="chapter" data-level="5.8" data-path="DID.html"><a href="DID.html#accounting-for-the-binary-y-variable"><i class="fa fa-check"></i><b>5.8</b> Accounting for the binary Y variable</a></li>
+<li class="chapter" data-level="5.9" data-path="DID.html"><a href="DID.html#plotting-the-difference-in-differences"><i class="fa fa-check"></i><b>5.9</b> Plotting the difference in differences</a>
+<ul>
+<li class="chapter" data-level="5.9.1" data-path="DID.html"><a href="DID.html#plotting-from-the-predicted-values-of-the-model"><i class="fa fa-check"></i><b>5.9.1</b> Plotting from the predicted values of the model</a></li>
+<li class="chapter" data-level="5.9.2" data-path="DID.html"><a href="DID.html#doing-it-in-ggplot2"><i class="fa fa-check"></i><b>5.9.2</b> Doing it in ggplot2</a></li>
+<li class="chapter" data-level="5.9.3" data-path="DID.html"><a href="DID.html#seeing-where-the-regression-estimate-is-in-the-plot"><i class="fa fa-check"></i><b>5.9.3</b> Seeing where the regression estimate is in the plot</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="RD.html"><a href="RD.html"><i class="fa fa-check"></i><b>6</b> Regression Discontinuity</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="RD.html"><a href="RD.html#objectives-4"><i class="fa fa-check"></i><b>6.1</b> Objectives</a></li>
+<li class="chapter" data-level="6.2" data-path="RD.html"><a href="RD.html#import-and-prepare-the-data-1"><i class="fa fa-check"></i><b>6.2</b> Import and Prepare the Data</a></li>
+<li class="chapter" data-level="6.3" data-path="RD.html"><a href="RD.html#different-difference-in-differences"><i class="fa fa-check"></i><b>6.3</b> Different Difference in Differences</a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="RD.html"><a href="RD.html#our-first-difference"><i class="fa fa-check"></i><b>6.3.1</b> Our first difference</a></li>
+<li class="chapter" data-level="6.3.2" data-path="RD.html"><a href="RD.html#a-plausible-second-difference"><i class="fa fa-check"></i><b>6.3.2</b> A plausible second difference</a></li>
+<li class="chapter" data-level="6.3.3" data-path="RD.html"><a href="RD.html#another-plausible-second-difference"><i class="fa fa-check"></i><b>6.3.3</b> Another plausible second difference</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="RD.html"><a href="RD.html#broadening-the-bandwidth"><i class="fa fa-check"></i><b>6.4</b> Broadening the bandwidth</a></li>
+<li class="chapter" data-level="6.5" data-path="RD.html"><a href="RD.html#summary-up-to-this-point"><i class="fa fa-check"></i><b>6.5</b> Summary up to this point</a></li>
+<li class="chapter" data-level="6.6" data-path="RD.html"><a href="RD.html#examining-if-the-results-are-consistent-with-different-bandwidths"><i class="fa fa-check"></i><b>6.6</b> Examining if the results are consistent with different bandwidths</a></li>
+<li class="chapter" data-level="6.7" data-path="RD.html"><a href="RD.html#functional-form-in-rdd"><i class="fa fa-check"></i><b>6.7</b> Functional Form in RDD</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Using R for Quasi-Experimental Designs</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="RD" class="section level1" number="6">
+<h1><span class="header-section-number">Part 6</span> Regression Discontinuity</h1>
+<p>Chapter 9 of Murnane and Willett <span class="citation">(<a href="#ref-murnane_methods_2011" role="doc-biblioref">2011</a>)</span> helps us see the underlying logic of regression discontinuity designs by helping us see the underlying assumptions and choices we face when we use a difference-in-differences strategy, and then taking us into an example with regression discontinuity in which we examine the functional form. Their chapter begins with several pedagogical examples of DID with the Maimonides data, which are from work conducted by Angrist and Lavy <span class="citation">(<a href="#ref-angrist_using_1999" role="doc-biblioref">1999</a>)</span> to investigate the effects of class size on achievement.</p>
+<div id="objectives-4" class="section level2" number="6.1">
+<h2><span class="header-section-number">6.1</span> Objectives</h2>
+<ol style="list-style-type: decimal">
+<li>Strengthen our understanding of the underlying assumptions and choices in difference in differences.</li>
+<li>Use this understanding to see the value of regression discontinuity designs.</li>
+<li>Understand the decisions involved in a regression-discontinuity design, starting with functional form and bandwidth.</li>
+<li>Use R code to estimate effects and generate plots.</li>
+</ol>
+</div>
+<div id="import-and-prepare-the-data-1" class="section level2" number="6.2">
+<h2><span class="header-section-number">6.2</span> Import and Prepare the Data</h2>
+<p>The data were available as a SAS data set from UCLA’s site, which I had then saved to a CSV file <em>Ch 09 angrist.csv</em> using the following code.</p>
+<div class="sourceCode" id="cb494"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb494-1"><a href="RD.html#cb494-1" aria-hidden="true" tabindex="-1"></a>  <span class="fu">library</span>(sas7bdat) <span class="co"># package for reading SAS files</span></span>
+<span id="cb494-2"><a href="RD.html#cb494-2" aria-hidden="true" tabindex="-1"></a>  angrist <span class="ot">&lt;-</span> <span class="fu">read.sas7bdat</span>(<span class="st">&quot;https://stats.idre.ucla.edu/wp-content/uploads/2016/02/angrist.sas7bdat&quot;</span>)</span>
+<span id="cb494-3"><a href="RD.html#cb494-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">write.csv</span>(angrist,<span class="at">file =</span> <span class="st">&quot;Ch 09 angrist&quot;</span>,<span class="at">row.names =</span> F)</span></code></pre></div>
+<p>Let’s import the data.</p>
+<div class="sourceCode" id="cb495"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb495-1"><a href="RD.html#cb495-1" aria-hidden="true" tabindex="-1"></a>ang <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;Ch 09 angrist.csv&quot;</span>)</span>
+<span id="cb495-2"><a href="RD.html#cb495-2" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(ang)</span></code></pre></div>
+<pre><code>## &#39;data.frame&#39;:    2019 obs. of  4 variables:
+##  $ read             : num  58 82.6 46.3 66.6 75 ...
+##  $ size             : int  8 9 9 9 10 10 10 10 11 11 ...
+##  $ intended_classize: num  8 9 9 9 10 10 10 10 11 11 ...
+##  $ observed_classize: int  8 9 9 11 10 10 10 10 11 17 ...</code></pre>
+<p>And, let’s rename the columns:</p>
+<div class="sourceCode" id="cb497"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb497-1"><a href="RD.html#cb497-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(ang) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;read&quot;</span>,<span class="st">&quot;coh_size&quot;</span>,<span class="st">&quot;int_size&quot;</span>,<span class="st">&quot;obs_size&quot;</span>)</span>
+<span id="cb497-2"><a href="RD.html#cb497-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(ang)</span></code></pre></div>
+<pre><code>##    read coh_size int_size obs_size
+## 1 58.00        8        8        8
+## 2 82.63        9        9        9
+## 3 46.33        9        9        9
+## 4 66.56        9        9       11
+## 5 75.00       10       10       10
+## 6 80.56       10       10       10</code></pre>
+<p>Each row in the data frame is a classroom, which is the unit of analysis. Here’s a description of the columns:</p>
+<ul>
+<li><code>read</code> is the class’s reading-achievement score. This is the outcome variable, measured (we assume) at the end of the academic year.</li>
+<li><code>coh_size</code> is the cohort size, which is the number of students during the enrollment period at the start of the academic year.</li>
+<li><code>int_size</code> is the intended class size, per the Maimonides rule.</li>
+<li><code>obs_size</code> is the observed class size later in the academic year.</li>
+</ul>
+<p>The causal claim being investigated is whether the policy of splitting a large class into two smaller classes leads to higher reading achievement scores of the class.</p>
+<p>Let’s make a group variable that represents the assignment variable based on Maimonides rule. Those cohorts containing over 40 students were split into two smaller classes and assigned to the <em>small</em> condition. We can think of the <em>small</em> status as being the treatment group, with <code>small = 1</code> for classes that were made smaller, per the exogenous Maimonides assignment rule, and <code>small = 0</code> for classes that were not made smaller.</p>
+<div class="sourceCode" id="cb499"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb499-1"><a href="RD.html#cb499-1" aria-hidden="true" tabindex="-1"></a>ang<span class="sc">$</span>small <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(ang<span class="sc">$</span>coh_size <span class="sc">&gt;</span> <span class="dv">40</span>,<span class="dv">1</span>,<span class="dv">0</span>)</span></code></pre></div>
+<p>Let’s center the forcing variable, <em>coh_size</em>, which helps us to interpret the intercept. This is discussed on pp. 178–180.</p>
+<div class="sourceCode" id="cb500"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb500-1"><a href="RD.html#cb500-1" aria-hidden="true" tabindex="-1"></a>ang<span class="sc">$</span>csize <span class="ot">&lt;-</span> ang<span class="sc">$</span>coh_size<span class="dv">-41</span></span></code></pre></div>
+<p>Let’s make a subset of the data that have cohort enrollment sizes between 36 and 46 students. This is to help us think through this demonstration. It also makes sense if we are examining the intent of the policy and its causal effect. Here, and in the rest of this code, we’re using the <code>subset()</code> function, but we could easily do this in other ways in R. Instead of that function, we could use indexing, such as <code>ang[ang$coh_size &gt;= 36 &amp; ang$coh_size &lt;= 46, ]</code> to achieve the same result.</p>
+<div class="sourceCode" id="cb501"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb501-1"><a href="RD.html#cb501-1" aria-hidden="true" tabindex="-1"></a>ang3646 <span class="ot">&lt;-</span> <span class="fu">subset</span>(ang, coh_size <span class="sc">&gt;=</span> <span class="dv">36</span> <span class="sc">&amp;</span> coh_size <span class="sc">&lt;=</span> <span class="dv">46</span>)</span></code></pre></div>
+<p>Let’s examine means of the classes’ reading scores by their enrollment size. We’ll use the <code>aggregate()</code> function to view this by cohort size. We looked at this in <a href="examine.html#aggregate_explain" target="_blank">a previous section of this tutorial</a>.</p>
+<div class="sourceCode" id="cb502"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb502-1"><a href="RD.html#cb502-1" aria-hidden="true" tabindex="-1"></a>ReadByM <span class="ot">&lt;-</span> <span class="fu">aggregate</span>(read <span class="sc">~</span> coh_size, <span class="at">data =</span> ang3646, mean)</span>
+<span id="cb502-2"><a href="RD.html#cb502-2" aria-hidden="true" tabindex="-1"></a>ReadByM</span></code></pre></div>
+<pre><code>##    coh_size     read
+## 1        36 67.30445
+## 2        37 68.94066
+## 3        38 67.85400
+## 4        39 68.87000
+## 5        40 67.92847
+## 6        41 73.67670
+## 7        42 67.59560
+## 8        43 77.17644
+## 9        44 72.16160
+## 10       45 76.91684
+## 11       46 70.30814</code></pre>
+<p>The following code creates Table 9.1 of Murnane and Willett.</p>
+<blockquote>
+<p>There’s a lot in this code and you can skip over it to get to the meat of the lesson. Basically, we’re using the <code>table()</code> function to get the number of observations at each cohort size. The output of that is a table, which we turn into a data frame. Because coh_size is a number but the <code>table()</code> function turned it into a factor, we turn it back into a numeric type variable using the <code>as.numeric(levels())</code> line of code. We then calculate the mean size of the classes by each cohort size, with <code>by(obs_size, coh_size, mean)</code>, which we make numeric and round. We identify what its treatment status is with the <code>NominalSize</code> variable. The last two variables are the mean (across classes) and standard deviations (across classes) at each cohort size.</p>
+</blockquote>
+<div class="sourceCode" id="cb504"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb504-1"><a href="RD.html#cb504-1" aria-hidden="true" tabindex="-1"></a>T9<span class="fl">.1</span> <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">table</span>(ang3646<span class="sc">$</span>coh_size))</span>
+<span id="cb504-2"><a href="RD.html#cb504-2" aria-hidden="true" tabindex="-1"></a>   <span class="fu">names</span>(T9<span class="fl">.1</span>)   <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;coh_size&quot;</span>,<span class="st">&quot;freq&quot;</span>)</span>
+<span id="cb504-3"><a href="RD.html#cb504-3" aria-hidden="true" tabindex="-1"></a>   T9<span class="fl">.1</span><span class="sc">$</span>coh_size <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(<span class="fu">levels</span>(T9<span class="fl">.1</span><span class="sc">$</span>coh_size))                         <span class="co">#Coercing the coh_size variable to be numeric instead of factor</span></span>
+<span id="cb504-4"><a href="RD.html#cb504-4" aria-hidden="true" tabindex="-1"></a>T9<span class="fl">.1</span><span class="sc">$</span>IntendedSize<span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(<span class="fu">with</span>(ang3646, <span class="fu">by</span>(int_size, coh_size, mean)))   <span class="co">#The by() function to get the mean class size by each set of schools of cohort sizes 36 through 46</span></span>
+<span id="cb504-5"><a href="RD.html#cb504-5" aria-hidden="true" tabindex="-1"></a>T9<span class="fl">.1</span><span class="sc">$</span>ObservedSize<span class="ot">&lt;-</span> <span class="fu">round</span>(<span class="fu">as.numeric</span>(<span class="fu">with</span>(ang3646, <span class="fu">by</span>(obs_size,coh_size, mean))),<span class="dv">1</span>)<span class="co">#The by() function again, also, rounded to 1 decimal place.</span></span>
+<span id="cb504-6"><a href="RD.html#cb504-6" aria-hidden="true" tabindex="-1"></a>T9<span class="fl">.1</span><span class="sc">$</span>NominalSize <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(T9<span class="fl">.1</span><span class="sc">$</span>coh_size<span class="sc">&gt;</span><span class="dv">40</span>,<span class="st">&quot;Small&quot;</span>,<span class="st">&quot;Large&quot;</span>)                  <span class="co">#Labeling schools that, by Maimonides Rule, split into two smaller classes (small)</span></span>
+<span id="cb504-7"><a href="RD.html#cb504-7" aria-hidden="true" tabindex="-1"></a>T9<span class="fl">.1</span><span class="sc">$</span>ReadByM     <span class="ot">&lt;-</span> <span class="fu">round</span>(<span class="fu">as.numeric</span>(<span class="fu">with</span>(ang3646, <span class="fu">by</span>(read,coh_size, mean))),    <span class="dv">2</span>)<span class="co">#Mean achievement by cohort (unit of analysis is classes, not students, so it&#39;s a mean among the classes&#39; means)</span></span>
+<span id="cb504-8"><a href="RD.html#cb504-8" aria-hidden="true" tabindex="-1"></a>T9<span class="fl">.1</span><span class="sc">$</span>ReadBySD    <span class="ot">&lt;-</span> <span class="fu">round</span>(<span class="fu">as.numeric</span>(<span class="fu">with</span>(ang3646, <span class="fu">by</span>(read,coh_size, sd))),      <span class="dv">2</span>)</span>
+<span id="cb504-9"><a href="RD.html#cb504-9" aria-hidden="true" tabindex="-1"></a>T9<span class="fl">.1</span></span></code></pre></div>
+<pre><code>##    coh_size freq IntendedSize ObservedSize NominalSize ReadByM ReadBySD
+## 1        36    9         36.0         27.4       Large   67.30    12.36
+## 2        37    9         37.0         26.2       Large   68.94     8.50
+## 3        38   10         38.0         33.1       Large   67.85    14.04
+## 4        39   10         39.0         31.2       Large   68.87    12.07
+## 5        40    9         40.0         29.9       Large   67.93     7.87
+## 6        41   28         20.5         22.7       Small   73.68     8.77
+## 7        42   25         21.0         23.4       Small   67.60     9.30
+## 8        43   24         21.5         22.1       Small   77.18     7.47
+## 9        44   17         22.0         24.4       Small   72.16     7.71
+## 10       45   19         22.5         22.7       Small   76.92     8.71
+## 11       46   20         23.0         22.6       Small   70.31     9.78</code></pre>
+</div>
+<div id="different-difference-in-differences" class="section level2" number="6.3">
+<h2><span class="header-section-number">6.3</span> Different Difference in Differences</h2>
+<div id="our-first-difference" class="section level3" number="6.3.1">
+<h3><span class="header-section-number">6.3.1</span> Our first difference</h3>
+<p>And now for something completely different (well, maybe not completely). Here is a simple first-difference analysis, which M &amp; W discussed on p. 170. Remember that this is a demonstration to help us think about RDD; it’s <em>not</em> the recommended analysis.</p>
+<p>First, let’s subset our data to include only the first difference—the cohort sizes of 40 and 41. We can calculate the mean, by their treatment-group status.</p>
+<div class="sourceCode" id="cb506"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb506-1"><a href="RD.html#cb506-1" aria-hidden="true" tabindex="-1"></a>ang4041 <span class="ot">&lt;-</span> <span class="fu">subset</span>(ang, coh_size <span class="sc">==</span> <span class="dv">40</span><span class="sc">|</span>coh_size <span class="sc">==</span> <span class="dv">41</span>)</span>
+<span id="cb506-2"><a href="RD.html#cb506-2" aria-hidden="true" tabindex="-1"></a><span class="fu">with</span>(ang4041, <span class="fu">by</span>(read, small, mean))</span></code></pre></div>
+<pre><code>## small: 0
+## [1] 67.92847
+## ------------------------------------------------------------ 
+## small: 1
+## [1] 73.6767</code></pre>
+<p>Let’s fit a linear model on this, with <span class="math inline">\(\text{read} = \beta_0 + \beta_{1}\text{small} + \epsilon\)</span> as our regression equation.</p>
+<div class="sourceCode" id="cb508"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb508-1"><a href="RD.html#cb508-1" aria-hidden="true" tabindex="-1"></a>(fit4041 <span class="ot">&lt;-</span> <span class="fu">summary</span>(<span class="fu">lm</span>(read <span class="sc">~</span> small, <span class="at">data =</span> ang4041)))</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = read ~ small, data = ang4041)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -18.3567  -4.6267  -0.3867   6.1533  15.5933 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)   67.928      2.856  23.781   &lt;2e-16 ***
+## small          5.748      3.283   1.751   0.0888 .  
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 8.569 on 35 degrees of freedom
+## Multiple R-squared:  0.08051,    Adjusted R-squared:  0.05424 
+## F-statistic: 3.065 on 1 and 35 DF,  p-value: 0.08877</code></pre>
+<p>Note that M &amp; W reported the <em>p</em>-value for a one-sided test but that the statistical test in our output is for the usual two-tailed test <span class="math inline">\(0.0888\)</span>, which is twice as large as what they reported. Usually, we do not report one-sided tests. In any case, if we really wanted to use code to get the one-sided <em>p</em>-value, we could get the estimate and the degrees of freedom from the output and put it inside the <code>pt()</code> function.</p>
+<div class="sourceCode" id="cb510"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb510-1"><a href="RD.html#cb510-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pt</span>(<span class="sc">-</span><span class="fu">abs</span>(fit4041<span class="sc">$</span>coefficients[<span class="dv">2</span>,<span class="dv">3</span>]), fit4041<span class="sc">$</span>df[<span class="dv">2</span>])</span></code></pre></div>
+<pre><code>## [1] 0.04438463</code></pre>
+<p>We’re comparing two cohorts of observations—those on either side of the Maimonides assignment cut-point. If we were to think that no other variables beyond the treatment assignment variable (<code>small</code>) were explaining the difference in reading achievement, we might stop here. There may be a pre-existing relationship, a secular trend, between the forcing variable and the outcome variable. Citing the original authors of the study (Angrist &amp; Lavy) M &amp; W point out that socio-economic status (SES) seems to be related to cohort size, regardless (arguably) of the treatment status. In the population in their study, students living in rural communities are typically of lower SES and these rural communities tend to have smaller cohort sizes. Given that SES is typically related to academic achievement outcomes, there is good reason to believe there is a secular trend.</p>
+</div>
+<div id="a-plausible-second-difference" class="section level3" number="6.3.2">
+<h3><span class="header-section-number">6.3.2</span> A plausible second difference</h3>
+<p>This part corresponds with Pages 172–173. We can roughly estimate this secular trend using the difference in means of cohorts of sizes 39 and 38, and subtract that from our first difference. Let’s subset the data to include these four cohorts and calculate the means of each. Note, that these two new cohorts are on the “control” side of the Maimonides assignment rule. Only one, of cohort size 41, was assigned to the treatment group.</p>
+<div class="sourceCode" id="cb512"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb512-1"><a href="RD.html#cb512-1" aria-hidden="true" tabindex="-1"></a>ang3841 <span class="ot">&lt;-</span> <span class="fu">subset</span>(ang,coh_size <span class="sc">&gt;=</span> <span class="dv">38</span> <span class="sc">&amp;</span> coh_size <span class="sc">&lt;=</span> <span class="dv">41</span>)</span>
+<span id="cb512-2"><a href="RD.html#cb512-2" aria-hidden="true" tabindex="-1"></a>(ReadBy3841M <span class="ot">&lt;-</span> <span class="fu">aggregate</span>(read <span class="sc">~</span> coh_size, <span class="at">data =</span> ang3841, mean))</span></code></pre></div>
+<pre><code>##   coh_size     read
+## 1       38 67.85400
+## 2       39 68.87000
+## 3       40 67.92847
+## 4       41 73.67670</code></pre>
+<p>We can use regression to estimate the difference in differences. Let’s create a new variable, called <code>larger</code> to distinguish the group with the larger enrollment within each pair. In this small example, the cohort with size 39 is larger than the cohort with 38. Likewise, the cohort of size 41 is larger than its counterpart of size 40. This variable is meant to capture the secular trend—that relationship between the forcing variable and reading achievement. This is the second difference.</p>
+<div class="sourceCode" id="cb514"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb514-1"><a href="RD.html#cb514-1" aria-hidden="true" tabindex="-1"></a>ang3841<span class="sc">$</span>larger <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(ang3841<span class="sc">$</span>coh_size <span class="sc">==</span> <span class="dv">39</span> <span class="sc">|</span> ang3841<span class="sc">$</span>coh_size <span class="sc">==</span> <span class="dv">41</span>, <span class="dv">1</span>,<span class="dv">0</span>)</span></code></pre></div>
+<p>For the first difference, we’ll also create a dummy variable, <code>firstdiff</code>. This is to distinguish the groups that participate in the first difference from those that are in the second difference.</p>
+<div class="sourceCode" id="cb515"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb515-1"><a href="RD.html#cb515-1" aria-hidden="true" tabindex="-1"></a>ang3841<span class="sc">$</span>firstdiff<span class="ot">&lt;-</span> <span class="fu">ifelse</span>(ang3841<span class="sc">$</span>coh_size <span class="sc">&gt;=</span> <span class="dv">40</span>, <span class="dv">1</span>,<span class="dv">0</span>)</span></code></pre></div>
+<p>We’re interested in <span class="math inline">\(\beta_3\)</span> in <span class="math display">\[read = \beta_0 + \beta_{1}\text{firstdiff} + \beta_{2}\text{larger} +  \beta_{3}(\text{firstdiff } X \text{ larger}) + \epsilon \text{.}\]</span></p>
+<div class="sourceCode" id="cb516"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb516-1"><a href="RD.html#cb516-1" aria-hidden="true" tabindex="-1"></a>(fit3841 <span class="ot">&lt;-</span> <span class="fu">summary</span>(<span class="fu">lm</span>(read <span class="sc">~</span> firstdiff<span class="sc">*</span>larger, <span class="at">data =</span> ang3841)))</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = read ~ firstdiff * larger, data = ang3841)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -33.054  -4.267   1.753   6.853  15.796 
+## 
+## Coefficients:
+##                  Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)      67.85400    3.26658  20.772   &lt;2e-16 ***
+## firstdiff         0.07447    4.74622   0.016    0.988    
+## larger            1.01600    4.61963   0.220    0.827    
+## firstdiff:larger  4.73223    6.08342   0.778    0.440    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 10.33 on 53 degrees of freedom
+## Multiple R-squared:  0.07056,    Adjusted R-squared:  0.01795 
+## F-statistic: 1.341 on 3 and 53 DF,  p-value: 0.2709</code></pre>
+<p>The secular trend is purportedly captured by the second difference, which is estimated as <span class="math inline">\(\beta_{2} = 1.016\)</span>. The difference due to the policy is <span class="math inline">\(\beta_{3}\)</span>, estimated as <span class="math inline">\(4.732\)</span>, which has been adjusted for the 2nd difference. This is the same as Diff1 <span class="math inline">\(-\)</span> Diff2, or <span class="math inline">\((73.677 - 67.928) - (68.87 - 67.854)\)</span>. The standard error is a little different from that in the book because we’re using regression rather than the direct estimate.</p>
+</div>
+<div id="another-plausible-second-difference" class="section level3" number="6.3.3">
+<h3><span class="header-section-number">6.3.3</span> Another plausible second difference</h3>
+<p>A problem with difference in differences with a data set like this is that there are many ways we could have estimated this second difference. For example, if we used a different pair of contiguous cohort sizes, such as cohorts of sizes 37 &amp; 38, our second difference would be different <span class="math inline">\((67.85 - 68.94 = -1.09)\)</span>, as discussed on p. 175. Here’s another plausible example, with cohorts of sizes 36 through 40 for the secular trend versus the first difference. Let’s subset this part of the data and then plot the means.</p>
+<div class="sourceCode" id="cb518"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb518-1"><a href="RD.html#cb518-1" aria-hidden="true" tabindex="-1"></a>ang3641  <span class="ot">&lt;-</span> <span class="fu">subset</span>(ang,coh_size <span class="sc">&gt;=</span> <span class="dv">36</span> <span class="sc">&amp;</span> coh_size <span class="sc">&lt;=</span> <span class="dv">41</span>)</span>
+<span id="cb518-2"><a href="RD.html#cb518-2" aria-hidden="true" tabindex="-1"></a>mread3640<span class="ot">&lt;-</span> <span class="fu">aggregate</span>(read<span class="sc">~</span>coh_size, <span class="at">data =</span> ang3641[ang3641<span class="sc">$</span>coh_size <span class="sc">&lt;</span> <span class="dv">41</span>, ], mean)</span>
+<span id="cb518-3"><a href="RD.html#cb518-3" aria-hidden="true" tabindex="-1"></a>mread41  <span class="ot">&lt;-</span> <span class="fu">aggregate</span>(read<span class="sc">~</span>coh_size, <span class="at">data =</span> ang3641[ang3641<span class="sc">$</span>coh_size <span class="sc">==</span><span class="dv">41</span>, ], mean)</span></code></pre></div>
+<p>The X and Y here are for printing the blue prediction line in the subsequet plot.</p>
+<div class="sourceCode" id="cb519"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb519-1"><a href="RD.html#cb519-1" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">36</span><span class="sc">:</span><span class="dv">41</span>)</span>
+<span id="cb519-2"><a href="RD.html#cb519-2" aria-hidden="true" tabindex="-1"></a>Y <span class="ot">&lt;-</span> <span class="fu">predict</span>(<span class="fu">lm</span>(read <span class="sc">~</span> coh_size, <span class="at">data =</span> mread3640),</span>
+<span id="cb519-3"><a href="RD.html#cb519-3" aria-hidden="true" tabindex="-1"></a>             <span class="at">newdata =</span> <span class="fu">data.frame</span>(<span class="at">coh_size =</span> X))</span></code></pre></div>
+<p>Here’s the plot:</p>
+<div class="sourceCode" id="cb520"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb520-1"><a href="RD.html#cb520-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">bty =</span> <span class="st">&quot;l&quot;</span>)</span>
+<span id="cb520-2"><a href="RD.html#cb520-2" aria-hidden="true" tabindex="-1"></a><span class="fu">with</span>(mread3640, </span>
+<span id="cb520-3"><a href="RD.html#cb520-3" aria-hidden="true" tabindex="-1"></a>     <span class="fu">plot</span>(coh_size, read, </span>
+<span id="cb520-4"><a href="RD.html#cb520-4" aria-hidden="true" tabindex="-1"></a>          <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">65</span>,<span class="dv">75</span>), <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">36</span>,<span class="dv">43</span>),</span>
+<span id="cb520-5"><a href="RD.html#cb520-5" aria-hidden="true" tabindex="-1"></a>          <span class="at">pch =</span> <span class="dv">16</span>,</span>
+<span id="cb520-6"><a href="RD.html#cb520-6" aria-hidden="true" tabindex="-1"></a>          <span class="at">xlab =</span> <span class="st">&quot;September cohort enrollment size&quot;</span>, </span>
+<span id="cb520-7"><a href="RD.html#cb520-7" aria-hidden="true" tabindex="-1"></a>          <span class="at">ylab =</span> <span class="st">&quot;Verbal score (class avg)&quot;</span>,</span>
+<span id="cb520-8"><a href="RD.html#cb520-8" aria-hidden="true" tabindex="-1"></a>          <span class="fu">lines</span>(coh_size,read)))</span>
+<span id="cb520-9"><a href="RD.html#cb520-9" aria-hidden="true" tabindex="-1"></a>     <span class="fu">lines</span>(X,Y, <span class="at">col =</span> <span class="st">&quot;blue&quot;</span>, <span class="at">lty =</span> <span class="dv">3</span>)</span>
+<span id="cb520-10"><a href="RD.html#cb520-10" aria-hidden="true" tabindex="-1"></a>     <span class="fu">points</span>(mread41, <span class="at">pch =</span> <span class="dv">16</span>)</span>
+<span id="cb520-11"><a href="RD.html#cb520-11" aria-hidden="true" tabindex="-1"></a>     <span class="fu">text</span>(<span class="dv">41</span>, Y[<span class="dv">6</span>] <span class="sc">-</span> .<span class="dv">5</span>, <span class="st">&quot;Provisional projection</span><span class="sc">\n</span><span class="st">  for the class size of 41</span><span class="sc">\n</span><span class="st">  if no Maimonides rule</span><span class="sc">\n</span><span class="st">  were in place&quot;</span>, </span>
+<span id="cb520-12"><a href="RD.html#cb520-12" aria-hidden="true" tabindex="-1"></a>       <span class="at">pos =</span> <span class="dv">4</span>,</span>
+<span id="cb520-13"><a href="RD.html#cb520-13" aria-hidden="true" tabindex="-1"></a>       <span class="at">col =</span> <span class="st">&quot;blue&quot;</span>,</span>
+<span id="cb520-14"><a href="RD.html#cb520-14" aria-hidden="true" tabindex="-1"></a>       <span class="at">cex =</span> .<span class="dv">8</span>)</span></code></pre></div>
+<p><img src="QEDs-in-R_files/figure-html/unnamed-chunk-272-1.png" width="672" />
+Here’s the linear model of this DID, per Table 9.3 on page 180. Notice that we’re using the <em>centered</em> cohort size (<code>csize</code>), which is <span class="math inline">\(\text{coh_size}-41\)</span>, as our forcing variable. We had created this above with <code>ang$csize &lt;- ang$coh_size-41</code>. This is so we can set the intercept at 41 (explained on pp. 178–180).</p>
+<div class="sourceCode" id="cb521"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb521-1"><a href="RD.html#cb521-1" aria-hidden="true" tabindex="-1"></a>(fit3641 <span class="ot">&lt;-</span> <span class="fu">summary</span>(<span class="fu">lm</span>(read <span class="sc">~</span> csize <span class="sc">+</span> small, <span class="at">data =</span> ang3641)))</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = read ~ csize + small, data = ang3641)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -33.385  -4.519   1.581   7.004  17.113 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)   68.557      3.511  19.523   &lt;2e-16 ***
+## csize          0.124      1.068   0.116    0.908    
+## small          5.120      4.005   1.279    0.205    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 10.19 on 72 degrees of freedom
+## Multiple R-squared:  0.06624,    Adjusted R-squared:  0.0403 
+## F-statistic: 2.554 on 2 and 72 DF,  p-value: 0.08481</code></pre>
+<p>Interpreting this model’s coefficients, we can see that if the cohort of size 41 were <em>not</em> split into 2 classes, its estimated achievement would be <span class="math inline">\(68.56\)</span> (i.e., the intercept). This is our counterfactual. Being in a small class (e.g., of size 20 or 21 from a cohort of size 41), is estimated to have an effect of <span class="math inline">\(5.12\)</span> points on the reading achievement test, but the standard error is large in comparison, <span class="math inline">\(4\)</span>. Recall from Table 9.1 that the cohort of size 41 has only 28 observations, so there’s not a lot to work with in regard to statistical power; also, the variance is pretty big, with <span class="math inline">\(SD = 8.77 \therefore Var = 8.77^2 = 76.9129\)</span>.</p>
+</div>
+</div>
+<div id="broadening-the-bandwidth" class="section level2" number="6.4">
+<h2><span class="header-section-number">6.4</span> Broadening the bandwidth</h2>
+<p>The <code>fit3641</code> analysis did not use information on the right side of the discontinuity. It was a single point. Let’s use more information on the right side to see if we can better estimate the secular trend (the second difference).</p>
+<p>Here is Table 9.4 on page 183. Now, we’re using our data set that is represented in Table 9.1, with all cohorts from size 36 through 46.</p>
+<div class="sourceCode" id="cb523"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb523-1"><a href="RD.html#cb523-1" aria-hidden="true" tabindex="-1"></a>fit3646 <span class="ot">&lt;-</span> (<span class="fu">lm</span>(read <span class="sc">~</span> csize <span class="sc">+</span> small, <span class="at">data =</span> ang3646))</span>
+<span id="cb523-2"><a href="RD.html#cb523-2" aria-hidden="true" tabindex="-1"></a>(fit3646out <span class="ot">&lt;-</span> <span class="fu">summary</span>(fit3646))</span>
+<span id="cb523-3"><a href="RD.html#cb523-3" aria-hidden="true" tabindex="-1"></a><span class="fu">pt</span>(<span class="sc">-</span><span class="fu">abs</span>(fit3646out<span class="sc">$</span>coefficients[<span class="dv">3</span>,<span class="dv">3</span>]), fit3646out<span class="sc">$</span>df[<span class="dv">2</span>]) <span class="co"># one-tailed p-value</span></span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = read ~ csize + small, data = ang3646)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -33.384  -5.466   1.312   7.184  17.208 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  68.6957     1.9178  35.821   &lt;2e-16 ***
+## csize         0.1707     0.4360   0.391    0.696    
+## small         3.8472     2.8112   1.368    0.173    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 9.674 on 177 degrees of freedom
+## Multiple R-squared:  0.04579,    Adjusted R-squared:  0.035 
+## F-statistic: 4.246 on 2 and 177 DF,  p-value: 0.0158
+## 
+## [1] 0.08644695</code></pre>
+<p>We can see the effect is not statistically significant.</p>
+<p>We can examine the plot of this analysis, along with the projected (counterfactual) estimate if the large-class cohorts’ classes were NOT split at size 41. First, let’s create mean points that we can use in the subsequent plot.</p>
+<div class="sourceCode" id="cb525"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb525-1"><a href="RD.html#cb525-1" aria-hidden="true" tabindex="-1"></a>mread3640 <span class="ot">&lt;-</span> <span class="fu">aggregate</span>(read <span class="sc">~</span> csize, </span>
+<span id="cb525-2"><a href="RD.html#cb525-2" aria-hidden="true" tabindex="-1"></a>                       <span class="at">data =</span> ang3646[ang3646<span class="sc">$</span>coh_size <span class="sc">&lt;</span>  <span class="dv">41</span>, ], mean)</span>
+<span id="cb525-3"><a href="RD.html#cb525-3" aria-hidden="true" tabindex="-1"></a>mread4146 <span class="ot">&lt;-</span> <span class="fu">aggregate</span>(read <span class="sc">~</span> csize, </span>
+<span id="cb525-4"><a href="RD.html#cb525-4" aria-hidden="true" tabindex="-1"></a>                       <span class="at">data =</span> ang3646[ang3646<span class="sc">$</span>coh_size <span class="sc">&gt;=</span> <span class="dv">41</span>, ], mean)</span></code></pre></div>
+<p>Let’s create the Xs and Ys to use in prediction lines in the subsequent plot. Here is the left side prediction (cohorts of size 36 to 40):</p>
+<div class="sourceCode" id="cb526"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb526-1"><a href="RD.html#cb526-1" aria-hidden="true" tabindex="-1"></a>X3641 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">csize =</span> <span class="fu">c</span>(<span class="dv">36</span><span class="sc">:</span><span class="dv">41-41</span>))     <span class="co">#Note that the cohort size of 41 (csize = 0) is counterfactual.</span></span>
+<span id="cb526-2"><a href="RD.html#cb526-2" aria-hidden="true" tabindex="-1"></a>X3641<span class="sc">$</span>small <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">0</span>, <span class="fu">length</span>(X3641<span class="sc">$</span>csize) )  <span class="co">#Each observation is specified as being in the large-class grp.</span></span>
+<span id="cb526-3"><a href="RD.html#cb526-3" aria-hidden="true" tabindex="-1"></a>Y3641   <span class="ot">&lt;-</span> <span class="fu">predict</span>(fit3646, <span class="at">newdata =</span> X3641) <span class="co">#Predicted avg reading score of the class</span></span></code></pre></div>
+<p>Here’s the right side prediction (cohorts of size 41 to 46):</p>
+<div class="sourceCode" id="cb527"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb527-1"><a href="RD.html#cb527-1" aria-hidden="true" tabindex="-1"></a>X4146 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">csize =</span> <span class="fu">c</span>(<span class="dv">41</span><span class="sc">:</span><span class="dv">46-41</span>)) </span>
+<span id="cb527-2"><a href="RD.html#cb527-2" aria-hidden="true" tabindex="-1"></a>X4146<span class="sc">$</span>small <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">1</span>, <span class="fu">length</span>(X4146<span class="sc">$</span>csize) ) <span class="co">#Each observation is specified as being in the SMALL-class grp.</span></span>
+<span id="cb527-3"><a href="RD.html#cb527-3" aria-hidden="true" tabindex="-1"></a>Y4146   <span class="ot">&lt;-</span> <span class="fu">predict</span>(fit3646, <span class="at">newdata =</span> X4146)</span></code></pre></div>
+<p>Let’s create a regular plot with one of the groups. We’ll add the other group’s mean points, next.</p>
+<div class="sourceCode" id="cb528"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb528-1"><a href="RD.html#cb528-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">bty =</span> <span class="st">&quot;l&quot;</span>)</span>
+<span id="cb528-2"><a href="RD.html#cb528-2" aria-hidden="true" tabindex="-1"></a><span class="fu">with</span>(mread3640,              </span>
+<span id="cb528-3"><a href="RD.html#cb528-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>(csize, read, </span>
+<span id="cb528-4"><a href="RD.html#cb528-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">ylim=</span> <span class="fu">c</span>(<span class="dv">65</span>,<span class="dv">79</span>), </span>
+<span id="cb528-5"><a href="RD.html#cb528-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">xlim=</span> <span class="fu">c</span>(<span class="dv">36</span>,<span class="dv">47</span>)<span class="sc">-</span><span class="dv">41</span>,</span>
+<span id="cb528-6"><a href="RD.html#cb528-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">pch=</span><span class="dv">18</span>,</span>
+<span id="cb528-7"><a href="RD.html#cb528-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">xlab =</span> <span class="st">&quot;September cohort enrollment size (centered)&quot;</span>, </span>
+<span id="cb528-8"><a href="RD.html#cb528-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">ylab =</span> <span class="st">&quot;Verbal score (class avg)&quot;</span>,</span>
+<span id="cb528-9"><a href="RD.html#cb528-9" aria-hidden="true" tabindex="-1"></a>       <span class="at">main =</span> <span class="st">&quot;Slopes on both sides specified as equal&quot;</span>,</span>
+<span id="cb528-10"><a href="RD.html#cb528-10" aria-hidden="true" tabindex="-1"></a>       <span class="fu">lines</span>(csize, read)))</span>
+<span id="cb528-11"><a href="RD.html#cb528-11" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(X3641<span class="sc">$</span>csize,Y3641, <span class="at">col=</span><span class="st">&quot;blue&quot;</span>)   <span class="co"># The linear fit of the observed &quot;large&quot; class group</span></span>
+<span id="cb528-12"><a href="RD.html#cb528-12" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(mread4146<span class="sc">$</span>csize,mread4146<span class="sc">$</span>read,<span class="at">pch=</span><span class="dv">18</span>) <span class="co"># Mean estimates of cohort sizes of 41 to 46</span></span>
+<span id="cb528-13"><a href="RD.html#cb528-13" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(mread4146<span class="sc">$</span>csize,mread4146<span class="sc">$</span>read)  <span class="co"># The linear fit of the observed &quot;small&quot; class group</span></span>
+<span id="cb528-14"><a href="RD.html#cb528-14" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(X4146<span class="sc">$</span>csize,Y4146, <span class="at">col=</span><span class="st">&quot;blue&quot;</span>)</span>
+<span id="cb528-15"><a href="RD.html#cb528-15" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">v=</span><span class="dv">0</span>,<span class="at">h=</span><span class="cn">NULL</span>,<span class="at">lty=</span><span class="dv">2</span>)</span></code></pre></div>
+<p><img src="QEDs-in-R_files/figure-html/unnamed-chunk-278-1.png" width="672" /></p>
+<p>It appears as though there is a discontinuity; however, the LATE of <code>small</code> was not statistically significant. This is a rudimentary regression discontinuity analysis.</p>
+</div>
+<div id="summary-up-to-this-point" class="section level2" number="6.5">
+<h2><span class="header-section-number">6.5</span> Summary up to this point</h2>
+<p>This example was presented to illustrate how to think about regression discontinuity designs. The above analysis assumes that</p>
+<ol style="list-style-type: lower-alpha">
+<li>the secular relationship between cohort size and achievement is linear and</li>
+<li>this linearity is the same on both sides of the discontinuity.</li>
+</ol>
+<p>An appropriate analysis would include an analysis of the functional form (i.e., linear, quadratic, cubic, and so forth) between the forcing variable and the outcome. And, the analysis would address bandwidth. If we can find an appropriate functional form or bandwidth that extends across this analytic window on both sides of the discontinuity, we can use these larger samples.</p>
+</div>
+<div id="examining-if-the-results-are-consistent-with-different-bandwidths" class="section level2" number="6.6">
+<h2><span class="header-section-number">6.6</span> Examining if the results are consistent with different bandwidths</h2>
+<p>Table 9.5 on p. 184 presents a bunch of estimates from different analytic window widths. The following syntax produces the coefficients from these different widths:</p>
+<div class="sourceCode" id="cb529"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb529-1"><a href="RD.html#cb529-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">lm</span>(read<span class="sc">~</span>csize <span class="sc">+</span> small, <span class="at">data =</span> ang3641))</span>
+<span id="cb529-2"><a href="RD.html#cb529-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">lm</span>(read<span class="sc">~</span>csize <span class="sc">+</span> small, <span class="at">data =</span> <span class="fu">subset</span>(ang, coh_size<span class="sc">&gt;=</span><span class="dv">35</span> <span class="sc">&amp;</span> coh_size<span class="sc">&lt;=</span><span class="dv">47</span>))) <span class="co">#Analytic window of 6 cohort-size points on either side of the cut</span></span>
+<span id="cb529-3"><a href="RD.html#cb529-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">lm</span>(read<span class="sc">~</span>csize <span class="sc">+</span> small, <span class="at">data =</span> <span class="fu">subset</span>(ang, coh_size<span class="sc">&gt;=</span><span class="dv">34</span> <span class="sc">&amp;</span> coh_size<span class="sc">&lt;=</span><span class="dv">48</span>)))</span>
+<span id="cb529-4"><a href="RD.html#cb529-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">lm</span>(read<span class="sc">~</span>csize <span class="sc">+</span> small, <span class="at">data =</span> <span class="fu">subset</span>(ang, coh_size<span class="sc">&gt;=</span><span class="dv">32</span> <span class="sc">&amp;</span> coh_size<span class="sc">&lt;=</span><span class="dv">50</span>))) </span>
+<span id="cb529-5"><a href="RD.html#cb529-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">lm</span>(read<span class="sc">~</span>csize <span class="sc">+</span> small, <span class="at">data =</span> <span class="fu">subset</span>(ang, coh_size<span class="sc">&gt;=</span><span class="dv">31</span> <span class="sc">&amp;</span> coh_size<span class="sc">&lt;=</span><span class="dv">51</span>))) <span class="co">#Analytic window of 10 cohort-size points</span></span>
+<span id="cb529-6"><a href="RD.html#cb529-6" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">lm</span>(read<span class="sc">~</span>csize <span class="sc">+</span> small, <span class="at">data =</span> <span class="fu">subset</span>(ang, coh_size<span class="sc">&gt;=</span><span class="dv">30</span> <span class="sc">&amp;</span> coh_size<span class="sc">&lt;=</span><span class="dv">52</span>)))</span>
+<span id="cb529-7"><a href="RD.html#cb529-7" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">lm</span>(read<span class="sc">~</span>csize <span class="sc">+</span> small, <span class="at">data =</span> <span class="fu">subset</span>(ang, coh_size<span class="sc">&gt;=</span><span class="dv">29</span> <span class="sc">&amp;</span> coh_size<span class="sc">&lt;=</span><span class="dv">53</span>))) <span class="co">#Analytic window of 12 cohort-size points</span></span></code></pre></div>
+<p>This output is suppressed here. You could generate a table from each analysis using code such as this:</p>
+<div class="sourceCode" id="cb530"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb530-1"><a href="RD.html#cb530-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data.frame</span>(<span class="at">BWidth =</span> <span class="fu">rep</span>(<span class="st">&quot;36,41&quot;</span>, <span class="dv">2</span>), <span class="fu">summary</span>(<span class="fu">lm</span>(read<span class="sc">~</span>csize <span class="sc">+</span> small, <span class="at">data =</span> ang3641))<span class="sc">$</span>coefficients[<span class="dv">2</span><span class="sc">:</span><span class="dv">3</span>,<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>])</span></code></pre></div>
+<pre><code>##       BWidth  Estimate Std..Error
+## csize  36,41 0.1239759   1.068103
+## small  36,41 5.1201262   4.004709</code></pre>
+<p>The purpose of doing this is not for <em>p</em>-hacking. It is to see if our conclusions about the effects are stable across analyses that have different analytic window widths. We can think of this as a sensitivity analysis, given the varying bandwidths.</p>
+</div>
+<div id="functional-form-in-rdd" class="section level2" number="6.7">
+<h2><span class="header-section-number">6.7</span> Functional Form in RDD</h2>
+<p>—under construction—</p>
+
+</div>
+</div>
+<h3>References</h3>
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-angrist_using_1999" class="csl-entry">
+Angrist, J. D., &amp; Lavy, V. (1999). Using <span>Maimonides</span>’ rule to estimate the effect of class size on scholastic achievement. <em>The Quarterly Journal of Economics</em>, <em>114</em>, 533–575. <a href="https://doi.org/10.1162/003355399556061">https://doi.org/10.1162/003355399556061</a>
+</div>
+<div id="ref-murnane_methods_2011" class="csl-entry">
+Murnane, R. J., &amp; Willett, J. B. (2011). <em>Methods matter: <span>Improving</span> causal inference in educational and social science research</em>. Oxford University Press.
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="DID.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="references.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"search": {
+"engine": "lunr",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

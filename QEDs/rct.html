@@ -1,0 +1,1319 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Part 4 Examples with Randomized Experiments | Using R for Quasi-Experimental Designs</title>
+  <meta name="description" content="QEDs in R" />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Part 4 Examples with Randomized Experiments | Using R for Quasi-Experimental Designs" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="QEDs in R" />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Part 4 Examples with Randomized Experiments | Using R for Quasi-Experimental Designs" />
+  
+  <meta name="twitter:description" content="QEDs in R" />
+  
+
+<meta name="author" content="George M. Harrison  University of Hawai‘i at Mānoa, College of Education" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="examine.html"/>
+<link rel="next" href="DID.html"/>
+<script src="libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+<link href="libs/bsTable-3.3.7/bootstrapTable.min.css" rel="stylesheet" />
+<script src="libs/bsTable-3.3.7/bootstrapTable.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 1em;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#what-is-r"><i class="fa fa-check"></i><b>1.1</b> What is R</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="basics.html"><a href="basics.html"><i class="fa fa-check"></i><b>2</b> Some Fundamentals of Coding in R</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="basics.html"><a href="basics.html#objectives"><i class="fa fa-check"></i><b>2.1</b> Objectives</a></li>
+<li class="chapter" data-level="2.2" data-path="basics.html"><a href="basics.html#creating-an-r-script-file"><i class="fa fa-check"></i><b>2.2</b> Creating an R Script File</a></li>
+<li class="chapter" data-level="2.3" data-path="basics.html"><a href="basics.html#creating-objects-by-assigning-information-to-them"><i class="fa fa-check"></i><b>2.3</b> Creating objects by assigning information to them</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="basics.html"><a href="basics.html#assigning-character-strings-to-an-object"><i class="fa fa-check"></i><b>2.3.1</b> Assigning Character Strings to an Object</a></li>
+<li class="chapter" data-level="2.3.2" data-path="basics.html"><a href="basics.html#assigning-numeric-elements-to-an-object"><i class="fa fa-check"></i><b>2.3.2</b> Assigning Numeric Elements to an Object</a></li>
+<li class="chapter" data-level="2.3.3" data-path="basics.html"><a href="basics.html#creating-vectors"><i class="fa fa-check"></i><b>2.3.3</b> Creating Vectors</a></li>
+<li class="chapter" data-level="2.3.4" data-path="basics.html"><a href="basics.html#performing-operations-on-vectors"><i class="fa fa-check"></i><b>2.3.4</b> Performing Operations on Vectors</a></li>
+<li class="chapter" data-level="2.3.5" data-path="basics.html"><a href="basics.html#using-functions"><i class="fa fa-check"></i><b>2.3.5</b> Using Functions</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="basics.html"><a href="basics.html#create-a-data-frame-from-code"><i class="fa fa-check"></i><b>2.4</b> Create a data frame from code</a></li>
+<li class="chapter" data-level="2.5" data-path="basics.html"><a href="basics.html#working-with-matrices"><i class="fa fa-check"></i><b>2.5</b> Working with Matrices</a></li>
+<li class="chapter" data-level="2.6" data-path="basics.html"><a href="basics.html#dffromcsv"><i class="fa fa-check"></i><b>2.6</b> Creating a Data Frame from a CSV File</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="examine.html"><a href="examine.html"><i class="fa fa-check"></i><b>3</b> Examining and Summarizing Data</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="examine.html"><a href="examine.html#objectives-1"><i class="fa fa-check"></i><b>3.1</b> Objectives</a></li>
+<li class="chapter" data-level="3.2" data-path="examine.html"><a href="examine.html#examining-the-data"><i class="fa fa-check"></i><b>3.2</b> Examining the Data</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="examine.html"><a href="examine.html#the-data-frame"><i class="fa fa-check"></i><b>3.2.1</b> The Data Frame</a></li>
+<li class="chapter" data-level="3.2.2" data-path="examine.html"><a href="examine.html#subsetting-by-rows"><i class="fa fa-check"></i><b>3.2.2</b> Subsetting by Rows</a></li>
+<li class="chapter" data-level="3.2.3" data-path="examine.html"><a href="examine.html#subsetting-by-columns"><i class="fa fa-check"></i><b>3.2.3</b> Subsetting by Columns</a></li>
+<li class="chapter" data-level="3.2.4" data-path="examine.html"><a href="examine.html#descriptive-statistics"><i class="fa fa-check"></i><b>3.2.4</b> Descriptive Statistics</a></li>
+<li class="chapter" data-level="3.2.5" data-path="examine.html"><a href="examine.html#creating-a-custom-function-to-estimate-the-confidence-interval-of-the-mean"><i class="fa fa-check"></i><b>3.2.5</b> Creating a Custom Function to Estimate the Confidence Interval of the Mean</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="examine.html"><a href="examine.html#summarizing-data-by-group-and-an-introduction-to-lists"><i class="fa fa-check"></i><b>3.3</b> Summarizing Data by Group (and an introduction to lists)</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="examine.html"><a href="examine.html#calculating-standardized-mean-difference-and-variance-ratio-of-a-covariate"><i class="fa fa-check"></i><b>3.3.1</b> Calculating Standardized Mean Difference and Variance Ratio of a Covariate</a></li>
+<li class="chapter" data-level="3.3.2" data-path="examine.html"><a href="examine.html#creating-a-factor-variable-from-a-numeric-variable"><i class="fa fa-check"></i><b>3.3.2</b> Creating a Factor Variable from a Numeric Variable</a></li>
+<li class="chapter" data-level="3.3.3" data-path="examine.html"><a href="examine.html#aggregate_explain"><i class="fa fa-check"></i><b>3.3.3</b> The <code>aggregate()</code> function</a></li>
+<li class="chapter" data-level="3.3.4" data-path="examine.html"><a href="examine.html#plotting-data-by-group"><i class="fa fa-check"></i><b>3.3.4</b> Plotting data by group</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="examine.html"><a href="examine.html#extra-stuff"><i class="fa fa-check"></i><b>3.4</b> Extra Stuff</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="examine.html"><a href="examine.html#using-ggplot"><i class="fa fa-check"></i><b>3.4.1</b> Using ggplot</a></li>
+<li class="chapter" data-level="3.4.2" data-path="examine.html"><a href="examine.html#subsetting-data-and-separately-analyzing-each-group"><i class="fa fa-check"></i><b>3.4.2</b> Subsetting data and separately analyzing each group</a></li>
+<li class="chapter" data-level="3.4.3" data-path="examine.html"><a href="examine.html#the-tidyverse-approach-to-by-group-analyses"><i class="fa fa-check"></i><b>3.4.3</b> The Tidyverse Approach to By-Group Analyses</a></li>
+<li class="chapter" data-level="3.4.4" data-path="examine.html"><a href="examine.html#plotting-summary-statistics"><i class="fa fa-check"></i><b>3.4.4</b> Plotting summary statistics</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="rct.html"><a href="rct.html"><i class="fa fa-check"></i><b>4</b> Examples with Randomized Experiments</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="rct.html"><a href="rct.html#objectives-2"><i class="fa fa-check"></i><b>4.1</b> Objectives</a></li>
+<li class="chapter" data-level="4.2" data-path="rct.html"><a href="rct.html#preparation"><i class="fa fa-check"></i><b>4.2</b> Preparation</a></li>
+<li class="chapter" data-level="4.3" data-path="rct.html"><a href="rct.html#analysis-of-linear-models"><i class="fa fa-check"></i><b>4.3</b> Analysis of Linear Models</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="rct.html"><a href="rct.html#independent-samples-t-test-approach"><i class="fa fa-check"></i><b>4.3.1</b> Independent samples <em>t</em>-test approach</a></li>
+<li class="chapter" data-level="4.3.2" data-path="rct.html"><a href="rct.html#simple-linear-regression"><i class="fa fa-check"></i><b>4.3.2</b> Simple Linear Regression</a></li>
+<li class="chapter" data-level="4.3.3" data-path="rct.html"><a href="rct.html#multiple-linear-regression"><i class="fa fa-check"></i><b>4.3.3</b> Multiple Linear Regression</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="rct.html"><a href="rct.html#bootstrapping-to-get-confidence-intervals"><i class="fa fa-check"></i><b>4.4</b> Bootstrapping to Get Confidence Intervals</a>
+<ul>
+<li class="chapter" data-level="4.4.1" data-path="rct.html"><a href="rct.html#the-value-of-bootstrapping"><i class="fa fa-check"></i><b>4.4.1</b> The value of bootstrapping</a></li>
+<li class="chapter" data-level="4.4.2" data-path="rct.html"><a href="rct.html#another-way-to-bootstrap-the-standard-error-of-mean-differences"><i class="fa fa-check"></i><b>4.4.2</b> Another way to bootstrap the standard error of mean differences</a></li>
+<li class="chapter" data-level="4.4.3" data-path="rct.html"><a href="rct.html#simple-regression"><i class="fa fa-check"></i><b>4.4.3</b> Simple regression</a></li>
+<li class="chapter" data-level="4.4.4" data-path="rct.html"><a href="rct.html#multiple-regression"><i class="fa fa-check"></i><b>4.4.4</b> Multiple regression</a></li>
+<li class="chapter" data-level="4.4.5" data-path="rct.html"><a href="rct.html#summary-on-bootstrapping"><i class="fa fa-check"></i><b>4.4.5</b> Summary on Bootstrapping</a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="rct.html"><a href="rct.html#estimating-the-average-treatment-on-the-treated-att"><i class="fa fa-check"></i><b>4.5</b> Estimating the Average Treatment on the Treated (ATT)</a>
+<ul>
+<li class="chapter" data-level="4.5.1" data-path="rct.html"><a href="rct.html#artificially-introducing-no-shows"><i class="fa fa-check"></i><b>4.5.1</b> Artificially Introducing No-shows</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="DID.html"><a href="DID.html"><i class="fa fa-check"></i><b>5</b> Difference in Differences</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="DID.html"><a href="DID.html#objectives-3"><i class="fa fa-check"></i><b>5.1</b> Objectives</a></li>
+<li class="chapter" data-level="5.2" data-path="DID.html"><a href="DID.html#import-and-prepare-the-data"><i class="fa fa-check"></i><b>5.2</b> Import and Prepare the Data</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="DID.html"><a href="DID.html#prepare-the-data"><i class="fa fa-check"></i><b>5.2.1</b> Prepare the data</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="DID.html"><a href="DID.html#using-the-survey-package"><i class="fa fa-check"></i><b>5.3</b> Using the survey package</a></li>
+<li class="chapter" data-level="5.4" data-path="DID.html"><a href="DID.html#direct-estimates-as-shown-in-table-8.1-on-page-143"><i class="fa fa-check"></i><b>5.4</b> Direct estimates, as shown in Table 8.1 on page 143</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="DID.html"><a href="DID.html#first-difference-direct-estimate-in-panel-a."><i class="fa fa-check"></i><b>5.4.1</b> First difference, direct estimate in Panel A.</a></li>
+<li class="chapter" data-level="5.4.2" data-path="DID.html"><a href="DID.html#estimate-from-the-linear-probability-model-ols-estimate-shown-in-table-8.1-on-page-143-panel-b."><i class="fa fa-check"></i><b>5.4.2</b> Estimate from the linear-probability model (OLS) estimate shown in Table 8.1 on page 143, Panel B.</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="DID.html"><a href="DID.html#difference-in-differences-simple-approach-table-8.2-p.-157"><i class="fa fa-check"></i><b>5.5</b> Difference in differences, simple approach (Table 8.2, p. 157)</a></li>
+<li class="chapter" data-level="5.6" data-path="DID.html"><a href="DID.html#difference-in-differences-using-regression"><i class="fa fa-check"></i><b>5.6</b> Difference in differences using regression</a>
+<ul>
+<li class="chapter" data-level="5.6.1" data-path="DID.html"><a href="DID.html#compare-the-results-from-the-four-different-strategies"><i class="fa fa-check"></i><b>5.6.1</b> Compare the results from the four different strategies</a></li>
+</ul></li>
+<li class="chapter" data-level="5.7" data-path="DID.html"><a href="DID.html#summary-of-the-did-model-strategy"><i class="fa fa-check"></i><b>5.7</b> Summary of the DID model strategy</a></li>
+<li class="chapter" data-level="5.8" data-path="DID.html"><a href="DID.html#accounting-for-the-binary-y-variable"><i class="fa fa-check"></i><b>5.8</b> Accounting for the binary Y variable</a></li>
+<li class="chapter" data-level="5.9" data-path="DID.html"><a href="DID.html#plotting-the-difference-in-differences"><i class="fa fa-check"></i><b>5.9</b> Plotting the difference in differences</a>
+<ul>
+<li class="chapter" data-level="5.9.1" data-path="DID.html"><a href="DID.html#plotfrompred"><i class="fa fa-check"></i><b>5.9.1</b> Plotting from the predicted values of the model</a></li>
+<li class="chapter" data-level="5.9.2" data-path="DID.html"><a href="DID.html#doing-it-in-ggplot2"><i class="fa fa-check"></i><b>5.9.2</b> Doing it in ggplot2</a></li>
+<li class="chapter" data-level="5.9.3" data-path="DID.html"><a href="DID.html#seeing-where-the-regression-estimate-is-in-the-plot"><i class="fa fa-check"></i><b>5.9.3</b> Seeing where the regression estimate is in the plot</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="RD1.html"><a href="RD1.html"><i class="fa fa-check"></i><b>6</b> Regression Discontinuity, Part 1</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="RD1.html"><a href="RD1.html#objectives-4"><i class="fa fa-check"></i><b>6.1</b> Objectives</a></li>
+<li class="chapter" data-level="6.2" data-path="RD1.html"><a href="RD1.html#import-and-prepare-the-data-1"><i class="fa fa-check"></i><b>6.2</b> Import and Prepare the Data</a></li>
+<li class="chapter" data-level="6.3" data-path="RD1.html"><a href="RD1.html#different-difference-in-differences"><i class="fa fa-check"></i><b>6.3</b> Different Difference in Differences</a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="RD1.html"><a href="RD1.html#our-first-difference"><i class="fa fa-check"></i><b>6.3.1</b> Our first difference</a></li>
+<li class="chapter" data-level="6.3.2" data-path="RD1.html"><a href="RD1.html#a-plausible-second-difference"><i class="fa fa-check"></i><b>6.3.2</b> A plausible second difference</a></li>
+<li class="chapter" data-level="6.3.3" data-path="RD1.html"><a href="RD1.html#another-plausible-second-difference"><i class="fa fa-check"></i><b>6.3.3</b> Another plausible second difference</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="RD1.html"><a href="RD1.html#mread3640"><i class="fa fa-check"></i><b>6.4</b> Broadening the bandwidth</a></li>
+<li class="chapter" data-level="6.5" data-path="RD1.html"><a href="RD1.html#summary-up-to-this-point"><i class="fa fa-check"></i><b>6.5</b> Summary up to this point</a></li>
+<li class="chapter" data-level="6.6" data-path="RD1.html"><a href="RD1.html#examining-if-the-results-are-consistent-with-different-bandwidths"><i class="fa fa-check"></i><b>6.6</b> Examining if the results are consistent with different bandwidths</a></li>
+<li class="chapter" data-level="6.7" data-path="RD1.html"><a href="RD1.html#functional-form-in-rdd"><i class="fa fa-check"></i><b>6.7</b> Functional Form in RDD</a>
+<ul>
+<li class="chapter" data-level="6.7.1" data-path="RD1.html"><a href="RD1.html#plotting-the-two-sides-allowing-different-slopes"><i class="fa fa-check"></i><b>6.7.1</b> Plotting the two sides, allowing different slopes</a></li>
+<li class="chapter" data-level="6.7.2" data-path="RD1.html"><a href="RD1.html#broader-analytic-windows"><i class="fa fa-check"></i><b>6.7.2</b> Broader analytic windows</a></li>
+</ul></li>
+<li class="chapter" data-level="6.8" data-path="RD1.html"><a href="RD1.html#using-the-rddtools-package"><i class="fa fa-check"></i><b>6.8</b> Using the rddtools Package</a>
+<ul>
+<li class="chapter" data-level="6.8.1" data-path="RD1.html"><a href="RD1.html#examining-the-bandwidth-identified-by-the-package"><i class="fa fa-check"></i><b>6.8.1</b> Examining the bandwidth identified by the package</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="RD2.html"><a href="RD2.html"><i class="fa fa-check"></i><b>7</b> Regression Discontinuity, Part 2</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="RD2.html"><a href="RD2.html#here-are-the-steps-we-will-take"><i class="fa fa-check"></i><b>7.1</b> Here are the steps we will take:</a></li>
+<li class="chapter" data-level="7.2" data-path="RD2.html"><a href="RD2.html#the-data"><i class="fa fa-check"></i><b>7.2</b> The Data</a></li>
+<li class="chapter" data-level="7.3" data-path="RD2.html"><a href="RD2.html#examine-the-data-the-assignment-rule-adherence-and-compliance"><i class="fa fa-check"></i><b>7.3</b> Examine the Data, the Assignment-rule Adherence, and Compliance</a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="RD2.html"><a href="RD2.html#assignment-rule-adherence"><i class="fa fa-check"></i><b>7.3.1</b> Assignment-rule adherence</a></li>
+<li class="chapter" data-level="7.3.2" data-path="RD2.html"><a href="RD2.html#compliance"><i class="fa fa-check"></i><b>7.3.2</b> Compliance</a></li>
+<li class="chapter" data-level="7.3.3" data-path="RD2.html"><a href="RD2.html#create-bins-of-the-assignment-variable"><i class="fa fa-check"></i><b>7.3.3</b> Create Bins of the Assignment Variable</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="RD2.html"><a href="RD2.html#examining-assumptions"><i class="fa fa-check"></i><b>7.4</b> Examining Assumptions</a>
+<ul>
+<li class="chapter" data-level="7.4.1" data-path="RD2.html"><a href="RD2.html#assumption-1the-continuity-assumption"><i class="fa fa-check"></i><b>7.4.1</b> Assumption 1—the continuity assumption</a></li>
+<li class="chapter" data-level="7.4.2" data-path="RD2.html"><a href="RD2.html#assumption-2discontinuities-in-the-covariates"><i class="fa fa-check"></i><b>7.4.2</b> Assumption 2—Discontinuities in the covariates</a></li>
+<li class="chapter" data-level="7.4.3" data-path="RD2.html"><a href="RD2.html#assumption-3checking-for-pseudo-cut-offs-in-the-outcome"><i class="fa fa-check"></i><b>7.4.3</b> Assumption 3—Checking for pseudo-cut-offs in the outcome</a></li>
+</ul></li>
+<li class="chapter" data-level="7.5" data-path="RD2.html"><a href="RD2.html#examining-the-parametric-functional-form"><i class="fa fa-check"></i><b>7.5</b> Examining the Parametric Functional Form</a>
+<ul>
+<li class="chapter" data-level="7.5.1" data-path="RD2.html"><a href="RD2.html#restricting-bandwidth"><i class="fa fa-check"></i><b>7.5.1</b> Restricting bandwidth</a></li>
+</ul></li>
+<li class="chapter" data-level="7.6" data-path="RD2.html"><a href="RD2.html#restband"><i class="fa fa-check"></i><b>7.6</b> Estimating the Effect</a>
+<ul>
+<li class="chapter" data-level="7.6.1" data-path="RD2.html"><a href="RD2.html#parametric-model"><i class="fa fa-check"></i><b>7.6.1</b> Parametric Model</a></li>
+<li class="chapter" data-level="7.6.2" data-path="RD2.html"><a href="RD2.html#non-parametric-model-local-linear-estimation"><i class="fa fa-check"></i><b>7.6.2</b> Non-parametric Model: Local Linear Estimation</a></li>
+<li class="chapter" data-level="7.6.3" data-path="RD2.html"><a href="RD2.html#including-covariates"><i class="fa fa-check"></i><b>7.6.3</b> Including covariates</a></li>
+</ul></li>
+<li class="chapter" data-level="7.7" data-path="RD2.html"><a href="RD2.html#sensitivity-analysis"><i class="fa fa-check"></i><b>7.7</b> Sensitivity Analysis</a></li>
+<li class="chapter" data-level="7.8" data-path="RD2.html"><a href="RD2.html#accounting-for-fuzziness"><i class="fa fa-check"></i><b>7.8</b> Accounting for Fuzziness</a>
+<ul>
+<li class="chapter" data-level="7.8.1" data-path="RD2.html"><a href="RD2.html#fuzzy-non-parametric-model"><i class="fa fa-check"></i><b>7.8.1</b> Fuzzy non-parametric model</a></li>
+<li class="chapter" data-level="7.8.2" data-path="RD2.html"><a href="RD2.html#summary-about-fuzzy-rdd"><i class="fa fa-check"></i><b>7.8.2</b> Summary about fuzzy RDD</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="IVE.html"><a href="IVE.html"><i class="fa fa-check"></i><b>8</b> Instrumental Variable Estimation</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="IVE.html"><a href="IVE.html#objectives-5"><i class="fa fa-check"></i><b>8.1</b> Objectives</a></li>
+<li class="chapter" data-level="8.2" data-path="IVE.html"><a href="IVE.html#preparation-1"><i class="fa fa-check"></i><b>8.2</b> Preparation</a>
+<ul>
+<li class="chapter" data-level="8.2.1" data-path="IVE.html"><a href="IVE.html#examining-the-data-1"><i class="fa fa-check"></i><b>8.2.1</b> Examining the data</a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="IVE.html"><a href="IVE.html#moments-reported-in-table-10.2-p.-219"><i class="fa fa-check"></i><b>8.3</b> Moments reported in Table 10.2 (p. 219)</a></li>
+<li class="chapter" data-level="8.4" data-path="IVE.html"><a href="IVE.html#two-stage-least-squares-1"><i class="fa fa-check"></i><b>8.4</b> Two-stage Least Squares</a>
+<ul>
+<li class="chapter" data-level="8.4.1" data-path="IVE.html"><a href="IVE.html#first-stage"><i class="fa fa-check"></i><b>8.4.1</b> First stage</a></li>
+<li class="chapter" data-level="8.4.2" data-path="IVE.html"><a href="IVE.html#second-stage"><i class="fa fa-check"></i><b>8.4.2</b> Second stage</a></li>
+<li class="chapter" data-level="8.4.3" data-path="IVE.html"><a href="IVE.html#obtaining-the-correct-standard-errors"><i class="fa fa-check"></i><b>8.4.3</b> Obtaining the correct standard errors</a></li>
+<li class="chapter" data-level="8.4.4" data-path="IVE.html"><a href="IVE.html#letting-the-software-do-the-work"><i class="fa fa-check"></i><b>8.4.4</b> Letting the software do the work</a></li>
+<li class="chapter" data-level="8.4.5" data-path="IVE.html"><a href="IVE.html#noticing-the-covariance-between-errors"><i class="fa fa-check"></i><b>8.4.5</b> Noticing the covariance between errors</a></li>
+</ul></li>
+<li class="chapter" data-level="8.5" data-path="IVE.html"><a href="IVE.html#two-stage-least-squares-with-covariates"><i class="fa fa-check"></i><b>8.5</b> Two-Stage Least Squares with Covariates</a></li>
+<li class="chapter" data-level="8.6" data-path="IVE.html"><a href="IVE.html#using-multiple-instruments"><i class="fa fa-check"></i><b>8.6</b> Using Multiple Instruments</a>
+<ul>
+<li class="chapter" data-level="8.6.1" data-path="IVE.html"><a href="IVE.html#system-of-equations"><i class="fa fa-check"></i><b>8.6.1</b> System of equations</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="IVE2.html"><a href="IVE2.html"><i class="fa fa-check"></i><b>9</b> Practice with Instrumental Variable Estimation</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="IVE2.html"><a href="IVE2.html#objectives-6"><i class="fa fa-check"></i><b>9.1</b> Objectives</a></li>
+<li class="chapter" data-level="9.2" data-path="IVE2.html"><a href="IVE2.html#import-and-prepare-the-data-2"><i class="fa fa-check"></i><b>9.2</b> Import and Prepare the Data</a>
+<ul>
+<li class="chapter" data-level="9.2.1" data-path="IVE2.html"><a href="IVE2.html#descriptive-statistics-1"><i class="fa fa-check"></i><b>9.2.1</b> Descriptive statistics</a></li>
+</ul></li>
+<li class="chapter" data-level="9.3" data-path="IVE2.html"><a href="IVE2.html#covariate-balance"><i class="fa fa-check"></i><b>9.3</b> Covariate Balance</a>
+<ul>
+<li class="chapter" data-level="9.3.1" data-path="IVE2.html"><a href="IVE2.html#covariate-balance-on-d"><i class="fa fa-check"></i><b>9.3.1</b> Covariate balance on <span class="math inline">\(D\)</span></a></li>
+</ul></li>
+<li class="chapter" data-level="9.4" data-path="IVE2.html"><a href="IVE2.html#compliance-table-1"><i class="fa fa-check"></i><b>9.4</b> Compliance Table</a></li>
+<li class="chapter" data-level="9.5" data-path="IVE2.html"><a href="IVE2.html#estimating-the-causal-effect"><i class="fa fa-check"></i><b>9.5</b> Estimating the Causal Effect</a>
+<ul>
+<li class="chapter" data-level="9.5.1" data-path="IVE2.html"><a href="IVE2.html#the-naïve-estimate"><i class="fa fa-check"></i><b>9.5.1</b> The naïve estimate</a></li>
+<li class="chapter" data-level="9.5.2" data-path="IVE2.html"><a href="IVE2.html#the-late-estimate-from-ive"><i class="fa fa-check"></i><b>9.5.2</b> The LATE estimate from IVE</a></li>
+<li class="chapter" data-level="9.5.3" data-path="IVE2.html"><a href="IVE2.html#making-the-intercept-meaningful"><i class="fa fa-check"></i><b>9.5.3</b> Making the intercept meaningful</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="PScore1.html"><a href="PScore1.html"><i class="fa fa-check"></i><b>10</b> Propensity Score Analysis 1: The underlying logic</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="PScore1.html"><a href="PScore1.html#import-the-data-and-prepare-for-analysis"><i class="fa fa-check"></i><b>10.1</b> Import the Data and Prepare for Analysis</a>
+<ul>
+<li class="chapter" data-level="10.1.1" data-path="PScore1.html"><a href="PScore1.html#creating-a-numeric-version-of-the-base-income-variables"><i class="fa fa-check"></i><b>10.1.1</b> Creating a numeric version of the base-income variables</a></li>
+<li class="chapter" data-level="10.1.2" data-path="PScore1.html"><a href="PScore1.html#creating-some-custom-functions"><i class="fa fa-check"></i><b>10.1.2</b> Creating some custom functions</a></li>
+</ul></li>
+<li class="chapter" data-level="10.2" data-path="PScore1.html"><a href="PScore1.html#stratifying-on-a-covariate"><i class="fa fa-check"></i><b>10.2</b> Stratifying on a Covariate</a>
+<ul>
+<li class="chapter" data-level="10.2.1" data-path="PScore1.html"><a href="PScore1.html#checking-the-imbalance-in-the-treatment-status"><i class="fa fa-check"></i><b>10.2.1</b> Checking the imbalance in the treatment status</a></li>
+<li class="chapter" data-level="10.2.2" data-path="PScore1.html"><a href="PScore1.html#creating-the-strata-from-the-covariate"><i class="fa fa-check"></i><b>10.2.2</b> Creating the strata from the covariate</a></li>
+<li class="chapter" data-level="10.2.3" data-path="PScore1.html"><a href="PScore1.html#checking-for-imbalance-within-each-stratum"><i class="fa fa-check"></i><b>10.2.3</b> Checking for imbalance within each stratum</a></li>
+<li class="chapter" data-level="10.2.4" data-path="PScore1.html"><a href="PScore1.html#using-tidyverse-to-check-imbalance"><i class="fa fa-check"></i><b>10.2.4</b> Using Tidyverse to check imbalance</a></li>
+<li class="chapter" data-level="10.2.5" data-path="PScore1.html"><a href="PScore1.html#ate-and-att"><i class="fa fa-check"></i><b>10.2.5</b> ATE and ATT</a></li>
+<li class="chapter" data-level="10.2.6" data-path="PScore1.html"><a href="PScore1.html#pooling-across-strata-to-calculate-the-ate-and-att"><i class="fa fa-check"></i><b>10.2.6</b> Pooling across strata to calculate the ATE and ATT</a></li>
+</ul></li>
+<li class="chapter" data-level="10.3" data-path="PScore1.html"><a href="PScore1.html#stratifying-on-two-covariates"><i class="fa fa-check"></i><b>10.3</b> Stratifying on Two Covariates</a>
+<ul>
+<li class="chapter" data-level="10.3.1" data-path="PScore1.html"><a href="PScore1.html#calculating-the-ate-and-att"><i class="fa fa-check"></i><b>10.3.1</b> Calculating the ATE and ATT</a></li>
+<li class="chapter" data-level="10.3.2" data-path="PScore1.html"><a href="PScore1.html#tidyverse-approach"><i class="fa fa-check"></i><b>10.3.2</b> Tidyverse approach</a></li>
+</ul></li>
+<li class="chapter" data-level="10.4" data-path="PScore1.html"><a href="PScore1.html#estimating-propensity-scores"><i class="fa fa-check"></i><b>10.4</b> Estimating Propensity Scores</a></li>
+<li class="chapter" data-level="10.5" data-path="PScore1.html"><a href="PScore1.html#creating-strata-from-propensity-scores"><i class="fa fa-check"></i><b>10.5</b> Creating Strata from Propensity Scores</a>
+<ul>
+<li class="chapter" data-level="10.5.1" data-path="PScore1.html"><a href="PScore1.html#adding-more-covariates"><i class="fa fa-check"></i><b>10.5.1</b> Adding more covariates</a></li>
+<li class="chapter" data-level="10.5.2" data-path="PScore1.html"><a href="PScore1.html#ate-and-att-for-the-five-stratum-model"><i class="fa fa-check"></i><b>10.5.2</b> ATE and ATT for the five-stratum model</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="PScore2.html"><a href="PScore2.html"><i class="fa fa-check"></i><b>11</b> Propensity Score Analysis 2: Weighting</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="PScore2.html"><a href="PScore2.html#import-the-data-and-prepare-for-analysis-1"><i class="fa fa-check"></i><b>11.1</b> Import the Data and Prepare for Analysis</a></li>
+<li class="chapter" data-level="11.2" data-path="PScore2.html"><a href="PScore2.html#specify-custom-functions"><i class="fa fa-check"></i><b>11.2</b> Specify Custom Functions</a>
+<ul>
+<li class="chapter" data-level="11.2.1" data-path="PScore2.html"><a href="PScore2.html#imbalance-functions"><i class="fa fa-check"></i><b>11.2.1</b> Imbalance functions</a></li>
+<li class="chapter" data-level="11.2.2" data-path="PScore2.html"><a href="PScore2.html#overlap-functions"><i class="fa fa-check"></i><b>11.2.2</b> Overlap functions</a></li>
+</ul></li>
+<li class="chapter" data-level="11.3" data-path="PScore2.html"><a href="PScore2.html#assess-imbalance-in-observed-covariates"><i class="fa fa-check"></i><b>11.3</b> Assess Imbalance in Observed Covariates</a></li>
+<li class="chapter" data-level="11.4" data-path="PScore2.html"><a href="PScore2.html#check-overlap"><i class="fa fa-check"></i><b>11.4</b> Check Overlap</a></li>
+<li class="chapter" data-level="11.5" data-path="PScore2.html"><a href="PScore2.html#calculate-the-weights"><i class="fa fa-check"></i><b>11.5</b> Calculate the Weights</a>
+<ul>
+<li class="chapter" data-level="11.5.1" data-path="PScore2.html"><a href="PScore2.html#dealing-with-extreme-weights"><i class="fa fa-check"></i><b>11.5.1</b> Dealing with extreme weights</a></li>
+<li class="chapter" data-level="11.5.2" data-path="PScore2.html"><a href="PScore2.html#specifying-whether-to-estimate-ate-or-att"><i class="fa fa-check"></i><b>11.5.2</b> Specifying whether to estimate ATE or ATT</a></li>
+</ul></li>
+<li class="chapter" data-level="11.6" data-path="PScore2.html"><a href="PScore2.html#conduct-balance-checks-after-weighting"><i class="fa fa-check"></i><b>11.6</b> Conduct balance checks after weighting</a></li>
+<li class="chapter" data-level="11.7" data-path="PScore2.html"><a href="PScore2.html#estimate-the-treatment-effect"><i class="fa fa-check"></i><b>11.7</b> Estimate the Treatment Effect</a>
+<ul>
+<li class="chapter" data-level="11.7.1" data-path="PScore2.html"><a href="PScore2.html#estimating-the-correct-standard-error"><i class="fa fa-check"></i><b>11.7.1</b> Estimating the correct standard error</a></li>
+<li class="chapter" data-level="11.7.2" data-path="PScore2.html"><a href="PScore2.html#use-a-doubly-robust-estimate"><i class="fa fa-check"></i><b>11.7.2</b> Use a doubly robust estimate</a></li>
+</ul></li>
+<li class="chapter" data-level="11.8" data-path="PScore2.html"><a href="PScore2.html#using-the-twang-package"><i class="fa fa-check"></i><b>11.8</b> Using the Twang Package</a>
+<ul>
+<li class="chapter" data-level="11.8.1" data-path="PScore2.html"><a href="PScore2.html#examining-covariate-balance"><i class="fa fa-check"></i><b>11.8.1</b> Examining covariate balance</a></li>
+<li class="chapter" data-level="11.8.2" data-path="PScore2.html"><a href="PScore2.html#estimating-the-propensity-scores-and-getting-the-weights"><i class="fa fa-check"></i><b>11.8.2</b> Estimating the propensity scores and getting the weights</a></li>
+<li class="chapter" data-level="11.8.3" data-path="PScore2.html"><a href="PScore2.html#estimating-the-effect"><i class="fa fa-check"></i><b>11.8.3</b> Estimating the effect</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="PScore3.html"><a href="PScore3.html"><i class="fa fa-check"></i><b>12</b> Propensity Score Analysis 3: Stratification and Matching</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="PScore3.html"><a href="PScore3.html#calculate-the-mmwss-from-the-propensity-scores"><i class="fa fa-check"></i><b>12.1</b> Calculate the MMWSs from the propensity scores</a>
+<ul>
+<li class="chapter" data-level="12.1.1" data-path="PScore3.html"><a href="PScore3.html#estimate-the-propensity-scores"><i class="fa fa-check"></i><b>12.1.1</b> Estimate the propensity scores</a></li>
+<li class="chapter" data-level="12.1.2" data-path="PScore3.html"><a href="PScore3.html#calculate-the-quintiles"><i class="fa fa-check"></i><b>12.1.2</b> Calculate the quintiles</a></li>
+<li class="chapter" data-level="12.1.3" data-path="PScore3.html"><a href="PScore3.html#examine-the-strata"><i class="fa fa-check"></i><b>12.1.3</b> Examine the strata</a></li>
+<li class="chapter" data-level="12.1.4" data-path="PScore3.html"><a href="PScore3.html#calculate-the-mmwss"><i class="fa fa-check"></i><b>12.1.4</b> Calculate the MMWSs</a></li>
+</ul></li>
+<li class="chapter" data-level="12.2" data-path="PScore3.html"><a href="PScore3.html#conduct-balance-checks-after-weighting-1"><i class="fa fa-check"></i><b>12.2</b> Conduct balance checks after weighting</a></li>
+<li class="chapter" data-level="12.3" data-path="PScore3.html"><a href="PScore3.html#estimate-the-ate"><i class="fa fa-check"></i><b>12.3</b> Estimate the ATE</a></li>
+<li class="chapter" data-level="12.4" data-path="PScore3.html"><a href="PScore3.html#using-the-matchit-package"><i class="fa fa-check"></i><b>12.4</b> Using the MatchIt Package</a>
+<ul>
+<li class="chapter" data-level="12.4.1" data-path="PScore3.html"><a href="PScore3.html#examining-balance"><i class="fa fa-check"></i><b>12.4.1</b> Examining Balance</a></li>
+<li class="chapter" data-level="12.4.2" data-path="PScore3.html"><a href="PScore3.html#estimate-the-effect"><i class="fa fa-check"></i><b>12.4.2</b> Estimate the Effect</a></li>
+</ul></li>
+<li class="chapter" data-level="12.5" data-path="PScore3.html"><a href="PScore3.html#matching"><i class="fa fa-check"></i><b>12.5</b> Matching</a>
+<ul>
+<li class="chapter" data-level="12.5.1" data-path="PScore3.html"><a href="PScore3.html#estimate-the-effect-1"><i class="fa fa-check"></i><b>12.5.1</b> Estimate the Effect</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Using R for Quasi-Experimental Designs</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="rct" class="section level1" number="4">
+<h1><span class="header-section-number">Part 4</span> Examples with Randomized Experiments</h1>
+<div id="objectives-2" class="section level2" number="4.1">
+<h2><span class="header-section-number">4.1</span> Objectives</h2>
+<ol style="list-style-type: decimal">
+<li>Analyze linear models that are presented in Table 4.1 in our text.</li>
+<li>Bootstrap confidence intervals corresponding with parametric analyses in Table 4.1.</li>
+<li>Estimate Average Treatment on the Treated (ATT).<a href="#fn14" class="footnote-ref" id="fnref14"><sup>14</sup></a></li>
+</ol>
+<p>We will use the following packages: sem <span class="citation">(<a href="#ref-R-sem" role="doc-biblioref">Fox et al., 2020</a>)</span>, ggplot2 <span class="citation">(<a href="#ref-R-ggplot2" role="doc-biblioref">Wickham, Chang, et al., 2021</a>)</span>, and Hmisc <span class="citation">(<a href="#ref-R-Hmisc" role="doc-biblioref">Harrell, 2021</a>)</span>. You can install them if they’re not already on your machine using code like this: <code>install.packages("sem")</code> and including in quotes the name of the package.</p>
+</div>
+<div id="preparation" class="section level2" number="4.2">
+<h2><span class="header-section-number">4.2</span> Preparation</h2>
+<p>Read in the data:</p>
+<div class="sourceCode" id="cb270"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb270-1"><a href="rct.html#cb270-1" aria-hidden="true" tabindex="-1"></a>ny <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;Ch04_ny.csv&quot;</span>)</span></code></pre></div>
+<p>The examination step was demonstrated in the previous section with the same data set.</p>
+<p>Let’s be sure we have created the factor variable, <code>vouchF</code>. Factor variables are good for <em>t</em>-tests and ANOVA because these models are designed to compare the means of categories, or levels, of a factor type of variable. Our original variable is <code>voucher</code>, which was coded as <code>0</code> for the no-voucher condition and <code>1</code> for the voucher-offered condition.</p>
+<div class="sourceCode" id="cb271"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb271-1"><a href="rct.html#cb271-1" aria-hidden="true" tabindex="-1"></a>ny<span class="sc">$</span>vouchF <span class="ot">&lt;-</span> <span class="fu">factor</span>(ny<span class="sc">$</span>voucher,</span>
+<span id="cb271-2"><a href="rct.html#cb271-2" aria-hidden="true" tabindex="-1"></a>                   <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>))  </span>
+<span id="cb271-3"><a href="rct.html#cb271-3" aria-hidden="true" tabindex="-1"></a><span class="fu">levels</span>(ny<span class="sc">$</span>vouchF)</span></code></pre></div>
+<pre><code>## [1] &quot;0&quot; &quot;1&quot;</code></pre>
+<p>We can add names to our levels so they are easier to interpret in the output. This also helps with plotting. We need to be sure the labels we are using are in the same order as our original levels, <code>0</code> and <code>1</code>.</p>
+<div class="sourceCode" id="cb273"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb273-1"><a href="rct.html#cb273-1" aria-hidden="true" tabindex="-1"></a><span class="fu">levels</span>(ny<span class="sc">$</span>vouchF) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;NoVouch&quot;</span>, <span class="st">&quot;Voucher&quot;</span>)  </span>
+<span id="cb273-2"><a href="rct.html#cb273-2" aria-hidden="true" tabindex="-1"></a><span class="fu">levels</span>(ny<span class="sc">$</span>vouchF)</span></code></pre></div>
+<pre><code>## [1] &quot;NoVouch&quot; &quot;Voucher&quot;</code></pre>
+<p>To recap, we have two versions of the treatment variable. One is numeric, <code>voucher</code>, and the other is a factor, <code>vouchF</code>. Many functions in R treat numeric and factor types of variables differently. Here is the output from the <code>summary()</code> function on the two columns of data:</p>
+<div class="sourceCode" id="cb275"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb275-1"><a href="rct.html#cb275-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(ny[, <span class="fu">c</span>(<span class="st">&quot;voucher&quot;</span>, <span class="st">&quot;vouchF&quot;</span>)])</span></code></pre></div>
+<pre><code>##     voucher           vouchF   
+##  Min.   :0.0000   NoVouch:230  
+##  1st Qu.:0.0000   Voucher:291  
+##  Median :1.0000                
+##  Mean   :0.5585                
+##  3rd Qu.:1.0000                
+##  Max.   :1.0000</code></pre>
+<p>So, 291 families (<span class="math inline">\(55.85\%\)</span> of the sample) received the treatment and 230 <span class="math inline">\((44.15\%)\)</span> were in the control condition.</p>
+</div>
+<div id="analysis-of-linear-models" class="section level2" number="4.3">
+<h2><span class="header-section-number">4.3</span> Analysis of Linear Models</h2>
+<p>Let’s fit parametric linear models, using a <em>t</em>-test and then regression. We can compare these results with those in Table 4.1 and with what we find in the second part of this section, on bootstrapping.</p>
+<div id="independent-samples-t-test-approach" class="section level3" number="4.3.1">
+<h3><span class="header-section-number">4.3.1</span> Independent samples <em>t</em>-test approach</h3>
+<p>Following along with Page 49, here is “Strategy 1.” We’re using the <code>t.test()</code> function. If we look at the help file for this function, we see that the <code>var.equal =</code> argument is set to <code>FALSE</code> by default. If we have good reason to believe that we have met this statistical assumption, we can change it to <code>var.equal = TRUE</code>, which is what the analysis in our text assumes:</p>
+<div class="sourceCode" id="cb277"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb277-1"><a href="rct.html#cb277-1" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(post_ach <span class="sc">~</span> vouchF, </span>
+<span id="cb277-2"><a href="rct.html#cb277-2" aria-hidden="true" tabindex="-1"></a>       <span class="at">data =</span> ny, </span>
+<span id="cb277-3"><a href="rct.html#cb277-3" aria-hidden="true" tabindex="-1"></a>       <span class="at">var.equal =</span> <span class="cn">TRUE</span>) </span></code></pre></div>
+<pre><code>## 
+##  Two Sample t-test
+## 
+## data:  post_ach by vouchF
+## t = -2.9112, df = 519, p-value = 0.003755
+## alternative hypothesis: true difference in means between group NoVouch and group Voucher is not equal to 0
+## 95 percent confidence interval:
+##  -8.204552 -1.592998
+## sample estimates:
+## mean in group NoVouch mean in group Voucher 
+##              21.13043              26.02921</code></pre>
+<p>The difference between the two groups is <span class="math inline">\(21.13 - 26.029 = -4.899\)</span>, which is the parameter estimate. With <span class="math inline">\(519\)</span> degrees of freedom, the <em>t</em> statistic is <span class="math inline">\(-2.91\)</span>, which, with a standard error of <span class="math inline">\(1.68\)</span>, yields a <em>p</em>-value of <span class="math inline">\(0.004\)</span>. In other words, there is evidence to reject the null hypothesis that the two groups are the same in their post-test scores. The voucher group had a higher score by about <span class="math inline">\(4.9\)</span> points.</p>
+</div>
+<div id="simple-linear-regression" class="section level3" number="4.3.2">
+<h3><span class="header-section-number">4.3.2</span> Simple Linear Regression</h3>
+<p>Here is “Strategy 2,” which is a simple linear regression. Compared to the <em>t</em>-test, it includes the same statistical assumptions and reaches the same estimates of the parameter and the test statistic. It uses a numeric variable as its predictor, <code>voucher</code>.</p>
+<div class="sourceCode" id="cb279"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb279-1"><a href="rct.html#cb279-1" aria-hidden="true" tabindex="-1"></a>lm.out <span class="ot">&lt;-</span> <span class="fu">lm</span>(post_ach <span class="sc">~</span> voucher, <span class="at">data =</span> ny)</span></code></pre></div>
+<p>Here, we’re using the <code>lm()</code> function, where “lm” stands for linear model. We save it to an object, such as <code>lm.out</code>, which we can then further analyze. For example, we can use the <code>summary()</code> function on that outputted object:</p>
+<div class="sourceCode" id="cb280"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb280-1"><a href="rct.html#cb280-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm.out)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = post_ach ~ voucher, data = ny)
+## 
+## Residuals:
+##    Min     1Q Median     3Q    Max 
+## -25.53 -15.03  -4.63  10.47  63.37 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)   21.130      1.258  16.802  &lt; 2e-16 ***
+## voucher        4.899      1.683   2.911  0.00375 ** 
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 19.07 on 519 degrees of freedom
+## Multiple R-squared:  0.01607,    Adjusted R-squared:  0.01417 
+## F-statistic: 8.475 on 1 and 519 DF,  p-value: 0.003755</code></pre>
+<p>In our regression, the coding for the treatment variable was <code>0</code> and <code>1</code>, so the parameter estimate is the estimate of that observations coded as <code>1</code> compared to those coded as <code>0</code>. The <em>t</em>-test difference is in the opposite direction (which some see as annoying), and reflects the ordering of the factors in that comparison—it looks like the Voucher group was the reference group in that model.</p>
+<div id="stuff-we-can-do-with-a-model-object" class="section level4" number="4.3.2.1">
+<h4><span class="header-section-number">4.3.2.1</span> Stuff we can do with a model object</h4>
+<p>We can look at the help menu for <code>lm()</code> and see a list of the components within an object that contains the output from the <code>lm()</code> function. We can also look inside this output and see what attributes there are. Some functions we can use are <code>str()</code>, <code>names()</code>, and <code>attributes()</code>, which we won’t print here.</p>
+<div class="sourceCode" id="cb282"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb282-1"><a href="rct.html#cb282-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(lm.out)        </span>
+<span id="cb282-2"><a href="rct.html#cb282-2" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(lm.out)</span>
+<span id="cb282-3"><a href="rct.html#cb282-3" aria-hidden="true" tabindex="-1"></a><span class="fu">attributes</span>(lm.out)</span>
+<span id="cb282-4"><a href="rct.html#cb282-4" aria-hidden="true" tabindex="-1"></a><span class="co"># printout suppressed.</span></span></code></pre></div>
+<p>There are a lot of things inside this object. For instance, we can look at the parameter estimates, which are called coefficients:</p>
+<div class="sourceCode" id="cb283"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb283-1"><a href="rct.html#cb283-1" aria-hidden="true" tabindex="-1"></a>lm.out<span class="sc">$</span>coefficients</span></code></pre></div>
+<pre><code>## (Intercept)     voucher 
+##   21.130435    4.898775</code></pre>
+<p>These were reported in our <code>summary(lm.out)</code> operation above, but the value of this is that we can extract data from an object and do stuff with it. Let’s extract the parameter estimate for the effect. Because it is the second value, we use <code>2</code>. We use double brackets to avoid including the name attribute. We can store this in an object and use it later if we want to.</p>
+<div class="sourceCode" id="cb285"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb285-1"><a href="rct.html#cb285-1" aria-hidden="true" tabindex="-1"></a>myeffect <span class="ot">&lt;-</span> lm.out<span class="sc">$</span>coefficients[[<span class="dv">2</span>]]</span>
+<span id="cb285-2"><a href="rct.html#cb285-2" aria-hidden="true" tabindex="-1"></a>myeffect</span></code></pre></div>
+<pre><code>## [1] 4.898775</code></pre>
+<p>There are many ways to accomplish the same thing in R. The <code>coef()</code> function is another way to get the coefficients from a model object:</p>
+<div class="sourceCode" id="cb287"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb287-1"><a href="rct.html#cb287-1" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(lm.out)</span></code></pre></div>
+<pre><code>## (Intercept)     voucher 
+##   21.130435    4.898775</code></pre>
+<div class="sourceCode" id="cb289"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb289-1"><a href="rct.html#cb289-1" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(lm.out)[[<span class="dv">2</span>]]</span></code></pre></div>
+<pre><code>## [1] 4.898775</code></pre>
+<p><strong>We will use this kind of indexing in later code.</strong></p>
+<p>We can also use the <code>coef()</code> function on the <code>summary(lm.out)</code> function to get the test statistics and <em>p</em>-values:</p>
+<div class="sourceCode" id="cb291"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb291-1"><a href="rct.html#cb291-1" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(<span class="fu">summary</span>(lm.out))</span></code></pre></div>
+<pre><code>##              Estimate Std. Error   t value     Pr(&gt;|t|)
+## (Intercept) 21.130435   1.257590 16.802322 6.572258e-51
+## voucher      4.898775   1.682719  2.911226 3.754896e-03</code></pre>
+<div class="sourceCode" id="cb293"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb293-1"><a href="rct.html#cb293-1" aria-hidden="true" tabindex="-1"></a>my_t <span class="ot">&lt;-</span> <span class="fu">coef</span>(<span class="fu">summary</span>(lm.out))[<span class="st">&quot;voucher&quot;</span>, <span class="st">&quot;t value&quot;</span>]</span>
+<span id="cb293-2"><a href="rct.html#cb293-2" aria-hidden="true" tabindex="-1"></a>my_t</span></code></pre></div>
+<pre><code>## [1] 2.911226</code></pre>
+<div class="sourceCode" id="cb295"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb295-1"><a href="rct.html#cb295-1" aria-hidden="true" tabindex="-1"></a>my_p <span class="ot">&lt;-</span> <span class="fu">coef</span>(<span class="fu">summary</span>(lm.out))[<span class="st">&quot;voucher&quot;</span>, <span class="st">&quot;Pr(&gt;|t|)&quot;</span>]</span>
+<span id="cb295-2"><a href="rct.html#cb295-2" aria-hidden="true" tabindex="-1"></a>my_p</span></code></pre></div>
+<pre><code>## [1] 0.003754896</code></pre>
+<p>These are handy for use in custom functions and for when we want to export these results to a csv file or save them in a table.</p>
+<p>We will also use this kind of indexing in later code.</p>
+<p>From our model object, we can also see each person’s residual. That is, the difference between their observed and predicted achievement score. Here are the first three students’ residual scores:</p>
+<div class="sourceCode" id="cb297"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb297-1"><a href="rct.html#cb297-1" aria-hidden="true" tabindex="-1"></a>lm.out<span class="sc">$</span>residuals[<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>]</span></code></pre></div>
+<pre><code>##         1         2         3 
+##  61.86957 -17.13043 -22.52921</code></pre>
+<p>Corresponding with this, we can use use the <code>resid()</code> function. Again, there are often multiple ways to accomplish the same thing in R.</p>
+<div class="sourceCode" id="cb299"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb299-1"><a href="rct.html#cb299-1" aria-hidden="true" tabindex="-1"></a><span class="fu">resid</span>(lm.out)[<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>]</span></code></pre></div>
+<pre><code>##         1         2         3 
+##  61.86957 -17.13043 -22.52921</code></pre>
+<p>We can manipulate this information. Let’s take the first 5 students’ residuals and see what their voucher statuses and observed test scores were:</p>
+<div class="sourceCode" id="cb301"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb301-1"><a href="rct.html#cb301-1" aria-hidden="true" tabindex="-1"></a>resids <span class="ot">&lt;-</span> lm.out<span class="sc">$</span>residuals[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>]</span>
+<span id="cb301-2"><a href="rct.html#cb301-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data.frame</span>(ny[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, ], resids)</span></code></pre></div>
+<pre><code>##   s_id voucher pre_ach post_ach  vouchF      resids
+## 1   42       0    74.0     83.0 NoVouch  61.8695652
+## 2  194       0     7.5      4.0 NoVouch -17.1304348
+## 3  218       1     2.5      3.5 Voucher -22.5292096
+## 4  261       1     0.0     26.5 Voucher   0.4707904
+## 5  304       1    11.0      2.0 Voucher -24.0292096</code></pre>
+<p>It looks like the first student scored much higher than expected by the model, but we can see that this student also had a really high pre-achievement test score.</p>
+<p>We can also use some standard functions on the outputted objects from models in R. A useful one is the <code>predict()</code> function.<a href="#fn15" class="footnote-ref" id="fnref15"><sup>15</sup></a> This calculates the predicted value in Y given a set of new data that contains values for the parameters in our model. We can do this with new data, or we can use our existing data. Let’s use the first five students in our data set. We need the <code>voucher</code> and <code>post_ach</code> columns to have the same name as those in the statistical model. While we’re at it, let’s add these to our small data set of five people’s scores and residuals, just to see how this works:</p>
+<div class="sourceCode" id="cb303"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb303-1"><a href="rct.html#cb303-1" aria-hidden="true" tabindex="-1"></a>preds <span class="ot">&lt;-</span> <span class="fu">predict</span>(lm.out, ny[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, <span class="fu">c</span>(<span class="st">&quot;voucher&quot;</span>,<span class="st">&quot;post_ach&quot;</span>)]) </span>
+<span id="cb303-2"><a href="rct.html#cb303-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data.frame</span>(ny[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, ], preds, resids)</span></code></pre></div>
+<pre><code>##   s_id voucher pre_ach post_ach  vouchF    preds      resids
+## 1   42       0    74.0     83.0 NoVouch 21.13043  61.8695652
+## 2  194       0     7.5      4.0 NoVouch 21.13043 -17.1304348
+## 3  218       1     2.5      3.5 Voucher 26.02921 -22.5292096
+## 4  261       1     0.0     26.5 Voucher 26.02921   0.4707904
+## 5  304       1    11.0      2.0 Voucher 26.02921 -24.0292096</code></pre>
+<p>We can see that the residuals are indeed the difference between the observed and predicted scores:</p>
+<div class="sourceCode" id="cb305"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb305-1"><a href="rct.html#cb305-1" aria-hidden="true" tabindex="-1"></a>Obs <span class="ot">&lt;-</span> ny[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, <span class="st">&quot;post_ach&quot;</span>]</span>
+<span id="cb305-2"><a href="rct.html#cb305-2" aria-hidden="true" tabindex="-1"></a>Obs <span class="sc">-</span> preds</span></code></pre></div>
+<pre><code>##           1           2           3           4           5 
+##  61.8695652 -17.1304348 -22.5292096   0.4707904 -24.0292096</code></pre>
+<p>Another function is <code>confint()</code>, which returns the confidence intervals of each of the parameters.</p>
+<div class="sourceCode" id="cb307"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb307-1"><a href="rct.html#cb307-1" aria-hidden="true" tabindex="-1"></a><span class="fu">confint</span>(lm.out)</span></code></pre></div>
+<pre><code>##                 2.5 %    97.5 %
+## (Intercept) 18.659842 23.601028
+## voucher      1.592998  8.204552</code></pre>
+<p>In R, there are packages available for further manipulation and analysis of the model object. For example, the <code>lm.beta()</code> function from the lm.beta package <span class="citation">(<a href="#ref-R-lm.beta" role="doc-biblioref">Behrendt, 2014</a>)</span> returns the standardized versions of our parameters.</p>
+<p>The performance package <span class="citation">(<a href="#ref-R-performance" role="doc-biblioref">Lüdecke et al., 2021</a>)</span> provides some nice functions and plots for checking model assumptions.</p>
+<div class="sourceCode" id="cb309"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb309-1"><a href="rct.html#cb309-1" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages(&quot;performance&quot;)</span></span>
+<span id="cb309-2"><a href="rct.html#cb309-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(performance)</span>
+<span id="cb309-3"><a href="rct.html#cb309-3" aria-hidden="true" tabindex="-1"></a><span class="fu">check_model</span>(lm.out) </span></code></pre></div>
+<p><img src="QEDs-in-R_files/figure-html/unnamed-chunk-153-1.png" width="672" /></p>
+<p>Some useful functions in this package are <code>check_homogeneity()</code>, <code>check_autocorrelation()</code>, <code>check_outliers(lm.out)</code>, and <code>check_normality(lm.out)</code>.<a href="#fn16" class="footnote-ref" id="fnref16"><sup>16</sup></a></p>
+<p>This section reveals what we can do with the output of the <code>lm()</code> function. We might not use these functions, but we can see how in R, we can go get what we need using base functions and pretty stuff from packages.</p>
+</div>
+</div>
+<div id="multiple-linear-regression" class="section level3" number="4.3.3">
+<h3><span class="header-section-number">4.3.3</span> Multiple Linear Regression</h3>
+<p>Here is “Strategy 3” on Page 49. Now we have a predictor of the outcome variable that is independent of the <code>voucher</code> variable. That is, because the assignment to treatment or control was random, it is unrelated to the pre-test scores. The pre-treatment acheivement scores are excellent predictors to include in the model because they explain a lot of the residual variance in the model that otherwise they would not. Remember that first student in the data set—the one who had a really high pre-test score, and remember how big the residual for that observation was. It was huge! Now, with the pre-test explaining some of that variation in the post-test that is not explained by the treatment condition variable, we have increased statistical power because now we can focus on the variation after we have accounted for students’ pre-test scores.</p>
+<p>Again, we use the <code>lm()</code> function. We add <code>pre_ach</code>, which is the pre-test variable, as a predictor:</p>
+<div class="sourceCode" id="cb310"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb310-1"><a href="rct.html#cb310-1" aria-hidden="true" tabindex="-1"></a>lm2.out <span class="ot">&lt;-</span> <span class="fu">lm</span>(post_ach <span class="sc">~</span> voucher <span class="sc">+</span> pre_ach, <span class="at">data =</span> ny)</span></code></pre></div>
+<div class="sourceCode" id="cb311"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb311-1"><a href="rct.html#cb311-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm2.out)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = post_ach ~ voucher + pre_ach, data = ny)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -47.337  -9.533  -2.124   7.973  59.781 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  7.71888    1.16298   6.637 8.08e-11 ***
+## voucher      4.09761    1.26873   3.230  0.00132 ** 
+## pre_ach      0.68731    0.03454  19.897  &lt; 2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 14.37 on 518 degrees of freedom
+## Multiple R-squared:  0.4423, Adjusted R-squared:  0.4401 
+## F-statistic: 205.4 on 2 and 518 DF,  p-value: &lt; 2.2e-16</code></pre>
+<p>Our residual variance is a lot lower, so our <em>R</em><sup>2</sup> is much higher, and our confidence intervals are narrower for our parameter of interest.</p>
+<div class="sourceCode" id="cb313"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb313-1"><a href="rct.html#cb313-1" aria-hidden="true" tabindex="-1"></a><span class="fu">confint</span>(lm2.out)</span></code></pre></div>
+<pre><code>##                2.5 %     97.5 %
+## (Intercept) 5.434143 10.0036097
+## voucher     1.605120  6.5900969
+## pre_ach     0.619449  0.7551759</code></pre>
+<div class="sourceCode" id="cb315"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb315-1"><a href="rct.html#cb315-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm2.out)<span class="sc">$</span>r.squared </span></code></pre></div>
+<pre><code>## [1] 0.442294</code></pre>
+</div>
+</div>
+<div id="bootstrapping-to-get-confidence-intervals" class="section level2" number="4.4">
+<h2><span class="header-section-number">4.4</span> Bootstrapping to Get Confidence Intervals</h2>
+<p>Be sure you install and load the boot package <span class="citation">(<a href="#ref-R-boot" role="doc-biblioref">Canty &amp; Ripley, 2021</a>)</span>.</p>
+<div class="sourceCode" id="cb317"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb317-1"><a href="rct.html#cb317-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(boot)</span></code></pre></div>
+<p>Let’s write a bare-bones bootstrap function.</p>
+<div class="sourceCode" id="cb318"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb318-1"><a href="rct.html#cb318-1" aria-hidden="true" tabindex="-1"></a>bootm <span class="ot">&lt;-</span> <span class="cf">function</span>(data, indices){</span>
+<span id="cb318-2"><a href="rct.html#cb318-2" aria-hidden="true" tabindex="-1"></a>  bootsample    <span class="ot">&lt;-</span> data[indices]  <span class="co"># Create subsample from our bigger sample</span></span>
+<span id="cb318-3"><a href="rct.html#cb318-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(<span class="fu">mean</span>(bootsample))        <span class="co">#Saves result of indexed bootsample.</span></span>
+<span id="cb318-4"><a href="rct.html#cb318-4" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p>The line in our code that says <code>bootsample &lt;- data[indices]</code> creates a subsample from our bigger analytic sample of data. The <code>return(mean(bootsample))</code> saves the result of an analysis of this particular sample. <code>R</code> is for the the number of replications in the sampling process. The higher the number, the more stable the standard error will be (given our overall sample) but the more processing time it will require.</p>
+<div class="sourceCode" id="cb319"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb319-1"><a href="rct.html#cb319-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb319-2"><a href="rct.html#cb319-2" aria-hidden="true" tabindex="-1"></a>bootout <span class="ot">&lt;-</span> <span class="fu">boot</span>(<span class="at">statistic =</span> bootm, <span class="at">data =</span> ny<span class="sc">$</span>post_ach, <span class="at">R =</span> <span class="dv">2000</span>)</span>
+<span id="cb319-3"><a href="rct.html#cb319-3" aria-hidden="true" tabindex="-1"></a>bootout</span></code></pre></div>
+<pre><code>## 
+## ORDINARY NONPARAMETRIC BOOTSTRAP
+## 
+## 
+## Call:
+## boot(data = ny$post_ach, statistic = bootm, R = 2000)
+## 
+## 
+## Bootstrap Statistics :
+##     original      bias    std. error
+## t1*  23.8666 -0.01672265   0.8486997</code></pre>
+<p>We can see that the mean of the original is the same as the mean of our analytic sample:</p>
+<div class="sourceCode" id="cb321"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb321-1"><a href="rct.html#cb321-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(ny<span class="sc">$</span>post_ach)</span></code></pre></div>
+<pre><code>## [1] 23.8666</code></pre>
+<div class="sourceCode" id="cb323"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb323-1"><a href="rct.html#cb323-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(bootout)</span></code></pre></div>
+<pre><code>##  [1] &quot;t0&quot;        &quot;t&quot;         &quot;R&quot;         &quot;data&quot;      &quot;seed&quot;      &quot;statistic&quot;
+##  [7] &quot;sim&quot;       &quot;call&quot;      &quot;stype&quot;     &quot;strata&quot;    &quot;weights&quot;</code></pre>
+<p>We can see the first 20 (out of 2000) bootstrapped means:</p>
+<div class="sourceCode" id="cb325"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb325-1"><a href="rct.html#cb325-1" aria-hidden="true" tabindex="-1"></a>bootout<span class="sc">$</span>t[<span class="dv">1</span><span class="sc">:</span><span class="dv">20</span>] <span class="co"># </span></span></code></pre></div>
+<pre><code>##  [1] 23.24088 22.54990 22.74760 24.11420 23.00192 23.50576 23.36660 24.49424
+##  [9] 24.69866 24.58061 24.35029 23.82150 24.44626 21.92898 24.23512 23.00768
+## [17] 23.03167 24.20441 23.51919 26.28599</code></pre>
+<p>We see that there is some variation among these bootstrapped samples in their calculations of the means.</p>
+<p>We can look at the mean of these means, using <code>mean(bootout$t)</code>. The original mean plus the bias seems to give us this same value <span class="math inline">\(23.8666 + -0.01672265 = 23.84988\)</span>.</p>
+<div class="sourceCode" id="cb327"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb327-1"><a href="rct.html#cb327-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(bootout<span class="sc">$</span>t) </span></code></pre></div>
+<pre><code>## [1] 23.84988</code></pre>
+<p>The Percentile and BCa confidence intervals are very close.<a href="#fn17" class="footnote-ref" id="fnref17"><sup>17</sup></a></p>
+<div class="sourceCode" id="cb329"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb329-1"><a href="rct.html#cb329-1" aria-hidden="true" tabindex="-1"></a><span class="fu">boot.ci</span>(bootout)</span></code></pre></div>
+<pre><code>## Warning in boot.ci(bootout): bootstrap variances needed for studentized
+## intervals</code></pre>
+<pre><code>## BOOTSTRAP CONFIDENCE INTERVAL CALCULATIONS
+## Based on 2000 bootstrap replicates
+## 
+## CALL : 
+## boot.ci(boot.out = bootout)
+## 
+## Intervals : 
+## Level      Normal              Basic         
+## 95%   (22.22, 25.55 )   (22.27, 25.50 )  
+## 
+## Level     Percentile            BCa          
+## 95%   (22.23, 25.47 )   (22.26, 25.53 )  
+## Calculations and Intervals on Original Scale</code></pre>
+<p>Remember our previous section on creating a custom function to estimate the confidence intervals? Let’s use that again and then compare the results from that parametric statistics approach to this non-parametric approach:</p>
+<div class="sourceCode" id="cb332"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb332-1"><a href="rct.html#cb332-1" aria-hidden="true" tabindex="-1"></a><span class="fu">myci</span>(ny<span class="sc">$</span>post_ach)</span></code></pre></div>
+<pre><code>##       N     Var       M     SEm   CI_lb   CI_ub 
+## 521.000 368.982  23.867   0.842  22.213  25.520</code></pre>
+<p>The output from the <code>t.test()</code> function on a single variable will also contain the parametric confidence interval:</p>
+<div class="sourceCode" id="cb334"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb334-1"><a href="rct.html#cb334-1" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(ny<span class="sc">$</span>post_ach)</span></code></pre></div>
+<pre><code>## 
+##  One Sample t-test
+## 
+## data:  ny$post_ach
+## t = 28.36, df = 520, p-value &lt; 2.2e-16
+## alternative hypothesis: true mean is not equal to 0
+## 95 percent confidence interval:
+##  22.21333 25.51987
+## sample estimates:
+## mean of x 
+##   23.8666</code></pre>
+<p>In other words, the confidence intervals from both approaches are similar.</p>
+<div id="the-value-of-bootstrapping" class="section level3" number="4.4.1">
+<h3><span class="header-section-number">4.4.1</span> The value of bootstrapping</h3>
+<p>Let’s try bootstrapping the median, for which the standard error is not estimated using a parametric approach. First, we create our custom function, with the <code>median()</code> function inside of it.<a href="#fn18" class="footnote-ref" id="fnref18"><sup>18</sup></a></p>
+<div class="sourceCode" id="cb336"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb336-1"><a href="rct.html#cb336-1" aria-hidden="true" tabindex="-1"></a>bmed <span class="ot">&lt;-</span> <span class="cf">function</span>(data, i){</span>
+<span id="cb336-2"><a href="rct.html#cb336-2" aria-hidden="true" tabindex="-1"></a>  bsmp <span class="ot">&lt;-</span> data[i]  <span class="co"># Our data are a single vector, so we don&#39;t use a comma in the brackets.</span></span>
+<span id="cb336-3"><a href="rct.html#cb336-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(<span class="fu">median</span>(bsmp))</span>
+<span id="cb336-4"><a href="rct.html#cb336-4" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p>Now, let’s put that function to use:</p>
+<div class="sourceCode" id="cb337"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb337-1"><a href="rct.html#cb337-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb337-2"><a href="rct.html#cb337-2" aria-hidden="true" tabindex="-1"></a>bmedout <span class="ot">&lt;-</span> <span class="fu">boot</span>(<span class="at">statistic =</span> bmed, <span class="at">data =</span> ny<span class="sc">$</span>post_ach, <span class="at">R =</span> <span class="dv">2000</span>)</span>
+<span id="cb337-3"><a href="rct.html#cb337-3" aria-hidden="true" tabindex="-1"></a>bmedout</span></code></pre></div>
+<pre><code>## 
+## ORDINARY NONPARAMETRIC BOOTSTRAP
+## 
+## 
+## Call:
+## boot(data = ny$post_ach, statistic = bmed, R = 2000)
+## 
+## 
+## Bootstrap Statistics :
+##     original  bias    std. error
+## t1*       18 0.31725    1.205489</code></pre>
+<div class="sourceCode" id="cb339"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb339-1"><a href="rct.html#cb339-1" aria-hidden="true" tabindex="-1"></a><span class="fu">boot.ci</span>(bmedout)</span></code></pre></div>
+<pre><code>## Warning in boot.ci(bmedout): bootstrap variances needed for studentized
+## intervals</code></pre>
+<pre><code>## BOOTSTRAP CONFIDENCE INTERVAL CALCULATIONS
+## Based on 2000 bootstrap replicates
+## 
+## CALL : 
+## boot.ci(boot.out = bmedout)
+## 
+## Intervals : 
+## Level      Normal              Basic         
+## 95%   (15.32, 20.05 )   (15.00, 19.50 )  
+## 
+## Level     Percentile            BCa          
+## 95%   (16.5, 21.0 )   (16.0, 20.5 )  
+## Calculations and Intervals on Original Scale</code></pre>
+<p>This demonstrates how bootstrapping can be used to estimate the confidence intervals around parameter estimates.</p>
+</div>
+<div id="another-way-to-bootstrap-the-standard-error-of-mean-differences" class="section level3" number="4.4.2">
+<h3><span class="header-section-number">4.4.2</span> Another way to bootstrap the standard error of mean differences</h3>
+<p>Let’s write another bootstrap function to compare two means:
+We can use the <code>by()</code> function. First, let’s create a function
+with our original data (which won’t give us the std. error).
+These two lines of code return the same result. We’ll use the
+the second one—the one with indexing—because it works well with custom functions:</p>
+<div class="sourceCode" id="cb342"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb342-1"><a href="rct.html#cb342-1" aria-hidden="true" tabindex="-1"></a><span class="fu">by</span>(ny<span class="sc">$</span>post_ach, ny<span class="sc">$</span>voucher, mean)</span></code></pre></div>
+<pre><code>## ny$voucher: 0
+## [1] 21.13043
+## ------------------------------------------------------------ 
+## ny$voucher: 1
+## [1] 26.02921</code></pre>
+<div class="sourceCode" id="cb344"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb344-1"><a href="rct.html#cb344-1" aria-hidden="true" tabindex="-1"></a><span class="fu">by</span>(ny[,<span class="st">&quot;post_ach&quot;</span>], ny[,<span class="st">&quot;voucher&quot;</span>], mean)</span></code></pre></div>
+<pre><code>## ny[, &quot;voucher&quot;]: 0
+## [1] 21.13043
+## ------------------------------------------------------------ 
+## ny[, &quot;voucher&quot;]: 1
+## [1] 26.02921</code></pre>
+<div class="sourceCode" id="cb346"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb346-1"><a href="rct.html#cb346-1" aria-hidden="true" tabindex="-1"></a>mbylist.post <span class="ot">&lt;-</span> <span class="fu">by</span>(ny[,<span class="st">&quot;post_ach&quot;</span>], ny[,<span class="st">&quot;voucher&quot;</span>], mean)</span>
+<span id="cb346-2"><a href="rct.html#cb346-2" aria-hidden="true" tabindex="-1"></a>mbylist.post <span class="co"># It&#39;s a list</span></span></code></pre></div>
+<pre><code>## ny[, &quot;voucher&quot;]: 0
+## [1] 21.13043
+## ------------------------------------------------------------ 
+## ny[, &quot;voucher&quot;]: 1
+## [1] 26.02921</code></pre>
+<div class="sourceCode" id="cb348"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb348-1"><a href="rct.html#cb348-1" aria-hidden="true" tabindex="-1"></a> mby.post<span class="ot">&lt;-</span> <span class="fu">unlist</span>(mbylist.post) <span class="co"># Let&#39;s unlist it</span></span>
+<span id="cb348-2"><a href="rct.html#cb348-2" aria-hidden="true" tabindex="-1"></a> mc.post <span class="ot">&lt;-</span> mby.post[<span class="dv">1</span>]</span>
+<span id="cb348-3"><a href="rct.html#cb348-3" aria-hidden="true" tabindex="-1"></a> mt.post <span class="ot">&lt;-</span> mby.post[<span class="dv">2</span>]</span>
+<span id="cb348-4"><a href="rct.html#cb348-4" aria-hidden="true" tabindex="-1"></a> mydiff.post <span class="ot">&lt;-</span> mt.post <span class="sc">-</span> mc.post</span>
+<span id="cb348-5"><a href="rct.html#cb348-5" aria-hidden="true" tabindex="-1"></a>mydiff.post</span></code></pre></div>
+<pre><code>##        1 
+## 4.898775</code></pre>
+<p>Here’s the same function, but with the variables replaced by arguments (and shorter object names). In the line <code>bsmpl &lt;- data[i, ]</code>, notice that we now use indexing with two coordinates (i.e., notice the comma in <code>[ , ]</code>). This is because our source of the data is a data frame (or matrix).</p>
+<div class="sourceCode" id="cb350"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb350-1"><a href="rct.html#cb350-1" aria-hidden="true" tabindex="-1"></a>mgdiff <span class="ot">&lt;-</span> <span class="cf">function</span>(data, y, grp, i){</span>
+<span id="cb350-2"><a href="rct.html#cb350-2" aria-hidden="true" tabindex="-1"></a>  bsmpl <span class="ot">&lt;-</span> data[i, ]</span>
+<span id="cb350-3"><a href="rct.html#cb350-3" aria-hidden="true" tabindex="-1"></a>  mby   <span class="ot">&lt;-</span> <span class="fu">unlist</span>(<span class="fu">by</span>(bsmpl[,y], bsmpl[,grp], mean))</span>
+<span id="cb350-4"><a href="rct.html#cb350-4" aria-hidden="true" tabindex="-1"></a>  mc    <span class="ot">&lt;-</span> mby[<span class="dv">1</span>]</span>
+<span id="cb350-5"><a href="rct.html#cb350-5" aria-hidden="true" tabindex="-1"></a>  mt    <span class="ot">&lt;-</span> mby[<span class="dv">2</span>]</span>
+<span id="cb350-6"><a href="rct.html#cb350-6" aria-hidden="true" tabindex="-1"></a>  bdiff <span class="ot">&lt;-</span> mt<span class="sc">-</span>mc</span>
+<span id="cb350-7"><a href="rct.html#cb350-7" aria-hidden="true" tabindex="-1"></a> <span class="fu">return</span>(bdiff)</span>
+<span id="cb350-8"><a href="rct.html#cb350-8" aria-hidden="true" tabindex="-1"></a>  }</span></code></pre></div>
+<p>Let’s put this function to use. Notice that we are specifying the statistic as our custom function, <code>mgdiff</code>, specifying the arguments that are within our custom function (<code>data =</code>, <code>y =</code>, and <code>grp =</code>), and the number of replications.</p>
+<div class="sourceCode" id="cb351"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb351-1"><a href="rct.html#cb351-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb351-2"><a href="rct.html#cb351-2" aria-hidden="true" tabindex="-1"></a>(bootdiff <span class="ot">&lt;-</span> <span class="fu">boot</span>(<span class="at">statistic =</span> mgdiff, </span>
+<span id="cb351-3"><a href="rct.html#cb351-3" aria-hidden="true" tabindex="-1"></a>                       <span class="at">data =</span> ny,</span>
+<span id="cb351-4"><a href="rct.html#cb351-4" aria-hidden="true" tabindex="-1"></a>                       <span class="at">y    =</span> <span class="st">&quot;post_ach&quot;</span>,</span>
+<span id="cb351-5"><a href="rct.html#cb351-5" aria-hidden="true" tabindex="-1"></a>                       <span class="at">grp  =</span> <span class="st">&quot;voucher&quot;</span>,</span>
+<span id="cb351-6"><a href="rct.html#cb351-6" aria-hidden="true" tabindex="-1"></a>                       <span class="at">R    =</span> <span class="dv">2000</span>)) </span></code></pre></div>
+<pre><code>## 
+## ORDINARY NONPARAMETRIC BOOTSTRAP
+## 
+## 
+## Call:
+## boot(data = ny, statistic = mgdiff, R = 2000, y = &quot;post_ach&quot;, 
+##     grp = &quot;voucher&quot;)
+## 
+## 
+## Bootstrap Statistics :
+##     original       bias    std. error
+## t1* 4.898775 -0.005157426    1.707047</code></pre>
+<div class="sourceCode" id="cb353"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb353-1"><a href="rct.html#cb353-1" aria-hidden="true" tabindex="-1"></a><span class="fu">boot.ci</span>(bootdiff, <span class="at">type =</span> <span class="fu">c</span>(<span class="st">&quot;perc&quot;</span>,<span class="st">&quot;bca&quot;</span>))</span></code></pre></div>
+<pre><code>## BOOTSTRAP CONFIDENCE INTERVAL CALCULATIONS
+## Based on 2000 bootstrap replicates
+## 
+## CALL : 
+## boot.ci(boot.out = bootdiff, type = c(&quot;perc&quot;, &quot;bca&quot;))
+## 
+## Intervals : 
+## Level     Percentile            BCa          
+## 95%   ( 1.619,  8.304 )   ( 1.711,  8.417 )  
+## Calculations and Intervals on Original Scale</code></pre>
+<p>Let’s compare this with the CI in the regular two-group t-test. The confidence intervals of the <em>t</em>-test are very close (though they’re negative because the reference group is being coded automatically to be the one factor level that is later in the alphabetical order (“Voucher” comes after “NoVouch”).<a href="#fn19" class="footnote-ref" id="fnref19"><sup>19</sup></a></p>
+<div class="sourceCode" id="cb355"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb355-1"><a href="rct.html#cb355-1" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(post_ach <span class="sc">~</span> vouchF, <span class="at">data =</span> ny, <span class="at">var.equal =</span> T)</span></code></pre></div>
+<pre><code>## 
+##  Two Sample t-test
+## 
+## data:  post_ach by vouchF
+## t = -2.9112, df = 519, p-value = 0.003755
+## alternative hypothesis: true difference in means between group NoVouch and group Voucher is not equal to 0
+## 95 percent confidence interval:
+##  -8.204552 -1.592998
+## sample estimates:
+## mean in group NoVouch mean in group Voucher 
+##              21.13043              26.02921</code></pre>
+</div>
+<div id="simple-regression" class="section level3" number="4.4.3">
+<h3><span class="header-section-number">4.4.3</span> Simple regression</h3>
+<p>Here is another way to compare means, this time using the <code>lm()</code> function. Here, we’re calling our custom function <code>my.boot()</code> just to help us remember that we’ll use it in a bootstrap. We have an argument, <code>my.lm =</code>, which we’ll use within our linear regression model in our custom function—that is, with the <code>lm()</code> function. Notice that within the <code>lm()</code> function, our <code>data =</code> argument specifies the boot sample, which we’ve given the name <code>bsmpl</code>.</p>
+<div class="sourceCode" id="cb357"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb357-1"><a href="rct.html#cb357-1" aria-hidden="true" tabindex="-1"></a>my.boot <span class="ot">&lt;-</span> <span class="cf">function</span>(my.lm, data, i){</span>
+<span id="cb357-2"><a href="rct.html#cb357-2" aria-hidden="true" tabindex="-1"></a>  bsmpl <span class="ot">&lt;-</span> data[i, ] </span>
+<span id="cb357-3"><a href="rct.html#cb357-3" aria-hidden="true" tabindex="-1"></a>  bout  <span class="ot">&lt;-</span> <span class="fu">lm</span>(my.lm, <span class="at">data =</span> bsmpl)</span>
+<span id="cb357-4"><a href="rct.html#cb357-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(<span class="fu">coef</span>(bout))</span>
+<span id="cb357-5"><a href="rct.html#cb357-5" aria-hidden="true" tabindex="-1"></a>  }</span></code></pre></div>
+<p>Now let’s use our custom function in a <code>boot()</code> function to get the confidence intervals.</p>
+<div class="sourceCode" id="cb358"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb358-1"><a href="rct.html#cb358-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb358-2"><a href="rct.html#cb358-2" aria-hidden="true" tabindex="-1"></a>(bootdiff2 <span class="ot">&lt;-</span> <span class="fu">boot</span>(<span class="at">statistic =</span> my.boot, </span>
+<span id="cb358-3"><a href="rct.html#cb358-3" aria-hidden="true" tabindex="-1"></a>                       <span class="at">my.lm =</span> post_ach <span class="sc">~</span> voucher, </span>
+<span id="cb358-4"><a href="rct.html#cb358-4" aria-hidden="true" tabindex="-1"></a>                       <span class="at">data  =</span> ny, </span>
+<span id="cb358-5"><a href="rct.html#cb358-5" aria-hidden="true" tabindex="-1"></a>                       <span class="at">R     =</span> <span class="dv">2000</span>)) </span></code></pre></div>
+<pre><code>## 
+## ORDINARY NONPARAMETRIC BOOTSTRAP
+## 
+## 
+## Call:
+## boot(data = ny, statistic = my.boot, R = 2000, my.lm = post_ach ~ 
+##     voucher)
+## 
+## 
+## Bootstrap Statistics :
+##      original       bias    std. error
+## t1* 21.130435 -0.016290627    1.211736
+## t2*  4.898775 -0.005157426    1.707047</code></pre>
+<div class="sourceCode" id="cb360"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb360-1"><a href="rct.html#cb360-1" aria-hidden="true" tabindex="-1"></a><span class="fu">boot.ci</span>(bootdiff2, <span class="at">type =</span> <span class="fu">c</span>(<span class="st">&quot;perc&quot;</span>,<span class="st">&quot;bca&quot;</span>), <span class="at">index =</span> <span class="dv">2</span>)</span></code></pre></div>
+<pre><code>## BOOTSTRAP CONFIDENCE INTERVAL CALCULATIONS
+## Based on 2000 bootstrap replicates
+## 
+## CALL : 
+## boot.ci(boot.out = bootdiff2, type = c(&quot;perc&quot;, &quot;bca&quot;), index = 2)
+## 
+## Intervals : 
+## Level     Percentile            BCa          
+## 95%   ( 1.619,  8.304 )   ( 1.711,  8.417 )  
+## Calculations and Intervals on Original Scale</code></pre>
+<p>We can compare the confidence interval from the <code>lm()</code> function to our bootstrapped confidence interval. We can see that our bootstrapped confidence interval is close to but not exactly the same as that from our parametric analysis.<a href="#fn20" class="footnote-ref" id="fnref20"><sup>20</sup></a></p>
+<div class="sourceCode" id="cb362"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb362-1"><a href="rct.html#cb362-1" aria-hidden="true" tabindex="-1"></a>lm.out <span class="ot">&lt;-</span> <span class="fu">lm</span>(post_ach <span class="sc">~</span> voucher, <span class="at">data =</span> ny)</span>
+<span id="cb362-2"><a href="rct.html#cb362-2" aria-hidden="true" tabindex="-1"></a><span class="fu">confint</span>(lm.out)</span></code></pre></div>
+<pre><code>##                 2.5 %    97.5 %
+## (Intercept) 18.659842 23.601028
+## voucher      1.592998  8.204552</code></pre>
+</div>
+<div id="multiple-regression" class="section level3" number="4.4.4">
+<h3><span class="header-section-number">4.4.4</span> Multiple regression</h3>
+<p>To parallel our earlier parametric analysis in which we regressed the post-achievement scores on the treatment condition and the pre-achievement test scores, let’s use our custom function, <code>my.boot()</code>, again with the <code>post_ach ~ voucher + pre_ach</code> linear model.</p>
+<div class="sourceCode" id="cb364"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb364-1"><a href="rct.html#cb364-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb364-2"><a href="rct.html#cb364-2" aria-hidden="true" tabindex="-1"></a>(bootstat <span class="ot">&lt;-</span> <span class="fu">boot</span>(<span class="at">statistic =</span> my.boot, </span>
+<span id="cb364-3"><a href="rct.html#cb364-3" aria-hidden="true" tabindex="-1"></a>                  <span class="at">my.lm =</span> post_ach <span class="sc">~</span> voucher <span class="sc">+</span> pre_ach, </span>
+<span id="cb364-4"><a href="rct.html#cb364-4" aria-hidden="true" tabindex="-1"></a>                  <span class="at">data  =</span> ny, </span>
+<span id="cb364-5"><a href="rct.html#cb364-5" aria-hidden="true" tabindex="-1"></a>                  <span class="at">R     =</span> <span class="dv">2000</span>)) </span></code></pre></div>
+<pre><code>## 
+## ORDINARY NONPARAMETRIC BOOTSTRAP
+## 
+## 
+## Call:
+## boot(data = ny, statistic = my.boot, R = 2000, my.lm = post_ach ~ 
+##     voucher + pre_ach)
+## 
+## 
+## Bootstrap Statistics :
+##      original        bias    std. error
+## t1* 7.7188766 -0.0051154397  1.01381963
+## t2* 4.0976086 -0.0240771377  1.26814470
+## t3* 0.6873125  0.0001913063  0.03961673</code></pre>
+<div class="sourceCode" id="cb366"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb366-1"><a href="rct.html#cb366-1" aria-hidden="true" tabindex="-1"></a><span class="fu">boot.ci</span>(bootstat, <span class="at">type =</span> <span class="fu">c</span>(<span class="st">&quot;perc&quot;</span>,<span class="st">&quot;bca&quot;</span>), <span class="at">index =</span> <span class="dv">2</span>)</span></code></pre></div>
+<pre><code>## BOOTSTRAP CONFIDENCE INTERVAL CALCULATIONS
+## Based on 2000 bootstrap replicates
+## 
+## CALL : 
+## boot.ci(boot.out = bootstat, type = c(&quot;perc&quot;, &quot;bca&quot;), index = 2)
+## 
+## Intervals : 
+## Level     Percentile            BCa          
+## 95%   ( 1.550,  6.522 )   ( 1.548,  6.507 )  
+## Calculations and Intervals on Original Scale</code></pre>
+<p>Within the <code>boot.ci()</code> function (which is part of the boot package), there’s an argument for <code>index =</code>, which we’ve set as <code>2</code> here because we want the second parameter from the output, which is <code>Voucher</code> in our data set, and which corresponds with <code>t2*</code> in the previous output from the <code>boot()</code> function.<a href="#fn21" class="footnote-ref" id="fnref21"><sup>21</sup></a></p>
+<p>If we wanted the confidence intervals of the third parameter’s estimate, corresponding with the <code>pre_ach</code> covariate, we could use this code:</p>
+<div class="sourceCode" id="cb368"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb368-1"><a href="rct.html#cb368-1" aria-hidden="true" tabindex="-1"></a><span class="fu">boot.ci</span>(bootstat, <span class="at">type =</span> <span class="fu">c</span>(<span class="st">&quot;perc&quot;</span>,<span class="st">&quot;bca&quot;</span>), <span class="at">index =</span> <span class="dv">3</span>)</span></code></pre></div>
+<pre><code>## BOOTSTRAP CONFIDENCE INTERVAL CALCULATIONS
+## Based on 2000 bootstrap replicates
+## 
+## CALL : 
+## boot.ci(boot.out = bootstat, type = c(&quot;perc&quot;, &quot;bca&quot;), index = 3)
+## 
+## Intervals : 
+## Level     Percentile            BCa          
+## 95%   ( 0.6085,  0.7682 )   ( 0.6107,  0.7686 )  
+## Calculations and Intervals on Original Scale</code></pre>
+<p>We can compare to the results of the parametric analysis that we did earlier (re-printed here):</p>
+<div class="sourceCode" id="cb370"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb370-1"><a href="rct.html#cb370-1" aria-hidden="true" tabindex="-1"></a>lm2.out <span class="ot">&lt;-</span> <span class="fu">lm</span>(post_ach <span class="sc">~</span> voucher <span class="sc">+</span> pre_ach, <span class="at">data =</span> ny)</span>
+<span id="cb370-2"><a href="rct.html#cb370-2" aria-hidden="true" tabindex="-1"></a><span class="fu">confint</span>(lm2.out)</span></code></pre></div>
+<pre><code>##                2.5 %     97.5 %
+## (Intercept) 5.434143 10.0036097
+## voucher     1.605120  6.5900969
+## pre_ach     0.619449  0.7551759</code></pre>
+<p>We see that the confidence intervals from the bootstrap method approximate those from the parametric linear model.</p>
+</div>
+<div id="summary-on-bootstrapping" class="section level3" number="4.4.5">
+<h3><span class="header-section-number">4.4.5</span> Summary on Bootstrapping</h3>
+<p>Bootstrapping is useful for getting confidence intervals. Because we have a large set of model outputs, each based on a sample, we can ask R to rank the outputs of a specific parameter and return the 2.5 and 97.5 percentiles of this ranking. One caveat to using bootstrapping is that our estimates of the confidence intervals are only as good as our sample is.</p>
+<p><strong><em>A Caution.</em></strong> As is the case with parametric statistical analyses, if we have a biased analytic sample—one that does not represent the population—we have a biased estimate of the confidence intervals. Bootstrapping does not fix bad sampling from the population.</p>
+<p><strong><em>Some Things to Remember.</em></strong> We need to tell the <code>boot.ci()</code> function which parameter to do this with, so we specify the <code>index =</code> argument when we run the <code>boot.ci()</code> function. This returns the row number in the bootstrapped stats, which were printed (and saved) from the <code>boot()</code> function. In our example, for the intercept, we’d specify <code>index = 1</code>, for the <code>pre_ach</code> coefficient, we’d specify <code>index = 3</code>.</p>
+<p><strong><em>Types of Confidence Intervals.</em></strong> The <code>type =</code> refers to the type of confidence intervals. “bca” stands for “bias corrected and accelerated” which adjusts for any skewness in the set (rather than using the raw percentile). Both are valuable. I tend to report both but use the most conservative one (the one with wider bands). We can also evaluate our parametric analysis by comparing the bca results to our parametric linear model confidence intervals; if they are similar, we can probably bet that our parametric model had no problems with the normality assumption. We might report both confidence intervals and comment on whether they’re similar, whether they both do or do not include zero, so we can claim statistical significance, and whether one is dramatically wider or skewed than the other. If our statistical assumptions for our parametric model were not met, we should place more confidence in the bootstrapped results.</p>
+<p>Bootstrapping is flexible because we can use it to estimate parameters that do not have an established (or an easy to use) method for calculating standard errors. In this course, for instance, we will use this with two-stage-least squares or to estimate the confidence interval in a difference in differences kind of approach.</p>
+</div>
+</div>
+<div id="estimating-the-average-treatment-on-the-treated-att" class="section level2" number="4.5">
+<h2><span class="header-section-number">4.5</span> Estimating the Average Treatment on the Treated (ATT)</h2>
+<p>This is a hypothetical demonstration in which 20% of the students offered the treatment do <strong>not</strong> actually use the voucher. As Murnane and Willett <span class="citation">(<a href="#ref-murnane_methods_2011" role="doc-biblioref">2011</a>)</span> described it, “…about one in five families that received vouchers ended up not sending their
+child to private school” (p. 47).</p>
+<div id="artificially-introducing-no-shows" class="section level3" number="4.5.1">
+<h3><span class="header-section-number">4.5.1</span> Artificially Introducing No-shows</h3>
+<p>To see how this works, let’s artificially introduce no-shows into our data. In real life, we would not do this because the no-shows would be the ones who did not show up for the treatment that was offered. W are assuming that the no-shows represent never-takers in the population and that there is an equal proportion of never takers in the treatment and control groups.<a href="#fn22" class="footnote-ref" id="fnref22"><sup>22</sup></a></p>
+<p>Let’s create a new variable, called <code>takeup</code>. Let’s create it so that 80% of the kids who were offered the treatment (<code>Voucher = 1</code>) are coded as actually using the treatment (<code>takeup = 1</code>). The other 20% of those offered the treatment are coded as <code>takeup = 0</code>, meaning that they were “no-shows”; they didn’t use the voucher. All of the control-group kids will also be coded as <code>takeup = 0</code> because they were not given the opportunity to take the voucher.</p>
+<p>Let’s first create a <code>takeup</code> variable and code everyone as <code>0</code>. In the next steps, we will randomly select 80% of the treatment group and replace their <code>0</code> with <code>1</code>. Here, we’re using the replicate function, <code>rep()</code>; the first argument is what to replicate and the second one is the number of times to replicate it. We’re replicating the value <code>0</code>, <span class="math inline">\(521\)</span> times because that is how many rows are in the data frame (from the <code>nrow()</code> function).</p>
+<div class="sourceCode" id="cb372"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb372-1"><a href="rct.html#cb372-1" aria-hidden="true" tabindex="-1"></a>ny<span class="sc">$</span>takeup <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">0</span>, <span class="fu">nrow</span>(ny))</span></code></pre></div>
+<p>Let’s remember how many observations were <em>offered</em> the treatment and control conditions.<a href="#fn23" class="footnote-ref" id="fnref23"><sup>23</sup></a></p>
+<div class="sourceCode" id="cb373"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb373-1"><a href="rct.html#cb373-1" aria-hidden="true" tabindex="-1"></a><span class="fu">with</span>(ny, <span class="fu">table</span>(voucher))  </span></code></pre></div>
+<pre><code>## voucher
+##   0   1 
+## 230 291</code></pre>
+<p>Let’s calculate 80% of number who were offered the voucher. We could have just calculated <span class="math inline">\(.80 * 291\)</span> by hand but to generalize this to other code, we’ll use the <code>nrow()</code> to count the number of observations that are coded as <code>Voucher = 1</code>. The <code>round()</code> function helps us to make the proportionate number a whole number (instead of <span class="math inline">\(232.8\)</span> kids—this is of course for ethical reasons, to avoid cutting one of the children into two parts).</p>
+<div class="sourceCode" id="cb375"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb375-1"><a href="rct.html#cb375-1" aria-hidden="true" tabindex="-1"></a>n_offer <span class="ot">&lt;-</span> <span class="fu">nrow</span>(ny[ny<span class="sc">$</span>voucher <span class="sc">==</span> <span class="st">&quot;1&quot;</span>, ])</span>
+<span id="cb375-2"><a href="rct.html#cb375-2" aria-hidden="true" tabindex="-1"></a>n_take  <span class="ot">&lt;-</span> <span class="fu">round</span>(<span class="fl">0.8</span> <span class="sc">*</span> n_offer)</span>
+<span id="cb375-3"><a href="rct.html#cb375-3" aria-hidden="true" tabindex="-1"></a>n_take</span></code></pre></div>
+<pre><code>## [1] 233</code></pre>
+<p>This is the number of students who took up the offer. We’ll use this number (stored in the <code>n_take</code> object) when we subsequently randomly sample from all of the persons in our analytic sample who were offered the voucher.</p>
+<p>When we randomly sample, we draw the index of their observation. For instance, if we had randomly sampled 2 rows from our data frame, such as rows 42 and 12, here’s what we’d see:</p>
+<div class="sourceCode" id="cb377"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb377-1"><a href="rct.html#cb377-1" aria-hidden="true" tabindex="-1"></a>my2randnums <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">42</span>,<span class="dv">12</span>)</span>
+<span id="cb377-2"><a href="rct.html#cb377-2" aria-hidden="true" tabindex="-1"></a>ny[my2randnums , ]</span></code></pre></div>
+<pre><code>##    s_id voucher pre_ach post_ach  vouchF takeup
+## 42 1235       1    25.5     21.5 Voucher      0
+## 12  392       0    17.0     13.0 NoVouch      0</code></pre>
+<p>Let’s randomly sample from the numbers <span class="math inline">\(1\)</span> to <span class="math inline">\(291\)</span>, which is the number of people offered the treatment. The size of this random sample will be our <code>n_take</code> number, <span class="math inline">\(233\)</span>. The <code>replace = FALSE</code> argument specifies that once an observation is selected, we do not throw it back into the original sample for re-sampling; this is sampling without replacement.</p>
+<div class="sourceCode" id="cb379"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb379-1"><a href="rct.html#cb379-1" aria-hidden="true" tabindex="-1"></a>vg_took_index <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span>n_offer, </span>
+<span id="cb379-2"><a href="rct.html#cb379-2" aria-hidden="true" tabindex="-1"></a>                        <span class="at">size =</span> n_take, </span>
+<span id="cb379-3"><a href="rct.html#cb379-3" aria-hidden="true" tabindex="-1"></a>                        <span class="at">replace =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<p>This is just a random sample of numbers. We’ll use these as indexes in the sub-sample of rows who received the offer of treatment.</p>
+<p>Because we plan to sample from only those people who were offered the voucher, we need to take a few extra steps:</p>
+<ol style="list-style-type: decimal">
+<li>Isolate our data to include only those who were offered the voucher.</li>
+<li>Randomly draw <span class="math inline">\(233\)</span> observations from this subset (i.e., 80%).</li>
+<li>Change the values of the <code>takeup</code> variable for this 80% of our Voucher people to be <code>1</code> instead of <code>0</code>.</li>
+</ol>
+<p>So, let’s take our subset of voucher-offered observations and save them to a temporary data frame, called <code>vg</code>.<a href="#fn24" class="footnote-ref" id="fnref24"><sup>24</sup></a> (We actually don’t need to use a temporary data frame—this is for ease of demonstration; the shorter code is just below.)</p>
+<div class="sourceCode" id="cb380"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb380-1"><a href="rct.html#cb380-1" aria-hidden="true" tabindex="-1"></a>vg <span class="ot">&lt;-</span> ny[ny<span class="sc">$</span>voucher <span class="sc">==</span> <span class="dv">1</span>, ] <span class="co"># Voucher-group subset</span></span></code></pre></div>
+<p>Let’s use those random numbers we earlier created as indexes in our <code>vg</code> data frame. In other words, let’s take only the people in the row number that is present in our <code>vg_took_index</code> and then change their <code>takeup</code> score from <code>0</code> to <code>1</code>:</p>
+<div class="sourceCode" id="cb381"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb381-1"><a href="rct.html#cb381-1" aria-hidden="true" tabindex="-1"></a>vg[vg_took_index, <span class="st">&quot;takeup&quot;</span>] <span class="ot">&lt;-</span> <span class="dv">1</span></span></code></pre></div>
+<div id="tables-and-proportions" class="section level4" number="4.5.1.1">
+<h4><span class="header-section-number">4.5.1.1</span> Tables and Proportions</h4>
+<p>Let’s look at the result using the <code>table()</code> function to tabulate the number of people coded as <code>0</code> and <code>1</code> in our temporary data frame:</p>
+<div class="sourceCode" id="cb382"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb382-1"><a href="rct.html#cb382-1" aria-hidden="true" tabindex="-1"></a><span class="fu">with</span>(vg, <span class="fu">table</span>(takeup))</span></code></pre></div>
+<pre><code>## takeup
+##   0   1 
+##  58 233</code></pre>
+<p>We can also calculate the proportion of people in each group using the <code>prop.table()</code> function around this <code>with(table())</code> function:</p>
+<div class="sourceCode" id="cb384"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb384-1"><a href="rct.html#cb384-1" aria-hidden="true" tabindex="-1"></a><span class="fu">prop.table</span>( <span class="fu">with</span>(vg, <span class="fu">table</span>(takeup)) )</span></code></pre></div>
+<pre><code>## takeup
+##         0         1 
+## 0.1993127 0.8006873</code></pre>
+<p>We see that close to 80% are coded as 1.</p>
+</div>
+<div id="reassigning-values-for-a-subset-of-people" class="section level4" number="4.5.1.2">
+<h4><span class="header-section-number">4.5.1.2</span> Reassigning values for a subset of people</h4>
+<p>We could have merged that <code>vg</code> data frame with the original <code>ny</code> data frame, but we’d have to be careful with the <code>takeup</code> column because it differs for our subset. There’s a shorter way. We can subset our data frame, then we can subset that subset. We can do this with indexing. So, instead of using our temporary data frame, <code>vg</code>, let’s use the original data frame with the subset and then assign a <code>1</code> to these people’s <code>takeup</code> score.</p>
+<div class="sourceCode" id="cb386"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb386-1"><a href="rct.html#cb386-1" aria-hidden="true" tabindex="-1"></a>ny[ny<span class="sc">$</span>voucher <span class="sc">==</span> <span class="dv">1</span>, ][vg_took_index, <span class="st">&quot;takeup&quot;</span>] <span class="ot">&lt;-</span> <span class="dv">1</span></span></code></pre></div>
+<p>So, the <code>ny[ny$voucher == 1, ]</code> subsets the data based on offer, and this is further subsetted into rows that have the same index based on our set of random numbers <code>vg_took_index</code>. We also are examining only the <code>takeup</code> column. Then, we change their score to <code>1</code>.</p>
+<p>Let’s double-check that this worked by creating a cross-tabulation of the offer and takeup variables. For this, we use the <code>table()</code> function on the two variables with our data frame, <code>ny</code>.</p>
+<div class="sourceCode" id="cb387"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb387-1"><a href="rct.html#cb387-1" aria-hidden="true" tabindex="-1"></a><span class="fu">with</span>(ny, <span class="fu">table</span>(voucher, takeup))</span></code></pre></div>
+<pre><code>##        takeup
+## voucher   0   1
+##       0 230   0
+##       1  58 233</code></pre>
+</div>
+<div id="compliance-table" class="section level4" number="4.5.1.3">
+<h4><span class="header-section-number">4.5.1.3</span> Compliance Table</h4>
+<p>Let’s save this to an object, <code>comp</code>, which is short for <em>compliance</em>. We’re generating a compliance table.</p>
+<div class="sourceCode" id="cb389"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb389-1"><a href="rct.html#cb389-1" aria-hidden="true" tabindex="-1"></a>(comp <span class="ot">&lt;-</span> <span class="fu">with</span>(ny,<span class="fu">table</span>(voucher,takeup)))</span></code></pre></div>
+<pre><code>##        takeup
+## voucher   0   1
+##       0 230   0
+##       1  58 233</code></pre>
+<p>There are 58 no-shows, whom we assume are never-takers.</p>
+<p>We can create a proportion table from this, and set the <code>margin = 1</code>, which is across rows.<a href="#fn25" class="footnote-ref" id="fnref25"><sup>25</sup></a> This way it is the proportion of the voucher who took it up:</p>
+<div class="sourceCode" id="cb391"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb391-1"><a href="rct.html#cb391-1" aria-hidden="true" tabindex="-1"></a>comp.prop <span class="ot">&lt;-</span> <span class="fu">prop.table</span>(comp, <span class="at">margin =</span> <span class="dv">1</span>)</span>
+<span id="cb391-2"><a href="rct.html#cb391-2" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(comp.prop, <span class="dv">3</span>) <span class="co"># rounding the proportions so they are easy to see</span></span></code></pre></div>
+<pre><code>##        takeup
+## voucher     0     1
+##       0 1.000 0.000
+##       1 0.199 0.801</code></pre>
+<p>When we estimate the average treatment on the treated effect (ATT, also labeled as TOT), we are interested in those people who were assigned to and received the treatment. We use this cell from our compliance table, or rather the proportion version of it, as the denominator in the Bloom’s <span class="citation">(<a href="#ref-bloom_core_2006" role="doc-biblioref">2006</a>)</span> Equations 8 and 9 for the estimate of the treatment on the treated and its respective standard error,</p>
+<p><span class="math display" id="eq:TOTWald">\[\begin{equation}
+\widehat{TOT} = \frac{\bar{Y}_T - \bar{Y}_C}{(\bar{D}|Z = 1)} 
+  \tag{4.1}
+\end{equation}\]</span></p>
+<p><span class="math display" id="eq:TOTSEWald">\[\begin{equation}
+se(\widehat{TOT}) = \frac{se(\bar{Y}_T - \bar{Y}_C)}{(\bar{D}|Z = 1)} 
+  \tag{4.2}
+\end{equation}\]</span></p>
+<div class="sourceCode" id="cb393"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb393-1"><a href="rct.html#cb393-1" aria-hidden="true" tabindex="-1"></a>(ExpectedD_givenZ <span class="ot">&lt;-</span> comp.prop[<span class="dv">2</span>, <span class="dv">2</span>])  </span></code></pre></div>
+<pre><code>## [1] 0.8006873</code></pre>
+</div>
+<div id="local-average-treatment-effect" class="section level4" number="4.5.1.4">
+<h4><span class="header-section-number">4.5.1.4</span> Local Average Treatment Effect</h4>
+<p>If we were interested in the <em>local average treatment effect</em> (LATE), which is also called the <em>complier average causal effect</em> (CACE) by some researchers, we also account for the always-takers—people who would take the treatment even if they weren’t given the offer. The proportion of crossovers from the control-group assignment (<span class="math inline">\(Z\)</span>) to the treatment (<span class="math inline">\(D\)</span>) represents this proportion that is assumed to be equally present in both levels of the assignment variable. So, LATE is an estimate of the causal effect on the compliers.</p>
+<p>With LATE, we compute the difference in treatment probabilities and use that as the denominator. In our artificially manipulated data set, because we have <span class="math inline">\(0\)</span> cross-overs from the control group, the LATE and ATT estimates are the same.</p>
+<div class="sourceCode" id="cb395"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb395-1"><a href="rct.html#cb395-1" aria-hidden="true" tabindex="-1"></a>(prop.diff_LATE <span class="ot">&lt;-</span> comp.prop[<span class="dv">2</span>, <span class="dv">2</span>] <span class="sc">-</span> comp.prop[<span class="dv">1</span>, <span class="dv">2</span>])  </span></code></pre></div>
+<pre><code>## [1] 0.8006873</code></pre>
+<p><strong><em>Foreshadowing the next part of this lesson.</em></strong> This difference can also be estimated by regressing <code>Z</code> on <code>D</code>. This is the first stage of the two-stage least squares approach, which is next.</p>
+<div class="sourceCode" id="cb397"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb397-1"><a href="rct.html#cb397-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">lm</span>(voucher <span class="sc">~</span> takeup, <span class="at">data =</span> ny))</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = voucher ~ takeup, data = ny)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -0.2014 -0.2014  0.0000  0.0000  0.7986 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  0.20139    0.01760   11.44   &lt;2e-16 ***
+## takeup       0.79861    0.02632   30.34   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 0.2987 on 519 degrees of freedom
+## Multiple R-squared:  0.6394, Adjusted R-squared:  0.6387 
+## F-statistic: 920.4 on 1 and 519 DF,  p-value: &lt; 2.2e-16</code></pre>
+<p>Let’s remember the results of our intent to treat (ITT), which is the ATE of the <strong><em>offer</em></strong> of treatment: This is the same as Table 4.1’s results in the book:</p>
+<div class="sourceCode" id="cb399"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb399-1"><a href="rct.html#cb399-1" aria-hidden="true" tabindex="-1"></a>out.itt <span class="ot">&lt;-</span> <span class="fu">summary</span>(<span class="fu">lm</span>(post_ach <span class="sc">~</span> voucher, <span class="at">data=</span>ny))</span>
+<span id="cb399-2"><a href="rct.html#cb399-2" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(out.itt)</span></code></pre></div>
+<pre><code>##              Estimate Std. Error   t value     Pr(&gt;|t|)
+## (Intercept) 21.130435   1.257590 16.802322 6.572258e-51
+## voucher      4.898775   1.682719  2.911226 3.754896e-03</code></pre>
+<p>Let’s extract the ATE from the regression model’s summary.<a href="#fn26" class="footnote-ref" id="fnref26"><sup>26</sup></a></p>
+<div class="sourceCode" id="cb401"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb401-1"><a href="rct.html#cb401-1" aria-hidden="true" tabindex="-1"></a>ITT.est <span class="ot">&lt;-</span> <span class="fu">coef</span>(out.itt)[<span class="st">&quot;voucher&quot;</span>,<span class="st">&quot;Estimate&quot;</span>]</span></code></pre></div>
+<p>And, let’s extract its standard error:</p>
+<div class="sourceCode" id="cb402"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb402-1"><a href="rct.html#cb402-1" aria-hidden="true" tabindex="-1"></a>ITT.se <span class="ot">&lt;-</span> <span class="fu">coef</span>(out.itt)[<span class="st">&quot;voucher&quot;</span>,<span class="st">&quot;Std. Error&quot;</span>] </span></code></pre></div>
+<p>Let’s calculate the ATT (also called TOT, for treatment on the treated) and its standard error:</p>
+<div class="sourceCode" id="cb403"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb403-1"><a href="rct.html#cb403-1" aria-hidden="true" tabindex="-1"></a>(ATT    <span class="ot">&lt;-</span> ITT.est<span class="sc">/</span>ExpectedD_givenZ)</span></code></pre></div>
+<pre><code>## [1] 6.118212</code></pre>
+<div class="sourceCode" id="cb405"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb405-1"><a href="rct.html#cb405-1" aria-hidden="true" tabindex="-1"></a>(ATT.se <span class="ot">&lt;-</span> ITT.se<span class="sc">/</span>ExpectedD_givenZ)</span></code></pre></div>
+<pre><code>## [1] 2.101593</code></pre>
+<p>If we were interested in LATE, we would use the difference in proportions:</p>
+<div class="sourceCode" id="cb407"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb407-1"><a href="rct.html#cb407-1" aria-hidden="true" tabindex="-1"></a>LATE    <span class="ot">&lt;-</span> ITT.est<span class="sc">/</span>prop.diff_LATE</span>
+<span id="cb407-2"><a href="rct.html#cb407-2" aria-hidden="true" tabindex="-1"></a>LATE.se <span class="ot">&lt;-</span> ITT.se<span class="sc">/</span>prop.diff_LATE</span></code></pre></div>
+<p>From these estimates and the standard error, we can estimate the test statistic <span class="citation">(an approximation of a Wald estimator in instrumental variable estimation, <a href="#ref-wald_fitting_1940" role="doc-biblioref">Wald, 1940</a>)</span>, confidence intervals, and the <em>p</em>-value if we want to conduct a statistical significance test.</p>
+</div>
+<div id="two-stage-least-squares" class="section level4" number="4.5.1.5">
+<h4><span class="header-section-number">4.5.1.5</span> Two-stage Least Squares</h4>
+<p>We will use two-stage least squares later in the course when we use instrument-variable estimation. We can also use it to estimate the average treatment on the treated effect. There are two stages, one for each equation in the link between the offer, which is our exogenous assignment variable, <span class="math inline">\(Z\)</span>, to the treatment, <span class="math inline">\(D\)</span>, and then to the outcome variable, <span class="math inline">\(Y\)</span>.</p>
+<!-- Check out the dagitty package for DAG to replace this -->
+<!-- ```{r warning = F, message = F} -->
+<!-- library(dagitty) -->
+<!-- g1 <- dagitty( "dag { -->
+<!--     P -> Y -->
+<!--     Z -> D -> Y -->
+<!-- }") -->
+<!-- print( adjustmentSets( g1, "Z", "D", effect="direct" ) ) -->
+<!-- plot(graphLayout(g1)) -->
+<!-- ``` -->
+<p><img src="images/tsls_Offer_Treat.png" /></p>
+<p>In our model, the offer is <code>voucher</code>, the treatment is <code>takeup</code>, and the outcome is <code>post_ach</code>. In the first stage, we are regressing <span class="math inline">\(D\)</span> on <span class="math inline">\(Z\)</span>:</p>
+<p><span class="math display" id="eq:Stage1eq">\[\begin{equation}
+D_i = \alpha_{0} + \alpha_{1}Z + \delta_i \text{,}
+  \tag{4.3}
+\end{equation}\]</span></p>
+<p>or, with our variables,</p>
+<p><span class="math display">\[ \text{Takeup}_i = \alpha_{0} + \alpha_{1}\text{Voucher} + \delta_i \text{.}\]</span>
+In other words, take-up is predicted by the offer. Because both <span class="math inline">\(Z\)</span> and <span class="math inline">\(D\)</span> are dichotomous, coded as <span class="math inline">\(0\)</span> and <span class="math inline">\(1\)</span>, the coefficient <span class="math inline">\(\alpha_1\)</span> is the estimated proportion of <code>takeup</code> that were offered the voucher, which we had artificially set up to be <span class="math inline">\(.80\)</span>.</p>
+<p>In the second stage, we regress <span class="math inline">\(Y\)</span> on <span class="math inline">\(\widehat{D}\)</span>, which is the predicted value of <span class="math inline">\(D\)</span> from the first stage:</p>
+<p><span class="math display" id="eq:Stage2eq">\[\begin{equation}
+Y_i = \beta_{0} + \beta_{1}\widehat{D} + \epsilon_i \text{,}
+  \tag{4.4}
+\end{equation}\]</span></p>
+<p>or, with our variables,
+<span class="math display">\[ \text{Post_ach}_i = \beta_{0} + \beta_{1}\widehat{\text{Takeup}} + \epsilon_i \text{,}\]</span>
+The estimate of the average treatment on the treated is <span class="math inline">\(\beta_{1}\)</span>.</p>
+<p><strong><em>Two assumptions</em></strong>. Beyond the usual statistical assumptions of regression, we assume that there are no defiers in our population—that is, that there are no people who would opt to take the treatment only if they were offered the control and would avoid treatment if they were offered the treatment. Another way to say this is we are assuming <strong><em>monotonicity</em></strong>. We can think of monotonicity as being the assumption that the assignment variable pushes people toward treatment in one direction only <span class="citation">(<a href="#ref-angrist_mastering_2015" role="doc-biblioref">Angrist &amp; Pischke, 2015</a>)</span>. If there is reason to argue that this assumption cannot be met, our premise that the proportion of no-shows in the treatment represents the never-takers and that the proportion is, in expectation, the same in the control does not hold. Nor would our premise about the cross-overs representing always-takers. That is, no-shows and cross-overs could be defiers rather than their respective never-takers and always-takers. In this example, it seems far-fetched that there exist families who would deliberately avoid private schools if they were offered the voucher and would send their kids to private schools only if they were not offered the voucher. By way of reasoning, we can probably assume that monotonicity is intact.</p>
+<p>The second assumption is that the exclusion principle is in place. This means that people’s potential outcomes do not depend on whether they were assigned to treatment or control. That is, that a person’s potential score on <span class="math inline">\(Y\)</span> does not depend on their assignment to <span class="math inline">\(Z\)</span>. In this randomized experiment, this is defensible because <span class="math inline">\(Z\)</span> is, by nature of its randomness, unrelated to any other variable—at least in expectation.</p>
+</div>
+<div id="using-the-sem-package-for-2sls" class="section level4" number="4.5.1.6">
+<h4><span class="header-section-number">4.5.1.6</span> Using the sem package for 2SLS</h4>
+<p>To estimate the ATT, we will use the <code>tsls()</code> function from the sem package <span class="citation">(<a href="#ref-R-sem" role="doc-biblioref">Fox et al., 2020</a>)</span>. Let’s bring it into the library.</p>
+<div class="sourceCode" id="cb408"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb408-1"><a href="rct.html#cb408-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sem)</span></code></pre></div>
+<p>With the <code>tsls()</code> function, the first formula is the second stage, <code>post_ach ~ takeup</code>, followed by a comma and the first stage, which includes the formula operator, <code>~</code>, and the offer. This will estimate the ATT from the treatment, which is in turn predicted by the offer.</p>
+<div class="sourceCode" id="cb409"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb409-1"><a href="rct.html#cb409-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">tsls</span>(post_ach <span class="sc">~</span> takeup, <span class="sc">~</span> voucher, </span>
+<span id="cb409-2"><a href="rct.html#cb409-2" aria-hidden="true" tabindex="-1"></a>             <span class="at">data =</span> ny))</span></code></pre></div>
+<pre><code>## 
+##  2SLS Estimates
+## 
+## Model Formula: post_ach ~ takeup
+## 
+## Instruments: ~voucher
+## 
+## Residuals:
+##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+##  -26.75  -14.63   -5.13    0.00   10.37   65.37 
+## 
+##              Estimate Std. Error  t value   Pr(&gt;|t|)    
+## (Intercept) 21.130435   1.266661 16.68200 &lt; 2.22e-16 ***
+## takeup       6.118212   2.116751  2.89038  0.0040089 ** 
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 19.2098663 on 519 degrees of freedom</code></pre>
+<p>We can include the <code>pre_ach</code> as a covariate. This makes the package worth our while!</p>
+<p><img src="images/tsls_Offer_Treat_X.png" /></p>
+<p>Notice that in the formula for this model, we include the predictor covariate in <strong><em>both</em></strong> stages.</p>
+<p><span class="math display">\[ \text{Takeup}_i = \alpha_{0} + \alpha_{1}\text{Voucher} + \alpha_{2}\text{Pre_ach} + \delta_i \text{.}\]</span></p>
+<p><span class="math display">\[ \text{Post_ach}_i = \beta_{0} + \beta_{1}\widehat{\text{Takeup}} + \beta_{2}\text{Pre_ach} + \epsilon_i \text{,}\]</span></p>
+<div class="sourceCode" id="cb411"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb411-1"><a href="rct.html#cb411-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">tsls</span>(post_ach <span class="sc">~</span> takeup <span class="sc">+</span> pre_ach, <span class="sc">~</span> voucher <span class="sc">+</span> pre_ach, </span>
+<span id="cb411-2"><a href="rct.html#cb411-2" aria-hidden="true" tabindex="-1"></a>             <span class="at">data =</span> ny))</span></code></pre></div>
+<pre><code>## 
+##  2SLS Estimates
+## 
+## Model Formula: post_ach ~ takeup + pre_ach
+## 
+## Instruments: ~voucher + pre_ach
+## 
+## Residuals:
+##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+## -48.496  -9.328  -2.064   0.000   7.819  59.855 
+## 
+##              Estimate Std. Error  t value   Pr(&gt;|t|)    
+## (Intercept) 7.6447550  1.1829145  6.46264 2.3775e-10 ***
+## takeup      5.1120842  1.5912364  3.21265   0.001397 ** 
+## pre_ach     0.6911110  0.0347098 19.91112 &lt; 2.22e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 14.4490703 on 518 degrees of freedom</code></pre>
+<p>Notice that even though the point estimate of <span class="math inline">\(5.112\)</span> is lower than that of the model without the predictor <span class="math inline">\((6.118)\)</span>, the standard error is lower <span class="math inline">\((1.591)\)</span>, making it more precise and resulting in a test statistic that is higher <span class="math inline">\((3.213)\)</span> than that of the model that did not have this covariate <span class="math inline">\((2.89)\)</span>.</p>
+<p>So, in our model, with the pre-achievement covariate serving as a predictor of post-achievement, the average effect of the treatment o the treated ATT (also called TOT) was <span class="math inline">\(5.112\)</span>. This is a higher estimate than the average treatment effect of the intent to treat (ITT), which was <span class="math inline">\(4.899\)</span>, as we saw in our regression model with <code>pre_ach</code> as the predictor (as reported in Murnane &amp; Willett, 2011, Table 4.1, p. 49).</p>
+
+</div>
+</div>
+</div>
+</div>
+<h3>References</h3>
+<div id="refs" class="references csl-bib-body hanging-indent" entry-spacing="1">
+<div id="ref-angrist_mastering_2015" class="csl-entry">
+Angrist, J. D., &amp; Pischke, J.-S. (2015). <em>Mastering ’metrics: <span>The</span> path from cause to effect</em>. Princeton University Press. <a href="https://press.princeton.edu/books/paperback/9780691152844/mastering-metrics">https://press.princeton.edu/books/paperback/9780691152844/mastering-metrics</a>
+</div>
+<div id="ref-R-lm.beta" class="csl-entry">
+Behrendt, S. (2014). <em>Lm.beta: Add standardized regression coefficients to lm-objects</em>. <a href="https://CRAN.R-project.org/package=lm.beta">https://CRAN.R-project.org/package=lm.beta</a>
+</div>
+<div id="ref-bloom_core_2006" class="csl-entry">
+Bloom, H. S. (2006). <em>The core analytics of randomized experiments for social research. <span>MDRC</span> working papers on research methodology</em>.
+</div>
+<div id="ref-R-boot" class="csl-entry">
+Canty, A., &amp; Ripley, B. (2021). <em>Boot: Bootstrap functions (originally by angelo canty for s)</em>. <a href="https://CRAN.R-project.org/package=boot">https://CRAN.R-project.org/package=boot</a>
+</div>
+<div id="ref-R-sem" class="csl-entry">
+Fox, J., Nie, Z., &amp; Byrnes, J. (2020). <em>Sem: Structural equation models</em>. <a href="https://CRAN.R-project.org/package=sem">https://CRAN.R-project.org/package=sem</a>
+</div>
+<div id="ref-R-Hmisc" class="csl-entry">
+Harrell, F. E., Jr. (2021). <em>Hmisc: Harrell miscellaneous</em>. <a href="https://CRAN.R-project.org/package=Hmisc">https://CRAN.R-project.org/package=Hmisc</a>
+</div>
+<div id="ref-R-performance" class="csl-entry">
+Lüdecke, D., Makowski, D., Ben-Shachar, M. S., Patil, I., Waggoner, P., &amp; Wiernik, B. M. (2021). <em>Performance: Assessment of regression models performance</em>. <a href="https://easystats.github.io/performance/">https://easystats.github.io/performance/</a>
+</div>
+<div id="ref-murnane_methods_2011" class="csl-entry">
+Murnane, R. J., &amp; Willett, J. B. (2011). <em>Methods matter: <span>Improving</span> causal inference in educational and social science research</em>. Oxford University Press.
+</div>
+<div id="ref-wald_fitting_1940" class="csl-entry">
+Wald, A. (1940). The fitting of straight lines if both variables are subject to error. <em>The Annals of Mathematical Statistics</em>, <em>11</em>(3), 284–300. <a href="https://www.jstor.org/stable/2235677">https://www.jstor.org/stable/2235677</a>
+</div>
+<div id="ref-R-ggplot2" class="csl-entry">
+Wickham, H., Chang, W., Henry, L., Pedersen, T. L., Takahashi, K., Wilke, C., Woo, K., Yutani, H., &amp; Dunnington, D. (2021). <em>ggplot2: Create elegant data visualisations using the grammar of graphics</em>. <a href="https://CRAN.R-project.org/package=ggplot2">https://CRAN.R-project.org/package=ggplot2</a>
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="14">
+<li id="fn14"><p>Average treatment on the treated is sometimes abbreviated as ATT and sometimes as TOT.<a href="rct.html#fnref14" class="footnote-back">↩︎</a></p></li>
+<li id="fn15"><p>The <code>lm.out$fitted.values</code> will also give the predicted values as will the <code>fitted()</code> function.<a href="rct.html#fnref15" class="footnote-back">↩︎</a></p></li>
+<li id="fn16"><p>Remember that when we have a small sample size, these tests of assumptions in which we argue for the null hypothesis lose their credibility.<a href="rct.html#fnref16" class="footnote-back">↩︎</a></p></li>
+<li id="fn17"><p>BCa stands for bias-corrected and accelerated boostrap intervals. This is a correction for the proportion of bootstrapped samples that contain a parameter estimate that is less than teh observed parameter estimate in our overall sample.<a href="rct.html#fnref17" class="footnote-back">↩︎</a></p></li>
+<li id="fn18"><p>In this function, we’re using <code>i</code> as the argument name instead of spelling out <code>index</code>. Also, as in the previous example with <code>data[index]</code>, the data that we will perform this function on are a single vector. So, when we use the function, we don’t use a comma in the brackets, which would be reserved for data that are a matrix or data frame. For example, in our use of this function, it will be <code>data = ny$post_ach</code> in the code.<a href="rct.html#fnref18" class="footnote-back">↩︎</a></p></li>
+<li id="fn19"><p>We can change the orders of the levels in a factor so that the reference group is the <code>NoVouch</code> group. An easy way is to assign reordered names of the levels to the <code>levels()</code> of the variable, as in <code>levels(ny$vouchF) &lt;- c("Voucher", "NoVouch")</code>. The spelling of the factor levels must match those already specified in the factor.<a href="rct.html#fnref19" class="footnote-back">↩︎</a></p></li>
+<li id="fn20"><p>Generally, we don’t need to use bootstrapping when we can do a parametric analysis, but this is to demonstrate how it works and how bootstrapped confidence intervals are based on random subsampling, which therefore results in confidence intervals that are close to but never (or hardly ever) the same as the confidence intervals from a parametric analysis.<a href="rct.html#fnref20" class="footnote-back">↩︎</a></p></li>
+<li id="fn21"><p>The first parameter is the intercept, the second is the coefficient for the second term in the regression model, and so forth.<a href="rct.html#fnref21" class="footnote-back">↩︎</a></p></li>
+<li id="fn22"><p>This assumes there are no defiers in the sample—people who would not take the treatment if they were offered it but who <em>would</em> take the treatment if they were not offered it.<a href="rct.html#fnref22" class="footnote-back">↩︎</a></p></li>
+<li id="fn23"><p>We could also use <code>table(ny$voucher)</code> instead of <code>with(ny, table(voucher))</code>. The latter provides an output that is easier to read.<a href="rct.html#fnref23" class="footnote-back">↩︎</a></p></li>
+<li id="fn24"><p>Instead of <code>ny[ny$voucher == 1, ]</code>, we could have used the <code>subset()</code> function, as in <code>vg  &lt;-  subset(ny, voucher == 1)</code>.<a href="rct.html#fnref24" class="footnote-back">↩︎</a></p></li>
+<li id="fn25"><p>The <code>voucher</code> variable was the first one in our <code>table()</code> function above, <code>with(ny,table(voucher,takeup))</code>, which made it the row in our output.<a href="rct.html#fnref25" class="footnote-back">↩︎</a></p></li>
+<li id="fn26"><p>We could also use numeric indexing for <code>coef(out.itt)["voucher","Estimate"]</code>. Because <code>voucher</code> is the second row in this <code>coef()</code> result and <code>Estimate</code> is the first column, we could write <code>coef(out.itt)[2,1]</code>.<a href="rct.html#fnref26" class="footnote-back">↩︎</a></p></li>
+</ol>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="examine.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="DID.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

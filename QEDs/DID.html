@@ -1,0 +1,1083 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Part 5 Difference in Differences | Using R for Quasi-Experimental Designs</title>
+  <meta name="description" content="QEDs in R" />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Part 5 Difference in Differences | Using R for Quasi-Experimental Designs" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="QEDs in R" />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Part 5 Difference in Differences | Using R for Quasi-Experimental Designs" />
+  
+  <meta name="twitter:description" content="QEDs in R" />
+  
+
+<meta name="author" content="George M. Harrison  University of Hawai‘i at Mānoa, College of Education" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="rct.html"/>
+<link rel="next" href="RD1.html"/>
+<script src="libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+<link href="libs/bsTable-3.3.7/bootstrapTable.min.css" rel="stylesheet" />
+<script src="libs/bsTable-3.3.7/bootstrapTable.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 1em;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#what-is-r"><i class="fa fa-check"></i><b>1.1</b> What is R</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="basics.html"><a href="basics.html"><i class="fa fa-check"></i><b>2</b> Some Fundamentals of Coding in R</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="basics.html"><a href="basics.html#objectives"><i class="fa fa-check"></i><b>2.1</b> Objectives</a></li>
+<li class="chapter" data-level="2.2" data-path="basics.html"><a href="basics.html#creating-an-r-script-file"><i class="fa fa-check"></i><b>2.2</b> Creating an R Script File</a></li>
+<li class="chapter" data-level="2.3" data-path="basics.html"><a href="basics.html#creating-objects-by-assigning-information-to-them"><i class="fa fa-check"></i><b>2.3</b> Creating objects by assigning information to them</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="basics.html"><a href="basics.html#assigning-character-strings-to-an-object"><i class="fa fa-check"></i><b>2.3.1</b> Assigning Character Strings to an Object</a></li>
+<li class="chapter" data-level="2.3.2" data-path="basics.html"><a href="basics.html#assigning-numeric-elements-to-an-object"><i class="fa fa-check"></i><b>2.3.2</b> Assigning Numeric Elements to an Object</a></li>
+<li class="chapter" data-level="2.3.3" data-path="basics.html"><a href="basics.html#creating-vectors"><i class="fa fa-check"></i><b>2.3.3</b> Creating Vectors</a></li>
+<li class="chapter" data-level="2.3.4" data-path="basics.html"><a href="basics.html#performing-operations-on-vectors"><i class="fa fa-check"></i><b>2.3.4</b> Performing Operations on Vectors</a></li>
+<li class="chapter" data-level="2.3.5" data-path="basics.html"><a href="basics.html#using-functions"><i class="fa fa-check"></i><b>2.3.5</b> Using Functions</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="basics.html"><a href="basics.html#create-a-data-frame-from-code"><i class="fa fa-check"></i><b>2.4</b> Create a data frame from code</a></li>
+<li class="chapter" data-level="2.5" data-path="basics.html"><a href="basics.html#working-with-matrices"><i class="fa fa-check"></i><b>2.5</b> Working with Matrices</a></li>
+<li class="chapter" data-level="2.6" data-path="basics.html"><a href="basics.html#dffromcsv"><i class="fa fa-check"></i><b>2.6</b> Creating a Data Frame from a CSV File</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="examine.html"><a href="examine.html"><i class="fa fa-check"></i><b>3</b> Examining and Summarizing Data</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="examine.html"><a href="examine.html#objectives-1"><i class="fa fa-check"></i><b>3.1</b> Objectives</a></li>
+<li class="chapter" data-level="3.2" data-path="examine.html"><a href="examine.html#examining-the-data"><i class="fa fa-check"></i><b>3.2</b> Examining the Data</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="examine.html"><a href="examine.html#the-data-frame"><i class="fa fa-check"></i><b>3.2.1</b> The Data Frame</a></li>
+<li class="chapter" data-level="3.2.2" data-path="examine.html"><a href="examine.html#subsetting-by-rows"><i class="fa fa-check"></i><b>3.2.2</b> Subsetting by Rows</a></li>
+<li class="chapter" data-level="3.2.3" data-path="examine.html"><a href="examine.html#subsetting-by-columns"><i class="fa fa-check"></i><b>3.2.3</b> Subsetting by Columns</a></li>
+<li class="chapter" data-level="3.2.4" data-path="examine.html"><a href="examine.html#descriptive-statistics"><i class="fa fa-check"></i><b>3.2.4</b> Descriptive Statistics</a></li>
+<li class="chapter" data-level="3.2.5" data-path="examine.html"><a href="examine.html#creating-a-custom-function-to-estimate-the-confidence-interval-of-the-mean"><i class="fa fa-check"></i><b>3.2.5</b> Creating a Custom Function to Estimate the Confidence Interval of the Mean</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="examine.html"><a href="examine.html#summarizing-data-by-group-and-an-introduction-to-lists"><i class="fa fa-check"></i><b>3.3</b> Summarizing Data by Group (and an introduction to lists)</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="examine.html"><a href="examine.html#calculating-standardized-mean-difference-and-variance-ratio-of-a-covariate"><i class="fa fa-check"></i><b>3.3.1</b> Calculating Standardized Mean Difference and Variance Ratio of a Covariate</a></li>
+<li class="chapter" data-level="3.3.2" data-path="examine.html"><a href="examine.html#creating-a-factor-variable-from-a-numeric-variable"><i class="fa fa-check"></i><b>3.3.2</b> Creating a Factor Variable from a Numeric Variable</a></li>
+<li class="chapter" data-level="3.3.3" data-path="examine.html"><a href="examine.html#aggregate_explain"><i class="fa fa-check"></i><b>3.3.3</b> The <code>aggregate()</code> function</a></li>
+<li class="chapter" data-level="3.3.4" data-path="examine.html"><a href="examine.html#plotting-data-by-group"><i class="fa fa-check"></i><b>3.3.4</b> Plotting data by group</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="examine.html"><a href="examine.html#extra-stuff"><i class="fa fa-check"></i><b>3.4</b> Extra Stuff</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="examine.html"><a href="examine.html#using-ggplot"><i class="fa fa-check"></i><b>3.4.1</b> Using ggplot</a></li>
+<li class="chapter" data-level="3.4.2" data-path="examine.html"><a href="examine.html#subsetting-data-and-separately-analyzing-each-group"><i class="fa fa-check"></i><b>3.4.2</b> Subsetting data and separately analyzing each group</a></li>
+<li class="chapter" data-level="3.4.3" data-path="examine.html"><a href="examine.html#the-tidyverse-approach-to-by-group-analyses"><i class="fa fa-check"></i><b>3.4.3</b> The Tidyverse Approach to By-Group Analyses</a></li>
+<li class="chapter" data-level="3.4.4" data-path="examine.html"><a href="examine.html#plotting-summary-statistics"><i class="fa fa-check"></i><b>3.4.4</b> Plotting summary statistics</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="rct.html"><a href="rct.html"><i class="fa fa-check"></i><b>4</b> Examples with Randomized Experiments</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="rct.html"><a href="rct.html#objectives-2"><i class="fa fa-check"></i><b>4.1</b> Objectives</a></li>
+<li class="chapter" data-level="4.2" data-path="rct.html"><a href="rct.html#preparation"><i class="fa fa-check"></i><b>4.2</b> Preparation</a></li>
+<li class="chapter" data-level="4.3" data-path="rct.html"><a href="rct.html#analysis-of-linear-models"><i class="fa fa-check"></i><b>4.3</b> Analysis of Linear Models</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="rct.html"><a href="rct.html#independent-samples-t-test-approach"><i class="fa fa-check"></i><b>4.3.1</b> Independent samples <em>t</em>-test approach</a></li>
+<li class="chapter" data-level="4.3.2" data-path="rct.html"><a href="rct.html#simple-linear-regression"><i class="fa fa-check"></i><b>4.3.2</b> Simple Linear Regression</a></li>
+<li class="chapter" data-level="4.3.3" data-path="rct.html"><a href="rct.html#multiple-linear-regression"><i class="fa fa-check"></i><b>4.3.3</b> Multiple Linear Regression</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="rct.html"><a href="rct.html#bootstrapping-to-get-confidence-intervals"><i class="fa fa-check"></i><b>4.4</b> Bootstrapping to Get Confidence Intervals</a>
+<ul>
+<li class="chapter" data-level="4.4.1" data-path="rct.html"><a href="rct.html#the-value-of-bootstrapping"><i class="fa fa-check"></i><b>4.4.1</b> The value of bootstrapping</a></li>
+<li class="chapter" data-level="4.4.2" data-path="rct.html"><a href="rct.html#another-way-to-bootstrap-the-standard-error-of-mean-differences"><i class="fa fa-check"></i><b>4.4.2</b> Another way to bootstrap the standard error of mean differences</a></li>
+<li class="chapter" data-level="4.4.3" data-path="rct.html"><a href="rct.html#simple-regression"><i class="fa fa-check"></i><b>4.4.3</b> Simple regression</a></li>
+<li class="chapter" data-level="4.4.4" data-path="rct.html"><a href="rct.html#multiple-regression"><i class="fa fa-check"></i><b>4.4.4</b> Multiple regression</a></li>
+<li class="chapter" data-level="4.4.5" data-path="rct.html"><a href="rct.html#summary-on-bootstrapping"><i class="fa fa-check"></i><b>4.4.5</b> Summary on Bootstrapping</a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="rct.html"><a href="rct.html#estimating-the-average-treatment-on-the-treated-att"><i class="fa fa-check"></i><b>4.5</b> Estimating the Average Treatment on the Treated (ATT)</a>
+<ul>
+<li class="chapter" data-level="4.5.1" data-path="rct.html"><a href="rct.html#artificially-introducing-no-shows"><i class="fa fa-check"></i><b>4.5.1</b> Artificially Introducing No-shows</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="DID.html"><a href="DID.html"><i class="fa fa-check"></i><b>5</b> Difference in Differences</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="DID.html"><a href="DID.html#objectives-3"><i class="fa fa-check"></i><b>5.1</b> Objectives</a></li>
+<li class="chapter" data-level="5.2" data-path="DID.html"><a href="DID.html#import-and-prepare-the-data"><i class="fa fa-check"></i><b>5.2</b> Import and Prepare the Data</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="DID.html"><a href="DID.html#prepare-the-data"><i class="fa fa-check"></i><b>5.2.1</b> Prepare the data</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="DID.html"><a href="DID.html#using-the-survey-package"><i class="fa fa-check"></i><b>5.3</b> Using the survey package</a></li>
+<li class="chapter" data-level="5.4" data-path="DID.html"><a href="DID.html#direct-estimates-as-shown-in-table-8.1-on-page-143"><i class="fa fa-check"></i><b>5.4</b> Direct estimates, as shown in Table 8.1 on page 143</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="DID.html"><a href="DID.html#first-difference-direct-estimate-in-panel-a."><i class="fa fa-check"></i><b>5.4.1</b> First difference, direct estimate in Panel A.</a></li>
+<li class="chapter" data-level="5.4.2" data-path="DID.html"><a href="DID.html#estimate-from-the-linear-probability-model-ols-estimate-shown-in-table-8.1-on-page-143-panel-b."><i class="fa fa-check"></i><b>5.4.2</b> Estimate from the linear-probability model (OLS) estimate shown in Table 8.1 on page 143, Panel B.</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="DID.html"><a href="DID.html#difference-in-differences-simple-approach-table-8.2-p.-157"><i class="fa fa-check"></i><b>5.5</b> Difference in differences, simple approach (Table 8.2, p. 157)</a></li>
+<li class="chapter" data-level="5.6" data-path="DID.html"><a href="DID.html#difference-in-differences-using-regression"><i class="fa fa-check"></i><b>5.6</b> Difference in differences using regression</a>
+<ul>
+<li class="chapter" data-level="5.6.1" data-path="DID.html"><a href="DID.html#compare-the-results-from-the-four-different-strategies"><i class="fa fa-check"></i><b>5.6.1</b> Compare the results from the four different strategies</a></li>
+</ul></li>
+<li class="chapter" data-level="5.7" data-path="DID.html"><a href="DID.html#summary-of-the-did-model-strategy"><i class="fa fa-check"></i><b>5.7</b> Summary of the DID model strategy</a></li>
+<li class="chapter" data-level="5.8" data-path="DID.html"><a href="DID.html#accounting-for-the-binary-y-variable"><i class="fa fa-check"></i><b>5.8</b> Accounting for the binary Y variable</a></li>
+<li class="chapter" data-level="5.9" data-path="DID.html"><a href="DID.html#plotting-the-difference-in-differences"><i class="fa fa-check"></i><b>5.9</b> Plotting the difference in differences</a>
+<ul>
+<li class="chapter" data-level="5.9.1" data-path="DID.html"><a href="DID.html#plotfrompred"><i class="fa fa-check"></i><b>5.9.1</b> Plotting from the predicted values of the model</a></li>
+<li class="chapter" data-level="5.9.2" data-path="DID.html"><a href="DID.html#doing-it-in-ggplot2"><i class="fa fa-check"></i><b>5.9.2</b> Doing it in ggplot2</a></li>
+<li class="chapter" data-level="5.9.3" data-path="DID.html"><a href="DID.html#seeing-where-the-regression-estimate-is-in-the-plot"><i class="fa fa-check"></i><b>5.9.3</b> Seeing where the regression estimate is in the plot</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="RD1.html"><a href="RD1.html"><i class="fa fa-check"></i><b>6</b> Regression Discontinuity, Part 1</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="RD1.html"><a href="RD1.html#objectives-4"><i class="fa fa-check"></i><b>6.1</b> Objectives</a></li>
+<li class="chapter" data-level="6.2" data-path="RD1.html"><a href="RD1.html#import-and-prepare-the-data-1"><i class="fa fa-check"></i><b>6.2</b> Import and Prepare the Data</a></li>
+<li class="chapter" data-level="6.3" data-path="RD1.html"><a href="RD1.html#different-difference-in-differences"><i class="fa fa-check"></i><b>6.3</b> Different Difference in Differences</a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="RD1.html"><a href="RD1.html#our-first-difference"><i class="fa fa-check"></i><b>6.3.1</b> Our first difference</a></li>
+<li class="chapter" data-level="6.3.2" data-path="RD1.html"><a href="RD1.html#a-plausible-second-difference"><i class="fa fa-check"></i><b>6.3.2</b> A plausible second difference</a></li>
+<li class="chapter" data-level="6.3.3" data-path="RD1.html"><a href="RD1.html#another-plausible-second-difference"><i class="fa fa-check"></i><b>6.3.3</b> Another plausible second difference</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="RD1.html"><a href="RD1.html#mread3640"><i class="fa fa-check"></i><b>6.4</b> Broadening the bandwidth</a></li>
+<li class="chapter" data-level="6.5" data-path="RD1.html"><a href="RD1.html#summary-up-to-this-point"><i class="fa fa-check"></i><b>6.5</b> Summary up to this point</a></li>
+<li class="chapter" data-level="6.6" data-path="RD1.html"><a href="RD1.html#examining-if-the-results-are-consistent-with-different-bandwidths"><i class="fa fa-check"></i><b>6.6</b> Examining if the results are consistent with different bandwidths</a></li>
+<li class="chapter" data-level="6.7" data-path="RD1.html"><a href="RD1.html#functional-form-in-rdd"><i class="fa fa-check"></i><b>6.7</b> Functional Form in RDD</a>
+<ul>
+<li class="chapter" data-level="6.7.1" data-path="RD1.html"><a href="RD1.html#plotting-the-two-sides-allowing-different-slopes"><i class="fa fa-check"></i><b>6.7.1</b> Plotting the two sides, allowing different slopes</a></li>
+<li class="chapter" data-level="6.7.2" data-path="RD1.html"><a href="RD1.html#broader-analytic-windows"><i class="fa fa-check"></i><b>6.7.2</b> Broader analytic windows</a></li>
+</ul></li>
+<li class="chapter" data-level="6.8" data-path="RD1.html"><a href="RD1.html#using-the-rddtools-package"><i class="fa fa-check"></i><b>6.8</b> Using the rddtools Package</a>
+<ul>
+<li class="chapter" data-level="6.8.1" data-path="RD1.html"><a href="RD1.html#examining-the-bandwidth-identified-by-the-package"><i class="fa fa-check"></i><b>6.8.1</b> Examining the bandwidth identified by the package</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="RD2.html"><a href="RD2.html"><i class="fa fa-check"></i><b>7</b> Regression Discontinuity, Part 2</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="RD2.html"><a href="RD2.html#here-are-the-steps-we-will-take"><i class="fa fa-check"></i><b>7.1</b> Here are the steps we will take:</a></li>
+<li class="chapter" data-level="7.2" data-path="RD2.html"><a href="RD2.html#the-data"><i class="fa fa-check"></i><b>7.2</b> The Data</a></li>
+<li class="chapter" data-level="7.3" data-path="RD2.html"><a href="RD2.html#examine-the-data-the-assignment-rule-adherence-and-compliance"><i class="fa fa-check"></i><b>7.3</b> Examine the Data, the Assignment-rule Adherence, and Compliance</a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="RD2.html"><a href="RD2.html#assignment-rule-adherence"><i class="fa fa-check"></i><b>7.3.1</b> Assignment-rule adherence</a></li>
+<li class="chapter" data-level="7.3.2" data-path="RD2.html"><a href="RD2.html#compliance"><i class="fa fa-check"></i><b>7.3.2</b> Compliance</a></li>
+<li class="chapter" data-level="7.3.3" data-path="RD2.html"><a href="RD2.html#create-bins-of-the-assignment-variable"><i class="fa fa-check"></i><b>7.3.3</b> Create Bins of the Assignment Variable</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="RD2.html"><a href="RD2.html#examining-assumptions"><i class="fa fa-check"></i><b>7.4</b> Examining Assumptions</a>
+<ul>
+<li class="chapter" data-level="7.4.1" data-path="RD2.html"><a href="RD2.html#assumption-1the-continuity-assumption"><i class="fa fa-check"></i><b>7.4.1</b> Assumption 1—the continuity assumption</a></li>
+<li class="chapter" data-level="7.4.2" data-path="RD2.html"><a href="RD2.html#assumption-2discontinuities-in-the-covariates"><i class="fa fa-check"></i><b>7.4.2</b> Assumption 2—Discontinuities in the covariates</a></li>
+<li class="chapter" data-level="7.4.3" data-path="RD2.html"><a href="RD2.html#assumption-3checking-for-pseudo-cut-offs-in-the-outcome"><i class="fa fa-check"></i><b>7.4.3</b> Assumption 3—Checking for pseudo-cut-offs in the outcome</a></li>
+</ul></li>
+<li class="chapter" data-level="7.5" data-path="RD2.html"><a href="RD2.html#examining-the-parametric-functional-form"><i class="fa fa-check"></i><b>7.5</b> Examining the Parametric Functional Form</a>
+<ul>
+<li class="chapter" data-level="7.5.1" data-path="RD2.html"><a href="RD2.html#restricting-bandwidth"><i class="fa fa-check"></i><b>7.5.1</b> Restricting bandwidth</a></li>
+</ul></li>
+<li class="chapter" data-level="7.6" data-path="RD2.html"><a href="RD2.html#restband"><i class="fa fa-check"></i><b>7.6</b> Estimating the Effect</a>
+<ul>
+<li class="chapter" data-level="7.6.1" data-path="RD2.html"><a href="RD2.html#parametric-model"><i class="fa fa-check"></i><b>7.6.1</b> Parametric Model</a></li>
+<li class="chapter" data-level="7.6.2" data-path="RD2.html"><a href="RD2.html#non-parametric-model-local-linear-estimation"><i class="fa fa-check"></i><b>7.6.2</b> Non-parametric Model: Local Linear Estimation</a></li>
+<li class="chapter" data-level="7.6.3" data-path="RD2.html"><a href="RD2.html#including-covariates"><i class="fa fa-check"></i><b>7.6.3</b> Including covariates</a></li>
+</ul></li>
+<li class="chapter" data-level="7.7" data-path="RD2.html"><a href="RD2.html#sensitivity-analysis"><i class="fa fa-check"></i><b>7.7</b> Sensitivity Analysis</a></li>
+<li class="chapter" data-level="7.8" data-path="RD2.html"><a href="RD2.html#accounting-for-fuzziness"><i class="fa fa-check"></i><b>7.8</b> Accounting for Fuzziness</a>
+<ul>
+<li class="chapter" data-level="7.8.1" data-path="RD2.html"><a href="RD2.html#fuzzy-non-parametric-model"><i class="fa fa-check"></i><b>7.8.1</b> Fuzzy non-parametric model</a></li>
+<li class="chapter" data-level="7.8.2" data-path="RD2.html"><a href="RD2.html#summary-about-fuzzy-rdd"><i class="fa fa-check"></i><b>7.8.2</b> Summary about fuzzy RDD</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="IVE.html"><a href="IVE.html"><i class="fa fa-check"></i><b>8</b> Instrumental Variable Estimation</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="IVE.html"><a href="IVE.html#objectives-5"><i class="fa fa-check"></i><b>8.1</b> Objectives</a></li>
+<li class="chapter" data-level="8.2" data-path="IVE.html"><a href="IVE.html#preparation-1"><i class="fa fa-check"></i><b>8.2</b> Preparation</a>
+<ul>
+<li class="chapter" data-level="8.2.1" data-path="IVE.html"><a href="IVE.html#examining-the-data-1"><i class="fa fa-check"></i><b>8.2.1</b> Examining the data</a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="IVE.html"><a href="IVE.html#moments-reported-in-table-10.2-p.-219"><i class="fa fa-check"></i><b>8.3</b> Moments reported in Table 10.2 (p. 219)</a></li>
+<li class="chapter" data-level="8.4" data-path="IVE.html"><a href="IVE.html#two-stage-least-squares-1"><i class="fa fa-check"></i><b>8.4</b> Two-stage Least Squares</a>
+<ul>
+<li class="chapter" data-level="8.4.1" data-path="IVE.html"><a href="IVE.html#first-stage"><i class="fa fa-check"></i><b>8.4.1</b> First stage</a></li>
+<li class="chapter" data-level="8.4.2" data-path="IVE.html"><a href="IVE.html#second-stage"><i class="fa fa-check"></i><b>8.4.2</b> Second stage</a></li>
+<li class="chapter" data-level="8.4.3" data-path="IVE.html"><a href="IVE.html#obtaining-the-correct-standard-errors"><i class="fa fa-check"></i><b>8.4.3</b> Obtaining the correct standard errors</a></li>
+<li class="chapter" data-level="8.4.4" data-path="IVE.html"><a href="IVE.html#letting-the-software-do-the-work"><i class="fa fa-check"></i><b>8.4.4</b> Letting the software do the work</a></li>
+<li class="chapter" data-level="8.4.5" data-path="IVE.html"><a href="IVE.html#noticing-the-covariance-between-errors"><i class="fa fa-check"></i><b>8.4.5</b> Noticing the covariance between errors</a></li>
+</ul></li>
+<li class="chapter" data-level="8.5" data-path="IVE.html"><a href="IVE.html#two-stage-least-squares-with-covariates"><i class="fa fa-check"></i><b>8.5</b> Two-Stage Least Squares with Covariates</a></li>
+<li class="chapter" data-level="8.6" data-path="IVE.html"><a href="IVE.html#using-multiple-instruments"><i class="fa fa-check"></i><b>8.6</b> Using Multiple Instruments</a>
+<ul>
+<li class="chapter" data-level="8.6.1" data-path="IVE.html"><a href="IVE.html#system-of-equations"><i class="fa fa-check"></i><b>8.6.1</b> System of equations</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="IVE2.html"><a href="IVE2.html"><i class="fa fa-check"></i><b>9</b> Practice with Instrumental Variable Estimation</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="IVE2.html"><a href="IVE2.html#objectives-6"><i class="fa fa-check"></i><b>9.1</b> Objectives</a></li>
+<li class="chapter" data-level="9.2" data-path="IVE2.html"><a href="IVE2.html#import-and-prepare-the-data-2"><i class="fa fa-check"></i><b>9.2</b> Import and Prepare the Data</a>
+<ul>
+<li class="chapter" data-level="9.2.1" data-path="IVE2.html"><a href="IVE2.html#descriptive-statistics-1"><i class="fa fa-check"></i><b>9.2.1</b> Descriptive statistics</a></li>
+</ul></li>
+<li class="chapter" data-level="9.3" data-path="IVE2.html"><a href="IVE2.html#covariate-balance"><i class="fa fa-check"></i><b>9.3</b> Covariate Balance</a>
+<ul>
+<li class="chapter" data-level="9.3.1" data-path="IVE2.html"><a href="IVE2.html#covariate-balance-on-d"><i class="fa fa-check"></i><b>9.3.1</b> Covariate balance on <span class="math inline">\(D\)</span></a></li>
+</ul></li>
+<li class="chapter" data-level="9.4" data-path="IVE2.html"><a href="IVE2.html#compliance-table-1"><i class="fa fa-check"></i><b>9.4</b> Compliance Table</a></li>
+<li class="chapter" data-level="9.5" data-path="IVE2.html"><a href="IVE2.html#estimating-the-causal-effect"><i class="fa fa-check"></i><b>9.5</b> Estimating the Causal Effect</a>
+<ul>
+<li class="chapter" data-level="9.5.1" data-path="IVE2.html"><a href="IVE2.html#the-naïve-estimate"><i class="fa fa-check"></i><b>9.5.1</b> The naïve estimate</a></li>
+<li class="chapter" data-level="9.5.2" data-path="IVE2.html"><a href="IVE2.html#the-late-estimate-from-ive"><i class="fa fa-check"></i><b>9.5.2</b> The LATE estimate from IVE</a></li>
+<li class="chapter" data-level="9.5.3" data-path="IVE2.html"><a href="IVE2.html#making-the-intercept-meaningful"><i class="fa fa-check"></i><b>9.5.3</b> Making the intercept meaningful</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="PScore1.html"><a href="PScore1.html"><i class="fa fa-check"></i><b>10</b> Propensity Score Analysis 1: The underlying logic</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="PScore1.html"><a href="PScore1.html#import-the-data-and-prepare-for-analysis"><i class="fa fa-check"></i><b>10.1</b> Import the Data and Prepare for Analysis</a>
+<ul>
+<li class="chapter" data-level="10.1.1" data-path="PScore1.html"><a href="PScore1.html#creating-a-numeric-version-of-the-base-income-variables"><i class="fa fa-check"></i><b>10.1.1</b> Creating a numeric version of the base-income variables</a></li>
+<li class="chapter" data-level="10.1.2" data-path="PScore1.html"><a href="PScore1.html#creating-some-custom-functions"><i class="fa fa-check"></i><b>10.1.2</b> Creating some custom functions</a></li>
+</ul></li>
+<li class="chapter" data-level="10.2" data-path="PScore1.html"><a href="PScore1.html#stratifying-on-a-covariate"><i class="fa fa-check"></i><b>10.2</b> Stratifying on a Covariate</a>
+<ul>
+<li class="chapter" data-level="10.2.1" data-path="PScore1.html"><a href="PScore1.html#checking-the-imbalance-in-the-treatment-status"><i class="fa fa-check"></i><b>10.2.1</b> Checking the imbalance in the treatment status</a></li>
+<li class="chapter" data-level="10.2.2" data-path="PScore1.html"><a href="PScore1.html#creating-the-strata-from-the-covariate"><i class="fa fa-check"></i><b>10.2.2</b> Creating the strata from the covariate</a></li>
+<li class="chapter" data-level="10.2.3" data-path="PScore1.html"><a href="PScore1.html#checking-for-imbalance-within-each-stratum"><i class="fa fa-check"></i><b>10.2.3</b> Checking for imbalance within each stratum</a></li>
+<li class="chapter" data-level="10.2.4" data-path="PScore1.html"><a href="PScore1.html#using-tidyverse-to-check-imbalance"><i class="fa fa-check"></i><b>10.2.4</b> Using Tidyverse to check imbalance</a></li>
+<li class="chapter" data-level="10.2.5" data-path="PScore1.html"><a href="PScore1.html#ate-and-att"><i class="fa fa-check"></i><b>10.2.5</b> ATE and ATT</a></li>
+<li class="chapter" data-level="10.2.6" data-path="PScore1.html"><a href="PScore1.html#pooling-across-strata-to-calculate-the-ate-and-att"><i class="fa fa-check"></i><b>10.2.6</b> Pooling across strata to calculate the ATE and ATT</a></li>
+</ul></li>
+<li class="chapter" data-level="10.3" data-path="PScore1.html"><a href="PScore1.html#stratifying-on-two-covariates"><i class="fa fa-check"></i><b>10.3</b> Stratifying on Two Covariates</a>
+<ul>
+<li class="chapter" data-level="10.3.1" data-path="PScore1.html"><a href="PScore1.html#calculating-the-ate-and-att"><i class="fa fa-check"></i><b>10.3.1</b> Calculating the ATE and ATT</a></li>
+<li class="chapter" data-level="10.3.2" data-path="PScore1.html"><a href="PScore1.html#tidyverse-approach"><i class="fa fa-check"></i><b>10.3.2</b> Tidyverse approach</a></li>
+</ul></li>
+<li class="chapter" data-level="10.4" data-path="PScore1.html"><a href="PScore1.html#estimating-propensity-scores"><i class="fa fa-check"></i><b>10.4</b> Estimating Propensity Scores</a></li>
+<li class="chapter" data-level="10.5" data-path="PScore1.html"><a href="PScore1.html#creating-strata-from-propensity-scores"><i class="fa fa-check"></i><b>10.5</b> Creating Strata from Propensity Scores</a>
+<ul>
+<li class="chapter" data-level="10.5.1" data-path="PScore1.html"><a href="PScore1.html#adding-more-covariates"><i class="fa fa-check"></i><b>10.5.1</b> Adding more covariates</a></li>
+<li class="chapter" data-level="10.5.2" data-path="PScore1.html"><a href="PScore1.html#ate-and-att-for-the-five-stratum-model"><i class="fa fa-check"></i><b>10.5.2</b> ATE and ATT for the five-stratum model</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="PScore2.html"><a href="PScore2.html"><i class="fa fa-check"></i><b>11</b> Propensity Score Analysis 2: Weighting</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="PScore2.html"><a href="PScore2.html#import-the-data-and-prepare-for-analysis-1"><i class="fa fa-check"></i><b>11.1</b> Import the Data and Prepare for Analysis</a></li>
+<li class="chapter" data-level="11.2" data-path="PScore2.html"><a href="PScore2.html#specify-custom-functions"><i class="fa fa-check"></i><b>11.2</b> Specify Custom Functions</a>
+<ul>
+<li class="chapter" data-level="11.2.1" data-path="PScore2.html"><a href="PScore2.html#imbalance-functions"><i class="fa fa-check"></i><b>11.2.1</b> Imbalance functions</a></li>
+<li class="chapter" data-level="11.2.2" data-path="PScore2.html"><a href="PScore2.html#overlap-functions"><i class="fa fa-check"></i><b>11.2.2</b> Overlap functions</a></li>
+</ul></li>
+<li class="chapter" data-level="11.3" data-path="PScore2.html"><a href="PScore2.html#assess-imbalance-in-observed-covariates"><i class="fa fa-check"></i><b>11.3</b> Assess Imbalance in Observed Covariates</a></li>
+<li class="chapter" data-level="11.4" data-path="PScore2.html"><a href="PScore2.html#check-overlap"><i class="fa fa-check"></i><b>11.4</b> Check Overlap</a></li>
+<li class="chapter" data-level="11.5" data-path="PScore2.html"><a href="PScore2.html#calculate-the-weights"><i class="fa fa-check"></i><b>11.5</b> Calculate the Weights</a>
+<ul>
+<li class="chapter" data-level="11.5.1" data-path="PScore2.html"><a href="PScore2.html#dealing-with-extreme-weights"><i class="fa fa-check"></i><b>11.5.1</b> Dealing with extreme weights</a></li>
+<li class="chapter" data-level="11.5.2" data-path="PScore2.html"><a href="PScore2.html#specifying-whether-to-estimate-ate-or-att"><i class="fa fa-check"></i><b>11.5.2</b> Specifying whether to estimate ATE or ATT</a></li>
+</ul></li>
+<li class="chapter" data-level="11.6" data-path="PScore2.html"><a href="PScore2.html#conduct-balance-checks-after-weighting"><i class="fa fa-check"></i><b>11.6</b> Conduct balance checks after weighting</a></li>
+<li class="chapter" data-level="11.7" data-path="PScore2.html"><a href="PScore2.html#estimate-the-treatment-effect"><i class="fa fa-check"></i><b>11.7</b> Estimate the Treatment Effect</a>
+<ul>
+<li class="chapter" data-level="11.7.1" data-path="PScore2.html"><a href="PScore2.html#estimating-the-correct-standard-error"><i class="fa fa-check"></i><b>11.7.1</b> Estimating the correct standard error</a></li>
+<li class="chapter" data-level="11.7.2" data-path="PScore2.html"><a href="PScore2.html#use-a-doubly-robust-estimate"><i class="fa fa-check"></i><b>11.7.2</b> Use a doubly robust estimate</a></li>
+</ul></li>
+<li class="chapter" data-level="11.8" data-path="PScore2.html"><a href="PScore2.html#using-the-twang-package"><i class="fa fa-check"></i><b>11.8</b> Using the Twang Package</a>
+<ul>
+<li class="chapter" data-level="11.8.1" data-path="PScore2.html"><a href="PScore2.html#examining-covariate-balance"><i class="fa fa-check"></i><b>11.8.1</b> Examining covariate balance</a></li>
+<li class="chapter" data-level="11.8.2" data-path="PScore2.html"><a href="PScore2.html#estimating-the-propensity-scores-and-getting-the-weights"><i class="fa fa-check"></i><b>11.8.2</b> Estimating the propensity scores and getting the weights</a></li>
+<li class="chapter" data-level="11.8.3" data-path="PScore2.html"><a href="PScore2.html#estimating-the-effect"><i class="fa fa-check"></i><b>11.8.3</b> Estimating the effect</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="PScore3.html"><a href="PScore3.html"><i class="fa fa-check"></i><b>12</b> Propensity Score Analysis 3: Stratification and Matching</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="PScore3.html"><a href="PScore3.html#calculate-the-mmwss-from-the-propensity-scores"><i class="fa fa-check"></i><b>12.1</b> Calculate the MMWSs from the propensity scores</a>
+<ul>
+<li class="chapter" data-level="12.1.1" data-path="PScore3.html"><a href="PScore3.html#estimate-the-propensity-scores"><i class="fa fa-check"></i><b>12.1.1</b> Estimate the propensity scores</a></li>
+<li class="chapter" data-level="12.1.2" data-path="PScore3.html"><a href="PScore3.html#calculate-the-quintiles"><i class="fa fa-check"></i><b>12.1.2</b> Calculate the quintiles</a></li>
+<li class="chapter" data-level="12.1.3" data-path="PScore3.html"><a href="PScore3.html#examine-the-strata"><i class="fa fa-check"></i><b>12.1.3</b> Examine the strata</a></li>
+<li class="chapter" data-level="12.1.4" data-path="PScore3.html"><a href="PScore3.html#calculate-the-mmwss"><i class="fa fa-check"></i><b>12.1.4</b> Calculate the MMWSs</a></li>
+</ul></li>
+<li class="chapter" data-level="12.2" data-path="PScore3.html"><a href="PScore3.html#conduct-balance-checks-after-weighting-1"><i class="fa fa-check"></i><b>12.2</b> Conduct balance checks after weighting</a></li>
+<li class="chapter" data-level="12.3" data-path="PScore3.html"><a href="PScore3.html#estimate-the-ate"><i class="fa fa-check"></i><b>12.3</b> Estimate the ATE</a></li>
+<li class="chapter" data-level="12.4" data-path="PScore3.html"><a href="PScore3.html#using-the-matchit-package"><i class="fa fa-check"></i><b>12.4</b> Using the MatchIt Package</a>
+<ul>
+<li class="chapter" data-level="12.4.1" data-path="PScore3.html"><a href="PScore3.html#examining-balance"><i class="fa fa-check"></i><b>12.4.1</b> Examining Balance</a></li>
+<li class="chapter" data-level="12.4.2" data-path="PScore3.html"><a href="PScore3.html#estimate-the-effect"><i class="fa fa-check"></i><b>12.4.2</b> Estimate the Effect</a></li>
+</ul></li>
+<li class="chapter" data-level="12.5" data-path="PScore3.html"><a href="PScore3.html#matching"><i class="fa fa-check"></i><b>12.5</b> Matching</a>
+<ul>
+<li class="chapter" data-level="12.5.1" data-path="PScore3.html"><a href="PScore3.html#estimate-the-effect-1"><i class="fa fa-check"></i><b>12.5.1</b> Estimate the Effect</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Using R for Quasi-Experimental Designs</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="DID" class="section level1" number="5">
+<h1><span class="header-section-number">Part 5</span> Difference in Differences</h1>
+<p>Chapter 8 of Murnane and Willett <span class="citation">(<a href="#ref-murnane_methods_2011" role="doc-biblioref">2011</a>)</span> provides several examples of studies that estimated effects from existing data. Because the exogenous shocks in these studies were not planned by the researcher but were due to other conditions such as policy, these are classified as natural experiments. They use data from Dynarsky’s <span class="citation">(<a href="#ref-dynarski_does_2003" role="doc-biblioref">2003</a>)</span> research to provide examples of how we estimate effects using a difference-in-differences strategy. The data were originally from National Longitudinal Survey of Youth (NLSY), which used cluster sampling, so we are working with sampling weights to get accurate estimates of the standard errors.<a href="#fn27" class="footnote-ref" id="fnref27"><sup>27</sup></a> For this, we will use the survey package <span class="citation">(<a href="#ref-R-survey" role="doc-biblioref">Lumley, 2021</a>)</span>. We will also use the poliscidata package <span class="citation">(<a href="#ref-R-poliscidata" role="doc-biblioref">Edwards &amp; Pollock, 2020</a>)</span> to get the r-squared estimates from the output provided by the survey package, all in an effort to show how we can obtain the output that the authors provide in Chapter 8.</p>
+<div id="objectives-3" class="section level2" number="5.1">
+<h2><span class="header-section-number">5.1</span> Objectives</h2>
+<ol style="list-style-type: decimal">
+<li>Use the survey package <span class="citation">(<a href="#ref-R-survey" role="doc-biblioref">Lumley, 2021</a>)</span> to account for survey weights that are provided in existing data.</li>
+<li>Use a difference-in-differences (DID) strategy to estimate effects.</li>
+</ol>
+</div>
+<div id="import-and-prepare-the-data" class="section level2" number="5.2">
+<h2><span class="header-section-number">5.2</span> Import and Prepare the Data</h2>
+<p>Let’s import the data and save it an object that we’ll call <code>dyn</code>.</p>
+<div class="sourceCode" id="cb413"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb413-1"><a href="DID.html#cb413-1" aria-hidden="true" tabindex="-1"></a>dyn <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;Ch 08 Dynarsky.csv&quot;</span>)</span>
+<span id="cb413-2"><a href="DID.html#cb413-2" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(dyn)</span></code></pre></div>
+<pre><code>## &#39;data.frame&#39;:    3986 obs. of  8 variables:
+##  $ id       : int  9 14 15 21 22 24 26 28 31 35 ...
+##  $ hhid     : int  9 13 15 20 22 23 26 27 31 34 ...
+##  $ wt88     : int  691916 784204 811032 644853 728189 776590 610234 718671 116805 574554 ...
+##  $ coll     : int  1 1 1 1 1 0 1 0 0 1 ...
+##  $ hgc23    : int  13 16 16 16 16 12 14 12 12 13 ...
+##  $ yearsr   : int  81 81 82 79 80 79 80 82 82 81 ...
+##  $ fatherdec: int  0 0 0 0 0 0 0 0 0 1 ...
+##  $ offer    : int  1 1 0 1 1 1 1 0 0 1 ...</code></pre>
+<p>Here is a description of the data frame’s contents:</p>
+<ul>
+<li><code>id</code> is the case ID.</li>
+<li><code>hhid</code> is the NLSY cluster ID. This household identification number accounts for households that have more than one student in the sample (“hh” stands for “household”).</li>
+<li><code>wt88</code> is the sampling weight for each case. Larger numbers are for stronger weights, where the student represents that many people in the population who are like them.</li>
+<li><code>coll</code> stands for college, with <span class="math inline">\(1\)</span> = <em>Full-time college student by age 23</em> and <span class="math inline">\(0\)</span> otherwise. This is an outcome variable.</li>
+<li><code>hgc23</code> seems like years of schooling by age 23. We won’t use this variable.</li>
+<li><code>yearsr</code> is the year in which the student was a senior. This is used to create our forcing variable, <code>offer</code> (and <code>before</code>).</li>
+<li><code>fatherdec</code> is a dummy variable set as <span class="math inline">\(1\)</span> = <em>Father deceased by age 18</em> and <span class="math inline">\(0\)</span> for otherwise.</li>
+<li><code>offer</code> is specified as $1 = $ <em>Offered the SSSB aid or the General Scholarship Loan (GSL)</em>, and $0 = $ for not provided the offer, which comes from the <code>yearsr</code> variable, where 1979–1981 are <span class="math inline">\(1\)</span> and 1982–1983 are <span class="math inline">\(0\)</span>. In the original data, <code>offer</code> was also provided to students whose fathers were classified as disabled or retired.</li>
+</ul>
+<p>The causal claim being investigated is whether the offer of a scholarship (the SSSB) increased college attendance.</p>
+<div id="prepare-the-data" class="section level3" number="5.2.1">
+<h3><span class="header-section-number">5.2.1</span> Prepare the data</h3>
+<p>Instead of using the <code>offer</code> forcing variable, which includes students not only with deceased fathers but also with fathers who were classified as disabled or retired social-security beneficiaries, let’s use <code>fatherdec</code> variable in conjunction with a new forcing variable, which we’ll call <code>before</code>. By restricting the <code>offer</code> to students with deceased father, we are (or rather Dynarsky was) strengthening the argument that the offer of treatment was exogenous to any other variables (such as fathers retiring early to ensure their child received the scholarship).</p>
+<p>Let’s code this new forcing variable as <span class="math inline">\(1\)</span> if <code>yearsr</code> is 1979–1981 and <span class="math inline">\(0\)</span> otherwise, for 1982–1983).)<a href="#fn28" class="footnote-ref" id="fnref28"><sup>28</sup></a></p>
+<div class="sourceCode" id="cb415"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb415-1"><a href="DID.html#cb415-1" aria-hidden="true" tabindex="-1"></a>dyn<span class="sc">$</span>before <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(dyn<span class="sc">$</span>yearsr <span class="sc">&lt;</span> <span class="dv">82</span>, <span class="dv">1</span>, <span class="dv">0</span>) </span></code></pre></div>
+<p>We can check <em>n</em>-size of the <code>fatherdec</code> vs. the year in which the student was a senior:</p>
+<div class="sourceCode" id="cb416"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb416-1"><a href="DID.html#cb416-1" aria-hidden="true" tabindex="-1"></a>(mytable <span class="ot">&lt;-</span> <span class="fu">with</span>(dyn, <span class="fu">table</span>(fatherdec, yearsr) ))</span></code></pre></div>
+<pre><code>##          yearsr
+## fatherdec  79  80  81  82  83
+##         0 892 986 867 828 222
+##         1  41  44  52  41  13</code></pre>
+<p>Let’s see what the proportions are, by row, which was the first argument in the <code>table()</code> function above, <code>fatherdec</code>. The <code>margin = 1</code> specifies to calculate the proportions of the sum of that margin, such as <span class="math inline">\(\frac{\text{mytable[2,1]}}{\text{sum(mytable[2, ])}} = \frac{41}{191} = 0.21\)</span>.</p>
+<div class="sourceCode" id="cb418"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb418-1"><a href="DID.html#cb418-1" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">prop.table</span>(mytable, <span class="at">margin =</span> <span class="dv">1</span>), <span class="dv">2</span>) </span></code></pre></div>
+<pre><code>##          yearsr
+## fatherdec   79   80   81   82   83
+##         0 0.24 0.26 0.23 0.22 0.06
+##         1 0.21 0.23 0.27 0.21 0.07</code></pre>
+</div>
+</div>
+<div id="using-the-survey-package" class="section level2" number="5.3">
+<h2><span class="header-section-number">5.3</span> Using the survey package</h2>
+<p>Let’s see how the survey package works. For this part, we’ll use the full set of data, including students whose fathers were not deceased. Here’s some of the code we will use:</p>
+<div class="sourceCode" id="cb420"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb420-1"><a href="DID.html#cb420-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(survey)</span>
+<span id="cb420-2"><a href="DID.html#cb420-2" aria-hidden="true" tabindex="-1"></a>  mydesign <span class="ot">&lt;-</span> <span class="fu">svydesign</span>(<span class="at">id =</span> <span class="sc">~</span>hhid, <span class="at">weights =</span> <span class="sc">~</span>wt88, <span class="at">data =</span> dyn)</span>
+<span id="cb420-3"><a href="DID.html#cb420-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summary</span>(mydesign) <span class="co"># This is to verify the design.</span></span>
+<span id="cb420-4"><a href="DID.html#cb420-4" aria-hidden="true" tabindex="-1"></a>  (mymean <span class="ot">&lt;-</span> <span class="fu">svymean</span>(<span class="sc">~</span> coll,mydesign)) </span>
+<span id="cb420-5"><a href="DID.html#cb420-5" aria-hidden="true" tabindex="-1"></a>  regres <span class="ot">&lt;-</span> <span class="fu">svyglm</span>(coll <span class="sc">~</span> before,mydesign)</span>
+<span id="cb420-6"><a href="DID.html#cb420-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summary</span>(regres)</span></code></pre></div>
+<p>Let’s break this down. We first create a survey design object using the <code>svydesign()</code> function.</p>
+<div class="sourceCode" id="cb421"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb421-1"><a href="DID.html#cb421-1" aria-hidden="true" tabindex="-1"></a>  mydesign <span class="ot">&lt;-</span> <span class="fu">svydesign</span>(<span class="at">id =</span> <span class="sc">~</span>hhid, <span class="at">weights =</span> <span class="sc">~</span>wt88, <span class="at">data =</span> dyn)</span></code></pre></div>
+<p>In this data set, the <code>hhid</code> column represents the clusters that were sampled (households), so the <code>id = ~ hhid</code> tells the survey package that the primary sampling unit is this variable. After this, it automatically considers each row to be a sampling element (students in this case; there may be more than one student in a household). The <code>weights =</code> argument specifies which variable to use as the sampling weight. The <code>data =</code> argument specifies which object is the data frame. The <code>~</code> in this coding is not a formula operator; instead, it tells the <code>svydesign()</code> function to look for the object as a column in the data frame (e.g., <code>~hhid</code> is in the data frame as <code>dyn$hhid</code>).</p>
+<p>After creating this survey design object, we use it with one of the survey package’s functions. Let’s calculate the mean. The <code>svymean()</code> function is part of the survey package. It asks for the variable and the design. The design is what we just created, and it includes the data and the weights.</p>
+<div class="sourceCode" id="cb422"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb422-1"><a href="DID.html#cb422-1" aria-hidden="true" tabindex="-1"></a>(mymean <span class="ot">&lt;-</span> <span class="fu">svymean</span>(<span class="sc">~</span> coll, mydesign)) </span></code></pre></div>
+<pre><code>##         mean     SE
+## coll 0.49435 0.0105</code></pre>
+<p>We see that overall, 49% of the students attended college.</p>
+<p>Let’s fit a linear regression model. Here, we’ll use the package’s <code>svyglm()</code> function, which is analogous to Base R’s <code>glm()</code> function for the general linear model. We’re regressing <code>coll</code> on <code>before</code>. In this function, the <code>~</code> is now the formula operator. We also include the design object, which of course includes the data and the weights.<a href="#fn29" class="footnote-ref" id="fnref29"><sup>29</sup></a></p>
+<div class="sourceCode" id="cb424"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb424-1"><a href="DID.html#cb424-1" aria-hidden="true" tabindex="-1"></a>myregress <span class="ot">&lt;-</span> <span class="fu">svyglm</span>(coll <span class="sc">~</span> before, mydesign)</span>
+<span id="cb424-2"><a href="DID.html#cb424-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(myregress)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## svyglm(formula = coll ~ before, design = mydesign)
+## 
+## Survey design:
+## svydesign(id = ~hhid, weights = ~wt88, data = dyn)
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  0.47081    0.01842  25.561   &lt;2e-16 ***
+## before       0.03323    0.02073   1.603    0.109    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## (Dispersion parameter for gaussian family taken to be 0.2498028)
+## 
+## Number of Fisher Scoring iterations: 2</code></pre>
+<p>In the overall population—before restricting this to our analytic sample—being a HS senior before the cut-off has no predictive effect on whether students attend college. So, this there is no detectable statistically significant difference in college attendance when we compare students graduating in years 1979–1981 with students graduating in 1982–1983. This suggests that if there is a “secular trend” that is additive to the effects of the SSSP removal, the effect is not strong enough to be detected. We don’t know, however, if there is a secular trend that is dampening the effect of the SSSP “treatment.” Using a DID strategy will help us.</p>
+</div>
+<div id="direct-estimates-as-shown-in-table-8.1-on-page-143" class="section level2" number="5.4">
+<h2><span class="header-section-number">5.4</span> Direct estimates, as shown in Table 8.1 on page 143</h2>
+<div id="first-difference-direct-estimate-in-panel-a." class="section level3" number="5.4.1">
+<h3><span class="header-section-number">5.4.1</span> First difference, direct estimate in Panel A.</h3>
+<p>Part of this demonstration is to see the rationale underlying the difference-in-differences strategy. The code in this section is <strong><em>not</em></strong> what we would actually use when we use a difference-in-differences strategy.</p>
+<p>If we naively believed that no other variables could cause the changes in the outcome variable (college entry by the age of 23), we would simply examine the difference between these two groups of students whose fathers were deceased: Those before the cutoff and those after.</p>
+<p>With this, let’s restrict our analysis to the subset—the students whose fathers had deceased. This is the population for whom the causal claims can apply to. Let’s create a subset of the data, so it is restricted to persons whose fathers were deceased.</p>
+<div class="sourceCode" id="cb426"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb426-1"><a href="DID.html#cb426-1" aria-hidden="true" tabindex="-1"></a>dyn.d <span class="ot">&lt;-</span> <span class="fu">subset</span>(dyn, fatherdec <span class="sc">==</span> <span class="dv">1</span>)</span></code></pre></div>
+<p>Let’s create a survey design object, <code>design.d</code> with this new data set. Then, let’s calculate the mean and the standard error of the mean of each of these two groups. In this direct approach, we want the difference, <span class="math inline">\((D = D_{\text{before policy}} - D_{\text{after policy}})\)</span>, and the standard error of this difference.</p>
+<p>To get the mean and standard errors, let’s use the <code>svyby()</code> and <code>svymean()</code> functions from the survey package. <code>svyby()</code> does the same thing that the <code>by()</code> function does in Base R. The first argument is the column in the data on which we perform the function; the second argument specifies the <em>by</em> variable; the last two include the design and the function.</p>
+<div class="sourceCode" id="cb427"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb427-1"><a href="DID.html#cb427-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(survey)</span>
+<span id="cb427-2"><a href="DID.html#cb427-2" aria-hidden="true" tabindex="-1"></a>design.d <span class="ot">&lt;-</span> <span class="fu">svydesign</span>(<span class="at">id =</span> <span class="sc">~</span>hhid, </span>
+<span id="cb427-3"><a href="DID.html#cb427-3" aria-hidden="true" tabindex="-1"></a>                      <span class="at">weights =</span> <span class="sc">~</span>wt88, </span>
+<span id="cb427-4"><a href="DID.html#cb427-4" aria-hidden="true" tabindex="-1"></a>                      <span class="at">data =</span> dyn.d)</span>
+<span id="cb427-5"><a href="DID.html#cb427-5" aria-hidden="true" tabindex="-1"></a>(dc <span class="ot">&lt;-</span> <span class="fu">svyby</span>(<span class="sc">~</span>coll, <span class="at">by =</span> <span class="sc">~</span>before, <span class="at">design =</span> design.d, <span class="at">FUN =</span> svymean))</span></code></pre></div>
+<pre><code>##   before      coll         se
+## 0      0 0.3522178 0.08146871
+## 1      1 0.5604556 0.05288942</code></pre>
+<p>We now have an object, <code>dc</code> to extract data from. Here’s the code we’ll use to extract and save the means and standard errors of each group:</p>
+<div class="sourceCode" id="cb429"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb429-1"><a href="DID.html#cb429-1" aria-hidden="true" tabindex="-1"></a>m.dc  <span class="ot">&lt;-</span> dc[<span class="st">&quot;0&quot;</span>,<span class="st">&quot;coll&quot;</span>]</span>
+<span id="cb429-2"><a href="DID.html#cb429-2" aria-hidden="true" tabindex="-1"></a>m.dt  <span class="ot">&lt;-</span> dc[<span class="st">&quot;1&quot;</span>,<span class="st">&quot;coll&quot;</span>]</span>
+<span id="cb429-3"><a href="DID.html#cb429-3" aria-hidden="true" tabindex="-1"></a>se.dc <span class="ot">&lt;-</span> dc[<span class="st">&quot;0&quot;</span>,<span class="st">&quot;se&quot;</span>]</span>
+<span id="cb429-4"><a href="DID.html#cb429-4" aria-hidden="true" tabindex="-1"></a>se.dt <span class="ot">&lt;-</span> dc[<span class="st">&quot;1&quot;</span>,<span class="st">&quot;se&quot;</span>]</span></code></pre></div>
+<p>We can use these to calculate the estimate of the group difference and pooled standard error.</p>
+<div class="sourceCode" id="cb430"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb430-1"><a href="DID.html#cb430-1" aria-hidden="true" tabindex="-1"></a>(direct.diff <span class="ot">&lt;-</span> m.dt <span class="sc">-</span> m.dc)</span></code></pre></div>
+<pre><code>## [1] 0.2082378</code></pre>
+<div class="sourceCode" id="cb432"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb432-1"><a href="DID.html#cb432-1" aria-hidden="true" tabindex="-1"></a>(direct.se   <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(se.dt<span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span> se.dc<span class="sc">^</span><span class="dv">2</span>))</span></code></pre></div>
+<pre><code>## [1] 0.09713106</code></pre>
+<p>Now that we have these, we can directly estimate the test statistic.</p>
+<div class="sourceCode" id="cb434"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb434-1"><a href="DID.html#cb434-1" aria-hidden="true" tabindex="-1"></a>(direct.t  <span class="ot">&lt;-</span> (direct.diff<span class="sc">/</span>direct.se))  <span class="co"># t reported in Table 8.1(A)</span></span></code></pre></div>
+<pre><code>## [1] 2.143885</code></pre>
+<p>Using the <code>pt()</code> function with the test statistic and the degrees of freedom (which is the number of rows in this subset of data minus 1), we can estimate the one- and two-tailed <em>p</em>-values, the latter being twice as big.</p>
+<div class="sourceCode" id="cb436"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb436-1"><a href="DID.html#cb436-1" aria-hidden="true" tabindex="-1"></a>direct.df  <span class="ot">&lt;-</span> (<span class="fu">nrow</span>(dyn.d)<span class="sc">-</span><span class="dv">1</span>) <span class="co"># df, needed for the pt() function</span></span>
+<span id="cb436-2"><a href="DID.html#cb436-2" aria-hidden="true" tabindex="-1"></a>(p.one.sided.direct <span class="ot">&lt;-</span> <span class="fu">pt</span>(<span class="sc">-</span><span class="fu">abs</span>(direct.t), direct.df)) <span class="co"># p reported in Table 8.1(A)</span></span></code></pre></div>
+<pre><code>## [1] 0.01665654</code></pre>
+<div class="sourceCode" id="cb438"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb438-1"><a href="DID.html#cb438-1" aria-hidden="true" tabindex="-1"></a>(p.two.sided.direct <span class="ot">&lt;-</span> <span class="dv">2</span><span class="sc">*</span><span class="fu">pt</span>(<span class="sc">-</span><span class="fu">abs</span>(direct.t),direct.df))</span></code></pre></div>
+<pre><code>## [1] 0.03331307</code></pre>
+<p>To make our work easier to summarize, we can save these to an object and give the columns names:</p>
+<div class="sourceCode" id="cb440"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb440-1"><a href="DID.html#cb440-1" aria-hidden="true" tabindex="-1"></a>   rslts <span class="ot">&lt;-</span>  <span class="fu">round</span>(<span class="fu">c</span>(direct.diff, direct.se, direct.t, p.one.sided.direct),<span class="dv">3</span>)</span>
+<span id="cb440-2"><a href="DID.html#cb440-2" aria-hidden="true" tabindex="-1"></a>   <span class="fu">names</span>(rslts) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Est.&quot;</span>, <span class="st">&quot;S.E.&quot;</span>,     <span class="st">&quot;t-stat&quot;</span>,     <span class="st">&quot;p.one.sided&quot;</span>)</span>
+<span id="cb440-3"><a href="DID.html#cb440-3" aria-hidden="true" tabindex="-1"></a>   rslts.direct <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="fu">t</span>(rslts))</span>
+<span id="cb440-4"><a href="DID.html#cb440-4" aria-hidden="true" tabindex="-1"></a>   <span class="fu">rownames</span>(rslts.direct) <span class="ot">&lt;-</span><span class="st">&quot;Direct&quot;</span></span>
+<span id="cb440-5"><a href="DID.html#cb440-5" aria-hidden="true" tabindex="-1"></a>  rslts.direct</span></code></pre></div>
+<pre><code>##         Est.  S.E. t.stat p.one.sided
+## Direct 0.208 0.097  2.144       0.017</code></pre>
+</div>
+<div id="estimate-from-the-linear-probability-model-ols-estimate-shown-in-table-8.1-on-page-143-panel-b." class="section level3" number="5.4.2">
+<h3><span class="header-section-number">5.4.2</span> Estimate from the linear-probability model (OLS) estimate shown in Table 8.1 on page 143, Panel B.</h3>
+<p>We can use the survey package design object we created above. Here it is again, along with the package’s version of the general linear model function, <code>svyglm()</code>. We can save and view the result.</p>
+<div class="sourceCode" id="cb442"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb442-1"><a href="DID.html#cb442-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(survey)</span>
+<span id="cb442-2"><a href="DID.html#cb442-2" aria-hidden="true" tabindex="-1"></a>design.d <span class="ot">&lt;-</span> <span class="fu">svydesign</span>(<span class="at">id =</span> <span class="sc">~</span>hhid, </span>
+<span id="cb442-3"><a href="DID.html#cb442-3" aria-hidden="true" tabindex="-1"></a>                      <span class="at">weights =</span> <span class="sc">~</span>wt88, </span>
+<span id="cb442-4"><a href="DID.html#cb442-4" aria-hidden="true" tabindex="-1"></a>                      <span class="at">data =</span> dyn.d)</span>
+<span id="cb442-5"><a href="DID.html#cb442-5" aria-hidden="true" tabindex="-1"></a>regres.d <span class="ot">&lt;-</span> <span class="fu">svyglm</span>(coll <span class="sc">~</span> before, design.d)</span>
+<span id="cb442-6"><a href="DID.html#cb442-6" aria-hidden="true" tabindex="-1"></a>(out <span class="ot">&lt;-</span> <span class="fu">summary</span>(regres.d))</span></code></pre></div>
+<pre><code>## 
+## Call:
+## svyglm(formula = coll ~ before, design = design.d)
+## 
+## Survey design:
+## svydesign(id = ~hhid, weights = ~wt88, data = dyn.d)
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  0.35222    0.08147   4.323 2.61e-05 ***
+## before       0.20824    0.09350   2.227   0.0273 *  
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## (Dispersion parameter for gaussian family taken to be 0.2423226)
+## 
+## Number of Fisher Scoring iterations: 2</code></pre>
+<p>Let’s get the one-sided <em>p</em>-value and <em>R</em><sup>2</sup> reported in Table 8.1(b).</p>
+<div class="sourceCode" id="cb444"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb444-1"><a href="DID.html#cb444-1" aria-hidden="true" tabindex="-1"></a>offer.effect <span class="ot">&lt;-</span> <span class="fu">coefficients</span>(out)[<span class="dv">2</span>,<span class="dv">1</span>]</span>
+<span id="cb444-2"><a href="DID.html#cb444-2" aria-hidden="true" tabindex="-1"></a> offer.se       <span class="ot">&lt;-</span> <span class="fu">coefficients</span>(out)[<span class="dv">2</span>,<span class="dv">2</span>]</span>
+<span id="cb444-3"><a href="DID.html#cb444-3" aria-hidden="true" tabindex="-1"></a> regress.t      <span class="ot">&lt;-</span> offer.effect <span class="sc">/</span> (<span class="fu">coefficients</span>(out)[<span class="dv">2</span>, <span class="dv">2</span>])</span>
+<span id="cb444-4"><a href="DID.html#cb444-4" aria-hidden="true" tabindex="-1"></a> regress.df     <span class="ot">&lt;-</span> out<span class="sc">$</span>df.residual</span>
+<span id="cb444-5"><a href="DID.html#cb444-5" aria-hidden="true" tabindex="-1"></a> p.value<span class="fl">.1</span>sided <span class="ot">&lt;-</span> <span class="fu">pt</span>(<span class="sc">-</span><span class="fu">abs</span>(regress.t),regress.df)</span>
+<span id="cb444-6"><a href="DID.html#cb444-6" aria-hidden="true" tabindex="-1"></a> p.value<span class="fl">.2</span>sided <span class="ot">&lt;-</span> <span class="dv">2</span><span class="sc">*</span><span class="fu">pt</span>(<span class="sc">-</span><span class="fu">abs</span>(regress.t),regress.df)</span></code></pre></div>
+<p>Here’s where we need the poliscidata package. This helps us get the <em>R</em><sup>2</sup> value from the survey package’s output:</p>
+<div class="sourceCode" id="cb445"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb445-1"><a href="DID.html#cb445-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(poliscidata)</span>
+<span id="cb445-2"><a href="DID.html#cb445-2" aria-hidden="true" tabindex="-1"></a>R2.out <span class="ot">&lt;-</span> <span class="fu">fit.svyglm</span>(regres.d)</span>
+<span id="cb445-3"><a href="DID.html#cb445-3" aria-hidden="true" tabindex="-1"></a> R2     <span class="ot">&lt;-</span> R2.out[<span class="dv">1</span>]</span>
+<span id="cb445-4"><a href="DID.html#cb445-4" aria-hidden="true" tabindex="-1"></a> rslts2 <span class="ot">&lt;-</span> <span class="fu">round</span>(<span class="fu">c</span>(offer.effect, offer.se, regress.t,p.value<span class="fl">.1</span>sided, R2),<span class="dv">3</span>)</span>
+<span id="cb445-5"><a href="DID.html#cb445-5" aria-hidden="true" tabindex="-1"></a> <span class="fu">names</span>(rslts2)<span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Est.&quot;</span>, <span class="st">&quot;S.E.&quot;</span>,<span class="st">&quot;t-stat&quot;</span>, <span class="st">&quot;p.one.sided&quot;</span>, <span class="st">&quot;R^2&quot;</span>)</span>
+<span id="cb445-6"><a href="DID.html#cb445-6" aria-hidden="true" tabindex="-1"></a> rslts.linp   <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="fu">t</span>(<span class="fu">unlist</span>(rslts2)))</span>
+<span id="cb445-7"><a href="DID.html#cb445-7" aria-hidden="true" tabindex="-1"></a> <span class="fu">rownames</span>(rslts.linp) <span class="ot">&lt;-</span> <span class="st">&quot;OLSregressn&quot;</span></span>
+<span id="cb445-8"><a href="DID.html#cb445-8" aria-hidden="true" tabindex="-1"></a> rslts.linp  <span class="co"># p.Report with one-sided p-value</span></span></code></pre></div>
+<pre><code>##              Est.  S.E. t.stat p.one.sided   R.2
+## OLSregressn 0.208 0.094  2.227       0.014 0.036</code></pre>
+<p>The regression approach assumes that the residual variances in the two groups, as defined by our forcing variable <code>before</code> are equal, which may not hold. However, a benefit to using regression over the direct estimate of the two means and standard errors is that we could add covariates to the model.</p>
+<p>Note that these two approaches are <strong><em>not</em></strong> appropriate estimations of the causal effect of the scholarship program. There are likely other variables contributing to this difference. There may be a <strong><em>secular trend</em></strong> occurring. We could imagine a counterfactual group of students (with deceased fathers) who were not offered the scholarship when they were seniors in these three years (1979—1981) nor in the comparison years (1982—1983) and see if there is a change in the <code>coll</code> variable between those two groups. We don’t have access to this counterfactual group. But, to estimate this secular trend, we’ll use students whose fathers were not deceased and who were seniors in the same window of time.</p>
+</div>
+</div>
+<div id="difference-in-differences-simple-approach-table-8.2-p.-157" class="section level2" number="5.5">
+<h2><span class="header-section-number">5.5</span> Difference in differences, simple approach (Table 8.2, p. 157)</h2>
+<p>Let’s create a subset of data with students with <strong><em>non</em></strong>-deceased fathers:</p>
+<div class="sourceCode" id="cb447"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb447-1"><a href="DID.html#cb447-1" aria-hidden="true" tabindex="-1"></a>dyn.n <span class="ot">&lt;-</span> <span class="fu">subset</span>(dyn, fatherdec <span class="sc">==</span> <span class="dv">0</span>) </span>
+<span id="cb447-2"><a href="DID.html#cb447-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(dyn.n)</span></code></pre></div>
+<pre><code>## [1] 3795    9</code></pre>
+<div class="sourceCode" id="cb449"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb449-1"><a href="DID.html#cb449-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(dyn.n)</span></code></pre></div>
+<pre><code>## &#39;data.frame&#39;:    3795 obs. of  9 variables:
+##  $ id       : int  9 14 15 21 22 24 26 28 31 38 ...
+##  $ hhid     : int  9 13 15 20 22 23 26 27 31 37 ...
+##  $ wt88     : int  691916 784204 811032 644853 728189 776590 610234 718671 116805 544825 ...
+##  $ coll     : int  1 1 1 1 1 0 1 0 0 0 ...
+##  $ hgc23    : int  13 16 16 16 16 12 14 12 12 12 ...
+##  $ yearsr   : int  81 81 82 79 80 79 80 82 82 81 ...
+##  $ fatherdec: int  0 0 0 0 0 0 0 0 0 0 ...
+##  $ offer    : int  1 1 0 1 1 1 1 0 0 1 ...
+##  $ before   : num  1 1 0 1 1 1 1 0 0 1 ...</code></pre>
+<p>Let’s use the survey package on this data set:</p>
+<div class="sourceCode" id="cb451"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb451-1"><a href="DID.html#cb451-1" aria-hidden="true" tabindex="-1"></a>design.n <span class="ot">&lt;-</span> <span class="fu">svydesign</span>(<span class="at">id =</span> <span class="sc">~</span>hhid, </span>
+<span id="cb451-2"><a href="DID.html#cb451-2" aria-hidden="true" tabindex="-1"></a>                      <span class="at">weights =</span> <span class="sc">~</span>wt88, </span>
+<span id="cb451-3"><a href="DID.html#cb451-3" aria-hidden="true" tabindex="-1"></a>                      <span class="at">data =</span> dyn.n)</span>
+<span id="cb451-4"><a href="DID.html#cb451-4" aria-hidden="true" tabindex="-1"></a>(nd <span class="ot">&lt;-</span> <span class="fu">svyby</span>(<span class="sc">~</span>coll, <span class="at">by =</span> <span class="sc">~</span>before, <span class="at">design =</span> design.n, <span class="at">FUN =</span> svymean)) <span class="co">#Non-deceased (nd)</span></span>
+<span id="cb451-5"><a href="DID.html#cb451-5" aria-hidden="true" tabindex="-1"></a>m.ndc <span class="ot">&lt;-</span> nd[<span class="st">&quot;0&quot;</span>,<span class="st">&quot;coll&quot;</span>]</span>
+<span id="cb451-6"><a href="DID.html#cb451-6" aria-hidden="true" tabindex="-1"></a>m.ndt <span class="ot">&lt;-</span> nd[<span class="st">&quot;1&quot;</span>,<span class="st">&quot;coll&quot;</span>]</span></code></pre></div>
+<pre><code>##   before      coll         se
+## 0      0 0.4756935 0.01886508
+## 1      1 0.5017016 0.01217362</code></pre>
+<p>Here is the second difference to subtract secular effects (Eq. 8.5):</p>
+<div class="sourceCode" id="cb453"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb453-1"><a href="DID.html#cb453-1" aria-hidden="true" tabindex="-1"></a>(n.direct.diff<span class="ot">&lt;-</span> m.ndt <span class="sc">-</span> m.ndc)</span></code></pre></div>
+<pre><code>## [1] 0.02600809</code></pre>
+<p>Here are the standard errors:</p>
+<div class="sourceCode" id="cb455"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb455-1"><a href="DID.html#cb455-1" aria-hidden="true" tabindex="-1"></a>se.nc <span class="ot">&lt;-</span> nd[<span class="st">&quot;0&quot;</span>,<span class="st">&quot;se&quot;</span>]</span>
+<span id="cb455-2"><a href="DID.html#cb455-2" aria-hidden="true" tabindex="-1"></a>se.nt <span class="ot">&lt;-</span> nd[<span class="st">&quot;1&quot;</span>,<span class="st">&quot;se&quot;</span>]</span></code></pre></div>
+<p>Let’s subtract the second difference from the first difference.</p>
+<div class="sourceCode" id="cb456"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb456-1"><a href="DID.html#cb456-1" aria-hidden="true" tabindex="-1"></a>(DID.est  <span class="ot">&lt;-</span> direct.diff<span class="sc">-</span>n.direct.diff) </span></code></pre></div>
+<pre><code>## [1] 0.1822297</code></pre>
+<div class="sourceCode" id="cb458"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb458-1"><a href="DID.html#cb458-1" aria-hidden="true" tabindex="-1"></a>(DID.se   <span class="ot">&lt;-</span> (<span class="fu">sqrt</span>(se.dt<span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span> se.dc<span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span> se.nt<span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span> se.nc<span class="sc">^</span><span class="dv">2</span>)))</span></code></pre></div>
+<pre><code>## [1] 0.09969218</code></pre>
+<div class="sourceCode" id="cb460"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb460-1"><a href="DID.html#cb460-1" aria-hidden="true" tabindex="-1"></a>(DID.t    <span class="ot">&lt;-</span> (DID.est<span class="sc">/</span>DID.se))</span></code></pre></div>
+<pre><code>## [1] 1.827924</code></pre>
+<div class="sourceCode" id="cb462"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb462-1"><a href="DID.html#cb462-1" aria-hidden="true" tabindex="-1"></a>DID.df    <span class="ot">&lt;-</span> <span class="fu">nrow</span>(dyn.n)<span class="sc">-</span><span class="dv">1</span></span>
+<span id="cb462-2"><a href="DID.html#cb462-2" aria-hidden="true" tabindex="-1"></a>p.one.sided.DID <span class="ot">&lt;-</span> <span class="fu">pt</span>(<span class="sc">-</span><span class="fu">abs</span>(DID.t),DID.df)</span>
+<span id="cb462-3"><a href="DID.html#cb462-3" aria-hidden="true" tabindex="-1"></a>rslts.DID <span class="ot">&lt;-</span> <span class="fu">round</span>(<span class="fu">c</span>(DID.est,DID.se,  DID.t,   p.one.sided.DID),<span class="dv">3</span>)</span>
+<span id="cb462-4"><a href="DID.html#cb462-4" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(rslts.DID)<span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Est.&quot;</span>,  <span class="st">&quot;S.E.&quot;</span>,<span class="st">&quot;t-stat&quot;</span>, <span class="st">&quot;p.one.sided&quot;</span>)</span>
+<span id="cb462-5"><a href="DID.html#cb462-5" aria-hidden="true" tabindex="-1"></a>report.DID<span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="fu">t</span>(<span class="fu">unlist</span>(rslts.DID))) </span>
+<span id="cb462-6"><a href="DID.html#cb462-6" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(report.DID) <span class="ot">&lt;-</span> <span class="st">&quot;SimpleDID&quot;</span></span>
+<span id="cb462-7"><a href="DID.html#cb462-7" aria-hidden="true" tabindex="-1"></a>report.DID</span></code></pre></div>
+<pre><code>##            Est. S.E. t.stat p.one.sided
+## SimpleDID 0.182  0.1  1.828       0.034</code></pre>
+</div>
+<div id="difference-in-differences-using-regression" class="section level2" number="5.6">
+<h2><span class="header-section-number">5.6</span> Difference in differences using regression</h2>
+<p>Here is the strategy used to obtain the results reported in Table 8.4:</p>
+<div class="sourceCode" id="cb464"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb464-1"><a href="DID.html#cb464-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(survey)</span>
+<span id="cb464-2"><a href="DID.html#cb464-2" aria-hidden="true" tabindex="-1"></a>mydesign <span class="ot">&lt;-</span> <span class="fu">svydesign</span>(<span class="at">id =</span> <span class="sc">~</span>hhid, </span>
+<span id="cb464-3"><a href="DID.html#cb464-3" aria-hidden="true" tabindex="-1"></a>                      <span class="at">weights =</span> <span class="sc">~</span>wt88, </span>
+<span id="cb464-4"><a href="DID.html#cb464-4" aria-hidden="true" tabindex="-1"></a>                      <span class="at">data =</span> dyn)</span>
+<span id="cb464-5"><a href="DID.html#cb464-5" aria-hidden="true" tabindex="-1"></a>DID.reg  <span class="ot">&lt;-</span> <span class="fu">svyglm</span>(coll<span class="sc">~</span> before<span class="sc">*</span>fatherdec, mydesign) </span>
+<span id="cb464-6"><a href="DID.html#cb464-6" aria-hidden="true" tabindex="-1"></a>DID.out <span class="ot">&lt;-</span> <span class="fu">summary</span>(DID.reg) </span>
+<span id="cb464-7"><a href="DID.html#cb464-7" aria-hidden="true" tabindex="-1"></a> R2.DID.out <span class="ot">&lt;-</span> <span class="fu">fit.svyglm</span>(DID.reg)</span>
+<span id="cb464-8"><a href="DID.html#cb464-8" aria-hidden="true" tabindex="-1"></a> R2.DID  <span class="ot">&lt;-</span> R2.DID.out[[<span class="dv">1</span>]]</span>
+<span id="cb464-9"><a href="DID.html#cb464-9" aria-hidden="true" tabindex="-1"></a> DID.reg.eff<span class="ot">&lt;-</span> <span class="fu">coefficients</span>(DID.out)[<span class="dv">4</span>,<span class="dv">1</span>]</span>
+<span id="cb464-10"><a href="DID.html#cb464-10" aria-hidden="true" tabindex="-1"></a> DID.reg.se <span class="ot">&lt;-</span> <span class="fu">coefficients</span>(DID.out)[<span class="dv">4</span>,<span class="dv">2</span>]</span>
+<span id="cb464-11"><a href="DID.html#cb464-11" aria-hidden="true" tabindex="-1"></a> DID.reg.t  <span class="ot">&lt;-</span> <span class="fu">coefficients</span>(DID.out)[<span class="dv">4</span>,<span class="dv">3</span>]</span>
+<span id="cb464-12"><a href="DID.html#cb464-12" aria-hidden="true" tabindex="-1"></a> DID.reg.df <span class="ot">&lt;-</span> DID.out<span class="sc">$</span>df.residual</span>
+<span id="cb464-13"><a href="DID.html#cb464-13" aria-hidden="true" tabindex="-1"></a> p.one.sided.reg.DID <span class="ot">&lt;-</span> <span class="fu">pt</span>(<span class="sc">-</span><span class="fu">abs</span>(DID.reg.t), DID.reg.df)</span>
+<span id="cb464-14"><a href="DID.html#cb464-14" aria-hidden="true" tabindex="-1"></a> rslts.reg  <span class="ot">&lt;-</span> <span class="fu">round</span>(<span class="fu">c</span>(DID.reg.eff,DID.reg.se, DID.reg.t, </span>
+<span id="cb464-15"><a href="DID.html#cb464-15" aria-hidden="true" tabindex="-1"></a>                     p.one.sided.reg.DID, R2.DID),<span class="dv">3</span>)</span>
+<span id="cb464-16"><a href="DID.html#cb464-16" aria-hidden="true" tabindex="-1"></a> <span class="fu">names</span>(rslts.reg) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Est.&quot;</span>, <span class="st">&quot;S.E.&quot;</span>, <span class="st">&quot;t-stat&quot;</span>, <span class="st">&quot;p.one.sided&quot;</span>, <span class="st">&quot;R^2&quot;</span>) </span>
+<span id="cb464-17"><a href="DID.html#cb464-17" aria-hidden="true" tabindex="-1"></a> report.DID2 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="fu">t</span>(<span class="fu">unlist</span>(rslts.reg)))</span>
+<span id="cb464-18"><a href="DID.html#cb464-18" aria-hidden="true" tabindex="-1"></a> <span class="fu">rownames</span>(report.DID2) <span class="ot">&lt;-</span> <span class="st">&quot;RegressDID&quot;</span></span>
+<span id="cb464-19"><a href="DID.html#cb464-19" aria-hidden="true" tabindex="-1"></a>report.DID2 <span class="co">#Table 8.4 (p. 161)</span></span></code></pre></div>
+<pre><code>##             Est.  S.E. t.stat p.one.sided   R.2
+## RegressDID 0.182 0.096  1.901       0.029 0.002</code></pre>
+<div id="compare-the-results-from-the-four-different-strategies" class="section level3" number="5.6.1">
+<h3><span class="header-section-number">5.6.1</span> Compare the results from the four different strategies</h3>
+<p>We had saved the results of the four different strategies in our effort to see if the scholarship had an effect on college attendance. Because we used the same names for the same parts of the output, we can combine these into a data frame using the <code>bind_rows()</code> function from Tidyverse’s dplyr package <span class="citation">(<a href="#ref-R-dplyr" role="doc-biblioref">Wickham, François, et al., 2021</a>)</span>.</p>
+<div class="sourceCode" id="cb466"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb466-1"><a href="DID.html#cb466-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb466-2"><a href="DID.html#cb466-2" aria-hidden="true" tabindex="-1"></a><span class="fu">bind_rows</span>(rslts.direct, </span>
+<span id="cb466-3"><a href="DID.html#cb466-3" aria-hidden="true" tabindex="-1"></a>          rslts.linp, </span>
+<span id="cb466-4"><a href="DID.html#cb466-4" aria-hidden="true" tabindex="-1"></a>          report.DID, </span>
+<span id="cb466-5"><a href="DID.html#cb466-5" aria-hidden="true" tabindex="-1"></a>          report.DID2)</span></code></pre></div>
+<pre><code>##              Est.  S.E. t.stat p.one.sided   R.2
+## Direct      0.208 0.097  2.144       0.017    NA
+## OLSregressn 0.208 0.094  2.227       0.014 0.036
+## SimpleDID   0.182 0.100  1.828       0.034    NA
+## RegressDID  0.182 0.096  1.901       0.029 0.002</code></pre>
+</div>
+</div>
+<div id="summary-of-the-did-model-strategy" class="section level2" number="5.7">
+<h2><span class="header-section-number">5.7</span> Summary of the DID model strategy</h2>
+<p>To estimate the causal effects using a DID strategy, the regression approach is easy to use.</p>
+<p><span class="math display" id="eq:DIDFather">\[\begin{equation}
+\text{coll}_i = \beta_0 + \beta_1\text{before}_i + \beta_2\text{fatherdec}_i + \beta_3(\text{before}_i \text{ X } \text{fatherdec}_i) + \epsilon_i \text{ ,}
+  \tag{5.1}
+\end{equation}\]</span></p>
+<p>The parameter of interest is <span class="math inline">\(\beta_3\)</span>. With this data set, all the code we need is here:</p>
+<div class="sourceCode" id="cb468"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb468-1"><a href="DID.html#cb468-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Prepare the data</span></span>
+<span id="cb468-2"><a href="DID.html#cb468-2" aria-hidden="true" tabindex="-1"></a>dyn <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;Ch 08 Dynarsky.csv&quot;</span>)</span>
+<span id="cb468-3"><a href="DID.html#cb468-3" aria-hidden="true" tabindex="-1"></a>dyn<span class="sc">$</span>before <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(dyn<span class="sc">$</span>yearsr <span class="sc">&lt;</span> <span class="dv">82</span>, <span class="dv">1</span>, <span class="dv">0</span>) </span>
+<span id="cb468-4"><a href="DID.html#cb468-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Conduct the analysis</span></span>
+<span id="cb468-5"><a href="DID.html#cb468-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(survey)</span>
+<span id="cb468-6"><a href="DID.html#cb468-6" aria-hidden="true" tabindex="-1"></a>mydesign <span class="ot">&lt;-</span> <span class="fu">svydesign</span>(<span class="at">id =</span> <span class="sc">~</span>hhid, </span>
+<span id="cb468-7"><a href="DID.html#cb468-7" aria-hidden="true" tabindex="-1"></a>                      <span class="at">weights =</span> <span class="sc">~</span>wt88, </span>
+<span id="cb468-8"><a href="DID.html#cb468-8" aria-hidden="true" tabindex="-1"></a>                      <span class="at">data =</span> dyn)</span>
+<span id="cb468-9"><a href="DID.html#cb468-9" aria-hidden="true" tabindex="-1"></a>DID.reg  <span class="ot">&lt;-</span> <span class="fu">svyglm</span>(coll<span class="sc">~</span> before<span class="sc">*</span>fatherdec, mydesign) </span>
+<span id="cb468-10"><a href="DID.html#cb468-10" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(DID.reg)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## svyglm(formula = ..1, design = ..2)
+## 
+## Survey design:
+## survey::svydesign(...)
+## 
+## Coefficients:
+##                  Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)       0.47569    0.01886  25.216   &lt;2e-16 ***
+## before            0.02601    0.02126   1.223   0.2214    
+## fatherdec        -0.12348    0.08343  -1.480   0.1390    
+## before:fatherdec  0.18223    0.09584   1.901   0.0573 .  
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## (Dispersion parameter for gaussian family taken to be 0.2495406)
+## 
+## Number of Fisher Scoring iterations: 2</code></pre>
+<p>The logic underlying DID is that we are removing any difference in our first difference that is not due to the treatment. We are assuming that the before-to-after differences in the non-deceased group account for this change, which economists call a <em>secular trend</em>. In other words, we are removing the omitted variables that might explain changes that are not due to the treatment.
+This approach depends on the assumption that the secular trend follows the same pattern—the same <em>functional form</em>—in both groups (those coded as <span class="math inline">\(0\)</span> or <span class="math inline">\(1\)</span> on the <code>faterdec</code> variable). This assumption of <em>common trends</em> cannot be tested with this particular data set, but if we had more years of data on either side of the cutoff point, we could see if the two groups are parallel before and after the exogenous shock. We will examine functional form in regression-discontinuity and comparative-interrupted-time-series designs.</p>
+</div>
+<div id="accounting-for-the-binary-y-variable" class="section level2" number="5.8">
+<h2><span class="header-section-number">5.8</span> Accounting for the binary Y variable</h2>
+<p>Ultimately we would use logistic (or probit) regression to estimate effects because the outcome variable is a dichotomous variable. The <em>p</em>-value for a one-sided test would be half that reported. As is the case with the regression model for examining DID, we do not observe statistical significance at <span class="math inline">\(\alpha = .05\)</span>, but if this is divided in two—if we use a one-tailed test—it is significant. Don’t try this at home, though. In the social sciences, two-tailed-tests are the order of the day, as Murnane and Willett remind us.</p>
+<div class="sourceCode" id="cb470"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb470-1"><a href="DID.html#cb470-1" aria-hidden="true" tabindex="-1"></a>DID.reg_logistic  <span class="ot">&lt;-</span> <span class="fu">svyglm</span>(coll<span class="sc">~</span> before<span class="sc">*</span>fatherdec, mydesign, <span class="at">family=</span>quasibinomial)</span>
+<span id="cb470-2"><a href="DID.html#cb470-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(DID.reg_logistic)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## svyglm(formula = ..1, design = ..2, family = ..3)
+## 
+## Survey design:
+## survey::svydesign(...)
+## 
+## Coefficients:
+##                  Estimate Std. Error t value Pr(&gt;|t|)  
+## (Intercept)      -0.09730    0.07564  -1.286   0.1984  
+## before            0.10411    0.08520   1.222   0.2218  
+## fatherdec        -0.51200    0.36411  -1.406   0.1598  
+## before:fatherdec  0.74821    0.41025   1.824   0.0683 .
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## (Dispersion parameter for quasibinomial family taken to be 1.000251)
+## 
+## Number of Fisher Scoring iterations: 4</code></pre>
+</div>
+<div id="plotting-the-difference-in-differences" class="section level2" number="5.9">
+<h2><span class="header-section-number">5.9</span> Plotting the difference in differences</h2>
+<p>Earlier, we had created two subsets of data that contained the means of these two groups of students in the before and after conditions. The <code>dc</code> was the subgroup of students whose fathers had deceased. The <code>nd</code> was the other students. We can use the means in these small data frames to generate plots.<a href="#fn30" class="footnote-ref" id="fnref30"><sup>30</sup></a></p>
+<div class="sourceCode" id="cb472"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb472-1"><a href="DID.html#cb472-1" aria-hidden="true" tabindex="-1"></a>dc</span></code></pre></div>
+<pre><code>##   before      coll         se
+## 0      0 0.3522178 0.08146871
+## 1      1 0.5604556 0.05288942</code></pre>
+<div class="sourceCode" id="cb474"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb474-1"><a href="DID.html#cb474-1" aria-hidden="true" tabindex="-1"></a>nd</span></code></pre></div>
+<pre><code>##   before      coll         se
+## 0      0 0.4756935 0.01886508
+## 1      1 0.5017016 0.01217362</code></pre>
+<p>We can plot these two groups’ changes.</p>
+<blockquote>
+<p>In this plot function, we removed the top and right border of the box with <code>par(bty = "l")</code>, where <code>l</code> is lowercase “L” for the boxtype. We set the type of plot to have both points and lines with <code>type = "b"</code>. We set the X axis to go in the reverse direction, and we added some space beyond the <code>0</code> and <code>1</code> limits in the data. We removed the X axis tick labels with <code>xact = "n"</code> because we’re going to add the labels to the ticks on the axis with the <code>axis()</code> line.</p>
+</blockquote>
+<div class="sourceCode" id="cb476"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb476-1"><a href="DID.html#cb476-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">bty =</span> <span class="st">&quot;l&quot;</span>)</span>
+<span id="cb476-2"><a href="DID.html#cb476-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(dc<span class="sc">$</span>before, dc<span class="sc">$</span>coll, </span>
+<span id="cb476-3"><a href="DID.html#cb476-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">type =</span> <span class="st">&quot;b&quot;</span>,</span>
+<span id="cb476-4"><a href="DID.html#cb476-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">xlim =</span> <span class="fu">c</span>(<span class="fl">1.25</span>, <span class="sc">-</span>.<span class="dv">25</span>), </span>
+<span id="cb476-5"><a href="DID.html#cb476-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">ylim =</span> <span class="fu">c</span>(.<span class="dv">3</span>,.<span class="dv">6</span>) ,</span>
+<span id="cb476-6"><a href="DID.html#cb476-6" aria-hidden="true" tabindex="-1"></a>     <span class="at">pch =</span> <span class="dv">16</span>,</span>
+<span id="cb476-7"><a href="DID.html#cb476-7" aria-hidden="true" tabindex="-1"></a>     <span class="at">col =</span> <span class="st">&#39;blue&#39;</span>,</span>
+<span id="cb476-8"><a href="DID.html#cb476-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">xlab =</span> <span class="st">&quot;When HS senior&quot;</span>,</span>
+<span id="cb476-9"><a href="DID.html#cb476-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">ylab =</span> <span class="st">&quot;Proportion entering college&quot;</span>,</span>
+<span id="cb476-10"><a href="DID.html#cb476-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">xaxt =</span> <span class="st">&quot;n&quot;</span>)</span>
+<span id="cb476-11"><a href="DID.html#cb476-11" aria-hidden="true" tabindex="-1"></a><span class="fu">axis</span>(<span class="dv">1</span>, <span class="at">at =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">0</span>), <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;Before policy change&quot;</span>, <span class="st">&quot;After policy change&quot;</span>))</span>
+<span id="cb476-12"><a href="DID.html#cb476-12" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(nd<span class="sc">$</span>before, nd<span class="sc">$</span>coll, </span>
+<span id="cb476-13"><a href="DID.html#cb476-13" aria-hidden="true" tabindex="-1"></a>      <span class="at">type =</span> <span class="st">&quot;b&quot;</span>,</span>
+<span id="cb476-14"><a href="DID.html#cb476-14" aria-hidden="true" tabindex="-1"></a>       <span class="at">pch =</span> <span class="dv">16</span>,</span>
+<span id="cb476-15"><a href="DID.html#cb476-15" aria-hidden="true" tabindex="-1"></a>       <span class="at">col =</span> <span class="st">&quot;brown&quot;</span>)</span>
+<span id="cb476-16"><a href="DID.html#cb476-16" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(dc<span class="sc">$</span>before[<span class="dv">2</span>], dc<span class="sc">$</span>coll[<span class="dv">2</span>], <span class="at">labels =</span> <span class="st">&quot;with deceased fathers&quot;</span>, <span class="at">pos =</span> <span class="dv">3</span>, <span class="at">offset =</span> .<span class="dv">4</span>, <span class="at">cex =</span> .<span class="dv">8</span>, <span class="at">col =</span> <span class="st">&quot;blue&quot;</span>)</span>
+<span id="cb476-17"><a href="DID.html#cb476-17" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(nd<span class="sc">$</span>before[<span class="dv">2</span>], nd<span class="sc">$</span>coll[<span class="dv">2</span>], <span class="at">labels =</span> <span class="st">&quot;w/o deceased fathers&quot;</span>, <span class="at">pos =</span> <span class="dv">1</span>, <span class="at">offset =</span> .<span class="dv">4</span>, <span class="at">cex =</span> .<span class="dv">8</span>, <span class="at">col =</span> <span class="st">&quot;brown&quot;</span>)</span></code></pre></div>
+<p><img src="QEDs-in-R_files/figure-html/unnamed-chunk-237-1.png" width="672" /></p>
+<p>The plot illustrates that both types of students—those whose fathers had deceased and those whose fathers had not—had a lower probability of entering college in the years after Ronald Reagan eliminated the GSL and SSSP scholarship programs. This difference is more pronounced for students whose fathers had been deceased, which is the group who had access to the SSSP scholarship if they were a high-school senior before 1982.</p>
+<p>We could do something similar in ggplot.</p>
+<div class="sourceCode" id="cb477"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb477-1"><a href="DID.html#cb477-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb477-2"><a href="DID.html#cb477-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(dc, <span class="fu">aes</span>(<span class="sc">-</span><span class="dv">1</span><span class="sc">*</span>before, coll)) <span class="sc">+</span></span>
+<span id="cb477-3"><a href="DID.html#cb477-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">&quot;blue&quot;</span>) <span class="sc">+</span></span>
+<span id="cb477-4"><a href="DID.html#cb477-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">color =</span> <span class="st">&quot;blue&quot;</span>) <span class="sc">+</span></span>
+<span id="cb477-5"><a href="DID.html#cb477-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylim</span>(.<span class="dv">3</span>, .<span class="dv">6</span>) <span class="sc">+</span> </span>
+<span id="cb477-6"><a href="DID.html#cb477-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">1.25</span>, .<span class="dv">25</span>),<span class="at">breaks =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">0</span>), <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;Before policy change&quot;</span>, <span class="st">&quot;After policy change&quot;</span>)) <span class="sc">+</span></span>
+<span id="cb477-7"><a href="DID.html#cb477-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;Proportion entering college&quot;</span>) <span class="sc">+</span></span>
+<span id="cb477-8"><a href="DID.html#cb477-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;When HS senior&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb477-9"><a href="DID.html#cb477-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> nd, <span class="fu">aes</span>(<span class="sc">-</span><span class="dv">1</span><span class="sc">*</span>before, coll), <span class="at">color =</span> <span class="st">&quot;brown&quot;</span> ) <span class="sc">+</span></span>
+<span id="cb477-10"><a href="DID.html#cb477-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">data =</span> nd, <span class="fu">aes</span>(<span class="sc">-</span><span class="dv">1</span><span class="sc">*</span>before, coll), <span class="at">color =</span> <span class="st">&quot;brown&quot;</span> ) <span class="sc">+</span> </span>
+<span id="cb477-11"><a href="DID.html#cb477-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="at">data =</span> dc, <span class="fu">aes</span>(<span class="at">x =</span> <span class="sc">-</span><span class="dv">1</span><span class="sc">*</span>before[<span class="dv">2</span>], <span class="at">y =</span> coll[<span class="dv">2</span>], <span class="at">label =</span> <span class="st">&quot;with deceased fathers&quot;</span>, <span class="at">vjust =</span> <span class="sc">-</span><span class="dv">1</span>), <span class="at">color =</span> <span class="st">&quot;blue&quot;</span> ) <span class="sc">+</span></span>
+<span id="cb477-12"><a href="DID.html#cb477-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="at">data =</span> nd, <span class="fu">aes</span>(<span class="at">x =</span> <span class="sc">-</span><span class="dv">1</span><span class="sc">*</span>before[<span class="dv">2</span>], <span class="at">y =</span> coll[<span class="dv">2</span>], <span class="at">label =</span> <span class="st">&quot;w/o deceased fathers&quot;</span>, <span class="at">vjust =</span> <span class="fl">1.5</span>), <span class="at">color =</span> <span class="st">&quot;brown&quot;</span> )</span></code></pre></div>
+<p><img src="QEDs-in-R_files/figure-html/unnamed-chunk-238-1.png" width="672" /></p>
+<p>These plots do not include the standard errors but they do help us to interpret the difference in differences when we draw inferences about the causal relationship between the offer of the scholarship and college attendance for our target population—students whose fathers had deceased.</p>
+<p>The validity of our claims about the causal effect of the SSSP scholarship on students’ college-attendance rates rests on the assumption that the two types of students are equally affected by other conditions, such as the GSL policy and other events that could otherwise be chalked up to history threats to validity.</p>
+<p>If we assume that this <em>secular trend</em> that we observe in the non-deceased-father group is the same for our group of interest in the causal study—those whose fathers were and were not deceased—we could plot the expected trend as a counterfactual to our group of interest. We’ll do this below.</p>
+<div id="plotfrompred" class="section level3" number="5.9.1">
+<h3><span class="header-section-number">5.9.1</span> Plotting from the predicted values of the model</h3>
+<p>We can also obtain the group means by using the <code>predict()</code> function with the model output, which we had saved in the <code>DID.reg</code> object. We had, in an earlier part of this tutorial, used the <code>predict()</code> function with our existing data set to estimate each observation’s predicted value on the outcome. We can also use it with a new data set, using the <code>newdata =</code> argument. For instance, if I wanted the model-predicted values of the probability of entering college from each possible combination of the two variables, I could create a simple data frame and name the columns the same as those that are in our model.</p>
+<div class="sourceCode" id="cb478"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb478-1"><a href="DID.html#cb478-1" aria-hidden="true" tabindex="-1"></a>mynewdat <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">before    =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">1</span>), </span>
+<span id="cb478-2"><a href="DID.html#cb478-2" aria-hidden="true" tabindex="-1"></a>                       <span class="at">fatherdec =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">1</span>))</span>
+<span id="cb478-3"><a href="DID.html#cb478-3" aria-hidden="true" tabindex="-1"></a>mynewdat</span></code></pre></div>
+<pre><code>##   before fatherdec
+## 1      0         0
+## 2      0         1
+## 3      1         0
+## 4      1         1</code></pre>
+<p>Then, we could use our <code>predict()</code> function.</p>
+<div class="sourceCode" id="cb480"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb480-1"><a href="DID.html#cb480-1" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(DID.reg, <span class="at">newdata =</span> mynewdat)</span></code></pre></div>
+<pre><code>##      link     SE
+## 1 0.47569 0.0189
+## 2 0.35222 0.0812
+## 3 0.50170 0.0122
+## 4 0.56046 0.0527</code></pre>
+<p>If we are using our logistic regression, we specify that model’s object. We also specify that we want the predicted value on the outcome variable, using <code>type = "response"</code> rather than the default log-odds of the probability.</p>
+<div class="sourceCode" id="cb482"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb482-1"><a href="DID.html#cb482-1" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(DID.reg_logistic, <span class="at">newdata =</span> mynewdat, <span class="at">type =</span> <span class="st">&quot;response&quot;</span>)</span></code></pre></div>
+<pre><code>##   response     SE
+## 1  0.47569 0.0189
+## 2  0.35222 0.0812
+## 3  0.50170 0.0122
+## 4  0.56046 0.0527</code></pre>
+<p>The predicted values are the same as in the glm model without the logistic link function.</p>
+<p>If we’re going to plot these predicted values, we might also include a couple columns that help us keep track of what the <code>before</code> and <code>fatherdec</code> dummy coding represents. We can specify that these columns are factors and use them in a subsequent plot. If we want factors to appear in a particular order in our plot, we can use the <code>levels =</code> argument in our <code>factor()</code> function to specify the order; otherwise, it is alphabetical. Also notice that we use the replicate function, <code>rep()</code>. We could just as easily used <code>c("After", "After", "Before", "Before")</code> in place of <code>rep(c("After","Before"), each = 2)</code>. Also, notice that the <code>each =</code> and the <code>time =</code> in the <code>rep()</code> function produce either a stacked ordering (with <code>each =</code>) or a sequential ordering (with <code>time =</code>) of the replicated elements. In the code below, we’re creating a data frame that includes these two extra factors, we’re using the <code>predict()</code> function to create the estimated values on the outcome variable, and we’re renaming the fifth column in the data set.</p>
+<div class="sourceCode" id="cb484"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb484-1"><a href="DID.html#cb484-1" aria-hidden="true" tabindex="-1"></a>mynewdat <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">before    =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">1</span>), </span>
+<span id="cb484-2"><a href="DID.html#cb484-2" aria-hidden="true" tabindex="-1"></a>                       <span class="at">fatherdec =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">1</span>))</span>
+<span id="cb484-3"><a href="DID.html#cb484-3" aria-hidden="true" tabindex="-1"></a>preds <span class="ot">&lt;-</span> </span>
+<span id="cb484-4"><a href="DID.html#cb484-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">data.frame</span>(</span>
+<span id="cb484-5"><a href="DID.html#cb484-5" aria-hidden="true" tabindex="-1"></a>   <span class="at">Time =</span> <span class="fu">factor</span>(<span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">&quot;After&quot;</span>,<span class="st">&quot;Before&quot;</span>), <span class="at">each =</span> <span class="dv">2</span>), </span>
+<span id="cb484-6"><a href="DID.html#cb484-6" aria-hidden="true" tabindex="-1"></a>                <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">&quot;Before&quot;</span>, <span class="st">&quot;After&quot;</span>)),  </span>
+<span id="cb484-7"><a href="DID.html#cb484-7" aria-hidden="true" tabindex="-1"></a>   <span class="at">Grp  =</span> <span class="fu">factor</span>(<span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">&quot;Father not deceased&quot;</span>, <span class="st">&quot;Father deceased&quot;</span>), <span class="at">time =</span> <span class="dv">2</span>)),</span>
+<span id="cb484-8"><a href="DID.html#cb484-8" aria-hidden="true" tabindex="-1"></a>   mynewdat,</span>
+<span id="cb484-9"><a href="DID.html#cb484-9" aria-hidden="true" tabindex="-1"></a>   <span class="fu">predict</span>(DID.reg, <span class="at">newdata =</span> mynewdat)</span>
+<span id="cb484-10"><a href="DID.html#cb484-10" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb484-11"><a href="DID.html#cb484-11" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(preds)[<span class="dv">5</span>] <span class="ot">&lt;-</span> <span class="st">&quot;Pred_Coll&quot;</span></span>
+<span id="cb484-12"><a href="DID.html#cb484-12" aria-hidden="true" tabindex="-1"></a>preds</span></code></pre></div>
+<pre><code>##     Time                 Grp before fatherdec Pred_Coll         SE
+## 1  After Father not deceased      0         0 0.4756935 0.01886493
+## 2  After     Father deceased      0         1 0.3522178 0.08124455
+## 3 Before Father not deceased      1         0 0.5017016 0.01217353
+## 4 Before     Father deceased      1         1 0.5604556 0.05274389</code></pre>
+<p>We can the plot the predicted values by group. A quick way to do this is to use the <code>interaction.plot()</code> function in Base R. This is good enough for a quick peek of our data and maybe some publications.</p>
+<div class="sourceCode" id="cb486"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb486-1"><a href="DID.html#cb486-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">bty =</span> <span class="st">&quot;l&quot;</span>)</span>
+<span id="cb486-2"><a href="DID.html#cb486-2" aria-hidden="true" tabindex="-1"></a><span class="fu">interaction.plot</span>(<span class="at">x.factor     =</span> preds<span class="sc">$</span>Time,</span>
+<span id="cb486-3"><a href="DID.html#cb486-3" aria-hidden="true" tabindex="-1"></a>                 <span class="at">trace.factor =</span> preds<span class="sc">$</span>Grp,</span>
+<span id="cb486-4"><a href="DID.html#cb486-4" aria-hidden="true" tabindex="-1"></a>                 <span class="at">response     =</span> preds<span class="sc">$</span>Pred_Coll,</span>
+<span id="cb486-5"><a href="DID.html#cb486-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">ylim =</span> <span class="fu">c</span>(.<span class="dv">3</span>,.<span class="dv">6</span>) ,</span>
+<span id="cb486-6"><a href="DID.html#cb486-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">xlab =</span> <span class="st">&quot;Time HS senior in relation to policy change&quot;</span>,</span>
+<span id="cb486-7"><a href="DID.html#cb486-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">ylab =</span> <span class="st">&quot;Proportion entering college&quot;</span>,</span>
+<span id="cb486-8"><a href="DID.html#cb486-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">trace.label =</span> <span class="st">&quot;&quot;</span>) <span class="co"># removing the legend label</span></span></code></pre></div>
+<p><img src="QEDs-in-R_files/figure-html/unnamed-chunk-243-1.png" width="672" /></p>
+<p>Another way to plot an interaction is to subset the data when we call the X and Y axes in the plots. This is very similar to what we did before when we had two different data frames.</p>
+<div class="sourceCode" id="cb487"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb487-1"><a href="DID.html#cb487-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">bty =</span> <span class="st">&quot;l&quot;</span>)</span>
+<span id="cb487-2"><a href="DID.html#cb487-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="at">x =</span> preds[preds<span class="sc">$</span>fatherdec <span class="sc">==</span> <span class="dv">1</span>, <span class="st">&quot;before&quot;</span>],</span>
+<span id="cb487-3"><a href="DID.html#cb487-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">y =</span> preds[preds<span class="sc">$</span>fatherdec <span class="sc">==</span> <span class="dv">1</span>, <span class="st">&quot;Pred_Coll&quot;</span>],</span>
+<span id="cb487-4"><a href="DID.html#cb487-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">type =</span> <span class="st">&quot;b&quot;</span>,</span>
+<span id="cb487-5"><a href="DID.html#cb487-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">xlim =</span> <span class="fu">c</span>(<span class="fl">1.25</span>, <span class="sc">-</span>.<span class="dv">25</span>), </span>
+<span id="cb487-6"><a href="DID.html#cb487-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">ylim =</span> <span class="fu">c</span>(.<span class="dv">3</span>,.<span class="dv">6</span>) ,</span>
+<span id="cb487-7"><a href="DID.html#cb487-7" aria-hidden="true" tabindex="-1"></a>     <span class="at">pch =</span> <span class="dv">16</span>,</span>
+<span id="cb487-8"><a href="DID.html#cb487-8" aria-hidden="true" tabindex="-1"></a>     <span class="at">col =</span> <span class="st">&#39;blue&#39;</span>,</span>
+<span id="cb487-9"><a href="DID.html#cb487-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">xlab =</span> <span class="st">&quot;Time HS senior in relation to policy change&quot;</span>,</span>
+<span id="cb487-10"><a href="DID.html#cb487-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">ylab =</span> <span class="st">&quot;Proportion entering college&quot;</span>,</span>
+<span id="cb487-11"><a href="DID.html#cb487-11" aria-hidden="true" tabindex="-1"></a>     <span class="at">xaxt =</span> <span class="st">&quot;n&quot;</span>)</span>
+<span id="cb487-12"><a href="DID.html#cb487-12" aria-hidden="true" tabindex="-1"></a><span class="fu">axis</span>(<span class="dv">1</span>, <span class="at">at =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">0</span>), <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;Before&quot;</span>, <span class="st">&quot;After&quot;</span>))</span>
+<span id="cb487-13"><a href="DID.html#cb487-13" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(<span class="at">x =</span> preds[preds<span class="sc">$</span>fatherdec <span class="sc">==</span> <span class="dv">0</span>, <span class="st">&quot;before&quot;</span>],</span>
+<span id="cb487-14"><a href="DID.html#cb487-14" aria-hidden="true" tabindex="-1"></a>      <span class="at">y =</span> preds[preds<span class="sc">$</span>fatherdec <span class="sc">==</span> <span class="dv">0</span>, <span class="st">&quot;Pred_Coll&quot;</span>],</span>
+<span id="cb487-15"><a href="DID.html#cb487-15" aria-hidden="true" tabindex="-1"></a>      <span class="at">type =</span> <span class="st">&quot;b&quot;</span>,</span>
+<span id="cb487-16"><a href="DID.html#cb487-16" aria-hidden="true" tabindex="-1"></a>       <span class="at">pch =</span> <span class="dv">16</span>,</span>
+<span id="cb487-17"><a href="DID.html#cb487-17" aria-hidden="true" tabindex="-1"></a>       <span class="at">col =</span> <span class="st">&quot;brown&quot;</span>)</span>
+<span id="cb487-18"><a href="DID.html#cb487-18" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="at">x =</span> <span class="dv">1</span>, </span>
+<span id="cb487-19"><a href="DID.html#cb487-19" aria-hidden="true" tabindex="-1"></a>     <span class="at">y =</span> preds[preds<span class="sc">$</span>before <span class="sc">==</span> <span class="dv">1</span> <span class="sc">&amp;</span> preds<span class="sc">$</span>fatherdec <span class="sc">==</span> <span class="dv">1</span>, <span class="st">&quot;Pred_Coll&quot;</span>],</span>
+<span id="cb487-20"><a href="DID.html#cb487-20" aria-hidden="true" tabindex="-1"></a>     <span class="at">labels =</span> <span class="st">&quot;with deceased fathers&quot;</span>, </span>
+<span id="cb487-21"><a href="DID.html#cb487-21" aria-hidden="true" tabindex="-1"></a>        <span class="at">pos =</span> <span class="dv">3</span>, <span class="at">offset =</span> .<span class="dv">4</span>, <span class="at">cex =</span> .<span class="dv">8</span>, <span class="at">col =</span> <span class="st">&quot;blue&quot;</span>)</span></code></pre></div>
+<p><img src="QEDs-in-R_files/figure-html/unnamed-chunk-244-1.png" width="672" /></p>
+<p>To add the counterfactual line, we can consider the line of the comparison group and move it up to the control condition in the treatment group. Because we are interested in the causal effects of the SSSP program and it was no longer available after 1981, we consider the control condition for our first difference to be when <code>before</code> is coded as zero.</p>
+<p>So, we can calculate the difference of the two groups when <code>before = 0</code>, then plot the counterfactual line by using the second-difference group’s slope and moving it up to the first-difference group’s control condition.</p>
+<div class="sourceCode" id="cb488"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb488-1"><a href="DID.html#cb488-1" aria-hidden="true" tabindex="-1"></a>Grp_diff_before0 <span class="ot">&lt;-</span> preds[preds<span class="sc">$</span>before<span class="sc">==</span><span class="dv">0</span> <span class="sc">&amp;</span> preds<span class="sc">$</span>fatherdec <span class="sc">==</span> <span class="dv">1</span>, <span class="st">&quot;Pred_Coll&quot;</span>] <span class="sc">-</span></span>
+<span id="cb488-2"><a href="DID.html#cb488-2" aria-hidden="true" tabindex="-1"></a>                   preds[preds<span class="sc">$</span>before<span class="sc">==</span><span class="dv">0</span> <span class="sc">&amp;</span> preds<span class="sc">$</span>fatherdec <span class="sc">==</span> <span class="dv">0</span>, <span class="st">&quot;Pred_Coll&quot;</span>]</span>
+<span id="cb488-3"><a href="DID.html#cb488-3" aria-hidden="true" tabindex="-1"></a>Grp_diff_before0</span></code></pre></div>
+<pre><code>## [1] -0.1234757</code></pre>
+<p>Now that we have an estimate of how different the two groups are in the condition after Reagan removed these programs, we can use that to adjust a plot of the line of the control group. Let’s restrict the data to include only the control group and then plot this new line with the adjustment on the Y axis.</p>
+<div class="sourceCode" id="cb490"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb490-1"><a href="DID.html#cb490-1" aria-hidden="true" tabindex="-1"></a><span class="co"># This code should immediately follow the code used to generate the plot. </span></span>
+<span id="cb490-2"><a href="DID.html#cb490-2" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(<span class="at">x =</span> preds[preds<span class="sc">$</span>fatherdec <span class="sc">==</span> <span class="dv">0</span>, <span class="st">&quot;before&quot;</span>],</span>
+<span id="cb490-3"><a href="DID.html#cb490-3" aria-hidden="true" tabindex="-1"></a>      <span class="at">y =</span> Grp_diff_before0 <span class="sc">+</span> preds[preds<span class="sc">$</span>fatherdec <span class="sc">==</span> <span class="dv">0</span>, <span class="st">&quot;Pred_Coll&quot;</span>],</span>
+<span id="cb490-4"><a href="DID.html#cb490-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">lty =</span> <span class="st">&quot;dashed&quot;</span>,</span>
+<span id="cb490-5"><a href="DID.html#cb490-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">col =</span> <span class="st">&quot;blue&quot;</span>)</span></code></pre></div>
+<p><img src="QEDs-in-R_files/figure-html/unnamed-chunk-247-1.png" width="672" /></p>
+</div>
+<div id="doing-it-in-ggplot2" class="section level3" number="5.9.2">
+<h3><span class="header-section-number">5.9.2</span> Doing it in ggplot2</h3>
+<p>We can also plot an interaction from the model output in ggplot2. There is an easier way to plot interactions in ggplot2, using the <code>geom_smooth()</code> function. However, because we are using the weighted means from the model in the survey package, that is not an option (as far as I know). So, we’re using the long process of first getting the predicted values, saving them to a small data frame, <code>preds</code>, which we did already, and then plotting those values.</p>
+<div class="sourceCode" id="cb491"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb491-1"><a href="DID.html#cb491-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb491-2"><a href="DID.html#cb491-2" aria-hidden="true" tabindex="-1"></a>myplot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(preds, <span class="fu">aes</span>(Time, Pred_Coll, <span class="at">color =</span> Grp)) <span class="sc">+</span></span>
+<span id="cb491-3"><a href="DID.html#cb491-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb491-4"><a href="DID.html#cb491-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">group =</span> Grp)) <span class="sc">+</span> </span>
+<span id="cb491-5"><a href="DID.html#cb491-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylim</span>(.<span class="dv">3</span>, .<span class="dv">6</span>) <span class="sc">+</span></span>
+<span id="cb491-6"><a href="DID.html#cb491-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_discrete</span>(<span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;Before policy change&quot;</span>, <span class="st">&quot;After policy change&quot;</span>)) <span class="sc">+</span></span>
+<span id="cb491-7"><a href="DID.html#cb491-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;Proportion entering college&quot;</span>) <span class="sc">+</span></span>
+<span id="cb491-8"><a href="DID.html#cb491-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;When HS senior&quot;</span>)</span>
+<span id="cb491-9"><a href="DID.html#cb491-9" aria-hidden="true" tabindex="-1"></a>myplot</span></code></pre></div>
+<p><img src="QEDs-in-R_files/figure-html/unnamed-chunk-248-1.png" width="672" /></p>
+<p>We can change things in the ggplot by adding text, removing the legend, and changing the color palette.</p>
+<div class="sourceCode" id="cb492"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb492-1"><a href="DID.html#cb492-1" aria-hidden="true" tabindex="-1"></a>myplot <span class="ot">&lt;-</span> myplot <span class="sc">+</span></span>
+<span id="cb492-2"><a href="DID.html#cb492-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="at">data =</span> preds, </span>
+<span id="cb492-3"><a href="DID.html#cb492-3" aria-hidden="true" tabindex="-1"></a>            <span class="fu">aes</span>(<span class="at">x =</span> Time[<span class="dv">4</span>], <span class="at">y =</span> Pred_Coll[<span class="dv">4</span>], <span class="co"># where the label goes</span></span>
+<span id="cb492-4"><a href="DID.html#cb492-4" aria-hidden="true" tabindex="-1"></a>                <span class="at">label =</span> <span class="st">&quot;with deceased fathers&quot;</span>, </span>
+<span id="cb492-5"><a href="DID.html#cb492-5" aria-hidden="true" tabindex="-1"></a>                <span class="at">vjust =</span> <span class="sc">-</span><span class="dv">1</span>), <span class="co"># Vertical adjustment of label</span></span>
+<span id="cb492-6"><a href="DID.html#cb492-6" aria-hidden="true" tabindex="-1"></a>            <span class="at">color =</span> <span class="st">&quot;blue&quot;</span>,  <span class="co"># Color of the text</span></span>
+<span id="cb492-7"><a href="DID.html#cb492-7" aria-hidden="true" tabindex="-1"></a>            <span class="at">alpha =</span> .<span class="dv">3</span>) <span class="sc">+</span>    <span class="co"># More transparency with lower values</span></span>
+<span id="cb492-8"><a href="DID.html#cb492-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">&quot;blue&quot;</span>, <span class="st">&quot;brown&quot;</span>), <span class="co"># The color = Grp argument is now based on this palette.</span></span>
+<span id="cb492-9"><a href="DID.html#cb492-9" aria-hidden="true" tabindex="-1"></a>                     <span class="at">guide =</span> <span class="st">&quot;none&quot;</span>) <span class="co"># removing the legend because we added text</span></span>
+<span id="cb492-10"><a href="DID.html#cb492-10" aria-hidden="true" tabindex="-1"></a> myplot</span></code></pre></div>
+<p><img src="QEDs-in-R_files/figure-html/unnamed-chunk-249-1.png" width="672" /></p>
+<p>To add the counterfactual line, we can add a <code>geom_line()</code> line to the plot. In ggplot, we have to add a <code>group = 1</code> line here because otherwise it expects there to be two groups; this is because there were two groups in the data used to generate the plot in the first place.</p>
+<div class="sourceCode" id="cb493"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb493-1"><a href="DID.html#cb493-1" aria-hidden="true" tabindex="-1"></a>myplot <span class="ot">&lt;-</span> myplot <span class="sc">+</span> <span class="fu">geom_line</span>(<span class="at">data =</span> preds[preds<span class="sc">$</span>fatherdec <span class="sc">==</span> <span class="dv">0</span>, ],</span>
+<span id="cb493-2"><a href="DID.html#cb493-2" aria-hidden="true" tabindex="-1"></a>                   <span class="fu">aes</span>(<span class="at">x =</span> Time,</span>
+<span id="cb493-3"><a href="DID.html#cb493-3" aria-hidden="true" tabindex="-1"></a>                       <span class="at">y =</span> Pred_Coll<span class="sc">+</span>Grp_diff_before0, </span>
+<span id="cb493-4"><a href="DID.html#cb493-4" aria-hidden="true" tabindex="-1"></a>                       <span class="at">group =</span> <span class="dv">1</span>), </span>
+<span id="cb493-5"><a href="DID.html#cb493-5" aria-hidden="true" tabindex="-1"></a>                   <span class="at">color =</span> <span class="st">&quot;blue&quot;</span>, </span>
+<span id="cb493-6"><a href="DID.html#cb493-6" aria-hidden="true" tabindex="-1"></a>                   <span class="at">linetype =</span> <span class="st">&quot;dashed&quot;</span>)</span>
+<span id="cb493-7"><a href="DID.html#cb493-7" aria-hidden="true" tabindex="-1"></a>myplot</span></code></pre></div>
+<p><img src="QEDs-in-R_files/figure-html/unnamed-chunk-250-1.png" width="672" /></p>
+</div>
+<div id="seeing-where-the-regression-estimate-is-in-the-plot" class="section level3" number="5.9.3">
+<h3><span class="header-section-number">5.9.3</span> Seeing where the regression estimate is in the plot</h3>
+<p>Recall that the estimated effect from our DID strategy in the regression was <span class="math inline">\(\beta_3 = 0.182\)</span>. If we measure the gap between the counterfactual point in the treatment condition for our focal group (i.e., if they had not been offered the SSSP), which is <span class="math inline">\(0.378\)</span>, and the observed probability of college entrance, <span class="math inline">\(0.56\)</span>, we arrive at this same value—the estimated effect.</p>
+<p><img src="QEDs-in-R_files/figure-html/unnamed-chunk-252-1.png" width="672" /></p>
+
+</div>
+</div>
+</div>
+<h3>References</h3>
+<div id="refs" class="references csl-bib-body hanging-indent" entry-spacing="1">
+<div id="ref-dynarski_does_2003" class="csl-entry">
+Dynarski, S. M. (2003). Does aid matter? <span>Measuring</span> the effect of student aid on college attendance and completion. <em>The American Economic Review</em>, <em>93</em>, 279–288. <a href="https://doi.org/10.1257/000282803321455287">https://doi.org/10.1257/000282803321455287</a>
+</div>
+<div id="ref-R-poliscidata" class="csl-entry">
+Edwards, B., &amp; Pollock, P. (2020). <em>Poliscidata: Datasets and functions featured in pollock and edwards, an r companion to essentials of political analysis, second edition</em>. <a href="https://CRAN.R-project.org/package=poliscidata">https://CRAN.R-project.org/package=poliscidata</a>
+</div>
+<div id="ref-R-survey" class="csl-entry">
+Lumley, T. (2021). <em>Survey: Analysis of complex survey samples</em>. <a href="http://r-survey.r-forge.r-project.org/survey/">http://r-survey.r-forge.r-project.org/survey/</a>
+</div>
+<div id="ref-murnane_methods_2011" class="csl-entry">
+Murnane, R. J., &amp; Willett, J. B. (2011). <em>Methods matter: <span>Improving</span> causal inference in educational and social science research</em>. Oxford University Press.
+</div>
+<div id="ref-R-dplyr" class="csl-entry">
+Wickham, H., François, R., Henry, L., &amp; Müller, K. (2021). <em>Dplyr: A grammar of data manipulation</em>. <a href="https://CRAN.R-project.org/package=dplyr">https://CRAN.R-project.org/package=dplyr</a>
+</div>
+<div id="ref-R-haven" class="csl-entry">
+Wickham, H., &amp; Miller, E. (2021). <em>Haven: Import and export SPSS, stata and SAS files</em>. <a href="https://CRAN.R-project.org/package=haven">https://CRAN.R-project.org/package=haven</a>
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="27">
+<li id="fn27"><p>I downloaded these data from <a href="https://stats.idre.ucla.edu/wp-content/uploads/2016/02/dynarski.sas7bdat" class="uri">https://stats.idre.ucla.edu/wp-content/uploads/2016/02/dynarski.sas7bdat</a>, and used the sas7bdat package to read them and save them as a csv file after changing the variable names to lower case, using the <code>tolower()</code> function on the names. Other packages, such as haven <span class="citation">(<a href="#ref-R-haven" role="doc-biblioref">Wickham &amp; Miller, 2021</a>)</span> also work for reading formats of data.<a href="DID.html#fnref27" class="footnote-back">↩︎</a></p></li>
+<li id="fn28"><p>Dynarsky used the variable label “before” in her study, which is what we are using here, whereas Murnane and Willett used the label “offer,” which, as stated previously, included the SSSP offer to students whose fathers were not only deceased, but to whose fathers had retired or classified as disabled. In other words, our “before” variable is the same as Murnane and Willett’s “offer” variable. We’re ignoring the “offer” variable in the original data set.<a href="DID.html#fnref28" class="footnote-back">↩︎</a></p></li>
+<li id="fn29"><p>We could compare the results of this model with the regular OLS general linear model, <code>summary(glm(coll ~ before, data = dyn))</code>, which does not account for clustered standard errors and weighted observations—in that incorrectly specified model, the effect is estimated to be statistically significant.<a href="DID.html#fnref29" class="footnote-back">↩︎</a></p></li>
+<li id="fn30"><p>We could also have these summary statistics in a single data frame, though our coding for the plots would look a little different.<a href="DID.html#fnref30" class="footnote-back">↩︎</a></p></li>
+</ol>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="rct.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="RD1.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
