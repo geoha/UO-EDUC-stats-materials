@@ -1,0 +1,923 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 9 Internal-consistency Reliability | Using R for Measurement in the Social Sciences</title>
+  <meta name="description" content="Provides example R code to accompany the learning of measurement concepts." />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 9 Internal-consistency Reliability | Using R for Measurement in the Social Sciences" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="Provides example R code to accompany the learning of measurement concepts." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 9 Internal-consistency Reliability | Using R for Measurement in the Social Sciences" />
+  
+  <meta name="twitter:description" content="Provides example R code to accompany the learning of measurement concepts." />
+  
+
+<meta name="author" content="George M. Harrison  University of Hawai‘i at Mānoa, College of Education" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="CTT.html"/>
+<link rel="next" href="interrater.html"/>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<link href="libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0/anchor-sections.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+<link href="libs/bsTable-3.3.7/bootstrapTable.min.css" rel="stylesheet" />
+<script src="libs/bsTable-3.3.7/bootstrapTable.js"></script>
+
+
+<style type="text/css">
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Introduction</a></li>
+<li class="chapter" data-level="1" data-path="trans.html"><a href="trans.html"><i class="fa fa-check"></i><b>1</b> Score Transformations</a><ul>
+<li class="chapter" data-level="1.1" data-path="trans.html"><a href="trans.html#percentiles-percentile-ranks-and-normalized-scores"><i class="fa fa-check"></i><b>1.1</b> Percentiles, percentile ranks, and normalized scores</a></li>
+<li class="chapter" data-level="1.2" data-path="trans.html"><a href="trans.html#run-of-the-mill-z-scores"><i class="fa fa-check"></i><b>1.2</b> Run-of-the-mill Z scores</a></li>
+<li class="chapter" data-level="1.3" data-path="trans.html"><a href="trans.html#extra-optional-stuff"><i class="fa fa-check"></i><b>1.3</b> Extra optional stuff</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="var-cov-cor.html"><a href="var-cov-cor.html"><i class="fa fa-check"></i><b>2</b> Variance, Covariance, and Correlation</a><ul>
+<li class="chapter" data-level="2.1" data-path="var-cov-cor.html"><a href="var-cov-cor.html#correlation"><i class="fa fa-check"></i><b>2.1</b> Correlation</a><ul>
+<li class="chapter" data-level="2.1.1" data-path="var-cov-cor.html"><a href="var-cov-cor.html#estimating-correlation-as-a-statistic"><i class="fa fa-check"></i><b>2.1.1</b> Estimating correlation as a statistic</a></li>
+<li class="chapter" data-level="2.1.2" data-path="var-cov-cor.html"><a href="var-cov-cor.html#creating-a-correlation-matrix"><i class="fa fa-check"></i><b>2.1.2</b> Creating a correlation matrix</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="var-cov-cor.html"><a href="var-cov-cor.html#variance"><i class="fa fa-check"></i><b>2.2</b> Variance</a></li>
+<li class="chapter" data-level="2.3" data-path="var-cov-cor.html"><a href="var-cov-cor.html#covariance"><i class="fa fa-check"></i><b>2.3</b> Covariance</a><ul>
+<li class="chapter" data-level="2.3.1" data-path="var-cov-cor.html"><a href="var-cov-cor.html#creating-a-variance-covariance-matrix"><i class="fa fa-check"></i><b>2.3.1</b> Creating a variance-covariance matrix</a></li>
+<li class="chapter" data-level="2.3.2" data-path="var-cov-cor.html"><a href="var-cov-cor.html#using-the-n-denominator"><i class="fa fa-check"></i><b>2.3.2</b> Using the <em>n</em> denominator</a></li>
+<li class="chapter" data-level="2.3.3" data-path="var-cov-cor.html"><a href="var-cov-cor.html#extra-understanding-for-use-in-classical-test-theory"><i class="fa fa-check"></i><b>2.3.3</b> Extra understanding, for use in classical test theory</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="var-cov-cor.html"><a href="var-cov-cor.html#practice"><i class="fa fa-check"></i><b>2.4</b> Practice</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="custfuncts.html"><a href="custfuncts.html"><i class="fa fa-check"></i><b>3</b> Creating Custom Functions</a><ul>
+<li class="chapter" data-level="3.1" data-path="custfuncts.html"><a href="custfuncts.html#using-our-function-on-multiple-variables"><i class="fa fa-check"></i><b>3.1</b> Using our function on multiple variables</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="packs.html"><a href="packs.html"><i class="fa fa-check"></i><b>4</b> Using Packages</a><ul>
+<li class="chapter" data-level="4.1" data-path="packs.html"><a href="packs.html#an-example-using-the-hmisc-package-for-correlation"><i class="fa fa-check"></i><b>4.1</b> An example: Using the <code>Hmisc</code> package for correlation</a></li>
+<li class="chapter" data-level="4.2" data-path="packs.html"><a href="packs.html#tidyverse_intro"><i class="fa fa-check"></i><b>4.2</b> Using Tidyverse packages</a><ul>
+<li class="chapter" data-level="4.2.1" data-path="packs.html"><a href="packs.html#piping_intro"><i class="fa fa-check"></i><b>4.2.1</b> Piping</a></li>
+<li class="chapter" data-level="4.2.2" data-path="packs.html"><a href="packs.html#saving-our-output-as-a-csv-file"><i class="fa fa-check"></i><b>4.2.2</b> Saving our output as a CSV file</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="regress.html"><a href="regress.html"><i class="fa fa-check"></i><b>5</b> Estimating Regression</a><ul>
+<li class="chapter" data-level="5.1" data-path="regress.html"><a href="regress.html#the-lm-function"><i class="fa fa-check"></i><b>5.1</b> The <code>lm()</code> function</a></li>
+<li class="chapter" data-level="5.2" data-path="regress.html"><a href="regress.html#using-the-regression-parameters-for-prediction"><i class="fa fa-check"></i><b>5.2</b> Using the regression parameters for prediction</a></li>
+<li class="chapter" data-level="5.3" data-path="regress.html"><a href="regress.html#model-error-variance-and-a-peek-into-classical-test-theory"><i class="fa fa-check"></i><b>5.3</b> Model error variance and a peek into classical test theory</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="graphing.html"><a href="graphing.html"><i class="fa fa-check"></i><b>6</b> Graphing</a><ul>
+<li class="chapter" data-level="6.1" data-path="graphing.html"><a href="graphing.html#using-base-r"><i class="fa fa-check"></i><b>6.1</b> Using Base R</a></li>
+<li class="chapter" data-level="6.2" data-path="graphing.html"><a href="graphing.html#using-the-ggplot2-package"><i class="fa fa-check"></i><b>6.2</b> Using the <code>ggplot2</code> package</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="itemans.html"><a href="itemans.html"><i class="fa fa-check"></i><b>7</b> Item Scoring and Item Analysis</a><ul>
+<li class="chapter" data-level="7.1" data-path="itemans.html"><a href="itemans.html#multiple-choice-raw-data-and-their-answer-key"><i class="fa fa-check"></i><b>7.1</b> Multiple-choice raw data and their answer key</a></li>
+<li class="chapter" data-level="7.2" data-path="itemans.html"><a href="itemans.html#scoring-the-responses"><i class="fa fa-check"></i><b>7.2</b> Scoring the responses</a></li>
+<li class="chapter" data-level="7.3" data-path="itemans.html"><a href="itemans.html#item-analysis-with-dichotomous-data"><i class="fa fa-check"></i><b>7.3</b> Item analysis with dichotomous data</a></li>
+<li class="chapter" data-level="7.4" data-path="itemans.html"><a href="itemans.html#distractor-analysis"><i class="fa fa-check"></i><b>7.4</b> Distractor analysis</a></li>
+<li class="chapter" data-level="7.5" data-path="itemans.html"><a href="itemans.html#item-analysis-with-polytomous-data"><i class="fa fa-check"></i><b>7.5</b> Item analysis with polytomous data</a><ul>
+<li class="chapter" data-level="7.5.1" data-path="itemans.html"><a href="itemans.html#partial-credit-data"><i class="fa fa-check"></i><b>7.5.1</b> Partial-credit data</a></li>
+<li class="chapter" data-level="7.5.2" data-path="itemans.html"><a href="itemans.html#LikertFunc"><i class="fa fa-check"></i><b>7.5.2</b> Item functioning of Likert-type scale items</a></li>
+<li class="chapter" data-level="7.5.3" data-path="itemans.html"><a href="itemans.html#graphing-frequencies-of-category-responses"><i class="fa fa-check"></i><b>7.5.3</b> Graphing frequencies of category responses</a></li>
+</ul></li>
+<li class="chapter" data-level="7.6" data-path="itemans.html"><a href="itemans.html#optional-advanced-graphics-stuff"><i class="fa fa-check"></i><b>7.6</b> Optional advanced graphics stuff</a><ul>
+<li class="chapter" data-level="7.6.1" data-path="itemans.html"><a href="itemans.html#creating-a-facet-plot-with-ggplot2"><i class="fa fa-check"></i><b>7.6.1</b> Creating a facet plot with <code>GGplot2</code></a></li>
+<li class="chapter" data-level="7.6.2" data-path="itemans.html"><a href="itemans.html#the-base-r-approach-to-creating-a-facet-plot"><i class="fa fa-check"></i><b>7.6.2</b> The Base R approach to creating a facet plot</a></li>
+</ul></li>
+<li class="chapter" data-level="7.7" data-path="itemans.html"><a href="itemans.html#additional-functions-for-examining-category-frequencies"><i class="fa fa-check"></i><b>7.7</b> Additional functions for examining category frequencies</a><ul>
+<li class="chapter" data-level="7.7.1" data-path="itemans.html"><a href="itemans.html#using-the-table-function-and-the-lapply-function"><i class="fa fa-check"></i><b>7.7.1</b> Using the <code>table()</code> function and the <code>lapply()</code> function</a></li>
+<li class="chapter" data-level="7.7.2" data-path="itemans.html"><a href="itemans.html#factors"><i class="fa fa-check"></i><b>7.7.2</b> Specifying the data as categorical</a></li>
+<li class="chapter" data-level="7.7.3" data-path="itemans.html"><a href="itemans.html#orderedfunc"><i class="fa fa-check"></i><b>7.7.3</b> Ordered factors</a></li>
+</ul></li>
+<li class="chapter" data-level="7.8" data-path="itemans.html"><a href="itemans.html#conclusion"><i class="fa fa-check"></i><b>7.8</b> Conclusion</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="CTT.html"><a href="CTT.html"><i class="fa fa-check"></i><b>8</b> Classical Test Theory</a><ul>
+<li class="chapter" data-level="8.1" data-path="CTT.html"><a href="CTT.html#true-score-model"><i class="fa fa-check"></i><b>8.1</b> True score model</a></li>
+<li class="chapter" data-level="8.2" data-path="CTT.html"><a href="CTT.html#assumptions-of-the-ctt-true-score-model"><i class="fa fa-check"></i><b>8.2</b> Assumptions of the CTT true score model</a></li>
+<li class="chapter" data-level="8.3" data-path="CTT.html"><a href="CTT.html#reliability-and-the-variance-of-the-composite-score"><i class="fa fa-check"></i><b>8.3</b> Reliability and the variance of the composite score</a><ul>
+<li class="chapter" data-level="8.3.1" data-path="CTT.html"><a href="CTT.html#reliability-as-the-ratio-of-true-score-variance-to-observed-score-variance"><i class="fa fa-check"></i><b>8.3.1</b> Reliability as the ratio of true-score variance to observed-score variance</a></li>
+<li class="chapter" data-level="8.3.2" data-path="CTT.html"><a href="CTT.html#reliability-as-the-lack-of-error-variance"><i class="fa fa-check"></i><b>8.3.2</b> Reliability as the lack of error variance</a></li>
+<li class="chapter" data-level="8.3.3" data-path="CTT.html"><a href="CTT.html#reliability-as-the-squared-correlation-between-observed-and-true-scores"><i class="fa fa-check"></i><b>8.3.3</b> Reliability as the squared correlation between observed and true scores</a></li>
+<li class="chapter" data-level="8.3.4" data-path="CTT.html"><a href="CTT.html#reliability-as-the-correlation-between-scores-on-parallel-tests"><i class="fa fa-check"></i><b>8.3.4</b> Reliability as the correlation between scores on parallel tests</a></li>
+</ul></li>
+<li class="chapter" data-level="8.4" data-path="CTT.html"><a href="CTT.html#four-ctt-models"><i class="fa fa-check"></i><b>8.4</b> Four CTT models</a><ul>
+<li class="chapter" data-level="8.4.1" data-path="CTT.html"><a href="CTT.html#the-parallel-model"><i class="fa fa-check"></i><b>8.4.1</b> The parallel model</a></li>
+<li class="chapter" data-level="8.4.2" data-path="CTT.html"><a href="CTT.html#the-tau-equivalent-model"><i class="fa fa-check"></i><b>8.4.2</b> The tau-equivalent model</a></li>
+<li class="chapter" data-level="8.4.3" data-path="CTT.html"><a href="CTT.html#the-essentially-tau-equivalent-model"><i class="fa fa-check"></i><b>8.4.3</b> The essentially tau-equivalent model</a></li>
+<li class="chapter" data-level="8.4.4" data-path="CTT.html"><a href="CTT.html#the-congeneric-model"><i class="fa fa-check"></i><b>8.4.4</b> The congeneric model</a></li>
+<li class="chapter" data-level="8.4.5" data-path="CTT.html"><a href="CTT.html#implications-of-each-model"><i class="fa fa-check"></i><b>8.4.5</b> Implications of each model</a></li>
+</ul></li>
+<li class="chapter" data-level="8.5" data-path="CTT.html"><a href="CTT.html#estimating-an-observations-true-score"><i class="fa fa-check"></i><b>8.5</b> Estimating an observation’s true score</a></li>
+<li class="chapter" data-level="8.6" data-path="CTT.html"><a href="CTT.html#the-standard-error-of-measurement"><i class="fa fa-check"></i><b>8.6</b> The standard error of measurement</a><ul>
+<li class="chapter" data-level="8.6.1" data-path="CTT.html"><a href="CTT.html#estimating-the-confidence-interval-of-a-true-score"><i class="fa fa-check"></i><b>8.6.1</b> Estimating the confidence interval of a true score</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="reliability.html"><a href="reliability.html"><i class="fa fa-check"></i><b>9</b> Internal-consistency Reliability</a><ul>
+<li class="chapter" data-level="9.1" data-path="reliability.html"><a href="reliability.html#coefficient-alpha"><i class="fa fa-check"></i><b>9.1</b> Coefficient alpha</a><ul>
+<li class="chapter" data-level="9.1.1" data-path="reliability.html"><a href="reliability.html#how-coefficient-alpha-works"><i class="fa fa-check"></i><b>9.1.1</b> How coefficient alpha works</a></li>
+</ul></li>
+<li class="chapter" data-level="9.2" data-path="reliability.html"><a href="reliability.html#using-r-to-estimate-internal-consistency-reliability-coefficient"><i class="fa fa-check"></i><b>9.2</b> Using R to estimate internal-consistency reliability coefficient</a><ul>
+<li class="chapter" data-level="9.2.1" data-path="reliability.html"><a href="reliability.html#a-demonstration-of-coefficient-alpha-using-hypothetical-data"><i class="fa fa-check"></i><b>9.2.1</b> A demonstration of coefficient alpha using hypothetical data</a></li>
+<li class="chapter" data-level="9.2.2" data-path="reliability.html"><a href="reliability.html#using-r-packages-to-calculate-alpha-and-more"><i class="fa fa-check"></i><b>9.2.2</b> Using R packages to calculate alpha and more</a></li>
+</ul></li>
+<li class="chapter" data-level="9.3" data-path="reliability.html"><a href="reliability.html#spearman-brown-prophecy-formula"><i class="fa fa-check"></i><b>9.3</b> Spearman-Brown prophecy formula</a><ul>
+<li class="chapter" data-level="9.3.1" data-path="reliability.html"><a href="reliability.html#calculation"><i class="fa fa-check"></i><b>9.3.1</b> Calculation</a></li>
+<li class="chapter" data-level="9.3.2" data-path="reliability.html"><a href="reliability.html#using-the-ctt-package"><i class="fa fa-check"></i><b>9.3.2</b> Using the CTT package</a></li>
+</ul></li>
+<li class="chapter" data-level="9.4" data-path="reliability.html"><a href="reliability.html#standardized-coefficient-alpha"><i class="fa fa-check"></i><b>9.4</b> Standardized coefficient alpha</a><ul>
+<li class="chapter" data-level="9.4.1" data-path="reliability.html"><a href="reliability.html#calculation-of-standardized-coefficient-alpha"><i class="fa fa-check"></i><b>9.4.1</b> Calculation of standardized coefficient alpha</a></li>
+</ul></li>
+<li class="chapter" data-level="9.5" data-path="reliability.html"><a href="reliability.html#reliability-of-difference-scores"><i class="fa fa-check"></i><b>9.5</b> Reliability of difference scores</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="interrater.html"><a href="interrater.html"><i class="fa fa-check"></i><b>10</b> Inter-rater and Test-retest Reliability</a><ul>
+<li class="chapter" data-level="10.1" data-path="interrater.html"><a href="interrater.html#coefficient-kappa-for-estimating-agreement-with-nominal-data"><i class="fa fa-check"></i><b>10.1</b> Coefficient kappa for estimating agreement with nominal data</a><ul>
+<li class="chapter" data-level="10.1.1" data-path="interrater.html"><a href="interrater.html#using-the-irr-package-to-estimate-kappa"><i class="fa fa-check"></i><b>10.1.1</b> Using the irr package to estimate kappa</a></li>
+<li class="chapter" data-level="10.1.2" data-path="interrater.html"><a href="interrater.html#limitations-of-kappa"><i class="fa fa-check"></i><b>10.1.2</b> Limitations of kappa</a></li>
+</ul></li>
+<li class="chapter" data-level="10.2" data-path="interrater.html"><a href="interrater.html#intraclass-correlation-coefficients-for-estimating-consistency-and-agreement"><i class="fa fa-check"></i><b>10.2</b> Intraclass correlation coefficients for estimating consistency and agreement</a><ul>
+<li class="chapter" data-level="10.2.1" data-path="interrater.html"><a href="interrater.html#example-of-an-icc-for-consistency"><i class="fa fa-check"></i><b>10.2.1</b> Example of an ICC for consistency</a></li>
+<li class="chapter" data-level="10.2.2" data-path="interrater.html"><a href="interrater.html#example-of-an-icc-for-agreement"><i class="fa fa-check"></i><b>10.2.2</b> Example of an ICC for agreement</a></li>
+<li class="chapter" data-level="10.2.3" data-path="interrater.html"><a href="interrater.html#two-way-and-one-way-icc-models"><i class="fa fa-check"></i><b>10.2.3</b> Two-way and one-way ICC models</a></li>
+<li class="chapter" data-level="10.2.4" data-path="interrater.html"><a href="interrater.html#single-versus-average-ratings"><i class="fa fa-check"></i><b>10.2.4</b> Single versus average ratings</a></li>
+<li class="chapter" data-level="10.2.5" data-path="interrater.html"><a href="interrater.html#all-of-the-equations"><i class="fa fa-check"></i><b>10.2.5</b> All of the equations</a></li>
+<li class="chapter" data-level="10.2.6" data-path="interrater.html"><a href="interrater.html#recommendations-on-reporting-iccs"><i class="fa fa-check"></i><b>10.2.6</b> Recommendations on reporting ICCs</a></li>
+</ul></li>
+<li class="chapter" data-level="10.3" data-path="interrater.html"><a href="interrater.html#using-the-irr-package"><i class="fa fa-check"></i><b>10.3</b> Using the irr package</a></li>
+<li class="chapter" data-level="10.4" data-path="interrater.html"><a href="interrater.html#test-retest-reliability"><i class="fa fa-check"></i><b>10.4</b> Test-retest reliability</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="gtheory.html"><a href="gtheory.html"><i class="fa fa-check"></i><b>11</b> Generalizability Theory</a><ul>
+<li class="chapter" data-level="11.1" data-path="gtheory.html"><a href="gtheory.html#a-single-facet-design"><i class="fa fa-check"></i><b>11.1</b> A single facet design</a><ul>
+<li class="chapter" data-level="11.1.1" data-path="gtheory.html"><a href="gtheory.html#g-study"><i class="fa fa-check"></i><b>11.1.1</b> G-study</a></li>
+<li class="chapter" data-level="11.1.2" data-path="gtheory.html"><a href="gtheory.html#d-study"><i class="fa fa-check"></i><b>11.1.2</b> D-study</a></li>
+<li class="chapter" data-level="11.1.3" data-path="gtheory.html"><a href="gtheory.html#using-the-vca-package"><i class="fa fa-check"></i><b>11.1.3</b> Using the VCA package</a></li>
+<li class="chapter" data-level="11.1.4" data-path="gtheory.html"><a href="gtheory.html#summary-of-our-one-facet-fully-crossed-design"><i class="fa fa-check"></i><b>11.1.4</b> Summary of our one-facet fully-crossed design</a></li>
+</ul></li>
+<li class="chapter" data-level="11.2" data-path="gtheory.html"><a href="gtheory.html#a-two-facet-design"><i class="fa fa-check"></i><b>11.2</b> A two facet design</a><ul>
+<li class="chapter" data-level="11.2.1" data-path="gtheory.html"><a href="gtheory.html#rand2facet"><i class="fa fa-check"></i><b>11.2.1</b> G-study with a two facet design</a></li>
+<li class="chapter" data-level="11.2.2" data-path="gtheory.html"><a href="gtheory.html#d-study-with-a-two-facet-design"><i class="fa fa-check"></i><b>11.2.2</b> D-study with a two facet design</a></li>
+</ul></li>
+<li class="chapter" data-level="11.3" data-path="gtheory.html"><a href="gtheory.html#nested-designs"><i class="fa fa-check"></i><b>11.3</b> Nested designs</a><ul>
+<li class="chapter" data-level="11.3.1" data-path="gtheory.html"><a href="gtheory.html#one-facet-nested-design"><i class="fa fa-check"></i><b>11.3.1</b> One-facet nested design</a></li>
+<li class="chapter" data-level="11.3.2" data-path="gtheory.html"><a href="gtheory.html#two-facet-nested-design"><i class="fa fa-check"></i><b>11.3.2</b> Two-facet nested design</a></li>
+<li class="chapter" data-level="11.3.3" data-path="gtheory.html"><a href="gtheory.html#g-study-with-a-two-facet-items-nested-within-occasions-design"><i class="fa fa-check"></i><b>11.3.3</b> G-study with a two-facet items-nested-within-occasions design</a></li>
+<li class="chapter" data-level="11.3.4" data-path="gtheory.html"><a href="gtheory.html#d-study-with-a-two-facet-items-nested-within-occasions-design"><i class="fa fa-check"></i><b>11.3.4</b> D-study with a two-facet items-nested-within-occasions design</a></li>
+</ul></li>
+<li class="chapter" data-level="11.4" data-path="gtheory.html"><a href="gtheory.html#fixed-facets"><i class="fa fa-check"></i><b>11.4</b> Fixed facets</a></li>
+<li class="chapter" data-level="11.5" data-path="gtheory.html"><a href="gtheory.html#summary"><i class="fa fa-check"></i><b>11.5</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="efa.html"><a href="efa.html"><i class="fa fa-check"></i><b>12</b> Exploratory Factor Analysis</a><ul>
+<li class="chapter" data-level="12.1" data-path="efa.html"><a href="efa.html#preparatory-steps"><i class="fa fa-check"></i><b>12.1</b> Preparatory steps</a><ul>
+<li class="chapter" data-level="12.1.1" data-path="efa.html"><a href="efa.html#examining-the-data"><i class="fa fa-check"></i><b>12.1.1</b> Examining the data</a></li>
+<li class="chapter" data-level="12.1.2" data-path="efa.html"><a href="efa.html#addressing-assumptions"><i class="fa fa-check"></i><b>12.1.2</b> Addressing assumptions</a></li>
+<li class="chapter" data-level="12.1.3" data-path="efa.html"><a href="efa.html#determining-factorability"><i class="fa fa-check"></i><b>12.1.3</b> Determining factorability</a></li>
+<li class="chapter" data-level="12.1.4" data-path="efa.html"><a href="efa.html#determining-how-many-factors-to-retain"><i class="fa fa-check"></i><b>12.1.4</b> Determining how many factors to retain</a></li>
+</ul></li>
+<li class="chapter" data-level="12.2" data-path="efa.html"><a href="efa.html#factor-analysis-with-raw-data"><i class="fa fa-check"></i><b>12.2</b> Factor analysis with raw data</a><ul>
+<li class="chapter" data-level="12.2.1" data-path="efa.html"><a href="efa.html#examining-pattern-coefficients-the-factor-loadings"><i class="fa fa-check"></i><b>12.2.1</b> Examining pattern coefficients (the factor loadings)</a></li>
+</ul></li>
+<li class="chapter" data-level="12.3" data-path="efa.html"><a href="efa.html#factor-analysis-with-correlation-data"><i class="fa fa-check"></i><b>12.3</b> Factor analysis with correlation data</a><ul>
+<li class="chapter" data-level="12.3.1" data-path="efa.html"><a href="efa.html#setting-up-the-data"><i class="fa fa-check"></i><b>12.3.1</b> Setting up the data</a></li>
+<li class="chapter" data-level="12.3.2" data-path="efa.html"><a href="efa.html#preparatory-steps-1"><i class="fa fa-check"></i><b>12.3.2</b> Preparatory steps</a></li>
+<li class="chapter" data-level="12.3.3" data-path="efa.html"><a href="efa.html#performing-the-factor-analysis"><i class="fa fa-check"></i><b>12.3.3</b> Performing the factor analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="12.4" data-path="efa.html"><a href="efa.html#efa-with-categorical-data"><i class="fa fa-check"></i><b>12.4</b> EFA with categorical data</a><ul>
+<li class="chapter" data-level="12.4.1" data-path="efa.html"><a href="efa.html#describing-categorical-data"><i class="fa fa-check"></i><b>12.4.1</b> Describing categorical data</a></li>
+<li class="chapter" data-level="12.4.2" data-path="efa.html"><a href="efa.html#getting-the-correlation-matrix"><i class="fa fa-check"></i><b>12.4.2</b> Getting the correlation matrix</a></li>
+<li class="chapter" data-level="12.4.3" data-path="efa.html"><a href="efa.html#appraising-the-factorability-and-determining-the-number-of-factors-to-retain"><i class="fa fa-check"></i><b>12.4.3</b> Appraising the factorability and determining the number of factors to retain</a></li>
+<li class="chapter" data-level="12.4.4" data-path="efa.html"><a href="efa.html#factor-analysis-on-the-polychoric-matrix"><i class="fa fa-check"></i><b>12.4.4</b> Factor analysis on the polychoric matrix</a></li>
+<li class="chapter" data-level="12.4.5" data-path="efa.html"><a href="efa.html#the-polycor-package"><i class="fa fa-check"></i><b>12.4.5</b> The polycor package</a></li>
+</ul></li>
+<li class="chapter" data-level="12.5" data-path="efa.html"><a href="efa.html#factor-scores"><i class="fa fa-check"></i><b>12.5</b> Factor scores</a><ul>
+<li class="chapter" data-level="12.5.1" data-path="efa.html"><a href="efa.html#transforming-factor-scores"><i class="fa fa-check"></i><b>12.5.1</b> Transforming factor scores</a></li>
+</ul></li>
+<li class="chapter" data-level="12.6" data-path="efa.html"><a href="efa.html#internal-consistency-reliability-of-the-scores"><i class="fa fa-check"></i><b>12.6</b> Internal consistency reliability of the scores</a></li>
+<li class="chapter" data-level="12.7" data-path="efa.html"><a href="efa.html#practice-1"><i class="fa fa-check"></i><b>12.7</b> Practice</a></li>
+<li class="chapter" data-level="12.8" data-path="efa.html"><a href="efa.html#summary-1"><i class="fa fa-check"></i><b>12.8</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="cfa.html"><a href="cfa.html"><i class="fa fa-check"></i><b>13</b> Confirmatory Factor Analysis</a><ul>
+<li class="chapter" data-level="13.1" data-path="cfa.html"><a href="cfa.html#preparatory-steps-2"><i class="fa fa-check"></i><b>13.1</b> Preparatory steps</a><ul>
+<li class="chapter" data-level="13.1.1" data-path="cfa.html"><a href="cfa.html#addressing-assumptions-1"><i class="fa fa-check"></i><b>13.1.1</b> Addressing assumptions</a></li>
+</ul></li>
+<li class="chapter" data-level="13.2" data-path="cfa.html"><a href="cfa.html#fitting-a-cfa-model"><i class="fa fa-check"></i><b>13.2</b> Fitting a CFA model</a><ul>
+<li class="chapter" data-level="13.2.1" data-path="cfa.html"><a href="cfa.html#making-sure-the-model-was-correctly-estimated"><i class="fa fa-check"></i><b>13.2.1</b> Making sure the model was correctly estimated</a></li>
+<li class="chapter" data-level="13.2.2" data-path="cfa.html"><a href="cfa.html#evaluating-the-model-fit"><i class="fa fa-check"></i><b>13.2.2</b> Evaluating the model fit</a></li>
+<li class="chapter" data-level="13.2.3" data-path="cfa.html"><a href="cfa.html#interpretting-the-parameter-estimates"><i class="fa fa-check"></i><b>13.2.3</b> Interpretting the parameter estimates</a></li>
+</ul></li>
+<li class="chapter" data-level="13.3" data-path="cfa.html"><a href="cfa.html#further-inspecting-our-model"><i class="fa fa-check"></i><b>13.3</b> Further inspecting our model</a><ul>
+<li class="chapter" data-level="13.3.1" data-path="cfa.html"><a href="cfa.html#looking-at-the-models-covariance-matrices"><i class="fa fa-check"></i><b>13.3.1</b> Looking at the model’s covariance matrices</a></li>
+<li class="chapter" data-level="13.3.2" data-path="cfa.html"><a href="cfa.html#further-inspecting-our-models-parameters"><i class="fa fa-check"></i><b>13.3.2</b> Further inspecting our model’s parameters</a></li>
+</ul></li>
+<li class="chapter" data-level="13.4" data-path="cfa.html"><a href="cfa.html#using-alternative-model-specifications"><i class="fa fa-check"></i><b>13.4</b> Using alternative model specifications</a><ul>
+<li class="chapter" data-level="13.4.1" data-path="cfa.html"><a href="cfa.html#rescaling-the-factors-to-be-standardized"><i class="fa fa-check"></i><b>13.4.1</b> Rescaling the factors to be standardized</a></li>
+<li class="chapter" data-level="13.4.2" data-path="cfa.html"><a href="cfa.html#specifying-a-competing-nested-model"><i class="fa fa-check"></i><b>13.4.2</b> Specifying a competing, nested, model</a></li>
+</ul></li>
+<li class="chapter" data-level="13.5" data-path="cfa.html"><a href="cfa.html#conducting-model-comparisons"><i class="fa fa-check"></i><b>13.5</b> Conducting model comparisons</a></li>
+<li class="chapter" data-level="13.6" data-path="cfa.html"><a href="cfa.html#estimating-factor-scores"><i class="fa fa-check"></i><b>13.6</b> Estimating factor scores</a></li>
+<li class="chapter" data-level="13.7" data-path="cfa.html"><a href="cfa.html#internal-consistency-reliability-with-cfa"><i class="fa fa-check"></i><b>13.7</b> Internal consistency reliability with CFA</a></li>
+<li class="chapter" data-level="13.8" data-path="cfa.html"><a href="cfa.html#testing-congeneric-essentially-tau-equivalent-tau-equivalent-and-parallel-models"><i class="fa fa-check"></i><b>13.8</b> Testing congeneric, essentially tau-equivalent, tau-equivalent, and parallel models</a><ul>
+<li class="chapter" data-level="13.8.1" data-path="cfa.html"><a href="cfa.html#congeneric-model-specification"><i class="fa fa-check"></i><b>13.8.1</b> Congeneric model specification</a></li>
+<li class="chapter" data-level="13.8.2" data-path="cfa.html"><a href="cfa.html#essentially-tau-equivalent-model-specification"><i class="fa fa-check"></i><b>13.8.2</b> Essentially tau-equivalent model specification</a></li>
+<li class="chapter" data-level="13.8.3" data-path="cfa.html"><a href="cfa.html#tau-equivalent-model-specification"><i class="fa fa-check"></i><b>13.8.3</b> Tau-equivalent model specification</a></li>
+<li class="chapter" data-level="13.8.4" data-path="cfa.html"><a href="cfa.html#strictly-parallel-model-specification"><i class="fa fa-check"></i><b>13.8.4</b> Strictly parallel model specification</a></li>
+</ul></li>
+<li class="chapter" data-level="13.9" data-path="cfa.html"><a href="cfa.html#cfa-with-categorical-data"><i class="fa fa-check"></i><b>13.9</b> CFA with categorical data</a><ul>
+<li class="chapter" data-level="13.9.1" data-path="cfa.html"><a href="cfa.html#using-data-from-an-r-package"><i class="fa fa-check"></i><b>13.9.1</b> Using data from an R package</a></li>
+<li class="chapter" data-level="13.9.2" data-path="cfa.html"><a href="cfa.html#preparing-the-data"><i class="fa fa-check"></i><b>13.9.2</b> Preparing the data</a></li>
+<li class="chapter" data-level="13.9.3" data-path="cfa.html"><a href="cfa.html#describing-the-data"><i class="fa fa-check"></i><b>13.9.3</b> Describing the data</a></li>
+<li class="chapter" data-level="13.9.4" data-path="cfa.html"><a href="cfa.html#fitting-the-cfa-model"><i class="fa fa-check"></i><b>13.9.4</b> Fitting the CFA model</a></li>
+</ul></li>
+<li class="chapter" data-level="13.10" data-path="cfa.html"><a href="cfa.html#additional-manipulation-of-the-data"><i class="fa fa-check"></i><b>13.10</b> Additional manipulation of the data</a></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="irm.html"><a href="irm.html"><i class="fa fa-check"></i><b>14</b> Item Response Modeling</a><ul>
+<li class="chapter" data-level="14.1" data-path="irm.html"><a href="irm.html#on-fitting-linear-regression-models-to-dichotomous-data"><i class="fa fa-check"></i><b>14.1</b> On fitting linear regression models to dichotomous data</a></li>
+<li class="chapter" data-level="14.2" data-path="irm.html"><a href="irm.html#logistic-item-response-models-with-dichotomous-data"><i class="fa fa-check"></i><b>14.2</b> Logistic item response models with dichotomous data</a><ul>
+<li class="chapter" data-level="14.2.1" data-path="irm.html"><a href="irm.html#the-rasch-and-1pl-models"><i class="fa fa-check"></i><b>14.2.1</b> The Rasch and 1PL models</a></li>
+<li class="chapter" data-level="14.2.2" data-path="irm.html"><a href="irm.html#the-2pl-model"><i class="fa fa-check"></i><b>14.2.2</b> The 2PL model</a></li>
+<li class="chapter" data-level="14.2.3" data-path="irm.html"><a href="irm.html#the-3pl-model"><i class="fa fa-check"></i><b>14.2.3</b> The 3PL model</a></li>
+<li class="chapter" data-level="14.2.4" data-path="irm.html"><a href="irm.html#item-response-functions"><i class="fa fa-check"></i><b>14.2.4</b> Item response functions</a></li>
+<li class="chapter" data-level="14.2.5" data-path="irm.html"><a href="irm.html#test-characteristic-curve"><i class="fa fa-check"></i><b>14.2.5</b> Test characteristic curve</a></li>
+<li class="chapter" data-level="14.2.6" data-path="irm.html"><a href="irm.html#information-and-standard-error"><i class="fa fa-check"></i><b>14.2.6</b> Information and standard error</a></li>
+<li class="chapter" data-level="14.2.7" data-path="irm.html"><a href="irm.html#plotting-information-and-the-standard-error-of-measurement"><i class="fa fa-check"></i><b>14.2.7</b> Plotting information and the standard error of measurement</a></li>
+</ul></li>
+<li class="chapter" data-level="14.3" data-path="irm.html"><a href="irm.html#fitting-a-1pl-model"><i class="fa fa-check"></i><b>14.3</b> Fitting a 1PL model</a></li>
+<li class="chapter" data-level="14.4" data-path="irm.html"><a href="irm.html#checking-assumptions"><i class="fa fa-check"></i><b>14.4</b> Checking assumptions</a><ul>
+<li class="chapter" data-level="14.4.1" data-path="irm.html"><a href="irm.html#unidimensionality"><i class="fa fa-check"></i><b>14.4.1</b> Unidimensionality</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Using R for Measurement in the Social Sciences</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="reliability" class="section level1">
+<h1><span class="header-section-number">Chapter 9</span> Internal-consistency Reliability</h1>
+<p>In this chapter, we begin by revealing the inner workings of coefficient alpha<a href="#fn63" class="footnote-ref" id="fnref63"><sup>63</sup></a>, which is the most frequently used method for estimating the internal-consistency reliability coefficient. We will explore two packages for estimating alpha, the CTT package <span class="citation">(Willse, <a href="#ref-R-CTT" role="doc-biblioref">2018</a>)</span> and the psych package <span class="citation">(Revelle, <a href="#ref-R-psych" role="doc-biblioref">2020</a>)</span>.</p>
+<p>We also practice using the Spearman Brown prophecy formula, estimating standardized coefficient alpha, and briefly practice estimating the reliability of difference scores. These are more fully explained in Bandalos <span class="citation">(<a href="#ref-Bandalos_2018" role="doc-biblioref">2018</a>)</span>.</p>
+<div id="coefficient-alpha" class="section level2">
+<h2><span class="header-section-number">9.1</span> Coefficient alpha</h2>
+<p>The equation that is often presented for calculating coefficient alpha is
+<span class="math display">\[ \alpha = \text{estimated }\rho_{cc&#39;} = \frac{k}{k-1}\left(1 - \frac{\sum\sigma_{i}^2}{\sigma_{c}^2}\right)\text{,} \]</span>
+where <span class="math inline">\(\rho_{cc&#39;}\)</span> is the reliability coefficient, <span class="math inline">\(k\)</span> is the number of items, <span class="math inline">\(i\)</span> is the index for each item, and <span class="math inline">\(c\)</span> represents the composite score.<a href="#fn64" class="footnote-ref" id="fnref64"><sup>64</sup></a> This calculation is convenient because it is easy to perform: All we need is the number of items, the variance of each item, and the variance of the composite score.</p>
+<p>It is not very intuitive, however. A more intuitive formula is</p>
+<p><span class="math display">\[ \alpha = \frac{k}{k-1}\left(\frac{2\sum_{i\neq{j}}\sigma_{ij}}{\sigma_{c}^2}\right)\text{,} \]</span>
+where <span class="math inline">\(j\)</span> is another item index, used to distinguish it from any other item in the covariance, <span class="math inline">\(\sigma_{ij}\)</span>. Inside the parentheses, we have the proportion of the sum of the item covariances to the composite variance. This proportion, after it is corrected with <span class="math inline">\(\frac{k}{k-1}\)</span>, is an estimate of the proportion of the composite-score variance that is explained by true-score variance, <span class="math inline">\(\frac{\sigma_{T}^2}{\sigma_{C}^2}\)</span>.</p>
+<p>Computationally, however, it is more work to calculate the covariances between each item pair, <span class="math inline">\(\sigma_{ij}\)</span>, than it is to calculate each item’s variance, <span class="math inline">\(\sigma_{i}^2\)</span>, simply because as we have more items, we have progressively fewer item variances (<span class="math inline">\(k\)</span> to be exact) than we do covariances (<span class="math inline">\(k^2 - k\)</span>, or <span class="math inline">\(k(k-1)\)</span>, to be exact). With this, a formula for coefficient alpha that is both computationally easy and intuitive is
+<span class="math display">\[ \alpha = \frac{k}{k-1}\left(\frac{\sigma_{c}^2-\sum\sigma_{i}^2}{\sigma_{c}^2}\right)\text{.}\]</span></p>
+<p>The numerator is still the sum of the covariances, <span class="math inline">\(2\sum\sigma_{ij}\)</span>, because the covariances are what are left over in the covariance matrix after we remove the diagonal, which are the item variances,<span class="math inline">\(\sum\sigma_{i}^2\)</span>. For many of us, this is the easiest equation for coefficient alpha to commit to memory.</p>
+<div id="how-coefficient-alpha-works" class="section level3">
+<h3><span class="header-section-number">9.1.1</span> How coefficient alpha works</h3>
+<p>Let’s look into the rationale for coefficient alpha and why we’re thinking about this proportion of summed covariances to total (composite) variance. Recall from <a href="var-cov-cor.html#var_cov_cor" target="_blank">an earlier chapter</a> that the variance of a composite is the sum of the individual variances and covariances, <span class="math inline">\(\sigma^2_C = \sum^{k}_{i=1}\sigma^2_{X_i} + \sum^{j=k}_{i&lt;j}2\sigma_{(X_i,X_j)}\)</span>. We can see this in a variance-covariance matrix. Let’s use one with three items:</p>
+<p><span class="math display">\[\begin{bmatrix}
+            \sigma^2_{X_1} &amp;  \sigma_{X_1X_2} &amp; \sigma_{X_1X_3} \\
+            \sigma_{X_2X_1} &amp; \sigma^2_{X_2}  &amp; \sigma_{X_2X_3} \\
+            \sigma_{X_3X_1} &amp; \sigma_{X_3X_2} &amp; \sigma^2_{X_3} 
+\end{bmatrix}\]</span></p>
+<p>We can also think of each item as a composite score, consisting of <span class="math inline">\(T\)</span> and <span class="math inline">\(E\)</span>. With this, we can expand the matrix for one item as this:</p>
+<p><span class="math display">\[\sigma^2_{X_1} = \begin{bmatrix}
+\sigma^2_{T_1}  &amp; \sigma_{T_1E_1} \\
+\sigma_{E_1T_1} &amp; \sigma^2_{E_1}
+\end{bmatrix}\]</span>
+Because of the CTT assumption that <span class="math inline">\(\rho_{ET} = 0\)</span>,</p>
+<p><span class="math display">\[\sigma^2_{X_1} = \begin{bmatrix}
+\sigma^2_{T_1}  &amp; \sigma_{T_1E_1} \\
+\sigma_{E_1T_1} &amp; \sigma^2_{E_1}
+\end{bmatrix} = \begin{bmatrix}
+\sigma^2_{T_1}  &amp; 0 \\
+0 &amp; \sigma^2_{E_1}
+\end{bmatrix}
+\]</span>
+We can replace <span class="math inline">\(\sigma^2_{X_1}\)</span> in the matrix, expanding it to include these four terms (in boldface below). We can also do this for each item’s variance term and then put them in the matrix as well.
+<span class="math display">\[
+\begin{bmatrix}
+            \pmb{\sigma^2_{X_1}} &amp;  \sigma_{X_1X_2} &amp; \sigma_{X_1X_3} \\
+            \sigma_{X_2X_1} &amp; \sigma^2_{X_2}  &amp; \sigma_{X_2X_3} \\
+            \sigma_{X_3X_1} &amp; \sigma_{X_3X_2} &amp; \sigma^2_{X_3} 
+\end{bmatrix} = 
+\begin{bmatrix}
+\pmb{\sigma^2_{T_1}}  &amp; \pmb{0} &amp; ? &amp; ? &amp; ? &amp; ? \\
+\pmb{0} &amp; \pmb{\sigma^2_{E_1}}  &amp; ? &amp; ? &amp; ? &amp; ? \\
+? &amp; ? &amp; \sigma^2_{T_2}  &amp; 0 &amp; ? &amp; ? \\
+? &amp; ?  &amp; 0 &amp; \sigma_{E_2}^2 &amp; ? &amp; ? \\
+? &amp; ? &amp; ?  &amp; ? &amp; \sigma_{T_3}^2 &amp; 0 \\
+? &amp; ?  &amp; ? &amp; ? &amp; 0 &amp; \sigma_{E_3}^2
+\end{bmatrix}\]</span>
+We still have a lot of covariances to deal with, as we can see by all the question marks in the matrix. With our CTT assumptions, though, our job is not so hard. First, let’s recall that the covariance of a composite score is the sum of the covariances of all possible pairs, <span class="math inline">\(\sigma_{(X + Y, Z + W)} = \sigma_{X,Z} + \sigma_{X, W} + \sigma_{Y,Z} + \sigma_{Y,W}\)</span>. With this, when we have two composite scores made up of true scores and error, we have
+<span class="math display">\[\sigma_{(T_1 + E_1, T_2 + E_2)} = \sigma_{T_1,T_2} + \sigma_{T_1, E_2} + \sigma_{E_1,T_2} + \sigma_{E_1,E_2} \text{.}\]</span>
+Because of the assumptions of classical test theory, the errors do not correlate with the true scores or with another composite’s error, <span class="math inline">\(\rho_{E_{i}E_{j}} = 0\)</span> and <span class="math inline">\(\rho_{E_{i}T_{j}} = 0\)</span>, so we can simplify this to
+<span class="math display">\[\sigma_{_{(T_1 + E_1, T_2 + E_2)}} = \sigma_{_{T_1,T_2}} + 0 + 0 + 0 \text{.}\]</span>
+With Items 1 and 2, we can replace these corresponding question marks on both sides of the diagonal in the matrix:</p>
+<p><span class="math display">\[\sigma^2_{C} = \begin{bmatrix}
+ \sigma^2_{T_1}  &amp; 0 &amp; \pmb{\sigma_{T_1T_2}} &amp; \pmb{0} &amp; ? &amp; ? \\
+0 &amp; \sigma^2_{E_1}  &amp; \pmb{0} &amp; \pmb{0} &amp; ? &amp; ? \\
+\pmb{\sigma_{T_2T_1}} &amp; \pmb{0} &amp; \sigma^2_{T_2}  &amp; 0 &amp; ? &amp; ? \\
+\pmb{0} &amp; \pmb{0}  &amp; 0 &amp; \sigma_{E_2}^2 &amp; ? &amp; ? \\
+? &amp; ? &amp; ?  &amp; ? &amp; \sigma_{T_3}^2 &amp; 0 \\
+? &amp; ?  &amp; ? &amp; ? &amp; 0 &amp; \sigma_{E_3}^2
+\end{bmatrix}\]</span></p>
+<p>We can do this same thing with all other covariances. Again, anything that covaries with error will be a <span class="math inline">\(0\)</span>. What are left are the covariances of true scores, <span class="math inline">\(\sigma_{T_iT_j}\)</span>.</p>
+<p><span class="math display">\[\sigma^2_{C} = \begin{bmatrix}
+ \sigma^2_{T_1}  &amp; 0 &amp; \sigma_{T_1T_2} &amp; 0 &amp; \sigma_{T_1T_3} &amp; 0 \\
+0 &amp; \sigma^2_{E_1}  &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\
+\sigma_{T_2T_1} &amp; 0 &amp; \sigma^2_{T_2}  &amp; 0 &amp; \sigma^2_{T} &amp; 0 \\
+0 &amp; 0  &amp; 0 &amp; \sigma_{E_2}^2 &amp; 0 &amp; 0 \\
+\sigma_{T_3T_1} &amp; 0 &amp; \sigma_{T_3T_2}  &amp; 0 &amp; \sigma^2_{T_3} &amp; 0 \\
+0 &amp; 0  &amp; 0 &amp; 0 &amp; 0 &amp; \sigma_{E_3}^2
+\end{bmatrix}\]</span></p>
+<p>Furthermore, if we have at least an essentially tau-equivalent model, the variances of the true scores are all assumed to be equal, <span class="math inline">\(\sigma_{T_j}^2=\sigma_{T_i}^2\)</span>. Even better, because the relationship between <span class="math inline">\(T_i\)</span> and <span class="math inline">\(T_j\)</span> is perfectly linear, with <span class="math inline">\(b = 1\)</span> in <span class="math inline">\(T_j = a + bT_i\)</span>, we can simplify the <span class="math inline">\(\sigma_{T_iT_j}\)</span> terms to be <span class="math inline">\(\sigma_{T_i}^2\)</span>. This is because the correlation between any two true scores in an essentially tau-equivalent model will be <span class="math inline">\(1\)</span>, which along with <span class="math inline">\(\sigma_{T_j}^2=\sigma_{T_i}^2\)</span> means that the covariance of any pair will be the same as the variance of any true score, <span class="math inline">\(\sigma_{T_iT_j}=\sigma_{T_i^2}\)</span>.<a href="#fn65" class="footnote-ref" id="fnref65"><sup>65</sup></a> Therefore, with a model that is at least essentially tau-equivalent, we can show that the variance of a composite score created from three items is composed of true-score variance and error-variance in the following way:</p>
+<p><span class="math display">\[\sigma^2_{C} = \begin{bmatrix}
+ \sigma^2_{\pmb{T_i}}  &amp; 0 &amp; \sigma^2_{\pmb{T_i}} &amp; 0 &amp; \sigma^2_{\pmb{T_i}} &amp; 0 \\
+0 &amp; \sigma^2_{E_1}  &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\
+\sigma^2_{\pmb{T_i}} &amp; 0 &amp; \sigma^2_{\pmb{T_i}}  &amp; 0 &amp; \sigma^2_{\pmb{T_i}} &amp; 0 \\
+0 &amp; 0  &amp; 0 &amp; \sigma_{E_2}^2 &amp; 0 &amp; 0 \\
+\sigma^2_{\pmb{T_i}}&amp; 0 &amp;\sigma^2_{\pmb{T_i}}  &amp; 0 &amp; \sigma^2_{\pmb{T_i}} &amp; 0 \\
+0 &amp; 0  &amp; 0 &amp; 0 &amp; 0 &amp; \sigma_{E_3}^2
+\end{bmatrix}\]</span>
+If our task is to separate true-score variance from error-variance, we can look to the off-diagonal of our matrix. In other words, we can use the true-score components of the item covariances. All that is left in the covariances is true-score variance. This is only true if the assumptions of the true-score model hold and if we have at least an essentially tau equivalent model. If an essentially tau equivalent model cannot be assumed, these covariances will be lower than their counterpart true-score variances on the diagonal.</p>
+<p>Although we can calculate the covariances of all the items, we can also get away with calculating the total variance of the composite and subtracting the sum of our item variances. This will give us the covariances: <span class="math inline">\(\sigma_{c}^2-\sum\sigma_{i}^2\)</span>, which is the numerator in main part of coefficient alpha, <span class="math inline">\(\frac{\sigma_{c}^2-\sum\sigma_{i}^2}{\sigma_{c}^2}\)</span>.</p>
+<p>So, what we have is a proportion of the total variance that consists of the true-score variance—well, almost anyway. We still have to account for those three true-score variances on the diagonal, right, because we just subtracted them along with their errors with the <span class="math inline">\(-\sum\sigma_{i}^2\)</span> term. How many true-score variance terms are there in total? Looking at our matrix we just created, we see we have <span class="math inline">\(9\)</span> <span class="math inline">\(\sigma^2_{T_i}\)</span> terms. In other words, we have <span class="math inline">\(k^2\)</span> variances. Right now, our numerator only includes <span class="math inline">\(6\)</span>, or <span class="math inline">\(k^2-k\)</span> or <span class="math inline">\(k(k-1)\)</span>, of the <span class="math inline">\(9\)</span> true-score variance terms. To go from <span class="math inline">\(k(k-1) = 3(3-1) = 6\)</span> back to <span class="math inline">\(k^2 = 3^2= 9\)</span>, we need an adjuster. This is the purpose of our first term in coefficient alpha: <span class="math inline">\(\frac{k}{k-1}*k(k-1) = k^2\)</span>. So, with the equation for coefficient alpha, we recover our <span class="math inline">\(9\)</span> item-level true-score variance estimates. Under the assumption that the items making up the composite test score fit an essentially tau equivalent model,</p>
+<p><span class="math display">\[\begin{eqnarray*}
+ \alpha &amp;=&amp; \frac{k}{k-1}\left(\frac{\sigma_{c}^2-\sum\sigma_{i}^2}{\sigma_{c}^2}\right) \\[5pt]
+ &amp;=&amp; \frac{3}{3-1}\left(\frac{\sum\sigma_{T_i}^2 \text{ on the off-diagonal}}{\sigma_{c}^2}\right) = 1.5\left(\frac{6\sigma_{T_i}^2}{\sigma_{c}^2}\right) = \frac{9\sigma_{T_i}^2}{\sigma_{c}^2}\\[5pt]
+ &amp;=&amp; \frac{\sigma_{T}^2}{\sigma_{c}^2} \text{ .} 
+\end{eqnarray*}\]</span></p>
+<p>It is a safe bet that our researcher-developed tests do not have essentially tau-equivalent models. With this, we cannot assume that <span class="math inline">\(\alpha = \rho_{cc&#39;}\)</span>. If <span class="math inline">\(b \neq 1\)</span> in the linear relationship between the item true scores, <span class="math inline">\(T_j = a + bT_i\)</span>, the covariances will be lower than the variances. Because of this, we generally accept that coefficient alpha is a lower-bound estimate of the true reliability coefficient, <span class="math inline">\(\alpha \leq \rho_{cc&#39;}\)</span>.<a href="#fn66" class="footnote-ref" id="fnref66"><sup>66</sup></a></p>
+</div>
+</div>
+<div id="using-r-to-estimate-internal-consistency-reliability-coefficient" class="section level2">
+<h2><span class="header-section-number">9.2</span> Using R to estimate internal-consistency reliability coefficient</h2>
+<p>Coefficient alpha provides one estimate of internal-consistency reliability.<a href="#fn67" class="footnote-ref" id="fnref67"><sup>67</sup></a> First, let’s use R with some simulated hypothetical data—the data from our previous chapter on classical test theory—to compare our calculation of coefficient alpha with our omniscient calculation of reliability. After that, we’ll use two packages to do the work for us with another data set that we used in previous chapter.</p>
+<div id="a-demonstration-of-coefficient-alpha-using-hypothetical-data" class="section level3">
+<h3><span class="header-section-number">9.2.1</span> A demonstration of coefficient alpha using hypothetical data</h3>
+<p>Let’s use our hypothetical data from the previous chapter. These include five tests (or sub-tests, or items). We used these to demonstrate the four possible models.</p>
+<ol style="list-style-type: decimal">
+<li>Tests 1 and 2 fit a parallel model. Their true scores had the same means and variances, and their error variances (and therefore observed variances) were the same.</li>
+<li>Tests 1 and 3 fit a tau-equivalent model. Their true scores had the same means and variances.</li>
+<li>Tests 1 and 4 fit an essentially tau-equivalent model. Their true scores had different means but <strong>were the same in their variances</strong>.</li>
+<li>Tests 1 and 5 fit a congeneric model. Their true scores differed in means and variances.</li>
+</ol>
+<p>I’ll wager (because I simulated these data) that we can examine Tests 1 through 4 as sub-tests that together meet the requirements of an essentially tau-equivalent model. Let’s read our data in and then calculate the total observed scores (the composite), the true scores, and the error scores. These are hypothetical—we’d never be able to know a person’s true score or error score. But, we can compare the theoretical ratio, <span class="math inline">\(\frac{\sigma_{T}^2}{\sigma_{C}^2}\)</span>, with the results of the formula for coefficient alpha to see how close we can get.</p>
+<p>Take a look at the data:</p>
+<div class="sourceCode" id="cb262"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb262-1"><a href="reliability.html#cb262-1"></a>CTT_data &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;Week05_CTTmods.csv&quot;</span>)</span>
+<span id="cb262-2"><a href="reliability.html#cb262-2"></a><span class="kw">str</span>(CTT_data)</span></code></pre></div>
+<pre><code>## &#39;data.frame&#39;:    8 obs. of  16 variables:
+##  $ PID: chr  &quot;Alba&quot; &quot;Bee&quot; &quot;Carly&quot; &quot;Dahlia&quot; ...
+##  $ X1 : num  11.4 17.8 23.3 16.7 13.8 ...
+##  $ X2 : num  13.8 12.3 23 15.5 17.2 ...
+##  $ X3 : num  10.4 12.1 20.6 20.8 13.6 ...
+##  $ X4 : num  7.73 11.6 19.56 16.21 16.78 ...
+##  $ X5 : num  1.28 10.04 9.62 9.3 13.88 ...
+##  $ T1 : num  12.3 15.6 20.9 17.5 15.7 ...
+##  $ T2 : num  12.3 15.6 20.9 17.5 15.7 ...
+##  $ T3 : num  12.3 15.6 20.9 17.5 15.7 ...
+##  $ T4 : num  9.26 12.59 17.94 14.53 12.7 ...
+##  $ T5 : num  3.4 9.08 11.8 7.15 10.14 ...
+##  $ E1 : num  -0.81 2.19 2.36 -0.82 -1.9 -2.09 -1.44 2.5
+##  $ E2 : num  1.59 -3.26 2.08 -2.05 1.54 -1.58 0.7 0.98
+##  $ E3 : num  -1.85 -3.47 -0.38 3.22 -2.15 0.81 0.58 3.23
+##  $ E4 : num  -1.53 -0.99 1.62 1.68 4.08 1.58 -6.49 0.06
+##  $ E5 : num  -2.12 0.95 -2.19 2.15 3.74 -4.92 1.53 0.85</code></pre>
+<p>First, let’s create objects to identify the groups of items. For instance, the four observed-score items are <code>X1</code> through <code>X4</code>, the names of which we’ll assign to the <code>obs_inames</code> object. Then, let’s use each object to apply the <code>sum()</code> function across items to calculate each person’s composite score for each. For the observed composite score, we’ll use <code>apply(CTT_data[ ,obs_inames], 1, sum)</code>. For the total-test error scores and total-test true scores, we do the same thing. Normally, these two scores are impossible to calculate but in our hypothetical data set, we have omniscient access to the item-level error and true scores.</p>
+<div class="sourceCode" id="cb264"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb264-1"><a href="reliability.html#cb264-1"></a>nums &lt;-<span class="st"> </span>(<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>) <span class="co"># Add + 1 to include the 5th one, which is congeneric.</span></span>
+<span id="cb264-2"><a href="reliability.html#cb264-2"></a>obs_inames &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="kw">paste0</span>(<span class="st">&quot;X&quot;</span>,nums))</span>
+<span id="cb264-3"><a href="reliability.html#cb264-3"></a>tru_inames &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="kw">paste0</span>(<span class="st">&quot;T&quot;</span>,nums))</span>
+<span id="cb264-4"><a href="reliability.html#cb264-4"></a>err_inames &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="kw">paste0</span>(<span class="st">&quot;E&quot;</span>,nums))</span>
+<span id="cb264-5"><a href="reliability.html#cb264-5"></a></span>
+<span id="cb264-6"><a href="reliability.html#cb264-6"></a>CTT_data<span class="op">$</span>totC &lt;-<span class="st"> </span><span class="kw">apply</span>(CTT_data[ ,obs_inames], <span class="dv">1</span>, sum)</span>
+<span id="cb264-7"><a href="reliability.html#cb264-7"></a>CTT_data<span class="op">$</span>totE &lt;-<span class="st"> </span><span class="kw">apply</span>(CTT_data[ ,err_inames], <span class="dv">1</span>, sum)</span>
+<span id="cb264-8"><a href="reliability.html#cb264-8"></a>CTT_data<span class="op">$</span>totT &lt;-<span class="st"> </span><span class="kw">apply</span>(CTT_data[ ,tru_inames], <span class="dv">1</span>, sum)</span>
+<span id="cb264-9"><a href="reliability.html#cb264-9"></a><span class="co"># Let&#39;s just make sure they got attached to our data frame and that they look correct:</span></span>
+<span id="cb264-10"><a href="reliability.html#cb264-10"></a><span class="kw">str</span>(CTT_data[, <span class="dv">17</span><span class="op">:</span><span class="dv">19</span>])</span></code></pre></div>
+<pre><code>## &#39;data.frame&#39;:    8 obs. of  3 variables:
+##  $ totC: num  43.4 53.8 86.4 69.2 61.4 ...
+##  $ totE: num  -2.6 -5.53 5.68 2.03 1.57 -1.28 -6.65 6.77
+##  $ totT: num  46 59.4 80.8 67.1 59.8 ...</code></pre>
+<p>The <code>totC</code> variable is the composite score based on the first four sub-tests. Let’s take a look at <span class="math inline">\(\frac{\sigma_{T}^2}{\sigma_{C}^2}\)</span>:</p>
+<div class="sourceCode" id="cb266"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb266-1"><a href="reliability.html#cb266-1"></a><span class="kw">var</span>(CTT_data<span class="op">$</span>totT) <span class="op">/</span><span class="st"> </span><span class="kw">var</span>(CTT_data<span class="op">$</span>totC)</span></code></pre></div>
+<pre><code>## [1] 0.8567942</code></pre>
+<p>With our omniscient vantage, we know we have a true reliability of <span class="math inline">\(\rho_{cc&#39;} =\)</span> 0.86. Let’s see if coefficient alpha yields a similar result. If the sub-tests fit at least an essentially-tau-equivalent model, the value should be the same. We’re using the <code>length(obs_inames)</code> to count how many items. We know it’s <span class="math inline">\(4\)</span>, but just in case.</p>
+<div class="sourceCode" id="cb268"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb268-1"><a href="reliability.html#cb268-1"></a>k &lt;-<span class="st"> </span><span class="kw">length</span>(obs_inames) </span>
+<span id="cb268-2"><a href="reliability.html#cb268-2"></a>var_items &lt;-<span class="st"> </span><span class="kw">apply</span>(CTT_data[ ,obs_inames], <span class="dv">2</span>, var)</span>
+<span id="cb268-3"><a href="reliability.html#cb268-3"></a>var_c &lt;-<span class="st"> </span><span class="kw">var</span>(CTT_data<span class="op">$</span>totC)</span>
+<span id="cb268-4"><a href="reliability.html#cb268-4"></a><span class="kw">round</span>(var_items,<span class="dv">2</span>)</span></code></pre></div>
+<pre><code>##    X1    X2    X3    X4 
+## 13.00 13.01 15.01 19.00</code></pre>
+<div class="sourceCode" id="cb270"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb270-1"><a href="reliability.html#cb270-1"></a>var_c</span></code></pre></div>
+<pre><code>## [1] 168.0857</code></pre>
+<p>Let’s plug these into our equation for coefficient alpha:<a href="#fn68" class="footnote-ref" id="fnref68"><sup>68</sup></a></p>
+<div class="sourceCode" id="cb272"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb272-1"><a href="reliability.html#cb272-1"></a>my_alpha &lt;-<span class="st"> </span>k<span class="op">/</span>(k<span class="dv">-1</span>)<span class="op">*</span>(var_c <span class="op">-</span><span class="st"> </span><span class="kw">sum</span>(var_items))<span class="op">/</span>var_c</span>
+<span id="cb272-2"><a href="reliability.html#cb272-2"></a>my_alpha</span></code></pre></div>
+<pre><code>## [1] 0.8571967</code></pre>
+<p>The result, <span class="math inline">\(\alpha =\)</span> 0.86, is very similar to our previous estimate, <span class="math inline">\(\rho_{cc&#39;} =\)</span> 0.86. This is because our first four items fit at least an essentially-tau-equivalent model.</p>
+<div id="with-data-that-fit-only-a-congeneric-model" class="section level4">
+<h4><span class="header-section-number">9.2.1.1</span> With data that fit only a congeneric model</h4>
+<p>Let’s try this whole procedure again, but with Items 2 through 5. We know from our use of these data in the previous chapter that Test 5 (or “Item 5”) fits at best a congeneric model with at least one of the other tests (Test 1, and likely the others). In the linear relationship between the item true scores, <span class="math inline">\(T_j = a + bT_5\)</span>, <span class="math inline">\(b \neq 1\)</span>. The variance of the true scores on Item 5 are also different from the variances of the other items.<a href="#fn69" class="footnote-ref" id="fnref69"><sup>69</sup></a></p>
+<div class="sourceCode" id="cb274"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb274-1"><a href="reliability.html#cb274-1"></a>nums &lt;-<span class="st"> </span>(<span class="dv">2</span><span class="op">:</span><span class="dv">5</span>) <span class="co"># NOW, we&#39;re looking at Items 2 through 5.</span></span>
+<span id="cb274-2"><a href="reliability.html#cb274-2"></a>obs_inames &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="kw">paste0</span>(<span class="st">&quot;X&quot;</span>,nums))</span>
+<span id="cb274-3"><a href="reliability.html#cb274-3"></a>tru_inames &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="kw">paste0</span>(<span class="st">&quot;T&quot;</span>,nums))</span>
+<span id="cb274-4"><a href="reliability.html#cb274-4"></a>err_inames &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="kw">paste0</span>(<span class="st">&quot;E&quot;</span>,nums))</span>
+<span id="cb274-5"><a href="reliability.html#cb274-5"></a></span>
+<span id="cb274-6"><a href="reliability.html#cb274-6"></a>CTT_data<span class="op">$</span>totC &lt;-<span class="st"> </span><span class="kw">apply</span>(CTT_data[ ,obs_inames], <span class="dv">1</span>, sum)</span>
+<span id="cb274-7"><a href="reliability.html#cb274-7"></a>CTT_data<span class="op">$</span>totE &lt;-<span class="st"> </span><span class="kw">apply</span>(CTT_data[ ,err_inames], <span class="dv">1</span>, sum)</span>
+<span id="cb274-8"><a href="reliability.html#cb274-8"></a>CTT_data<span class="op">$</span>totT &lt;-<span class="st"> </span><span class="kw">apply</span>(CTT_data[ ,tru_inames], <span class="dv">1</span>, sum)</span>
+<span id="cb274-9"><a href="reliability.html#cb274-9"></a><span class="kw">var</span>(CTT_data<span class="op">$</span>totT) <span class="op">/</span><span class="st"> </span><span class="kw">var</span>(CTT_data<span class="op">$</span>totC)</span></code></pre></div>
+<pre><code>## [1] 0.8164755</code></pre>
+<p>The real reliability, <span class="math inline">\(\rho_{cc&#39;} =\)</span> 0.82, is a little lower than the earlier set of four items. Let’s calculate alpha:</p>
+<div class="sourceCode" id="cb276"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb276-1"><a href="reliability.html#cb276-1"></a>k &lt;-<span class="st"> </span><span class="kw">length</span>(obs_inames) </span>
+<span id="cb276-2"><a href="reliability.html#cb276-2"></a>var_items &lt;-<span class="st"> </span><span class="kw">apply</span>(CTT_data[ ,obs_inames], <span class="dv">2</span>, var)</span>
+<span id="cb276-3"><a href="reliability.html#cb276-3"></a>var_c &lt;-<span class="st"> </span><span class="kw">var</span>(CTT_data<span class="op">$</span>totC)</span>
+<span id="cb276-4"><a href="reliability.html#cb276-4"></a>my_alpha &lt;-<span class="st"> </span>k<span class="op">/</span>(k<span class="dv">-1</span>)<span class="op">*</span>(var_c <span class="op">-</span><span class="st"> </span><span class="kw">sum</span>(var_items))<span class="op">/</span>var_c</span>
+<span id="cb276-5"><a href="reliability.html#cb276-5"></a>my_alpha</span></code></pre></div>
+<pre><code>## [1] 0.7843741</code></pre>
+<p>We can see that <span class="math inline">\(\alpha =\)</span> 0.78 is lower than our true reliability, <span class="math inline">\(\rho_{cc&#39;} =\)</span> 0.82,. This is because our data do not fit at least an essentially-tau-equivalent model.</p>
+</div>
+</div>
+<div id="using-r-packages-to-calculate-alpha-and-more" class="section level3">
+<h3><span class="header-section-number">9.2.2</span> Using R packages to calculate alpha and more</h3>
+<p>Let’s take a look at the data we saw in the chapter on item analysis. Notice that we have dichotomously-scored item level data and that we already have a total score. While we’re here, let’s create an object that contains only our item data. This will make it easier to perform functions on.</p>
+<div class="sourceCode" id="cb278"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb278-1"><a href="reliability.html#cb278-1"></a>dat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;Week06_Scored_reponses.csv&quot;</span>)</span>
+<span id="cb278-2"><a href="reliability.html#cb278-2"></a>items   &lt;-<span class="st"> </span><span class="kw">paste0</span>(<span class="st">&quot;i&quot;</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">10</span>)</span>
+<span id="cb278-3"><a href="reliability.html#cb278-3"></a>itemdat &lt;-<span class="st"> </span>dat[, items]</span>
+<span id="cb278-4"><a href="reliability.html#cb278-4"></a><span class="kw">str</span>(dat)</span></code></pre></div>
+<pre><code>## &#39;data.frame&#39;:    16 obs. of  12 variables:
+##  $ PID: chr  &quot;Eloise&quot; &quot;Xena&quot; &quot;MrBean&quot; &quot;Rhea&quot; ...
+##  $ i1 : int  1 1 1 1 1 1 1 1 0 1 ...
+##  $ i2 : int  1 1 1 1 1 1 1 1 1 1 ...
+##  $ i3 : int  1 1 1 1 1 0 1 0 0 1 ...
+##  $ i4 : int  1 0 1 0 1 0 1 1 1 1 ...
+##  $ i5 : int  0 1 0 1 0 1 0 1 0 0 ...
+##  $ i6 : int  1 1 1 1 1 1 1 0 1 1 ...
+##  $ i7 : int  1 1 1 1 1 1 0 0 1 0 ...
+##  $ i8 : int  1 0 1 0 0 1 1 0 0 0 ...
+##  $ i9 : int  1 1 0 0 1 1 0 1 1 0 ...
+##  $ i10: int  1 1 1 1 0 0 0 1 0 0 ...
+##  $ tot: int  9 8 8 7 7 7 6 6 5 5 ...</code></pre>
+<p>We saw in the earlier chapter that we can use the <code>CTT</code> package <span class="citation">(Willse, <a href="#ref-R-CTT" role="doc-biblioref">2018</a>)</span> to estimate coefficient alpha. We got this from part of the <code>itemAnalysis()</code> function. By the way, the help files for this package are very well written, <code>help(package="CTT")</code>. The results of this function provide a lot of information about, well, the item functioning. We can specifically ask for the alpha estimate. Notice that the results of the <code>str()</code> function show the <code>$</code> before each list part.</p>
+<div class="sourceCode" id="cb280"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb280-1"><a href="reliability.html#cb280-1"></a><span class="kw">library</span>(CTT)</span></code></pre></div>
+<div class="sourceCode" id="cb281"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb281-1"><a href="reliability.html#cb281-1"></a>ItemAnalyOut &lt;-<span class="st"> </span><span class="kw">itemAnalysis</span>(itemdat, <span class="dt">itemReport=</span><span class="ot">TRUE</span>)</span>
+<span id="cb281-2"><a href="reliability.html#cb281-2"></a><span class="kw">str</span>(ItemAnalyOut)</span></code></pre></div>
+<pre><code>## List of 6
+##  $ nItem     : int 10
+##  $ nPerson   : int 16
+##  $ alpha     : num 0.506
+##  $ scaleMean : num 5.56
+##  $ scaleSD   : num 2.1
+##  $ itemReport:&#39;data.frame&#39;:  10 obs. of  5 variables:
+##   ..$ itemName      : chr [1:10] &quot;i1&quot; &quot;i2&quot; &quot;i3&quot; &quot;i4&quot; ...
+##   ..$ itemMean      : num [1:10] 0.812 0.75 0.625 0.625 0.562 ...
+##   ..$ pBis          : num [1:10] 0.3671 0.5081 0.1796 0.0413 -0.5565 ...
+##   ..$ bis           : num [1:10] 0.5323 0.6923 0.2294 0.0528 -0.7006 ...
+##   ..$ alphaIfDeleted: num [1:10] 0.44 0.39 0.489 0.531 0.686 ...
+##  - attr(*, &quot;class&quot;)= chr &quot;itemAnalysis&quot;</code></pre>
+<p>Let’s ask for alpha by appending <code>$alpha</code> to our <code>ItemAnaly</code> object that we just created from the output:</p>
+<div class="sourceCode" id="cb283"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb283-1"><a href="reliability.html#cb283-1"></a>ItemAnalyOut<span class="op">$</span>alpha</span></code></pre></div>
+<pre><code>## [1] 0.5055292</code></pre>
+<p>I like the <code>CTT</code> package because it is so easy to use.</p>
+<p>Another package is the <code>psych</code> package <span class="citation">(Revelle, <a href="#ref-R-psych" role="doc-biblioref">2020</a>)</span>, which is widely used for estimating reliability and conducting other psychometric procedures. remember to install it, <code>install.packages("psych")</code> and look at the help files, <code>help(package="psych")</code>. Let’s bring it into the working library:</p>
+<div class="sourceCode" id="cb285"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb285-1"><a href="reliability.html#cb285-1"></a><span class="kw">library</span>(psych)</span></code></pre></div>
+<p>Using the <code>alpha()</code> function with the item data will provide an estimate of coefficient alpha along with other information such as the confidence intervals of the alpha point estimate and each item’s alpha-if-deleted estimate.</p>
+<div class="sourceCode" id="cb286"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb286-1"><a href="reliability.html#cb286-1"></a>psych<span class="op">::</span><span class="kw">alpha</span>(itemdat)</span></code></pre></div>
+<pre><code>## Some items ( i5 ) were negatively correlated with the total scale and 
+## probably should be reversed.  
+## To do this, run the function again with the &#39;check.keys=TRUE&#39; option</code></pre>
+<pre><code>## 
+## Reliability analysis   
+## Call: psych::alpha(x = itemdat)
+## 
+##   raw_alpha std.alpha G6(smc) average_r S/N  ase mean   sd median_r
+##       0.51      0.53    0.78       0.1 1.1 0.17 0.56 0.21     0.15
+## 
+##  lower alpha upper     95% confidence boundaries
+## 0.18 0.51 0.84 
+## 
+##  Reliability if an item is dropped:
+##     raw_alpha std.alpha G6(smc) average_r  S/N alpha se var.r med.r
+## i1       0.44      0.46    0.75     0.086 0.84     0.19 0.101 0.123
+## i2       0.39      0.41    0.68     0.073 0.71     0.21 0.079 0.082
+## i3       0.49      0.51    0.75     0.104 1.04     0.17 0.092 0.099
+## i4       0.53      0.55    0.74     0.118 1.21     0.16 0.087 0.155
+## i5       0.69      0.69    0.79     0.199 2.23     0.12 0.043 0.181
+## i6       0.34      0.38    0.66     0.064 0.62     0.23 0.071 0.097
+## i7       0.39      0.43    0.71     0.077 0.75     0.21 0.086 0.125
+## i8       0.54      0.56    0.80     0.123 1.26     0.16 0.098 0.155
+## i9       0.43      0.46    0.75     0.088 0.87     0.19 0.088 0.149
+## i10      0.38      0.41    0.70     0.071 0.68     0.21 0.095 0.099
+## 
+##  Item statistics 
+##      n raw.r std.r  r.cor r.drop mean   sd
+## i1  16  0.53  0.55  0.457  0.367 0.81 0.40
+## i2  16  0.66  0.66  0.675  0.508 0.75 0.45
+## i3  16  0.41  0.41  0.338  0.180 0.62 0.50
+## i4  16  0.28  0.29  0.247  0.041 0.62 0.50
+## i5  16 -0.38 -0.38 -0.475 -0.557 0.56 0.51
+## i6  16  0.74  0.73  0.780  0.594 0.56 0.51
+## i7  16  0.65  0.63  0.618  0.465 0.50 0.52
+## i8  16  0.25  0.25  0.073  0.008 0.44 0.51
+## i9  16  0.55  0.54  0.476  0.348 0.38 0.50
+## i10 16  0.68  0.68  0.649  0.520 0.31 0.48
+## 
+## Non missing response frequency for each item
+##        0    1 miss
+## i1  0.19 0.81    0
+## i2  0.25 0.75    0
+## i3  0.38 0.62    0
+## i4  0.38 0.62    0
+## i5  0.44 0.56    0
+## i6  0.44 0.56    0
+## i7  0.50 0.50    0
+## i8  0.56 0.44    0
+## i9  0.62 0.38    0
+## i10 0.69 0.31    0</code></pre>
+<p>This provides a lot of information—much more than we really need. Some of this information we already obtained from the <code>CTT</code> package. One thing to look at is the confidence interval of alpha. This is valuable because alpha is an <em>estimate</em> of <span class="math inline">\(\rho_{cc&#39;}\)</span>. It might be high or low for various reasons. It might be high because of sampling error or some other bias; it might be low because of the data not fitting at least an essentially-tau-equivalent model. The methods for estimating confidence intervals can vary across software and packages so it is important for researchers to report which package they used to obtain this information.</p>
+<p>On your own, try out these procedures with data from Bandalos’s chapter:</p>
+<div class="sourceCode" id="cb289"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb289-1"><a href="reliability.html#cb289-1"></a>table8<span class="fl">.1</span> &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;Week06_table8.1.csv&quot;</span>)</span>
+<span id="cb289-2"><a href="reliability.html#cb289-2"></a>table8<span class="fl">.2</span> &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;Week06_table8.2.csv&quot;</span>)</span></code></pre></div>
+</div>
+</div>
+<div id="spearman-brown-prophecy-formula" class="section level2">
+<h2><span class="header-section-number">9.3</span> Spearman-Brown prophecy formula</h2>
+<p>The Spearman-Brown prophecy formula is great for seeing how many more (or fewer) items we will need to achieve a desired reliability.<a href="#fn70" class="footnote-ref" id="fnref70"><sup>70</sup></a></p>
+<div id="calculation" class="section level3">
+<h3><span class="header-section-number">9.3.1</span> Calculation</h3>
+<p>To estimate the new reliability, given a factor of new items,<span class="math inline">\(k\)</span>,<a href="#fn71" class="footnote-ref" id="fnref71"><sup>71</sup></a> and the original test’s reliability, <span class="math inline">\(\rho_{_{CC&#39;old}}\)</span>:
+<span class="math display">\[
+\rho_{_{CC&#39;new}} = \frac{k\rho_{_{CC&#39;old}}}{1 + (k - 1)\rho_{_{CC&#39;old}} }
+\]</span>
+For instance, if we wanted to estimate the new reliability if we doubled the test’s length and its original reliability were <span class="math inline">\(.60\)</span>,</p>
+<p><span class="math display">\[\begin{eqnarray*}
+\rho_{_{CC&#39;new}} &amp;=&amp; \frac{k\rho_{_{CC&#39;old}}}{1 + (k - 1)\rho_{_{CC&#39;old}} }\\[5pt]
+\rho_{_{CC&#39;new}} &amp;=&amp; \frac{2(.60)}{1 + .60} \\[5pt]
+\rho_{_{CC&#39;new}} &amp;=&amp; .75
+\end{eqnarray*}
+\]</span></p>
+<p>This estimate is based on the assumption that the new items fit a parallel model with the existing items.</p>
+<p>We can also rearrange the terms in the equation to find out the factor by which we would need to multiply our number of items to achieve a desired reliability.</p>
+<p><span class="math display">\[\begin{eqnarray*}
+k &amp;=&amp; \frac{\rho_{_{CC&#39;new}}(1 - \rho_{_{CC&#39;old}})}{\rho_{_{CC&#39;old}}(1 - \rho_{_{CC&#39;new}}) }\\[5pt]
+k &amp;=&amp; \frac{.75(1 - .60)}{.60(1 - .75) }\\[5pt]
+k &amp;=&amp; \frac{0.30}{0.15} = 2.00
+\end{eqnarray*}
+\]</span>
+We’d need twice as many items than our original test. For instance if we had 10 items, we’d need 10 more parallel-model items.</p>
+</div>
+<div id="using-the-ctt-package" class="section level3">
+<h3><span class="header-section-number">9.3.2</span> Using the CTT package</h3>
+<p>The <code>CTT</code> package has a function called <code>spearman.brown()</code> to estimate, of all things, the results from using the Spearman-Brown prophecy formula. We set <code>input =</code> to ask what our new reliability would be if we lengthened or shortened our test. If we doubled our test, we’d achieve this estimate if the new items were parallel to those we already have:</p>
+<div class="sourceCode" id="cb290"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb290-1"><a href="reliability.html#cb290-1"></a><span class="kw">library</span>(CTT)</span>
+<span id="cb290-2"><a href="reliability.html#cb290-2"></a>relachieved_if_doubled &lt;-<span class="st"> </span><span class="kw">spearman.brown</span>(<span class="fl">0.60</span>, <span class="dt">input =</span> <span class="dv">2</span>, <span class="dt">n.or.r =</span> <span class="st">&quot;n&quot;</span>)</span>
+<span id="cb290-3"><a href="reliability.html#cb290-3"></a>relachieved_if_doubled</span></code></pre></div>
+<pre><code>## $r.new
+## [1] 0.75</code></pre>
+<p>So, with double the number of items, we’d have a reliability of 0.75.</p>
+<p>The other use is to identify how many more items, of a parallel model, we need to obtain a desired reliability. For this, we need to specify what our original reliability estimate is, such as <span class="math inline">\(0.60\)</span>, and the desired reliability, such as <span class="math inline">\(0.80\)</span>:<a href="#fn72" class="footnote-ref" id="fnref72"><sup>72</sup></a></p>
+<div class="sourceCode" id="cb292"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb292-1"><a href="reliability.html#cb292-1"></a><span class="kw">library</span>(CTT)</span>
+<span id="cb292-2"><a href="reliability.html#cb292-2"></a>factorNeeded &lt;-<span class="st"> </span><span class="kw">spearman.brown</span>(<span class="fl">0.60</span>, <span class="dt">input =</span> <span class="fl">.80</span>, <span class="dt">n.or.r =</span> <span class="st">&quot;r&quot;</span>)</span>
+<span id="cb292-3"><a href="reliability.html#cb292-3"></a>factorNeeded</span></code></pre></div>
+<pre><code>## $n.new
+## [1] 2.666667</code></pre>
+<p>Apparently, we need to increase our test length by a factor of 2.67. If our original test had 10 items, we need a total of 27 items to achieve a reliability of .80. We’d better get to work!</p>
+</div>
+</div>
+<div id="standardized-coefficient-alpha" class="section level2">
+<h2><span class="header-section-number">9.4</span> Standardized coefficient alpha</h2>
+<p>You may have noticed in the output from the psych package’s <code>alpha()</code> function that there are two reports of coefficient alpha. The one we are typically interested in is labeled as “raw_alpha”, as this is the estimate from the equations we’ve looked at so far. Adjacent to that, there is “std.alpha”. The standardized alpha is valuable when the sub-tests used to calculate the composite scores have very different variances.</p>
+<p>For instance, if a researcher were to create a composite language-arts score, we might see three sub-tests, such as students’</p>
+<ol style="list-style-type: decimal">
+<li>grade point averages in language arts classes,</li>
+<li>test scores from their states’ language arts assessments, and</li>
+<li>their scores on the language section of the SAT.</li>
+</ol>
+<p>The scales of these three item-level variables in their raw form would dramatically differ from each other. The scale of the GPA scores would be from <span class="math inline">\(0\)</span> to <span class="math inline">\(4\)</span><a href="#fn73" class="footnote-ref" id="fnref73"><sup>73</sup></a>, whereas the scales of the large-scale tests will be much larger, such as from <span class="math inline">\(200\)</span> to <span class="math inline">\(800\)</span>.<a href="#fn74" class="footnote-ref" id="fnref74"><sup>74</sup></a> In these situations, the researcher typically standardizes these scores before summing them into a composite score. This will transform all of the items’ variances to <span class="math inline">\(1\)</span>.</p>
+<p>Before standardizing them, the researcher may wish to examine reliability. In that situation, the variances will be very different from each other. In this situation, we use the standardized coefficient alpha.</p>
+<div id="calculation-of-standardized-coefficient-alpha" class="section level3">
+<h3><span class="header-section-number">9.4.1</span> Calculation of standardized coefficient alpha</h3>
+<p>There are three steps to calculating standardized alpha:</p>
+<ol style="list-style-type: decimal">
+<li>Calculate the correlations among all pairs of items, <span class="math inline">\(r_{i,j}\)</span>.</li>
+<li>Calculate the average of these correlations, <span class="math inline">\(\bar{r}_{ij}\)</span>.</li>
+<li>Apply the Spearman-Brown Prophecy Formula on <span class="math inline">\(\bar{r}_{ij}\)</span>, with <span class="math inline">\(k\)</span> being the number of items.</li>
+</ol>
+<p>Here’s an example: Let’s say we already have a covariance matrix of GPA, State-test scores, and SAT scores from a previous researcher’s report.</p>
+<p><span class="math display">\[\begin{bmatrix}0.16&amp;12.25&amp;18.37 \\12.25&amp;10000&amp;7916.67 \\18.37&amp;7916.67&amp;10000 \\\end{bmatrix}\]</span></p>
+<p>Let’s do <strong>Step 1</strong> based on what we have. We have covariance data, so let’s create this matrix in R using the <code>matrix()</code> function. The <code>matrix()</code> function takes a vector of numbers (here, with a length of 9), separated by commas, and then puts them into a matrix if we specify the number of rows with the <code>nrow =</code> argument (or the <code>ncol =</code> argument). We can also name the columns and rows.<a href="#fn75" class="footnote-ref" id="fnref75"><sup>75</sup></a> We can visually line up the columns and rows to help us see the matrix, but we could have just as easily included all of these numbers in a single line. This is one way to enter small data sets into R.</p>
+<div class="sourceCode" id="cb294"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb294-1"><a href="reliability.html#cb294-1"></a>S &lt;-<span class="st"> </span><span class="kw">matrix</span>( <span class="kw">c</span>( <span class="fl">0.16</span>,    <span class="fl">12.25</span>,    <span class="fl">18.37</span>,</span>
+<span id="cb294-2"><a href="reliability.html#cb294-2"></a>               <span class="fl">12.25</span>,    <span class="dv">10000</span>,  <span class="fl">7916.67</span>,</span>
+<span id="cb294-3"><a href="reliability.html#cb294-3"></a>               <span class="fl">18.37</span>,  <span class="fl">7916.67</span>,   <span class="dv">10000</span>),</span>
+<span id="cb294-4"><a href="reliability.html#cb294-4"></a>            <span class="dt">nrow =</span> <span class="dv">3</span>, <span class="dt">byrow =</span> <span class="ot">TRUE</span>)</span>
+<span id="cb294-5"><a href="reliability.html#cb294-5"></a><span class="kw">rownames</span>(S) &lt;-<span class="st"> </span><span class="kw">colnames</span>(S) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;GPA&quot;</span>, <span class="st">&quot;State_test&quot;</span>, <span class="st">&quot;SAT&quot;</span>)</span>
+<span id="cb294-6"><a href="reliability.html#cb294-6"></a>S</span></code></pre></div>
+<pre><code>##              GPA State_test      SAT
+## GPA         0.16      12.25    18.37
+## State_test 12.25   10000.00  7916.67
+## SAT        18.37    7916.67 10000.00</code></pre>
+<p>A standard symbol for covariance matrices is <strong>S</strong>. For correlation matrices, we use <strong>R</strong>.
+From the covariance matrix, we can get a correlation matrix. We can do this by hand, or we can use R’s <code>cov2cor()</code> function:<a href="#fn76" class="footnote-ref" id="fnref76"><sup>76</sup></a></p>
+<div class="sourceCode" id="cb296"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb296-1"><a href="reliability.html#cb296-1"></a>R &lt;-<span class="st"> </span><span class="kw">cov2cor</span>(S)</span>
+<span id="cb296-2"><a href="reliability.html#cb296-2"></a>R</span></code></pre></div>
+<pre><code>##                GPA State_test      SAT
+## GPA        1.00000   0.306250 0.459250
+## State_test 0.30625   1.000000 0.791667
+## SAT        0.45925   0.791667 1.000000</code></pre>
+<p>Of course, if we had the raw data, we could have simply used the <code>cor()</code> function. Now that we have the correlation matrix, let’s go to <strong>Step 2</strong> and get the mean of the correlations. Here’s a quick way: First, we remove the diagonal because these are all <span class="math inline">\(1\)</span>s. We can do this with the <code>diag()</code> function and assign these all <code>NA</code>s.</p>
+<div class="sourceCode" id="cb298"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb298-1"><a href="reliability.html#cb298-1"></a><span class="kw">diag</span>(R) &lt;-<span class="st"> </span><span class="ot">NA</span></span>
+<span id="cb298-2"><a href="reliability.html#cb298-2"></a>R</span></code></pre></div>
+<pre><code>##                GPA State_test      SAT
+## GPA             NA   0.306250 0.459250
+## State_test 0.30625         NA 0.791667
+## SAT        0.45925   0.791667       NA</code></pre>
+<p>Now, we perform the mean function on what’s left in of the matrix:</p>
+<div class="sourceCode" id="cb300"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb300-1"><a href="reliability.html#cb300-1"></a><span class="kw">diag</span>(R) &lt;-<span class="st"> </span><span class="ot">NA</span></span>
+<span id="cb300-2"><a href="reliability.html#cb300-2"></a>r_bar &lt;-<span class="st"> </span><span class="kw">mean</span>(R, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)</span>
+<span id="cb300-3"><a href="reliability.html#cb300-3"></a>r_bar</span></code></pre></div>
+<pre><code>## [1] 0.5190557</code></pre>
+<p>The mean of all the correlations is <span class="math inline">\(\bar{r}_{ij}=\)</span> 0.52. For <strong>Step 3</strong>, we’ll use the Spearman Brown prophecy formula using <span class="math inline">\(\bar{r}_{ij}\)</span> in place of <span class="math inline">\(\rho_{_{CC&#39;old}}\)</span>. This makes sense because the variances are all <code>1</code> in the correlation matrix <code>R</code> so the covariances that we use in coefficient alpha <em>are</em> the item correlations. Here, <span class="math inline">\(k\)</span> is the number of items because we can think of <span class="math inline">\(\bar{r}_{ij}\)</span> as our best guess about the reliability of one of the sub-tests.</p>
+<p><span class="math display">\[\begin{eqnarray*}
+\text{standardized }\alpha  &amp;=&amp; \frac{k\bar{r}_{ij}}{1 + (k - 1)\bar{r}_{ij} }\\[5pt]
+\end{eqnarray*}
+\]</span>
+Let’s do that:</p>
+<div class="sourceCode" id="cb302"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb302-1"><a href="reliability.html#cb302-1"></a>k &lt;-<span class="st"> </span><span class="dv">3</span> </span>
+<span id="cb302-2"><a href="reliability.html#cb302-2"></a>alpha_std &lt;-<span class="st"> </span>(k<span class="op">*</span>r_bar)<span class="op">/</span>(<span class="dv">1</span><span class="op">+</span>(k<span class="dv">-1</span>)<span class="op">*</span>r_bar)</span>
+<span id="cb302-3"><a href="reliability.html#cb302-3"></a><span class="kw">round</span>( alpha_std, <span class="dv">3</span>)</span></code></pre></div>
+<pre><code>## [1] 0.764</code></pre>
+<p>We can, of course, also use the psych package’s <code>alpha()</code> function and retrieve the same result. By the way, that function also accepts covariance matrices. Try using it on <strong>S</strong>.</p>
+</div>
+</div>
+<div id="reliability-of-difference-scores" class="section level2">
+<h2><span class="header-section-number">9.5</span> Reliability of difference scores</h2>
+<p>Sometimes, researchers wish to report the reliability of difference scores. Although there are better ways to do this than with CTT, here is how we’d do it. Let’s say that we already know the reliability of the two tests, one a pre-, the other a post-intervention test and we have only the total scores. We can estimate the variance of the two tests, their correlation, and plug them into the formula.</p>
+<p><span class="math display">\[\begin{eqnarray*}
+\rho_{_{DD&#39;}}  &amp;=&amp; \frac{\rho_{XX&#39;}\sigma_{X}^2 + \rho_{YY&#39;}\sigma_{Y}^2 
+                   - 2\rho_{XY}\sigma_{X}\sigma_{Y}} {\sigma_{X}^2 + \sigma_{Y}^2 
+                   - 2\rho_{XY}\sigma_{X}\sigma_{Y} }\\[5pt]
+\end{eqnarray*}
+\]</span>
+Let’s do this in R, with the <code>Week06_DiffScoresEg.csv</code> data and with the reliability of X and Y already known:</p>
+<div class="sourceCode" id="cb304"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb304-1"><a href="reliability.html#cb304-1"></a>difdat&lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;Week06_DiffScoresEg.csv&quot;</span>)</span>
+<span id="cb304-2"><a href="reliability.html#cb304-2"></a>relX &lt;-<span class="st"> </span><span class="fl">.953</span></span>
+<span id="cb304-3"><a href="reliability.html#cb304-3"></a>relY &lt;-<span class="st"> </span><span class="fl">.926</span></span>
+<span id="cb304-4"><a href="reliability.html#cb304-4"></a>varX &lt;-<span class="st"> </span><span class="kw">var</span>(difdat<span class="op">$</span>X)</span>
+<span id="cb304-5"><a href="reliability.html#cb304-5"></a>varY &lt;-<span class="st"> </span><span class="kw">var</span>(difdat<span class="op">$</span>Y)</span>
+<span id="cb304-6"><a href="reliability.html#cb304-6"></a>sX   &lt;-<span class="st"> </span><span class="kw">sqrt</span>(varX)</span>
+<span id="cb304-7"><a href="reliability.html#cb304-7"></a>sY    &lt;-<span class="st"> </span><span class="kw">sqrt</span>(varY)</span>
+<span id="cb304-8"><a href="reliability.html#cb304-8"></a>covXY &lt;-<span class="st"> </span><span class="kw">cov</span>(difdat<span class="op">$</span>X,difdat<span class="op">$</span>Y)</span>
+<span id="cb304-9"><a href="reliability.html#cb304-9"></a>corXY &lt;-<span class="st"> </span><span class="kw">cor</span>(difdat<span class="op">$</span>X,difdat<span class="op">$</span>Y)</span>
+<span id="cb304-10"><a href="reliability.html#cb304-10"></a></span>
+<span id="cb304-11"><a href="reliability.html#cb304-11"></a>numer &lt;-<span class="st"> </span>relX<span class="op">*</span>varX <span class="op">+</span><span class="st"> </span>relY<span class="op">*</span>varY <span class="op">-</span><span class="st"> </span><span class="dv">2</span><span class="op">*</span>corXY<span class="op">*</span>sX<span class="op">*</span>sY</span>
+<span id="cb304-12"><a href="reliability.html#cb304-12"></a>denom &lt;-<span class="st"> </span>varX <span class="op">+</span><span class="st"> </span>varY <span class="op">-</span><span class="st"> </span><span class="dv">2</span><span class="op">*</span>corXY<span class="op">*</span>sX<span class="op">*</span>sY</span>
+<span id="cb304-13"><a href="reliability.html#cb304-13"></a></span>
+<span id="cb304-14"><a href="reliability.html#cb304-14"></a>relDif &lt;-<span class="st"> </span>numer<span class="op">/</span>denom</span>
+<span id="cb304-15"><a href="reliability.html#cb304-15"></a>relDif</span></code></pre></div>
+<pre><code>## [1] 0.456461</code></pre>
+<p>That’s unsatisfyingly low. This is because we had to subtract the covariances.</p>
+<p>We could also create a function to do this. We can then reuse this with our data we just looked at. Also, we can use the data in Bandalos’s discussion of this topic in Table 8.3 of her text.</p>
+<div class="sourceCode" id="cb306"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb306-1"><a href="reliability.html#cb306-1"></a>rel_differ &lt;-<span class="st"> </span><span class="cf">function</span>(rel_x, rel_y, var_x, var_y, cor_xy){</span>
+<span id="cb306-2"><a href="reliability.html#cb306-2"></a>  sX     &lt;-<span class="st">   </span><span class="kw">sqrt</span>(var_x)</span>
+<span id="cb306-3"><a href="reliability.html#cb306-3"></a>  sY     &lt;-<span class="st">   </span><span class="kw">sqrt</span>(var_y)</span>
+<span id="cb306-4"><a href="reliability.html#cb306-4"></a>  numer  &lt;-<span class="st"> </span>rel_x<span class="op">*</span>var_x <span class="op">+</span><span class="st"> </span>rel_y<span class="op">*</span>var_y <span class="op">-</span><span class="st"> </span><span class="dv">2</span><span class="op">*</span>cor_xy<span class="op">*</span>sX<span class="op">*</span>sY</span>
+<span id="cb306-5"><a href="reliability.html#cb306-5"></a>  denom  &lt;-<span class="st"> </span>var_x <span class="op">+</span><span class="st"> </span>var_y <span class="op">-</span><span class="st"> </span><span class="dv">2</span><span class="op">*</span>cor_xy<span class="op">*</span>sX<span class="op">*</span>sY</span>
+<span id="cb306-6"><a href="reliability.html#cb306-6"></a>  relDif &lt;-<span class="st"> </span>numer<span class="op">/</span>denom</span>
+<span id="cb306-7"><a href="reliability.html#cb306-7"></a>  <span class="kw">round</span>(relDif, <span class="dv">3</span>)</span>
+<span id="cb306-8"><a href="reliability.html#cb306-8"></a>}</span>
+<span id="cb306-9"><a href="reliability.html#cb306-9"></a></span>
+<span id="cb306-10"><a href="reliability.html#cb306-10"></a><span class="kw">rel_differ</span>(.<span class="dv">953</span>, <span class="fl">.926</span>, <span class="kw">var</span>(difdat<span class="op">$</span>X), <span class="kw">var</span>(difdat<span class="op">$</span>Y), <span class="kw">cor</span>(difdat<span class="op">$</span>X, difdat<span class="op">$</span>Y) )</span></code></pre></div>
+<pre><code>## [1] 0.456</code></pre>
+<p>Here are the calculations in Bandalos, Table 8.3:</p>
+<div class="sourceCode" id="cb308"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb308-1"><a href="reliability.html#cb308-1"></a><span class="kw">rel_differ</span>(.<span class="dv">80</span>, <span class="fl">.90</span>, <span class="dv">3</span>, <span class="dv">5</span>, <span class="fl">.20</span>)</span></code></pre></div>
+<pre><code>## [1] 0.829</code></pre>
+<div class="sourceCode" id="cb310"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb310-1"><a href="reliability.html#cb310-1"></a><span class="kw">rel_differ</span>(.<span class="dv">80</span>, <span class="fl">.90</span>, <span class="dv">3</span>, <span class="dv">5</span>, <span class="fl">.40</span>)</span></code></pre></div>
+<pre><code>## [1] 0.776</code></pre>
+<div class="sourceCode" id="cb312"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb312-1"><a href="reliability.html#cb312-1"></a><span class="kw">rel_differ</span>(.<span class="dv">80</span>, <span class="fl">.90</span>, <span class="dv">3</span>, <span class="dv">5</span>, <span class="fl">.60</span>)</span></code></pre></div>
+<pre><code>## [1] 0.672</code></pre>
+<p>The reliability of difference scores will always be lower than the reliability of the individual tests. Researchers can avoid having to calculate this estimate by using different types of analyses that do not require the calculation of difference scores. One option is to use one of the variables, such as the pre-intervention scores, as a covariate in their analyses. In this way, we partial out the variance due to the first measurement. Another approach is to estimate the difference effect by treating the two scores as multivariate data. It turns out that with two scores, we will have a difference-in-differences approach.<a href="#fn77" class="footnote-ref" id="fnref77"><sup>77</sup></a></p>
+
+</div>
+</div>
+<h3>References</h3>
+<div id="refs" class="references">
+<div id="ref-Bandalos_2018">
+<p>Bandalos, D. L. (2018). <em>Measurement theory and applications for the social sciences</em>. Guilford.</p>
+</div>
+<div id="ref-R-psych">
+<p>Revelle, W. (2020). <em>Psych: Procedures for psychological, psychometric, and personality research</em>. <a href="https://personality-project.org/r/psych/%0Ahttps://personality-project.org/r/psych-manual.pdf">https://personality-project.org/r/psych/
+https://personality-project.org/r/psych-manual.pdf</a></p>
+<div id="ref-R-CTT">
+<p>Willse, J. T. (2018). <em>CTT: Classical test theory functions</em>. <a href="https://CRAN.R-project.org/package=CTT">https://CRAN.R-project.org/package=CTT</a></p>
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="63">
+<li id="fn63"><p>Many people refer to coefficient alpha as Cronbach’s alpha.<a href="reliability.html#fnref63" class="footnote-back">↩︎</a></p></li>
+<li id="fn64"><p>Here, <span class="math inline">\(\rho_{cc&#39;}\)</span> is the symbol for the reliability of the composite score. Other authors, such as Furr <span class="citation">(<a href="#ref-furr_psychometrics_2018" role="doc-biblioref">2018</a>)</span>, use <span class="math inline">\(R_{xx}\)</span> as notation for the reliability coefficient. Also, other authors use <span class="math inline">\(x\)</span> or <span class="math inline">\(total\)</span> for the total composite score instead of <span class="math inline">\(c\)</span>. With <span class="math inline">\(c\)</span>, we are following the notation that Bandalos <span class="citation">(<a href="#ref-Bandalos_2018" role="doc-biblioref">2018</a>)</span> uses.<a href="reliability.html#fnref64" class="footnote-back">↩︎</a></p></li>
+<li id="fn65"><p>There are many ways to see that <span class="math inline">\(\sigma_{T_iT_j}\)</span> = <span class="math inline">\(\sigma_{T_i}^2\)</span> when <span class="math inline">\(i\)</span> and <span class="math inline">\(j\)</span> fit at least an essentially tau-equivalent model. Here’s one way to think about it using what we already know about correlation and variance:
+<span class="math display">\[
+\begin{eqnarray*} 
+\rho_{T_iT_j} &amp;=&amp; \frac{\sigma_{T_iT_j}}{\sqrt{\sigma_{T_i}^2\sigma_{T_j}^2}} = 1 \\[5pt]
+\sigma_{T_i}^2 &amp;=&amp; \sigma_{T_j}^2 \\[5pt]
+\therefore &amp; &amp;\frac{\sigma_{T_iT_j}}{\sigma_{T}^2} = 1\\[5pt]
+\therefore &amp; &amp;\sigma_{T_iT_j} = {\sigma_{T_i}^2}
+\end{eqnarray*}  
+\]</span><a href="reliability.html#fnref65" class="footnote-back">↩︎</a></p></li>
+<li id="fn66"><p>However, the true-score variance in CTT is simply assumed to be all systematic variance in the item responses. If that systematic variance is due to constructs other than the construct we intend to measure, this true-score variance will be conflated with that systematic construct-irrelevant variance. This systematic variance can artificially inflate the reliability estimate. In other words, without examining evidence for validity, we cannot conclude that coefficient alpha, or any other CTT reliability estimate, is truly a lower bound for the real reliability of the test in measuring our intended construct. It is the lower bound for reliably measuring systematic variance.<a href="reliability.html#fnref66" class="footnote-back">↩︎</a></p></li>
+<li id="fn67"><p>Another is coefficient omega. Also, if we have dichotomous items, KR-20 provides the same estimate as coefficient alpha but with a simpler calculation of variance, <span class="math inline">\(p(1-p)\)</span>.<a href="reliability.html#fnref67" class="footnote-back">↩︎</a></p></li>
+<li id="fn68"><p>Notice that the <em>observed</em> score variances do differ between these tests. It is the true scores that have equal variances. We can look back at the previous chapter to verify this.<a href="reliability.html#fnref68" class="footnote-back">↩︎</a></p></li>
+<li id="fn69"><p>Again, we can look back at the previous chapter to verify this because we used these same hypothetical data in that discussion.<a href="reliability.html#fnref69" class="footnote-back">↩︎</a></p></li>
+<li id="fn70"><p>This is in factors, so a factor of 2 yields a test that has twice as many items; a factor of 0.50 is for a test that is half as long.<a href="reliability.html#fnref70" class="footnote-back">↩︎</a></p></li>
+<li id="fn71"><p>Note that <span class="math inline">\(k\)</span> in the Spearman-Brown prophecy formula is a factor to multiply the original number of items by, not the number of items.<a href="reliability.html#fnref71" class="footnote-back">↩︎</a></p></li>
+<li id="fn72"><p>Use <code>?spearman.brown</code> for help on the <code>n.or.r =</code> argument.<a href="reliability.html#fnref72" class="footnote-back">↩︎</a></p></li>
+<li id="fn73"><p>Some GPAs may be higher than 4.0 if students receive high marks in advanced placement courses.<a href="reliability.html#fnref73" class="footnote-back">↩︎</a></p></li>
+<li id="fn74"><p>Traditionally, the SAT English section was based on the College Entrance Exam Board’s scale, ranging from <span class="math inline">\(200\)</span> to <span class="math inline">\(800\)</span> with a standard deviation of about <span class="math inline">\(100\)</span>.<a href="reliability.html#fnref74" class="footnote-back">↩︎</a></p></li>
+<li id="fn75"><p>Unlike data frames, matrices require that all the elements be the same type. In this example, they are all numeric. In a text matrix, they would all be character. In a logical matrix, they would all be TRUE or FALSE (or NA).<a href="reliability.html#fnref75" class="footnote-back">↩︎</a></p></li>
+<li id="fn76"><p>The <code>cov2cor()</code> function is an all-time favorite. Check out the <code>cor2cov()</code> function, too. For that we need to also enter the standard deviations.<a href="reliability.html#fnref76" class="footnote-back">↩︎</a></p></li>
+<li id="fn77"><p>Murnane and Willett <span class="citation">(<a href="#ref-murnane_methods_2011" role="doc-biblioref">2011</a>)</span> provide a readable introduction to difference-in-difference analytic approaches.<a href="reliability.html#fnref77" class="footnote-back">↩︎</a></p></li>
+</ol>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="CTT.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="interrater.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

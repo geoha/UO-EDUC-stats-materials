@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 10 {r} # mat_3items &lt;- matrix(c("$\\sigma^2_{X_1}$", "$\\sigma_{X_1X_2}$", "Cov(X1,X3)", # "Cov(X2,X1)", "$\\sigma^2_{X_2}$", "Cov(X2,X3)", # "Cov(X3,X1)", "Cov(X3,X2)", "$\\sigma^2_{X_3}$"), # nrow = 3) # | R Examples for Measurement</title>
+  <meta name="description" content="Provides examples to accompany lessons used in a measurement course." />
+  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 10 {r} # mat_3items &lt;- matrix(c("$\\sigma^2_{X_1}$", "$\\sigma_{X_1X_2}$", "Cov(X1,X3)", # "Cov(X2,X1)", "$\\sigma^2_{X_2}$", "Cov(X2,X3)", # "Cov(X3,X1)", "Cov(X3,X2)", "$\\sigma^2_{X_3}$"), # nrow = 3) # | R Examples for Measurement" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="Provides examples to accompany lessons used in a measurement course." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 10 {r} # mat_3items &lt;- matrix(c("$\\sigma^2_{X_1}$", "$\\sigma_{X_1X_2}$", "Cov(X1,X3)", # "Cov(X2,X1)", "$\\sigma^2_{X_2}$", "Cov(X2,X3)", # "Cov(X3,X1)", "Cov(X3,X2)", "$\\sigma^2_{X_3}$"), # nrow = 3) # | R Examples for Measurement" />
+  
+  <meta name="twitter:description" content="Provides examples to accompany lessons used in a measurement course." />
+  
+
+<meta name="author" content="George M. Harrison  University of Hawai‘i at Mānoa, College of Education" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="reliability.html"/>
+<link rel="next" href="references.html"/>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+<link href="libs/bsTable-3.3.7/bootstrapTable.min.css" rel="stylesheet" />
+<script src="libs/bsTable-3.3.7/bootstrapTable.js"></script>
+
+
+<style type="text/css">
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Introduction</a></li>
+<li class="chapter" data-level="1" data-path="ch02.html"><a href="ch02.html"><i class="fa fa-check"></i><b>1</b> Score transformations</a><ul>
+<li class="chapter" data-level="1.1" data-path="ch02.html"><a href="ch02.html#percentiles-percentile-ranks-and-normalized-scores"><i class="fa fa-check"></i><b>1.1</b> Percentiles, percentile ranks, and normalized scores</a></li>
+<li class="chapter" data-level="1.2" data-path="ch02.html"><a href="ch02.html#run-of-the-mill-z-scores"><i class="fa fa-check"></i><b>1.2</b> Run-of-the-mill Z scores</a></li>
+<li class="chapter" data-level="1.3" data-path="ch02.html"><a href="ch02.html#extra-optional-stuff"><i class="fa fa-check"></i><b>1.3</b> Extra optional stuff</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="var-cov-cor.html"><a href="var-cov-cor.html"><i class="fa fa-check"></i><b>2</b> Variance, Covariance, and Correlation</a><ul>
+<li class="chapter" data-level="2.1" data-path="var-cov-cor.html"><a href="var-cov-cor.html#correlation"><i class="fa fa-check"></i><b>2.1</b> Correlation</a><ul>
+<li class="chapter" data-level="2.1.1" data-path="var-cov-cor.html"><a href="var-cov-cor.html#estimating-correlation-as-a-statistic"><i class="fa fa-check"></i><b>2.1.1</b> Estimating correlation as a statistic</a></li>
+<li class="chapter" data-level="2.1.2" data-path="var-cov-cor.html"><a href="var-cov-cor.html#creating-a-correlation-matrix"><i class="fa fa-check"></i><b>2.1.2</b> Creating a correlation matrix</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="var-cov-cor.html"><a href="var-cov-cor.html#variance"><i class="fa fa-check"></i><b>2.2</b> Variance</a></li>
+<li class="chapter" data-level="2.3" data-path="var-cov-cor.html"><a href="var-cov-cor.html#covariance"><i class="fa fa-check"></i><b>2.3</b> Covariance</a><ul>
+<li class="chapter" data-level="2.3.1" data-path="var-cov-cor.html"><a href="var-cov-cor.html#creating-a-variance-covariance-matrix"><i class="fa fa-check"></i><b>2.3.1</b> Creating a variance-covariance matrix</a></li>
+<li class="chapter" data-level="2.3.2" data-path="var-cov-cor.html"><a href="var-cov-cor.html#using-the-n-denominator"><i class="fa fa-check"></i><b>2.3.2</b> Using the <em>n</em> denominator</a></li>
+<li class="chapter" data-level="2.3.3" data-path="var-cov-cor.html"><a href="var-cov-cor.html#extra-understanding-for-use-in-classical-test-theory"><i class="fa fa-check"></i><b>2.3.3</b> Extra understanding, for use in classical test theory</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="var-cov-cor.html"><a href="var-cov-cor.html#practice"><i class="fa fa-check"></i><b>2.4</b> Practice</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="custfuncts.html"><a href="custfuncts.html"><i class="fa fa-check"></i><b>3</b> Creating custom functions</a><ul>
+<li class="chapter" data-level="3.1" data-path="custfuncts.html"><a href="custfuncts.html#using-our-function-on-multiple-variables"><i class="fa fa-check"></i><b>3.1</b> Using our function on multiple variables</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="using-packages.html"><a href="using-packages.html"><i class="fa fa-check"></i><b>4</b> Using packages</a><ul>
+<li class="chapter" data-level="4.1" data-path="using-packages.html"><a href="using-packages.html#an-example-using-the-hmisc-package-for-correlation"><i class="fa fa-check"></i><b>4.1</b> An example: Using the <code>Hmisc</code> package for correlation</a></li>
+<li class="chapter" data-level="4.2" data-path="using-packages.html"><a href="using-packages.html#using-tidyverse-packages"><i class="fa fa-check"></i><b>4.2</b> Using Tidyverse packages</a><ul>
+<li class="chapter" data-level="4.2.1" data-path="using-packages.html"><a href="using-packages.html#piping"><i class="fa fa-check"></i><b>4.2.1</b> Piping</a></li>
+<li class="chapter" data-level="4.2.2" data-path="using-packages.html"><a href="using-packages.html#saving-our-output-as-a-csv-file"><i class="fa fa-check"></i><b>4.2.2</b> Saving our output as a CSV file</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="regress.html"><a href="regress.html"><i class="fa fa-check"></i><b>5</b> Estimating regression</a><ul>
+<li class="chapter" data-level="5.1" data-path="regress.html"><a href="regress.html#the-lm-function"><i class="fa fa-check"></i><b>5.1</b> The <code>lm()</code> function</a></li>
+<li class="chapter" data-level="5.2" data-path="regress.html"><a href="regress.html#using-the-regression-parameters-for-prediction"><i class="fa fa-check"></i><b>5.2</b> Using the regression parameters for prediction</a></li>
+<li class="chapter" data-level="5.3" data-path="regress.html"><a href="regress.html#model-error-variance-and-a-peek-into-classical-test-theory"><i class="fa fa-check"></i><b>5.3</b> Model error variance and a peek into classical test theory</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="graphing.html"><a href="graphing.html"><i class="fa fa-check"></i><b>6</b> Graphing</a><ul>
+<li class="chapter" data-level="6.1" data-path="graphing.html"><a href="graphing.html#using-base-r"><i class="fa fa-check"></i><b>6.1</b> Using Base R</a></li>
+<li class="chapter" data-level="6.2" data-path="graphing.html"><a href="graphing.html#using-the-ggplot2-package"><i class="fa fa-check"></i><b>6.2</b> Using the <code>ggplot2</code> package</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="itemans.html"><a href="itemans.html"><i class="fa fa-check"></i><b>7</b> Item scoring and item analysis</a><ul>
+<li class="chapter" data-level="7.1" data-path="itemans.html"><a href="itemans.html#multiple-choice-raw-data-and-their-answer-key"><i class="fa fa-check"></i><b>7.1</b> Multiple-choice raw data and their answer key</a></li>
+<li class="chapter" data-level="7.2" data-path="itemans.html"><a href="itemans.html#scoring-the-responses"><i class="fa fa-check"></i><b>7.2</b> Scoring the responses</a></li>
+<li class="chapter" data-level="7.3" data-path="itemans.html"><a href="itemans.html#item-analysis-with-dichotomous-data"><i class="fa fa-check"></i><b>7.3</b> Item analysis with dichotomous data</a></li>
+<li class="chapter" data-level="7.4" data-path="itemans.html"><a href="itemans.html#distractor-analysis"><i class="fa fa-check"></i><b>7.4</b> Distractor analysis</a></li>
+<li class="chapter" data-level="7.5" data-path="itemans.html"><a href="itemans.html#item-analysis-with-polytomous-data"><i class="fa fa-check"></i><b>7.5</b> Item analysis with polytomous data</a><ul>
+<li class="chapter" data-level="7.5.1" data-path="itemans.html"><a href="itemans.html#partial-credit-data"><i class="fa fa-check"></i><b>7.5.1</b> Partial-credit data</a></li>
+<li class="chapter" data-level="7.5.2" data-path="itemans.html"><a href="itemans.html#item-functioning-of-likert-type-scale-items"><i class="fa fa-check"></i><b>7.5.2</b> Item functioning of Likert-type scale items</a></li>
+<li class="chapter" data-level="7.5.3" data-path="itemans.html"><a href="itemans.html#graphing-frequencies-of-category-responses"><i class="fa fa-check"></i><b>7.5.3</b> Graphing frequencies of category responses</a></li>
+</ul></li>
+<li class="chapter" data-level="7.6" data-path="itemans.html"><a href="itemans.html#optional-advanced-graphics-stuff"><i class="fa fa-check"></i><b>7.6</b> Optional advanced graphics stuff</a><ul>
+<li class="chapter" data-level="7.6.1" data-path="itemans.html"><a href="itemans.html#creating-a-facet-plot-with-ggplot2"><i class="fa fa-check"></i><b>7.6.1</b> Creating a facet plot with <code>GGplot2</code></a></li>
+<li class="chapter" data-level="7.6.2" data-path="itemans.html"><a href="itemans.html#the-base-r-approach-to-creating-a-facet-plot"><i class="fa fa-check"></i><b>7.6.2</b> The Base R approach to creating a facet plot</a></li>
+</ul></li>
+<li class="chapter" data-level="7.7" data-path="itemans.html"><a href="itemans.html#additional-functions-for-examining-category-frequencies"><i class="fa fa-check"></i><b>7.7</b> Additional functions for examining category frequencies</a><ul>
+<li class="chapter" data-level="7.7.1" data-path="itemans.html"><a href="itemans.html#using-the-table-function-and-the-lapply-function"><i class="fa fa-check"></i><b>7.7.1</b> Using the <code>table()</code> function and the <code>lapply()</code> function</a></li>
+<li class="chapter" data-level="7.7.2" data-path="itemans.html"><a href="itemans.html#specifying-the-data-as-categorical"><i class="fa fa-check"></i><b>7.7.2</b> Specifying the data as categorical</a></li>
+<li class="chapter" data-level="7.7.3" data-path="itemans.html"><a href="itemans.html#ordered-factors"><i class="fa fa-check"></i><b>7.7.3</b> Ordered factors</a></li>
+</ul></li>
+<li class="chapter" data-level="7.8" data-path="itemans.html"><a href="itemans.html#conclusion"><i class="fa fa-check"></i><b>7.8</b> Conclusion</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="CTT.html"><a href="CTT.html"><i class="fa fa-check"></i><b>8</b> Classical test theory</a><ul>
+<li class="chapter" data-level="8.1" data-path="CTT.html"><a href="CTT.html#true-score-model"><i class="fa fa-check"></i><b>8.1</b> True score model</a></li>
+<li class="chapter" data-level="8.2" data-path="CTT.html"><a href="CTT.html#assumptions-of-the-ctt-true-score-model"><i class="fa fa-check"></i><b>8.2</b> Assumptions of the CTT true score model</a></li>
+<li class="chapter" data-level="8.3" data-path="CTT.html"><a href="CTT.html#reliability-and-the-variance-of-the-composite-score"><i class="fa fa-check"></i><b>8.3</b> Reliability and the variance of the composite score</a><ul>
+<li class="chapter" data-level="8.3.1" data-path="CTT.html"><a href="CTT.html#reliability-as-the-ratio-of-true-score-variance-to-observed-score-variance"><i class="fa fa-check"></i><b>8.3.1</b> Reliability as the ratio of true-score variance to observed-score variance</a></li>
+<li class="chapter" data-level="8.3.2" data-path="CTT.html"><a href="CTT.html#reliability-as-the-lack-of-error-variance"><i class="fa fa-check"></i><b>8.3.2</b> Reliability as the lack of error variance</a></li>
+<li class="chapter" data-level="8.3.3" data-path="CTT.html"><a href="CTT.html#reliability-as-the-squared-correlation-between-observed-and-true-scores"><i class="fa fa-check"></i><b>8.3.3</b> Reliability as the squared correlation between observed and true scores</a></li>
+<li class="chapter" data-level="8.3.4" data-path="CTT.html"><a href="CTT.html#reliability-as-the-correlation-between-scores-on-parallel-tests"><i class="fa fa-check"></i><b>8.3.4</b> Reliability as the correlation between scores on parallel tests</a></li>
+</ul></li>
+<li class="chapter" data-level="8.4" data-path="CTT.html"><a href="CTT.html#four-ctt-models"><i class="fa fa-check"></i><b>8.4</b> Four CTT models</a><ul>
+<li class="chapter" data-level="8.4.1" data-path="CTT.html"><a href="CTT.html#the-parallel-model"><i class="fa fa-check"></i><b>8.4.1</b> The parallel model</a></li>
+<li class="chapter" data-level="8.4.2" data-path="CTT.html"><a href="CTT.html#the-tau-equivalent-model"><i class="fa fa-check"></i><b>8.4.2</b> The tau-equivalent model</a></li>
+<li class="chapter" data-level="8.4.3" data-path="CTT.html"><a href="CTT.html#the-essentially-tau-equivalent-model"><i class="fa fa-check"></i><b>8.4.3</b> The essentially tau-equivalent model</a></li>
+<li class="chapter" data-level="8.4.4" data-path="CTT.html"><a href="CTT.html#the-congeneric-model"><i class="fa fa-check"></i><b>8.4.4</b> The congeneric model</a></li>
+</ul></li>
+<li class="chapter" data-level="8.5" data-path="CTT.html"><a href="CTT.html#estimating-an-observations-true-score"><i class="fa fa-check"></i><b>8.5</b> Estimating an observation’s true score</a></li>
+<li class="chapter" data-level="8.6" data-path="CTT.html"><a href="CTT.html#the-standard-error-of-measurement"><i class="fa fa-check"></i><b>8.6</b> The standard error of measurement</a><ul>
+<li class="chapter" data-level="8.6.1" data-path="CTT.html"><a href="CTT.html#estimating-the-confidence-interval-of-a-true-score"><i class="fa fa-check"></i><b>8.6.1</b> Estimating the confidence interval of a true score</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="reliability.html"><a href="reliability.html"><i class="fa fa-check"></i><b>9</b> Reliability</a><ul>
+<li class="chapter" data-level="9.1" data-path="reliability.html"><a href="reliability.html#internal-consistency-reliability"><i class="fa fa-check"></i><b>9.1</b> Internal consistency reliability</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="r-mat-3items-matrixcsigma2-x-1-sigma-x-1x-2-covx1x3-covx2x1-sigma2-x-2-covx2x3-covx3x1-covx3x2-sigma2-x-3-nrow-3.html"><a href="r-mat-3items-matrixcsigma2-x-1-sigma-x-1x-2-covx1x3-covx2x1-sigma2-x-2-covx2x3-covx3x1-covx3x2-sigma2-x-3-nrow-3.html"><i class="fa fa-check"></i><b>10</b> <code>{r} # mat_3items &lt;- matrix(c("$\\sigma^2_{X_1}$",   "$\\sigma_{X_1X_2}$", "Cov(X1,X3)", #                        "Cov(X2,X1)", "$\\sigma^2_{X_2}$", "Cov(X2,X3)", #                        "Cov(X3,X1)", "Cov(X3,X2)", "$\\sigma^2_{X_3}$"), #                       nrow = 3) #</code></a></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">R Examples for Measurement</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="r-mat_3items---matrixcsigma2_x_1-sigma_x_1x_2-covx1x3-covx2x1-sigma2_x_2-covx2x3-covx3x1-covx3x2-sigma2_x_3-nrow-3" class="section level1">
+<h1><span class="header-section-number">Chapter 10</span> <code>{r} # mat_3items &lt;- matrix(c("$\\sigma^2_{X_1}$",   "$\\sigma_{X_1X_2}$", "Cov(X1,X3)", #                        "Cov(X2,X1)", "$\\sigma^2_{X_2}$", "Cov(X2,X3)", #                        "Cov(X3,X1)", "Cov(X3,X2)", "$\\sigma^2_{X_3}$"), #                       nrow = 3) #</code></h1>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="r-mat-3items-matrixcsigma2-x-1-sigma-x-1x-2-covx1x3-covx2x1-sigma2-x-2-covx2x3-covx3x1-covx3x2-sigma2-x-3-nrow-3.html#cb2-1"></a><span class="kw">library</span>(kableExtra)</span>
+<span id="cb2-2"><a href="r-mat-3items-matrixcsigma2-x-1-sigma-x-1x-2-covx1x3-covx2x1-sigma2-x-2-covx2x3-covx3x1-covx3x2-sigma2-x-3-nrow-3.html#cb2-2"></a>mat_3items <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">kbl</span>(<span class="dt">align =</span> <span class="kw">rep</span>(<span class="st">&#39;c&#39;</span>,<span class="dv">2</span>), </span>
+<span id="cb2-3"><a href="r-mat-3items-matrixcsigma2-x-1-sigma-x-1x-2-covx1x3-covx2x1-sigma2-x-2-covx2x3-covx3x1-covx3x2-sigma2-x-3-nrow-3.html#cb2-3"></a>    <span class="dt">full_width =</span> <span class="ot">FALSE</span>, <span class="dt">row.names =</span> <span class="ot">FALSE</span>)</span></code></pre></div>
+<table>
+<tbody>
+<tr>
+<td style="text-align:center;">
+Var(X1)
+</td>
+<td style="text-align:center;">
+Cov(X2,X1)
+</td>
+<td style="text-align:center;">
+Cov(X3,X1)
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+Cov(X1,X2)
+</td>
+<td style="text-align:center;">
+Var(X2)
+</td>
+<td style="text-align:center;">
+Cov(X3,X2)
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+Cov(X1,X3)
+</td>
+<td style="text-align:center;">
+Cov(X2,X3)
+</td>
+<td style="text-align:center;">
+Var(X3)
+</td>
+</tr>
+</tbody>
+</table>
+<!-- ```{r} -->
+<!-- nums <- 1+(1:4) #use the 1+ to include the 5th one, for congeneric. -->
+<!-- obs_inames <- c(paste0("obs",nums)) -->
+<!-- tru_inames <- c(paste0("err",nums)) -->
+<!-- err_inames <- c(paste0("tru",nums)) -->
+<!-- all_mods_big$totO <- apply(all_mods_big[ ,obs_inames], 1, sum) -->
+<!-- all_mods_big$totE <- apply(all_mods_big[ ,tru_inames], 1, sum) -->
+<!-- all_mods_big$totT <- apply(all_mods_big[ ,err_inames], 1, sum) -->
+<!-- head(all_mods_big) -->
+<!-- var(all_mods_big$totT) / var(all_mods_big$totO) -->
+<!-- library(psych) -->
+<!-- alpha_est <- psych::alpha(all_mods_big[ ,obs_inames]) -->
+<!-- alpha_est$total -->
+<!-- omega_est <- psych::omega(all_mods_big[ ,obs_inames], nfactor = 1) -->
+<!-- omega_est$omega.tot -->
+<!-- ``` -->
+<!-- Let's take a look at the data we saw in the chapter on item analysis. -->
+<!-- ```{r} -->
+<!-- dat <- read.csv("Week06_Scored_reponses.csv") -->
+<!-- head(dat) -->
+<!-- items   <- paste0("i", 1:10) -->
+<!-- itemdat <- dat[, items] -->
+<!-- ``` -->
+<!-- To get an estimate of coefficient alpha, we can use the `CTT` package, which we previously used with item analysis. The help files for this package are very well written, `help(package="CTT")`. -->
+<!-- ```{r} -->
+<!-- library(CTT) -->
+<!-- ``` -->
+<!-- ```{r} -->
+<!-- ItemAnalyOut <- itemAnalysis(itemdat, itemReport=TRUE) -->
+<!-- ItemAnalyOut$alpha -->
+<!-- ``` -->
+<!-- <!-- i9<- sample(c(1:10),size=16, replace=T) # to show the effect of more variance -->
+<p>–&gt;
+<!-- <!--  itemdat$i9<- i9 --> –&gt;</p>
+<!-- The `psych` package [@R-psych] is widely used for estimating reliability and conducting other psychometric procedures. remember to install it, `install.packages("psych")` and look at the help files, `help(package="psych")`. Let's bring it into the working library: -->
+<!-- ```{r} -->
+<!-- library(psych) -->
+<!-- ``` -->
+<!-- Using the `alpha()` function with the item data will provide an estimate of coefficient alpha along with other information such as the confidence intervals of the alpha point estimate and each item's alpha-if-deleted estimate. -->
+<!-- ```{r} -->
+<!-- psych::alpha(itemdat) -->
+<!-- ``` -->
+<!-- From the book, p. 189: -->
+<!-- ```{r} -->
+<!-- table8.1 <- read.csv("Week06_table8.1.csv") -->
+<!-- psych::alpha(table8.1[,-1]) -->
+<!-- ``` -->
+<!-- From the book, p. 190: -->
+<!-- ```{r} -->
+<!-- table8.2 <- read.csv("Week06_table8.2.csv") -->
+<!-- psych::alpha(table8.2[,-1]) -->
+<!-- ``` -->
+<!-- ## Spearman Brown prophecy formula -->
+<!-- ```{r} -->
+<!-- library(CTT) -->
+<!-- spearman.brown(rel, input=2) -->
+<!-- factorNeeded <- spearman.brown(rel, input=.80, n.or.r="r") -->
+<!-- ItemAnalyOut$nItem*factorNeeded[[1]] -->
+<!-- spearman.brown(rel, input=3.913) -->
+<!-- ``` -->
+<!-- ## Reliability of difference scores -->
+<!-- ```{r} -->
+<!-- difdat<- read.csv("Week06_DiffScoresEg.csv") -->
+<!-- relX<- .953 -->
+<!-- relY<- .926 -->
+<!-- varX<- var(difdat$X) -->
+<!-- varY<- var(difdat$Y) -->
+<!-- sX<-   sqrt(varX) -->
+<!-- sY<-   sqrt(varY) -->
+<!-- covXY<- cov(difdat$X,difdat$Y) -->
+<!-- covXY/sqrt(varX*varY) -->
+<!--   corXY<- cor(difdat$X,difdat$Y) -->
+<!-- numer<- relX*varX + relY*varY - 2*corXY*sX*sY -->
+<!-- denom<- varX + varY - 2*corXY*sX*sY -->
+<!-- relDif<- numer/denom -->
+<!-- relDif -->
+<!-- rel_differ <- function(rel_x, rel_y, var_x, var_y, cor_xy){ -->
+<!--   sX<-   sqrt(var_x) -->
+<!--   sY<-   sqrt(var_y) -->
+<!--   numer <- rel_x*var_x + rel_y*var_y - 2*cor_xy*sX*sY -->
+<!--   denom <- var_x + var_y - 2*cor_xy*sX*sY -->
+<!--   relDif<- numer/denom -->
+<!--   round(relDif, 3) -->
+<!-- } -->
+<!-- rel_differ(.80, .90, 3, 5, .20) -->
+<!-- rel_differ(.80, .90, 3, 5, .40) -->
+<!-- rel_differ(.80, .90, 3, 5, .60) -->
+<!-- rel_differ(.953, .926, var(difdat$X), var(difdat$Y), cor(difdat$X, difdat$Y) ) -->
+<!-- ``` -->
+
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="reliability.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="references.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

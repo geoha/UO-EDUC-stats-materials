@@ -1,0 +1,2818 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 11 Generalizability Theory | Using R for Measurement in the Social Sciences</title>
+  <meta name="description" content="Provides example R code to accompany the learning of measurement concepts." />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 11 Generalizability Theory | Using R for Measurement in the Social Sciences" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="Provides example R code to accompany the learning of measurement concepts." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 11 Generalizability Theory | Using R for Measurement in the Social Sciences" />
+  
+  <meta name="twitter:description" content="Provides example R code to accompany the learning of measurement concepts." />
+  
+
+<meta name="author" content="George M. Harrison  University of Hawai‘i at Mānoa, College of Education" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="interrater.html"/>
+<link rel="next" href="efa.html"/>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<link href="libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0/anchor-sections.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+<link href="libs/bsTable-3.3.7/bootstrapTable.min.css" rel="stylesheet" />
+<script src="libs/bsTable-3.3.7/bootstrapTable.js"></script>
+
+
+<style type="text/css">
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Introduction</a></li>
+<li class="chapter" data-level="1" data-path="trans.html"><a href="trans.html"><i class="fa fa-check"></i><b>1</b> Score Transformations</a><ul>
+<li class="chapter" data-level="1.1" data-path="trans.html"><a href="trans.html#percentiles-percentile-ranks-and-normalized-scores"><i class="fa fa-check"></i><b>1.1</b> Percentiles, percentile ranks, and normalized scores</a></li>
+<li class="chapter" data-level="1.2" data-path="trans.html"><a href="trans.html#run-of-the-mill-z-scores"><i class="fa fa-check"></i><b>1.2</b> Run-of-the-mill Z scores</a></li>
+<li class="chapter" data-level="1.3" data-path="trans.html"><a href="trans.html#extra-optional-stuff"><i class="fa fa-check"></i><b>1.3</b> Extra optional stuff</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="var-cov-cor.html"><a href="var-cov-cor.html"><i class="fa fa-check"></i><b>2</b> Variance, Covariance, and Correlation</a><ul>
+<li class="chapter" data-level="2.1" data-path="var-cov-cor.html"><a href="var-cov-cor.html#correlation"><i class="fa fa-check"></i><b>2.1</b> Correlation</a><ul>
+<li class="chapter" data-level="2.1.1" data-path="var-cov-cor.html"><a href="var-cov-cor.html#estimating-correlation-as-a-statistic"><i class="fa fa-check"></i><b>2.1.1</b> Estimating correlation as a statistic</a></li>
+<li class="chapter" data-level="2.1.2" data-path="var-cov-cor.html"><a href="var-cov-cor.html#creating-a-correlation-matrix"><i class="fa fa-check"></i><b>2.1.2</b> Creating a correlation matrix</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="var-cov-cor.html"><a href="var-cov-cor.html#variance"><i class="fa fa-check"></i><b>2.2</b> Variance</a></li>
+<li class="chapter" data-level="2.3" data-path="var-cov-cor.html"><a href="var-cov-cor.html#covariance"><i class="fa fa-check"></i><b>2.3</b> Covariance</a><ul>
+<li class="chapter" data-level="2.3.1" data-path="var-cov-cor.html"><a href="var-cov-cor.html#creating-a-variance-covariance-matrix"><i class="fa fa-check"></i><b>2.3.1</b> Creating a variance-covariance matrix</a></li>
+<li class="chapter" data-level="2.3.2" data-path="var-cov-cor.html"><a href="var-cov-cor.html#using-the-n-denominator"><i class="fa fa-check"></i><b>2.3.2</b> Using the <em>n</em> denominator</a></li>
+<li class="chapter" data-level="2.3.3" data-path="var-cov-cor.html"><a href="var-cov-cor.html#extra-understanding-for-use-in-classical-test-theory"><i class="fa fa-check"></i><b>2.3.3</b> Extra understanding, for use in classical test theory</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="var-cov-cor.html"><a href="var-cov-cor.html#practice"><i class="fa fa-check"></i><b>2.4</b> Practice</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="custfuncts.html"><a href="custfuncts.html"><i class="fa fa-check"></i><b>3</b> Creating Custom Functions</a><ul>
+<li class="chapter" data-level="3.1" data-path="custfuncts.html"><a href="custfuncts.html#using-our-function-on-multiple-variables"><i class="fa fa-check"></i><b>3.1</b> Using our function on multiple variables</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="packs.html"><a href="packs.html"><i class="fa fa-check"></i><b>4</b> Using Packages</a><ul>
+<li class="chapter" data-level="4.1" data-path="packs.html"><a href="packs.html#an-example-using-the-hmisc-package-for-correlation"><i class="fa fa-check"></i><b>4.1</b> An example: Using the <code>Hmisc</code> package for correlation</a></li>
+<li class="chapter" data-level="4.2" data-path="packs.html"><a href="packs.html#tidyverse_intro"><i class="fa fa-check"></i><b>4.2</b> Using Tidyverse packages</a><ul>
+<li class="chapter" data-level="4.2.1" data-path="packs.html"><a href="packs.html#piping_intro"><i class="fa fa-check"></i><b>4.2.1</b> Piping</a></li>
+<li class="chapter" data-level="4.2.2" data-path="packs.html"><a href="packs.html#saving-our-output-as-a-csv-file"><i class="fa fa-check"></i><b>4.2.2</b> Saving our output as a CSV file</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="regress.html"><a href="regress.html"><i class="fa fa-check"></i><b>5</b> Estimating Regression</a><ul>
+<li class="chapter" data-level="5.1" data-path="regress.html"><a href="regress.html#the-lm-function"><i class="fa fa-check"></i><b>5.1</b> The <code>lm()</code> function</a></li>
+<li class="chapter" data-level="5.2" data-path="regress.html"><a href="regress.html#using-the-regression-parameters-for-prediction"><i class="fa fa-check"></i><b>5.2</b> Using the regression parameters for prediction</a></li>
+<li class="chapter" data-level="5.3" data-path="regress.html"><a href="regress.html#model-error-variance-and-a-peek-into-classical-test-theory"><i class="fa fa-check"></i><b>5.3</b> Model error variance and a peek into classical test theory</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="graphing.html"><a href="graphing.html"><i class="fa fa-check"></i><b>6</b> Graphing</a><ul>
+<li class="chapter" data-level="6.1" data-path="graphing.html"><a href="graphing.html#using-base-r"><i class="fa fa-check"></i><b>6.1</b> Using Base R</a></li>
+<li class="chapter" data-level="6.2" data-path="graphing.html"><a href="graphing.html#using-the-ggplot2-package"><i class="fa fa-check"></i><b>6.2</b> Using the <code>ggplot2</code> package</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="itemans.html"><a href="itemans.html"><i class="fa fa-check"></i><b>7</b> Item Scoring and Item Analysis</a><ul>
+<li class="chapter" data-level="7.1" data-path="itemans.html"><a href="itemans.html#multiple-choice-raw-data-and-their-answer-key"><i class="fa fa-check"></i><b>7.1</b> Multiple-choice raw data and their answer key</a></li>
+<li class="chapter" data-level="7.2" data-path="itemans.html"><a href="itemans.html#scoring-the-responses"><i class="fa fa-check"></i><b>7.2</b> Scoring the responses</a></li>
+<li class="chapter" data-level="7.3" data-path="itemans.html"><a href="itemans.html#item-analysis-with-dichotomous-data"><i class="fa fa-check"></i><b>7.3</b> Item analysis with dichotomous data</a></li>
+<li class="chapter" data-level="7.4" data-path="itemans.html"><a href="itemans.html#distractor-analysis"><i class="fa fa-check"></i><b>7.4</b> Distractor analysis</a></li>
+<li class="chapter" data-level="7.5" data-path="itemans.html"><a href="itemans.html#item-analysis-with-polytomous-data"><i class="fa fa-check"></i><b>7.5</b> Item analysis with polytomous data</a><ul>
+<li class="chapter" data-level="7.5.1" data-path="itemans.html"><a href="itemans.html#partial-credit-data"><i class="fa fa-check"></i><b>7.5.1</b> Partial-credit data</a></li>
+<li class="chapter" data-level="7.5.2" data-path="itemans.html"><a href="itemans.html#LikertFunc"><i class="fa fa-check"></i><b>7.5.2</b> Item functioning of Likert-type scale items</a></li>
+<li class="chapter" data-level="7.5.3" data-path="itemans.html"><a href="itemans.html#graphing-frequencies-of-category-responses"><i class="fa fa-check"></i><b>7.5.3</b> Graphing frequencies of category responses</a></li>
+</ul></li>
+<li class="chapter" data-level="7.6" data-path="itemans.html"><a href="itemans.html#optional-advanced-graphics-stuff"><i class="fa fa-check"></i><b>7.6</b> Optional advanced graphics stuff</a><ul>
+<li class="chapter" data-level="7.6.1" data-path="itemans.html"><a href="itemans.html#creating-a-facet-plot-with-ggplot2"><i class="fa fa-check"></i><b>7.6.1</b> Creating a facet plot with <code>GGplot2</code></a></li>
+<li class="chapter" data-level="7.6.2" data-path="itemans.html"><a href="itemans.html#the-base-r-approach-to-creating-a-facet-plot"><i class="fa fa-check"></i><b>7.6.2</b> The Base R approach to creating a facet plot</a></li>
+</ul></li>
+<li class="chapter" data-level="7.7" data-path="itemans.html"><a href="itemans.html#additional-functions-for-examining-category-frequencies"><i class="fa fa-check"></i><b>7.7</b> Additional functions for examining category frequencies</a><ul>
+<li class="chapter" data-level="7.7.1" data-path="itemans.html"><a href="itemans.html#using-the-table-function-and-the-lapply-function"><i class="fa fa-check"></i><b>7.7.1</b> Using the <code>table()</code> function and the <code>lapply()</code> function</a></li>
+<li class="chapter" data-level="7.7.2" data-path="itemans.html"><a href="itemans.html#factors"><i class="fa fa-check"></i><b>7.7.2</b> Specifying the data as categorical</a></li>
+<li class="chapter" data-level="7.7.3" data-path="itemans.html"><a href="itemans.html#orderedfunc"><i class="fa fa-check"></i><b>7.7.3</b> Ordered factors</a></li>
+</ul></li>
+<li class="chapter" data-level="7.8" data-path="itemans.html"><a href="itemans.html#conclusion"><i class="fa fa-check"></i><b>7.8</b> Conclusion</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="CTT.html"><a href="CTT.html"><i class="fa fa-check"></i><b>8</b> Classical Test Theory</a><ul>
+<li class="chapter" data-level="8.1" data-path="CTT.html"><a href="CTT.html#true-score-model"><i class="fa fa-check"></i><b>8.1</b> True score model</a></li>
+<li class="chapter" data-level="8.2" data-path="CTT.html"><a href="CTT.html#assumptions-of-the-ctt-true-score-model"><i class="fa fa-check"></i><b>8.2</b> Assumptions of the CTT true score model</a></li>
+<li class="chapter" data-level="8.3" data-path="CTT.html"><a href="CTT.html#reliability-and-the-variance-of-the-composite-score"><i class="fa fa-check"></i><b>8.3</b> Reliability and the variance of the composite score</a><ul>
+<li class="chapter" data-level="8.3.1" data-path="CTT.html"><a href="CTT.html#reliability-as-the-ratio-of-true-score-variance-to-observed-score-variance"><i class="fa fa-check"></i><b>8.3.1</b> Reliability as the ratio of true-score variance to observed-score variance</a></li>
+<li class="chapter" data-level="8.3.2" data-path="CTT.html"><a href="CTT.html#reliability-as-the-lack-of-error-variance"><i class="fa fa-check"></i><b>8.3.2</b> Reliability as the lack of error variance</a></li>
+<li class="chapter" data-level="8.3.3" data-path="CTT.html"><a href="CTT.html#reliability-as-the-squared-correlation-between-observed-and-true-scores"><i class="fa fa-check"></i><b>8.3.3</b> Reliability as the squared correlation between observed and true scores</a></li>
+<li class="chapter" data-level="8.3.4" data-path="CTT.html"><a href="CTT.html#reliability-as-the-correlation-between-scores-on-parallel-tests"><i class="fa fa-check"></i><b>8.3.4</b> Reliability as the correlation between scores on parallel tests</a></li>
+</ul></li>
+<li class="chapter" data-level="8.4" data-path="CTT.html"><a href="CTT.html#four-ctt-models"><i class="fa fa-check"></i><b>8.4</b> Four CTT models</a><ul>
+<li class="chapter" data-level="8.4.1" data-path="CTT.html"><a href="CTT.html#the-parallel-model"><i class="fa fa-check"></i><b>8.4.1</b> The parallel model</a></li>
+<li class="chapter" data-level="8.4.2" data-path="CTT.html"><a href="CTT.html#the-tau-equivalent-model"><i class="fa fa-check"></i><b>8.4.2</b> The tau-equivalent model</a></li>
+<li class="chapter" data-level="8.4.3" data-path="CTT.html"><a href="CTT.html#the-essentially-tau-equivalent-model"><i class="fa fa-check"></i><b>8.4.3</b> The essentially tau-equivalent model</a></li>
+<li class="chapter" data-level="8.4.4" data-path="CTT.html"><a href="CTT.html#the-congeneric-model"><i class="fa fa-check"></i><b>8.4.4</b> The congeneric model</a></li>
+<li class="chapter" data-level="8.4.5" data-path="CTT.html"><a href="CTT.html#implications-of-each-model"><i class="fa fa-check"></i><b>8.4.5</b> Implications of each model</a></li>
+</ul></li>
+<li class="chapter" data-level="8.5" data-path="CTT.html"><a href="CTT.html#estimating-an-observations-true-score"><i class="fa fa-check"></i><b>8.5</b> Estimating an observation’s true score</a></li>
+<li class="chapter" data-level="8.6" data-path="CTT.html"><a href="CTT.html#the-standard-error-of-measurement"><i class="fa fa-check"></i><b>8.6</b> The standard error of measurement</a><ul>
+<li class="chapter" data-level="8.6.1" data-path="CTT.html"><a href="CTT.html#estimating-the-confidence-interval-of-a-true-score"><i class="fa fa-check"></i><b>8.6.1</b> Estimating the confidence interval of a true score</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="reliability.html"><a href="reliability.html"><i class="fa fa-check"></i><b>9</b> Internal-consistency Reliability</a><ul>
+<li class="chapter" data-level="9.1" data-path="reliability.html"><a href="reliability.html#coefficient-alpha"><i class="fa fa-check"></i><b>9.1</b> Coefficient alpha</a><ul>
+<li class="chapter" data-level="9.1.1" data-path="reliability.html"><a href="reliability.html#how-coefficient-alpha-works"><i class="fa fa-check"></i><b>9.1.1</b> How coefficient alpha works</a></li>
+</ul></li>
+<li class="chapter" data-level="9.2" data-path="reliability.html"><a href="reliability.html#using-r-to-estimate-internal-consistency-reliability-coefficient"><i class="fa fa-check"></i><b>9.2</b> Using R to estimate internal-consistency reliability coefficient</a><ul>
+<li class="chapter" data-level="9.2.1" data-path="reliability.html"><a href="reliability.html#a-demonstration-of-coefficient-alpha-using-hypothetical-data"><i class="fa fa-check"></i><b>9.2.1</b> A demonstration of coefficient alpha using hypothetical data</a></li>
+<li class="chapter" data-level="9.2.2" data-path="reliability.html"><a href="reliability.html#using-r-packages-to-calculate-alpha-and-more"><i class="fa fa-check"></i><b>9.2.2</b> Using R packages to calculate alpha and more</a></li>
+</ul></li>
+<li class="chapter" data-level="9.3" data-path="reliability.html"><a href="reliability.html#spearman-brown-prophecy-formula"><i class="fa fa-check"></i><b>9.3</b> Spearman-Brown prophecy formula</a><ul>
+<li class="chapter" data-level="9.3.1" data-path="reliability.html"><a href="reliability.html#calculation"><i class="fa fa-check"></i><b>9.3.1</b> Calculation</a></li>
+<li class="chapter" data-level="9.3.2" data-path="reliability.html"><a href="reliability.html#using-the-ctt-package"><i class="fa fa-check"></i><b>9.3.2</b> Using the CTT package</a></li>
+</ul></li>
+<li class="chapter" data-level="9.4" data-path="reliability.html"><a href="reliability.html#standardized-coefficient-alpha"><i class="fa fa-check"></i><b>9.4</b> Standardized coefficient alpha</a><ul>
+<li class="chapter" data-level="9.4.1" data-path="reliability.html"><a href="reliability.html#calculation-of-standardized-coefficient-alpha"><i class="fa fa-check"></i><b>9.4.1</b> Calculation of standardized coefficient alpha</a></li>
+</ul></li>
+<li class="chapter" data-level="9.5" data-path="reliability.html"><a href="reliability.html#reliability-of-difference-scores"><i class="fa fa-check"></i><b>9.5</b> Reliability of difference scores</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="interrater.html"><a href="interrater.html"><i class="fa fa-check"></i><b>10</b> Inter-rater and Test-retest Reliability</a><ul>
+<li class="chapter" data-level="10.1" data-path="interrater.html"><a href="interrater.html#coefficient-kappa-for-estimating-agreement-with-nominal-data"><i class="fa fa-check"></i><b>10.1</b> Coefficient kappa for estimating agreement with nominal data</a><ul>
+<li class="chapter" data-level="10.1.1" data-path="interrater.html"><a href="interrater.html#using-the-irr-package-to-estimate-kappa"><i class="fa fa-check"></i><b>10.1.1</b> Using the irr package to estimate kappa</a></li>
+<li class="chapter" data-level="10.1.2" data-path="interrater.html"><a href="interrater.html#limitations-of-kappa"><i class="fa fa-check"></i><b>10.1.2</b> Limitations of kappa</a></li>
+</ul></li>
+<li class="chapter" data-level="10.2" data-path="interrater.html"><a href="interrater.html#intraclass-correlation-coefficients-for-estimating-consistency-and-agreement"><i class="fa fa-check"></i><b>10.2</b> Intraclass correlation coefficients for estimating consistency and agreement</a><ul>
+<li class="chapter" data-level="10.2.1" data-path="interrater.html"><a href="interrater.html#example-of-an-icc-for-consistency"><i class="fa fa-check"></i><b>10.2.1</b> Example of an ICC for consistency</a></li>
+<li class="chapter" data-level="10.2.2" data-path="interrater.html"><a href="interrater.html#example-of-an-icc-for-agreement"><i class="fa fa-check"></i><b>10.2.2</b> Example of an ICC for agreement</a></li>
+<li class="chapter" data-level="10.2.3" data-path="interrater.html"><a href="interrater.html#two-way-and-one-way-icc-models"><i class="fa fa-check"></i><b>10.2.3</b> Two-way and one-way ICC models</a></li>
+<li class="chapter" data-level="10.2.4" data-path="interrater.html"><a href="interrater.html#single-versus-average-ratings"><i class="fa fa-check"></i><b>10.2.4</b> Single versus average ratings</a></li>
+<li class="chapter" data-level="10.2.5" data-path="interrater.html"><a href="interrater.html#all-of-the-equations"><i class="fa fa-check"></i><b>10.2.5</b> All of the equations</a></li>
+<li class="chapter" data-level="10.2.6" data-path="interrater.html"><a href="interrater.html#recommendations-on-reporting-iccs"><i class="fa fa-check"></i><b>10.2.6</b> Recommendations on reporting ICCs</a></li>
+</ul></li>
+<li class="chapter" data-level="10.3" data-path="interrater.html"><a href="interrater.html#using-the-irr-package"><i class="fa fa-check"></i><b>10.3</b> Using the irr package</a></li>
+<li class="chapter" data-level="10.4" data-path="interrater.html"><a href="interrater.html#test-retest-reliability"><i class="fa fa-check"></i><b>10.4</b> Test-retest reliability</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="gtheory.html"><a href="gtheory.html"><i class="fa fa-check"></i><b>11</b> Generalizability Theory</a><ul>
+<li class="chapter" data-level="11.1" data-path="gtheory.html"><a href="gtheory.html#a-single-facet-design"><i class="fa fa-check"></i><b>11.1</b> A single facet design</a><ul>
+<li class="chapter" data-level="11.1.1" data-path="gtheory.html"><a href="gtheory.html#g-study"><i class="fa fa-check"></i><b>11.1.1</b> G-study</a></li>
+<li class="chapter" data-level="11.1.2" data-path="gtheory.html"><a href="gtheory.html#d-study"><i class="fa fa-check"></i><b>11.1.2</b> D-study</a></li>
+<li class="chapter" data-level="11.1.3" data-path="gtheory.html"><a href="gtheory.html#using-the-vca-package"><i class="fa fa-check"></i><b>11.1.3</b> Using the VCA package</a></li>
+<li class="chapter" data-level="11.1.4" data-path="gtheory.html"><a href="gtheory.html#summary-of-our-one-facet-fully-crossed-design"><i class="fa fa-check"></i><b>11.1.4</b> Summary of our one-facet fully-crossed design</a></li>
+</ul></li>
+<li class="chapter" data-level="11.2" data-path="gtheory.html"><a href="gtheory.html#a-two-facet-design"><i class="fa fa-check"></i><b>11.2</b> A two facet design</a><ul>
+<li class="chapter" data-level="11.2.1" data-path="gtheory.html"><a href="gtheory.html#rand2facet"><i class="fa fa-check"></i><b>11.2.1</b> G-study with a two facet design</a></li>
+<li class="chapter" data-level="11.2.2" data-path="gtheory.html"><a href="gtheory.html#d-study-with-a-two-facet-design"><i class="fa fa-check"></i><b>11.2.2</b> D-study with a two facet design</a></li>
+</ul></li>
+<li class="chapter" data-level="11.3" data-path="gtheory.html"><a href="gtheory.html#nested-designs"><i class="fa fa-check"></i><b>11.3</b> Nested designs</a><ul>
+<li class="chapter" data-level="11.3.1" data-path="gtheory.html"><a href="gtheory.html#one-facet-nested-design"><i class="fa fa-check"></i><b>11.3.1</b> One-facet nested design</a></li>
+<li class="chapter" data-level="11.3.2" data-path="gtheory.html"><a href="gtheory.html#two-facet-nested-design"><i class="fa fa-check"></i><b>11.3.2</b> Two-facet nested design</a></li>
+<li class="chapter" data-level="11.3.3" data-path="gtheory.html"><a href="gtheory.html#g-study-with-a-two-facet-items-nested-within-occasions-design"><i class="fa fa-check"></i><b>11.3.3</b> G-study with a two-facet items-nested-within-occasions design</a></li>
+<li class="chapter" data-level="11.3.4" data-path="gtheory.html"><a href="gtheory.html#d-study-with-a-two-facet-items-nested-within-occasions-design"><i class="fa fa-check"></i><b>11.3.4</b> D-study with a two-facet items-nested-within-occasions design</a></li>
+</ul></li>
+<li class="chapter" data-level="11.4" data-path="gtheory.html"><a href="gtheory.html#fixed-facets"><i class="fa fa-check"></i><b>11.4</b> Fixed facets</a></li>
+<li class="chapter" data-level="11.5" data-path="gtheory.html"><a href="gtheory.html#summary"><i class="fa fa-check"></i><b>11.5</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="efa.html"><a href="efa.html"><i class="fa fa-check"></i><b>12</b> Exploratory Factor Analysis</a><ul>
+<li class="chapter" data-level="12.1" data-path="efa.html"><a href="efa.html#preparatory-steps"><i class="fa fa-check"></i><b>12.1</b> Preparatory steps</a><ul>
+<li class="chapter" data-level="12.1.1" data-path="efa.html"><a href="efa.html#examining-the-data"><i class="fa fa-check"></i><b>12.1.1</b> Examining the data</a></li>
+<li class="chapter" data-level="12.1.2" data-path="efa.html"><a href="efa.html#addressing-assumptions"><i class="fa fa-check"></i><b>12.1.2</b> Addressing assumptions</a></li>
+<li class="chapter" data-level="12.1.3" data-path="efa.html"><a href="efa.html#determining-factorability"><i class="fa fa-check"></i><b>12.1.3</b> Determining factorability</a></li>
+<li class="chapter" data-level="12.1.4" data-path="efa.html"><a href="efa.html#determining-how-many-factors-to-retain"><i class="fa fa-check"></i><b>12.1.4</b> Determining how many factors to retain</a></li>
+</ul></li>
+<li class="chapter" data-level="12.2" data-path="efa.html"><a href="efa.html#factor-analysis-with-raw-data"><i class="fa fa-check"></i><b>12.2</b> Factor analysis with raw data</a><ul>
+<li class="chapter" data-level="12.2.1" data-path="efa.html"><a href="efa.html#examining-pattern-coefficients-the-factor-loadings"><i class="fa fa-check"></i><b>12.2.1</b> Examining pattern coefficients (the factor loadings)</a></li>
+</ul></li>
+<li class="chapter" data-level="12.3" data-path="efa.html"><a href="efa.html#factor-analysis-with-correlation-data"><i class="fa fa-check"></i><b>12.3</b> Factor analysis with correlation data</a><ul>
+<li class="chapter" data-level="12.3.1" data-path="efa.html"><a href="efa.html#setting-up-the-data"><i class="fa fa-check"></i><b>12.3.1</b> Setting up the data</a></li>
+<li class="chapter" data-level="12.3.2" data-path="efa.html"><a href="efa.html#preparatory-steps-1"><i class="fa fa-check"></i><b>12.3.2</b> Preparatory steps</a></li>
+<li class="chapter" data-level="12.3.3" data-path="efa.html"><a href="efa.html#performing-the-factor-analysis"><i class="fa fa-check"></i><b>12.3.3</b> Performing the factor analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="12.4" data-path="efa.html"><a href="efa.html#efa-with-categorical-data"><i class="fa fa-check"></i><b>12.4</b> EFA with categorical data</a><ul>
+<li class="chapter" data-level="12.4.1" data-path="efa.html"><a href="efa.html#describing-categorical-data"><i class="fa fa-check"></i><b>12.4.1</b> Describing categorical data</a></li>
+<li class="chapter" data-level="12.4.2" data-path="efa.html"><a href="efa.html#getting-the-correlation-matrix"><i class="fa fa-check"></i><b>12.4.2</b> Getting the correlation matrix</a></li>
+<li class="chapter" data-level="12.4.3" data-path="efa.html"><a href="efa.html#appraising-the-factorability-and-determining-the-number-of-factors-to-retain"><i class="fa fa-check"></i><b>12.4.3</b> Appraising the factorability and determining the number of factors to retain</a></li>
+<li class="chapter" data-level="12.4.4" data-path="efa.html"><a href="efa.html#factor-analysis-on-the-polychoric-matrix"><i class="fa fa-check"></i><b>12.4.4</b> Factor analysis on the polychoric matrix</a></li>
+<li class="chapter" data-level="12.4.5" data-path="efa.html"><a href="efa.html#the-polycor-package"><i class="fa fa-check"></i><b>12.4.5</b> The polycor package</a></li>
+</ul></li>
+<li class="chapter" data-level="12.5" data-path="efa.html"><a href="efa.html#factor-scores"><i class="fa fa-check"></i><b>12.5</b> Factor scores</a><ul>
+<li class="chapter" data-level="12.5.1" data-path="efa.html"><a href="efa.html#transforming-factor-scores"><i class="fa fa-check"></i><b>12.5.1</b> Transforming factor scores</a></li>
+</ul></li>
+<li class="chapter" data-level="12.6" data-path="efa.html"><a href="efa.html#internal-consistency-reliability-of-the-scores"><i class="fa fa-check"></i><b>12.6</b> Internal consistency reliability of the scores</a></li>
+<li class="chapter" data-level="12.7" data-path="efa.html"><a href="efa.html#practice-1"><i class="fa fa-check"></i><b>12.7</b> Practice</a></li>
+<li class="chapter" data-level="12.8" data-path="efa.html"><a href="efa.html#summary-1"><i class="fa fa-check"></i><b>12.8</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="cfa.html"><a href="cfa.html"><i class="fa fa-check"></i><b>13</b> Confirmatory Factor Analysis</a><ul>
+<li class="chapter" data-level="13.1" data-path="cfa.html"><a href="cfa.html#preparatory-steps-2"><i class="fa fa-check"></i><b>13.1</b> Preparatory steps</a><ul>
+<li class="chapter" data-level="13.1.1" data-path="cfa.html"><a href="cfa.html#addressing-assumptions-1"><i class="fa fa-check"></i><b>13.1.1</b> Addressing assumptions</a></li>
+</ul></li>
+<li class="chapter" data-level="13.2" data-path="cfa.html"><a href="cfa.html#fitting-a-cfa-model"><i class="fa fa-check"></i><b>13.2</b> Fitting a CFA model</a><ul>
+<li class="chapter" data-level="13.2.1" data-path="cfa.html"><a href="cfa.html#making-sure-the-model-was-correctly-estimated"><i class="fa fa-check"></i><b>13.2.1</b> Making sure the model was correctly estimated</a></li>
+<li class="chapter" data-level="13.2.2" data-path="cfa.html"><a href="cfa.html#evaluating-the-model-fit"><i class="fa fa-check"></i><b>13.2.2</b> Evaluating the model fit</a></li>
+<li class="chapter" data-level="13.2.3" data-path="cfa.html"><a href="cfa.html#interpretting-the-parameter-estimates"><i class="fa fa-check"></i><b>13.2.3</b> Interpretting the parameter estimates</a></li>
+</ul></li>
+<li class="chapter" data-level="13.3" data-path="cfa.html"><a href="cfa.html#further-inspecting-our-model"><i class="fa fa-check"></i><b>13.3</b> Further inspecting our model</a><ul>
+<li class="chapter" data-level="13.3.1" data-path="cfa.html"><a href="cfa.html#looking-at-the-models-covariance-matrices"><i class="fa fa-check"></i><b>13.3.1</b> Looking at the model’s covariance matrices</a></li>
+<li class="chapter" data-level="13.3.2" data-path="cfa.html"><a href="cfa.html#further-inspecting-our-models-parameters"><i class="fa fa-check"></i><b>13.3.2</b> Further inspecting our model’s parameters</a></li>
+</ul></li>
+<li class="chapter" data-level="13.4" data-path="cfa.html"><a href="cfa.html#using-alternative-model-specifications"><i class="fa fa-check"></i><b>13.4</b> Using alternative model specifications</a><ul>
+<li class="chapter" data-level="13.4.1" data-path="cfa.html"><a href="cfa.html#rescaling-the-factors-to-be-standardized"><i class="fa fa-check"></i><b>13.4.1</b> Rescaling the factors to be standardized</a></li>
+<li class="chapter" data-level="13.4.2" data-path="cfa.html"><a href="cfa.html#specifying-a-competing-nested-model"><i class="fa fa-check"></i><b>13.4.2</b> Specifying a competing, nested, model</a></li>
+</ul></li>
+<li class="chapter" data-level="13.5" data-path="cfa.html"><a href="cfa.html#conducting-model-comparisons"><i class="fa fa-check"></i><b>13.5</b> Conducting model comparisons</a></li>
+<li class="chapter" data-level="13.6" data-path="cfa.html"><a href="cfa.html#estimating-factor-scores"><i class="fa fa-check"></i><b>13.6</b> Estimating factor scores</a></li>
+<li class="chapter" data-level="13.7" data-path="cfa.html"><a href="cfa.html#internal-consistency-reliability-with-cfa"><i class="fa fa-check"></i><b>13.7</b> Internal consistency reliability with CFA</a></li>
+<li class="chapter" data-level="13.8" data-path="cfa.html"><a href="cfa.html#testing-congeneric-essentially-tau-equivalent-tau-equivalent-and-parallel-models"><i class="fa fa-check"></i><b>13.8</b> Testing congeneric, essentially tau-equivalent, tau-equivalent, and parallel models</a><ul>
+<li class="chapter" data-level="13.8.1" data-path="cfa.html"><a href="cfa.html#congeneric-model-specification"><i class="fa fa-check"></i><b>13.8.1</b> Congeneric model specification</a></li>
+<li class="chapter" data-level="13.8.2" data-path="cfa.html"><a href="cfa.html#essentially-tau-equivalent-model-specification"><i class="fa fa-check"></i><b>13.8.2</b> Essentially tau-equivalent model specification</a></li>
+<li class="chapter" data-level="13.8.3" data-path="cfa.html"><a href="cfa.html#tau-equivalent-model-specification"><i class="fa fa-check"></i><b>13.8.3</b> Tau-equivalent model specification</a></li>
+<li class="chapter" data-level="13.8.4" data-path="cfa.html"><a href="cfa.html#strictly-parallel-model-specification"><i class="fa fa-check"></i><b>13.8.4</b> Strictly parallel model specification</a></li>
+</ul></li>
+<li class="chapter" data-level="13.9" data-path="cfa.html"><a href="cfa.html#cfa-with-categorical-data"><i class="fa fa-check"></i><b>13.9</b> CFA with categorical data</a><ul>
+<li class="chapter" data-level="13.9.1" data-path="cfa.html"><a href="cfa.html#using-data-from-an-r-package"><i class="fa fa-check"></i><b>13.9.1</b> Using data from an R package</a></li>
+<li class="chapter" data-level="13.9.2" data-path="cfa.html"><a href="cfa.html#preparing-the-data"><i class="fa fa-check"></i><b>13.9.2</b> Preparing the data</a></li>
+<li class="chapter" data-level="13.9.3" data-path="cfa.html"><a href="cfa.html#describing-the-data"><i class="fa fa-check"></i><b>13.9.3</b> Describing the data</a></li>
+<li class="chapter" data-level="13.9.4" data-path="cfa.html"><a href="cfa.html#fitting-the-cfa-model"><i class="fa fa-check"></i><b>13.9.4</b> Fitting the CFA model</a></li>
+</ul></li>
+<li class="chapter" data-level="13.10" data-path="cfa.html"><a href="cfa.html#additional-manipulation-of-the-data"><i class="fa fa-check"></i><b>13.10</b> Additional manipulation of the data</a></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="irm.html"><a href="irm.html"><i class="fa fa-check"></i><b>14</b> Item Response Modeling</a><ul>
+<li class="chapter" data-level="14.1" data-path="irm.html"><a href="irm.html#on-fitting-linear-regression-models-to-dichotomous-data"><i class="fa fa-check"></i><b>14.1</b> On fitting linear regression models to dichotomous data</a></li>
+<li class="chapter" data-level="14.2" data-path="irm.html"><a href="irm.html#logistic-item-response-models-with-dichotomous-data"><i class="fa fa-check"></i><b>14.2</b> Logistic item response models with dichotomous data</a><ul>
+<li class="chapter" data-level="14.2.1" data-path="irm.html"><a href="irm.html#the-rasch-and-1pl-models"><i class="fa fa-check"></i><b>14.2.1</b> The Rasch and 1PL models</a></li>
+<li class="chapter" data-level="14.2.2" data-path="irm.html"><a href="irm.html#the-2pl-model"><i class="fa fa-check"></i><b>14.2.2</b> The 2PL model</a></li>
+<li class="chapter" data-level="14.2.3" data-path="irm.html"><a href="irm.html#the-3pl-model"><i class="fa fa-check"></i><b>14.2.3</b> The 3PL model</a></li>
+<li class="chapter" data-level="14.2.4" data-path="irm.html"><a href="irm.html#item-response-functions"><i class="fa fa-check"></i><b>14.2.4</b> Item response functions</a></li>
+<li class="chapter" data-level="14.2.5" data-path="irm.html"><a href="irm.html#test-characteristic-curve"><i class="fa fa-check"></i><b>14.2.5</b> Test characteristic curve</a></li>
+<li class="chapter" data-level="14.2.6" data-path="irm.html"><a href="irm.html#information-and-standard-error"><i class="fa fa-check"></i><b>14.2.6</b> Information and standard error</a></li>
+<li class="chapter" data-level="14.2.7" data-path="irm.html"><a href="irm.html#plotting-information-and-the-standard-error-of-measurement"><i class="fa fa-check"></i><b>14.2.7</b> Plotting information and the standard error of measurement</a></li>
+</ul></li>
+<li class="chapter" data-level="14.3" data-path="irm.html"><a href="irm.html#fitting-a-1pl-model"><i class="fa fa-check"></i><b>14.3</b> Fitting a 1PL model</a></li>
+<li class="chapter" data-level="14.4" data-path="irm.html"><a href="irm.html#checking-assumptions"><i class="fa fa-check"></i><b>14.4</b> Checking assumptions</a><ul>
+<li class="chapter" data-level="14.4.1" data-path="irm.html"><a href="irm.html#unidimensionality"><i class="fa fa-check"></i><b>14.4.1</b> Unidimensionality</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Using R for Measurement in the Social Sciences</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="gtheory" class="section level1">
+<h1><span class="header-section-number">Chapter 11</span> Generalizability Theory</h1>
+<p>In this chapter, we expand our understanding of reliability to include multiple factors, or facets as they are called in the generalizability-theory framework <span class="citation">(Brennan, <a href="#ref-brennan_generalizability_2001" role="doc-biblioref">2001</a>; Shavelson &amp; Webb, <a href="#ref-jaeger_generalizability_1991" role="doc-biblioref">1991</a>)</span>. Up to now, we have only addressed persons’ scores across items or across raters. In the last chapter, the raters provided a single rating for each person. However, in many situations, raters provide a rating for several tasks. In such a design, we have two facets, one for raters and one for tasks, such as items or test-rubric categories. Regular old classical test theory does not account for this complexity. Generalizability theory (G theory) does.</p>
+<p>When we use a G-theory approach, we conduct two steps: a generalizability-study (G-study), and a decision study (D-study). A G-study is for examining the partitioning of variance. A D-study provides information for making decisions (or perhaps confirming decisions) in the operational study—that is, when we use the instrument in practice.</p>
+<p>The results of a <strong>G-study</strong> reveal how much variance in the scores is estimated to be explained by</p>
+<ul>
+<li>the object of measurement (usually persons),</li>
+<li>each of the facets,
+<ul>
+<li>including the interactions among facets, and</li>
+<li>all interactions with the object of measurement except the highest-order interaction, and</li>
+</ul></li>
+<li>error (or residuals), which is confounded with the highest order interaction in the study.</li>
+</ul>
+<p>For a one-facet study, say with raters who score persons, this would be the variance components of</p>
+<ul>
+<li>persons (<span class="math inline">\(\sigma_{p}^2\)</span>),</li>
+<li>raters (<span class="math inline">\(\sigma_{r}^2\)</span>), and</li>
+<li>the person-by-rater interaction confounded with error (<span class="math inline">\(\sigma_{pr,e}^2\)</span>).</li>
+</ul>
+<p>For a two-facet study, say with raters who score persons on several items (or several categories on a rubric), the sources of variation would be</p>
+<ul>
+<li>persons (<span class="math inline">\(\sigma_{p}^2\)</span>),</li>
+<li>raters (<span class="math inline">\(\sigma_{r}^2\)</span>),</li>
+<li>items (<span class="math inline">\(\sigma_{i}^2\)</span>),</li>
+<li>persons-by-raters interaction (<span class="math inline">\(\sigma_{pr}^2\)</span>),</li>
+<li>persons-by-items interaction (<span class="math inline">\(\sigma_{pi}^2\)</span>),</li>
+<li>raters-by-items interaction (<span class="math inline">\(\sigma_{ri}^2\)</span>), and</li>
+<li>the person-by-rater-by-item interaction confounded with error (<span class="math inline">\(\sigma_{pri,e}^2\)</span>).</li>
+</ul>
+<p>This approach to examining the source of variation in scores is one step beyond how we think about variance in CTT, in which only the true-score variance (i.e., that of the object of measurement) and error are of concern. In a G-study, if we have a test with items that vary in difficulty, say if we have some very easy and very difficult items, we can estimate this variance. In CTT, the parallel and tau equivalent models assume that all of the items are of equal difficulty. Realistically, we expect some variation in item difficulty, so we are not usually overly concerned with this facet, though we still seek to have a large proportion of the variance be attributed to differences among the persons.<a href="#fn88" class="footnote-ref" id="fnref88"><sup>88</sup></a></p>
+<p>However, if instead of items we have a rater facet and if we intend to use the scores from these ratings to make criterion-referenced decisions, such as for diagnosis to determine the need for treatment or for judgments about achievement of the level of material learned in a curriculum, we should pay close attention to the proportion of variance that is explained by raters. Some raters may differ in how lenient or stringent they are and if this variation is large, the validity of our interpretations of the scores will be questioned.</p>
+<p>In contrast, if all we are interested in when we interpret the scores is how the persons compare to each other (such as in a performance competition), this variation among raters is of little concern. What will be a concern with both items and raters will be the idiosyncratic person-by-rater or person-by-item variation. If, for example, a particular rater is harsh with a particular person but lenient with other persons, the legitimacy of the scores is at stake. This type of interaction in a one facet design will be confounded with error. In a two-facet design, such as when raters rate persons on several items (or tasks or occasions), we can detect this type of bias in a G-study.</p>
+<p>In a <strong>D-study</strong>, we are either interested in a generalizability coefficient (<span class="math inline">\(G\)</span>) or a phi-coefficient (<span class="math inline">\(\phi\)</span>).<a href="#fn89" class="footnote-ref" id="fnref89"><sup>89</sup></a> A G-coefficient is analogous to reliability in classical test theory and is appropriate when the interpretations of the test scores will concern how the persons rank against each other. In other words, just as is the case with coefficient alpha and the ICC coefficients for consistency (<span class="math inline">\(\text{ICC}_{Ck}\)</span>), the G-coefficient is for norm-referenced interpretations.</p>
+<p>A phi-coefficient is not, strictly speaking, reliability as it concerns agreement in addition to consistency, just as the ICCs for agreement (<span class="math inline">\(\text{ICC}_{A1}\)</span>) do. Because it is not really reliability, the phi-coefficient is sometimes called the <strong><em>dependability index</em></strong>.</p>
+<p>In a D-study, we can also estimate the G- or phi-coefficient if we used a different number of facets. This is analogous to the Spearman Brown prophecy formula in CTT. This is valuable for our decisions in the operational study. For instance, in our pilot-test study with a set of raters, we might discover that our raters vary excessively in their stringency (which would be important for criterion-referenced score interpretations). If we have a set threshold for what an acceptable phi-coefficient should be, and we are below that threshold with our current number of raters, we can estimate how many more raters we need to hire.</p>
+<p>Similar to the ICC with inter-rater reliability and agreement, G-theory uses an ANOVA framework for estimating the variance components. There are two methods for estimating variance components. The first uses the traditional ordinary-least-squares estimation that we employ in a linear model, such as with the <code>lm()</code> function in R. The second uses maximum-likelihood estimation methods to estimate the variance components. We will begin with a single-facet design example, using the typical ANOVA approach. After this, we will practice with multiple-facet designs using the VCA package <span class="citation">(Schuetzenmeister &amp; Dufey, <a href="#ref-R-VCA" role="doc-biblioref">2020</a>)</span>, which uses maximum-likelihood estimation methods.</p>
+<div id="a-single-facet-design" class="section level2">
+<h2><span class="header-section-number">11.1</span> A single facet design</h2>
+<p>Before we try out G theory with two or more facets, let’s see how it operates with a single facet, raters. Let’s use the data from Table 10.2 in Bandalos’ chapter:</p>
+<div class="sourceCode" id="cb360"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb360-1"><a href="gtheory.html#cb360-1"></a>dat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;Week07 Table10.2 Data.csv&quot;</span>)</span>
+<span id="cb360-2"><a href="gtheory.html#cb360-2"></a><span class="kw">str</span>(dat)</span></code></pre></div>
+<pre><code>## &#39;data.frame&#39;:    36 obs. of  3 variables:
+##  $ person: int  1 1 1 2 2 2 3 3 3 4 ...
+##  $ rater : int  1 2 3 1 2 3 1 2 3 1 ...
+##  $ score : int  3 5 4 3 5 5 1 1 2 3 ...</code></pre>
+<p>Notice that these data are in long format already.<a href="#fn90" class="footnote-ref" id="fnref90"><sup>90</sup></a> This is the data shape we need for G theory. Also, notice that the persons and raters are numeric data. Let’s turn these into factor-type variables:</p>
+<div class="sourceCode" id="cb362"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb362-1"><a href="gtheory.html#cb362-1"></a>dat<span class="op">$</span>person &lt;-<span class="st"> </span><span class="kw">factor</span>(dat<span class="op">$</span>person)</span>
+<span id="cb362-2"><a href="gtheory.html#cb362-2"></a>dat<span class="op">$</span>rater  &lt;-<span class="st"> </span><span class="kw">factor</span>(dat<span class="op">$</span>rater )</span>
+<span id="cb362-3"><a href="gtheory.html#cb362-3"></a><span class="kw">str</span>(dat)</span></code></pre></div>
+<pre><code>## &#39;data.frame&#39;:    36 obs. of  3 variables:
+##  $ person: Factor w/ 12 levels &quot;1&quot;,&quot;2&quot;,&quot;3&quot;,&quot;4&quot;,..: 1 1 1 2 2 2 3 3 3 4 ...
+##  $ rater : Factor w/ 3 levels &quot;1&quot;,&quot;2&quot;,&quot;3&quot;: 1 2 3 1 2 3 1 2 3 1 ...
+##  $ score : int  3 5 4 3 5 5 1 1 2 3 ...</code></pre>
+<p>The object of measurement is persons. The rater is the facet variables (which in ANOVA frameworks is a factor). The score is the outcome variable. With this simple example, we can use factorial ANOVA to get the ANOVA table that contains the mean squares of the facet</p>
+<div class="sourceCode" id="cb364"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb364-1"><a href="gtheory.html#cb364-1"></a>fit   &lt;-<span class="st"> </span><span class="kw">lm</span>(score <span class="op">~</span><span class="st"> </span>person <span class="op">+</span><span class="st"> </span>rater, <span class="dt">data =</span> dat)</span>
+<span id="cb364-2"><a href="gtheory.html#cb364-2"></a>AnTab &lt;-<span class="st"> </span><span class="kw">anova</span>(fit)</span>
+<span id="cb364-3"><a href="gtheory.html#cb364-3"></a>AnTab</span></code></pre></div>
+<pre><code>## Analysis of Variance Table
+## 
+## Response: score
+##           Df Sum Sq Mean Sq F value    Pr(&gt;F)    
+## person    11 52.972  4.8157  4.9791 0.0006796 ***
+## rater      2  4.056  2.0278  2.0966 0.1467484    
+## Residuals 22 21.278  0.9672                      
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<p>We now have an object, called <code>AnTab</code> that is our ANOVA table. We can use indexing to extract the values from that table and assign them to objects. For example, we’re assigning the value 4.816 to the <code>MSp</code> object, which is the mean-squares of the persons.</p>
+<div class="sourceCode" id="cb366"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb366-1"><a href="gtheory.html#cb366-1"></a>MSp    &lt;-<span class="st"> </span>(AnTab[<span class="st">&quot;person&quot;</span>,    <span class="st">&quot;Mean Sq&quot;</span>])</span>
+<span id="cb366-2"><a href="gtheory.html#cb366-2"></a>MSr    &lt;-<span class="st"> </span>(AnTab[<span class="st">&quot;rater&quot;</span>,     <span class="st">&quot;Mean Sq&quot;</span>])</span>
+<span id="cb366-3"><a href="gtheory.html#cb366-3"></a>MSpr_e &lt;-<span class="st"> </span>(AnTab[<span class="st">&quot;Residuals&quot;</span>, <span class="st">&quot;Mean Sq&quot;</span>])</span></code></pre></div>
+<p>To calculate the variance components, we also need the number of persons and the number of raters. We use the <code>length()</code> function to count the number of levels in each of the two factors and assign them to objects.<a href="#fn91" class="footnote-ref" id="fnref91"><sup>91</sup></a> In G theory, a level is called a condition.</p>
+<div class="sourceCode" id="cb367"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb367-1"><a href="gtheory.html#cb367-1"></a>n_p &lt;-<span class="st"> </span><span class="kw">length</span>(<span class="kw">levels</span>(dat<span class="op">$</span>person))</span>
+<span id="cb367-2"><a href="gtheory.html#cb367-2"></a>n_r &lt;-<span class="st"> </span><span class="kw">length</span>(<span class="kw">levels</span>(dat<span class="op">$</span>rater))</span></code></pre></div>
+<p>We can now use the mean-squares (i.e., the variances) and the number of persons and number of raters to estimate the variance components:</p>
+<div class="sourceCode" id="cb368"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb368-1"><a href="gtheory.html#cb368-1"></a>VCp &lt;-<span class="st"> </span>(MSp <span class="op">-</span><span class="st"> </span>MSpr_e)<span class="op">/</span>n_r</span>
+<span id="cb368-2"><a href="gtheory.html#cb368-2"></a>VCr &lt;-<span class="st"> </span>(MSr <span class="op">-</span><span class="st"> </span>MSpr_e)<span class="op">/</span>n_p</span>
+<span id="cb368-3"><a href="gtheory.html#cb368-3"></a>VCpr_e &lt;-<span class="st"> </span>MSpr_e</span></code></pre></div>
+<p>The variance components of persons, <span class="math inline">\(\hat{\sigma}_{p}^2\)</span> (which in our R code is labeled as <code>VCp</code>) is the expected variance of the persons across a single condition of the other facet (raters). Because there are several raters, the <span class="math inline">\(MSp\)</span> right now includes the variance across the collections of these raters. Dividing by the number of raters, <code>n_r</code>, estimates this as the average variance component per rater, which is an estimate of the variance component in the population of raters (or universe of raters).</p>
+<p>We can assign all of these variance components,<span class="math inline">\(\hat{\sigma}_{p}^2\)</span>, <span class="math inline">\(\hat{\sigma}_{r}^2\)</span>, and <span class="math inline">\(\hat{\sigma}_{e}^2\)</span> to an object, <code>VarComps</code>. This is now a vector of values, so we can sum those values to get the total variance <code>TotVar</code> and divide the elements of the <code>VarCompos</code> vector to get each variance component’s proportion of the total variance.</p>
+<div class="sourceCode" id="cb369"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb369-1"><a href="gtheory.html#cb369-1"></a>VarComps &lt;-<span class="st"> </span><span class="kw">c</span>(VCp, VCr, VCpr_e)</span>
+<span id="cb369-2"><a href="gtheory.html#cb369-2"></a>TotVar   &lt;-<span class="st"> </span><span class="kw">sum</span>(VarComps)</span>
+<span id="cb369-3"><a href="gtheory.html#cb369-3"></a>PropVar  &lt;-<span class="st"> </span>VarComps<span class="op">/</span>TotVar</span></code></pre></div>
+<div id="g-study" class="section level3">
+<h3><span class="header-section-number">11.1.1</span> G-study</h3>
+<p>We can now create a generalizability study (G-study) report. First we create an object for the source of variance, which we’ll call <code>Source</code>, with <code>p</code>, <code>r</code>, <code>pr,e</code>, and <code>Total</code> being the source of variance in the report. We’re especially interested in the proportion (or percent) of variance of the facet (raters) and of the object of measurement (persons).</p>
+<div class="sourceCode" id="cb370"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb370-1"><a href="gtheory.html#cb370-1"></a>Source &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;p&quot;</span>, <span class="st">&quot;r&quot;</span>, <span class="st">&quot;pr,e&quot;</span>, <span class="st">&quot;Total&quot;</span>)</span>
+<span id="cb370-2"><a href="gtheory.html#cb370-2"></a>report &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">df =</span> <span class="kw">c</span>(AnTab[,<span class="st">&quot;Df&quot;</span>]),</span>
+<span id="cb370-3"><a href="gtheory.html#cb370-3"></a>                     <span class="dt">SS =</span> <span class="kw">c</span>(AnTab[,<span class="st">&quot;Sum Sq&quot;</span>]),</span>
+<span id="cb370-4"><a href="gtheory.html#cb370-4"></a>                     <span class="dt">MS =</span> <span class="kw">c</span>(AnTab[,<span class="st">&quot;Mean Sq&quot;</span>]), </span>
+<span id="cb370-5"><a href="gtheory.html#cb370-5"></a>            <span class="dt">Est_VarComp =</span> VarComps, </span>
+<span id="cb370-6"><a href="gtheory.html#cb370-6"></a>                <span class="dt">PcntVar =</span> PropVar<span class="op">*</span><span class="dv">100</span>)</span></code></pre></div>
+<p>We can add a row at the bottom, for the total variance:</p>
+<div class="sourceCode" id="cb371"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb371-1"><a href="gtheory.html#cb371-1"></a>report[<span class="kw">nrow</span>(report)<span class="op">+</span><span class="dv">1</span>,] &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="kw">sum</span>(report<span class="op">$</span>df), <span class="kw">sum</span>(report<span class="op">$</span>SS),<span class="ot">NA</span>, </span>
+<span id="cb371-2"><a href="gtheory.html#cb371-2"></a>                             TotVar, <span class="kw">sum</span>(report<span class="op">$</span>PcntVar))</span>
+<span id="cb371-3"><a href="gtheory.html#cb371-3"></a>GstudyReport &lt;-<span class="st"> </span><span class="kw">data.frame</span>(Source, <span class="kw">round</span>(report,<span class="dv">2</span>))</span>
+<span id="cb371-4"><a href="gtheory.html#cb371-4"></a>GstudyReport</span></code></pre></div>
+<table class="table" style="width: auto !important; ">
+<caption>
+<span id="tab:unnamed-chunk-251">Table 11.1: </span>G-study of the data in Bandalos, Table 10.2
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;text-align: center;">
+Source
+</th>
+<th style="text-align:right;text-align: center;">
+<em>df</em>
+</th>
+<th style="text-align:right;text-align: center;">
+SS
+</th>
+<th style="text-align:right;text-align: center;">
+MS
+</th>
+<th style="text-align:right;text-align: center;">
+Est. variance<br>component
+</th>
+<th style="text-align:right;text-align: center;">
+Percent<br>variance
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+p
+</td>
+<td style="text-align:right;">
+11
+</td>
+<td style="text-align:right;">
+52.97
+</td>
+<td style="text-align:right;">
+4.82
+</td>
+<td style="text-align:right;">
+1.28
+</td>
+<td style="text-align:right;">
+54.86
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+r
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+4.06
+</td>
+<td style="text-align:right;">
+2.03
+</td>
+<td style="text-align:right;">
+0.09
+</td>
+<td style="text-align:right;">
+3.78
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+pr,e
+</td>
+<td style="text-align:right;">
+22
+</td>
+<td style="text-align:right;">
+21.28
+</td>
+<td style="text-align:right;">
+0.97
+</td>
+<td style="text-align:right;">
+0.97
+</td>
+<td style="text-align:right;">
+41.36
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Total
+</td>
+<td style="text-align:right;">
+35
+</td>
+<td style="text-align:right;">
+78.31
+</td>
+<td style="text-align:right;">
+</td>
+<td style="text-align:right;">
+2.34
+</td>
+<td style="text-align:right;">
+100.00
+</td>
+</tr>
+</tbody>
+<tfoot>
+<tr>
+<td style="padding: 0; border:0;" colspan="100%">
+<sup></sup> <em>Note</em>. If you have the first edition of the Bandalos text, the results in Table 10.3 of Bandalos will be incorrect. The ones here are consistent with the book’s addendum.
+</td>
+</tr>
+</tfoot>
+</table>
+<p>It looks like the percent of variance explained by persons is 54.86, which is okay—at least it is higher than the error and the rater variance proportions. The rater variance only explains 3.78% of the total, which suggests that raters are relatively consistent with each other after we account for the idiosyncratic variability, which is what the third source of variance is—a combination of error and the interaction between raters and persons.</p>
+</div>
+<div id="d-study" class="section level3">
+<h3><span class="header-section-number">11.1.2</span> D-study</h3>
+<p>A decision study, or D-study, includes the calculations that we use to interpret the reliability or dependability of our scores, which in turn will aid us in making judgments or decisions about our instrument and scoring procedures. The first step involves estimating the G- and phi-coefficients. The G-coefficient is for relative decisions and is identical to coefficient alpha or <span class="math inline">\(\text{ICC}_{Ck}\)</span> if we have a fully crossed one-facet design (if we have data about every condition of the facet—such as every rater—for every person). The phi-coefficient is for absolute decisions and is identical to <span class="math inline">\(\text{ICC}_{Ak}\)</span> if we only have one facet and the data are fully crossed.</p>
+<div id="g-coefficient" class="section level4">
+<h4><span class="header-section-number">11.1.2.1</span> G-coefficient</h4>
+<p>Now that we have the expected variance components, we can estimate the reliability (G-coefficient). The formula is
+<span class="math display">\[\begin{eqnarray*}
+G = \frac{\hat{\sigma}_{p}^2 }{\hat{\sigma}_{p}^2 + \hat{\sigma}_{REL}^2} \text{ .}
+\end{eqnarray*}\]</span></p>
+<p>We see that the G-coefficient is estimated as a ratio of variance. The numerator is the estimated variance component of the object of measurement (persons). The denominator is that variance component plus the estimated error variance, as it is defined for relative decisions. With this particular example, this denominator is equivalent to the composite-score variance in CTT.</p>
+<p>With this, the first thing we need to do is calculate the error. In a G-study with relative decisions, the error term, <span class="math inline">\(\hat{\sigma}_{REL}^2\)</span>, is all the sources of variation that have an effect on persons’ relative standing in the scores.<a href="#fn92" class="footnote-ref" id="fnref92"><sup>92</sup></a> Only the variance components that include interactions with the object of measurement—persons in this case—are included in this. In our one-facet design, the variance component of the raters is <strong>not</strong> included as error but the person-rater interaction, <span class="math inline">\(\hat{\sigma}_{pr, e}^2\)</span>, is. An easy way to determine whether to include the variance component in the relative error term is to see if the name of the variance component includes our symbol for the object of measurement, which is <span class="math inline">\(_p\)</span> in our case. If the variance component does not include an interaction with persons, the component is not part of the relative error term. Here is the equation with our single-facet example:
+<span class="math display">\[\hat{\sigma}_{REL}^2 = \frac{\hat{\sigma}_{pr,e}^2}{n_r}\]</span>
+We can calculate this in R:</p>
+<div class="sourceCode" id="cb372"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb372-1"><a href="gtheory.html#cb372-1"></a>Err_Rel &lt;-<span class="st"> </span>VCpr_e<span class="op">/</span>n_r</span>
+<span id="cb372-2"><a href="gtheory.html#cb372-2"></a>Err_Rel</span></code></pre></div>
+<pre><code>## [1] 0.3223906</code></pre>
+<p>One thing to note is that if we take the square root of this error variance, we have the estimated <strong>standard error of measurement</strong>, <span class="math inline">\(\hat{\sigma}_{REL}\)</span>.</p>
+<p>Now, we can perform the calculation:</p>
+<p><span class="math display">\[\begin{eqnarray*}
+\text{G} &amp;=&amp; \frac{ {\\1.283} }{ {\\1.283 + 0.322} }\\[5pt]
+&amp;=&amp; {\\0.799}
+\end{eqnarray*}\]</span>
+Doing this in R, we can use this code:</p>
+<div class="sourceCode" id="cb374"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb374-1"><a href="gtheory.html#cb374-1"></a>G     &lt;-<span class="st"> </span>VCp<span class="op">/</span>(VCp <span class="op">+</span><span class="st"> </span>Err_Rel)</span>
+<span id="cb374-2"><a href="gtheory.html#cb374-2"></a><span class="kw">round</span>(G,<span class="dv">3</span>)</span></code></pre></div>
+<pre><code>## [1] 0.799</code></pre>
+<p>The G-coefficient reliability of the scores is .799. If we used an ICC approach, with the irr package, we will observe the same results, though we would have to reshape the data back to wide format. Let’s do that using the <code>pivot_wider()</code> function from the tidyr package <span class="citation">(Wickham, <a href="#ref-R-tidyr" role="doc-biblioref">2020</a><a href="#ref-R-tidyr" role="doc-biblioref">c</a>)</span>.<a href="#fn93" class="footnote-ref" id="fnref93"><sup>93</sup></a></p>
+<div class="sourceCode" id="cb376"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb376-1"><a href="gtheory.html#cb376-1"></a><span class="kw">library</span>(tidyr)</span>
+<span id="cb376-2"><a href="gtheory.html#cb376-2"></a>datW &lt;-<span class="st"> </span>dat <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">pivot_wider</span>(<span class="dt">names_from =</span> <span class="st">&quot;rater&quot;</span>, </span>
+<span id="cb376-3"><a href="gtheory.html#cb376-3"></a>                           <span class="dt">values_from =</span> <span class="st">&quot;score&quot;</span>, </span>
+<span id="cb376-4"><a href="gtheory.html#cb376-4"></a>                          <span class="dt">names_prefix =</span> <span class="st">&quot;rater&quot;</span>)</span>
+<span id="cb376-5"><a href="gtheory.html#cb376-5"></a><span class="kw">str</span>(datW)</span></code></pre></div>
+<pre><code>## tibble [12 x 4] (S3: tbl_df/tbl/data.frame)
+##  $ person: Factor w/ 12 levels &quot;1&quot;,&quot;2&quot;,&quot;3&quot;,&quot;4&quot;,..: 1 2 3 4 5 6 7 8 9 10 ...
+##  $ rater1: int [1:12] 3 3 1 3 6 1 3 5 3 4 ...
+##  $ rater2: int [1:12] 5 5 1 1 5 2 5 4 1 3 ...
+##  $ rater3: int [1:12] 4 5 2 2 5 5 5 5 3 5 ...</code></pre>
+<div class="sourceCode" id="cb378"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb378-1"><a href="gtheory.html#cb378-1"></a><span class="kw">library</span>(irr)</span>
+<span id="cb378-2"><a href="gtheory.html#cb378-2"></a><span class="kw">icc</span>(datW[, <span class="kw">c</span>(<span class="st">&quot;rater1&quot;</span>,<span class="st">&quot;rater2&quot;</span>, <span class="st">&quot;rater3&quot;</span>)], <span class="dt">model=</span><span class="st">&quot;twoway&quot;</span>, <span class="dt">type=</span><span class="st">&quot;consistency&quot;</span>,   <span class="dt">unit=</span><span class="st">&quot;average&quot;</span>)</span></code></pre></div>
+<pre><code>##  Average Score Intraclass Correlation
+## 
+##    Model: twoway 
+##    Type : consistency 
+## 
+##    Subjects = 12 
+##      Raters = 3 
+##    ICC(C,3) = 0.799
+## 
+##  F-Test, H0: r0 = 0 ; H1: r0 &gt; 0 
+##    F(11,22) = 4.98 , p = 0.00068 
+## 
+##  95%-Confidence Interval for ICC Population Values:
+##   0.468 &lt; ICC &lt; 0.937</code></pre>
+<p>So, what we see is that the <span class="math inline">\(\text{ICC}_{Ck}\)</span> is a special case of the G-coefficient when the G-coefficient is with a single facet. The benefit of the G-coefficient is that we can include more than one facet.</p>
+</div>
+<div id="phi-coefficient" class="section level4">
+<h4><span class="header-section-number">11.1.2.2</span> Phi-coefficient</h4>
+<p>We can calculate the phi-coefficient in a similar manner.
+<span class="math display">\[\begin{eqnarray*}
+\phi = \frac{\hat{\sigma}_{p}^2 }{\hat{\sigma}_{p}^2 + \hat{\sigma}_{ABS}^2}
+\end{eqnarray*}\]</span></p>
+<p>The denominator includes an error variance for absolute decisions. <span class="math inline">\(\hat{\sigma}_{ABS}^2\)</span> is all the sources of variation besides that of our object of measurement.<a href="#fn94" class="footnote-ref" id="fnref94"><sup>94</sup></a> So, the error in our phi-coefficient includes the variance component of the raters. Here is the formula for the error variance with our one-facet design:
+<span class="math display">\[\hat{\sigma}_{ABS}^2 = \frac{\hat{\sigma}_{pr,e}^2}{n_r} + \frac{\hat{\sigma}_{r}^2}{n_r}\]</span>
+And here is our calculation in R:</p>
+<div class="sourceCode" id="cb380"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb380-1"><a href="gtheory.html#cb380-1"></a>Err_Abs &lt;-<span class="st"> </span>VCpr_e<span class="op">/</span>n_r <span class="op">+</span><span class="st"> </span>VCr<span class="op">/</span>n_r</span>
+<span id="cb380-2"><a href="gtheory.html#cb380-2"></a>Err_Abs</span></code></pre></div>
+<pre><code>## [1] 0.3518519</code></pre>
+<p>If the raters differ dramatically in their degree of stringency or leniency, this variability will be high and the amount of absolute error variance component will be high.</p>
+<p><span class="math display">\[\begin{eqnarray*}
+\phi &amp;=&amp; \frac{ {\\1.283} }{ {\\1.283 + 0.352} }\\[5pt]
+&amp;=&amp; {\\0.785}
+\end{eqnarray*}\]</span>
+Doing this in R, we can use this code:</p>
+<div class="sourceCode" id="cb382"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb382-1"><a href="gtheory.html#cb382-1"></a>Phi     &lt;-<span class="st"> </span>VCp<span class="op">/</span>(VCp <span class="op">+</span><span class="st"> </span>Err_Abs)</span>
+<span id="cb382-2"><a href="gtheory.html#cb382-2"></a><span class="kw">round</span>(Phi,<span class="dv">3</span>)</span></code></pre></div>
+<pre><code>## [1] 0.785</code></pre>
+<p>The dependability index is <span class="math inline">\(\phi = {.785}\)</span> . Let’s see if we get the same result from our <span class="math inline">\(\text{ICC}_{Ak}\)</span> estimate:</p>
+<div class="sourceCode" id="cb384"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb384-1"><a href="gtheory.html#cb384-1"></a><span class="kw">library</span>(irr)</span>
+<span id="cb384-2"><a href="gtheory.html#cb384-2"></a><span class="kw">icc</span>(datW[, <span class="kw">c</span>(<span class="st">&quot;rater1&quot;</span>,<span class="st">&quot;rater2&quot;</span>, <span class="st">&quot;rater3&quot;</span>)], <span class="dt">model=</span><span class="st">&quot;twoway&quot;</span>, <span class="dt">type=</span><span class="st">&quot;agreement&quot;</span>,   <span class="dt">unit=</span><span class="st">&quot;average&quot;</span>)</span></code></pre></div>
+<pre><code>##  Average Score Intraclass Correlation
+## 
+##    Model: twoway 
+##    Type : agreement 
+## 
+##    Subjects = 12 
+##      Raters = 3 
+##    ICC(A,3) = 0.785
+## 
+##  F-Test, H0: r0 = 0 ; H1: r0 &gt; 0 
+##  F(11,22.8) = 4.98 , p = 0.000602 
+## 
+##  95%-Confidence Interval for ICC Population Values:
+##   0.452 &lt; ICC &lt; 0.932</code></pre>
+<p>Again, we see the connection between G-theory and the intra-class coefficient.</p>
+</div>
+<div id="projecting-an-optimal-number-of-conditions-in-a-facet" class="section level4">
+<h4><span class="header-section-number">11.1.2.3</span> Projecting an optimal number of conditions in a facet</h4>
+<p>In the earlier discussions of reliability, we used the Spearman Brown prophecy formula to project how many more items (or a multiplicative factor of how many more items) we would need to achieve a desired level of reliability. We can do the same thing in generalizability theory but we have more than just items. We can have multiple facets. For now, let’s use a single facet, raters, and examine how the G-coefficient will change if we add or remove raters:</p>
+<p>Let’s create a vector of the number of raters, say if we had 1 rater, 2 raters, 3 (which we do now), 4, and so forth. We can call this <code>Dn_r</code> to remind us that this is the number of raters in a decision study.</p>
+<table style="width:88%;">
+<colgroup>
+<col width="6%" />
+<col width="80%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td align="right"><br />
+</td>
+<td><img src="images/note.png" alt="Note" /><span style="color:gray"> The number of raters does not have to range from 1 to 7. That number depends on how many is meaningful in our study. In fact, we may wish to not report a D-study with projected different number of raters and simply report the G- or phi-coefficient we obtained with however many raters we have already committed to. This would be the natural thing to do if we do not plan to implement any more changes in our design and simply need to report the reliability or dependability.</span></td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb386"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb386-1"><a href="gtheory.html#cb386-1"></a>Dn_r &lt;-<span class="st"> </span>(<span class="dv">1</span><span class="op">:</span><span class="dv">7</span>)</span>
+<span id="cb386-2"><a href="gtheory.html#cb386-2"></a>Dn_r</span></code></pre></div>
+<pre><code>## [1] 1 2 3 4 5 6 7</code></pre>
+<p>Now, let’s use <code>Dn_r</code> in our estimations of the error:</p>
+<div class="sourceCode" id="cb388"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb388-1"><a href="gtheory.html#cb388-1"></a>Err_Rel &lt;-<span class="st"> </span>VCpr_e<span class="op">/</span>Dn_r</span>
+<span id="cb388-2"><a href="gtheory.html#cb388-2"></a>Err_Rel</span></code></pre></div>
+<pre><code>## [1] 0.9671717 0.4835859 0.3223906 0.2417929 0.1934343 0.1611953 0.1381674</code></pre>
+<p>Notice that now we have a vector of errors with 7 elements. These correspond with the 7 different rater n-sizes we assigned to the <code>Dn_r</code> object. R knows that if we have a vector, such as <code>Dn_r</code>, and we place it in an equation, such as in <code>VCpr_e/Dn_r</code>, we expect to get the same number of results as there are elements in our vector. Because we now have 7 elements in our <code>Err_Rel</code> vector, the following code will give us 7 G-coefficients:</p>
+<div class="sourceCode" id="cb390"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb390-1"><a href="gtheory.html#cb390-1"></a>Err_Rel &lt;-<span class="st"> </span>VCpr_e<span class="op">/</span>Dn_r</span>
+<span id="cb390-2"><a href="gtheory.html#cb390-2"></a>G       &lt;-<span class="st"> </span>VCp<span class="op">/</span>(VCp <span class="op">+</span><span class="st"> </span>Err_Rel)</span>
+<span id="cb390-3"><a href="gtheory.html#cb390-3"></a>Dstudy  &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">N_rater =</span> Dn_r, <span class="dt">Err_Rel =</span> <span class="kw">round</span>(Err_Rel,<span class="dv">3</span>), <span class="dt">G_coef =</span> <span class="kw">round</span>(G,<span class="dv">3</span>))</span>
+<span id="cb390-4"><a href="gtheory.html#cb390-4"></a>Dstudy</span></code></pre></div>
+<pre><code>##   N_rater Err_Rel G_coef
+## 1       1   0.967  0.570
+## 2       2   0.484  0.726
+## 3       3   0.322  0.799
+## 4       4   0.242  0.841
+## 5       5   0.193  0.869
+## 6       6   0.161  0.888
+## 7       7   0.138  0.903</code></pre>
+<p>We now have a D-study report. We can see that if we had only 1 rater, we’d have a G-coefficient of .570. If we got rid of one of our raters, saving money, we’d decrease our reliability to .726, which might be acceptable for the stakes of our assessment. If we needed a reliability of at least <span class="math inline">\(.85\)</span> for some reason, we’d need to hire two more raters and be sure they were trained in the same manner as those in our study. With this type of information, we can make decisions about the number of raters to retain or hire.</p>
+<p>If we were estimating dependability, we would need to do this same thing with Phi-coefficients. Now, the absolute error is in the denominator:</p>
+<div class="sourceCode" id="cb392"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb392-1"><a href="gtheory.html#cb392-1"></a>Dn_r    &lt;-<span class="st"> </span>(<span class="dv">1</span><span class="op">:</span><span class="dv">7</span>)</span>
+<span id="cb392-2"><a href="gtheory.html#cb392-2"></a>Err_Abs &lt;-<span class="st"> </span>VCpr_e<span class="op">/</span>Dn_r <span class="op">+</span><span class="st"> </span>VCr<span class="op">/</span>Dn_r</span>
+<span id="cb392-3"><a href="gtheory.html#cb392-3"></a>Phi     &lt;-<span class="st"> </span>VCp<span class="op">/</span>(VCp <span class="op">+</span><span class="st"> </span>Err_Abs)</span>
+<span id="cb392-4"><a href="gtheory.html#cb392-4"></a>Dstudy  &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">N_rater =</span> Dn_r, <span class="dt">Err_Abs =</span> <span class="kw">round</span>(Err_Abs,<span class="dv">3</span>), <span class="dt">Phi_coef =</span> <span class="kw">round</span>(Phi,<span class="dv">3</span>))</span>
+<span id="cb392-5"><a href="gtheory.html#cb392-5"></a>Dstudy</span></code></pre></div>
+<pre><code>##   N_rater Err_Abs Phi_coef
+## 1       1   1.056    0.549
+## 2       2   0.528    0.709
+## 3       3   0.352    0.785
+## 4       4   0.264    0.829
+## 5       5   0.211    0.859
+## 6       6   0.176    0.879
+## 7       7   0.151    0.895</code></pre>
+<p>If we estimated the <span class="math inline">\(\text{ICC}_{Ak}\)</span>, we would get the same estimate as we do here with three raters, <span class="math inline">\(\text{ICC}_{Ak} = \phi = {.785}\)</span>. Furthermore, recall that in the previous chapter we also had the option of specifying the ICC if our operational study will include only a single rater. The result of that will yield, as expected, the same value we got from our D-study with 1 rater (<span class="math inline">\(\phi ={.549}\)</span>). For comparison, here’s the <span class="math inline">\(\text{ICC}_{A1}\)</span> from the irr package:</p>
+<div class="sourceCode" id="cb394"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb394-1"><a href="gtheory.html#cb394-1"></a><span class="kw">library</span>(irr)</span>
+<span id="cb394-2"><a href="gtheory.html#cb394-2"></a><span class="kw">icc</span>(datW[, <span class="kw">c</span>(<span class="st">&quot;rater1&quot;</span>,<span class="st">&quot;rater2&quot;</span>, <span class="st">&quot;rater3&quot;</span>)], <span class="dt">model=</span><span class="st">&quot;twoway&quot;</span>, <span class="dt">type=</span><span class="st">&quot;agreement&quot;</span>,   <span class="dt">unit=</span><span class="st">&quot;single&quot;</span>)</span></code></pre></div>
+<pre><code>##  Single Score Intraclass Correlation
+## 
+##    Model: twoway 
+##    Type : agreement 
+## 
+##    Subjects = 12 
+##      Raters = 3 
+##    ICC(A,1) = 0.549
+## 
+##  F-Test, H0: r0 = 0 ; H1: r0 &gt; 0 
+##  F(11,23.4) = 4.98 , p = 0.000546 
+## 
+##  95%-Confidence Interval for ICC Population Values:
+##   0.218 &lt; ICC &lt; 0.819</code></pre>
+</div>
+<div id="all-the-code-in-one-block-and-with-a-different-data-set" class="section level4">
+<h4><span class="header-section-number">11.1.2.4</span> All the code in one block, and with a different data set</h4>
+<p>Let’s try this entire set of code with the rater data we used in the previous chapter. In this code, we will examine the phi-coefficient for dependability (perhaps because we intend to use the scores for absolute decisions, such as for making decisions about students’ achievement). If we sought to examine the G-coefficient, we can replace the error term and call our coefficient G instead of phi.</p>
+<div class="sourceCode" id="cb396"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb396-1"><a href="gtheory.html#cb396-1"></a>dat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;Week07 Table9.4L.csv&quot;</span>)</span>
+<span id="cb396-2"><a href="gtheory.html#cb396-2"></a>dat<span class="op">$</span>person &lt;-<span class="st"> </span><span class="kw">as.factor</span>(dat<span class="op">$</span>person)</span>
+<span id="cb396-3"><a href="gtheory.html#cb396-3"></a>dat<span class="op">$</span>rater  &lt;-<span class="st"> </span><span class="kw">as.factor</span>(dat<span class="op">$</span>rater )</span>
+<span id="cb396-4"><a href="gtheory.html#cb396-4"></a><span class="kw">str</span>(dat)</span>
+<span id="cb396-5"><a href="gtheory.html#cb396-5"></a></span>
+<span id="cb396-6"><a href="gtheory.html#cb396-6"></a><span class="co"># One facet G-study</span></span>
+<span id="cb396-7"><a href="gtheory.html#cb396-7"></a>fit    &lt;-<span class="st"> </span><span class="kw">lm</span>(score <span class="op">~</span><span class="st"> </span>person <span class="op">+</span><span class="st"> </span>rater, <span class="dt">data =</span> dat)</span>
+<span id="cb396-8"><a href="gtheory.html#cb396-8"></a>AnTab  &lt;-<span class="st"> </span><span class="kw">anova</span>(fit)</span>
+<span id="cb396-9"><a href="gtheory.html#cb396-9"></a></span>
+<span id="cb396-10"><a href="gtheory.html#cb396-10"></a>MSp    &lt;-<span class="st"> </span>(AnTab[<span class="st">&quot;person&quot;</span>,    <span class="st">&quot;Mean Sq&quot;</span>])</span>
+<span id="cb396-11"><a href="gtheory.html#cb396-11"></a>MSr    &lt;-<span class="st"> </span>(AnTab[<span class="st">&quot;rater&quot;</span>,     <span class="st">&quot;Mean Sq&quot;</span>])</span>
+<span id="cb396-12"><a href="gtheory.html#cb396-12"></a>MSpr_e &lt;-<span class="st"> </span>(AnTab[<span class="st">&quot;Residuals&quot;</span>, <span class="st">&quot;Mean Sq&quot;</span>])</span>
+<span id="cb396-13"><a href="gtheory.html#cb396-13"></a></span>
+<span id="cb396-14"><a href="gtheory.html#cb396-14"></a>n_p    &lt;-<span class="st"> </span><span class="kw">length</span>(<span class="kw">levels</span>(dat<span class="op">$</span>person))</span>
+<span id="cb396-15"><a href="gtheory.html#cb396-15"></a>n_r    &lt;-<span class="st"> </span><span class="kw">length</span>(<span class="kw">levels</span>(dat<span class="op">$</span>rater))</span>
+<span id="cb396-16"><a href="gtheory.html#cb396-16"></a></span>
+<span id="cb396-17"><a href="gtheory.html#cb396-17"></a>VCp    &lt;-<span class="st"> </span>(MSp <span class="op">-</span><span class="st"> </span>MSpr_e)<span class="op">/</span>n_r</span>
+<span id="cb396-18"><a href="gtheory.html#cb396-18"></a>VCr    &lt;-<span class="st"> </span>(MSr <span class="op">-</span><span class="st"> </span>MSpr_e)<span class="op">/</span>n_p</span>
+<span id="cb396-19"><a href="gtheory.html#cb396-19"></a>VCpr_e &lt;-<span class="st"> </span>MSpr_e</span>
+<span id="cb396-20"><a href="gtheory.html#cb396-20"></a></span>
+<span id="cb396-21"><a href="gtheory.html#cb396-21"></a>VarComps &lt;-<span class="st"> </span><span class="kw">c</span>(VCp, VCr, VCpr_e)</span>
+<span id="cb396-22"><a href="gtheory.html#cb396-22"></a>TotVar   &lt;-<span class="st"> </span><span class="kw">sum</span>(VarComps)</span>
+<span id="cb396-23"><a href="gtheory.html#cb396-23"></a>PropVar  &lt;-<span class="st"> </span>VarComps<span class="op">/</span>TotVar</span>
+<span id="cb396-24"><a href="gtheory.html#cb396-24"></a></span>
+<span id="cb396-25"><a href="gtheory.html#cb396-25"></a>Source   &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;p&quot;</span>, <span class="st">&quot;r&quot;</span>, <span class="st">&quot;pr,e&quot;</span>, <span class="st">&quot;Total&quot;</span>)</span>
+<span id="cb396-26"><a href="gtheory.html#cb396-26"></a>report   &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">df =</span> <span class="kw">c</span>(AnTab[,<span class="st">&quot;Df&quot;</span>]),</span>
+<span id="cb396-27"><a href="gtheory.html#cb396-27"></a>                       <span class="dt">SS =</span> <span class="kw">c</span>(AnTab[,<span class="st">&quot;Sum Sq&quot;</span>]),</span>
+<span id="cb396-28"><a href="gtheory.html#cb396-28"></a>                       <span class="dt">MS =</span> <span class="kw">c</span>(AnTab[,<span class="st">&quot;Mean Sq&quot;</span>]), </span>
+<span id="cb396-29"><a href="gtheory.html#cb396-29"></a>              <span class="dt">Est_VarComp =</span> VarComps, </span>
+<span id="cb396-30"><a href="gtheory.html#cb396-30"></a>                  <span class="dt">PcntVar =</span> PropVar<span class="op">*</span><span class="dv">100</span>)</span>
+<span id="cb396-31"><a href="gtheory.html#cb396-31"></a></span>
+<span id="cb396-32"><a href="gtheory.html#cb396-32"></a>report[<span class="kw">nrow</span>(report)<span class="op">+</span><span class="dv">1</span>,] &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="kw">sum</span>(report<span class="op">$</span>df), <span class="kw">sum</span>(report<span class="op">$</span>SS), <span class="ot">NA</span>, </span>
+<span id="cb396-33"><a href="gtheory.html#cb396-33"></a>                             TotVar, <span class="kw">sum</span>(report<span class="op">$</span>PcntVar))</span>
+<span id="cb396-34"><a href="gtheory.html#cb396-34"></a>GstudyReport &lt;-<span class="st"> </span><span class="kw">data.frame</span>(Source, <span class="kw">round</span>(report,<span class="dv">2</span>))</span>
+<span id="cb396-35"><a href="gtheory.html#cb396-35"></a>GstudyReport</span>
+<span id="cb396-36"><a href="gtheory.html#cb396-36"></a></span>
+<span id="cb396-37"><a href="gtheory.html#cb396-37"></a><span class="co"># D-study report of Phi</span></span>
+<span id="cb396-38"><a href="gtheory.html#cb396-38"></a>Err_Abs &lt;-<span class="st"> </span>VCpr_e<span class="op">/</span>n_r <span class="op">+</span><span class="st"> </span>VCr<span class="op">/</span>n_r</span>
+<span id="cb396-39"><a href="gtheory.html#cb396-39"></a>Err_Abs</span>
+<span id="cb396-40"><a href="gtheory.html#cb396-40"></a></span>
+<span id="cb396-41"><a href="gtheory.html#cb396-41"></a>Phi     &lt;-<span class="st"> </span>VCp<span class="op">/</span>(VCp <span class="op">+</span><span class="st"> </span>Err_Abs)</span>
+<span id="cb396-42"><a href="gtheory.html#cb396-42"></a><span class="kw">round</span>(Phi,<span class="dv">3</span>)</span>
+<span id="cb396-43"><a href="gtheory.html#cb396-43"></a></span>
+<span id="cb396-44"><a href="gtheory.html#cb396-44"></a><span class="co"># D-study projections</span></span>
+<span id="cb396-45"><a href="gtheory.html#cb396-45"></a>Dn_r    &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">3</span>,<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>,<span class="dv">4</span><span class="op">:</span><span class="dv">7</span>) <span class="co"># Placing our current model, 3 raters, at the top</span></span>
+<span id="cb396-46"><a href="gtheory.html#cb396-46"></a>Err_Abs &lt;-<span class="st"> </span>VCpr_e<span class="op">/</span>Dn_r <span class="op">+</span><span class="st"> </span>VCr<span class="op">/</span>Dn_r</span>
+<span id="cb396-47"><a href="gtheory.html#cb396-47"></a>Phi     &lt;-<span class="st"> </span>VCp<span class="op">/</span>(VCp <span class="op">+</span><span class="st"> </span>Err_Abs)</span>
+<span id="cb396-48"><a href="gtheory.html#cb396-48"></a>Dstudy  &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">N_rater =</span> Dn_r, <span class="dt">Err_Abs =</span> <span class="kw">round</span>(Err_Abs,<span class="dv">3</span>), <span class="dt">Phi_coef =</span> <span class="kw">round</span>(Phi,<span class="dv">3</span>))</span>
+<span id="cb396-49"><a href="gtheory.html#cb396-49"></a>Dstudy</span></code></pre></div>
+<p>The results from that code will help us report the the following G-study and D-study results. In a G-study, this is the type of table we should report:</p>
+<table class="table" style="width: auto !important; ">
+<caption>
+<span id="tab:unnamed-chunk-265">Table 11.2: </span>G-study
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;text-align: center;">
+Source
+</th>
+<th style="text-align:right;text-align: center;">
+<em>df</em>
+</th>
+<th style="text-align:right;text-align: center;">
+SS
+</th>
+<th style="text-align:right;text-align: center;">
+MS
+</th>
+<th style="text-align:right;text-align: center;">
+Est. variance<br>component
+</th>
+<th style="text-align:right;text-align: center;">
+Percent<br>variance
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<span style="  font-style: italic;   ">p</span>
+</td>
+<td style="text-align:right;">
+9
+</td>
+<td style="text-align:right;">
+44.3
+</td>
+<td style="text-align:right;">
+4.92
+</td>
+<td style="text-align:right;">
+1.57
+</td>
+<td style="text-align:right;">
+79.70
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<span style="  font-style: italic;   ">r</span>
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+4.2
+</td>
+<td style="text-align:right;">
+2.10
+</td>
+<td style="text-align:right;">
+0.19
+</td>
+<td style="text-align:right;">
+9.59
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<span style="  font-style: italic;   ">pr,e</span>
+</td>
+<td style="text-align:right;">
+18
+</td>
+<td style="text-align:right;">
+3.8
+</td>
+<td style="text-align:right;">
+0.21
+</td>
+<td style="text-align:right;">
+0.21
+</td>
+<td style="text-align:right;">
+10.71
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Total
+</td>
+<td style="text-align:right;">
+29
+</td>
+<td style="text-align:right;">
+52.3
+</td>
+<td style="text-align:right;">
+</td>
+<td style="text-align:right;">
+1.97
+</td>
+<td style="text-align:right;">
+100.00
+</td>
+</tr>
+</tbody>
+</table>
+<p>With these scores, a large proportion of the variance is attributed to differences among persons. This suggests the instrument is sensitive to variations among people; however, we are also interested in the agreement among the raters. There is some variance among the raters, with <span class="math inline">\(\hat{\sigma}_{r}^2\)</span> explaining 9.59% of the total variance. Is that high? Maybe. That’s up to us to decide. We can take the square root of the estimated variance component to estimate the average deviation among raters on the 1-to-5 scale of the ratings. This turns out to be <span class="math inline">\(\sqrt{0.19} = {0.44}\)</span>, which is almost half a point in the rating scale used by the raters. If our criterion-referenced decisions are high-stakes, we might decide to improve our rater training procedures. If our decisions are low-stakes, this might be acceptable.</p>
+<table style="width:42%; " class="table">
+<caption>
+<span id="tab:unnamed-chunk-266">Table 11.3: </span>D-study
+</caption>
+<thead>
+<tr>
+<th style="text-align:center;text-align: center;">
+<em>n</em> raters
+</th>
+<th style="text-align:center;text-align: center;">
+<span class="math inline">\(\hat{\sigma}_{ABS}^2\)</span>
+</th>
+<th style="text-align:center;text-align: center;">
+<span class="math inline">\(\phi\)</span>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;">
+3
+</td>
+<td style="text-align:center;">
+0.133
+</td>
+<td style="text-align:center;">
+.922
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+1
+</td>
+<td style="text-align:center;">
+0.400
+</td>
+<td style="text-align:center;">
+.797
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+2
+</td>
+<td style="text-align:center;">
+0.200
+</td>
+<td style="text-align:center;">
+.887
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+4
+</td>
+<td style="text-align:center;">
+0.100
+</td>
+<td style="text-align:center;">
+.940
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+5
+</td>
+<td style="text-align:center;">
+0.080
+</td>
+<td style="text-align:center;">
+.952
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+6
+</td>
+<td style="text-align:center;">
+0.067
+</td>
+<td style="text-align:center;">
+.959
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+7
+</td>
+<td style="text-align:center;">
+0.057
+</td>
+<td style="text-align:center;">
+.965
+</td>
+</tr>
+</tbody>
+<tfoot>
+<tr>
+<td style="padding: 0; border:0;" colspan="100%">
+<sup></sup> <em><em>Note</em></em>. The present design is in the top row.
+</td>
+</tr>
+</tfoot>
+</table>
+<p>For our D-study, we estimated the dependability index with our three raters as <span class="math inline">\(\phi = {.940}\)</span>. Our D-study also projected the estimated dependability index if we have fewer or more raters. Of course, if we implement new rater-training procedures, these figures would not represent the future raters’ performance. Nonetheless, if we sought to reduce costs, we can project what the dependability index would be if we used only one or two raters and had not implemented those extra rater-training procedures.</p>
+</div>
+</div>
+<div id="using-the-vca-package" class="section level3">
+<h3><span class="header-section-number">11.1.3</span> Using the VCA package</h3>
+<p>The VCA package <span class="citation">(Schuetzenmeister &amp; Dufey, <a href="#ref-R-VCA" role="doc-biblioref">2020</a>)</span> includes a procedure that estimates the variance components for us. This is convenient because the fewer steps we have, the less likely we’ll have typos.<a href="#fn95" class="footnote-ref" id="fnref95"><sup>95</sup></a></p>
+<p>Let’s use the same data set to see how this works. We have to make sure our facets and our object of measurement are factors.</p>
+<div class="sourceCode" id="cb397"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb397-1"><a href="gtheory.html#cb397-1"></a>dat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;Week07 Table10.2 Data.csv&quot;</span>)</span>
+<span id="cb397-2"><a href="gtheory.html#cb397-2"></a>dat<span class="op">$</span>person &lt;-<span class="st"> </span><span class="kw">factor</span>(dat<span class="op">$</span>person)</span>
+<span id="cb397-3"><a href="gtheory.html#cb397-3"></a>dat<span class="op">$</span>rater  &lt;-<span class="st"> </span><span class="kw">factor</span>(dat<span class="op">$</span>rater )</span></code></pre></div>
+<p>After making sure the VCA package is installed, let’s bring it into our working library and use the function <code>anovaMM()</code> function. The <code>anovaMM()</code> function basically fits a linear model similar to how we would use the <code>lm()</code> function, but it does more. Just as with the <code>lm()</code> function, we need to specify the outcome variable (<code>score</code>) on the left side of the model symbol (<code>~</code>) and the independent variables (<code>person</code> and <code>rater</code>) on the right. This function requires that we enclose the predictor variables that are random in parentheses. We also specify the data, which in our case is <code>dat</code>.</p>
+<div class="sourceCode" id="cb398"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb398-1"><a href="gtheory.html#cb398-1"></a><span class="kw">library</span>(VCA)</span>
+<span id="cb398-2"><a href="gtheory.html#cb398-2"></a>fit2  &lt;-<span class="st"> </span><span class="kw">anovaMM</span>(score <span class="op">~</span><span class="st"> </span>(person) <span class="op">+</span><span class="st"> </span>(rater), dat)</span>
+<span id="cb398-3"><a href="gtheory.html#cb398-3"></a>fit2</span></code></pre></div>
+<pre><code>## 
+## 
+## Result Variance Component Analysis:
+## -----------------------------------
+## 
+##   Name   DF        SS        MS       VC       %Total    SD       CV[%]    
+## 1 total  20.791525                    2.338384 100       1.529178 45.49619 
+## 2 person 11        52.972222 4.815657 1.282828 54.859611 1.13262  33.697788
+## 3 rater  2         4.055556  2.027778 0.088384 3.779698  0.297294 8.845117 
+## 4 error  22        21.277778 0.967172 0.967172 41.360691 0.983449 29.259636
+## 
+## Mean: 3.361111 (N = 36) 
+## 
+## Experimental Design: balanced  |  Method: ANOVA</code></pre>
+<p>We see the variance components under the VC column, though they’re not in the order we like. Let’s create a table. To extract these, we have to jump through some hoops. We’ll use the package’s <code>VCAinference()</code> function and use its output to extract from it the ANOVA table. We only need the first five columns of that output, so we’ll also select those and create a data frame, whcih we’ll assign to an object we’ll call <code>gstudy</code>:</p>
+<div class="sourceCode" id="cb400"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb400-1"><a href="gtheory.html#cb400-1"></a>inf   &lt;-<span class="st"> </span><span class="kw">VCAinference</span>(fit2, <span class="dt">VarVC =</span> <span class="ot">TRUE</span>)</span>
+<span id="cb400-2"><a href="gtheory.html#cb400-2"></a>VC    &lt;-<span class="st"> </span>inf<span class="op">$</span>VCA<span class="op">$</span>aov.tab</span>
+<span id="cb400-3"><a href="gtheory.html#cb400-3"></a>gstudy&lt;-<span class="st"> </span><span class="kw">data.frame</span>(VC[, <span class="dv">1</span><span class="op">:</span><span class="dv">5</span>])</span>
+<span id="cb400-4"><a href="gtheory.html#cb400-4"></a>gstudy</span></code></pre></div>
+<pre><code>##              DF        SS        MS         VC    X.Total
+## total  20.79152        NA        NA 2.33838384 100.000000
+## person 11.00000 52.972222 4.8156566 1.28282828  54.859611
+## rater   2.00000  4.055556 2.0277778 0.08838384   3.779698
+## error  22.00000 21.277778 0.9671717 0.96717172  41.360691</code></pre>
+<p>The name of the last column, column 5, is funky. Let’s add our own name, “PcntVar” for percent variance:</p>
+<div class="sourceCode" id="cb402"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb402-1"><a href="gtheory.html#cb402-1"></a><span class="kw">names</span>(gstudy)[<span class="dv">5</span>] &lt;-<span class="st"> &quot;PcntVar&quot;</span></span>
+<span id="cb402-2"><a href="gtheory.html#cb402-2"></a>gstudy</span></code></pre></div>
+<pre><code>##              DF        SS        MS         VC    PcntVar
+## total  20.79152        NA        NA 2.33838384 100.000000
+## person 11.00000 52.972222 4.8156566 1.28282828  54.859611
+## rater   2.00000  4.055556 2.0277778 0.08838384   3.779698
+## error  22.00000 21.277778 0.9671717 0.96717172  41.360691</code></pre>
+<p>Also, if we want to present this table correctly, we should have the object of measurement (persons) on the top row and the total on the bottom. Let’s reorder these rows:</p>
+<div class="sourceCode" id="cb404"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb404-1"><a href="gtheory.html#cb404-1"></a>gstudy&lt;-<span class="st"> </span>gstudy[<span class="kw">c</span>(<span class="dv">2</span><span class="op">:</span><span class="dv">4</span>,<span class="dv">1</span>), ]</span>
+<span id="cb404-2"><a href="gtheory.html#cb404-2"></a><span class="kw">round</span>(gstudy,<span class="dv">2</span>)</span></code></pre></div>
+<pre><code>##           DF    SS   MS   VC PcntVar
+## person 11.00 52.97 4.82 1.28   54.86
+## rater   2.00  4.06 2.03 0.09    3.78
+## error  22.00 21.28 0.97 0.97   41.36
+## total  20.79    NA   NA 2.34  100.00</code></pre>
+<p>Now we have a table that is identical to our earlier one. We can also conduct a D-study. To do this, we need the variance components and the numbers of persons and raters. We can extract values from the variance components column of our G-study and assign them to objects:</p>
+<div class="sourceCode" id="cb406"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb406-1"><a href="gtheory.html#cb406-1"></a><span class="co">#Variance Components:</span></span>
+<span id="cb406-2"><a href="gtheory.html#cb406-2"></a>VCp    &lt;-<span class="st"> </span>gstudy[<span class="st">&quot;person&quot;</span>, <span class="st">&quot;VC&quot;</span>]</span>
+<span id="cb406-3"><a href="gtheory.html#cb406-3"></a>VCr    &lt;-<span class="st"> </span>gstudy[<span class="st">&quot;rater&quot;</span> , <span class="st">&quot;VC&quot;</span>]</span>
+<span id="cb406-4"><a href="gtheory.html#cb406-4"></a>VCpr_e &lt;-<span class="st"> </span>gstudy[<span class="st">&quot;error&quot;</span> , <span class="st">&quot;VC&quot;</span>]</span></code></pre></div>
+<p>Let’s assign the number of persons and raters to <code>n_p</code> and <code>n_r</code> respectively:</p>
+<div class="sourceCode" id="cb407"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb407-1"><a href="gtheory.html#cb407-1"></a>n_p &lt;-<span class="st"> </span><span class="kw">length</span>(<span class="kw">levels</span>(dat<span class="op">$</span>person))</span>
+<span id="cb407-2"><a href="gtheory.html#cb407-2"></a>n_r &lt;-<span class="st"> </span><span class="kw">length</span>(<span class="kw">levels</span>(dat<span class="op">$</span>rater))</span></code></pre></div>
+<p>Now let’s calculate the relative error for our G-coefficient, as we did above and our G coefficient:</p>
+<div class="sourceCode" id="cb408"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb408-1"><a href="gtheory.html#cb408-1"></a>Err_Rel &lt;-<span class="st"> </span>VCpr_e<span class="op">/</span>n_r</span>
+<span id="cb408-2"><a href="gtheory.html#cb408-2"></a>G       &lt;-<span class="st"> </span>VCp<span class="op">/</span>(VCp <span class="op">+</span><span class="st"> </span>Err_Rel)</span>
+<span id="cb408-3"><a href="gtheory.html#cb408-3"></a><span class="kw">round</span>(G,<span class="dv">3</span>)</span></code></pre></div>
+<pre><code>## [1] 0.799</code></pre>
+<p>And, we can project the G-coefficient with a varying number of raters:</p>
+<div class="sourceCode" id="cb410"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb410-1"><a href="gtheory.html#cb410-1"></a>Dn_r    &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">3</span>,<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>,<span class="dv">4</span><span class="op">:</span><span class="dv">7</span>) <span class="co"># Placing our current model, 3 raters, at the top</span></span>
+<span id="cb410-2"><a href="gtheory.html#cb410-2"></a>Err_Rel &lt;-<span class="st"> </span>VCpr_e<span class="op">/</span>Dn_r</span>
+<span id="cb410-3"><a href="gtheory.html#cb410-3"></a>G       &lt;-<span class="st"> </span>VCp<span class="op">/</span>(VCp <span class="op">+</span><span class="st"> </span>Err_Rel)</span>
+<span id="cb410-4"><a href="gtheory.html#cb410-4"></a>Dstudy  &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">N_rater =</span> Dn_r, <span class="st">&quot;G_coef&quot;</span> =<span class="st"> </span><span class="kw">round</span>(G,<span class="dv">3</span>))</span>
+<span id="cb410-5"><a href="gtheory.html#cb410-5"></a>Dstudy</span></code></pre></div>
+<pre><code>##   N_rater G_coef
+## 1       3  0.799
+## 2       1  0.570
+## 3       2  0.726
+## 4       4  0.841
+## 5       5  0.869
+## 6       6  0.888
+## 7       7  0.903</code></pre>
+<p>We can do the same thing for the phi-coefficient:</p>
+<div class="sourceCode" id="cb412"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb412-1"><a href="gtheory.html#cb412-1"></a>Err_Abs &lt;-<span class="st"> </span>VCpr_e<span class="op">/</span>n_r <span class="op">+</span><span class="st"> </span>VCr<span class="op">/</span>n_r</span>
+<span id="cb412-2"><a href="gtheory.html#cb412-2"></a>Phi     &lt;-<span class="st"> </span>VCp<span class="op">/</span>(VCp <span class="op">+</span><span class="st"> </span>Err_Abs)</span>
+<span id="cb412-3"><a href="gtheory.html#cb412-3"></a><span class="kw">round</span>(Phi,<span class="dv">3</span>)</span></code></pre></div>
+<pre><code>## [1] 0.785</code></pre>
+<div class="sourceCode" id="cb414"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb414-1"><a href="gtheory.html#cb414-1"></a>Dn_r    &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">3</span>,<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>,<span class="dv">4</span><span class="op">:</span><span class="dv">7</span>) <span class="co"># Placing our current model, 3 raters, at the top</span></span>
+<span id="cb414-2"><a href="gtheory.html#cb414-2"></a>Err_Abs &lt;-<span class="st"> </span>VCpr_e<span class="op">/</span>Dn_r <span class="op">+</span><span class="st"> </span>VCr<span class="op">/</span>Dn_r</span>
+<span id="cb414-3"><a href="gtheory.html#cb414-3"></a>Phi     &lt;-<span class="st"> </span>VCp<span class="op">/</span>(VCp <span class="op">+</span><span class="st"> </span>Err_Abs)</span>
+<span id="cb414-4"><a href="gtheory.html#cb414-4"></a>Dstudy  &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">N_rater =</span> Dn_r, <span class="st">&quot;Phi_coef&quot;</span> =<span class="st"> </span><span class="kw">round</span>(Phi,<span class="dv">3</span>))</span>
+<span id="cb414-5"><a href="gtheory.html#cb414-5"></a>Dstudy</span></code></pre></div>
+<pre><code>##   N_rater Phi_coef
+## 1       3    0.785
+## 2       1    0.549
+## 3       2    0.709
+## 4       4    0.829
+## 5       5    0.859
+## 6       6    0.879
+## 7       7    0.895</code></pre>
+</div>
+<div id="summary-of-our-one-facet-fully-crossed-design" class="section level3">
+<h3><span class="header-section-number">11.1.4</span> Summary of our one-facet fully-crossed design</h3>
+<p>In each of these two examples, every rater rated every person person. These are fully-crossed one-facet designs, with persons crossed with raters (<span class="math inline">\(p \text{ x } r\)</span>). Here is the code with the VCA package in a single block for our first example data, from Table 10.2 of Bandalos:</p>
+<div class="sourceCode" id="cb416"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb416-1"><a href="gtheory.html#cb416-1"></a>dat        &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;Week07 Table10.2 Data.csv&quot;</span>)</span>
+<span id="cb416-2"><a href="gtheory.html#cb416-2"></a>dat<span class="op">$</span>person &lt;-<span class="st"> </span><span class="kw">as.factor</span>(dat<span class="op">$</span>person)</span>
+<span id="cb416-3"><a href="gtheory.html#cb416-3"></a>dat<span class="op">$</span>rater  &lt;-<span class="st"> </span><span class="kw">as.factor</span>(dat<span class="op">$</span>rater )</span>
+<span id="cb416-4"><a href="gtheory.html#cb416-4"></a><span class="co"># Gstudy:</span></span>
+<span id="cb416-5"><a href="gtheory.html#cb416-5"></a><span class="kw">library</span>(VCA)</span>
+<span id="cb416-6"><a href="gtheory.html#cb416-6"></a>fit        &lt;-<span class="st"> </span><span class="kw">anovaMM</span>(score <span class="op">~</span><span class="st"> </span>(person) <span class="op">+</span><span class="st"> </span>(rater), dat)</span>
+<span id="cb416-7"><a href="gtheory.html#cb416-7"></a>inf        &lt;-<span class="st"> </span><span class="kw">VCAinference</span>(fit, <span class="dt">VarVC =</span> <span class="ot">TRUE</span>)</span>
+<span id="cb416-8"><a href="gtheory.html#cb416-8"></a>VC         &lt;-<span class="st"> </span>inf<span class="op">$</span>VCA<span class="op">$</span>aov.tab</span>
+<span id="cb416-9"><a href="gtheory.html#cb416-9"></a>gstudy     &lt;-<span class="st"> </span><span class="kw">data.frame</span>(VC[, <span class="dv">1</span><span class="op">:</span><span class="dv">5</span>])</span>
+<span id="cb416-10"><a href="gtheory.html#cb416-10"></a><span class="kw">names</span>(gstudy)[<span class="dv">5</span>] &lt;-<span class="st"> &quot;PcntVar&quot;</span></span>
+<span id="cb416-11"><a href="gtheory.html#cb416-11"></a>gstudy     &lt;-<span class="st"> </span>gstudy[<span class="kw">c</span>(<span class="dv">2</span><span class="op">:</span><span class="dv">4</span>,<span class="dv">1</span>), ]</span>
+<span id="cb416-12"><a href="gtheory.html#cb416-12"></a><span class="kw">round</span>(gstudy,<span class="dv">2</span>)</span>
+<span id="cb416-13"><a href="gtheory.html#cb416-13"></a></span>
+<span id="cb416-14"><a href="gtheory.html#cb416-14"></a>VCp    &lt;-<span class="st"> </span>gstudy[<span class="st">&quot;person&quot;</span>, <span class="st">&quot;VC&quot;</span>]</span>
+<span id="cb416-15"><a href="gtheory.html#cb416-15"></a>VCr    &lt;-<span class="st"> </span>gstudy[<span class="st">&quot;rater&quot;</span> , <span class="st">&quot;VC&quot;</span>]</span>
+<span id="cb416-16"><a href="gtheory.html#cb416-16"></a>VCpr_e &lt;-<span class="st"> </span>gstudy[<span class="st">&quot;error&quot;</span> , <span class="st">&quot;VC&quot;</span>]</span>
+<span id="cb416-17"><a href="gtheory.html#cb416-17"></a>n_p &lt;-<span class="st"> </span><span class="kw">length</span>(<span class="kw">levels</span>(dat<span class="op">$</span>person))</span>
+<span id="cb416-18"><a href="gtheory.html#cb416-18"></a>n_r &lt;-<span class="st"> </span><span class="kw">length</span>(<span class="kw">levels</span>(dat<span class="op">$</span>rater))</span>
+<span id="cb416-19"><a href="gtheory.html#cb416-19"></a></span>
+<span id="cb416-20"><a href="gtheory.html#cb416-20"></a><span class="co"># D-study for relative and absolute decisions:</span></span>
+<span id="cb416-21"><a href="gtheory.html#cb416-21"></a>Dn_r    &lt;-<span class="st"> </span><span class="kw">c</span>(n_r,<span class="dv">1</span><span class="op">:</span><span class="dv">7</span>) <span class="co">#n_r comes first. It is our current n of raters</span></span>
+<span id="cb416-22"><a href="gtheory.html#cb416-22"></a>Err_Rel &lt;-<span class="st"> </span>VCpr_e<span class="op">/</span>Dn_r</span>
+<span id="cb416-23"><a href="gtheory.html#cb416-23"></a>Err_Abs &lt;-<span class="st"> </span>VCpr_e<span class="op">/</span>Dn_r <span class="op">+</span><span class="st"> </span>VCr<span class="op">/</span>Dn_r</span>
+<span id="cb416-24"><a href="gtheory.html#cb416-24"></a>G       &lt;-<span class="st"> </span>VCp<span class="op">/</span>(VCp <span class="op">+</span><span class="st"> </span>Err_Rel)</span>
+<span id="cb416-25"><a href="gtheory.html#cb416-25"></a>Phi     &lt;-<span class="st"> </span>VCp<span class="op">/</span>(VCp <span class="op">+</span><span class="st"> </span>Err_Abs)</span>
+<span id="cb416-26"><a href="gtheory.html#cb416-26"></a>Dstudy  &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">N_rater =</span> Dn_r, </span>
+<span id="cb416-27"><a href="gtheory.html#cb416-27"></a>                        <span class="dt">Err_Rel =</span> <span class="kw">round</span>(Err_Rel,<span class="dv">3</span>), <span class="dt">G_coef =</span> <span class="kw">round</span>(G,<span class="dv">3</span>),</span>
+<span id="cb416-28"><a href="gtheory.html#cb416-28"></a>                        <span class="dt">Err_Abs =</span> <span class="kw">round</span>(Err_Abs,<span class="dv">3</span>), <span class="dt">Phi_coef =</span> <span class="kw">round</span>(Phi,<span class="dv">3</span>))</span>
+<span id="cb416-29"><a href="gtheory.html#cb416-29"></a>Dstudy</span></code></pre></div>
+The following two tables are examples of how we can report the results. We should also provide our interpretations in narrative form.
+<table class="table" style="width: auto !important; ">
+<caption>
+<span id="tab:unnamed-chunk-278">Table 11.4: </span>G-study
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;text-align: center;">
+Source
+</th>
+<th style="text-align:right;text-align: center;">
+<em>df</em>
+</th>
+<th style="text-align:right;text-align: center;">
+SS
+</th>
+<th style="text-align:right;text-align: center;">
+MS
+</th>
+<th style="text-align:right;text-align: center;">
+Est. variance<br>component
+</th>
+<th style="text-align:right;text-align: center;">
+Percent<br>variance
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+person (<span class="math inline">\(p\)</span>)
+</td>
+<td style="text-align:right;">
+11.00
+</td>
+<td style="text-align:right;">
+52.97
+</td>
+<td style="text-align:right;">
+4.82
+</td>
+<td style="text-align:right;">
+1.28
+</td>
+<td style="text-align:right;">
+54.86
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+rater (<span class="math inline">\(r\)</span>)
+</td>
+<td style="text-align:right;">
+2.00
+</td>
+<td style="text-align:right;">
+4.06
+</td>
+<td style="text-align:right;">
+2.03
+</td>
+<td style="text-align:right;">
+0.09
+</td>
+<td style="text-align:right;">
+3.78
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+error (<span class="math inline">\(pr,e\)</span>)
+</td>
+<td style="text-align:right;">
+22.00
+</td>
+<td style="text-align:right;">
+21.28
+</td>
+<td style="text-align:right;">
+0.97
+</td>
+<td style="text-align:right;">
+0.97
+</td>
+<td style="text-align:right;">
+41.36
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+total
+</td>
+<td style="text-align:right;">
+20.79
+</td>
+<td style="text-align:right;">
+</td>
+<td style="text-align:right;">
+</td>
+<td style="text-align:right;">
+2.34
+</td>
+<td style="text-align:right;">
+100.00
+</td>
+</tr>
+</tbody>
+</table>
+<table style="width:42%; " class="table">
+<caption>
+<span id="tab:unnamed-chunk-279">Table 11.5: </span>D-study
+</caption>
+<thead>
+<tr>
+<th style="text-align:center;text-align: center;">
+<em>n</em> raters
+</th>
+<th style="text-align:center;text-align: center;">
+<span class="math inline">\(\hat{\sigma}_{REL}^2\)</span>
+</th>
+<th style="text-align:center;text-align: center;">
+<span class="math inline">\(G\)</span>
+</th>
+<th style="text-align:center;text-align: center;">
+<span class="math inline">\(\hat{\sigma}_{ABS}^2\)</span>
+</th>
+<th style="text-align:center;text-align: center;">
+<span class="math inline">\(\phi\)</span>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;">
+3
+</td>
+<td style="text-align:center;">
+0.322
+</td>
+<td style="text-align:center;">
+.799
+</td>
+<td style="text-align:center;">
+0.352
+</td>
+<td style="text-align:center;">
+.785
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+1
+</td>
+<td style="text-align:center;">
+0.967
+</td>
+<td style="text-align:center;">
+.570
+</td>
+<td style="text-align:center;">
+1.056
+</td>
+<td style="text-align:center;">
+.549
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+2
+</td>
+<td style="text-align:center;">
+0.484
+</td>
+<td style="text-align:center;">
+.726
+</td>
+<td style="text-align:center;">
+0.528
+</td>
+<td style="text-align:center;">
+.709
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+3
+</td>
+<td style="text-align:center;">
+0.322
+</td>
+<td style="text-align:center;">
+.799
+</td>
+<td style="text-align:center;">
+0.352
+</td>
+<td style="text-align:center;">
+.785
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+4
+</td>
+<td style="text-align:center;">
+0.242
+</td>
+<td style="text-align:center;">
+.841
+</td>
+<td style="text-align:center;">
+0.264
+</td>
+<td style="text-align:center;">
+.829
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+5
+</td>
+<td style="text-align:center;">
+0.193
+</td>
+<td style="text-align:center;">
+.869
+</td>
+<td style="text-align:center;">
+0.211
+</td>
+<td style="text-align:center;">
+.859
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+6
+</td>
+<td style="text-align:center;">
+0.161
+</td>
+<td style="text-align:center;">
+.888
+</td>
+<td style="text-align:center;">
+0.176
+</td>
+<td style="text-align:center;">
+.879
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+7
+</td>
+<td style="text-align:center;">
+0.138
+</td>
+<td style="text-align:center;">
+.903
+</td>
+<td style="text-align:center;">
+0.151
+</td>
+<td style="text-align:center;">
+.895
+</td>
+</tr>
+</tbody>
+<tfoot>
+<tr>
+<td style="padding: 0; border:0;" colspan="100%">
+<sup></sup> <em><em>Note</em></em>. The present design is in the top row.
+</td>
+</tr>
+</tfoot>
+</table>
+</div>
+</div>
+<div id="a-two-facet-design" class="section level2">
+<h2><span class="header-section-number">11.2</span> A two facet design</h2>
+<p>Designs with two or more facets are valuable for detecting systematic variation between one facet and the object of measurement (as well as among facets). For instance, if we have raters rating persons on several tasks (or items), we can look for evidence of rater-person bias by examining this interaction’s proportion of variance in the G-study. If the proportion of variance is high (based on our reason-based judgments), it suggests that some raters are lenient with some persons but stringent with others. In other words, we have evidence suggesting that some raters might be biased toward or against some of the examinees. With this, we might consider improving our rater-training procedures. This type of systematic variation was undetectable in our one-facet study because this interaction was confounded with error.</p>
+<p>We can also examine the item-person interaction to determine if the test tasks are differentially difficult across persons. For instance, if a subset of persons are differentially familiar with some items’ content compared to the other items, they may find the item easier than we would expect given their performance on the other items.</p>
+<p>A large item-person variance proportion may be because of the persons’ experience with the content domain being measured. For example, consider a test given to students and some of those students had attended an educational program that heavily emphasized one portion of the content domain (represented on the test by some items) but ignored other portions of the content domain (represented by the other test items). Compared to the rest of the students, our subset of students will probably perform better on those items measuring the emphasized portion of the content. Similarly, we might think that they perform differentially worse on those items that were ignored in their curriculum because the differential opportunity to learn that portion of the content. If this is the case, the items themselves are not at fault but we might be cautious in our claims about what the students’ scores actually mean.</p>
+<p>Another source of item-person variance may be because the items are easier for students based on certain traits that are unrelated to their learning of the content. For example, if our test is measuring an academic skill such as algebra word problems but half of the word problems assume the students understand the rules of American football, those students who are unfamiliar with this particular sport will be at a disadvantage. If this trend is present in a single item, this type of differential difficulty is idiosyncratic and is confounded with error. In contrast, if this trend is present across several items, such as with half of the test, the item-person variance will be high and we should consider inspecting and probably revising our items. A well-developed test would include a diverse set of word-problem scenarios in order to lower this type of item-person variance.</p>
+<p>As should be obvious by now, a G-study can provide us with information that can help us investigate how our instrument is functioning. Let’s look at an example, using data reported in Furr’s <span class="citation">(<a href="#ref-furr_psychometrics_2018" role="doc-biblioref">2018</a>)</span> discussion of a two-facet design. This example includes a rater facet, an item facet, and persons as the object of measurement. The data are fully crossed. Let’s import the data set, which is already in long format, and make sure the three variables are specified in R as being factors:</p>
+<div class="sourceCode" id="cb417"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb417-1"><a href="gtheory.html#cb417-1"></a>dat2L &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;Week07 Furr13.5.csv&quot;</span>)</span>
+<span id="cb417-2"><a href="gtheory.html#cb417-2"></a><span class="co"># We should be sure our persons, raters, and items are factors.</span></span>
+<span id="cb417-3"><a href="gtheory.html#cb417-3"></a>dat2L<span class="op">$</span>person &lt;-<span class="st"> </span><span class="kw">factor</span>(dat2L<span class="op">$</span>person)</span>
+<span id="cb417-4"><a href="gtheory.html#cb417-4"></a>dat2L<span class="op">$</span>rater  &lt;-<span class="st"> </span><span class="kw">factor</span>(dat2L<span class="op">$</span>rater)</span>
+<span id="cb417-5"><a href="gtheory.html#cb417-5"></a>dat2L<span class="op">$</span>item   &lt;-<span class="st"> </span><span class="kw">factor</span>(dat2L<span class="op">$</span>item)</span>
+<span id="cb417-6"><a href="gtheory.html#cb417-6"></a><span class="kw">str</span>(dat2L)</span></code></pre></div>
+<pre><code>## &#39;data.frame&#39;:    45 obs. of  4 variables:
+##  $ person: Factor w/ 5 levels &quot;Ann&quot;,&quot;Bob&quot;,&quot;Carol&quot;,..: 1 1 1 1 1 1 1 1 1 2 ...
+##  $ rater : Factor w/ 3 levels &quot;Doris&quot;,&quot;Ken&quot;,..: 2 2 2 1 1 1 3 3 3 2 ...
+##  $ item  : Factor w/ 3 levels &quot;Angry&quot;,&quot;Belligerent&quot;,..: 3 1 2 3 1 2 3 1 2 3 ...
+##  $ score : int  2 2 2 3 3 3 3 5 1 1 ...</code></pre>
+<p>We see that each of the two facets has three conditions. In ANOVA language, each of these factors has three levels.</p>
+<div id="rand2facet" class="section level3">
+<h3><span class="header-section-number">11.2.1</span> G-study with a two facet design</h3>
+<p>Let’s use the VCA package just as we did with the single-facet design. We have to specify all of the independent variables in the model. The long way to do this is to include every independent variable and possible interaction besides the highest-order interaction (person-by-rater-by-item). The colon is used in R to specify a specific interaction, so the <code>person:rater</code> [or with this particular package <code>(person):(rater)</code>] refers to the person-rater interaction.<a href="#fn96" class="footnote-ref" id="fnref96"><sup>96</sup></a></p>
+<div class="sourceCode" id="cb419"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb419-1"><a href="gtheory.html#cb419-1"></a><span class="kw">library</span>(VCA)</span>
+<span id="cb419-2"><a href="gtheory.html#cb419-2"></a>fit3  &lt;-<span class="st"> </span><span class="kw">anovaMM</span>(score <span class="op">~</span><span class="st"> </span>(person) <span class="op">+</span><span class="st"> </span>(rater) <span class="op">+</span><span class="st"> </span>(item) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb419-3"><a href="gtheory.html#cb419-3"></a><span class="st">                         </span>(person)<span class="op">:</span>(rater) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb419-4"><a href="gtheory.html#cb419-4"></a><span class="st">                         </span>(person)<span class="op">:</span>(item) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb419-5"><a href="gtheory.html#cb419-5"></a><span class="st">                         </span>(rater)<span class="op">:</span>(item), </span>
+<span id="cb419-6"><a href="gtheory.html#cb419-6"></a>                 <span class="dt">Data =</span> dat2L)</span></code></pre></div>
+<p>A shortcut in R is to use an asterisk instead of a colon between variables. This will include that interaction and all lower-order interactions and main effects. For instance, <code>person*rater</code> [or <code>(person)*(rater)</code> with this particular package] includes the two main effects, <code>person</code> and <code>rater</code>, and the person-by-rater interaction, <code>person:rater</code>. If we used <code>person*rater*item</code>, all three main effects, all three second order interactions, and the three-way interaction would be included in the model—note that we do <strong>not</strong> want that in our model because the three-way interaction is the highest order interaction and therefore confounded with error.</p>
+<p>Using this knowledge and our experience with the VCA package from before, we can use this code for obtaining our G-study:</p>
+<div class="sourceCode" id="cb420"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb420-1"><a href="gtheory.html#cb420-1"></a><span class="kw">library</span>(VCA)</span>
+<span id="cb420-2"><a href="gtheory.html#cb420-2"></a>fit3   &lt;-<span class="st"> </span><span class="kw">anovaMM</span>(score <span class="op">~</span><span class="st"> </span>(person)<span class="op">*</span>(rater) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb420-3"><a href="gtheory.html#cb420-3"></a><span class="st">                          </span>(person)<span class="op">*</span>(item) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb420-4"><a href="gtheory.html#cb420-4"></a><span class="st">                          </span>(rater)<span class="op">*</span>(item), </span>
+<span id="cb420-5"><a href="gtheory.html#cb420-5"></a>                  dat2L)</span>
+<span id="cb420-6"><a href="gtheory.html#cb420-6"></a>inf    &lt;-<span class="st"> </span><span class="kw">VCAinference</span>(fit3, <span class="dt">VarVC =</span> <span class="ot">TRUE</span>)</span>
+<span id="cb420-7"><a href="gtheory.html#cb420-7"></a>VC     &lt;-<span class="st"> </span>inf<span class="op">$</span>VCA<span class="op">$</span>aov.tab</span>
+<span id="cb420-8"><a href="gtheory.html#cb420-8"></a>gstudy &lt;-<span class="st"> </span><span class="kw">data.frame</span>(VC[, <span class="dv">1</span><span class="op">:</span><span class="dv">5</span>])</span>
+<span id="cb420-9"><a href="gtheory.html#cb420-9"></a><span class="kw">names</span>(gstudy)[<span class="dv">5</span>] &lt;-<span class="st"> &quot;PcntVar&quot;</span></span>
+<span id="cb420-10"><a href="gtheory.html#cb420-10"></a><span class="co">#We can reorder the rows:</span></span>
+<span id="cb420-11"><a href="gtheory.html#cb420-11"></a>gstudy&lt;-<span class="st"> </span>gstudy[<span class="kw">c</span>(<span class="dv">2</span><span class="op">:</span><span class="dv">3</span>,<span class="dv">5</span>,<span class="dv">4</span>,<span class="dv">6</span><span class="op">:</span><span class="dv">8</span>,<span class="dv">1</span>), ]</span>
+<span id="cb420-12"><a href="gtheory.html#cb420-12"></a><span class="kw">round</span>(gstudy,<span class="dv">2</span>)</span></code></pre></div>
+<table class="table" style="width: auto !important; ">
+<caption>
+<span id="tab:gstudy2facet">Table 11.6: </span>G-study of our two-facet fully-crossed design
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;text-align: center;">
+Source
+</th>
+<th style="text-align:right;text-align: center;">
+<em>df</em>
+</th>
+<th style="text-align:right;text-align: center;">
+SS
+</th>
+<th style="text-align:right;text-align: center;">
+MS
+</th>
+<th style="text-align:right;text-align: center;">
+Est. variance<br>component
+</th>
+<th style="text-align:right;text-align: center;">
+Percent<br>variance
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+person (<span class="math inline">\(p\)</span>)
+</td>
+<td style="text-align:right;">
+4.00
+</td>
+<td style="text-align:right;">
+128.53
+</td>
+<td style="text-align:right;">
+32.13
+</td>
+<td style="text-align:right;">
+3.23
+</td>
+<td style="text-align:right;">
+54.39
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+rater (<span class="math inline">\(r\)</span>)
+</td>
+<td style="text-align:right;">
+2.00
+</td>
+<td style="text-align:right;">
+19.24
+</td>
+<td style="text-align:right;">
+9.62
+</td>
+<td style="text-align:right;">
+0.44
+</td>
+<td style="text-align:right;">
+7.38
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+item (<span class="math inline">\(i\)</span>)
+</td>
+<td style="text-align:right;">
+2.00
+</td>
+<td style="text-align:right;">
+12.04
+</td>
+<td style="text-align:right;">
+6.02
+</td>
+<td style="text-align:right;">
+0.29
+</td>
+<td style="text-align:right;">
+4.86
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+person:rater (<span class="math inline">\(pr\)</span>)
+</td>
+<td style="text-align:right;">
+8.00
+</td>
+<td style="text-align:right;">
+23.20
+</td>
+<td style="text-align:right;">
+2.90
+</td>
+<td style="text-align:right;">
+0.49
+</td>
+<td style="text-align:right;">
+8.32
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+person:item (<span class="math inline">\(pi\)</span>)
+</td>
+<td style="text-align:right;">
+8.00
+</td>
+<td style="text-align:right;">
+12.40
+</td>
+<td style="text-align:right;">
+1.55
+</td>
+<td style="text-align:right;">
+0.04
+</td>
+<td style="text-align:right;">
+0.75
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+rater:item (<span class="math inline">\(ri\)</span>)
+</td>
+<td style="text-align:right;">
+4.00
+</td>
+<td style="text-align:right;">
+6.22
+</td>
+<td style="text-align:right;">
+1.56
+</td>
+<td style="text-align:right;">
+0.03
+</td>
+<td style="text-align:right;">
+0.47
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+error (<span class="math inline">\(pri,e\)</span>)
+</td>
+<td style="text-align:right;">
+16.00
+</td>
+<td style="text-align:right;">
+22.67
+</td>
+<td style="text-align:right;">
+1.42
+</td>
+<td style="text-align:right;">
+1.42
+</td>
+<td style="text-align:right;">
+23.83
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+total
+</td>
+<td style="text-align:right;">
+10.02
+</td>
+<td style="text-align:right;">
+</td>
+<td style="text-align:right;">
+</td>
+<td style="text-align:right;">
+5.94
+</td>
+<td style="text-align:right;">
+100.00
+</td>
+</tr>
+</tbody>
+</table>
+<p>We see from G-study table that the person-rater variance component (<span class="math inline">\(\hat{\sigma}_{pr}^2\)</span>) is responsible for 8.32% of the variance. This suggests there might be some systematic bias from some raters on some persons. In contrast, the person-item variance (<span class="math inline">\(\hat{\sigma}_{pi}^2\)</span>) is very low, explaining 0.75% of the variance, which suggests that the items are not differentially difficult across persons. The rater-item interaction component (<span class="math inline">\(\hat{\sigma}_{ri}^2\)</span>) is also pretty low (0.47%), suggesting that raters seem to be consistent in their use of the items to provide their ratings. If this interaction were high, we might want to re-examine our training procedures with the raters to be sure they share an understanding of what these items (or rubric categories) are intended to measure.</p>
+<p>The main effect of items explains some (4.86%) of the variance. This is not a big deal if we are only concerned with <strong>relative</strong> decisions. Some variation is to be expected because the tasks in items likely vary in their difficulty, just as we would expect in an essentially tau-equivalent CTT model in which the item <em>p</em>-values vary. In generalizability theory, the conditions of a random facet, such as the three items here, are assumed to be exchangeable with other possible items that might have been included in the test. Each item is assumed to be a randomly selected task from a population of possible items, or in G-theory terms, the items are exchangeable with other items in a <strong>universe of admissible operations</strong>. Obviously, not all tasks that are potentially used to elicit some kind of latent trait are going to be of equal difficulty. Still, if we are using our scores to make <strong>absolute</strong> decisions, and using the phi-coefficient, we prefer a low item variance.</p>
+<p>The raters also seem to vary in their levels of stringency or leniency, with <span class="math inline">\(\hat{\sigma}_{r}^2\)</span> explaining 7.38% of the variance. If we’re only interested in <strong>relative</strong> decisions, this is usually not a big concern if we consider our raters as representing the population of possible raters, where some are simply more lenient or stringent than others. In G-theory terminology, these raters are exchangeable with other possible raters in the universe of admissible operations. Just as is the case with items, this variance component is what is left over after we consider the rater-person interaction. This is the variation among raters’ average ratings across the persons, in the same way that the difficulty indexes of items (like the <em>p</em> values with dichotomous items) is calculated across all the persons. If we are making <strong>absolute</strong> decisions, this variability will be important. A large proportion of rater variance means that our estimates of the absolute scores of people will have more uncertainty.</p>
+<p>In sum, our primary concerns lie in the person-facet interactions. If those variance components are high, the resulting person scores are explained by some systematic differential difficulty. In our example, it appears that the items are not differentially difficult for persons but that the raters might be differentially stringent in their ratings of persons. There might be some kind of rater-person bias going on.</p>
+</div>
+<div id="d-study-with-a-two-facet-design" class="section level3">
+<h3><span class="header-section-number">11.2.2</span> D-study with a two facet design</h3>
+<p>Let’s carry out the D-study. To calculate the G-coefficient (or the phi-coefficient if we are interested in score interpretations for absolute decisions), we need the number of levels in our object of measurement (persons) and the number of conditions (i.e., levels) in each of our facets. We can also acquire the variance components from the object we created in our G-study, which here is <code>gstudy</code>.</p>
+<div class="sourceCode" id="cb421"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb421-1"><a href="gtheory.html#cb421-1"></a><span class="co"># Let&#39;s get the number of persons and the number of conditions per facet</span></span>
+<span id="cb421-2"><a href="gtheory.html#cb421-2"></a>n_p  &lt;-<span class="st"> </span><span class="kw">length</span>(<span class="kw">levels</span>(dat2L<span class="op">$</span>person))</span>
+<span id="cb421-3"><a href="gtheory.html#cb421-3"></a>n_r  &lt;-<span class="st"> </span><span class="kw">length</span>(<span class="kw">levels</span>(dat2L<span class="op">$</span>rater) )</span>
+<span id="cb421-4"><a href="gtheory.html#cb421-4"></a>n_i  &lt;-<span class="st"> </span><span class="kw">length</span>(<span class="kw">levels</span>(dat2L<span class="op">$</span>item)  )</span>
+<span id="cb421-5"><a href="gtheory.html#cb421-5"></a></span>
+<span id="cb421-6"><a href="gtheory.html#cb421-6"></a><span class="co">#Variance Components:</span></span>
+<span id="cb421-7"><a href="gtheory.html#cb421-7"></a>VCp  &lt;-<span class="st"> </span>gstudy[<span class="st">&quot;person&quot;</span>      , <span class="st">&quot;VC&quot;</span>]</span>
+<span id="cb421-8"><a href="gtheory.html#cb421-8"></a>VCr  &lt;-<span class="st"> </span>gstudy[<span class="st">&quot;rater&quot;</span>       , <span class="st">&quot;VC&quot;</span>]</span>
+<span id="cb421-9"><a href="gtheory.html#cb421-9"></a>VCi  &lt;-<span class="st"> </span>gstudy[<span class="st">&quot;item&quot;</span>        , <span class="st">&quot;VC&quot;</span>]</span>
+<span id="cb421-10"><a href="gtheory.html#cb421-10"></a>VCpr &lt;-<span class="st"> </span>gstudy[<span class="st">&quot;person:rater&quot;</span>, <span class="st">&quot;VC&quot;</span>]</span>
+<span id="cb421-11"><a href="gtheory.html#cb421-11"></a>VCpi &lt;-<span class="st"> </span>gstudy[<span class="st">&quot;person:item&quot;</span> , <span class="st">&quot;VC&quot;</span>]</span>
+<span id="cb421-12"><a href="gtheory.html#cb421-12"></a>VCri &lt;-<span class="st"> </span>gstudy[<span class="st">&quot;rater:item&quot;</span>  , <span class="st">&quot;VC&quot;</span>]</span>
+<span id="cb421-13"><a href="gtheory.html#cb421-13"></a>VCpri_e&lt;-<span class="st"> </span>gstudy[<span class="st">&quot;error&quot;</span>    , <span class="st">&quot;VC&quot;</span>]</span></code></pre></div>
+<div id="d-study-for-norm-referenced-interpretations" class="section level4">
+<h4><span class="header-section-number">11.2.2.1</span> D-study for norm-referenced interpretations</h4>
+<p>For the G-coefficient, we need to use the relative error term, which is
+<span class="math display">\[\hat{\sigma}_{REL}^2 = \frac{\hat{\sigma}_{pr}^2}{n_r} + \frac{\hat{\sigma}_{pi}^2}{n_i} + \frac{\hat{\sigma}_{pri,e}^2}{n_rn_i} \text{ .}\]</span>
+Notice that these are all of the variance components that include the <span class="math inline">\(_p\)</span> term (besides <span class="math inline">\(\hat{\sigma}_{p}^2\)</span> itself).</p>
+<div class="sourceCode" id="cb422"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb422-1"><a href="gtheory.html#cb422-1"></a><span class="co"># Estimate of the G-coefficient reliability </span></span>
+<span id="cb422-2"><a href="gtheory.html#cb422-2"></a>Err_Rel &lt;-<span class="st"> </span>VCpr<span class="op">/</span>n_r <span class="op">+</span><span class="st"> </span>VCpi<span class="op">/</span>n_i <span class="op">+</span><span class="st">   </span>VCpri_e<span class="op">/</span>(n_r<span class="op">*</span>n_i)</span>
+<span id="cb422-3"><a href="gtheory.html#cb422-3"></a>G       &lt;-<span class="st"> </span>VCp<span class="op">/</span>(VCp <span class="op">+</span><span class="st"> </span>Err_Rel)</span>
+<span id="cb422-4"><a href="gtheory.html#cb422-4"></a><span class="kw">round</span>(G,<span class="dv">3</span>)</span></code></pre></div>
+<pre><code>## [1] 0.906</code></pre>
+<p>For projecting what the G-coefficient would be given a different number of raters with this same number of items, we can use the same equation, but with a different number of raters. Here, to remind ourselves that this is not the actual number of raters, <code>n_r</code>, we might use a different object names such as <code>D_r</code> where the <code>D</code> is for decision. We can also use <code>D_i</code> in case we want to try out a different number of items:</p>
+<div class="sourceCode" id="cb424"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb424-1"><a href="gtheory.html#cb424-1"></a>D_r     &lt;-<span class="st"> </span><span class="kw">c</span>(n_r, <span class="dv">1</span><span class="op">:</span><span class="dv">5</span>) <span class="co"># The first listing is our actual design.</span></span>
+<span id="cb424-2"><a href="gtheory.html#cb424-2"></a>D_i     &lt;-<span class="st"> </span>n_i</span>
+<span id="cb424-3"><a href="gtheory.html#cb424-3"></a>Err_Rel &lt;-<span class="st"> </span>VCpr<span class="op">/</span>D_r <span class="op">+</span><span class="st"> </span>VCpi<span class="op">/</span>D_i <span class="op">+</span><span class="st"> </span>VCpri_e<span class="op">/</span>(D_r<span class="op">*</span>D_i)</span>
+<span id="cb424-4"><a href="gtheory.html#cb424-4"></a>G       &lt;-<span class="st"> </span>VCp<span class="op">/</span>(VCp <span class="op">+</span><span class="st"> </span>Err_Rel)</span>
+<span id="cb424-5"><a href="gtheory.html#cb424-5"></a>Dstudy  &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">N.Item    =</span> D_i, </span>
+<span id="cb424-6"><a href="gtheory.html#cb424-6"></a>                      <span class="dt">N.Rater   =</span> D_r, </span>
+<span id="cb424-7"><a href="gtheory.html#cb424-7"></a>                      <span class="dt">Err_Rel   =</span> <span class="kw">round</span>(Err_Rel,<span class="dv">3</span>),</span>
+<span id="cb424-8"><a href="gtheory.html#cb424-8"></a>                      <span class="dt">G_coef    =</span> <span class="kw">round</span>(G,<span class="dv">3</span>))</span>
+<span id="cb424-9"><a href="gtheory.html#cb424-9"></a>Dstudy</span></code></pre></div>
+<pre><code>##   N.Item N.Rater Err_Rel G_coef
+## 1      3       3   0.337  0.906
+## 2      3       1   0.981  0.767
+## 3      3       2   0.498  0.867
+## 4      3       3   0.337  0.906
+## 5      3       4   0.256  0.927
+## 6      3       5   0.208  0.940</code></pre>
+<p>For projecting what the G-coefficient would be given different combinations of the number of items and raters, we can also use a function:</p>
+<div class="sourceCode" id="cb426"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb426-1"><a href="gtheory.html#cb426-1"></a>d_studier &lt;-<span class="st"> </span><span class="cf">function</span>(D_r, D_i){</span>
+<span id="cb426-2"><a href="gtheory.html#cb426-2"></a>              Err_Rel&lt;-<span class="st"> </span>VCpr<span class="op">/</span>D_r <span class="op">+</span><span class="st"> </span>VCpi<span class="op">/</span>D_i <span class="op">+</span><span class="st"> </span>VCpri_e<span class="op">/</span>(D_r<span class="op">*</span>D_i)</span>
+<span id="cb426-3"><a href="gtheory.html#cb426-3"></a>              G      &lt;-<span class="st"> </span>VCp<span class="op">/</span>(VCp <span class="op">+</span><span class="st"> </span>Err_Rel)</span>
+<span id="cb426-4"><a href="gtheory.html#cb426-4"></a>              Dstudy &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">N.Item    =</span> D_i, </span>
+<span id="cb426-5"><a href="gtheory.html#cb426-5"></a>                                   <span class="dt">N.Rater   =</span> D_r, </span>
+<span id="cb426-6"><a href="gtheory.html#cb426-6"></a>                                   <span class="dt">Err_Rel   =</span> <span class="kw">round</span>(Err_Rel,<span class="dv">3</span>),</span>
+<span id="cb426-7"><a href="gtheory.html#cb426-7"></a>                                   <span class="dt">G_coef    =</span> <span class="kw">round</span>(G,<span class="dv">3</span>))</span>
+<span id="cb426-8"><a href="gtheory.html#cb426-8"></a>}</span>
+<span id="cb426-9"><a href="gtheory.html#cb426-9"></a><span class="co"># Let&#39;s make some n-sizes for items and raters.</span></span>
+<span id="cb426-10"><a href="gtheory.html#cb426-10"></a>n_item  &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>)</span>
+<span id="cb426-11"><a href="gtheory.html#cb426-11"></a>n_raters&lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>), <span class="dt">each =</span> <span class="kw">length</span>(n_item)) <span class="co"># rep() is for replication</span></span>
+<span id="cb426-12"><a href="gtheory.html#cb426-12"></a></span>
+<span id="cb426-13"><a href="gtheory.html#cb426-13"></a>Dstudy  &lt;-<span class="st"> </span><span class="kw">d_studier</span>(<span class="dt">D_r =</span> n_raters, <span class="dt">D_i=</span> n_item)</span>
+<span id="cb426-14"><a href="gtheory.html#cb426-14"></a>Dstudy</span></code></pre></div>
+<table style="width:42%; " class="table">
+<caption>
+<span id="tab:unnamed-chunk-288">Table 11.7: </span>D-study of consistency with our two-facet fully-crossed design
+</caption>
+<thead>
+<tr>
+<th style="text-align:center;text-align: center;">
+<em>n</em> items
+</th>
+<th style="text-align:center;text-align: center;">
+<em>n</em> raters
+</th>
+<th style="text-align:center;text-align: center;">
+<span class="math inline">\(\hat{\sigma}_{REL}^2\)</span>
+</th>
+<th style="text-align:center;text-align: center;">
+<span class="math inline">\(G\)</span>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;">
+1
+</td>
+<td style="text-align:center;">
+1
+</td>
+<td style="text-align:center;">
+1.96
+</td>
+<td style="text-align:center;">
+.623
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+2
+</td>
+<td style="text-align:center;">
+1
+</td>
+<td style="text-align:center;">
+1.23
+</td>
+<td style="text-align:center;">
+.725
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+3
+</td>
+<td style="text-align:center;">
+1
+</td>
+<td style="text-align:center;">
+0.98
+</td>
+<td style="text-align:center;">
+.767
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+4
+</td>
+<td style="text-align:center;">
+1
+</td>
+<td style="text-align:center;">
+0.86
+</td>
+<td style="text-align:center;">
+.790
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+1
+</td>
+<td style="text-align:center;">
+2
+</td>
+<td style="text-align:center;">
+1.00
+</td>
+<td style="text-align:center;">
+.764
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+2
+</td>
+<td style="text-align:center;">
+2
+</td>
+<td style="text-align:center;">
+0.62
+</td>
+<td style="text-align:center;">
+.838
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+3
+</td>
+<td style="text-align:center;">
+2
+</td>
+<td style="text-align:center;">
+0.50
+</td>
+<td style="text-align:center;">
+.867
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+4
+</td>
+<td style="text-align:center;">
+2
+</td>
+<td style="text-align:center;">
+0.44
+</td>
+<td style="text-align:center;">
+.881
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+1
+</td>
+<td style="text-align:center;">
+3
+</td>
+<td style="text-align:center;">
+0.68
+</td>
+<td style="text-align:center;">
+.826
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+2
+</td>
+<td style="text-align:center;">
+3
+</td>
+<td style="text-align:center;">
+0.42
+</td>
+<td style="text-align:center;">
+.884
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+3
+</td>
+<td style="text-align:center;">
+3
+</td>
+<td style="text-align:center;">
+0.34
+</td>
+<td style="text-align:center;">
+.906
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+4
+</td>
+<td style="text-align:center;">
+3
+</td>
+<td style="text-align:center;">
+0.29
+</td>
+<td style="text-align:center;">
+.917
+</td>
+</tr>
+</tbody>
+<tfoot>
+<tr>
+<td style="padding: 0; border:0;" colspan="100%">
+<sup></sup> <em><em>Note</em></em>. The present design includes <span class="math inline">\(3\)</span> raters and <span class="math inline">\(3\)</span> items.
+</td>
+</tr>
+</tfoot>
+</table>
+<p>If we sought to have a G-coefficient of at least <span class="math inline">\(.80\)</span>, we could get away with using two raters with our three items. If the items are equally representing the content domain, we could also reduce the amount of work for the raters by having them rate the persons on only two items.</p>
+</div>
+<div id="d-study-for-criterion-referenced-interpretations" class="section level4">
+<h4><span class="header-section-number">11.2.2.2</span> D-study for criterion-referenced interpretations</h4>
+<p>We can do the same thing with the phi-coefficient. The error term includes all of the variance components besides that of persons:
+<span class="math display">\[\hat{\sigma}_{ABS}^2 = \frac{\hat{\sigma}_{r}^2}{n_r} +
+\frac{\hat{\sigma}_{i}^2}{n_i} +
+\frac{\hat{\sigma}_{ri}^2}{n_rn_i} +
+\frac{\hat{\sigma}_{pr}^2}{n_r} + 
+\frac{\hat{\sigma}_{pi}^2}{n_i} + 
+\frac{\hat{\sigma}_{pri,e}^2}{n_rn_i}\]</span></p>
+<p>Estimate of the phi-coefficient dependability index:</p>
+<div class="sourceCode" id="cb427"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb427-1"><a href="gtheory.html#cb427-1"></a>Err_Abs &lt;-<span class="st"> </span>VCr<span class="op">/</span>n_r <span class="op">+</span><span class="st"> </span>VCi<span class="op">/</span>n_i <span class="op">+</span><span class="st"> </span>VCri<span class="op">/</span>(n_r<span class="op">*</span>n_i) <span class="op">+</span><span class="st"> </span>VCpr<span class="op">/</span>n_r <span class="op">+</span><span class="st"> </span>VCpi<span class="op">/</span>n_i <span class="op">+</span><span class="st">  </span>VCpri_e<span class="op">/</span>(n_r<span class="op">*</span>n_i)</span>
+<span id="cb427-2"><a href="gtheory.html#cb427-2"></a>Phi     &lt;-<span class="st"> </span>VCp<span class="op">/</span>(VCp <span class="op">+</span><span class="st"> </span>Err_Abs)</span>
+<span id="cb427-3"><a href="gtheory.html#cb427-3"></a><span class="kw">round</span>(Phi,<span class="dv">3</span>)</span></code></pre></div>
+<pre><code>## [1] 0.847</code></pre>
+<p>Again, we can project what the phi-coefficient would be with variations on the number of items and raters, using a custom function:</p>
+<div class="sourceCode" id="cb429"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb429-1"><a href="gtheory.html#cb429-1"></a>d_studier &lt;-<span class="st"> </span><span class="cf">function</span>(D_r, D_i){</span>
+<span id="cb429-2"><a href="gtheory.html#cb429-2"></a>             Err_Abs&lt;-<span class="st"> </span>VCr<span class="op">/</span>D_r  <span class="op">+</span><span class="st"> </span>VCi<span class="op">/</span>D_i  <span class="op">+</span><span class="st"> </span>VCpr<span class="op">/</span>D_r <span class="op">+</span><span class="st"> </span>VCpi<span class="op">/</span>D_i <span class="op">+</span><span class="st"> </span>VCri<span class="op">/</span>(D_r<span class="op">*</span>D_i) <span class="op">+</span><span class="st"> </span>VCpri_e<span class="op">/</span>(D_r<span class="op">*</span>D_i)</span>
+<span id="cb429-3"><a href="gtheory.html#cb429-3"></a>             Phi    &lt;-<span class="st"> </span><span class="kw">round</span>( VCp<span class="op">/</span>(VCp <span class="op">+</span><span class="st"> </span>Err_Abs), <span class="dv">3</span>)</span>
+<span id="cb429-4"><a href="gtheory.html#cb429-4"></a>             Dstudy &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">N.Item    =</span> D_i, </span>
+<span id="cb429-5"><a href="gtheory.html#cb429-5"></a>                                  <span class="dt">N.Rater   =</span> D_r,</span>
+<span id="cb429-6"><a href="gtheory.html#cb429-6"></a>                                  <span class="dt">Err_Abs   =</span> <span class="kw">round</span>(Err_Abs,<span class="dv">3</span>),</span>
+<span id="cb429-7"><a href="gtheory.html#cb429-7"></a>                                  <span class="dt">Phi_coef  =</span> <span class="kw">round</span>(Phi,<span class="dv">3</span>))</span>
+<span id="cb429-8"><a href="gtheory.html#cb429-8"></a>}</span>
+<span id="cb429-9"><a href="gtheory.html#cb429-9"></a><span class="co"># Let&#39;s make some n-sizes for items and raters.</span></span>
+<span id="cb429-10"><a href="gtheory.html#cb429-10"></a>n_item   &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">2</span><span class="op">:</span><span class="dv">4</span>)</span>
+<span id="cb429-11"><a href="gtheory.html#cb429-11"></a>n_raters &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="kw">c</span>(<span class="dv">2</span><span class="op">:</span><span class="dv">4</span>), <span class="dt">each =</span> <span class="kw">length</span>(n_item))</span>
+<span id="cb429-12"><a href="gtheory.html#cb429-12"></a></span>
+<span id="cb429-13"><a href="gtheory.html#cb429-13"></a>Dstudy   &lt;-<span class="st"> </span><span class="kw">d_studier</span>(<span class="dt">D_r =</span> n_raters, <span class="dt">D_i =</span> n_item)</span>
+<span id="cb429-14"><a href="gtheory.html#cb429-14"></a>Dstudy</span></code></pre></div>
+<table style="width:42%; " class="table">
+<caption>
+<span id="tab:unnamed-chunk-292">Table 11.8: </span>D-study of agreement with our two-facet fully-crossed design
+</caption>
+<thead>
+<tr>
+<th style="text-align:center;text-align: center;">
+<em>n</em> items
+</th>
+<th style="text-align:center;text-align: center;">
+<em>n</em> raters
+</th>
+<th style="text-align:center;text-align: center;">
+<span class="math inline">\(\hat{\sigma}_{ABS}^2\)</span>
+</th>
+<th style="text-align:center;text-align: center;">
+<span class="math inline">\(\phi\)</span>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;">
+2
+</td>
+<td style="text-align:center;">
+2
+</td>
+<td style="text-align:center;">
+0.99
+</td>
+<td style="text-align:center;">
+.765
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+3
+</td>
+<td style="text-align:center;">
+2
+</td>
+<td style="text-align:center;">
+0.82
+</td>
+<td style="text-align:center;">
+.798
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+4
+</td>
+<td style="text-align:center;">
+2
+</td>
+<td style="text-align:center;">
+0.73
+</td>
+<td style="text-align:center;">
+.816
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+2
+</td>
+<td style="text-align:center;">
+3
+</td>
+<td style="text-align:center;">
+0.72
+</td>
+<td style="text-align:center;">
+.818
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+3
+</td>
+<td style="text-align:center;">
+3
+</td>
+<td style="text-align:center;">
+0.58
+</td>
+<td style="text-align:center;">
+.847
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+4
+</td>
+<td style="text-align:center;">
+3
+</td>
+<td style="text-align:center;">
+0.52
+</td>
+<td style="text-align:center;">
+.863
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+2
+</td>
+<td style="text-align:center;">
+4
+</td>
+<td style="text-align:center;">
+0.58
+</td>
+<td style="text-align:center;">
+.848
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+3
+</td>
+<td style="text-align:center;">
+4
+</td>
+<td style="text-align:center;">
+0.47
+</td>
+<td style="text-align:center;">
+.874
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+4
+</td>
+<td style="text-align:center;">
+4
+</td>
+<td style="text-align:center;">
+0.41
+</td>
+<td style="text-align:center;">
+.888
+</td>
+</tr>
+</tbody>
+<tfoot>
+<tr>
+<td style="padding: 0; border:0;" colspan="100%">
+<sup></sup> <em><em>Note</em></em>. The present design includes <span class="math inline">\(3\)</span> raters and <span class="math inline">\(3\)</span> items.
+</td>
+</tr>
+</tfoot>
+</table>
+<p>If our target phi-coefficient were <span class="math inline">\(\phi \geq .80\)</span> and we sought to keep our costs low, we might use two raters and three items. If raters are readily available, we can afford to remove one item, but we would need to be sure that the item we remove still represents an important portion of the content domain.<a href="#fn97" class="footnote-ref" id="fnref97"><sup>97</sup></a></p>
+</div>
+</div>
+</div>
+<div id="nested-designs" class="section level2">
+<h2><span class="header-section-number">11.3</span> Nested designs</h2>
+<p>Our examples so far have included fully-crossed designs. For instance, in our first example with a one-facet design, every rater rated every person person. This was a persons-crossed-with-raters design (<span class="math inline">\(p \text{ x } r\)</span>). Our two-facet design had persons crossed with raters and items (<span class="math inline">\(p \text{ x } r \text{ x } i\)</span>). We can also fit models in which one facet is nested within another. These same models apply to partially nested data.</p>
+<div id="one-facet-nested-design" class="section level3">
+<h3><span class="header-section-number">11.3.1</span> One-facet nested design</h3>
+<p>With our one-facet design, if our facet (raters) is nested within persons (<span class="math inline">\(r:p\)</span>), the facet is confounded with the persons. This is analogous to the one-way ICC models in the previous chapter in which the within-person mean square estimate (<span class="math inline">\(MS_W\)</span>) contained the mean squares of both the raters and error. In this one-facet design, the rater facet is excluded from the ANOVA. We use persons as the predictor, <code>anovaMM(score ~ (person) , dat)</code>, to obtain the ANOVA table. If we fit this model using the VCA package we would use this code:</p>
+<div class="sourceCode" id="cb430"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb430-1"><a href="gtheory.html#cb430-1"></a>dat        &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;Week07 Table10.2 Data.csv&quot;</span>)</span>
+<span id="cb430-2"><a href="gtheory.html#cb430-2"></a>dat<span class="op">$</span>person &lt;-<span class="st"> </span><span class="kw">as.factor</span>(dat<span class="op">$</span>person)</span>
+<span id="cb430-3"><a href="gtheory.html#cb430-3"></a>dat<span class="op">$</span>rater  &lt;-<span class="st"> </span><span class="kw">as.factor</span>(dat<span class="op">$</span>rater )</span>
+<span id="cb430-4"><a href="gtheory.html#cb430-4"></a></span>
+<span id="cb430-5"><a href="gtheory.html#cb430-5"></a><span class="kw">library</span>(VCA)</span>
+<span id="cb430-6"><a href="gtheory.html#cb430-6"></a>fit_1way  &lt;-<span class="st"> </span><span class="kw">anovaMM</span>(score <span class="op">~</span><span class="st"> </span>(person) , dat)</span>
+<span id="cb430-7"><a href="gtheory.html#cb430-7"></a>inf       &lt;-<span class="st"> </span><span class="kw">VCAinference</span>(fit_1way, <span class="dt">VarVC =</span> <span class="ot">TRUE</span>)</span>
+<span id="cb430-8"><a href="gtheory.html#cb430-8"></a>VC        &lt;-<span class="st"> </span>inf<span class="op">$</span>VCA<span class="op">$</span>aov.tab</span>
+<span id="cb430-9"><a href="gtheory.html#cb430-9"></a>gstudy    &lt;-<span class="st"> </span><span class="kw">data.frame</span>(VC[, <span class="dv">1</span><span class="op">:</span><span class="dv">5</span>])</span>
+<span id="cb430-10"><a href="gtheory.html#cb430-10"></a>  <span class="kw">names</span>(gstudy)[<span class="dv">5</span>] &lt;-<span class="st"> &quot;PcntVar&quot;</span></span>
+<span id="cb430-11"><a href="gtheory.html#cb430-11"></a>  gstudy&lt;-<span class="st"> </span>gstudy[<span class="kw">c</span>(<span class="dv">2</span><span class="op">:</span><span class="dv">3</span>,<span class="dv">1</span>), ]</span>
+<span id="cb430-12"><a href="gtheory.html#cb430-12"></a><span class="kw">round</span>(gstudy,<span class="dv">2</span>)</span>
+<span id="cb430-13"><a href="gtheory.html#cb430-13"></a><span class="co"># D-studies:</span></span>
+<span id="cb430-14"><a href="gtheory.html#cb430-14"></a>VCp    &lt;-<span class="st"> </span>gstudy[<span class="st">&quot;person&quot;</span>, <span class="st">&quot;VC&quot;</span>]</span>
+<span id="cb430-15"><a href="gtheory.html#cb430-15"></a>VCpr_e &lt;-<span class="st"> </span>gstudy[<span class="st">&quot;error&quot;</span> , <span class="st">&quot;VC&quot;</span>]</span>
+<span id="cb430-16"><a href="gtheory.html#cb430-16"></a>n_p    &lt;-<span class="st"> </span><span class="kw">length</span>(<span class="kw">levels</span>(dat<span class="op">$</span>person))</span>
+<span id="cb430-17"><a href="gtheory.html#cb430-17"></a>n_r    &lt;-<span class="st"> </span><span class="kw">length</span>(<span class="kw">levels</span>(dat<span class="op">$</span>rater))</span>
+<span id="cb430-18"><a href="gtheory.html#cb430-18"></a><span class="co"># D-study:</span></span>
+<span id="cb430-19"><a href="gtheory.html#cb430-19"></a>Err_Rel &lt;-<span class="st"> </span>VCpr_e<span class="op">/</span>n_r</span>
+<span id="cb430-20"><a href="gtheory.html#cb430-20"></a>G       &lt;-<span class="st"> </span>VCp<span class="op">/</span>(VCp <span class="op">+</span><span class="st"> </span>Err_Rel)</span>
+<span id="cb430-21"><a href="gtheory.html#cb430-21"></a>Err_Abs &lt;-<span class="st"> </span>VCpr_e<span class="op">/</span>Dn_r  <span class="co"># Notice that Err_Abs = Err_Rel with a one-facet nested model.</span></span>
+<span id="cb430-22"><a href="gtheory.html#cb430-22"></a>Phi     &lt;-<span class="st"> </span>VCp<span class="op">/</span>(VCp <span class="op">+</span><span class="st"> </span>Err_Rel)</span>
+<span id="cb430-23"><a href="gtheory.html#cb430-23"></a><span class="kw">round</span>(G,<span class="dv">3</span>)</span>
+<span id="cb430-24"><a href="gtheory.html#cb430-24"></a><span class="co">## Projection: </span></span>
+<span id="cb430-25"><a href="gtheory.html#cb430-25"></a>Dn_r    &lt;-<span class="st"> </span>(<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>)</span>
+<span id="cb430-26"><a href="gtheory.html#cb430-26"></a>Err_Abs &lt;-<span class="st"> </span>VCpr_e<span class="op">/</span>Dn_r</span>
+<span id="cb430-27"><a href="gtheory.html#cb430-27"></a>Phi     &lt;-<span class="st"> </span>VCp<span class="op">/</span>(VCp <span class="op">+</span><span class="st"> </span>Err_Abs)</span>
+<span id="cb430-28"><a href="gtheory.html#cb430-28"></a>Dstudy  &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="st">&quot;N_rater&quot;</span> =<span class="st"> </span>Dn_r, <span class="st">&quot;Err_Abs&quot;</span> =<span class="st"> </span>Err_Abs, <span class="st">&quot;Phi_coef&quot;</span> =<span class="st"> </span><span class="kw">round</span>(Phi,<span class="dv">3</span>))</span>
+<span id="cb430-29"><a href="gtheory.html#cb430-29"></a>Dstudy</span></code></pre></div>
+<table class="table" style="width: auto !important; ">
+<caption>
+<span id="tab:unnamed-chunk-294">Table 11.9: </span>G-study of our one-facet nested design, with raters nested within persons
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;text-align: center;">
+Source
+</th>
+<th style="text-align:right;text-align: center;">
+<em>df</em>
+</th>
+<th style="text-align:right;text-align: center;">
+SS
+</th>
+<th style="text-align:right;text-align: center;">
+MS
+</th>
+<th style="text-align:right;text-align: center;">
+Est. variance<br>component
+</th>
+<th style="text-align:right;text-align: center;">
+Percent<br>variance
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+person (<span class="math inline">\(p\)</span>)
+</td>
+<td style="text-align:right;">
+11.00
+</td>
+<td style="text-align:right;">
+52.97
+</td>
+<td style="text-align:right;">
+4.82
+</td>
+<td style="text-align:right;">
+1.25
+</td>
+<td style="text-align:right;">
+54.28
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+error (<span class="math inline">\(r,pr,e\)</span>)
+</td>
+<td style="text-align:right;">
+24.00
+</td>
+<td style="text-align:right;">
+25.33
+</td>
+<td style="text-align:right;">
+1.06
+</td>
+<td style="text-align:right;">
+1.06
+</td>
+<td style="text-align:right;">
+45.72
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+total
+</td>
+<td style="text-align:right;">
+20.92
+</td>
+<td style="text-align:right;">
+</td>
+<td style="text-align:right;">
+</td>
+<td style="text-align:right;">
+2.31
+</td>
+<td style="text-align:right;">
+100.00
+</td>
+</tr>
+</tbody>
+</table>
+<table style="width:42%; " class="table">
+<caption>
+<span id="tab:unnamed-chunk-295">Table 11.10: </span>D-study of our one-facet nested design, with raters nested within persons
+</caption>
+<thead>
+<tr>
+<th style="text-align:center;text-align: center;">
+<em>n</em> raters
+</th>
+<th style="text-align:center;text-align: center;">
+<span class="math inline">\(\hat{\sigma}_{ABS}^2\)</span>
+</th>
+<th style="text-align:center;text-align: center;">
+<span class="math inline">\(\phi\)</span>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;">
+1
+</td>
+<td style="text-align:center;">
+1.056
+</td>
+<td style="text-align:center;">
+.543
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+2
+</td>
+<td style="text-align:center;">
+0.528
+</td>
+<td style="text-align:center;">
+.704
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+3
+</td>
+<td style="text-align:center;">
+0.352
+</td>
+<td style="text-align:center;">
+.781
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+4
+</td>
+<td style="text-align:center;">
+0.264
+</td>
+<td style="text-align:center;">
+.826
+</td>
+</tr>
+</tbody>
+<tfoot>
+<tr>
+<td style="padding: 0; border:0;" colspan="100%">
+<sup></sup> <em>Note</em>. There is no difference between phi and G in this design.
+</td>
+</tr>
+</tfoot>
+</table>
+<p>Notice that because the rater facet is confounded with persons, the absolute error used in calculating the phi-coefficient is the same as the error for the G-coefficient. G and phi are the same in this model.</p>
+<p>If we had partially nested data, we would need to use this same model. This would occur if some persons indeed shared the same raters but not every person had the same raters.</p>
+</div>
+<div id="two-facet-nested-design" class="section level3">
+<h3><span class="header-section-number">11.3.2</span> Two-facet nested design</h3>
+<p>An example of a nested two-facet design is when we administer a test on two occasions and each occasion includes two items. Let’s say Occasion 1 included Items 1 and 2 and Occasion 2 included Items 3 and 4, making items nested within occasions. This might occur if we had a test-retest design with alternative forms of the test.</p>
+<p>This two-facet nested design has persons crossed with items nested within occasions, <span class="math inline">\(p\text{ x }(i:o)\)</span>, design.<a href="#fn98" class="footnote-ref" id="fnref98"><sup>98</sup></a> In the VCA package (and in many packages), the forward slash indicates nesting, so <code>occasion/item</code> means items are nested within occasions (or if we read it from left to right, we might say occasions within which are nested items).</p>
+</div>
+<div id="g-study-with-a-two-facet-items-nested-within-occasions-design" class="section level3">
+<h3><span class="header-section-number">11.3.3</span> G-study with a two-facet items-nested-within-occasions design</h3>
+<p>The following data set is from Huebner and Lucht <span class="citation">(<a href="#ref-huebner_generalizability_2019" role="doc-biblioref">2019</a>)</span>, who demonstrated this model using a slightly different set of operations.<a href="#fn99" class="footnote-ref" id="fnref99"><sup>99</sup></a></p>
+<div class="sourceCode" id="cb431"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb431-1"><a href="gtheory.html#cb431-1"></a>dat2_nest &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;Week07 2FacetNest.csv&quot;</span>)</span>
+<span id="cb431-2"><a href="gtheory.html#cb431-2"></a>dat2_nest<span class="op">$</span>person   &lt;-<span class="st"> </span><span class="kw">factor</span>(dat2_nest<span class="op">$</span>person)</span>
+<span id="cb431-3"><a href="gtheory.html#cb431-3"></a>dat2_nest<span class="op">$</span>occasion &lt;-<span class="st"> </span><span class="kw">factor</span>(dat2_nest<span class="op">$</span>occasion)</span>
+<span id="cb431-4"><a href="gtheory.html#cb431-4"></a>dat2_nest<span class="op">$</span>item     &lt;-<span class="st"> </span><span class="kw">factor</span>(dat2_nest<span class="op">$</span>item)</span>
+<span id="cb431-5"><a href="gtheory.html#cb431-5"></a></span>
+<span id="cb431-6"><a href="gtheory.html#cb431-6"></a><span class="kw">library</span>(VCA)</span>
+<span id="cb431-7"><a href="gtheory.html#cb431-7"></a>fit_pir_nest &lt;-<span class="st"> </span><span class="kw">anovaMM</span>(score <span class="op">~</span><span class="st"> </span>(person) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb431-8"><a href="gtheory.html#cb431-8"></a><span class="st">                                </span>(occasion) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb431-9"><a href="gtheory.html#cb431-9"></a><span class="st">                                </span>(person)<span class="op">:</span>(occasion) <span class="op">+</span></span>
+<span id="cb431-10"><a href="gtheory.html#cb431-10"></a><span class="st">                                </span>(occasion<span class="op">/</span>item),  <span class="co"># item facet is nested within the occasion facet</span></span>
+<span id="cb431-11"><a href="gtheory.html#cb431-11"></a>                               dat2_nest)</span>
+<span id="cb431-12"><a href="gtheory.html#cb431-12"></a>inf   &lt;-<span class="st"> </span><span class="kw">VCAinference</span>(fit_pir_nest, <span class="dt">VarVC =</span> <span class="ot">TRUE</span>)</span>
+<span id="cb431-13"><a href="gtheory.html#cb431-13"></a>VC    &lt;-<span class="st"> </span>inf<span class="op">$</span>VCA<span class="op">$</span>aov.tab</span>
+<span id="cb431-14"><a href="gtheory.html#cb431-14"></a>gstudy&lt;-<span class="st"> </span><span class="kw">data.frame</span>(VC[, <span class="dv">1</span><span class="op">:</span><span class="dv">5</span>])</span>
+<span id="cb431-15"><a href="gtheory.html#cb431-15"></a><span class="kw">names</span>(gstudy)[<span class="dv">5</span>] &lt;-<span class="st"> &quot;PcntVar&quot;</span></span>
+<span id="cb431-16"><a href="gtheory.html#cb431-16"></a><span class="co">#We can reorder the rows:</span></span>
+<span id="cb431-17"><a href="gtheory.html#cb431-17"></a>gstudy&lt;-<span class="st"> </span>gstudy[<span class="kw">c</span>(<span class="dv">2</span><span class="op">:</span><span class="dv">6</span>,<span class="dv">1</span>), ]</span>
+<span id="cb431-18"><a href="gtheory.html#cb431-18"></a><span class="kw">round</span>(gstudy,<span class="dv">2</span>)</span></code></pre></div>
+<table class="table" style="width: auto !important; ">
+<caption>
+<span id="tab:unnamed-chunk-297">Table 11.11: </span>G-study of nested design, with items nested in occasion
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;text-align: center;">
+Source
+</th>
+<th style="text-align:right;text-align: center;">
+<em>df</em>
+</th>
+<th style="text-align:right;text-align: center;">
+SS
+</th>
+<th style="text-align:right;text-align: center;">
+MS
+</th>
+<th style="text-align:right;text-align: center;">
+Est. variance<br>component
+</th>
+<th style="text-align:right;text-align: center;">
+Percent<br>variance
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+person (<span class="math inline">\(p\)</span>)
+</td>
+<td style="text-align:right;">
+5.00
+</td>
+<td style="text-align:right;">
+56.87
+</td>
+<td style="text-align:right;">
+11.37
+</td>
+<td style="text-align:right;">
+2.18
+</td>
+<td style="text-align:right;">
+18.89
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+occasion (<span class="math inline">\(o\)</span>)
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+92.04
+</td>
+<td style="text-align:right;">
+92.04
+</td>
+<td style="text-align:right;">
+7.20
+</td>
+<td style="text-align:right;">
+62.29
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+person:occasion (<span class="math inline">\(po\)</span>)
+</td>
+<td style="text-align:right;">
+5.00
+</td>
+<td style="text-align:right;">
+13.21
+</td>
+<td style="text-align:right;">
+2.64
+</td>
+<td style="text-align:right;">
+0.97
+</td>
+<td style="text-align:right;">
+8.36
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+occasion:item (<span class="math inline">\(i,io\)</span>)
+</td>
+<td style="text-align:right;">
+2.00
+</td>
+<td style="text-align:right;">
+7.42
+</td>
+<td style="text-align:right;">
+3.71
+</td>
+<td style="text-align:right;">
+0.50
+</td>
+<td style="text-align:right;">
+4.33
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+error (<span class="math inline">\(pi,pio,e\)</span>)
+</td>
+<td style="text-align:right;">
+10.00
+</td>
+<td style="text-align:right;">
+7.08
+</td>
+<td style="text-align:right;">
+0.71
+</td>
+<td style="text-align:right;">
+0.71
+</td>
+<td style="text-align:right;">
+6.13
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+total
+</td>
+<td style="text-align:right;">
+2.21
+</td>
+<td style="text-align:right;">
+</td>
+<td style="text-align:right;">
+</td>
+<td style="text-align:right;">
+11.56
+</td>
+<td style="text-align:right;">
+100.00
+</td>
+</tr>
+</tbody>
+</table>
+<p>We can see that the person-occasion interaction is estimated to explain 8.36% of the variance. This has to do with whether some occasions (and their items) are harder for some people than others. This interaction is analogous to the person-rater interaction in the earlier example in which a high variance component with this interaction may be evidence that some raters are more severe with (perhaps having a bias against) some persons. The occasion component explains a strong proportion the variance, suggesting that the two occasions’ tests (with their nested items) are not of equal difficulty (or that some maturation or loss occurred in the persons across occasions). The person variance component is of moderate strength but at least it is higher than the error variance and the interaction variance components.</p>
+</div>
+<div id="d-study-with-a-two-facet-items-nested-within-occasions-design" class="section level3">
+<h3><span class="header-section-number">11.3.4</span> D-study with a two-facet items-nested-within-occasions design</h3>
+<p>For the D-study, we need to specify <code>n_i</code> as the number of items nested within the occasion facet that is used for each person.<a href="#fn100" class="footnote-ref" id="fnref100"><sup>100</sup></a></p>
+<div class="sourceCode" id="cb432"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb432-1"><a href="gtheory.html#cb432-1"></a>n_i &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">3</span><span class="op">:</span><span class="dv">5</span>) <span class="co"># Each occasion includes this many items</span></span>
+<span id="cb432-2"><a href="gtheory.html#cb432-2"></a>n_o &lt;-<span class="st"> </span><span class="dv">2</span> <span class="co"># Number of occasions</span></span>
+<span id="cb432-3"><a href="gtheory.html#cb432-3"></a></span>
+<span id="cb432-4"><a href="gtheory.html#cb432-4"></a>VCp        &lt;-<span class="st"> </span>gstudy[<span class="st">&quot;person&quot;</span>,          <span class="st">&quot;VC&quot;</span>]</span>
+<span id="cb432-5"><a href="gtheory.html#cb432-5"></a>VCo        &lt;-<span class="st"> </span>gstudy[<span class="st">&quot;occasion&quot;</span>,        <span class="st">&quot;VC&quot;</span>]</span>
+<span id="cb432-6"><a href="gtheory.html#cb432-6"></a>VCi_io     &lt;-<span class="st"> </span>gstudy[<span class="st">&quot;occasion:item&quot;</span>,   <span class="st">&quot;VC&quot;</span>]</span>
+<span id="cb432-7"><a href="gtheory.html#cb432-7"></a>VCpo       &lt;-<span class="st"> </span>gstudy[<span class="st">&quot;person:occasion&quot;</span>, <span class="st">&quot;VC&quot;</span>]</span>
+<span id="cb432-8"><a href="gtheory.html#cb432-8"></a>VCpi_pio_e &lt;-<span class="st"> </span>gstudy[<span class="st">&quot;error&quot;</span>,           <span class="st">&quot;VC&quot;</span>]</span>
+<span id="cb432-9"><a href="gtheory.html#cb432-9"></a></span>
+<span id="cb432-10"><a href="gtheory.html#cb432-10"></a>Err_REL &lt;-<span class="st"> </span>VCpo<span class="op">/</span>n_o <span class="op">+</span><span class="st"> </span>VCpi_pio_e<span class="op">/</span>(n_o<span class="op">*</span>n_i)</span>
+<span id="cb432-11"><a href="gtheory.html#cb432-11"></a>G       &lt;-<span class="st"> </span>VCp<span class="op">/</span>(VCp <span class="op">+</span><span class="st"> </span>Err_REL)</span>
+<span id="cb432-12"><a href="gtheory.html#cb432-12"></a>G</span>
+<span id="cb432-13"><a href="gtheory.html#cb432-13"></a>Err_ABS &lt;-<span class="st"> </span>VCpo<span class="op">/</span>n_o <span class="op">+</span><span class="st"> </span>VCo<span class="op">/</span>n_o <span class="op">+</span><span class="st"> </span>VCi_io<span class="op">/</span>(n_i<span class="op">*</span>n_o) <span class="op">+</span><span class="st"> </span>VCpi_pio_e<span class="op">/</span>(n_o<span class="op">*</span>n_i)</span>
+<span id="cb432-14"><a href="gtheory.html#cb432-14"></a>Phi     &lt;-<span class="st"> </span>VCp<span class="op">/</span>(VCp <span class="op">+</span><span class="st"> </span>Err_ABS)</span>
+<span id="cb432-15"><a href="gtheory.html#cb432-15"></a>report  &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">n_o =</span> n_o, <span class="dt">n_i =</span> n_i, <span class="dt">Err_REL =</span> Err_REL, <span class="dt">G_coef =</span> G,</span>
+<span id="cb432-16"><a href="gtheory.html#cb432-16"></a>              <span class="dt">Err_ABS =</span> Err_ABS, <span class="dt">phi_coef =</span> Phi)</span>
+<span id="cb432-17"><a href="gtheory.html#cb432-17"></a><span class="kw">round</span>(report,<span class="dv">3</span>)</span></code></pre></div>
+<p>The first row in the table is our current model. Notice that as we increase the numbers of items, the error does not seem to reduce very much.</p>
+<table style="width:42%; " class="table">
+<caption>
+<span id="tab:unnamed-chunk-299">Table 11.12: </span>D-study of our two-facet nested design
+</caption>
+<thead>
+<tr>
+<th style="text-align:center;text-align: center;">
+<em>n</em> occasions
+</th>
+<th style="text-align:center;text-align: center;">
+<em>n</em> items
+</th>
+<th style="text-align:center;text-align: center;">
+<span class="math inline">\(\hat{\sigma}_{REL}^2\)</span>
+</th>
+<th style="text-align:center;text-align: center;">
+G
+</th>
+<th style="text-align:center;text-align: center;">
+<span class="math inline">\(\hat{\sigma}_{ABS}^2\)</span>
+</th>
+<th style="text-align:center;text-align: center;">
+<span class="math inline">\(\phi\)</span>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;">
+2
+</td>
+<td style="text-align:center;">
+2
+</td>
+<td style="text-align:center;">
+0.660
+</td>
+<td style="text-align:center;">
+.768
+</td>
+<td style="text-align:center;">
+4.385
+</td>
+<td style="text-align:center;">
+.332
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+2
+</td>
+<td style="text-align:center;">
+1
+</td>
+<td style="text-align:center;">
+0.838
+</td>
+<td style="text-align:center;">
+.723
+</td>
+<td style="text-align:center;">
+4.688
+</td>
+<td style="text-align:center;">
+.318
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+2
+</td>
+<td style="text-align:center;">
+3
+</td>
+<td style="text-align:center;">
+0.601
+</td>
+<td style="text-align:center;">
+.784
+</td>
+<td style="text-align:center;">
+4.285
+</td>
+<td style="text-align:center;">
+.338
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+2
+</td>
+<td style="text-align:center;">
+4
+</td>
+<td style="text-align:center;">
+0.572
+</td>
+<td style="text-align:center;">
+.792
+</td>
+<td style="text-align:center;">
+4.234
+</td>
+<td style="text-align:center;">
+.340
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+2
+</td>
+<td style="text-align:center;">
+5
+</td>
+<td style="text-align:center;">
+0.554
+</td>
+<td style="text-align:center;">
+.798
+</td>
+<td style="text-align:center;">
+4.204
+</td>
+<td style="text-align:center;">
+.342
+</td>
+</tr>
+</tbody>
+<tfoot>
+<tr>
+<td style="padding: 0; border:0;" colspan="100%">
+<sup></sup> <em><em>Note</em></em>. The present design is in the top row.
+</td>
+</tr>
+</tfoot>
+</table>
+</div>
+</div>
+<div id="fixed-facets" class="section level2">
+<h2><span class="header-section-number">11.4</span> Fixed facets</h2>
+<p>With models that have more than one facet, we can include a fixed facet. For instance, if we are conducting a study with raters rating persons on several tasks (which we’ll call rubric items) and we are not seeking to claim that these items represent some kind of broader content domain, we can treat the items as fixed. We might do this if we are rating people on their performance on a finite set of tasks for a particular job and we do <em>not</em> seek to draw inferences about how the examinees will do in other jobs that have similar tasks.<a href="#fn101" class="footnote-ref" id="fnref101"><sup>101</sup></a></p>
+<p>In this type of model, the G- and phi-coefficients will typically be higher than in their random-facets counterpart models because the fixed facet’s variance components are treated differently than they are in the random effects model. They’re no longer considered as error (the exception being their interactions with random facets).</p>
+<p>To estimate these, we conduct a G-study as if all the facets were random. Then, for the D-study, we specify the universe-score variance component (analogous to true-score variance in CTT) as including not only the usual person variance (<span class="math inline">\(\hat{\sigma}_{p}^2\)</span>) but also the person-item interaction variance component (<span class="math inline">\(\hat{\sigma}_{pi}^2\)</span>). Also, the error terms (<span class="math inline">\(\hat{\sigma}_{REL}^2\)</span> &amp; <span class="math inline">\(\hat{\sigma}_{ABS}^2\)</span>) no longer include this variance component (<span class="math inline">\(\hat{\sigma}_{pi}^2\)</span>). The variance component of the main effect of the fixed facet (<span class="math inline">\(\hat{\sigma}_{i}^2\)</span>) is also excluded from the absolute error. This makes our numerator in G and phi larger than in the model in which items are treated as random (unless our fixed facet has very little variability to begin with).</p>
+<p>Let’s use the example from <a href="gtheory.html#rand2facet" target="_blank">earlier in the chapter</a>. The G-study will be the same as it was with the random-effects <span class="math inline">\(p \text{ x } r \text{ x } i\)</span> model, presented in Table <a href="gtheory.html#tab:gstudy2facet">11.6</a>. The D-study will include the following two equations for the error variances.</p>
+<p><span class="math display">\[\begin{eqnarray*}
+\hat{\sigma}_{REL}^2 &amp;=&amp; 
+\frac{\hat{\sigma}_{pr}^2}{n_r} + 
+\frac{\hat{\sigma}_{pri,e}^2}{n_rn_i}\\[20pt]
+\hat{\sigma}_{ABS}^2 &amp;=&amp; \frac{\hat{\sigma}_{r}^2}{n_r} +
+\frac{\hat{\sigma}_{ri}^2}{n_rn_i} +
+\frac{\hat{\sigma}_{pr}^2}{n_r} + 
+\frac{\hat{\sigma}_{pri,e}^2}{n_rn_i}
+\end{eqnarray*}\]</span>
+Which, with our variance components yields the following error estimates:</p>
+<p><span class="math display">\[\begin{eqnarray*}
+\hat{\sigma}_{REL}^2 
+&amp;=&amp; \frac{ {\\0.494} }{ {\\3} } +
+\frac{ {\\1.417} }{ {\\3*3 }} = {\\0.322}\\[20pt]
+\hat{\sigma}_{ABS}^2 &amp;=&amp; \frac{ {\\0.439} }{ {\\3} } +
+\frac{ {\\0.028} }{ {\\3*3 } } +
+\frac{ {\\0.494} }{ {\\3} } +
+\frac{ {\\1.417} }{ {\\3*3 }} = {\\0.472}
+\end{eqnarray*}\]</span>
+With the variance component of the person-item interaction now being included as a portion of the universe variance, G- and phi-coefficient formulas are</p>
+<p><span class="math display">\[\begin{eqnarray*}
+G &amp;=&amp; 
+\frac{\hat{\sigma}_{p}^2 + \frac{\hat{\sigma}_{pi}^2}{n_i}}
+{\hat{\sigma}_{p}^2 + \frac{\hat{\sigma}_{pi}^2}{n_i} +\hat{\sigma}_{REL}^2}\\[20pt]
+\phi &amp;=&amp; 
+\frac{\hat{\sigma}_{p}^2 + \frac{\hat{\sigma}_{pi}^2}{n_i}}
+{\hat{\sigma}_{p}^2 + \frac{\hat{\sigma}_{pi}^2}{n_i} +\hat{\sigma}_{ABS}^2} \text{ .}
+\end{eqnarray*}\]</span></p>
+<p>Which, with our data are calculated as the following:
+<span class="math display">\[\begin{eqnarray*}
+G &amp;=&amp; 
+\frac{\\3.233 + \frac{\\0.044}{\\3}}
+{\\3.233 + \frac{\\0.044}{\\3} + {\\0.322}} \\[5pt]
+&amp;=&amp; {\\.910}\\[20pt]
+\phi &amp;=&amp; 
+\frac{\\3.233 + \frac{\\0.044}{\\3}}
+{\\3.233 + \frac{\\0.044}{\\3} + {\\0.472}} \\[5pt]
+&amp;=&amp; {\\.873 }
+\end{eqnarray*}\]</span></p>
+<p>These estimates are a tiny bit higher than the G and phi coefficients we calculated when we treated items as a random facet (<span class="math inline">\(G\)</span> was <span class="math inline">\(.906\)</span> &amp; <span class="math inline">\(phi\)</span> was <span class="math inline">\(.847\)</span>). If the person-item variance were very high, we would see a much larger difference between the fixed- and random-facets models’ coefficients.</p>
+</div>
+<div id="summary" class="section level2">
+<h2><span class="header-section-number">11.5</span> Summary</h2>
+<p>G-theory provides a framework for estimating the reliability and dependability of scores when one or more facets are used in scoring persons. The formulas encompass coefficient alpha as well as the ICC estimates used in inter-rater reliability and agreement. Furthermore, the D-study methodology provides an extension of the Spearman Brown prophecy formula, permitting researchers to estimate what the reliability or dependability would be with different numbers of facet conditions. There are many possible G-theory models beyond those presented here. Two well cited resources are Brennan <span class="citation">(<a href="#ref-brennan_generalizability_2001" role="doc-biblioref">2001</a>)</span> and Shavelson and Webb <span class="citation">(<a href="#ref-jaeger_generalizability_1991" role="doc-biblioref">1991</a>)</span>.</p>
+<p>G-theory is not the only approach for examining how well an instrument with multiple facets functions. Within modern test theory, multi-facet Rasch modeling <span class="citation">(Engelhard, <a href="#ref-engelhard_examining_1994" role="doc-biblioref">1994</a>; Linacre, <a href="#ref-linacre_many-faceted_1989" role="doc-biblioref">1989</a>)</span> provides methods for addressing many of these same questions and design considerations.</p>
+
+</div>
+</div>
+<h3>References</h3>
+<div id="refs" class="references">
+<div id="ref-brennan_generalizability_2001">
+<p>Brennan, R. L. (2001). <em>Generalizability theory</em>. Springer-Verlag.</p>
+</div>
+<div id="ref-engelhard_examining_1994">
+<p>Engelhard, G. (1994). Examining rater errors in the assessment of written composition with a many-faceted rasch model. <em>Journal of Educational Measurement</em>, <em>31</em>(2), 93–112. <a href="http://www.jstor.org.eres.library.manoa.hawaii.edu/stable/1435170">http://www.jstor.org.eres.library.manoa.hawaii.edu/stable/1435170</a></p>
+</div>
+<div id="ref-furr_psychometrics_2018">
+<p>Furr, R. M. (2018). <em>Psychometrics: An introduction</em> (Third edition). SAGE.</p>
+</div>
+<div id="ref-huebner_generalizability_2019">
+<p>Huebner, A., &amp; Lucht, M. (2019). Generalizability theory in R. <em>Practical Assessment, Research &amp; Evaluation</em>, <em>24</em>(5). <a href="https://doi.org/10.7275/5065-GC10">https://doi.org/10.7275/5065-GC10</a></p>
+</div>
+<div id="ref-linacre_many-faceted_1989">
+<p>Linacre, J. M. (1989). <em>Many-faceted Rasch measurement</em>. MESA Press.</p>
+</div>
+<div id="ref-R-VCA">
+<p>Schuetzenmeister, A., &amp; Dufey, F. (2020). <em>VCA: Variance component analysis</em>. <a href="https://CRAN.R-project.org/package=VCA">https://CRAN.R-project.org/package=VCA</a></p>
+</div>
+<div id="ref-jaeger_generalizability_1991">
+<p>Shavelson, R. J., &amp; Webb, N. M. (1991). <em>Generalizability theory: A primer</em> (R. M. Jaeger, Ed.). Sage Publications, Inc.</p>
+</div>
+<div id="ref-R-tidyr">
+<p>Wickham, H. (2020c). <em>Tidyr: Tidy messy data</em>. <a href="https://CRAN.R-project.org/package=tidyr">https://CRAN.R-project.org/package=tidyr</a></p>
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="88">
+<li id="fn88"><p>When we use modern test theory approaches, such as item response theory, we will more appropriately account for item difficulty.<a href="gtheory.html#fnref88" class="footnote-back">↩︎</a></p></li>
+<li id="fn89"><p>Some authors <span class="citation">(Brennan, <a href="#ref-brennan_generalizability_2001" role="doc-biblioref">2001</a>; Furr, <a href="#ref-furr_psychometrics_2018" role="doc-biblioref">2018</a>; Shavelson &amp; Webb, <a href="#ref-jaeger_generalizability_1991" role="doc-biblioref">1991</a>)</span> use different notation; they use <span class="math inline">\(\rho_{t}^2\)</span> or <span class="math inline">\(\text{E}\rho_{}^2\)</span> for the G-coefficient and <span class="math inline">\(\phi_{t}^2\)</span> or <span class="math inline">\(\Phi{}\)</span> for the phi-coefficient.<a href="gtheory.html#fnref89" class="footnote-back">↩︎</a></p></li>
+<li id="fn90"><p>The last chapter introduced <a href="interrater.html#reshaping" target="_blank">reshaping data from wide to long formats</a>.<a href="gtheory.html#fnref90" class="footnote-back">↩︎</a></p></li>
+<li id="fn91"><p>The <code>levels()</code> function returns the levels in the factor.<a href="gtheory.html#fnref91" class="footnote-back">↩︎</a></p></li>
+<li id="fn92"><p>Some authors use <span class="math inline">\(\hat{\sigma}_{\delta}^2\)</span> as the notation for <span class="math inline">\(\hat{\sigma}_{REL}^2\)</span>.<a href="gtheory.html#fnref92" class="footnote-back">↩︎</a></p></li>
+<li id="fn93"><p>The <code>pivot_wider()</code> function in the tidyr package takes long data and spreads it out into wide format. Here, the <code>names_from =</code> argument specifies the variable in our long data set that contains the levels of that factor that we seek to turn into columns in the data. The <code>values_from =</code> argument is the name of the column in the long data set that includes the values associated with each level in the rater column. We are using the <code>names_prefix = ""</code> argument because our raters were simply named <span class="math inline">\(1\)</span>, <span class="math inline">\(2\)</span>, and <span class="math inline">\(3\)</span> in our <code>rater</code> column in our long data set. If we had originally used “rater1”, “rater2”, “rater3” as the values in that column, we would <strong>not</strong> need the <code>names_prefix =</code> argument. The <code>pivot_wider()</code> function replaces the older <code>spread()</code> function, which was less intuitive. We could also use the <code>reshape()</code> function in Base R, <code>reshape(dat, idvar = "person", timevar = "rater",direction = "wide")</code>.<a href="gtheory.html#fnref93" class="footnote-back">↩︎</a></p></li>
+<li id="fn94"><p>Some authors use <span class="math inline">\(\hat{\sigma}_{\Delta}^2\)</span> as the notation for <span class="math inline">\(\hat{\sigma}_{ABS}^2\)</span>.<a href="gtheory.html#fnref94" class="footnote-back">↩︎</a></p></li>
+<li id="fn95"><p>Sometimes the variance components are estimated as negative if our data do not fit the model well or if there is sampling error. Negative variance is strictly speaking not possible (because it is in squared units). The VCA package sets components that have negative variance to zero. When we do this, we are assuming the error is sampling error, not model specification error. If our observed variance components are just a little below zero, we’ll probably be fine setting it to zero. If not, we should look at whether our model really does make sense given our data.<a href="gtheory.html#fnref95" class="footnote-back">↩︎</a></p></li>
+<li id="fn96"><p>The parentheses around the independent variables is specific to this package’s function to indicate that these variables are random. These same uses of colons and asterisks apply to other functions in R, such as <code>lm()</code> which do not typically require parentheses.<a href="gtheory.html#fnref96" class="footnote-back">↩︎</a></p></li>
+<li id="fn97"><p>We can obtain the same results for the d-study using the gtheory package. That package does not provide the ANOVA table output that is required when we report a generalizability study, which is why we are not using it here but are instead using VCA package. The code would be <br><code>library(gtheory)</code><br>
+<code>formula &lt;- score ~ (1|person) + (1|rater) + (1|item)  + (1|person:rater) + (1|person:item) + (1|rater:item)</code><br>
+<code>g &lt;- gstudy(data = dat2L, formula)</code><br>
+<code>d &lt;- dstudy(g, colname.objects = "person", colname.scores = "score", data = dat2L)</code><br>
+<code>report &lt;- c(Err_REL = d$var.error.rel, G_coef = d$generalizability, Err_ABS = d$var.error.abs, phi_coef = d$dependability)</code><br>
+<code>round(report,3)]</code>.<a href="gtheory.html#fnref97" class="footnote-back">↩︎</a></p></li>
+<li id="fn98"><p>This colon in <span class="math inline">\(i:o\)</span> is read as “nested within” and is <strong>not</strong> the same function of the colon in a model in R, which refers to an interaction (e.g., a person-occasion interaction in the R output is labeled as person:occasion–it does not mean (necessarily) that persons are nested within occasions.<a href="gtheory.html#fnref98" class="footnote-back">↩︎</a></p></li>
+<li id="fn99"><p>Huebner and Lucht <span class="citation">(<a href="#ref-huebner_generalizability_2019" role="doc-biblioref">2019</a>)</span> used the gtheory <span class="citation">(Moore, <a href="#ref-R-gtheory" role="doc-biblioref">2016</a>)</span> package. Again, that package does not provide the ANOVA table output that is required when we report a generalizability study. Nonetheless, we can use it to compare our results. Here is the code for our two-facet <span class="math inline">\(p\text{ x }(i:o)\)</span> design:
+<br><code>library(gtheory)</code> <br>
+<code>formula &lt;- score ~ (1|person) + (1|person:occasion) + (1|occasion/item)</code> <br>
+<code>g &lt;- gstudy(data = dat2_nest, formula)</code> <br>
+<code>d &lt;- dstudy(g, colname.objects = "person", colname.scores = "score", data = dat2_nest)</code> <br>
+<code>report &lt;- c(Err_REL = d$var.error.rel, G_coef = d$generalizability, Err_ABS = d$var.error.abs, phi_coef = d$dependability)</code><br>
+<code>round(report,3)</code><a href="gtheory.html#fnref99" class="footnote-back">↩︎</a></p></li>
+<li id="fn100"><p>This is a balanced design, so each person receives the same number of scores (one per item per occasion).<a href="gtheory.html#fnref100" class="footnote-back">↩︎</a></p></li>
+<li id="fn101"><p>Brennan <span class="citation">(<a href="#ref-brennan_generalizability_1992" role="doc-biblioref">1992</a>, <a href="#ref-brennan_coecients_2003" role="doc-biblioref">2003</a>)</span> and Shavelson and colleagues <span class="citation">(Webb et al., <a href="#ref-Webb_Shavelson_Haertel_2006" role="doc-biblioref">2006</a>)</span> more deeply (and more accurately) discuss fixed and random facets. The formulas here are from the examples presented in their work.<a href="gtheory.html#fnref101" class="footnote-back">↩︎</a></p></li>
+</ol>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="interrater.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="efa.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

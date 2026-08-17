@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 1 Score Transformations | R Examples for Measurement</title>
+  <meta name="description" content="Provides examples to accompany lessons used to learn measurement concepts." />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 1 Score Transformations | R Examples for Measurement" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="Provides examples to accompany lessons used to learn measurement concepts." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 1 Score Transformations | R Examples for Measurement" />
+  
+  <meta name="twitter:description" content="Provides examples to accompany lessons used to learn measurement concepts." />
+  
+
+<meta name="author" content="George M. Harrison  University of Hawai‘i at Mānoa, College of Education" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="index.html"/>
+<link rel="next" href="var-cov-cor.html"/>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<link href="libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0/anchor-sections.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+<link href="libs/bsTable-3.3.7/bootstrapTable.min.css" rel="stylesheet" />
+<script src="libs/bsTable-3.3.7/bootstrapTable.js"></script>
+
+
+<style type="text/css">
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Introduction</a></li>
+<li class="chapter" data-level="1" data-path="ch02.html"><a href="ch02.html"><i class="fa fa-check"></i><b>1</b> Score Transformations</a><ul>
+<li class="chapter" data-level="1.1" data-path="ch02.html"><a href="ch02.html#percentiles-percentile-ranks-and-normalized-scores"><i class="fa fa-check"></i><b>1.1</b> Percentiles, percentile ranks, and normalized scores</a></li>
+<li class="chapter" data-level="1.2" data-path="ch02.html"><a href="ch02.html#run-of-the-mill-z-scores"><i class="fa fa-check"></i><b>1.2</b> Run-of-the-mill Z scores</a></li>
+<li class="chapter" data-level="1.3" data-path="ch02.html"><a href="ch02.html#extra-optional-stuff"><i class="fa fa-check"></i><b>1.3</b> Extra optional stuff</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="var-cov-cor.html"><a href="var-cov-cor.html"><i class="fa fa-check"></i><b>2</b> Variance, Covariance, and Correlation</a><ul>
+<li class="chapter" data-level="2.1" data-path="var-cov-cor.html"><a href="var-cov-cor.html#correlation"><i class="fa fa-check"></i><b>2.1</b> Correlation</a><ul>
+<li class="chapter" data-level="2.1.1" data-path="var-cov-cor.html"><a href="var-cov-cor.html#estimating-correlation-as-a-statistic"><i class="fa fa-check"></i><b>2.1.1</b> Estimating correlation as a statistic</a></li>
+<li class="chapter" data-level="2.1.2" data-path="var-cov-cor.html"><a href="var-cov-cor.html#creating-a-correlation-matrix"><i class="fa fa-check"></i><b>2.1.2</b> Creating a correlation matrix</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="var-cov-cor.html"><a href="var-cov-cor.html#variance"><i class="fa fa-check"></i><b>2.2</b> Variance</a></li>
+<li class="chapter" data-level="2.3" data-path="var-cov-cor.html"><a href="var-cov-cor.html#covariance"><i class="fa fa-check"></i><b>2.3</b> Covariance</a><ul>
+<li class="chapter" data-level="2.3.1" data-path="var-cov-cor.html"><a href="var-cov-cor.html#creating-a-variance-covariance-matrix"><i class="fa fa-check"></i><b>2.3.1</b> Creating a variance-covariance matrix</a></li>
+<li class="chapter" data-level="2.3.2" data-path="var-cov-cor.html"><a href="var-cov-cor.html#using-the-n-denominator"><i class="fa fa-check"></i><b>2.3.2</b> Using the <em>n</em> denominator</a></li>
+<li class="chapter" data-level="2.3.3" data-path="var-cov-cor.html"><a href="var-cov-cor.html#extra-understanding-for-use-in-classical-test-theory"><i class="fa fa-check"></i><b>2.3.3</b> Extra understanding, for use in classical test theory</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="var-cov-cor.html"><a href="var-cov-cor.html#practice"><i class="fa fa-check"></i><b>2.4</b> Practice</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="custfuncts.html"><a href="custfuncts.html"><i class="fa fa-check"></i><b>3</b> Creating Custom Functions</a><ul>
+<li class="chapter" data-level="3.1" data-path="custfuncts.html"><a href="custfuncts.html#using-our-function-on-multiple-variables"><i class="fa fa-check"></i><b>3.1</b> Using our function on multiple variables</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="using-packages.html"><a href="using-packages.html"><i class="fa fa-check"></i><b>4</b> Using Packages</a><ul>
+<li class="chapter" data-level="4.1" data-path="using-packages.html"><a href="using-packages.html#an-example-using-the-hmisc-package-for-correlation"><i class="fa fa-check"></i><b>4.1</b> An example: Using the <code>Hmisc</code> package for correlation</a></li>
+<li class="chapter" data-level="4.2" data-path="using-packages.html"><a href="using-packages.html#tidyverse_intro"><i class="fa fa-check"></i><b>4.2</b> Using Tidyverse packages</a><ul>
+<li class="chapter" data-level="4.2.1" data-path="using-packages.html"><a href="using-packages.html#piping"><i class="fa fa-check"></i><b>4.2.1</b> Piping</a></li>
+<li class="chapter" data-level="4.2.2" data-path="using-packages.html"><a href="using-packages.html#saving-our-output-as-a-csv-file"><i class="fa fa-check"></i><b>4.2.2</b> Saving our output as a CSV file</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="regress.html"><a href="regress.html"><i class="fa fa-check"></i><b>5</b> Estimating Regression</a><ul>
+<li class="chapter" data-level="5.1" data-path="regress.html"><a href="regress.html#the-lm-function"><i class="fa fa-check"></i><b>5.1</b> The <code>lm()</code> function</a></li>
+<li class="chapter" data-level="5.2" data-path="regress.html"><a href="regress.html#using-the-regression-parameters-for-prediction"><i class="fa fa-check"></i><b>5.2</b> Using the regression parameters for prediction</a></li>
+<li class="chapter" data-level="5.3" data-path="regress.html"><a href="regress.html#model-error-variance-and-a-peek-into-classical-test-theory"><i class="fa fa-check"></i><b>5.3</b> Model error variance and a peek into classical test theory</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="graphing.html"><a href="graphing.html"><i class="fa fa-check"></i><b>6</b> Graphing</a><ul>
+<li class="chapter" data-level="6.1" data-path="graphing.html"><a href="graphing.html#using-base-r"><i class="fa fa-check"></i><b>6.1</b> Using Base R</a></li>
+<li class="chapter" data-level="6.2" data-path="graphing.html"><a href="graphing.html#using-the-ggplot2-package"><i class="fa fa-check"></i><b>6.2</b> Using the <code>ggplot2</code> package</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="itemans.html"><a href="itemans.html"><i class="fa fa-check"></i><b>7</b> Item Scoring and Item Analysis</a><ul>
+<li class="chapter" data-level="7.1" data-path="itemans.html"><a href="itemans.html#multiple-choice-raw-data-and-their-answer-key"><i class="fa fa-check"></i><b>7.1</b> Multiple-choice raw data and their answer key</a></li>
+<li class="chapter" data-level="7.2" data-path="itemans.html"><a href="itemans.html#scoring-the-responses"><i class="fa fa-check"></i><b>7.2</b> Scoring the responses</a></li>
+<li class="chapter" data-level="7.3" data-path="itemans.html"><a href="itemans.html#item-analysis-with-dichotomous-data"><i class="fa fa-check"></i><b>7.3</b> Item analysis with dichotomous data</a></li>
+<li class="chapter" data-level="7.4" data-path="itemans.html"><a href="itemans.html#distractor-analysis"><i class="fa fa-check"></i><b>7.4</b> Distractor analysis</a></li>
+<li class="chapter" data-level="7.5" data-path="itemans.html"><a href="itemans.html#item-analysis-with-polytomous-data"><i class="fa fa-check"></i><b>7.5</b> Item analysis with polytomous data</a><ul>
+<li class="chapter" data-level="7.5.1" data-path="itemans.html"><a href="itemans.html#partial-credit-data"><i class="fa fa-check"></i><b>7.5.1</b> Partial-credit data</a></li>
+<li class="chapter" data-level="7.5.2" data-path="itemans.html"><a href="itemans.html#item-functioning-of-likert-type-scale-items"><i class="fa fa-check"></i><b>7.5.2</b> Item functioning of Likert-type scale items</a></li>
+<li class="chapter" data-level="7.5.3" data-path="itemans.html"><a href="itemans.html#graphing-frequencies-of-category-responses"><i class="fa fa-check"></i><b>7.5.3</b> Graphing frequencies of category responses</a></li>
+</ul></li>
+<li class="chapter" data-level="7.6" data-path="itemans.html"><a href="itemans.html#optional-advanced-graphics-stuff"><i class="fa fa-check"></i><b>7.6</b> Optional advanced graphics stuff</a><ul>
+<li class="chapter" data-level="7.6.1" data-path="itemans.html"><a href="itemans.html#creating-a-facet-plot-with-ggplot2"><i class="fa fa-check"></i><b>7.6.1</b> Creating a facet plot with <code>GGplot2</code></a></li>
+<li class="chapter" data-level="7.6.2" data-path="itemans.html"><a href="itemans.html#the-base-r-approach-to-creating-a-facet-plot"><i class="fa fa-check"></i><b>7.6.2</b> The Base R approach to creating a facet plot</a></li>
+</ul></li>
+<li class="chapter" data-level="7.7" data-path="itemans.html"><a href="itemans.html#additional-functions-for-examining-category-frequencies"><i class="fa fa-check"></i><b>7.7</b> Additional functions for examining category frequencies</a><ul>
+<li class="chapter" data-level="7.7.1" data-path="itemans.html"><a href="itemans.html#using-the-table-function-and-the-lapply-function"><i class="fa fa-check"></i><b>7.7.1</b> Using the <code>table()</code> function and the <code>lapply()</code> function</a></li>
+<li class="chapter" data-level="7.7.2" data-path="itemans.html"><a href="itemans.html#factors"><i class="fa fa-check"></i><b>7.7.2</b> Specifying the data as categorical</a></li>
+<li class="chapter" data-level="7.7.3" data-path="itemans.html"><a href="itemans.html#ordered-factors"><i class="fa fa-check"></i><b>7.7.3</b> Ordered factors</a></li>
+</ul></li>
+<li class="chapter" data-level="7.8" data-path="itemans.html"><a href="itemans.html#conclusion"><i class="fa fa-check"></i><b>7.8</b> Conclusion</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="CTT.html"><a href="CTT.html"><i class="fa fa-check"></i><b>8</b> Classical Test Theory</a><ul>
+<li class="chapter" data-level="8.1" data-path="CTT.html"><a href="CTT.html#true-score-model"><i class="fa fa-check"></i><b>8.1</b> True score model</a></li>
+<li class="chapter" data-level="8.2" data-path="CTT.html"><a href="CTT.html#assumptions-of-the-ctt-true-score-model"><i class="fa fa-check"></i><b>8.2</b> Assumptions of the CTT true score model</a></li>
+<li class="chapter" data-level="8.3" data-path="CTT.html"><a href="CTT.html#reliability-and-the-variance-of-the-composite-score"><i class="fa fa-check"></i><b>8.3</b> Reliability and the variance of the composite score</a><ul>
+<li class="chapter" data-level="8.3.1" data-path="CTT.html"><a href="CTT.html#reliability-as-the-ratio-of-true-score-variance-to-observed-score-variance"><i class="fa fa-check"></i><b>8.3.1</b> Reliability as the ratio of true-score variance to observed-score variance</a></li>
+<li class="chapter" data-level="8.3.2" data-path="CTT.html"><a href="CTT.html#reliability-as-the-lack-of-error-variance"><i class="fa fa-check"></i><b>8.3.2</b> Reliability as the lack of error variance</a></li>
+<li class="chapter" data-level="8.3.3" data-path="CTT.html"><a href="CTT.html#reliability-as-the-squared-correlation-between-observed-and-true-scores"><i class="fa fa-check"></i><b>8.3.3</b> Reliability as the squared correlation between observed and true scores</a></li>
+<li class="chapter" data-level="8.3.4" data-path="CTT.html"><a href="CTT.html#reliability-as-the-correlation-between-scores-on-parallel-tests"><i class="fa fa-check"></i><b>8.3.4</b> Reliability as the correlation between scores on parallel tests</a></li>
+</ul></li>
+<li class="chapter" data-level="8.4" data-path="CTT.html"><a href="CTT.html#four-ctt-models"><i class="fa fa-check"></i><b>8.4</b> Four CTT models</a><ul>
+<li class="chapter" data-level="8.4.1" data-path="CTT.html"><a href="CTT.html#the-parallel-model"><i class="fa fa-check"></i><b>8.4.1</b> The parallel model</a></li>
+<li class="chapter" data-level="8.4.2" data-path="CTT.html"><a href="CTT.html#the-tau-equivalent-model"><i class="fa fa-check"></i><b>8.4.2</b> The tau-equivalent model</a></li>
+<li class="chapter" data-level="8.4.3" data-path="CTT.html"><a href="CTT.html#the-essentially-tau-equivalent-model"><i class="fa fa-check"></i><b>8.4.3</b> The essentially tau-equivalent model</a></li>
+<li class="chapter" data-level="8.4.4" data-path="CTT.html"><a href="CTT.html#the-congeneric-model"><i class="fa fa-check"></i><b>8.4.4</b> The congeneric model</a></li>
+<li class="chapter" data-level="8.4.5" data-path="CTT.html"><a href="CTT.html#implications-of-each-model"><i class="fa fa-check"></i><b>8.4.5</b> Implications of each model</a></li>
+</ul></li>
+<li class="chapter" data-level="8.5" data-path="CTT.html"><a href="CTT.html#estimating-an-observations-true-score"><i class="fa fa-check"></i><b>8.5</b> Estimating an observation’s true score</a></li>
+<li class="chapter" data-level="8.6" data-path="CTT.html"><a href="CTT.html#the-standard-error-of-measurement"><i class="fa fa-check"></i><b>8.6</b> The standard error of measurement</a><ul>
+<li class="chapter" data-level="8.6.1" data-path="CTT.html"><a href="CTT.html#estimating-the-confidence-interval-of-a-true-score"><i class="fa fa-check"></i><b>8.6.1</b> Estimating the confidence interval of a true score</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="reliability.html"><a href="reliability.html"><i class="fa fa-check"></i><b>9</b> Internal-consistency Reliability</a><ul>
+<li class="chapter" data-level="9.1" data-path="reliability.html"><a href="reliability.html#coefficient-alpha"><i class="fa fa-check"></i><b>9.1</b> Coefficient alpha</a><ul>
+<li class="chapter" data-level="9.1.1" data-path="reliability.html"><a href="reliability.html#how-coefficient-alpha-works"><i class="fa fa-check"></i><b>9.1.1</b> How coefficient alpha works</a></li>
+</ul></li>
+<li class="chapter" data-level="9.2" data-path="reliability.html"><a href="reliability.html#using-r-to-estimate-internal-consistency-reliability-coefficient"><i class="fa fa-check"></i><b>9.2</b> Using R to estimate internal-consistency reliability coefficient</a><ul>
+<li class="chapter" data-level="9.2.1" data-path="reliability.html"><a href="reliability.html#a-demonstration-of-coefficient-alpha-using-hypothetical-data"><i class="fa fa-check"></i><b>9.2.1</b> A demonstration of coefficient alpha using hypothetical data</a></li>
+<li class="chapter" data-level="9.2.2" data-path="reliability.html"><a href="reliability.html#using-r-packages-to-calculate-alpha-and-more"><i class="fa fa-check"></i><b>9.2.2</b> Using R packages to calculate alpha and more</a></li>
+</ul></li>
+<li class="chapter" data-level="9.3" data-path="reliability.html"><a href="reliability.html#spearman-brown-prophecy-formula"><i class="fa fa-check"></i><b>9.3</b> Spearman-Brown prophecy formula</a><ul>
+<li class="chapter" data-level="9.3.1" data-path="reliability.html"><a href="reliability.html#calculation"><i class="fa fa-check"></i><b>9.3.1</b> Calculation</a></li>
+<li class="chapter" data-level="9.3.2" data-path="reliability.html"><a href="reliability.html#using-the-ctt-package"><i class="fa fa-check"></i><b>9.3.2</b> Using the CTT package</a></li>
+</ul></li>
+<li class="chapter" data-level="9.4" data-path="reliability.html"><a href="reliability.html#standardized-coefficient-alpha"><i class="fa fa-check"></i><b>9.4</b> Standardized coefficient alpha</a><ul>
+<li class="chapter" data-level="9.4.1" data-path="reliability.html"><a href="reliability.html#calculation-of-standardized-coefficient-alpha"><i class="fa fa-check"></i><b>9.4.1</b> Calculation of standardized coefficient alpha</a></li>
+</ul></li>
+<li class="chapter" data-level="9.5" data-path="reliability.html"><a href="reliability.html#reliability-of-difference-scores"><i class="fa fa-check"></i><b>9.5</b> Reliability of difference scores</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="interrater.html"><a href="interrater.html"><i class="fa fa-check"></i><b>10</b> Inter-rater and Test-retest Reliability</a><ul>
+<li class="chapter" data-level="10.1" data-path="interrater.html"><a href="interrater.html#coefficient-kappa-for-estimating-agreement-with-nominal-data"><i class="fa fa-check"></i><b>10.1</b> Coefficient kappa for estimating agreement with nominal data</a><ul>
+<li class="chapter" data-level="10.1.1" data-path="interrater.html"><a href="interrater.html#using-the-irr-package-to-estimate-kappa"><i class="fa fa-check"></i><b>10.1.1</b> Using the irr package to estimate kappa</a></li>
+<li class="chapter" data-level="10.1.2" data-path="interrater.html"><a href="interrater.html#limitations-of-kappa"><i class="fa fa-check"></i><b>10.1.2</b> Limitations of kappa</a></li>
+</ul></li>
+<li class="chapter" data-level="10.2" data-path="interrater.html"><a href="interrater.html#intraclass-correlation-coefficients-for-estimating-consistency-and-agreement"><i class="fa fa-check"></i><b>10.2</b> Intraclass correlation coefficients for estimating consistency and agreement</a><ul>
+<li class="chapter" data-level="10.2.1" data-path="interrater.html"><a href="interrater.html#example-of-an-icc-for-consistency"><i class="fa fa-check"></i><b>10.2.1</b> Example of an ICC for consistency</a></li>
+<li class="chapter" data-level="10.2.2" data-path="interrater.html"><a href="interrater.html#example-of-an-icc-for-agreement"><i class="fa fa-check"></i><b>10.2.2</b> Example of an ICC for agreement</a></li>
+<li class="chapter" data-level="10.2.3" data-path="interrater.html"><a href="interrater.html#two-way-and-one-way-icc-models"><i class="fa fa-check"></i><b>10.2.3</b> Two-way and one-way ICC models</a></li>
+<li class="chapter" data-level="10.2.4" data-path="interrater.html"><a href="interrater.html#single-versus-average-ratings"><i class="fa fa-check"></i><b>10.2.4</b> Single versus average ratings</a></li>
+<li class="chapter" data-level="10.2.5" data-path="interrater.html"><a href="interrater.html#all-of-the-equations"><i class="fa fa-check"></i><b>10.2.5</b> All of the equations</a></li>
+<li class="chapter" data-level="10.2.6" data-path="interrater.html"><a href="interrater.html#recommendations-on-reporting-iccs"><i class="fa fa-check"></i><b>10.2.6</b> Recommendations on reporting ICCs</a></li>
+</ul></li>
+<li class="chapter" data-level="10.3" data-path="interrater.html"><a href="interrater.html#using-the-irr-package"><i class="fa fa-check"></i><b>10.3</b> Using the irr package</a></li>
+<li class="chapter" data-level="10.4" data-path="interrater.html"><a href="interrater.html#test-retest-reliability"><i class="fa fa-check"></i><b>10.4</b> Test-retest reliability</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="gtheory.html"><a href="gtheory.html"><i class="fa fa-check"></i><b>11</b> Generalizability Theory</a><ul>
+<li class="chapter" data-level="11.1" data-path="gtheory.html"><a href="gtheory.html#a-single-facet-design"><i class="fa fa-check"></i><b>11.1</b> A single facet design</a><ul>
+<li class="chapter" data-level="11.1.1" data-path="gtheory.html"><a href="gtheory.html#g-study"><i class="fa fa-check"></i><b>11.1.1</b> G-study</a></li>
+<li class="chapter" data-level="11.1.2" data-path="gtheory.html"><a href="gtheory.html#d-study"><i class="fa fa-check"></i><b>11.1.2</b> D-study</a></li>
+<li class="chapter" data-level="11.1.3" data-path="gtheory.html"><a href="gtheory.html#using-the-vca-package"><i class="fa fa-check"></i><b>11.1.3</b> Using the VCA package</a></li>
+<li class="chapter" data-level="11.1.4" data-path="gtheory.html"><a href="gtheory.html#summary-of-our-one-facet-fully-crossed-design"><i class="fa fa-check"></i><b>11.1.4</b> Summary of our one-facet fully-crossed design</a></li>
+</ul></li>
+<li class="chapter" data-level="11.2" data-path="gtheory.html"><a href="gtheory.html#a-two-facet-design"><i class="fa fa-check"></i><b>11.2</b> A two facet design</a><ul>
+<li class="chapter" data-level="11.2.1" data-path="gtheory.html"><a href="gtheory.html#rand2facet"><i class="fa fa-check"></i><b>11.2.1</b> G-study with a two facet design</a></li>
+<li class="chapter" data-level="11.2.2" data-path="gtheory.html"><a href="gtheory.html#d-study-with-a-two-facet-design"><i class="fa fa-check"></i><b>11.2.2</b> D-study with a two facet design</a></li>
+</ul></li>
+<li class="chapter" data-level="11.3" data-path="gtheory.html"><a href="gtheory.html#nested-designs"><i class="fa fa-check"></i><b>11.3</b> Nested designs</a><ul>
+<li class="chapter" data-level="11.3.1" data-path="gtheory.html"><a href="gtheory.html#one-facet-nested-design"><i class="fa fa-check"></i><b>11.3.1</b> One-facet nested design</a></li>
+<li class="chapter" data-level="11.3.2" data-path="gtheory.html"><a href="gtheory.html#two-facet-nested-design"><i class="fa fa-check"></i><b>11.3.2</b> Two-facet nested design</a></li>
+<li class="chapter" data-level="11.3.3" data-path="gtheory.html"><a href="gtheory.html#g-study-with-a-two-facet-items-nested-within-occasions-design"><i class="fa fa-check"></i><b>11.3.3</b> G-study with a two-facet items-nested-within-occasions design</a></li>
+<li class="chapter" data-level="11.3.4" data-path="gtheory.html"><a href="gtheory.html#d-study-with-a-two-facet-items-nested-within-occasions-design"><i class="fa fa-check"></i><b>11.3.4</b> D-study with a two-facet items-nested-within-occasions design</a></li>
+</ul></li>
+<li class="chapter" data-level="11.4" data-path="gtheory.html"><a href="gtheory.html#fixed-facets"><i class="fa fa-check"></i><b>11.4</b> Fixed facets</a></li>
+<li class="chapter" data-level="11.5" data-path="gtheory.html"><a href="gtheory.html#summary"><i class="fa fa-check"></i><b>11.5</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="efa.html"><a href="efa.html"><i class="fa fa-check"></i><b>12</b> Exploratory Factor Analysis</a><ul>
+<li class="chapter" data-level="12.1" data-path="efa.html"><a href="efa.html#preparatory-steps"><i class="fa fa-check"></i><b>12.1</b> Preparatory steps</a><ul>
+<li class="chapter" data-level="12.1.1" data-path="efa.html"><a href="efa.html#examining-the-data"><i class="fa fa-check"></i><b>12.1.1</b> Examining the data</a></li>
+<li class="chapter" data-level="12.1.2" data-path="efa.html"><a href="efa.html#addressing-assumptions"><i class="fa fa-check"></i><b>12.1.2</b> Addressing assumptions</a></li>
+<li class="chapter" data-level="12.1.3" data-path="efa.html"><a href="efa.html#determining-how-many-factors-to-retain"><i class="fa fa-check"></i><b>12.1.3</b> Determining how many factors to retain</a></li>
+</ul></li>
+<li class="chapter" data-level="12.2" data-path="efa.html"><a href="efa.html#factor-analysis-with-raw-data"><i class="fa fa-check"></i><b>12.2</b> Factor analysis with raw data</a><ul>
+<li class="chapter" data-level="12.2.1" data-path="efa.html"><a href="efa.html#examining-pattern-coefficients-the-factor-loadings"><i class="fa fa-check"></i><b>12.2.1</b> Examining pattern coefficients (the factor loadings)</a></li>
+<li class="chapter" data-level="12.2.2" data-path="efa.html"><a href="efa.html#factor-scores"><i class="fa fa-check"></i><b>12.2.2</b> Factor scores</a></li>
+</ul></li>
+<li class="chapter" data-level="12.3" data-path="efa.html"><a href="efa.html#factor-analysis-with-correlation-data"><i class="fa fa-check"></i><b>12.3</b> Factor analysis with correlation data</a><ul>
+<li class="chapter" data-level="12.3.1" data-path="efa.html"><a href="efa.html#setting-up-the-data"><i class="fa fa-check"></i><b>12.3.1</b> Setting up the data</a></li>
+<li class="chapter" data-level="12.3.2" data-path="efa.html"><a href="efa.html#preparatory-steps-1"><i class="fa fa-check"></i><b>12.3.2</b> Preparatory steps</a></li>
+<li class="chapter" data-level="12.3.3" data-path="efa.html"><a href="efa.html#performing-the-factor-analysis"><i class="fa fa-check"></i><b>12.3.3</b> Performing the factor analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="12.4" data-path="efa.html"><a href="efa.html#practice-1"><i class="fa fa-check"></i><b>12.4</b> Practice</a></li>
+<li class="chapter" data-level="12.5" data-path="efa.html"><a href="efa.html#internal-consistency-reliability-of-the-scores"><i class="fa fa-check"></i><b>12.5</b> Internal consistency reliability of the scores</a><ul>
+<li class="chapter" data-level="12.5.1" data-path="efa.html"><a href="efa.html#efa-with-non-continuous-data"><i class="fa fa-check"></i><b>12.5.1</b> EFA with non-continuous data</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">R Examples for Measurement</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="ch02" class="section level1">
+<h1><span class="header-section-number">Chapter 1</span> Score Transformations</h1>
+<p>This chapter corresponds with Chapter 2 of our text <span class="citation">(Bandalos, <a href="#ref-Bandalos_2018" role="doc-biblioref">2018</a>)</span>.</p>
+<div id="percentiles-percentile-ranks-and-normalized-scores" class="section level2">
+<h2><span class="header-section-number">1.1</span> Percentiles, percentile ranks, and normalized scores</h2>
+<p>Here are the data from Table 2.1 of Bandalos (2018). In this section, we use R to transform the scores into percentiles, percentile ranks, and normalized scores.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center">Score</th>
+<th align="center">Frequency</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">36</td>
+<td align="center">2</td>
+</tr>
+<tr class="even">
+<td align="center">35</td>
+<td align="center">2</td>
+</tr>
+<tr class="odd">
+<td align="center">34</td>
+<td align="center">6</td>
+</tr>
+<tr class="even">
+<td align="center">33</td>
+<td align="center">2</td>
+</tr>
+<tr class="odd">
+<td align="center">32</td>
+<td align="center">2</td>
+</tr>
+<tr class="even">
+<td align="center">31</td>
+<td align="center">3</td>
+</tr>
+<tr class="odd">
+<td align="center">30</td>
+<td align="center">7</td>
+</tr>
+<tr class="even">
+<td align="center">29</td>
+<td align="center">5</td>
+</tr>
+<tr class="odd">
+<td align="center">28</td>
+<td align="center">5</td>
+</tr>
+<tr class="even">
+<td align="center">27</td>
+<td align="center">7</td>
+</tr>
+<tr class="odd">
+<td align="center">26</td>
+<td align="center">8</td>
+</tr>
+<tr class="even">
+<td align="center">25</td>
+<td align="center">3</td>
+</tr>
+</tbody>
+</table>
+<p>Note that this is arranged as a frequency table, not as raw data. A raw data set would include each case’s score as its own row and might look like this (at least the first 12 observations):</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center">ID</th>
+<th align="center">Score</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">1</td>
+<td align="center">36</td>
+</tr>
+<tr class="even">
+<td align="center">2</td>
+<td align="center">36</td>
+</tr>
+<tr class="odd">
+<td align="center">3</td>
+<td align="center">35</td>
+</tr>
+<tr class="even">
+<td align="center">4</td>
+<td align="center">35</td>
+</tr>
+<tr class="odd">
+<td align="center">5</td>
+<td align="center">34</td>
+</tr>
+<tr class="even">
+<td align="center">6</td>
+<td align="center">34</td>
+</tr>
+<tr class="odd">
+<td align="center">7</td>
+<td align="center">34</td>
+</tr>
+<tr class="even">
+<td align="center">8</td>
+<td align="center">34</td>
+</tr>
+<tr class="odd">
+<td align="center">9</td>
+<td align="center">34</td>
+</tr>
+<tr class="even">
+<td align="center">10</td>
+<td align="center">34</td>
+</tr>
+<tr class="odd">
+<td align="center">11</td>
+<td align="center">33</td>
+</tr>
+<tr class="even">
+<td align="center">12</td>
+<td align="center">33</td>
+</tr>
+</tbody>
+</table>
+<p>If we had these data in a CSV file, we could import them. With this small set of frequency data, we can imput them directly in R. Let’s use the <code>c()</code> function to assign the two columns of data to objects.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="ch02.html#cb1-1"></a>Score     &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">36</span>, <span class="dv">35</span>, <span class="dv">34</span>, <span class="dv">33</span>, <span class="dv">32</span>, <span class="dv">31</span>, <span class="dv">30</span>, <span class="dv">29</span>, <span class="dv">28</span>, <span class="dv">27</span>, <span class="dv">26</span>, <span class="dv">25</span>)</span>
+<span id="cb1-2"><a href="ch02.html#cb1-2"></a>Frequency &lt;-<span class="st">  </span><span class="kw">c</span>(<span class="dv">2</span>,  <span class="dv">2</span>,  <span class="dv">6</span>,  <span class="dv">2</span>,  <span class="dv">2</span>,  <span class="dv">3</span>,  <span class="dv">7</span>,  <span class="dv">5</span>,  <span class="dv">5</span>,  <span class="dv">7</span>,  <span class="dv">8</span>,  <span class="dv">3</span>)</span>
+<span id="cb1-3"><a href="ch02.html#cb1-3"></a><span class="co"># I visually lined up the commas with these two objects (adding spaces) to be sure they&#39;re the same length.</span></span></code></pre></div>
+<p>Let’s combine these objects into a dataframe using the <code>data.frame()</code> function. We can do this because the objects <code>Score</code> and <code>Frequency</code> are vectors of the same length. The objects’ names become their column names in the new data frame. We can name our data frame <code>dat2.1</code> to remind us we’re using Table 2.1.<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a></p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="ch02.html#cb2-1"></a>dat2<span class="fl">.1</span> &lt;-<span class="st"> </span><span class="kw">data.frame</span>(Score, Frequency)</span>
+<span id="cb2-2"><a href="ch02.html#cb2-2"></a><span class="co"># See if the first and last rows look the way we expect:</span></span>
+<span id="cb2-3"><a href="ch02.html#cb2-3"></a><span class="kw">head</span>(dat2<span class="fl">.1</span>)</span></code></pre></div>
+<pre><code>##   Score Frequency
+## 1    36         2
+## 2    35         2
+## 3    34         6
+## 4    33         2
+## 5    32         2
+## 6    31         3</code></pre>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="ch02.html#cb4-1"></a><span class="kw">tail</span>(dat2<span class="fl">.1</span>)</span></code></pre></div>
+<pre><code>##    Score Frequency
+## 7     30         7
+## 8     29         5
+## 9     28         5
+## 10    27         7
+## 11    26         8
+## 12    25         3</code></pre>
+<p>Let’s create and append a cumulative frequency variable to our data frame, to match the third column in Table 2.1. Here, we’re using the <code>cumsum()</code> function to get the cumulative frequency of each row and all of those before it.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="ch02.html#cb6-1"></a>dat2<span class="fl">.1</span><span class="op">$</span>cf    &lt;-<span class="st"> </span><span class="kw">cumsum</span>(dat2<span class="fl">.1</span><span class="op">$</span>Frequency)</span>
+<span id="cb6-2"><a href="ch02.html#cb6-2"></a><span class="co"># take a look:</span></span>
+<span id="cb6-3"><a href="ch02.html#cb6-3"></a><span class="kw">head</span>(dat2<span class="fl">.1</span>)</span></code></pre></div>
+<pre><code>##   Score Frequency cf
+## 1    36         2  2
+## 2    35         2  4
+## 3    34         6 10
+## 4    33         2 12
+## 5    32         2 14
+## 6    31         3 17</code></pre>
+<p>Notice that this is <strong><em>not</em></strong> what we want. We want the cumulative frequency to be from the lowest to the highest scores. After an online search, I discovered we can use combination of functions <code>rev(cumsum((rev(x))))</code> (with <code>x</code> representing the column we need to perform the operation on). I assume the <code>rev()</code> function reverses something in our function—I haven’t seen that function until now (I can use <code>?rev</code> in the console to learn more). Let’s try this new code:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="ch02.html#cb8-1"></a>dat2<span class="fl">.1</span><span class="op">$</span>cf    &lt;-<span class="st"> </span><span class="kw">rev</span>(<span class="kw">cumsum</span>((<span class="kw">rev</span>(dat2<span class="fl">.1</span><span class="op">$</span>Frequency))))</span>
+<span id="cb8-2"><a href="ch02.html#cb8-2"></a><span class="kw">head</span>(dat2<span class="fl">.1</span>)</span></code></pre></div>
+<pre><code>##   Score Frequency cf
+## 1    36         2 52
+## 2    35         2 50
+## 3    34         6 48
+## 4    33         2 42
+## 5    32         2 40
+## 6    31         3 38</code></pre>
+<p>That’s more like it.<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a></p>
+<p>The other three columns in Figure 2.1 are percentage, cumulative percentage, and percentile rank. We first need the total <em>n</em> size, which is the sum of the frequency column. We can use this in the denominator of the next two lines.</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="ch02.html#cb10-1"></a>n &lt;-<span class="st"> </span><span class="kw">sum</span>(Frequency)</span>
+<span id="cb10-2"><a href="ch02.html#cb10-2"></a>dat2<span class="fl">.1</span><span class="op">$</span>Perc  &lt;-<span class="st"> </span>dat2<span class="fl">.1</span><span class="op">$</span>Frequency<span class="op">/</span>n<span class="op">*</span><span class="dv">100</span></span>
+<span id="cb10-3"><a href="ch02.html#cb10-3"></a>dat2<span class="fl">.1</span><span class="op">$</span>CPerc &lt;-<span class="st"> </span>dat2<span class="fl">.1</span><span class="op">$</span>cf<span class="op">/</span>n<span class="op">*</span><span class="dv">100</span></span>
+<span id="cb10-4"><a href="ch02.html#cb10-4"></a><span class="kw">head</span>(dat2<span class="fl">.1</span>)</span></code></pre></div>
+<pre><code>##   Score Frequency cf      Perc     CPerc
+## 1    36         2 52  3.846154 100.00000
+## 2    35         2 50  3.846154  96.15385
+## 3    34         6 48 11.538462  92.30769
+## 4    33         2 42  3.846154  80.76923
+## 5    32         2 40  3.846154  76.92308
+## 6    31         3 38  5.769231  73.07692</code></pre>
+<p>Using the calculation described in Bandalos, we can get the percentile rank as the cumulative frequency of the scores below that particular score plus half of the number of scores at the score of interest. We can use a proportion instead of a percentile rank so we can use it to get normal Z scores (coming up next). We’ll calculate this as <span class="math inline">\(PR = \frac{cf_{below}+ \frac{Frequency}{2}}{n}\)</span>, where <span class="math inline">\(cf_{below}\)</span> is the cumulative frequency of the score that is below the one of interest. Rather than reference that lower row, we can use the present row’s cf and subtract its frequency, <span class="math inline">\(cf_{below} = cf - Frequency\)</span>.</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="ch02.html#cb12-1"></a>dat2<span class="fl">.1</span><span class="op">$</span>PR    &lt;-<span class="st"> </span>((dat2<span class="fl">.1</span><span class="op">$</span>cf <span class="op">-</span><span class="st"> </span>dat2<span class="fl">.1</span><span class="op">$</span>Frequency) <span class="op">+</span><span class="st"> </span>dat2<span class="fl">.1</span><span class="op">$</span>Frequency<span class="op">/</span><span class="dv">2</span>) <span class="op">/</span><span class="st"> </span>n</span></code></pre></div>
+<p>Let’s calculate the Normalized scores. These are the normal Z scores, normal curve equivalents (NCE), and normalized T scores. Note that these are based on the percentile rank, making these Z and T scores normalized.<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a> To get the <code>Znorm</code> score, we use the <code>qnorm()</code> function, whose first argument is a percentile rank<a href="#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a>, the mean, and the standard deviation.</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="ch02.html#cb13-1"></a>dat2<span class="fl">.1</span><span class="op">$</span>Znorm &lt;-<span class="st"> </span><span class="kw">qnorm</span>(dat2<span class="fl">.1</span><span class="op">$</span>PR, <span class="dv">0</span>, <span class="dv">1</span>)</span>
+<span id="cb13-2"><a href="ch02.html#cb13-2"></a>dat2<span class="fl">.1</span><span class="op">$</span>NCE   &lt;-<span class="st"> </span>dat2<span class="fl">.1</span><span class="op">$</span>Znorm<span class="op">*</span><span class="fl">21.06</span> <span class="op">+</span><span class="st"> </span><span class="dv">50</span> <span class="co"># Or, we could use qnorm(dat2.1$PR, 50, 21.06).</span></span>
+<span id="cb13-3"><a href="ch02.html#cb13-3"></a>dat2<span class="fl">.1</span><span class="op">$</span>T     &lt;-<span class="st"> </span><span class="kw">qnorm</span>(dat2<span class="fl">.1</span><span class="op">$</span>PR, <span class="dv">50</span>, <span class="dv">10</span>)</span>
+<span id="cb13-4"><a href="ch02.html#cb13-4"></a></span>
+<span id="cb13-5"><a href="ch02.html#cb13-5"></a><span class="kw">head</span>(dat2<span class="fl">.1</span>)</span></code></pre></div>
+<pre><code>##   Score Frequency cf      Perc     CPerc        PR     Znorm      NCE        T
+## 1    36         2 52  3.846154 100.00000 0.9807692 2.0699018 93.59213 70.69902
+## 2    35         2 50  3.846154  96.15385 0.9423077 1.5744450 83.15781 65.74445
+## 3    34         6 48 11.538462  92.30769 0.8653846 1.1048357 73.26784 61.04836
+## 4    33         2 42  3.846154  80.76923 0.7884615 0.8010945 66.87105 58.01095
+## 5    32         2 40  3.846154  76.92308 0.7500000 0.6744898 64.20475 56.74490
+## 6    31         3 38  5.769231  73.07692 0.7019231 0.5299395 61.16053 55.29940</code></pre>
+<p>Finally, let’s view a more readable output by rounding our data to two decimal places. Because all of the columns in our data frame are numeric, we can use the <code>round()</code> function on the data frame. The first argument is our data. The second is the number of decimal places.</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="ch02.html#cb15-1"></a><span class="kw">round</span>(dat2<span class="fl">.1</span>, <span class="dv">2</span>)</span></code></pre></div>
+<pre><code>##    Score Frequency cf  Perc  CPerc   PR Znorm   NCE     T
+## 1     36         2 52  3.85 100.00 0.98  2.07 93.59 70.70
+## 2     35         2 50  3.85  96.15 0.94  1.57 83.16 65.74
+## 3     34         6 48 11.54  92.31 0.87  1.10 73.27 61.05
+## 4     33         2 42  3.85  80.77 0.79  0.80 66.87 58.01
+## 5     32         2 40  3.85  76.92 0.75  0.67 64.20 56.74
+## 6     31         3 38  5.77  73.08 0.70  0.53 61.16 55.30
+## 7     30         7 35 13.46  67.31 0.61  0.27 55.65 52.68
+## 8     29         5 28  9.62  53.85 0.49 -0.02 49.49 49.76
+## 9     28         5 23  9.62  44.23 0.39 -0.27 44.35 47.32
+## 10    27         7 18 13.46  34.62 0.28 -0.59 37.65 44.14
+## 11    26         8 11 15.38  21.15 0.13 -1.10 26.73 38.95
+## 12    25         3  3  5.77   5.77 0.03 -1.90 10.03 31.02</code></pre>
+<p>Here is all of our code in one chunk. Although this is easier to do in Excel with our specific data set, we can keep our code in case we find errors<a href="#fn5" class="footnote-ref" id="fnref5"><sup>5</sup></a> and reuse this code with other data sets. See if you can use this code for Table 2.3 in the exercises of Chapter 2.</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="ch02.html#cb17-1"></a>Score     &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">36</span>, <span class="dv">35</span>, <span class="dv">34</span>, <span class="dv">33</span>, <span class="dv">32</span>, <span class="dv">31</span>, <span class="dv">30</span>, <span class="dv">29</span>, <span class="dv">28</span>, <span class="dv">27</span>, <span class="dv">26</span>, <span class="dv">25</span>)</span>
+<span id="cb17-2"><a href="ch02.html#cb17-2"></a>Frequency &lt;-<span class="st">  </span><span class="kw">c</span>(<span class="dv">2</span>,  <span class="dv">2</span>,  <span class="dv">6</span>,  <span class="dv">2</span>,  <span class="dv">2</span>,  <span class="dv">3</span>,  <span class="dv">7</span>,  <span class="dv">5</span>,  <span class="dv">5</span>,  <span class="dv">7</span>,  <span class="dv">8</span>,  <span class="dv">3</span>) </span>
+<span id="cb17-3"><a href="ch02.html#cb17-3"></a>dat2<span class="fl">.1</span>    &lt;-<span class="st"> </span><span class="kw">data.frame</span>(Score, Frequency)</span>
+<span id="cb17-4"><a href="ch02.html#cb17-4"></a>dat2<span class="fl">.1</span><span class="op">$</span>cf &lt;-<span class="st"> </span><span class="kw">rev</span>(<span class="kw">cumsum</span>((<span class="kw">rev</span>(dat2<span class="fl">.1</span><span class="op">$</span>Frequency))))</span>
+<span id="cb17-5"><a href="ch02.html#cb17-5"></a>n         &lt;-<span class="st"> </span><span class="kw">sum</span>(Frequency)</span>
+<span id="cb17-6"><a href="ch02.html#cb17-6"></a>dat2<span class="fl">.1</span><span class="op">$</span>Perc  &lt;-<span class="st"> </span>dat2<span class="fl">.1</span><span class="op">$</span>Frequency<span class="op">/</span>n<span class="op">*</span><span class="dv">100</span></span>
+<span id="cb17-7"><a href="ch02.html#cb17-7"></a>dat2<span class="fl">.1</span><span class="op">$</span>CPerc &lt;-<span class="st"> </span>dat2<span class="fl">.1</span><span class="op">$</span>cf<span class="op">/</span>n<span class="op">*</span><span class="dv">100</span></span>
+<span id="cb17-8"><a href="ch02.html#cb17-8"></a>dat2<span class="fl">.1</span><span class="op">$</span>PR    &lt;-<span class="st"> </span>((dat2<span class="fl">.1</span><span class="op">$</span>cf <span class="op">-</span><span class="st"> </span>dat2<span class="fl">.1</span><span class="op">$</span>Frequency) <span class="op">+</span><span class="st"> </span>dat2<span class="fl">.1</span><span class="op">$</span>Frequency<span class="op">/</span><span class="dv">2</span>) <span class="op">/</span><span class="st"> </span>n</span>
+<span id="cb17-9"><a href="ch02.html#cb17-9"></a>dat2<span class="fl">.1</span><span class="op">$</span>Znorm &lt;-<span class="st"> </span><span class="kw">qnorm</span>(dat2<span class="fl">.1</span><span class="op">$</span>PR, <span class="dv">0</span>, <span class="dv">1</span>)</span>
+<span id="cb17-10"><a href="ch02.html#cb17-10"></a>dat2<span class="fl">.1</span><span class="op">$</span>NCE   &lt;-<span class="st"> </span>dat2<span class="fl">.1</span><span class="op">$</span>Znorm<span class="op">*</span><span class="fl">21.06</span> <span class="op">+</span><span class="st"> </span><span class="dv">50</span> <span class="co"># Or, we could use qnorm(dat2.1$PR, 50, 21.06).</span></span>
+<span id="cb17-11"><a href="ch02.html#cb17-11"></a>dat2<span class="fl">.1</span><span class="op">$</span>T     &lt;-<span class="st"> </span><span class="kw">qnorm</span>(dat2<span class="fl">.1</span><span class="op">$</span>PR, <span class="dv">50</span>, <span class="dv">10</span>)</span>
+<span id="cb17-12"><a href="ch02.html#cb17-12"></a><span class="kw">round</span>(dat2<span class="fl">.1</span>, <span class="dv">2</span>)</span></code></pre></div>
+</div>
+<div id="run-of-the-mill-z-scores" class="section level2">
+<h2><span class="header-section-number">1.2</span> Run-of-the-mill Z scores</h2>
+<p>You may be wondering about the typical non-normalized Z scores. Here they are. We first calculate the mean (<span class="math inline">\(\bar{X}\)</span>) and the standard deviation (<span class="math inline">\(S\)</span>) to get the Z score of a person <code>i</code> with a particular score, <span class="math inline">\(Z_i = \frac{X_i - \bar{X}}{S}\)</span>. Each person with the same score has the same Z score. Notice that these are not the same as the normal Z scores. The mean is 29.54 and standard deviation is 3.21.</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="ch02.html#cb18-1"></a>M  &lt;-<span class="st"> </span><span class="fl">29.54</span></span>
+<span id="cb18-2"><a href="ch02.html#cb18-2"></a>SD &lt;-<span class="st"> </span><span class="fl">3.21</span></span>
+<span id="cb18-3"><a href="ch02.html#cb18-3"></a>dat2<span class="fl">.1</span><span class="op">$</span>Z &lt;-<span class="st"> </span>(dat2<span class="fl">.1</span><span class="op">$</span>Score <span class="op">-</span><span class="st"> </span>M)<span class="op">/</span>SD</span>
+<span id="cb18-4"><a href="ch02.html#cb18-4"></a><span class="kw">head</span>(dat2<span class="fl">.1</span>)</span></code></pre></div>
+<pre><code>##   Score Frequency cf      Perc     CPerc        PR     Znorm      NCE        T
+## 1    36         2 52  3.846154 100.00000 0.9807692 2.0699018 93.59213 70.69902
+## 2    35         2 50  3.846154  96.15385 0.9423077 1.5744450 83.15781 65.74445
+## 3    34         6 48 11.538462  92.30769 0.8653846 1.1048357 73.26784 61.04836
+## 4    33         2 42  3.846154  80.76923 0.7884615 0.8010945 66.87105 58.01095
+## 5    32         2 40  3.846154  76.92308 0.7500000 0.6744898 64.20475 56.74490
+## 6    31         3 38  5.769231  73.07692 0.7019231 0.5299395 61.16053 55.29940
+##           Z
+## 1 2.0124611
+## 2 1.7009346
+## 3 1.3894081
+## 4 1.0778816
+## 5 0.7663551
+## 6 0.4548287</code></pre>
+</div>
+<div id="extra-optional-stuff" class="section level2">
+<h2><span class="header-section-number">1.3</span> Extra optional stuff</h2>
+<p>If you wanted to transform our frequency data from Table 2.1 into a full data set, you could do it manually, but it’s more fun to use a function. I did an online search and found that the <code>expand.dft()</code> function from the <code>vcdExtra</code> package would do the trick. From that case-wise data set, we can easily calculate the mean and standard deviation, which is how I got these for calculating the run-of-the-mill Z scores above.<a href="#fn6" class="footnote-ref" id="fnref6"><sup>6</sup></a></p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="ch02.html#cb20-1"></a><span class="co"># install.packages(&quot;vcdExtra&quot;) # Uncomment this out and run it only once on your machine.</span></span>
+<span id="cb20-2"><a href="ch02.html#cb20-2"></a><span class="kw">library</span>(vcdExtra)</span>
+<span id="cb20-3"><a href="ch02.html#cb20-3"></a>Case2<span class="fl">.1</span> &lt;-<span class="st"> </span><span class="kw">expand.dft</span>(dat2<span class="fl">.1</span>, <span class="dt">freq=</span><span class="st">&quot;Frequency&quot;</span>)</span>
+<span id="cb20-4"><a href="ch02.html#cb20-4"></a>M  &lt;-<span class="st"> </span><span class="kw">mean</span>(Case2<span class="fl">.1</span><span class="op">$</span>Score)</span>
+<span id="cb20-5"><a href="ch02.html#cb20-5"></a>SD &lt;-<span class="st"> </span><span class="kw">sd</span>(Case2<span class="fl">.1</span><span class="op">$</span>Score)</span></code></pre></div>
+
+</div>
+</div>
+<h3>References</h3>
+<div id="refs" class="references">
+<div id="ref-Bandalos_2018">
+<p>Bandalos, D. L. (2018). <em>Measurement theory and applications for the social sciences</em>. Guilford.</p>
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="1">
+<li id="fn1"><p>Please ignore the color of the second digit of this object name in my HTML markup. For some reason, it is coming out green.<a href="ch02.html#fnref1" class="footnote-back">↩︎</a></p></li>
+<li id="fn2"><p>Another option is to re-order the data frame from low to high <code>dat2.1 &lt;- dat2.1[order(dat2.1$Score), ]</code> and then use the <code>cumsum()</code> function.<a href="ch02.html#fnref2" class="footnote-back">↩︎</a></p></li>
+<li id="fn3"><p>This assumes the construct is normally distributed in the population.<a href="ch02.html#fnref3" class="footnote-back">↩︎</a></p></li>
+<li id="fn4"><p>This is actually a proportion in units from 0 to 1 rather than a percentile, though your report might present it as being in percentage units.<a href="ch02.html#fnref4" class="footnote-back">↩︎</a></p></li>
+<li id="fn5"><p>In other words, we have a data trail.<a href="ch02.html#fnref5" class="footnote-back">↩︎</a></p></li>
+<li id="fn6"><p>You could also use the <code>weighted.mean(X)</code> function on the frequency data. To get the weighted standard deviation, you can use the <code>HMISC</code> package and use <code>sqrt(wtd.var(X))</code><a href="ch02.html#fnref6" class="footnote-back">↩︎</a></p></li>
+</ol>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="var-cov-cor.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

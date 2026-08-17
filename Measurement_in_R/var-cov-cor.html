@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 2 Variance, Covariance, and Correlation | Using R for Measurement in the Social Sciences</title>
+  <meta name="description" content="Provides example R code to accompany the learning of measurement concepts." />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 2 Variance, Covariance, and Correlation | Using R for Measurement in the Social Sciences" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="Provides example R code to accompany the learning of measurement concepts." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 2 Variance, Covariance, and Correlation | Using R for Measurement in the Social Sciences" />
+  
+  <meta name="twitter:description" content="Provides example R code to accompany the learning of measurement concepts." />
+  
+
+<meta name="author" content="George M. Harrison  University of Hawai‘i at Mānoa, College of Education" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="trans.html"/>
+<link rel="next" href="custfuncts.html"/>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<link href="libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0/anchor-sections.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+<link href="libs/bsTable-3.3.7/bootstrapTable.min.css" rel="stylesheet" />
+<script src="libs/bsTable-3.3.7/bootstrapTable.js"></script>
+
+
+<style type="text/css">
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Introduction</a></li>
+<li class="chapter" data-level="1" data-path="trans.html"><a href="trans.html"><i class="fa fa-check"></i><b>1</b> Score Transformations</a><ul>
+<li class="chapter" data-level="1.1" data-path="trans.html"><a href="trans.html#percentiles-percentile-ranks-and-normalized-scores"><i class="fa fa-check"></i><b>1.1</b> Percentiles, percentile ranks, and normalized scores</a></li>
+<li class="chapter" data-level="1.2" data-path="trans.html"><a href="trans.html#run-of-the-mill-z-scores"><i class="fa fa-check"></i><b>1.2</b> Run-of-the-mill Z scores</a></li>
+<li class="chapter" data-level="1.3" data-path="trans.html"><a href="trans.html#extra-optional-stuff"><i class="fa fa-check"></i><b>1.3</b> Extra optional stuff</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="var-cov-cor.html"><a href="var-cov-cor.html"><i class="fa fa-check"></i><b>2</b> Variance, Covariance, and Correlation</a><ul>
+<li class="chapter" data-level="2.1" data-path="var-cov-cor.html"><a href="var-cov-cor.html#correlation"><i class="fa fa-check"></i><b>2.1</b> Correlation</a><ul>
+<li class="chapter" data-level="2.1.1" data-path="var-cov-cor.html"><a href="var-cov-cor.html#estimating-correlation-as-a-statistic"><i class="fa fa-check"></i><b>2.1.1</b> Estimating correlation as a statistic</a></li>
+<li class="chapter" data-level="2.1.2" data-path="var-cov-cor.html"><a href="var-cov-cor.html#creating-a-correlation-matrix"><i class="fa fa-check"></i><b>2.1.2</b> Creating a correlation matrix</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="var-cov-cor.html"><a href="var-cov-cor.html#variance"><i class="fa fa-check"></i><b>2.2</b> Variance</a></li>
+<li class="chapter" data-level="2.3" data-path="var-cov-cor.html"><a href="var-cov-cor.html#covariance"><i class="fa fa-check"></i><b>2.3</b> Covariance</a><ul>
+<li class="chapter" data-level="2.3.1" data-path="var-cov-cor.html"><a href="var-cov-cor.html#creating-a-variance-covariance-matrix"><i class="fa fa-check"></i><b>2.3.1</b> Creating a variance-covariance matrix</a></li>
+<li class="chapter" data-level="2.3.2" data-path="var-cov-cor.html"><a href="var-cov-cor.html#using-the-n-denominator"><i class="fa fa-check"></i><b>2.3.2</b> Using the <em>n</em> denominator</a></li>
+<li class="chapter" data-level="2.3.3" data-path="var-cov-cor.html"><a href="var-cov-cor.html#extra-understanding-for-use-in-classical-test-theory"><i class="fa fa-check"></i><b>2.3.3</b> Extra understanding, for use in classical test theory</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="var-cov-cor.html"><a href="var-cov-cor.html#practice"><i class="fa fa-check"></i><b>2.4</b> Practice</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="custfuncts.html"><a href="custfuncts.html"><i class="fa fa-check"></i><b>3</b> Creating Custom Functions</a><ul>
+<li class="chapter" data-level="3.1" data-path="custfuncts.html"><a href="custfuncts.html#using-our-function-on-multiple-variables"><i class="fa fa-check"></i><b>3.1</b> Using our function on multiple variables</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="packs.html"><a href="packs.html"><i class="fa fa-check"></i><b>4</b> Using Packages</a><ul>
+<li class="chapter" data-level="4.1" data-path="packs.html"><a href="packs.html#an-example-using-the-hmisc-package-for-correlation"><i class="fa fa-check"></i><b>4.1</b> An example: Using the <code>Hmisc</code> package for correlation</a></li>
+<li class="chapter" data-level="4.2" data-path="packs.html"><a href="packs.html#tidyverse_intro"><i class="fa fa-check"></i><b>4.2</b> Using Tidyverse packages</a><ul>
+<li class="chapter" data-level="4.2.1" data-path="packs.html"><a href="packs.html#piping_intro"><i class="fa fa-check"></i><b>4.2.1</b> Piping</a></li>
+<li class="chapter" data-level="4.2.2" data-path="packs.html"><a href="packs.html#saving-our-output-as-a-csv-file"><i class="fa fa-check"></i><b>4.2.2</b> Saving our output as a CSV file</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="regress.html"><a href="regress.html"><i class="fa fa-check"></i><b>5</b> Estimating Regression</a><ul>
+<li class="chapter" data-level="5.1" data-path="regress.html"><a href="regress.html#the-lm-function"><i class="fa fa-check"></i><b>5.1</b> The <code>lm()</code> function</a></li>
+<li class="chapter" data-level="5.2" data-path="regress.html"><a href="regress.html#using-the-regression-parameters-for-prediction"><i class="fa fa-check"></i><b>5.2</b> Using the regression parameters for prediction</a></li>
+<li class="chapter" data-level="5.3" data-path="regress.html"><a href="regress.html#model-error-variance-and-a-peek-into-classical-test-theory"><i class="fa fa-check"></i><b>5.3</b> Model error variance and a peek into classical test theory</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="graphing.html"><a href="graphing.html"><i class="fa fa-check"></i><b>6</b> Graphing</a><ul>
+<li class="chapter" data-level="6.1" data-path="graphing.html"><a href="graphing.html#using-base-r"><i class="fa fa-check"></i><b>6.1</b> Using Base R</a></li>
+<li class="chapter" data-level="6.2" data-path="graphing.html"><a href="graphing.html#using-the-ggplot2-package"><i class="fa fa-check"></i><b>6.2</b> Using the <code>ggplot2</code> package</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="itemans.html"><a href="itemans.html"><i class="fa fa-check"></i><b>7</b> Item Scoring and Item Analysis</a><ul>
+<li class="chapter" data-level="7.1" data-path="itemans.html"><a href="itemans.html#multiple-choice-raw-data-and-their-answer-key"><i class="fa fa-check"></i><b>7.1</b> Multiple-choice raw data and their answer key</a></li>
+<li class="chapter" data-level="7.2" data-path="itemans.html"><a href="itemans.html#scoring-the-responses"><i class="fa fa-check"></i><b>7.2</b> Scoring the responses</a></li>
+<li class="chapter" data-level="7.3" data-path="itemans.html"><a href="itemans.html#item-analysis-with-dichotomous-data"><i class="fa fa-check"></i><b>7.3</b> Item analysis with dichotomous data</a></li>
+<li class="chapter" data-level="7.4" data-path="itemans.html"><a href="itemans.html#distractor-analysis"><i class="fa fa-check"></i><b>7.4</b> Distractor analysis</a></li>
+<li class="chapter" data-level="7.5" data-path="itemans.html"><a href="itemans.html#item-analysis-with-polytomous-data"><i class="fa fa-check"></i><b>7.5</b> Item analysis with polytomous data</a><ul>
+<li class="chapter" data-level="7.5.1" data-path="itemans.html"><a href="itemans.html#partial-credit-data"><i class="fa fa-check"></i><b>7.5.1</b> Partial-credit data</a></li>
+<li class="chapter" data-level="7.5.2" data-path="itemans.html"><a href="itemans.html#LikertFunc"><i class="fa fa-check"></i><b>7.5.2</b> Item functioning of Likert-type scale items</a></li>
+<li class="chapter" data-level="7.5.3" data-path="itemans.html"><a href="itemans.html#graphing-frequencies-of-category-responses"><i class="fa fa-check"></i><b>7.5.3</b> Graphing frequencies of category responses</a></li>
+</ul></li>
+<li class="chapter" data-level="7.6" data-path="itemans.html"><a href="itemans.html#optional-advanced-graphics-stuff"><i class="fa fa-check"></i><b>7.6</b> Optional advanced graphics stuff</a><ul>
+<li class="chapter" data-level="7.6.1" data-path="itemans.html"><a href="itemans.html#creating-a-facet-plot-with-ggplot2"><i class="fa fa-check"></i><b>7.6.1</b> Creating a facet plot with <code>GGplot2</code></a></li>
+<li class="chapter" data-level="7.6.2" data-path="itemans.html"><a href="itemans.html#the-base-r-approach-to-creating-a-facet-plot"><i class="fa fa-check"></i><b>7.6.2</b> The Base R approach to creating a facet plot</a></li>
+</ul></li>
+<li class="chapter" data-level="7.7" data-path="itemans.html"><a href="itemans.html#additional-functions-for-examining-category-frequencies"><i class="fa fa-check"></i><b>7.7</b> Additional functions for examining category frequencies</a><ul>
+<li class="chapter" data-level="7.7.1" data-path="itemans.html"><a href="itemans.html#using-the-table-function-and-the-lapply-function"><i class="fa fa-check"></i><b>7.7.1</b> Using the <code>table()</code> function and the <code>lapply()</code> function</a></li>
+<li class="chapter" data-level="7.7.2" data-path="itemans.html"><a href="itemans.html#factors"><i class="fa fa-check"></i><b>7.7.2</b> Specifying the data as categorical</a></li>
+<li class="chapter" data-level="7.7.3" data-path="itemans.html"><a href="itemans.html#orderedfunc"><i class="fa fa-check"></i><b>7.7.3</b> Ordered factors</a></li>
+</ul></li>
+<li class="chapter" data-level="7.8" data-path="itemans.html"><a href="itemans.html#conclusion"><i class="fa fa-check"></i><b>7.8</b> Conclusion</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="CTT.html"><a href="CTT.html"><i class="fa fa-check"></i><b>8</b> Classical Test Theory</a><ul>
+<li class="chapter" data-level="8.1" data-path="CTT.html"><a href="CTT.html#true-score-model"><i class="fa fa-check"></i><b>8.1</b> True score model</a></li>
+<li class="chapter" data-level="8.2" data-path="CTT.html"><a href="CTT.html#assumptions-of-the-ctt-true-score-model"><i class="fa fa-check"></i><b>8.2</b> Assumptions of the CTT true score model</a></li>
+<li class="chapter" data-level="8.3" data-path="CTT.html"><a href="CTT.html#reliability-and-the-variance-of-the-composite-score"><i class="fa fa-check"></i><b>8.3</b> Reliability and the variance of the composite score</a><ul>
+<li class="chapter" data-level="8.3.1" data-path="CTT.html"><a href="CTT.html#reliability-as-the-ratio-of-true-score-variance-to-observed-score-variance"><i class="fa fa-check"></i><b>8.3.1</b> Reliability as the ratio of true-score variance to observed-score variance</a></li>
+<li class="chapter" data-level="8.3.2" data-path="CTT.html"><a href="CTT.html#reliability-as-the-lack-of-error-variance"><i class="fa fa-check"></i><b>8.3.2</b> Reliability as the lack of error variance</a></li>
+<li class="chapter" data-level="8.3.3" data-path="CTT.html"><a href="CTT.html#reliability-as-the-squared-correlation-between-observed-and-true-scores"><i class="fa fa-check"></i><b>8.3.3</b> Reliability as the squared correlation between observed and true scores</a></li>
+<li class="chapter" data-level="8.3.4" data-path="CTT.html"><a href="CTT.html#reliability-as-the-correlation-between-scores-on-parallel-tests"><i class="fa fa-check"></i><b>8.3.4</b> Reliability as the correlation between scores on parallel tests</a></li>
+</ul></li>
+<li class="chapter" data-level="8.4" data-path="CTT.html"><a href="CTT.html#four-ctt-models"><i class="fa fa-check"></i><b>8.4</b> Four CTT models</a><ul>
+<li class="chapter" data-level="8.4.1" data-path="CTT.html"><a href="CTT.html#the-parallel-model"><i class="fa fa-check"></i><b>8.4.1</b> The parallel model</a></li>
+<li class="chapter" data-level="8.4.2" data-path="CTT.html"><a href="CTT.html#the-tau-equivalent-model"><i class="fa fa-check"></i><b>8.4.2</b> The tau-equivalent model</a></li>
+<li class="chapter" data-level="8.4.3" data-path="CTT.html"><a href="CTT.html#the-essentially-tau-equivalent-model"><i class="fa fa-check"></i><b>8.4.3</b> The essentially tau-equivalent model</a></li>
+<li class="chapter" data-level="8.4.4" data-path="CTT.html"><a href="CTT.html#the-congeneric-model"><i class="fa fa-check"></i><b>8.4.4</b> The congeneric model</a></li>
+<li class="chapter" data-level="8.4.5" data-path="CTT.html"><a href="CTT.html#implications-of-each-model"><i class="fa fa-check"></i><b>8.4.5</b> Implications of each model</a></li>
+</ul></li>
+<li class="chapter" data-level="8.5" data-path="CTT.html"><a href="CTT.html#estimating-an-observations-true-score"><i class="fa fa-check"></i><b>8.5</b> Estimating an observation’s true score</a></li>
+<li class="chapter" data-level="8.6" data-path="CTT.html"><a href="CTT.html#the-standard-error-of-measurement"><i class="fa fa-check"></i><b>8.6</b> The standard error of measurement</a><ul>
+<li class="chapter" data-level="8.6.1" data-path="CTT.html"><a href="CTT.html#estimating-the-confidence-interval-of-a-true-score"><i class="fa fa-check"></i><b>8.6.1</b> Estimating the confidence interval of a true score</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="reliability.html"><a href="reliability.html"><i class="fa fa-check"></i><b>9</b> Internal-consistency Reliability</a><ul>
+<li class="chapter" data-level="9.1" data-path="reliability.html"><a href="reliability.html#coefficient-alpha"><i class="fa fa-check"></i><b>9.1</b> Coefficient alpha</a><ul>
+<li class="chapter" data-level="9.1.1" data-path="reliability.html"><a href="reliability.html#how-coefficient-alpha-works"><i class="fa fa-check"></i><b>9.1.1</b> How coefficient alpha works</a></li>
+</ul></li>
+<li class="chapter" data-level="9.2" data-path="reliability.html"><a href="reliability.html#using-r-to-estimate-internal-consistency-reliability-coefficient"><i class="fa fa-check"></i><b>9.2</b> Using R to estimate internal-consistency reliability coefficient</a><ul>
+<li class="chapter" data-level="9.2.1" data-path="reliability.html"><a href="reliability.html#a-demonstration-of-coefficient-alpha-using-hypothetical-data"><i class="fa fa-check"></i><b>9.2.1</b> A demonstration of coefficient alpha using hypothetical data</a></li>
+<li class="chapter" data-level="9.2.2" data-path="reliability.html"><a href="reliability.html#using-r-packages-to-calculate-alpha-and-more"><i class="fa fa-check"></i><b>9.2.2</b> Using R packages to calculate alpha and more</a></li>
+</ul></li>
+<li class="chapter" data-level="9.3" data-path="reliability.html"><a href="reliability.html#spearman-brown-prophecy-formula"><i class="fa fa-check"></i><b>9.3</b> Spearman-Brown prophecy formula</a><ul>
+<li class="chapter" data-level="9.3.1" data-path="reliability.html"><a href="reliability.html#calculation"><i class="fa fa-check"></i><b>9.3.1</b> Calculation</a></li>
+<li class="chapter" data-level="9.3.2" data-path="reliability.html"><a href="reliability.html#using-the-ctt-package"><i class="fa fa-check"></i><b>9.3.2</b> Using the CTT package</a></li>
+</ul></li>
+<li class="chapter" data-level="9.4" data-path="reliability.html"><a href="reliability.html#standardized-coefficient-alpha"><i class="fa fa-check"></i><b>9.4</b> Standardized coefficient alpha</a><ul>
+<li class="chapter" data-level="9.4.1" data-path="reliability.html"><a href="reliability.html#calculation-of-standardized-coefficient-alpha"><i class="fa fa-check"></i><b>9.4.1</b> Calculation of standardized coefficient alpha</a></li>
+</ul></li>
+<li class="chapter" data-level="9.5" data-path="reliability.html"><a href="reliability.html#reliability-of-difference-scores"><i class="fa fa-check"></i><b>9.5</b> Reliability of difference scores</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="interrater.html"><a href="interrater.html"><i class="fa fa-check"></i><b>10</b> Inter-rater and Test-retest Reliability</a><ul>
+<li class="chapter" data-level="10.1" data-path="interrater.html"><a href="interrater.html#coefficient-kappa-for-estimating-agreement-with-nominal-data"><i class="fa fa-check"></i><b>10.1</b> Coefficient kappa for estimating agreement with nominal data</a><ul>
+<li class="chapter" data-level="10.1.1" data-path="interrater.html"><a href="interrater.html#using-the-irr-package-to-estimate-kappa"><i class="fa fa-check"></i><b>10.1.1</b> Using the irr package to estimate kappa</a></li>
+<li class="chapter" data-level="10.1.2" data-path="interrater.html"><a href="interrater.html#limitations-of-kappa"><i class="fa fa-check"></i><b>10.1.2</b> Limitations of kappa</a></li>
+</ul></li>
+<li class="chapter" data-level="10.2" data-path="interrater.html"><a href="interrater.html#intraclass-correlation-coefficients-for-estimating-consistency-and-agreement"><i class="fa fa-check"></i><b>10.2</b> Intraclass correlation coefficients for estimating consistency and agreement</a><ul>
+<li class="chapter" data-level="10.2.1" data-path="interrater.html"><a href="interrater.html#example-of-an-icc-for-consistency"><i class="fa fa-check"></i><b>10.2.1</b> Example of an ICC for consistency</a></li>
+<li class="chapter" data-level="10.2.2" data-path="interrater.html"><a href="interrater.html#example-of-an-icc-for-agreement"><i class="fa fa-check"></i><b>10.2.2</b> Example of an ICC for agreement</a></li>
+<li class="chapter" data-level="10.2.3" data-path="interrater.html"><a href="interrater.html#two-way-and-one-way-icc-models"><i class="fa fa-check"></i><b>10.2.3</b> Two-way and one-way ICC models</a></li>
+<li class="chapter" data-level="10.2.4" data-path="interrater.html"><a href="interrater.html#single-versus-average-ratings"><i class="fa fa-check"></i><b>10.2.4</b> Single versus average ratings</a></li>
+<li class="chapter" data-level="10.2.5" data-path="interrater.html"><a href="interrater.html#all-of-the-equations"><i class="fa fa-check"></i><b>10.2.5</b> All of the equations</a></li>
+<li class="chapter" data-level="10.2.6" data-path="interrater.html"><a href="interrater.html#recommendations-on-reporting-iccs"><i class="fa fa-check"></i><b>10.2.6</b> Recommendations on reporting ICCs</a></li>
+</ul></li>
+<li class="chapter" data-level="10.3" data-path="interrater.html"><a href="interrater.html#using-the-irr-package"><i class="fa fa-check"></i><b>10.3</b> Using the irr package</a></li>
+<li class="chapter" data-level="10.4" data-path="interrater.html"><a href="interrater.html#test-retest-reliability"><i class="fa fa-check"></i><b>10.4</b> Test-retest reliability</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="gtheory.html"><a href="gtheory.html"><i class="fa fa-check"></i><b>11</b> Generalizability Theory</a><ul>
+<li class="chapter" data-level="11.1" data-path="gtheory.html"><a href="gtheory.html#a-single-facet-design"><i class="fa fa-check"></i><b>11.1</b> A single facet design</a><ul>
+<li class="chapter" data-level="11.1.1" data-path="gtheory.html"><a href="gtheory.html#g-study"><i class="fa fa-check"></i><b>11.1.1</b> G-study</a></li>
+<li class="chapter" data-level="11.1.2" data-path="gtheory.html"><a href="gtheory.html#d-study"><i class="fa fa-check"></i><b>11.1.2</b> D-study</a></li>
+<li class="chapter" data-level="11.1.3" data-path="gtheory.html"><a href="gtheory.html#using-the-vca-package"><i class="fa fa-check"></i><b>11.1.3</b> Using the VCA package</a></li>
+<li class="chapter" data-level="11.1.4" data-path="gtheory.html"><a href="gtheory.html#summary-of-our-one-facet-fully-crossed-design"><i class="fa fa-check"></i><b>11.1.4</b> Summary of our one-facet fully-crossed design</a></li>
+</ul></li>
+<li class="chapter" data-level="11.2" data-path="gtheory.html"><a href="gtheory.html#a-two-facet-design"><i class="fa fa-check"></i><b>11.2</b> A two facet design</a><ul>
+<li class="chapter" data-level="11.2.1" data-path="gtheory.html"><a href="gtheory.html#rand2facet"><i class="fa fa-check"></i><b>11.2.1</b> G-study with a two facet design</a></li>
+<li class="chapter" data-level="11.2.2" data-path="gtheory.html"><a href="gtheory.html#d-study-with-a-two-facet-design"><i class="fa fa-check"></i><b>11.2.2</b> D-study with a two facet design</a></li>
+</ul></li>
+<li class="chapter" data-level="11.3" data-path="gtheory.html"><a href="gtheory.html#nested-designs"><i class="fa fa-check"></i><b>11.3</b> Nested designs</a><ul>
+<li class="chapter" data-level="11.3.1" data-path="gtheory.html"><a href="gtheory.html#one-facet-nested-design"><i class="fa fa-check"></i><b>11.3.1</b> One-facet nested design</a></li>
+<li class="chapter" data-level="11.3.2" data-path="gtheory.html"><a href="gtheory.html#two-facet-nested-design"><i class="fa fa-check"></i><b>11.3.2</b> Two-facet nested design</a></li>
+<li class="chapter" data-level="11.3.3" data-path="gtheory.html"><a href="gtheory.html#g-study-with-a-two-facet-items-nested-within-occasions-design"><i class="fa fa-check"></i><b>11.3.3</b> G-study with a two-facet items-nested-within-occasions design</a></li>
+<li class="chapter" data-level="11.3.4" data-path="gtheory.html"><a href="gtheory.html#d-study-with-a-two-facet-items-nested-within-occasions-design"><i class="fa fa-check"></i><b>11.3.4</b> D-study with a two-facet items-nested-within-occasions design</a></li>
+</ul></li>
+<li class="chapter" data-level="11.4" data-path="gtheory.html"><a href="gtheory.html#fixed-facets"><i class="fa fa-check"></i><b>11.4</b> Fixed facets</a></li>
+<li class="chapter" data-level="11.5" data-path="gtheory.html"><a href="gtheory.html#summary"><i class="fa fa-check"></i><b>11.5</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="efa.html"><a href="efa.html"><i class="fa fa-check"></i><b>12</b> Exploratory Factor Analysis</a><ul>
+<li class="chapter" data-level="12.1" data-path="efa.html"><a href="efa.html#preparatory-steps"><i class="fa fa-check"></i><b>12.1</b> Preparatory steps</a><ul>
+<li class="chapter" data-level="12.1.1" data-path="efa.html"><a href="efa.html#examining-the-data"><i class="fa fa-check"></i><b>12.1.1</b> Examining the data</a></li>
+<li class="chapter" data-level="12.1.2" data-path="efa.html"><a href="efa.html#addressing-assumptions"><i class="fa fa-check"></i><b>12.1.2</b> Addressing assumptions</a></li>
+<li class="chapter" data-level="12.1.3" data-path="efa.html"><a href="efa.html#determining-factorability"><i class="fa fa-check"></i><b>12.1.3</b> Determining factorability</a></li>
+<li class="chapter" data-level="12.1.4" data-path="efa.html"><a href="efa.html#determining-how-many-factors-to-retain"><i class="fa fa-check"></i><b>12.1.4</b> Determining how many factors to retain</a></li>
+</ul></li>
+<li class="chapter" data-level="12.2" data-path="efa.html"><a href="efa.html#factor-analysis-with-raw-data"><i class="fa fa-check"></i><b>12.2</b> Factor analysis with raw data</a><ul>
+<li class="chapter" data-level="12.2.1" data-path="efa.html"><a href="efa.html#examining-pattern-coefficients-the-factor-loadings"><i class="fa fa-check"></i><b>12.2.1</b> Examining pattern coefficients (the factor loadings)</a></li>
+</ul></li>
+<li class="chapter" data-level="12.3" data-path="efa.html"><a href="efa.html#factor-analysis-with-correlation-data"><i class="fa fa-check"></i><b>12.3</b> Factor analysis with correlation data</a><ul>
+<li class="chapter" data-level="12.3.1" data-path="efa.html"><a href="efa.html#setting-up-the-data"><i class="fa fa-check"></i><b>12.3.1</b> Setting up the data</a></li>
+<li class="chapter" data-level="12.3.2" data-path="efa.html"><a href="efa.html#preparatory-steps-1"><i class="fa fa-check"></i><b>12.3.2</b> Preparatory steps</a></li>
+<li class="chapter" data-level="12.3.3" data-path="efa.html"><a href="efa.html#performing-the-factor-analysis"><i class="fa fa-check"></i><b>12.3.3</b> Performing the factor analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="12.4" data-path="efa.html"><a href="efa.html#efa-with-categorical-data"><i class="fa fa-check"></i><b>12.4</b> EFA with categorical data</a><ul>
+<li class="chapter" data-level="12.4.1" data-path="efa.html"><a href="efa.html#describing-categorical-data"><i class="fa fa-check"></i><b>12.4.1</b> Describing categorical data</a></li>
+<li class="chapter" data-level="12.4.2" data-path="efa.html"><a href="efa.html#getting-the-correlation-matrix"><i class="fa fa-check"></i><b>12.4.2</b> Getting the correlation matrix</a></li>
+<li class="chapter" data-level="12.4.3" data-path="efa.html"><a href="efa.html#appraising-the-factorability-and-determining-the-number-of-factors-to-retain"><i class="fa fa-check"></i><b>12.4.3</b> Appraising the factorability and determining the number of factors to retain</a></li>
+<li class="chapter" data-level="12.4.4" data-path="efa.html"><a href="efa.html#factor-analysis-on-the-polychoric-matrix"><i class="fa fa-check"></i><b>12.4.4</b> Factor analysis on the polychoric matrix</a></li>
+<li class="chapter" data-level="12.4.5" data-path="efa.html"><a href="efa.html#the-polycor-package"><i class="fa fa-check"></i><b>12.4.5</b> The polycor package</a></li>
+</ul></li>
+<li class="chapter" data-level="12.5" data-path="efa.html"><a href="efa.html#factor-scores"><i class="fa fa-check"></i><b>12.5</b> Factor scores</a><ul>
+<li class="chapter" data-level="12.5.1" data-path="efa.html"><a href="efa.html#transforming-factor-scores"><i class="fa fa-check"></i><b>12.5.1</b> Transforming factor scores</a></li>
+</ul></li>
+<li class="chapter" data-level="12.6" data-path="efa.html"><a href="efa.html#internal-consistency-reliability-of-the-scores"><i class="fa fa-check"></i><b>12.6</b> Internal consistency reliability of the scores</a></li>
+<li class="chapter" data-level="12.7" data-path="efa.html"><a href="efa.html#practice-1"><i class="fa fa-check"></i><b>12.7</b> Practice</a></li>
+<li class="chapter" data-level="12.8" data-path="efa.html"><a href="efa.html#summary-1"><i class="fa fa-check"></i><b>12.8</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="cfa.html"><a href="cfa.html"><i class="fa fa-check"></i><b>13</b> Confirmatory Factor Analysis</a><ul>
+<li class="chapter" data-level="13.1" data-path="cfa.html"><a href="cfa.html#preparatory-steps-2"><i class="fa fa-check"></i><b>13.1</b> Preparatory steps</a><ul>
+<li class="chapter" data-level="13.1.1" data-path="cfa.html"><a href="cfa.html#addressing-assumptions-1"><i class="fa fa-check"></i><b>13.1.1</b> Addressing assumptions</a></li>
+</ul></li>
+<li class="chapter" data-level="13.2" data-path="cfa.html"><a href="cfa.html#fitting-a-cfa-model"><i class="fa fa-check"></i><b>13.2</b> Fitting a CFA model</a><ul>
+<li class="chapter" data-level="13.2.1" data-path="cfa.html"><a href="cfa.html#making-sure-the-model-was-correctly-estimated"><i class="fa fa-check"></i><b>13.2.1</b> Making sure the model was correctly estimated</a></li>
+<li class="chapter" data-level="13.2.2" data-path="cfa.html"><a href="cfa.html#evaluating-the-model-fit"><i class="fa fa-check"></i><b>13.2.2</b> Evaluating the model fit</a></li>
+<li class="chapter" data-level="13.2.3" data-path="cfa.html"><a href="cfa.html#interpretting-the-parameter-estimates"><i class="fa fa-check"></i><b>13.2.3</b> Interpretting the parameter estimates</a></li>
+</ul></li>
+<li class="chapter" data-level="13.3" data-path="cfa.html"><a href="cfa.html#further-inspecting-our-model"><i class="fa fa-check"></i><b>13.3</b> Further inspecting our model</a><ul>
+<li class="chapter" data-level="13.3.1" data-path="cfa.html"><a href="cfa.html#looking-at-the-models-covariance-matrices"><i class="fa fa-check"></i><b>13.3.1</b> Looking at the model’s covariance matrices</a></li>
+<li class="chapter" data-level="13.3.2" data-path="cfa.html"><a href="cfa.html#further-inspecting-our-models-parameters"><i class="fa fa-check"></i><b>13.3.2</b> Further inspecting our model’s parameters</a></li>
+</ul></li>
+<li class="chapter" data-level="13.4" data-path="cfa.html"><a href="cfa.html#using-alternative-model-specifications"><i class="fa fa-check"></i><b>13.4</b> Using alternative model specifications</a><ul>
+<li class="chapter" data-level="13.4.1" data-path="cfa.html"><a href="cfa.html#rescaling-the-factors-to-be-standardized"><i class="fa fa-check"></i><b>13.4.1</b> Rescaling the factors to be standardized</a></li>
+<li class="chapter" data-level="13.4.2" data-path="cfa.html"><a href="cfa.html#specifying-a-competing-nested-model"><i class="fa fa-check"></i><b>13.4.2</b> Specifying a competing, nested, model</a></li>
+</ul></li>
+<li class="chapter" data-level="13.5" data-path="cfa.html"><a href="cfa.html#conducting-model-comparisons"><i class="fa fa-check"></i><b>13.5</b> Conducting model comparisons</a></li>
+<li class="chapter" data-level="13.6" data-path="cfa.html"><a href="cfa.html#estimating-factor-scores"><i class="fa fa-check"></i><b>13.6</b> Estimating factor scores</a></li>
+<li class="chapter" data-level="13.7" data-path="cfa.html"><a href="cfa.html#internal-consistency-reliability-with-cfa"><i class="fa fa-check"></i><b>13.7</b> Internal consistency reliability with CFA</a></li>
+<li class="chapter" data-level="13.8" data-path="cfa.html"><a href="cfa.html#testing-congeneric-essentially-tau-equivalent-tau-equivalent-and-parallel-models"><i class="fa fa-check"></i><b>13.8</b> Testing congeneric, essentially tau-equivalent, tau-equivalent, and parallel models</a><ul>
+<li class="chapter" data-level="13.8.1" data-path="cfa.html"><a href="cfa.html#congeneric-model-specification"><i class="fa fa-check"></i><b>13.8.1</b> Congeneric model specification</a></li>
+<li class="chapter" data-level="13.8.2" data-path="cfa.html"><a href="cfa.html#essentially-tau-equivalent-model-specification"><i class="fa fa-check"></i><b>13.8.2</b> Essentially tau-equivalent model specification</a></li>
+<li class="chapter" data-level="13.8.3" data-path="cfa.html"><a href="cfa.html#tau-equivalent-model-specification"><i class="fa fa-check"></i><b>13.8.3</b> Tau-equivalent model specification</a></li>
+<li class="chapter" data-level="13.8.4" data-path="cfa.html"><a href="cfa.html#strictly-parallel-model-specification"><i class="fa fa-check"></i><b>13.8.4</b> Strictly parallel model specification</a></li>
+</ul></li>
+<li class="chapter" data-level="13.9" data-path="cfa.html"><a href="cfa.html#cfa-with-categorical-data"><i class="fa fa-check"></i><b>13.9</b> CFA with categorical data</a><ul>
+<li class="chapter" data-level="13.9.1" data-path="cfa.html"><a href="cfa.html#using-data-from-an-r-package"><i class="fa fa-check"></i><b>13.9.1</b> Using data from an R package</a></li>
+<li class="chapter" data-level="13.9.2" data-path="cfa.html"><a href="cfa.html#preparing-the-data"><i class="fa fa-check"></i><b>13.9.2</b> Preparing the data</a></li>
+<li class="chapter" data-level="13.9.3" data-path="cfa.html"><a href="cfa.html#describing-the-data"><i class="fa fa-check"></i><b>13.9.3</b> Describing the data</a></li>
+<li class="chapter" data-level="13.9.4" data-path="cfa.html"><a href="cfa.html#fitting-the-cfa-model"><i class="fa fa-check"></i><b>13.9.4</b> Fitting the CFA model</a></li>
+</ul></li>
+<li class="chapter" data-level="13.10" data-path="cfa.html"><a href="cfa.html#additional-manipulation-of-the-data"><i class="fa fa-check"></i><b>13.10</b> Additional manipulation of the data</a></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="irm.html"><a href="irm.html"><i class="fa fa-check"></i><b>14</b> Item Response Modeling</a><ul>
+<li class="chapter" data-level="14.1" data-path="irm.html"><a href="irm.html#on-fitting-linear-regression-models-to-dichotomous-data"><i class="fa fa-check"></i><b>14.1</b> On fitting linear regression models to dichotomous data</a></li>
+<li class="chapter" data-level="14.2" data-path="irm.html"><a href="irm.html#logistic-item-response-models-with-dichotomous-data"><i class="fa fa-check"></i><b>14.2</b> Logistic item response models with dichotomous data</a><ul>
+<li class="chapter" data-level="14.2.1" data-path="irm.html"><a href="irm.html#the-rasch-and-1pl-models"><i class="fa fa-check"></i><b>14.2.1</b> The Rasch and 1PL models</a></li>
+<li class="chapter" data-level="14.2.2" data-path="irm.html"><a href="irm.html#the-2pl-model"><i class="fa fa-check"></i><b>14.2.2</b> The 2PL model</a></li>
+<li class="chapter" data-level="14.2.3" data-path="irm.html"><a href="irm.html#the-3pl-model"><i class="fa fa-check"></i><b>14.2.3</b> The 3PL model</a></li>
+<li class="chapter" data-level="14.2.4" data-path="irm.html"><a href="irm.html#item-response-functions"><i class="fa fa-check"></i><b>14.2.4</b> Item response functions</a></li>
+<li class="chapter" data-level="14.2.5" data-path="irm.html"><a href="irm.html#test-characteristic-curve"><i class="fa fa-check"></i><b>14.2.5</b> Test characteristic curve</a></li>
+<li class="chapter" data-level="14.2.6" data-path="irm.html"><a href="irm.html#information-and-standard-error"><i class="fa fa-check"></i><b>14.2.6</b> Information and standard error</a></li>
+<li class="chapter" data-level="14.2.7" data-path="irm.html"><a href="irm.html#plotting-information-and-the-standard-error-of-measurement"><i class="fa fa-check"></i><b>14.2.7</b> Plotting information and the standard error of measurement</a></li>
+</ul></li>
+<li class="chapter" data-level="14.3" data-path="irm.html"><a href="irm.html#fitting-a-1pl-model"><i class="fa fa-check"></i><b>14.3</b> Fitting a 1PL model</a></li>
+<li class="chapter" data-level="14.4" data-path="irm.html"><a href="irm.html#checking-assumptions"><i class="fa fa-check"></i><b>14.4</b> Checking assumptions</a><ul>
+<li class="chapter" data-level="14.4.1" data-path="irm.html"><a href="irm.html#unidimensionality"><i class="fa fa-check"></i><b>14.4.1</b> Unidimensionality</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Using R for Measurement in the Social Sciences</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="var_cov_cor" class="section level1">
+<h1><span class="header-section-number">Chapter 2</span> Variance, Covariance, and Correlation</h1>
+<p>Variance, covariance, and correlation are all related. In this section, we’ll start with correlation because we often use that in research, making it a familiar place to start.</p>
+<p>First, let’s read in some data and take a look at what’s inside, using the <code>str()</code> and <code>summary()</code> functions.</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="var-cov-cor.html#cb21-1"></a>dat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;HI_elem.csv&quot;</span>)</span>
+<span id="cb21-2"><a href="var-cov-cor.html#cb21-2"></a><span class="kw">str</span>(dat)</span></code></pre></div>
+<pre><code>## &#39;data.frame&#39;:    168 obs. of  9 variables:
+##  $ Schl_id           : int  100 101 102 107 108 109 111 112 113 114 ...
+##  $ County            : chr  &quot;Oahu&quot; &quot;Oahu&quot; &quot;Oahu&quot; &quot;Oahu&quot; ...
+##  $ Title_I           : chr  &quot;No&quot; &quot;Yes&quot; &quot;Yes&quot; &quot;Yes&quot; ...
+##  $ Sci               : int  75 59 54 27 77 83 62 53 31 64 ...
+##  $ Math              : int  63 45 70 21 65 70 57 46 35 69 ...
+##  $ Read              : int  70 46 62 24 71 77 54 46 41 72 ...
+##  $ Litrcy_rate_grade3: int  92 63 83 55 82 91 77 72 74 88 ...
+##  $ Chrn_absntsm      : int  10 18 6 16 6 2 9 18 24 10 ...
+##  $ Schl_climate      : int  73 77 81 75 83 78 66 83 71 72 ...</code></pre>
+<p>These data were compiled from publicly available data sets in our state. They are school-level variables of Grade 4 students, including the percentage of students meeting proficiency in science, mathematics, and language-arts tests in the state. There are other variables, such as the county, whether the school is Title I<a href="#fn7" class="footnote-ref" id="fnref7"><sup>7</sup></a>, percentage of students classified as meeting literacy criteria in Grade 3, chronic absenteeism, and scores on a school-climate survey.</p>
+<p>Let’s look at the basic descriptive statistics:</p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="var-cov-cor.html#cb23-1"></a><span class="kw">summary</span>(dat)</span></code></pre></div>
+<pre><code>##     Schl_id         County            Title_I               Sci        
+##  Min.   :100.0   Length:168         Length:168         Min.   : 20.00  
+##  1st Qu.:209.8   Class :character   Class :character   1st Qu.: 47.00  
+##  Median :272.5   Mode  :character   Mode  :character   Median : 61.00  
+##  Mean   :276.3                                         Mean   : 59.54  
+##  3rd Qu.:361.5                                         3rd Qu.: 72.00  
+##  Max.   :463.0                                         Max.   :100.00  
+##                                                        NA&#39;s   :12      
+##       Math           Read       Litrcy_rate_grade3  Chrn_absntsm  
+##  Min.   : 5.0   Min.   :14.00   Min.   :30.00      Min.   : 1.00  
+##  1st Qu.:38.5   1st Qu.:43.00   1st Qu.:67.00      1st Qu.: 8.00  
+##  Median :50.0   Median :54.00   Median :77.00      Median :12.00  
+##  Mean   :50.2   Mean   :54.64   Mean   :75.35      Mean   :12.94  
+##  3rd Qu.:61.5   3rd Qu.:67.00   3rd Qu.:86.00      3rd Qu.:16.00  
+##  Max.   :88.0   Max.   :86.00   Max.   :97.00      Max.   :38.00  
+##  NA&#39;s   :1      NA&#39;s   :1       NA&#39;s   :7                         
+##   Schl_climate  
+##  Min.   :48.00  
+##  1st Qu.:69.00  
+##  Median :73.00  
+##  Mean   :73.76  
+##  3rd Qu.:79.00  
+##  Max.   :94.00  
+##  NA&#39;s   :2</code></pre>
+<p>Notice that there are <code>NA's</code> listed below some of the variables. This means that of the 168 schools, there are missing data. For example, with the <code>Read</code> variable, there is 1 missing data point. With <code>Schl_climate</code>, there are 2 missing data points.</p>
+<p>We can also see how many missing data points exist in a single variable using the <code>sum()</code> and <code>is.na()</code> functions together. The <code>is.na()</code> function codes an observation on that variable as <code>TRUE</code> if the data point is <code>NA</code> and <code>FALSE</code> if there is a value.</p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="var-cov-cor.html#cb25-1"></a><span class="kw">is.na</span>(dat<span class="op">$</span>Schl_climate)</span></code></pre></div>
+<pre><code>##   [1] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+##  [13] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE  TRUE FALSE
+##  [25] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+##  [37] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+##  [49] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+##  [61] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+##  [73] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+##  [85] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+##  [97] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+## [109] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+## [121] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+## [133] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+## [145] FALSE FALSE FALSE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE FALSE FALSE
+## [157] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE</code></pre>
+<p>This returns a bunch of logical values, which is hard to read. Under the hood, R codes TRUE as <code>1</code> and FALSE as <code>0</code> So, we sum these up to get the number of missing observations:</p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="var-cov-cor.html#cb27-1"></a><span class="kw">sum</span>(<span class="kw">is.na</span>(dat<span class="op">$</span>Schl_climate))</span></code></pre></div>
+<pre><code>## [1] 2</code></pre>
+<p>We will use this code, <code>sum(is.na(x))</code>, and its opposite, <code>sum(!is.na(x))</code> (which counts the number of <strong>non</strong>-NAs) in our work.</p>
+<div id="correlation" class="section level2">
+<h2><span class="header-section-number">2.1</span> Correlation</h2>
+<p>A common method for estimating correlation is to use the <code>cor()</code> function in base R.</p>
+<p>To estimate the Pearson correlation between two variables, we can use the <code>cor()</code> function. Of course, we have to specify what those two variables are. Let’s estimate the correlation between <code>Read</code> (which is the percentage of students in the school meeting language-arts proficiency) and <code>Schl_climate</code> (which is the school’s score from a school climate survey):</p>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="var-cov-cor.html#cb29-1"></a><span class="kw">cor</span>(dat<span class="op">$</span>Read, dat<span class="op">$</span>Schl_climate,</span>
+<span id="cb29-2"><a href="var-cov-cor.html#cb29-2"></a>    <span class="dt">use =</span> <span class="st">&quot;complete.obs&quot;</span>)</span></code></pre></div>
+<pre><code>## [1] 0.4638681</code></pre>
+<p>The Pearson’s correlation is <em>r</em> = .46. Here are two things to notice:</p>
+<ol style="list-style-type: decimal">
+<li>Each of these variables is a column in a data frame (our data set). We told R where to find the variable by naming the data frame, <code>dat</code>, adding a dollar sign <code>$</code>, and then adding the name of the variable, <code>dat$Read</code> and <code>dat$Schl_climate</code>.</li>
+<li>We had to use an argument called <code>use</code>, which is specific to this
+particular function. We specified <code>use = "complete.obs"</code> because otherwise we’d get an error.<a href="#fn8" class="footnote-ref" id="fnref8"><sup>8</sup></a> The reason we’d get an error is because, as we saw with the <code>summary()</code> function, two schools in our data set did not have <code>Schl_climate</code> scores and one school did not have a <code>Read</code> percentage score. We can see other arguments that can be used with the <code>cor()</code> function using the help system, <code>?cor</code> or using <code>args(cor)</code>. Let’s use the latter:</li>
+</ol>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="var-cov-cor.html#cb31-1"></a><span class="kw">args</span>(cor)</span></code></pre></div>
+<pre><code>## function (x, y = NULL, use = &quot;everything&quot;, method = c(&quot;pearson&quot;, 
+##     &quot;kendall&quot;, &quot;spearman&quot;)) 
+## NULL</code></pre>
+<p>There are four arguments. The first two are the data, the second of which is optional if our first one is an object that includes multiple variables, which we will use in a minute<a href="#fn9" class="footnote-ref" id="fnref9"><sup>9</sup></a>. The third is the <code>use =</code> argument, with its default set to <code>everything</code>, which we overwrote with our <code>use = "complete.obs"</code>. The last argument is for the correlation method. The default is Pearson. If we wanted to use Spearman correlation instead of Pearson, we would add this: <code>method = "spearman"</code>.</p>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="var-cov-cor.html#cb33-1"></a><span class="kw">cor</span>(dat<span class="op">$</span>Read, dat<span class="op">$</span>Schl_climate,</span>
+<span id="cb33-2"><a href="var-cov-cor.html#cb33-2"></a>    <span class="dt">use =</span> <span class="st">&quot;complete.obs&quot;</span>,</span>
+<span id="cb33-3"><a href="var-cov-cor.html#cb33-3"></a>    <span class="dt">method =</span> <span class="st">&quot;spearman&quot;</span>)</span></code></pre></div>
+<pre><code>## [1] 0.4152396</code></pre>
+<p>Let’s try another variable with school climate. How about math proficiency? First, let me check the spelling of my math variable using then <code>names()</code> function.<a href="#fn10" class="footnote-ref" id="fnref10"><sup>10</sup></a></p>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="var-cov-cor.html#cb35-1"></a><span class="kw">names</span>(dat)</span></code></pre></div>
+<pre><code>## [1] &quot;Schl_id&quot;            &quot;County&quot;             &quot;Title_I&quot;           
+## [4] &quot;Sci&quot;                &quot;Math&quot;               &quot;Read&quot;              
+## [7] &quot;Litrcy_rate_grade3&quot; &quot;Chrn_absntsm&quot;       &quot;Schl_climate&quot;</code></pre>
+<p>It is spelled as <code>Math</code><a href="#fn11" class="footnote-ref" id="fnref11"><sup>11</sup></a>, so I’ll use <code>dat$Math</code> in the <code>cor()</code> function:</p>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="var-cov-cor.html#cb37-1"></a><span class="kw">cor</span>(dat<span class="op">$</span>Math, dat<span class="op">$</span>Schl_climate,</span>
+<span id="cb37-2"><a href="var-cov-cor.html#cb37-2"></a>    <span class="dt">use =</span> <span class="st">&quot;complete.obs&quot;</span>)</span></code></pre></div>
+<pre><code>## [1] 0.4715012</code></pre>
+<p>Both reading and math seem to correlate with school climate in the same direction and at very similar magnitudes.</p>
+<div id="estimating-correlation-as-a-statistic" class="section level3">
+<h3><span class="header-section-number">2.1.1</span> Estimating correlation as a statistic</h3>
+<p>Sometimes, we wish to estimate correlation as an inferential statistic. For this, we can use the <code>cor.test()</code> function from Base R:</p>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="var-cov-cor.html#cb39-1"></a><span class="kw">cor.test</span>(dat<span class="op">$</span>Read, dat<span class="op">$</span>Schl_climate)</span></code></pre></div>
+<pre><code>## 
+##  Pearson&#39;s product-moment correlation
+## 
+## data:  dat$Read and dat$Schl_climate
+## t = 6.7055, df = 164, p-value = 3.089e-10
+## alternative hypothesis: true correlation is not equal to 0
+## 95 percent confidence interval:
+##  0.3352332 0.5755247
+## sample estimates:
+##       cor 
+## 0.4638681</code></pre>
+<p>This gave us the 95% confidence interval, the <em>p</em>-value, and the correlation. We don’t usually estimate correlations as inferential statistics in measurement, but this code is here if we need it.</p>
+</div>
+<div id="creating-a-correlation-matrix" class="section level3">
+<h3><span class="header-section-number">2.1.2</span> Creating a correlation matrix</h3>
+<p>With Base R’s <code>cor()</code> function and the <code>$</code> indexing, we can only use two variables. If we tried to correlate four variables, we would get an error:</p>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="var-cov-cor.html#cb41-1"></a><span class="kw">cor</span>(dat<span class="op">$</span>Read, dat<span class="op">$</span>Math, dat<span class="op">$</span>Sci, dat<span class="op">$</span>Schl_climate, <span class="dt">use =</span> <span class="st">&quot;complete.obs&quot;</span>)</span></code></pre></div>
+<p>This code will not work because the <code>cor()</code> function expects only the first two arguments to include the data. Here, there are two more arguments that were unexpected. What we can do, instead, is use bracket <code>[ , ]</code> indexing to assign those variables to an object and then perform the <code>cor()</code> function on them. This will return a correlation matrix:</p>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="var-cov-cor.html#cb42-1"></a>myvarbs &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Read&quot;</span>, <span class="st">&quot;Math&quot;</span>, <span class="st">&quot;Sci&quot;</span>, <span class="st">&quot;Schl_climate&quot;</span>)</span>
+<span id="cb42-2"><a href="var-cov-cor.html#cb42-2"></a><span class="kw">cor</span>(dat[, myvarbs], <span class="dt">use =</span> <span class="st">&quot;complete.obs&quot;</span>)</span></code></pre></div>
+<pre><code>##                   Read      Math       Sci Schl_climate
+## Read         1.0000000 0.9442737 0.7950828    0.4754034
+## Math         0.9442737 1.0000000 0.7619727    0.4814484
+## Sci          0.7950828 0.7619727 1.0000000    0.4289676
+## Schl_climate 0.4754034 0.4814484 0.4289676    1.0000000</code></pre>
+<p>We can assign these results to an object and round them to 2 decimal places:</p>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="var-cov-cor.html#cb44-1"></a>my_cor_matrix &lt;-<span class="st"> </span><span class="kw">cor</span>(dat[, myvarbs], <span class="dt">use =</span> <span class="st">&quot;complete.obs&quot;</span>)</span>
+<span id="cb44-2"><a href="var-cov-cor.html#cb44-2"></a>my_cor_matrix_rounded &lt;-<span class="st"> </span><span class="kw">round</span>(my_cor_matrix, <span class="dv">2</span>)</span>
+<span id="cb44-3"><a href="var-cov-cor.html#cb44-3"></a>my_cor_matrix_rounded</span></code></pre></div>
+<pre><code>##              Read Math  Sci Schl_climate
+## Read         1.00 0.94 0.80         0.48
+## Math         0.94 1.00 0.76         0.48
+## Sci          0.80 0.76 1.00         0.43
+## Schl_climate 0.48 0.48 0.43         1.00</code></pre>
+<p>We can save this object to a CSV file in our working directory (which we can then view in a spreadsheet program such as Excel).</p>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="var-cov-cor.html#cb46-1"></a><span class="kw">write.csv</span>(my_cor_matrix, <span class="st">&quot;MyCors.csv&quot;</span>)</span></code></pre></div>
+</div>
+</div>
+<div id="variance" class="section level2">
+<h2><span class="header-section-number">2.2</span> Variance</h2>
+<p>The <code>var()</code> function calculates the variance of a variable. Let’s look at the variance of the <code>Read</code> variable. Try the following code. Does it yield a result that you expect?</p>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="var-cov-cor.html#cb47-1"></a><span class="kw">var</span>(dat<span class="op">$</span>Read)</span></code></pre></div>
+<pre><code>## [1] NA</code></pre>
+<p>Hm. Remember that one of the observations had missing data on the <code>Read</code> variable. We can look at the help menu for this function using <code>?var</code> or see if we can find something about the arguments using <code>args(var)</code>:</p>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="var-cov-cor.html#cb49-1"></a><span class="kw">args</span>(var)</span></code></pre></div>
+<pre><code>## function (x, y = NULL, na.rm = FALSE, use) 
+## NULL</code></pre>
+<p>There is an argument for how to handle missing data, and its default is <code>na.rm = FALSE</code> to not remove missing observations. In other words, if want to estimate the variance of this variable with only the data available, after removing the NAs, we need to set that argument to true:</p>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="var-cov-cor.html#cb51-1"></a><span class="kw">var</span>(dat<span class="op">$</span>Read, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
+<pre><code>## [1] 240.4846</code></pre>
+<p>This argument is ubiquitous in R coding. If you have missing data, you will probably need to include that argument in other functions.<a href="#fn12" class="footnote-ref" id="fnref12"><sup>12</sup></a> For example, compare these two results:</p>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="var-cov-cor.html#cb53-1"></a><span class="kw">mean</span>(dat<span class="op">$</span>Read)</span></code></pre></div>
+<pre><code>## [1] NA</code></pre>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="var-cov-cor.html#cb55-1"></a><span class="kw">mean</span>(dat<span class="op">$</span>Read, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
+<pre><code>## [1] 54.64072</code></pre>
+<p>To get the standard deviation, we can either use <code>sd()</code> or <code>sqrt(var())</code>:</p>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="var-cov-cor.html#cb57-1"></a>vars_read &lt;-<span class="st"> </span><span class="kw">var</span>(dat<span class="op">$</span>Read, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)</span>
+<span id="cb57-2"><a href="var-cov-cor.html#cb57-2"></a><span class="kw">sqrt</span>(vars_read)</span></code></pre></div>
+<pre><code>## [1] 15.50757</code></pre>
+<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="var-cov-cor.html#cb59-1"></a><span class="kw">sd</span>(dat<span class="op">$</span>Read, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
+<pre><code>## [1] 15.50757</code></pre>
+<p>Note that <code>var()</code> and <code>sd()</code> use the <code>n-1</code> denominator. We address the <code>n</code> as denominator below.</p>
+</div>
+<div id="covariance" class="section level2">
+<h2><span class="header-section-number">2.3</span> Covariance</h2>
+<p>Covariance is just like variance but with two variables instead of one.<a href="#fn13" class="footnote-ref" id="fnref13"><sup>13</sup></a><a href="#fn14" class="footnote-ref" id="fnref14"><sup>14</sup></a> The <code>cov()</code> function has the same arguments as the <code>cor()</code> function:</p>
+<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="var-cov-cor.html#cb61-1"></a><span class="kw">cov</span>(dat<span class="op">$</span>Read, dat<span class="op">$</span>Schl_climate, <span class="dt">use =</span> <span class="st">&quot;complete.obs&quot;</span>)</span></code></pre></div>
+<pre><code>## [1] 51.61468</code></pre>
+<div id="creating-a-variance-covariance-matrix" class="section level3">
+<h3><span class="header-section-number">2.3.1</span> Creating a variance-covariance matrix</h3>
+<p>A variance-covariance matrix<a href="#fn15" class="footnote-ref" id="fnref15"><sup>15</sup></a> includes the variance and covariances of all possible combinations of variables. Let’s use the same variables we played with in the correlation matrix.<a href="#fn16" class="footnote-ref" id="fnref16"><sup>16</sup></a> The code is nearly identical to what we used with the <code>cor()</code> function—we just replace <code>cor</code> with <code>cov</code>:</p>
+<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="var-cov-cor.html#cb63-1"></a>my_cov_matrix &lt;-<span class="st"> </span><span class="kw">cov</span>(dat[, myvarbs], <span class="dt">use =</span> <span class="st">&quot;complete.obs&quot;</span>)</span>
+<span id="cb63-2"><a href="var-cov-cor.html#cb63-2"></a>my_cov_matrix</span></code></pre></div>
+<pre><code>##                   Read      Math       Sci Schl_climate
+## Read         234.82295 228.84069 215.75695     52.13387
+## Math         228.84069 250.10951 213.39620     54.48817
+## Sci          215.75695 213.39620 313.59152     54.36183
+## Schl_climate  52.13387  54.48817  54.36183     51.21237</code></pre>
+<p>The variances are on the diagonal. For example, the variance of <code>Read</code> is 234.82, the variance of <code>Math</code> is 250.11, and so forth. The covariances are on the off-diagonal. For example, the covariance of <code>Read</code> and <code>Math</code> is 228.84 and occurs twice, once below and once above the diagonal.<a href="#fn17" class="footnote-ref" id="fnref17"><sup>17</sup></a> Note that these estimates are different from individual variance and covariance estimates, such as from our earlier calculation of var(Read):</p>
+<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="var-cov-cor.html#cb65-1"></a><span class="kw">var</span>(dat<span class="op">$</span>Read, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
+<pre><code>## [1] 240.4846</code></pre>
+<p>The reason for this discrepancy is that our covariance matrix included case-wise deletion—that is, any school with a missing score on <strong><em>any</em></strong> of the four variables was eliminated, whereas our variance estimate of the single variable only removed schools missing a score on that particular variable.</p>
+<p>The cov(Read, Schl_climate) is in the upper right and lower left cell (52.13) and is also slightly different than if we had calculated covariance using only the two variables (51.61), again because of case-wise deletion.</p>
+<p>This is real-world stuff. Most text-book examples of variance and covariance include complete data sets, with no missing data. In those situations, there would be no differences in the estimates because the same observations would be included in both.<a href="#fn18" class="footnote-ref" id="fnref18"><sup>18</sup></a></p>
+</div>
+<div id="using-the-n-denominator" class="section level3">
+<h3><span class="header-section-number">2.3.2</span> Using the <em>n</em> denominator</h3>
+<p>The <code>var()</code> and <code>cov()</code> functions use <span class="math inline">\(n - 1\)</span> as the denominator, so they treat variance and covariance as being of a sample rather than of a complete population. Usually in measurement, for understanding reliability, we use <span class="math inline">\(n\)</span> as the denominator. We sometimes have to adjust this (such as when we’re digging into reliability), so let’s calculate the number of observations.</p>
+<p>With variance, we’re only dealing with a single variable, so we can use the <code>sum()</code> and <code>is.na()</code> functions to get the number of missing variables. To get the number of non-missing variables, we can use a special operator <code>!</code> which means something like <strong>not</strong>. The following code with <code>!is.na()</code> will calculate the number of observations that are <strong>not</strong> missing in the <code>Read</code> variable and assign this number to the <code>n</code> object:</p>
+<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="var-cov-cor.html#cb67-1"></a>n &lt;-<span class="st"> </span><span class="kw">sum</span>(<span class="op">!</span><span class="kw">is.na</span>(dat<span class="op">$</span>Read))</span>
+<span id="cb67-2"><a href="var-cov-cor.html#cb67-2"></a>n</span></code></pre></div>
+<pre><code>## [1] 167</code></pre>
+<p>To correct the denominator to be <code>n</code> so the equation is <span class="math inline">\(var(x)=\frac{\Sigma(x - \bar{x})^2}{n}\)</span> instead of <span class="math inline">\(=\frac{\Sigma(x - \bar{x})^2}{n-1}\)</span>, we multiply the sample variance by <span class="math inline">\(\frac{n-1}{n}\)</span>:</p>
+<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="var-cov-cor.html#cb69-1"></a>varp_read &lt;-<span class="st"> </span><span class="kw">var</span>(dat<span class="op">$</span>Read, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)<span class="op">*</span>(n<span class="dv">-1</span>)<span class="op">/</span>n</span>
+<span id="cb69-2"><a href="var-cov-cor.html#cb69-2"></a>varp_read</span></code></pre></div>
+<pre><code>## [1] 239.0446</code></pre>
+<p>This <em>n</em> as the denominator is what we tend to use in measurement when we’re examining test quality and item functioning.<a href="#fn19" class="footnote-ref" id="fnref19"><sup>19</sup></a></p>
+<p>If we want the standard deviation, we then take the square root:</p>
+<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb71-1"><a href="var-cov-cor.html#cb71-1"></a>sdp_read &lt;-<span class="st"> </span><span class="kw">sqrt</span>(varp_read)</span>
+<span id="cb71-2"><a href="var-cov-cor.html#cb71-2"></a>sdp_read</span></code></pre></div>
+<pre><code>## [1] 15.46107</code></pre>
+<p>Similarly, with covariance we use <code>n</code> as the denominator, so instead of <span class="math inline">\(\frac{\Sigma(x - \bar{x})(y - \bar{y})}{n-1}\)</span>, we use <span class="math inline">\(cov(x,y) = \frac{\Sigma(x - \bar{x})(y - \bar{y})}{n}\)</span>. I know that there are 166 cases used in <code>cov(Read,Schl_climate)</code>, so we can adjust this by <span class="math inline">\(\frac{166-1}{166}\)</span>.</p>
+<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb73-1"><a href="var-cov-cor.html#cb73-1"></a>covs_read &lt;-<span class="st"> </span><span class="kw">cov</span>(dat<span class="op">$</span>Read, dat<span class="op">$</span>Schl_climate, <span class="dt">use =</span> <span class="st">&quot;complete.obs&quot;</span>)</span>
+<span id="cb73-2"><a href="var-cov-cor.html#cb73-2"></a>covp_read &lt;-<span class="st"> </span>covs_read<span class="op">*</span>(<span class="dv">166-1</span>)<span class="op">/</span><span class="dv">166</span></span>
+<span id="cb73-3"><a href="var-cov-cor.html#cb73-3"></a>covp_read</span></code></pre></div>
+<pre><code>## [1] 51.30375</code></pre>
+<p>With a variance-covariance matrix, we have to know <em>n</em> for each variance and covariance. When we use “complete.obs”, this <em>n</em> is the same for all cells in the matrix.<a href="#fn20" class="footnote-ref" id="fnref20"><sup>20</sup></a> Before, we used <code>sum(!is.na( ))</code> to count the number of cases with a particular column. To get the number of cases across a set of columns, we can use the <code>complete.cases()</code> function along with the <code>sum()</code> function:</p>
+<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb75-1"><a href="var-cov-cor.html#cb75-1"></a>n_cov &lt;-<span class="st"> </span><span class="kw">sum</span>(<span class="kw">complete.cases</span>(dat[,myvarbs]))</span>
+<span id="cb75-2"><a href="var-cov-cor.html#cb75-2"></a>n_cov</span></code></pre></div>
+<pre><code>## [1] 156</code></pre>
+<p>We can use that <em>n</em> in our correction of the variance-covariance matrix:</p>
+<div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb77-1"><a href="var-cov-cor.html#cb77-1"></a>my_cov_matrix_p &lt;-<span class="st"> </span>my_cov_matrix<span class="op">*</span>(n_cov<span class="dv">-1</span>)<span class="op">/</span>n_cov</span>
+<span id="cb77-2"><a href="var-cov-cor.html#cb77-2"></a>my_cov_matrix_p</span></code></pre></div>
+<pre><code>##                   Read      Math       Sci Schl_climate
+## Read         233.31768 227.37377 214.37389     51.79968
+## Math         227.37377 248.50625 212.02827     54.13889
+## Sci          214.37389 212.02827 311.58132     54.01335
+## Schl_climate  51.79968  54.13889  54.01335     50.88408</code></pre>
+<p>These numbers<a href="#fn21" class="footnote-ref" id="fnref21"><sup>21</sup></a> are all slightly smaller than their counterparts in the sample (<em>n</em> - 1) covariance matrix,</p>
+<div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb79-1"><a href="var-cov-cor.html#cb79-1"></a>my_cov_matrix</span></code></pre></div>
+<pre><code>##                   Read      Math       Sci Schl_climate
+## Read         234.82295 228.84069 215.75695     52.13387
+## Math         228.84069 250.10951 213.39620     54.48817
+## Sci          215.75695 213.39620 313.59152     54.36183
+## Schl_climate  52.13387  54.48817  54.36183     51.21237</code></pre>
+</div>
+<div id="extra-understanding-for-use-in-classical-test-theory" class="section level3">
+<h3><span class="header-section-number">2.3.3</span> Extra understanding, for use in classical test theory</h3>
+<p>If our variables were sub-tests or items that we combined into a composite score, we could sum the all the values from the variance-covariance matrix and obtain the same value as we would from calculating the variance of the composite test score. Let’s take a weird example where we might sum three variables, <code>Read</code>, <code>Math</code>, and <code>Sci</code> to get a composite school academic score.<a href="#fn22" class="footnote-ref" id="fnref22"><sup>22</sup></a> Here, any school with a missing score on any of these three variables will be removed from the data set.</p>
+<div class="sourceCode" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb81-1"><a href="var-cov-cor.html#cb81-1"></a>myvarbs2 &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Read&quot;</span>, <span class="st">&quot;Math&quot;</span>, <span class="st">&quot;Sci&quot;</span>)</span>
+<span id="cb81-2"><a href="var-cov-cor.html#cb81-2"></a>compos_scor &lt;-<span class="st"> </span><span class="kw">apply</span>(dat[myvarbs2], <span class="dv">1</span>, sum)</span>
+<span id="cb81-3"><a href="var-cov-cor.html#cb81-3"></a>n &lt;-<span class="st"> </span><span class="kw">sum</span>(<span class="op">!</span><span class="kw">is.na</span>(compos_scor))</span>
+<span id="cb81-4"><a href="var-cov-cor.html#cb81-4"></a>n </span></code></pre></div>
+<pre><code>## [1] 156</code></pre>
+<p>This <em>n</em> (156) is the number of schools with data on all three variables, which we got from <code>sum(!is.na(compos_scor))</code>. We could have also used <code>sum(complete.cases(dat[,myvarbs2]))</code> as explained above.
+Next, with the <code>cov()</code> function, we can adjust the denominator with <span class="math inline">\(\frac{n-1}{n}\)</span>:</p>
+<div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb83-1"><a href="var-cov-cor.html#cb83-1"></a>covars_RMS &lt;-<span class="st"> </span><span class="kw">cov</span>(dat[,myvarbs2], <span class="dt">use =</span> <span class="st">&quot;complete.obs&quot;</span>)<span class="op">*</span>(n<span class="dv">-1</span>)<span class="op">/</span>n </span>
+<span id="cb83-2"><a href="var-cov-cor.html#cb83-2"></a>covars_RMS      <span class="co"># The var-cov matrix</span></span></code></pre></div>
+<pre><code>##          Read     Math      Sci
+## Read 233.3177 227.3738 214.3739
+## Math 227.3738 248.5062 212.0283
+## Sci  214.3739 212.0283 311.5813</code></pre>
+<p>The sum of all the values in the variance-covariance matrix is this:</p>
+<div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb85-1"><a href="var-cov-cor.html#cb85-1"></a><span class="kw">sum</span>(covars_RMS) </span></code></pre></div>
+<pre><code>## [1] 2100.957</code></pre>
+<p>The variance of the composite score is this:</p>
+<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb87-1"><a href="var-cov-cor.html#cb87-1"></a><span class="kw">var</span>(compos_scor, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)<span class="op">*</span>(n<span class="dv">-1</span>)<span class="op">/</span>n </span></code></pre></div>
+<pre><code>## [1] 2100.957</code></pre>
+<p>So, we have obtained the same value for variance with the two different methods.<a href="#fn23" class="footnote-ref" id="fnref23"><sup>23</sup></a> This demonstrates that the variance of the total score, in this case a composite score from three variables, is the same as the sum of all the components in a variance-covariance matrix of those variables used to calculate the score: <span class="math inline">\(\sigma^2_{(Read + Math + Sci)} = \sigma^2_{Read} + \sigma^2_{Math} + \sigma^2_{Sci} + 2\sigma_{(Read,Math)} + 2\sigma_{(Read,Sci)} + 2\sigma_{(Math,Sci)}\)</span>.<a href="#fn24" class="footnote-ref" id="fnref24"><sup>24</sup></a></p>
+<p>More generally, for a total test score made up of three sub-tests, <span class="math inline">\(X_1\)</span>, <span class="math inline">\(X_2\)</span>, and <span class="math inline">\(X_3\)</span>, <span class="math inline">\(\sigma^2_{(X_1 + X_2 + X_3)} = \sigma^2_{X_1} + \sigma^2_{X_2} + \sigma^2_{X_3} + 2\sigma_{(X_1,X_2)} + 2\sigma_{(X_1,X_3)} + 2\sigma_{(X_2,X_3)}\)</span>. Thinking about the variability in this way will help us when we learn about classical-test-theory reliability.<a href="#fn25" class="footnote-ref" id="fnref25"><sup>25</sup></a></p>
+</div>
+</div>
+<div id="practice" class="section level2">
+<h2><span class="header-section-number">2.4</span> Practice</h2>
+<p>Practice creating a variance-covariance matrix and a correlation matrices with the five Likert-type items in the following data. Try summing the values in the variance-covariance matrix and comparing this with the variance of the total score from those Likert-type ratings, <code>TchrRating</code>.</p>
+<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb89-1"><a href="var-cov-cor.html#cb89-1"></a>dat2&lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;Practice2Data.csv&quot;</span>)</span>
+<span id="cb89-2"><a href="var-cov-cor.html#cb89-2"></a>dat2</span></code></pre></div>
+<pre><code>##    PID Lik1 Lik2 Lik3 Lik4 Lik5 TchrRating Item1 Item2 Item3 Item4 Item5
+## 1    1    5    5    4    3    2         19     0     1     0     0     0
+## 2    2    2    2    3    1    2         10     1     1     1     0     0
+## 3    3    4    4    3    3    2         16     1     0     0     0     0
+## 4    4    2    2    2    1    2          9     1     1     1     1     1
+## 5    5    5    5    3    5    4         22     1     1     0     0     0
+## 6    6    1    1    2    2    3          9     1     0     1     1     1
+## 7    7    1    2    3    1    1          8     1     1     1     1     0
+## 8    8    4    1    3    4    5         17     1     0     0     1     0
+## 9    9    5    3    4    4    3         19     1     1     0     0     0
+## 10  10    2    2    3    3    4         14     1     1     1     0     1
+##    TestScore
+## 1          1
+## 2          3
+## 3          1
+## 4          5
+## 5          2
+## 6          4
+## 7          4
+## 8          2
+## 9          2
+## 10         4</code></pre>
+
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="7">
+<li id="fn7"><p>Title I schools are eligible to receive federal funding because they have high percentages of students from low-income families. In other words, this is a school-level socio-economic-status variable.<a href="var-cov-cor.html#fnref7" class="footnote-back">↩︎</a></p></li>
+<li id="fn8"><p>We could also use <code>use = pairwise.complete.obs</code>.<a href="var-cov-cor.html#fnref8" class="footnote-back">↩︎</a></p></li>
+<li id="fn9"><p>The default <code>y = NULL</code> will be automatic unless we specify the second variable, which we did with <code>dat$Schl_climate</code>.<a href="var-cov-cor.html#fnref9" class="footnote-back">↩︎</a></p></li>
+<li id="fn10"><p>We could also have used the <code>str()</code> function to see the names of the columns.<a href="var-cov-cor.html#fnref10" class="footnote-back">↩︎</a></p></li>
+<li id="fn11"><p>Remember that case matters in R, so if I used <code>dat$math</code> instead of <code>dat$Math</code>, I’d get an error.<a href="var-cov-cor.html#fnref11" class="footnote-back">↩︎</a></p></li>
+<li id="fn12"><p>Though, as we saw with the <code>cor()</code> function, some functions require special arguments for missing data. With correlation, there are different options for dealing with missing data, such as list-wise (AKA case-wise) or pair-wise deletion, which is why that function does not include the standard <code>na.rm =</code> argument. Additionally, case-wise deletion is typically inappropriate when we are attempting draw inferences about a population, which is why R makes us specify this whereas other stats programs do not.<a href="var-cov-cor.html#fnref12" class="footnote-back">↩︎</a></p></li>
+<li id="fn13"><p>We can actually think of variance as covariance of a variable with itself. If we use the formula for covariance, <span class="math inline">\(Cov(X,Y) = \frac{\Sigma(X-\bar{X})(Y-\bar{Y})}{N}\)</span>, and replace <span class="math inline">\(Y\)</span> with <span class="math inline">\(X\)</span>, we get the formula for the variance of X, <span class="math inline">\(Cov(X,X) = \frac{\Sigma(X-\bar{X})(X-\bar{X})}{N} = \frac{\Sigma(X-\bar{X})^2}{N} = Var(X)\)</span>.<a href="var-cov-cor.html#fnref13" class="footnote-back">↩︎</a></p></li>
+<li id="fn14"><p>Remember that correlation comes from covariance: <span class="math inline">\(Cor(X,Y) = \frac{Cov(X,Y)}{\sqrt{Var(X)Var(Y)}}\)</span>. In our example, with reading and school climate, we would expect our manual calculation to be the same as that from the <code>cor()</code> function. However, these numbers can differ if our manually calculated correlation includes calculations of variance with schools that might have a score with one variable but not the other. In other words, if we calculate variance manually, we need to include pairwise or case-wise deletions.<a href="var-cov-cor.html#fnref14" class="footnote-back">↩︎</a></p></li>
+<li id="fn15"><p>We often abbreviate “variance-covariance matrix” to “covariance matrix”. They’re the same thing.<a href="var-cov-cor.html#fnref15" class="footnote-back">↩︎</a></p></li>
+<li id="fn16"><p>Remember, we used <code>myvarbs &lt;- c("Read", "Math", "Sci", "Schl_climate")</code>.<a href="var-cov-cor.html#fnref16" class="footnote-back">↩︎</a></p></li>
+<li id="fn17"><p>If we have <span class="math inline">\(k\)</span> variables in our covariance matrix, there are <span class="math inline">\(k\)</span> variances (along the diagonal) and <span class="math inline">\(k^2-k\)</span> covariances (off the diagonal). Notice that <span class="math inline">\(k^2-k\)</span> reduces to <span class="math inline">\(k(k-1)\)</span>. Later on, we’ll see <span class="math inline">\(k(k-1)\)</span> when we look into the rationale behind the formula for coefficient alpha, which estimates internal-consistency reliability.<a href="var-cov-cor.html#fnref17" class="footnote-back">↩︎</a></p></li>
+<li id="fn18"><p>They would also be the same if we used pairwise deletion instead of case-wise deletion, but this is ultimately a demonstration of how the sum of the variances and covariances of the subscores is the same as that of the composite score.<a href="var-cov-cor.html#fnref18" class="footnote-back">↩︎</a></p></li>
+<li id="fn19"><p>We can use the “p” in our object naming to remind us this varisnce is of the population, i.e., with <em>n</em> as the denominator. We might use this convention for the standard deviation and for matrices, too.<a href="var-cov-cor.html#fnref19" class="footnote-back">↩︎</a></p></li>
+<li id="fn20"><p>If we had used pair-wise deletion instead of case-wise deletion and we wanted to get the variance-covariance matrix with <code>n</code> as the denominator, we would need to calculate the number of non-missing values per cell in the covariance matrix. With variance, all we needed was <code>sum(!is.na(x))</code> to get the <em>n</em> size of the variable, but with pairs of variables, the <em>n</em> size will depend on the number of missing in either variable. The <code>psych</code> package provides a function (<code>pairwiseCount()</code>) for this: We could run <code>ns &lt;- pairwiseCount(dat[, myvarbs])</code>, then <code>my_cov_matrix*(ns-1)/ns</code> to obtain that matrix.<a href="var-cov-cor.html#fnref20" class="footnote-back">↩︎</a></p></li>
+<li id="fn21"><p>Here is the covariance matrix (with <em>n</em> as the denominator) in an actual matrix format:
+<span class="math display">\[\begin{bmatrix}233.32&amp;227.37&amp;214.37&amp; 51.80 \\227.37&amp;248.51&amp;212.03&amp; 54.14 \\214.37&amp;212.03&amp;311.58&amp; 54.01 \\ 51.80&amp; 54.14&amp; 54.01&amp; 50.88 \\\end{bmatrix}\]</span><a href="var-cov-cor.html#fnref21" class="footnote-back">↩︎</a></p></li>
+<li id="fn22"><p>Recall from the <a href="http://www2.hawaii.edu/~georgeha/Handouts/meas/_book/appending.html" target="_blank">Getting Started with R for Measurement</a> tutorial that the <code>apply()</code> function has three <strong>arguments</strong>. The first one specifies the data (rows and columns) we want to apply a function to, the second argument specifies the margin we seek to apply the function to, and the third argument specifies the function we wish to have applied (<code>sum</code> in this case). Here, we want to apply the function to the first margin (<code>MARGIN = 1</code>), which refers to each row, summing across the columns. (The second margin would apply the sum to the columns, summing across observations, which is not what we want to do here.)<a href="var-cov-cor.html#fnref22" class="footnote-back">↩︎</a></p></li>
+<li id="fn23"><p>This would <strong>not</strong> sum up neatly if we had used pair-wise deletion.<a href="var-cov-cor.html#fnref23" class="footnote-back">↩︎</a></p></li>
+<li id="fn24"><p>In this notation, <span class="math inline">\(\sigma^2_{X_{i}}\)</span> is the population variance of <span class="math inline">\(X_i\)</span>, and <span class="math inline">\(\sigma_{(X_i,X_j)}\)</span> is the population covariance of <span class="math inline">\(X_i\)</span> and <span class="math inline">\(X_j\)</span>.<a href="var-cov-cor.html#fnref24" class="footnote-back">↩︎</a></p></li>
+<li id="fn25"><p>Even more generally, for a test score <span class="math inline">\(Y\)</span> made from a total of <span class="math inline">\(k\)</span> items (items essentially being little sub-tests), <span class="math display">\[\sigma^2_Y = \sum^{k}_{i=1}\sigma^2_{X_i} + \sum^{j=k}_{i&lt;j}2\sigma_{(X_i,X_j)}\]</span>In other words, the total variance of a composite is the sum of all variances and possible combinations of covariances. In this equation, <span class="math inline">\(i\)</span> and <span class="math inline">\(j\)</span> are both indexes of <span class="math inline">\(X\)</span>, and <span class="math inline">\(k\)</span> is the total number of sub-tests. We are using two indexes because we need to distinguish one <span class="math inline">\(X\)</span> from the next, with one (<span class="math inline">\(X_i\)</span>) always being earlier in the list of variables than the other (<span class="math inline">\(X_j\)</span>). For instance, with three sub-tests, <span class="math inline">\(X_1\)</span>, <span class="math inline">\(X_2\)</span>, and <span class="math inline">\(X_3\)</span>, the summed covariances are <span class="math inline">\(2\sigma_{(X_1,X_2)} + 2\sigma_{(X_1,X_3)} + 2\sigma_{(X_2,X_3)}\)</span>, with the <span class="math inline">\(i\)</span> index respectively referring to <span class="math inline">\(X_1\)</span>, <span class="math inline">\(X_1\)</span>, and <span class="math inline">\(X_2\)</span> in that operation and the <span class="math inline">\(j\)</span> index referring to <span class="math inline">\(X_2\)</span>, <span class="math inline">\(X_3\)</span>, and <span class="math inline">\(X_3\)</span>. Notice that in the covariance summation <span class="math inline">\(X_j\)</span> goes all the way up to <span class="math inline">\(k\)</span>, which is 3 in this case, and <span class="math inline">\(i\)</span> is always lower than <span class="math inline">\(j\)</span> (again, to distinguish the variables from each other).<a href="var-cov-cor.html#fnref25" class="footnote-back">↩︎</a></p></li>
+</ol>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="trans.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="custfuncts.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

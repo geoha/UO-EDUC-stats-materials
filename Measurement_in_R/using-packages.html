@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 4 Using Packages | Using R for Measurement in the Social Sciences</title>
+  <meta name="description" content="Provides example R code to accompany the learning of measurement concepts." />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 4 Using Packages | Using R for Measurement in the Social Sciences" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="Provides example R code to accompany the learning of measurement concepts." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 4 Using Packages | Using R for Measurement in the Social Sciences" />
+  
+  <meta name="twitter:description" content="Provides example R code to accompany the learning of measurement concepts." />
+  
+
+<meta name="author" content="George M. Harrison  University of Hawai‘i at Mānoa, College of Education" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="custfuncts.html"/>
+<link rel="next" href="regress.html"/>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<link href="libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0/anchor-sections.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+<link href="libs/bsTable-3.3.7/bootstrapTable.min.css" rel="stylesheet" />
+<script src="libs/bsTable-3.3.7/bootstrapTable.js"></script>
+
+
+<style type="text/css">
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Introduction</a></li>
+<li class="chapter" data-level="1" data-path="trans.html"><a href="trans.html"><i class="fa fa-check"></i><b>1</b> Score Transformations</a><ul>
+<li class="chapter" data-level="1.1" data-path="trans.html"><a href="trans.html#percentiles-percentile-ranks-and-normalized-scores"><i class="fa fa-check"></i><b>1.1</b> Percentiles, percentile ranks, and normalized scores</a></li>
+<li class="chapter" data-level="1.2" data-path="trans.html"><a href="trans.html#run-of-the-mill-z-scores"><i class="fa fa-check"></i><b>1.2</b> Run-of-the-mill Z scores</a></li>
+<li class="chapter" data-level="1.3" data-path="trans.html"><a href="trans.html#extra-optional-stuff"><i class="fa fa-check"></i><b>1.3</b> Extra optional stuff</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="var-cov-cor.html"><a href="var-cov-cor.html"><i class="fa fa-check"></i><b>2</b> Variance, Covariance, and Correlation</a><ul>
+<li class="chapter" data-level="2.1" data-path="var-cov-cor.html"><a href="var-cov-cor.html#correlation"><i class="fa fa-check"></i><b>2.1</b> Correlation</a><ul>
+<li class="chapter" data-level="2.1.1" data-path="var-cov-cor.html"><a href="var-cov-cor.html#estimating-correlation-as-a-statistic"><i class="fa fa-check"></i><b>2.1.1</b> Estimating correlation as a statistic</a></li>
+<li class="chapter" data-level="2.1.2" data-path="var-cov-cor.html"><a href="var-cov-cor.html#creating-a-correlation-matrix"><i class="fa fa-check"></i><b>2.1.2</b> Creating a correlation matrix</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="var-cov-cor.html"><a href="var-cov-cor.html#variance"><i class="fa fa-check"></i><b>2.2</b> Variance</a></li>
+<li class="chapter" data-level="2.3" data-path="var-cov-cor.html"><a href="var-cov-cor.html#covariance"><i class="fa fa-check"></i><b>2.3</b> Covariance</a><ul>
+<li class="chapter" data-level="2.3.1" data-path="var-cov-cor.html"><a href="var-cov-cor.html#creating-a-variance-covariance-matrix"><i class="fa fa-check"></i><b>2.3.1</b> Creating a variance-covariance matrix</a></li>
+<li class="chapter" data-level="2.3.2" data-path="var-cov-cor.html"><a href="var-cov-cor.html#using-the-n-denominator"><i class="fa fa-check"></i><b>2.3.2</b> Using the <em>n</em> denominator</a></li>
+<li class="chapter" data-level="2.3.3" data-path="var-cov-cor.html"><a href="var-cov-cor.html#extra-understanding-for-use-in-classical-test-theory"><i class="fa fa-check"></i><b>2.3.3</b> Extra understanding, for use in classical test theory</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="var-cov-cor.html"><a href="var-cov-cor.html#practice"><i class="fa fa-check"></i><b>2.4</b> Practice</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="custfuncts.html"><a href="custfuncts.html"><i class="fa fa-check"></i><b>3</b> Creating Custom Functions</a><ul>
+<li class="chapter" data-level="3.1" data-path="custfuncts.html"><a href="custfuncts.html#using-our-function-on-multiple-variables"><i class="fa fa-check"></i><b>3.1</b> Using our function on multiple variables</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="using-packages.html"><a href="using-packages.html"><i class="fa fa-check"></i><b>4</b> Using Packages</a><ul>
+<li class="chapter" data-level="4.1" data-path="using-packages.html"><a href="using-packages.html#an-example-using-the-hmisc-package-for-correlation"><i class="fa fa-check"></i><b>4.1</b> An example: Using the <code>Hmisc</code> package for correlation</a></li>
+<li class="chapter" data-level="4.2" data-path="using-packages.html"><a href="using-packages.html#tidyverse_intro"><i class="fa fa-check"></i><b>4.2</b> Using Tidyverse packages</a><ul>
+<li class="chapter" data-level="4.2.1" data-path="using-packages.html"><a href="using-packages.html#piping"><i class="fa fa-check"></i><b>4.2.1</b> Piping</a></li>
+<li class="chapter" data-level="4.2.2" data-path="using-packages.html"><a href="using-packages.html#saving-our-output-as-a-csv-file"><i class="fa fa-check"></i><b>4.2.2</b> Saving our output as a CSV file</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="regress.html"><a href="regress.html"><i class="fa fa-check"></i><b>5</b> Estimating Regression</a><ul>
+<li class="chapter" data-level="5.1" data-path="regress.html"><a href="regress.html#the-lm-function"><i class="fa fa-check"></i><b>5.1</b> The <code>lm()</code> function</a></li>
+<li class="chapter" data-level="5.2" data-path="regress.html"><a href="regress.html#using-the-regression-parameters-for-prediction"><i class="fa fa-check"></i><b>5.2</b> Using the regression parameters for prediction</a></li>
+<li class="chapter" data-level="5.3" data-path="regress.html"><a href="regress.html#model-error-variance-and-a-peek-into-classical-test-theory"><i class="fa fa-check"></i><b>5.3</b> Model error variance and a peek into classical test theory</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="graphing.html"><a href="graphing.html"><i class="fa fa-check"></i><b>6</b> Graphing</a><ul>
+<li class="chapter" data-level="6.1" data-path="graphing.html"><a href="graphing.html#using-base-r"><i class="fa fa-check"></i><b>6.1</b> Using Base R</a></li>
+<li class="chapter" data-level="6.2" data-path="graphing.html"><a href="graphing.html#using-the-ggplot2-package"><i class="fa fa-check"></i><b>6.2</b> Using the <code>ggplot2</code> package</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="itemans.html"><a href="itemans.html"><i class="fa fa-check"></i><b>7</b> Item Scoring and Item Analysis</a><ul>
+<li class="chapter" data-level="7.1" data-path="itemans.html"><a href="itemans.html#multiple-choice-raw-data-and-their-answer-key"><i class="fa fa-check"></i><b>7.1</b> Multiple-choice raw data and their answer key</a></li>
+<li class="chapter" data-level="7.2" data-path="itemans.html"><a href="itemans.html#scoring-the-responses"><i class="fa fa-check"></i><b>7.2</b> Scoring the responses</a></li>
+<li class="chapter" data-level="7.3" data-path="itemans.html"><a href="itemans.html#item-analysis-with-dichotomous-data"><i class="fa fa-check"></i><b>7.3</b> Item analysis with dichotomous data</a></li>
+<li class="chapter" data-level="7.4" data-path="itemans.html"><a href="itemans.html#distractor-analysis"><i class="fa fa-check"></i><b>7.4</b> Distractor analysis</a></li>
+<li class="chapter" data-level="7.5" data-path="itemans.html"><a href="itemans.html#item-analysis-with-polytomous-data"><i class="fa fa-check"></i><b>7.5</b> Item analysis with polytomous data</a><ul>
+<li class="chapter" data-level="7.5.1" data-path="itemans.html"><a href="itemans.html#partial-credit-data"><i class="fa fa-check"></i><b>7.5.1</b> Partial-credit data</a></li>
+<li class="chapter" data-level="7.5.2" data-path="itemans.html"><a href="itemans.html#item-functioning-of-likert-type-scale-items"><i class="fa fa-check"></i><b>7.5.2</b> Item functioning of Likert-type scale items</a></li>
+<li class="chapter" data-level="7.5.3" data-path="itemans.html"><a href="itemans.html#graphing-frequencies-of-category-responses"><i class="fa fa-check"></i><b>7.5.3</b> Graphing frequencies of category responses</a></li>
+</ul></li>
+<li class="chapter" data-level="7.6" data-path="itemans.html"><a href="itemans.html#optional-advanced-graphics-stuff"><i class="fa fa-check"></i><b>7.6</b> Optional advanced graphics stuff</a><ul>
+<li class="chapter" data-level="7.6.1" data-path="itemans.html"><a href="itemans.html#creating-a-facet-plot-with-ggplot2"><i class="fa fa-check"></i><b>7.6.1</b> Creating a facet plot with <code>GGplot2</code></a></li>
+<li class="chapter" data-level="7.6.2" data-path="itemans.html"><a href="itemans.html#the-base-r-approach-to-creating-a-facet-plot"><i class="fa fa-check"></i><b>7.6.2</b> The Base R approach to creating a facet plot</a></li>
+</ul></li>
+<li class="chapter" data-level="7.7" data-path="itemans.html"><a href="itemans.html#additional-functions-for-examining-category-frequencies"><i class="fa fa-check"></i><b>7.7</b> Additional functions for examining category frequencies</a><ul>
+<li class="chapter" data-level="7.7.1" data-path="itemans.html"><a href="itemans.html#using-the-table-function-and-the-lapply-function"><i class="fa fa-check"></i><b>7.7.1</b> Using the <code>table()</code> function and the <code>lapply()</code> function</a></li>
+<li class="chapter" data-level="7.7.2" data-path="itemans.html"><a href="itemans.html#factors"><i class="fa fa-check"></i><b>7.7.2</b> Specifying the data as categorical</a></li>
+<li class="chapter" data-level="7.7.3" data-path="itemans.html"><a href="itemans.html#ordered-factors"><i class="fa fa-check"></i><b>7.7.3</b> Ordered factors</a></li>
+</ul></li>
+<li class="chapter" data-level="7.8" data-path="itemans.html"><a href="itemans.html#conclusion"><i class="fa fa-check"></i><b>7.8</b> Conclusion</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="CTT.html"><a href="CTT.html"><i class="fa fa-check"></i><b>8</b> Classical Test Theory</a><ul>
+<li class="chapter" data-level="8.1" data-path="CTT.html"><a href="CTT.html#true-score-model"><i class="fa fa-check"></i><b>8.1</b> True score model</a></li>
+<li class="chapter" data-level="8.2" data-path="CTT.html"><a href="CTT.html#assumptions-of-the-ctt-true-score-model"><i class="fa fa-check"></i><b>8.2</b> Assumptions of the CTT true score model</a></li>
+<li class="chapter" data-level="8.3" data-path="CTT.html"><a href="CTT.html#reliability-and-the-variance-of-the-composite-score"><i class="fa fa-check"></i><b>8.3</b> Reliability and the variance of the composite score</a><ul>
+<li class="chapter" data-level="8.3.1" data-path="CTT.html"><a href="CTT.html#reliability-as-the-ratio-of-true-score-variance-to-observed-score-variance"><i class="fa fa-check"></i><b>8.3.1</b> Reliability as the ratio of true-score variance to observed-score variance</a></li>
+<li class="chapter" data-level="8.3.2" data-path="CTT.html"><a href="CTT.html#reliability-as-the-lack-of-error-variance"><i class="fa fa-check"></i><b>8.3.2</b> Reliability as the lack of error variance</a></li>
+<li class="chapter" data-level="8.3.3" data-path="CTT.html"><a href="CTT.html#reliability-as-the-squared-correlation-between-observed-and-true-scores"><i class="fa fa-check"></i><b>8.3.3</b> Reliability as the squared correlation between observed and true scores</a></li>
+<li class="chapter" data-level="8.3.4" data-path="CTT.html"><a href="CTT.html#reliability-as-the-correlation-between-scores-on-parallel-tests"><i class="fa fa-check"></i><b>8.3.4</b> Reliability as the correlation between scores on parallel tests</a></li>
+</ul></li>
+<li class="chapter" data-level="8.4" data-path="CTT.html"><a href="CTT.html#four-ctt-models"><i class="fa fa-check"></i><b>8.4</b> Four CTT models</a><ul>
+<li class="chapter" data-level="8.4.1" data-path="CTT.html"><a href="CTT.html#the-parallel-model"><i class="fa fa-check"></i><b>8.4.1</b> The parallel model</a></li>
+<li class="chapter" data-level="8.4.2" data-path="CTT.html"><a href="CTT.html#the-tau-equivalent-model"><i class="fa fa-check"></i><b>8.4.2</b> The tau-equivalent model</a></li>
+<li class="chapter" data-level="8.4.3" data-path="CTT.html"><a href="CTT.html#the-essentially-tau-equivalent-model"><i class="fa fa-check"></i><b>8.4.3</b> The essentially tau-equivalent model</a></li>
+<li class="chapter" data-level="8.4.4" data-path="CTT.html"><a href="CTT.html#the-congeneric-model"><i class="fa fa-check"></i><b>8.4.4</b> The congeneric model</a></li>
+<li class="chapter" data-level="8.4.5" data-path="CTT.html"><a href="CTT.html#implications-of-each-model"><i class="fa fa-check"></i><b>8.4.5</b> Implications of each model</a></li>
+</ul></li>
+<li class="chapter" data-level="8.5" data-path="CTT.html"><a href="CTT.html#estimating-an-observations-true-score"><i class="fa fa-check"></i><b>8.5</b> Estimating an observation’s true score</a></li>
+<li class="chapter" data-level="8.6" data-path="CTT.html"><a href="CTT.html#the-standard-error-of-measurement"><i class="fa fa-check"></i><b>8.6</b> The standard error of measurement</a><ul>
+<li class="chapter" data-level="8.6.1" data-path="CTT.html"><a href="CTT.html#estimating-the-confidence-interval-of-a-true-score"><i class="fa fa-check"></i><b>8.6.1</b> Estimating the confidence interval of a true score</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="reliability.html"><a href="reliability.html"><i class="fa fa-check"></i><b>9</b> Internal-consistency Reliability</a><ul>
+<li class="chapter" data-level="9.1" data-path="reliability.html"><a href="reliability.html#coefficient-alpha"><i class="fa fa-check"></i><b>9.1</b> Coefficient alpha</a><ul>
+<li class="chapter" data-level="9.1.1" data-path="reliability.html"><a href="reliability.html#how-coefficient-alpha-works"><i class="fa fa-check"></i><b>9.1.1</b> How coefficient alpha works</a></li>
+</ul></li>
+<li class="chapter" data-level="9.2" data-path="reliability.html"><a href="reliability.html#using-r-to-estimate-internal-consistency-reliability-coefficient"><i class="fa fa-check"></i><b>9.2</b> Using R to estimate internal-consistency reliability coefficient</a><ul>
+<li class="chapter" data-level="9.2.1" data-path="reliability.html"><a href="reliability.html#a-demonstration-of-coefficient-alpha-using-hypothetical-data"><i class="fa fa-check"></i><b>9.2.1</b> A demonstration of coefficient alpha using hypothetical data</a></li>
+<li class="chapter" data-level="9.2.2" data-path="reliability.html"><a href="reliability.html#using-r-packages-to-calculate-alpha-and-more"><i class="fa fa-check"></i><b>9.2.2</b> Using R packages to calculate alpha and more</a></li>
+</ul></li>
+<li class="chapter" data-level="9.3" data-path="reliability.html"><a href="reliability.html#spearman-brown-prophecy-formula"><i class="fa fa-check"></i><b>9.3</b> Spearman-Brown prophecy formula</a><ul>
+<li class="chapter" data-level="9.3.1" data-path="reliability.html"><a href="reliability.html#calculation"><i class="fa fa-check"></i><b>9.3.1</b> Calculation</a></li>
+<li class="chapter" data-level="9.3.2" data-path="reliability.html"><a href="reliability.html#using-the-ctt-package"><i class="fa fa-check"></i><b>9.3.2</b> Using the CTT package</a></li>
+</ul></li>
+<li class="chapter" data-level="9.4" data-path="reliability.html"><a href="reliability.html#standardized-coefficient-alpha"><i class="fa fa-check"></i><b>9.4</b> Standardized coefficient alpha</a><ul>
+<li class="chapter" data-level="9.4.1" data-path="reliability.html"><a href="reliability.html#calculation-of-standardized-coefficient-alpha"><i class="fa fa-check"></i><b>9.4.1</b> Calculation of standardized coefficient alpha</a></li>
+</ul></li>
+<li class="chapter" data-level="9.5" data-path="reliability.html"><a href="reliability.html#reliability-of-difference-scores"><i class="fa fa-check"></i><b>9.5</b> Reliability of difference scores</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="interrater.html"><a href="interrater.html"><i class="fa fa-check"></i><b>10</b> Inter-rater and Test-retest Reliability</a><ul>
+<li class="chapter" data-level="10.1" data-path="interrater.html"><a href="interrater.html#coefficient-kappa-for-estimating-agreement-with-nominal-data"><i class="fa fa-check"></i><b>10.1</b> Coefficient kappa for estimating agreement with nominal data</a><ul>
+<li class="chapter" data-level="10.1.1" data-path="interrater.html"><a href="interrater.html#using-the-irr-package-to-estimate-kappa"><i class="fa fa-check"></i><b>10.1.1</b> Using the irr package to estimate kappa</a></li>
+<li class="chapter" data-level="10.1.2" data-path="interrater.html"><a href="interrater.html#limitations-of-kappa"><i class="fa fa-check"></i><b>10.1.2</b> Limitations of kappa</a></li>
+</ul></li>
+<li class="chapter" data-level="10.2" data-path="interrater.html"><a href="interrater.html#intraclass-correlation-coefficients-for-estimating-consistency-and-agreement"><i class="fa fa-check"></i><b>10.2</b> Intraclass correlation coefficients for estimating consistency and agreement</a><ul>
+<li class="chapter" data-level="10.2.1" data-path="interrater.html"><a href="interrater.html#example-of-an-icc-for-consistency"><i class="fa fa-check"></i><b>10.2.1</b> Example of an ICC for consistency</a></li>
+<li class="chapter" data-level="10.2.2" data-path="interrater.html"><a href="interrater.html#example-of-an-icc-for-agreement"><i class="fa fa-check"></i><b>10.2.2</b> Example of an ICC for agreement</a></li>
+<li class="chapter" data-level="10.2.3" data-path="interrater.html"><a href="interrater.html#two-way-and-one-way-icc-models"><i class="fa fa-check"></i><b>10.2.3</b> Two-way and one-way ICC models</a></li>
+<li class="chapter" data-level="10.2.4" data-path="interrater.html"><a href="interrater.html#single-versus-average-ratings"><i class="fa fa-check"></i><b>10.2.4</b> Single versus average ratings</a></li>
+<li class="chapter" data-level="10.2.5" data-path="interrater.html"><a href="interrater.html#all-of-the-equations"><i class="fa fa-check"></i><b>10.2.5</b> All of the equations</a></li>
+<li class="chapter" data-level="10.2.6" data-path="interrater.html"><a href="interrater.html#recommendations-on-reporting-iccs"><i class="fa fa-check"></i><b>10.2.6</b> Recommendations on reporting ICCs</a></li>
+</ul></li>
+<li class="chapter" data-level="10.3" data-path="interrater.html"><a href="interrater.html#using-the-irr-package"><i class="fa fa-check"></i><b>10.3</b> Using the irr package</a></li>
+<li class="chapter" data-level="10.4" data-path="interrater.html"><a href="interrater.html#test-retest-reliability"><i class="fa fa-check"></i><b>10.4</b> Test-retest reliability</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="gtheory.html"><a href="gtheory.html"><i class="fa fa-check"></i><b>11</b> Generalizability Theory</a><ul>
+<li class="chapter" data-level="11.1" data-path="gtheory.html"><a href="gtheory.html#a-single-facet-design"><i class="fa fa-check"></i><b>11.1</b> A single facet design</a><ul>
+<li class="chapter" data-level="11.1.1" data-path="gtheory.html"><a href="gtheory.html#g-study"><i class="fa fa-check"></i><b>11.1.1</b> G-study</a></li>
+<li class="chapter" data-level="11.1.2" data-path="gtheory.html"><a href="gtheory.html#d-study"><i class="fa fa-check"></i><b>11.1.2</b> D-study</a></li>
+<li class="chapter" data-level="11.1.3" data-path="gtheory.html"><a href="gtheory.html#using-the-vca-package"><i class="fa fa-check"></i><b>11.1.3</b> Using the VCA package</a></li>
+<li class="chapter" data-level="11.1.4" data-path="gtheory.html"><a href="gtheory.html#summary-of-our-one-facet-fully-crossed-design"><i class="fa fa-check"></i><b>11.1.4</b> Summary of our one-facet fully-crossed design</a></li>
+</ul></li>
+<li class="chapter" data-level="11.2" data-path="gtheory.html"><a href="gtheory.html#a-two-facet-design"><i class="fa fa-check"></i><b>11.2</b> A two facet design</a><ul>
+<li class="chapter" data-level="11.2.1" data-path="gtheory.html"><a href="gtheory.html#rand2facet"><i class="fa fa-check"></i><b>11.2.1</b> G-study with a two facet design</a></li>
+<li class="chapter" data-level="11.2.2" data-path="gtheory.html"><a href="gtheory.html#d-study-with-a-two-facet-design"><i class="fa fa-check"></i><b>11.2.2</b> D-study with a two facet design</a></li>
+</ul></li>
+<li class="chapter" data-level="11.3" data-path="gtheory.html"><a href="gtheory.html#nested-designs"><i class="fa fa-check"></i><b>11.3</b> Nested designs</a><ul>
+<li class="chapter" data-level="11.3.1" data-path="gtheory.html"><a href="gtheory.html#one-facet-nested-design"><i class="fa fa-check"></i><b>11.3.1</b> One-facet nested design</a></li>
+<li class="chapter" data-level="11.3.2" data-path="gtheory.html"><a href="gtheory.html#two-facet-nested-design"><i class="fa fa-check"></i><b>11.3.2</b> Two-facet nested design</a></li>
+<li class="chapter" data-level="11.3.3" data-path="gtheory.html"><a href="gtheory.html#g-study-with-a-two-facet-items-nested-within-occasions-design"><i class="fa fa-check"></i><b>11.3.3</b> G-study with a two-facet items-nested-within-occasions design</a></li>
+<li class="chapter" data-level="11.3.4" data-path="gtheory.html"><a href="gtheory.html#d-study-with-a-two-facet-items-nested-within-occasions-design"><i class="fa fa-check"></i><b>11.3.4</b> D-study with a two-facet items-nested-within-occasions design</a></li>
+</ul></li>
+<li class="chapter" data-level="11.4" data-path="gtheory.html"><a href="gtheory.html#fixed-facets"><i class="fa fa-check"></i><b>11.4</b> Fixed facets</a></li>
+<li class="chapter" data-level="11.5" data-path="gtheory.html"><a href="gtheory.html#summary"><i class="fa fa-check"></i><b>11.5</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="efa.html"><a href="efa.html"><i class="fa fa-check"></i><b>12</b> Exploratory Factor Analysis</a><ul>
+<li class="chapter" data-level="12.1" data-path="efa.html"><a href="efa.html#preparatory-steps"><i class="fa fa-check"></i><b>12.1</b> Preparatory steps</a><ul>
+<li class="chapter" data-level="12.1.1" data-path="efa.html"><a href="efa.html#examining-the-data"><i class="fa fa-check"></i><b>12.1.1</b> Examining the data</a></li>
+<li class="chapter" data-level="12.1.2" data-path="efa.html"><a href="efa.html#addressing-assumptions"><i class="fa fa-check"></i><b>12.1.2</b> Addressing assumptions</a></li>
+<li class="chapter" data-level="12.1.3" data-path="efa.html"><a href="efa.html#determining-factorability"><i class="fa fa-check"></i><b>12.1.3</b> Determining factorability</a></li>
+<li class="chapter" data-level="12.1.4" data-path="efa.html"><a href="efa.html#determining-how-many-factors-to-retain"><i class="fa fa-check"></i><b>12.1.4</b> Determining how many factors to retain</a></li>
+</ul></li>
+<li class="chapter" data-level="12.2" data-path="efa.html"><a href="efa.html#factor-analysis-with-raw-data"><i class="fa fa-check"></i><b>12.2</b> Factor analysis with raw data</a><ul>
+<li class="chapter" data-level="12.2.1" data-path="efa.html"><a href="efa.html#examining-pattern-coefficients-the-factor-loadings"><i class="fa fa-check"></i><b>12.2.1</b> Examining pattern coefficients (the factor loadings)</a></li>
+<li class="chapter" data-level="12.2.2" data-path="efa.html"><a href="efa.html#factor-scores"><i class="fa fa-check"></i><b>12.2.2</b> Factor scores</a></li>
+</ul></li>
+<li class="chapter" data-level="12.3" data-path="efa.html"><a href="efa.html#practice-1"><i class="fa fa-check"></i><b>12.3</b> Practice</a></li>
+<li class="chapter" data-level="12.4" data-path="efa.html"><a href="efa.html#factor-analysis-with-correlation-data"><i class="fa fa-check"></i><b>12.4</b> Factor analysis with correlation data</a><ul>
+<li class="chapter" data-level="12.4.1" data-path="efa.html"><a href="efa.html#setting-up-the-data"><i class="fa fa-check"></i><b>12.4.1</b> Setting up the data</a></li>
+<li class="chapter" data-level="12.4.2" data-path="efa.html"><a href="efa.html#preparatory-steps-1"><i class="fa fa-check"></i><b>12.4.2</b> Preparatory steps</a></li>
+<li class="chapter" data-level="12.4.3" data-path="efa.html"><a href="efa.html#performing-the-factor-analysis"><i class="fa fa-check"></i><b>12.4.3</b> Performing the factor analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="12.5" data-path="efa.html"><a href="efa.html#internal-consistency-reliability-of-the-scores"><i class="fa fa-check"></i><b>12.5</b> Internal consistency reliability of the scores</a><ul>
+<li class="chapter" data-level="12.5.1" data-path="efa.html"><a href="efa.html#efa-with-non-continuous-data"><i class="fa fa-check"></i><b>12.5.1</b> EFA with non-continuous data</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Using R for Measurement in the Social Sciences</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="using-packages" class="section level1">
+<h1><span class="header-section-number">Chapter 4</span> Using Packages</h1>
+<div id="an-example-using-the-hmisc-package-for-correlation" class="section level2">
+<h2><span class="header-section-number">4.1</span> An example: Using the <code>Hmisc</code> package for correlation</h2>
+<p>R packages provide their own functions. A commonly used package in statistics is <code>Hmisc</code> <span class="citation">(Harrell, <a href="#ref-R-Hmisc" role="doc-biblioref">2020</a>)</span>, which has its own correlation function. If this is the first time we’re using this package on our computer (with this R installation), we need to install it. We can do this within R. If we don’t know whether it is installed, we can just try the <code>library()</code> function, as in <code>library(Hmisc)</code>, and if the error message says <code>there is no package called 'Hmisc'</code>, it means we have to install it. Here’s the code to install this particular package:</p>
+<div class="sourceCode" id="cb98"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb98-1"><a href="using-packages.html#cb98-1"></a><span class="kw">install.packages</span>(<span class="st">&quot;Hmisc&quot;</span>)</span></code></pre></div>
+<p>We only have to do that once on our machine. Now, let’s bring the package into our working library so we can use a function from that package:</p>
+<div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb99-1"><a href="using-packages.html#cb99-1"></a><span class="kw">library</span>(Hmisc)</span></code></pre></div>
+<p>Maybe we know that we want to use <code>rcorr()</code> function from this package (because we looked it up online or remembered it from previous code). If we wanted to see what other functions are in this library, we can use this line of code:</p>
+<div class="sourceCode" id="cb100"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb100-1"><a href="using-packages.html#cb100-1"></a><span class="kw">help</span>(<span class="dt">package =</span> <span class="st">&quot;Hmisc&quot;</span>)</span></code></pre></div>
+<p>There are a lot of functions in this package, listed in alphabetical order. We can also get help on the specific function by running <code>?rcorr</code> or <code>help(rcorr)</code>, or (because we’re using RStudio) by highlighting the function in my script editor and pressing <code>F1</code> on our keyboard.<a href="#fn29" class="footnote-ref" id="fnref29"><sup>29</sup></a></p>
+<p>Let’s estimate the correlation using the <code>Hmisc</code> package’s <code>rcorr()</code> function:</p>
+<div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb101-1"><a href="using-packages.html#cb101-1"></a>dat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;HI_elem.csv&quot;</span>)</span>
+<span id="cb101-2"><a href="using-packages.html#cb101-2"></a><span class="kw">rcorr</span>(dat<span class="op">$</span>Read, dat<span class="op">$</span>Schl_climate)</span></code></pre></div>
+<pre><code>##      x    y
+## x 1.00 0.46
+## y 0.46 1.00
+## 
+## n
+##     x   y
+## x 167 166
+## y 166 166
+## 
+## P
+##   x  y 
+## x     0
+## y  0</code></pre>
+<p>This prints out three things: the Pearson correlation matrix<a href="#fn30" class="footnote-ref" id="fnref30"><sup>30</sup></a>, another matrix with the number of observations in each cell, and a <em>p</em>-value of that observed correlation occurring (with alpha set to .05) given a null hypothesis of zero correlation (if we sought to conduct a statistical test). The first two things are usually of interest to us in measurement.</p>
+</div>
+<div id="tidyverse_intro" class="section level2">
+<h2><span class="header-section-number">4.2</span> Using Tidyverse packages</h2>
+<p>Another way to estimate correlation is to use packages from the <a href="https://www.tidyverse.org/" target="_blank">Tidyverse community</a>. Let’s use the <code>dplyr</code> package <span class="citation">(Wickham, François, et al., <a href="#ref-R-dplyr" role="doc-biblioref">2020</a>)</span> and the <code>corrr</code> package <span class="citation">(Kuhn et al., <a href="#ref-R-corrr" role="doc-biblioref">2020</a>)</span>. We can get some nice-looking correlation output using the <code>corrr</code> package:</p>
+<p>First, make sure the two packages are installed. Use the <code>install.packages("the package name")</code> function if you need to. Then, bring them into the library:</p>
+<div class="sourceCode" id="cb103"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb103-1"><a href="using-packages.html#cb103-1"></a><span class="kw">library</span>(dplyr)</span>
+<span id="cb103-2"><a href="using-packages.html#cb103-2"></a><span class="kw">library</span>(corrr)</span></code></pre></div>
+<p>Tidyverse includes a <a href="https://www.tidyverse.org/packages/" target="_blank">core set of packages</a>, which you can install all at once (which may take a few minutes) with this code: <code>install.packages("tidyverse")</code>. Unfortunately, Tidyverse is not compatible with many of the packages we will use in this class, so we will use it only occassionally.</p>
+<div id="piping" class="section level3">
+<h3><span class="header-section-number">4.2.1</span> Piping</h3>
+<p>Tidyverse uses an approach to R coding that helps us think through the code in a manner that is similar to how we (as humans) read and process language. The most frequently used Tidyverse operation, which is from the <code>dplyr</code> package, is the <strong>pipe</strong>, <code>%&gt;%</code><a href="#fn31" class="footnote-ref" id="fnref31"><sup>31</sup></a>, which we can read in our mind as <strong>“take the stuff on the left and perform these functions on the right on that stuff.”</strong></p>
+<p>So, below, we are taking the <code>dat</code> data frame and then selecting the two columns <code>read</code> and <code>Schl_climate</code>. Then, we’re taking that subset of data and piping it to the <code>cor()</code> function.<a href="#fn32" class="footnote-ref" id="fnref32"><sup>32</sup></a> Piping selected columns from our data is sometimes easier than Base R because we don’t have to refer to the data and the column in the data, such as <code>dat$read</code> in the way we did above with the <code>cor()</code> function in Base R. Also, notice that in the <code>cor()</code> function, we no longer specify the variables because we selected them before the pipe (though we still include the argument that handles missing data).</p>
+<div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb104-1"><a href="using-packages.html#cb104-1"></a>dat <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb104-2"><a href="using-packages.html#cb104-2"></a><span class="st">     </span><span class="kw">select</span>(Read, Schl_climate) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb104-3"><a href="using-packages.html#cb104-3"></a><span class="st">        </span><span class="kw">cor</span>(<span class="dt">use =</span> <span class="st">&quot;pairwise.complete.obs&quot;</span>)</span></code></pre></div>
+<pre><code>##                   Read Schl_climate
+## Read         1.0000000    0.4638681
+## Schl_climate 0.4638681    1.0000000</code></pre>
+<p>We can do something similar when we use Tidyverse piping. We can select several variables to get a correlation matrix. Let’s use it for four variables:</p>
+<div class="sourceCode" id="cb106"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb106-1"><a href="using-packages.html#cb106-1"></a>dat <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb106-2"><a href="using-packages.html#cb106-2"></a><span class="st">     </span><span class="kw">select</span>(Read, Math, Sci, Schl_climate) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb106-3"><a href="using-packages.html#cb106-3"></a><span class="st">        </span><span class="kw">cor</span>(<span class="dt">use =</span> <span class="st">&quot;pairwise.complete.obs&quot;</span>)</span></code></pre></div>
+<pre><code>##                   Read      Math       Sci Schl_climate
+## Read         1.0000000 0.9423635 0.7950828    0.4638681
+## Math         0.9423635 1.0000000 0.7619727    0.4715012
+## Sci          0.7950828 0.7619727 1.0000000    0.4289676
+## Schl_climate 0.4638681 0.4715012 0.4289676    1.0000000</code></pre>
+<p>Now, we have a correlation matrix.<a href="#fn33" class="footnote-ref" id="fnref33"><sup>33</sup></a> Let’s make the output even prettier using functions from the <code>corrr</code> package. The <code>correlate()</code> function provides the estimate. The <code>shave()</code> function removes the upper triangle of the matrix, which is a mirror of the lower triangle. The <code>fashion()</code> function rounds the correlations to 2 decimal places (by default) and removes their leading zeroes. Look up the help files for the package, <code>help(package = corrr)</code>, to read more about them and see other arguments.</p>
+<div class="sourceCode" id="cb108"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb108-1"><a href="using-packages.html#cb108-1"></a>dat <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb108-2"><a href="using-packages.html#cb108-2"></a><span class="st">  </span><span class="kw">select</span>(Read, Math, Sci, Schl_climate) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb108-3"><a href="using-packages.html#cb108-3"></a><span class="st">    </span><span class="kw">correlate</span>(<span class="dt">diagonal =</span> <span class="ot">TRUE</span>) <span class="op">%&gt;%</span></span>
+<span id="cb108-4"><a href="using-packages.html#cb108-4"></a><span class="st">     </span><span class="kw">shave</span>() <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb108-5"><a href="using-packages.html#cb108-5"></a><span class="st">      </span><span class="kw">fashion</span>() </span></code></pre></div>
+<pre><code>## 
+## Correlation method: &#39;pearson&#39;
+## Missing treated using: &#39;pairwise.complete.obs&#39;</code></pre>
+<pre><code>##        rowname Read Math  Sci Schl_climate
+## 1         Read 1.00                       
+## 2         Math  .94 1.00                  
+## 3          Sci  .80  .76 1.00             
+## 4 Schl_climate  .46  .47  .43         1.00</code></pre>
+</div>
+<div id="saving-our-output-as-a-csv-file" class="section level3">
+<h3><span class="header-section-number">4.2.2</span> Saving our output as a CSV file</h3>
+<p>We can save our output to an object, <code>MyCors</code>:</p>
+<div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb111-1"><a href="using-packages.html#cb111-1"></a>MyCors &lt;-<span class="st"> </span>dat <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb111-2"><a href="using-packages.html#cb111-2"></a><span class="st">  </span><span class="kw">select</span>(Read, Math, Sci, Schl_climate) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb111-3"><a href="using-packages.html#cb111-3"></a><span class="st">  </span><span class="kw">correlate</span>(<span class="dt">diagonal =</span> <span class="ot">TRUE</span>) <span class="op">%&gt;%</span></span>
+<span id="cb111-4"><a href="using-packages.html#cb111-4"></a><span class="st">  </span><span class="kw">shave</span>() <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb111-5"><a href="using-packages.html#cb111-5"></a><span class="st">  </span><span class="kw">fashion</span>() </span></code></pre></div>
+<p>We can save this object to a CSV file in our working directory (which we can then view in a spreadsheet program such as Excel).</p>
+<div class="sourceCode" id="cb112"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb112-1"><a href="using-packages.html#cb112-1"></a><span class="kw">write.csv</span>(MyCors, <span class="st">&quot;MyCors.csv&quot;</span>)</span></code></pre></div>
+
+</div>
+</div>
+</div>
+<h3>References</h3>
+<div id="refs" class="references">
+<div id="ref-R-Hmisc">
+<p>Harrell, F. E., Jr. (2020). <em>Hmisc: Harrell miscellaneous</em>. <a href="https://CRAN.R-project.org/package=Hmisc">https://CRAN.R-project.org/package=Hmisc</a></p>
+</div>
+<div id="ref-R-corrr">
+<p>Kuhn, M., Jackson, S., &amp; Cimentada, J. (2020). <em>Corrr: Correlations in r</em>. <a href="https://github.com/tidymodels/corrr">https://github.com/tidymodels/corrr</a></p>
+</div>
+<div id="ref-R-dplyr">
+<p>Wickham, H., François, R., Henry, L., &amp; Müller, K. (2020). <em>Dplyr: A grammar of data manipulation</em>. <a href="https://CRAN.R-project.org/package=dplyr">https://CRAN.R-project.org/package=dplyr</a></p>
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="29">
+<li id="fn29"><p>For functions within packages, the package needs to be in our working library before we can access its help files.<a href="using-packages.html#fnref29" class="footnote-back">↩︎</a></p></li>
+<li id="fn30"><p>If we look at the help file for the <code>rcorr()</code> function, there is another argument, <code>type =</code>. It seems like Pearson <em>r</em> is the default, so if we wanted Spearman’s <em>r</em>, we’d include a third argument in our code, <code>type = "spearman"</code>.<a href="using-packages.html#fnref30" class="footnote-back">↩︎</a></p></li>
+<li id="fn31"><p>We use the pipe so much, we have a shortcut for it: <code>Ctrl+Shift+m</code> (PC) <code>Cmd+Shift+m</code> (Mac).<a href="using-packages.html#fnref31" class="footnote-back">↩︎</a></p></li>
+<li id="fn32"><p>We can usually use functions from other packages with piped data. Here, we’re using the <code>cor()</code> function, which is from Base R. Unfortunately, for functions from some packages, such as the <code>psych</code> package <span class="citation">(Revelle, <a href="#ref-R-psych" role="doc-biblioref">2020</a>)</span>, this does not work, so we should not rely on Tidyverse for all of our measurement procedures.<a href="using-packages.html#fnref32" class="footnote-back">↩︎</a></p></li>
+<li id="fn33"><p>We could specify <code>use = "complete.obs"</code> for case-wise deletion.<a href="using-packages.html#fnref33" class="footnote-back">↩︎</a></p></li>
+</ol>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="custfuncts.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="regress.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

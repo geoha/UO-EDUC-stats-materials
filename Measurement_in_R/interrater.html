@@ -1,0 +1,970 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 10 Inter-rater and Test-retest Reliability | Using R for Measurement in the Social Sciences</title>
+  <meta name="description" content="Provides example R code to accompany the learning of measurement concepts." />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 10 Inter-rater and Test-retest Reliability | Using R for Measurement in the Social Sciences" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="Provides example R code to accompany the learning of measurement concepts." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 10 Inter-rater and Test-retest Reliability | Using R for Measurement in the Social Sciences" />
+  
+  <meta name="twitter:description" content="Provides example R code to accompany the learning of measurement concepts." />
+  
+
+<meta name="author" content="George M. Harrison  University of Hawai‘i at Mānoa, College of Education" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="reliability.html"/>
+<link rel="next" href="gtheory.html"/>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<link href="libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0/anchor-sections.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+<link href="libs/bsTable-3.3.7/bootstrapTable.min.css" rel="stylesheet" />
+<script src="libs/bsTable-3.3.7/bootstrapTable.js"></script>
+
+
+<style type="text/css">
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Introduction</a></li>
+<li class="chapter" data-level="1" data-path="trans.html"><a href="trans.html"><i class="fa fa-check"></i><b>1</b> Score Transformations</a><ul>
+<li class="chapter" data-level="1.1" data-path="trans.html"><a href="trans.html#percentiles-percentile-ranks-and-normalized-scores"><i class="fa fa-check"></i><b>1.1</b> Percentiles, percentile ranks, and normalized scores</a></li>
+<li class="chapter" data-level="1.2" data-path="trans.html"><a href="trans.html#run-of-the-mill-z-scores"><i class="fa fa-check"></i><b>1.2</b> Run-of-the-mill Z scores</a></li>
+<li class="chapter" data-level="1.3" data-path="trans.html"><a href="trans.html#extra-optional-stuff"><i class="fa fa-check"></i><b>1.3</b> Extra optional stuff</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="var-cov-cor.html"><a href="var-cov-cor.html"><i class="fa fa-check"></i><b>2</b> Variance, Covariance, and Correlation</a><ul>
+<li class="chapter" data-level="2.1" data-path="var-cov-cor.html"><a href="var-cov-cor.html#correlation"><i class="fa fa-check"></i><b>2.1</b> Correlation</a><ul>
+<li class="chapter" data-level="2.1.1" data-path="var-cov-cor.html"><a href="var-cov-cor.html#estimating-correlation-as-a-statistic"><i class="fa fa-check"></i><b>2.1.1</b> Estimating correlation as a statistic</a></li>
+<li class="chapter" data-level="2.1.2" data-path="var-cov-cor.html"><a href="var-cov-cor.html#creating-a-correlation-matrix"><i class="fa fa-check"></i><b>2.1.2</b> Creating a correlation matrix</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="var-cov-cor.html"><a href="var-cov-cor.html#variance"><i class="fa fa-check"></i><b>2.2</b> Variance</a></li>
+<li class="chapter" data-level="2.3" data-path="var-cov-cor.html"><a href="var-cov-cor.html#covariance"><i class="fa fa-check"></i><b>2.3</b> Covariance</a><ul>
+<li class="chapter" data-level="2.3.1" data-path="var-cov-cor.html"><a href="var-cov-cor.html#creating-a-variance-covariance-matrix"><i class="fa fa-check"></i><b>2.3.1</b> Creating a variance-covariance matrix</a></li>
+<li class="chapter" data-level="2.3.2" data-path="var-cov-cor.html"><a href="var-cov-cor.html#using-the-n-denominator"><i class="fa fa-check"></i><b>2.3.2</b> Using the <em>n</em> denominator</a></li>
+<li class="chapter" data-level="2.3.3" data-path="var-cov-cor.html"><a href="var-cov-cor.html#extra-understanding-for-use-in-classical-test-theory"><i class="fa fa-check"></i><b>2.3.3</b> Extra understanding, for use in classical test theory</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="var-cov-cor.html"><a href="var-cov-cor.html#practice"><i class="fa fa-check"></i><b>2.4</b> Practice</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="custfuncts.html"><a href="custfuncts.html"><i class="fa fa-check"></i><b>3</b> Creating Custom Functions</a><ul>
+<li class="chapter" data-level="3.1" data-path="custfuncts.html"><a href="custfuncts.html#using-our-function-on-multiple-variables"><i class="fa fa-check"></i><b>3.1</b> Using our function on multiple variables</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="packs.html"><a href="packs.html"><i class="fa fa-check"></i><b>4</b> Using Packages</a><ul>
+<li class="chapter" data-level="4.1" data-path="packs.html"><a href="packs.html#an-example-using-the-hmisc-package-for-correlation"><i class="fa fa-check"></i><b>4.1</b> An example: Using the <code>Hmisc</code> package for correlation</a></li>
+<li class="chapter" data-level="4.2" data-path="packs.html"><a href="packs.html#tidyverse_intro"><i class="fa fa-check"></i><b>4.2</b> Using Tidyverse packages</a><ul>
+<li class="chapter" data-level="4.2.1" data-path="packs.html"><a href="packs.html#piping_intro"><i class="fa fa-check"></i><b>4.2.1</b> Piping</a></li>
+<li class="chapter" data-level="4.2.2" data-path="packs.html"><a href="packs.html#saving-our-output-as-a-csv-file"><i class="fa fa-check"></i><b>4.2.2</b> Saving our output as a CSV file</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="regress.html"><a href="regress.html"><i class="fa fa-check"></i><b>5</b> Estimating Regression</a><ul>
+<li class="chapter" data-level="5.1" data-path="regress.html"><a href="regress.html#the-lm-function"><i class="fa fa-check"></i><b>5.1</b> The <code>lm()</code> function</a></li>
+<li class="chapter" data-level="5.2" data-path="regress.html"><a href="regress.html#using-the-regression-parameters-for-prediction"><i class="fa fa-check"></i><b>5.2</b> Using the regression parameters for prediction</a></li>
+<li class="chapter" data-level="5.3" data-path="regress.html"><a href="regress.html#model-error-variance-and-a-peek-into-classical-test-theory"><i class="fa fa-check"></i><b>5.3</b> Model error variance and a peek into classical test theory</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="graphing.html"><a href="graphing.html"><i class="fa fa-check"></i><b>6</b> Graphing</a><ul>
+<li class="chapter" data-level="6.1" data-path="graphing.html"><a href="graphing.html#using-base-r"><i class="fa fa-check"></i><b>6.1</b> Using Base R</a></li>
+<li class="chapter" data-level="6.2" data-path="graphing.html"><a href="graphing.html#using-the-ggplot2-package"><i class="fa fa-check"></i><b>6.2</b> Using the <code>ggplot2</code> package</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="itemans.html"><a href="itemans.html"><i class="fa fa-check"></i><b>7</b> Item Scoring and Item Analysis</a><ul>
+<li class="chapter" data-level="7.1" data-path="itemans.html"><a href="itemans.html#multiple-choice-raw-data-and-their-answer-key"><i class="fa fa-check"></i><b>7.1</b> Multiple-choice raw data and their answer key</a></li>
+<li class="chapter" data-level="7.2" data-path="itemans.html"><a href="itemans.html#scoring-the-responses"><i class="fa fa-check"></i><b>7.2</b> Scoring the responses</a></li>
+<li class="chapter" data-level="7.3" data-path="itemans.html"><a href="itemans.html#item-analysis-with-dichotomous-data"><i class="fa fa-check"></i><b>7.3</b> Item analysis with dichotomous data</a></li>
+<li class="chapter" data-level="7.4" data-path="itemans.html"><a href="itemans.html#distractor-analysis"><i class="fa fa-check"></i><b>7.4</b> Distractor analysis</a></li>
+<li class="chapter" data-level="7.5" data-path="itemans.html"><a href="itemans.html#item-analysis-with-polytomous-data"><i class="fa fa-check"></i><b>7.5</b> Item analysis with polytomous data</a><ul>
+<li class="chapter" data-level="7.5.1" data-path="itemans.html"><a href="itemans.html#partial-credit-data"><i class="fa fa-check"></i><b>7.5.1</b> Partial-credit data</a></li>
+<li class="chapter" data-level="7.5.2" data-path="itemans.html"><a href="itemans.html#LikertFunc"><i class="fa fa-check"></i><b>7.5.2</b> Item functioning of Likert-type scale items</a></li>
+<li class="chapter" data-level="7.5.3" data-path="itemans.html"><a href="itemans.html#graphing-frequencies-of-category-responses"><i class="fa fa-check"></i><b>7.5.3</b> Graphing frequencies of category responses</a></li>
+</ul></li>
+<li class="chapter" data-level="7.6" data-path="itemans.html"><a href="itemans.html#optional-advanced-graphics-stuff"><i class="fa fa-check"></i><b>7.6</b> Optional advanced graphics stuff</a><ul>
+<li class="chapter" data-level="7.6.1" data-path="itemans.html"><a href="itemans.html#creating-a-facet-plot-with-ggplot2"><i class="fa fa-check"></i><b>7.6.1</b> Creating a facet plot with <code>GGplot2</code></a></li>
+<li class="chapter" data-level="7.6.2" data-path="itemans.html"><a href="itemans.html#the-base-r-approach-to-creating-a-facet-plot"><i class="fa fa-check"></i><b>7.6.2</b> The Base R approach to creating a facet plot</a></li>
+</ul></li>
+<li class="chapter" data-level="7.7" data-path="itemans.html"><a href="itemans.html#additional-functions-for-examining-category-frequencies"><i class="fa fa-check"></i><b>7.7</b> Additional functions for examining category frequencies</a><ul>
+<li class="chapter" data-level="7.7.1" data-path="itemans.html"><a href="itemans.html#using-the-table-function-and-the-lapply-function"><i class="fa fa-check"></i><b>7.7.1</b> Using the <code>table()</code> function and the <code>lapply()</code> function</a></li>
+<li class="chapter" data-level="7.7.2" data-path="itemans.html"><a href="itemans.html#factors"><i class="fa fa-check"></i><b>7.7.2</b> Specifying the data as categorical</a></li>
+<li class="chapter" data-level="7.7.3" data-path="itemans.html"><a href="itemans.html#orderedfunc"><i class="fa fa-check"></i><b>7.7.3</b> Ordered factors</a></li>
+</ul></li>
+<li class="chapter" data-level="7.8" data-path="itemans.html"><a href="itemans.html#conclusion"><i class="fa fa-check"></i><b>7.8</b> Conclusion</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="CTT.html"><a href="CTT.html"><i class="fa fa-check"></i><b>8</b> Classical Test Theory</a><ul>
+<li class="chapter" data-level="8.1" data-path="CTT.html"><a href="CTT.html#true-score-model"><i class="fa fa-check"></i><b>8.1</b> True score model</a></li>
+<li class="chapter" data-level="8.2" data-path="CTT.html"><a href="CTT.html#assumptions-of-the-ctt-true-score-model"><i class="fa fa-check"></i><b>8.2</b> Assumptions of the CTT true score model</a></li>
+<li class="chapter" data-level="8.3" data-path="CTT.html"><a href="CTT.html#reliability-and-the-variance-of-the-composite-score"><i class="fa fa-check"></i><b>8.3</b> Reliability and the variance of the composite score</a><ul>
+<li class="chapter" data-level="8.3.1" data-path="CTT.html"><a href="CTT.html#reliability-as-the-ratio-of-true-score-variance-to-observed-score-variance"><i class="fa fa-check"></i><b>8.3.1</b> Reliability as the ratio of true-score variance to observed-score variance</a></li>
+<li class="chapter" data-level="8.3.2" data-path="CTT.html"><a href="CTT.html#reliability-as-the-lack-of-error-variance"><i class="fa fa-check"></i><b>8.3.2</b> Reliability as the lack of error variance</a></li>
+<li class="chapter" data-level="8.3.3" data-path="CTT.html"><a href="CTT.html#reliability-as-the-squared-correlation-between-observed-and-true-scores"><i class="fa fa-check"></i><b>8.3.3</b> Reliability as the squared correlation between observed and true scores</a></li>
+<li class="chapter" data-level="8.3.4" data-path="CTT.html"><a href="CTT.html#reliability-as-the-correlation-between-scores-on-parallel-tests"><i class="fa fa-check"></i><b>8.3.4</b> Reliability as the correlation between scores on parallel tests</a></li>
+</ul></li>
+<li class="chapter" data-level="8.4" data-path="CTT.html"><a href="CTT.html#four-ctt-models"><i class="fa fa-check"></i><b>8.4</b> Four CTT models</a><ul>
+<li class="chapter" data-level="8.4.1" data-path="CTT.html"><a href="CTT.html#the-parallel-model"><i class="fa fa-check"></i><b>8.4.1</b> The parallel model</a></li>
+<li class="chapter" data-level="8.4.2" data-path="CTT.html"><a href="CTT.html#the-tau-equivalent-model"><i class="fa fa-check"></i><b>8.4.2</b> The tau-equivalent model</a></li>
+<li class="chapter" data-level="8.4.3" data-path="CTT.html"><a href="CTT.html#the-essentially-tau-equivalent-model"><i class="fa fa-check"></i><b>8.4.3</b> The essentially tau-equivalent model</a></li>
+<li class="chapter" data-level="8.4.4" data-path="CTT.html"><a href="CTT.html#the-congeneric-model"><i class="fa fa-check"></i><b>8.4.4</b> The congeneric model</a></li>
+<li class="chapter" data-level="8.4.5" data-path="CTT.html"><a href="CTT.html#implications-of-each-model"><i class="fa fa-check"></i><b>8.4.5</b> Implications of each model</a></li>
+</ul></li>
+<li class="chapter" data-level="8.5" data-path="CTT.html"><a href="CTT.html#estimating-an-observations-true-score"><i class="fa fa-check"></i><b>8.5</b> Estimating an observation’s true score</a></li>
+<li class="chapter" data-level="8.6" data-path="CTT.html"><a href="CTT.html#the-standard-error-of-measurement"><i class="fa fa-check"></i><b>8.6</b> The standard error of measurement</a><ul>
+<li class="chapter" data-level="8.6.1" data-path="CTT.html"><a href="CTT.html#estimating-the-confidence-interval-of-a-true-score"><i class="fa fa-check"></i><b>8.6.1</b> Estimating the confidence interval of a true score</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="reliability.html"><a href="reliability.html"><i class="fa fa-check"></i><b>9</b> Internal-consistency Reliability</a><ul>
+<li class="chapter" data-level="9.1" data-path="reliability.html"><a href="reliability.html#coefficient-alpha"><i class="fa fa-check"></i><b>9.1</b> Coefficient alpha</a><ul>
+<li class="chapter" data-level="9.1.1" data-path="reliability.html"><a href="reliability.html#how-coefficient-alpha-works"><i class="fa fa-check"></i><b>9.1.1</b> How coefficient alpha works</a></li>
+</ul></li>
+<li class="chapter" data-level="9.2" data-path="reliability.html"><a href="reliability.html#using-r-to-estimate-internal-consistency-reliability-coefficient"><i class="fa fa-check"></i><b>9.2</b> Using R to estimate internal-consistency reliability coefficient</a><ul>
+<li class="chapter" data-level="9.2.1" data-path="reliability.html"><a href="reliability.html#a-demonstration-of-coefficient-alpha-using-hypothetical-data"><i class="fa fa-check"></i><b>9.2.1</b> A demonstration of coefficient alpha using hypothetical data</a></li>
+<li class="chapter" data-level="9.2.2" data-path="reliability.html"><a href="reliability.html#using-r-packages-to-calculate-alpha-and-more"><i class="fa fa-check"></i><b>9.2.2</b> Using R packages to calculate alpha and more</a></li>
+</ul></li>
+<li class="chapter" data-level="9.3" data-path="reliability.html"><a href="reliability.html#spearman-brown-prophecy-formula"><i class="fa fa-check"></i><b>9.3</b> Spearman-Brown prophecy formula</a><ul>
+<li class="chapter" data-level="9.3.1" data-path="reliability.html"><a href="reliability.html#calculation"><i class="fa fa-check"></i><b>9.3.1</b> Calculation</a></li>
+<li class="chapter" data-level="9.3.2" data-path="reliability.html"><a href="reliability.html#using-the-ctt-package"><i class="fa fa-check"></i><b>9.3.2</b> Using the CTT package</a></li>
+</ul></li>
+<li class="chapter" data-level="9.4" data-path="reliability.html"><a href="reliability.html#standardized-coefficient-alpha"><i class="fa fa-check"></i><b>9.4</b> Standardized coefficient alpha</a><ul>
+<li class="chapter" data-level="9.4.1" data-path="reliability.html"><a href="reliability.html#calculation-of-standardized-coefficient-alpha"><i class="fa fa-check"></i><b>9.4.1</b> Calculation of standardized coefficient alpha</a></li>
+</ul></li>
+<li class="chapter" data-level="9.5" data-path="reliability.html"><a href="reliability.html#reliability-of-difference-scores"><i class="fa fa-check"></i><b>9.5</b> Reliability of difference scores</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="interrater.html"><a href="interrater.html"><i class="fa fa-check"></i><b>10</b> Inter-rater and Test-retest Reliability</a><ul>
+<li class="chapter" data-level="10.1" data-path="interrater.html"><a href="interrater.html#coefficient-kappa-for-estimating-agreement-with-nominal-data"><i class="fa fa-check"></i><b>10.1</b> Coefficient kappa for estimating agreement with nominal data</a><ul>
+<li class="chapter" data-level="10.1.1" data-path="interrater.html"><a href="interrater.html#using-the-irr-package-to-estimate-kappa"><i class="fa fa-check"></i><b>10.1.1</b> Using the irr package to estimate kappa</a></li>
+<li class="chapter" data-level="10.1.2" data-path="interrater.html"><a href="interrater.html#limitations-of-kappa"><i class="fa fa-check"></i><b>10.1.2</b> Limitations of kappa</a></li>
+</ul></li>
+<li class="chapter" data-level="10.2" data-path="interrater.html"><a href="interrater.html#intraclass-correlation-coefficients-for-estimating-consistency-and-agreement"><i class="fa fa-check"></i><b>10.2</b> Intraclass correlation coefficients for estimating consistency and agreement</a><ul>
+<li class="chapter" data-level="10.2.1" data-path="interrater.html"><a href="interrater.html#example-of-an-icc-for-consistency"><i class="fa fa-check"></i><b>10.2.1</b> Example of an ICC for consistency</a></li>
+<li class="chapter" data-level="10.2.2" data-path="interrater.html"><a href="interrater.html#example-of-an-icc-for-agreement"><i class="fa fa-check"></i><b>10.2.2</b> Example of an ICC for agreement</a></li>
+<li class="chapter" data-level="10.2.3" data-path="interrater.html"><a href="interrater.html#two-way-and-one-way-icc-models"><i class="fa fa-check"></i><b>10.2.3</b> Two-way and one-way ICC models</a></li>
+<li class="chapter" data-level="10.2.4" data-path="interrater.html"><a href="interrater.html#single-versus-average-ratings"><i class="fa fa-check"></i><b>10.2.4</b> Single versus average ratings</a></li>
+<li class="chapter" data-level="10.2.5" data-path="interrater.html"><a href="interrater.html#all-of-the-equations"><i class="fa fa-check"></i><b>10.2.5</b> All of the equations</a></li>
+<li class="chapter" data-level="10.2.6" data-path="interrater.html"><a href="interrater.html#recommendations-on-reporting-iccs"><i class="fa fa-check"></i><b>10.2.6</b> Recommendations on reporting ICCs</a></li>
+</ul></li>
+<li class="chapter" data-level="10.3" data-path="interrater.html"><a href="interrater.html#using-the-irr-package"><i class="fa fa-check"></i><b>10.3</b> Using the irr package</a></li>
+<li class="chapter" data-level="10.4" data-path="interrater.html"><a href="interrater.html#test-retest-reliability"><i class="fa fa-check"></i><b>10.4</b> Test-retest reliability</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="gtheory.html"><a href="gtheory.html"><i class="fa fa-check"></i><b>11</b> Generalizability Theory</a><ul>
+<li class="chapter" data-level="11.1" data-path="gtheory.html"><a href="gtheory.html#a-single-facet-design"><i class="fa fa-check"></i><b>11.1</b> A single facet design</a><ul>
+<li class="chapter" data-level="11.1.1" data-path="gtheory.html"><a href="gtheory.html#g-study"><i class="fa fa-check"></i><b>11.1.1</b> G-study</a></li>
+<li class="chapter" data-level="11.1.2" data-path="gtheory.html"><a href="gtheory.html#d-study"><i class="fa fa-check"></i><b>11.1.2</b> D-study</a></li>
+<li class="chapter" data-level="11.1.3" data-path="gtheory.html"><a href="gtheory.html#using-the-vca-package"><i class="fa fa-check"></i><b>11.1.3</b> Using the VCA package</a></li>
+<li class="chapter" data-level="11.1.4" data-path="gtheory.html"><a href="gtheory.html#summary-of-our-one-facet-fully-crossed-design"><i class="fa fa-check"></i><b>11.1.4</b> Summary of our one-facet fully-crossed design</a></li>
+</ul></li>
+<li class="chapter" data-level="11.2" data-path="gtheory.html"><a href="gtheory.html#a-two-facet-design"><i class="fa fa-check"></i><b>11.2</b> A two facet design</a><ul>
+<li class="chapter" data-level="11.2.1" data-path="gtheory.html"><a href="gtheory.html#rand2facet"><i class="fa fa-check"></i><b>11.2.1</b> G-study with a two facet design</a></li>
+<li class="chapter" data-level="11.2.2" data-path="gtheory.html"><a href="gtheory.html#d-study-with-a-two-facet-design"><i class="fa fa-check"></i><b>11.2.2</b> D-study with a two facet design</a></li>
+</ul></li>
+<li class="chapter" data-level="11.3" data-path="gtheory.html"><a href="gtheory.html#nested-designs"><i class="fa fa-check"></i><b>11.3</b> Nested designs</a><ul>
+<li class="chapter" data-level="11.3.1" data-path="gtheory.html"><a href="gtheory.html#one-facet-nested-design"><i class="fa fa-check"></i><b>11.3.1</b> One-facet nested design</a></li>
+<li class="chapter" data-level="11.3.2" data-path="gtheory.html"><a href="gtheory.html#two-facet-nested-design"><i class="fa fa-check"></i><b>11.3.2</b> Two-facet nested design</a></li>
+<li class="chapter" data-level="11.3.3" data-path="gtheory.html"><a href="gtheory.html#g-study-with-a-two-facet-items-nested-within-occasions-design"><i class="fa fa-check"></i><b>11.3.3</b> G-study with a two-facet items-nested-within-occasions design</a></li>
+<li class="chapter" data-level="11.3.4" data-path="gtheory.html"><a href="gtheory.html#d-study-with-a-two-facet-items-nested-within-occasions-design"><i class="fa fa-check"></i><b>11.3.4</b> D-study with a two-facet items-nested-within-occasions design</a></li>
+</ul></li>
+<li class="chapter" data-level="11.4" data-path="gtheory.html"><a href="gtheory.html#fixed-facets"><i class="fa fa-check"></i><b>11.4</b> Fixed facets</a></li>
+<li class="chapter" data-level="11.5" data-path="gtheory.html"><a href="gtheory.html#summary"><i class="fa fa-check"></i><b>11.5</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="efa.html"><a href="efa.html"><i class="fa fa-check"></i><b>12</b> Exploratory Factor Analysis</a><ul>
+<li class="chapter" data-level="12.1" data-path="efa.html"><a href="efa.html#preparatory-steps"><i class="fa fa-check"></i><b>12.1</b> Preparatory steps</a><ul>
+<li class="chapter" data-level="12.1.1" data-path="efa.html"><a href="efa.html#examining-the-data"><i class="fa fa-check"></i><b>12.1.1</b> Examining the data</a></li>
+<li class="chapter" data-level="12.1.2" data-path="efa.html"><a href="efa.html#addressing-assumptions"><i class="fa fa-check"></i><b>12.1.2</b> Addressing assumptions</a></li>
+<li class="chapter" data-level="12.1.3" data-path="efa.html"><a href="efa.html#determining-factorability"><i class="fa fa-check"></i><b>12.1.3</b> Determining factorability</a></li>
+<li class="chapter" data-level="12.1.4" data-path="efa.html"><a href="efa.html#determining-how-many-factors-to-retain"><i class="fa fa-check"></i><b>12.1.4</b> Determining how many factors to retain</a></li>
+</ul></li>
+<li class="chapter" data-level="12.2" data-path="efa.html"><a href="efa.html#factor-analysis-with-raw-data"><i class="fa fa-check"></i><b>12.2</b> Factor analysis with raw data</a><ul>
+<li class="chapter" data-level="12.2.1" data-path="efa.html"><a href="efa.html#examining-pattern-coefficients-the-factor-loadings"><i class="fa fa-check"></i><b>12.2.1</b> Examining pattern coefficients (the factor loadings)</a></li>
+</ul></li>
+<li class="chapter" data-level="12.3" data-path="efa.html"><a href="efa.html#factor-analysis-with-correlation-data"><i class="fa fa-check"></i><b>12.3</b> Factor analysis with correlation data</a><ul>
+<li class="chapter" data-level="12.3.1" data-path="efa.html"><a href="efa.html#setting-up-the-data"><i class="fa fa-check"></i><b>12.3.1</b> Setting up the data</a></li>
+<li class="chapter" data-level="12.3.2" data-path="efa.html"><a href="efa.html#preparatory-steps-1"><i class="fa fa-check"></i><b>12.3.2</b> Preparatory steps</a></li>
+<li class="chapter" data-level="12.3.3" data-path="efa.html"><a href="efa.html#performing-the-factor-analysis"><i class="fa fa-check"></i><b>12.3.3</b> Performing the factor analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="12.4" data-path="efa.html"><a href="efa.html#efa-with-categorical-data"><i class="fa fa-check"></i><b>12.4</b> EFA with categorical data</a><ul>
+<li class="chapter" data-level="12.4.1" data-path="efa.html"><a href="efa.html#describing-categorical-data"><i class="fa fa-check"></i><b>12.4.1</b> Describing categorical data</a></li>
+<li class="chapter" data-level="12.4.2" data-path="efa.html"><a href="efa.html#getting-the-correlation-matrix"><i class="fa fa-check"></i><b>12.4.2</b> Getting the correlation matrix</a></li>
+<li class="chapter" data-level="12.4.3" data-path="efa.html"><a href="efa.html#appraising-the-factorability-and-determining-the-number-of-factors-to-retain"><i class="fa fa-check"></i><b>12.4.3</b> Appraising the factorability and determining the number of factors to retain</a></li>
+<li class="chapter" data-level="12.4.4" data-path="efa.html"><a href="efa.html#factor-analysis-on-the-polychoric-matrix"><i class="fa fa-check"></i><b>12.4.4</b> Factor analysis on the polychoric matrix</a></li>
+<li class="chapter" data-level="12.4.5" data-path="efa.html"><a href="efa.html#the-polycor-package"><i class="fa fa-check"></i><b>12.4.5</b> The polycor package</a></li>
+</ul></li>
+<li class="chapter" data-level="12.5" data-path="efa.html"><a href="efa.html#factor-scores"><i class="fa fa-check"></i><b>12.5</b> Factor scores</a><ul>
+<li class="chapter" data-level="12.5.1" data-path="efa.html"><a href="efa.html#transforming-factor-scores"><i class="fa fa-check"></i><b>12.5.1</b> Transforming factor scores</a></li>
+</ul></li>
+<li class="chapter" data-level="12.6" data-path="efa.html"><a href="efa.html#internal-consistency-reliability-of-the-scores"><i class="fa fa-check"></i><b>12.6</b> Internal consistency reliability of the scores</a></li>
+<li class="chapter" data-level="12.7" data-path="efa.html"><a href="efa.html#practice-1"><i class="fa fa-check"></i><b>12.7</b> Practice</a></li>
+<li class="chapter" data-level="12.8" data-path="efa.html"><a href="efa.html#summary-1"><i class="fa fa-check"></i><b>12.8</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="cfa.html"><a href="cfa.html"><i class="fa fa-check"></i><b>13</b> Confirmatory Factor Analysis</a><ul>
+<li class="chapter" data-level="13.1" data-path="cfa.html"><a href="cfa.html#preparatory-steps-2"><i class="fa fa-check"></i><b>13.1</b> Preparatory steps</a><ul>
+<li class="chapter" data-level="13.1.1" data-path="cfa.html"><a href="cfa.html#addressing-assumptions-1"><i class="fa fa-check"></i><b>13.1.1</b> Addressing assumptions</a></li>
+</ul></li>
+<li class="chapter" data-level="13.2" data-path="cfa.html"><a href="cfa.html#fitting-a-cfa-model"><i class="fa fa-check"></i><b>13.2</b> Fitting a CFA model</a><ul>
+<li class="chapter" data-level="13.2.1" data-path="cfa.html"><a href="cfa.html#making-sure-the-model-was-correctly-estimated"><i class="fa fa-check"></i><b>13.2.1</b> Making sure the model was correctly estimated</a></li>
+<li class="chapter" data-level="13.2.2" data-path="cfa.html"><a href="cfa.html#evaluating-the-model-fit"><i class="fa fa-check"></i><b>13.2.2</b> Evaluating the model fit</a></li>
+<li class="chapter" data-level="13.2.3" data-path="cfa.html"><a href="cfa.html#interpretting-the-parameter-estimates"><i class="fa fa-check"></i><b>13.2.3</b> Interpretting the parameter estimates</a></li>
+</ul></li>
+<li class="chapter" data-level="13.3" data-path="cfa.html"><a href="cfa.html#further-inspecting-our-model"><i class="fa fa-check"></i><b>13.3</b> Further inspecting our model</a><ul>
+<li class="chapter" data-level="13.3.1" data-path="cfa.html"><a href="cfa.html#looking-at-the-models-covariance-matrices"><i class="fa fa-check"></i><b>13.3.1</b> Looking at the model’s covariance matrices</a></li>
+<li class="chapter" data-level="13.3.2" data-path="cfa.html"><a href="cfa.html#further-inspecting-our-models-parameters"><i class="fa fa-check"></i><b>13.3.2</b> Further inspecting our model’s parameters</a></li>
+</ul></li>
+<li class="chapter" data-level="13.4" data-path="cfa.html"><a href="cfa.html#using-alternative-model-specifications"><i class="fa fa-check"></i><b>13.4</b> Using alternative model specifications</a><ul>
+<li class="chapter" data-level="13.4.1" data-path="cfa.html"><a href="cfa.html#rescaling-the-factors-to-be-standardized"><i class="fa fa-check"></i><b>13.4.1</b> Rescaling the factors to be standardized</a></li>
+<li class="chapter" data-level="13.4.2" data-path="cfa.html"><a href="cfa.html#specifying-a-competing-nested-model"><i class="fa fa-check"></i><b>13.4.2</b> Specifying a competing, nested, model</a></li>
+</ul></li>
+<li class="chapter" data-level="13.5" data-path="cfa.html"><a href="cfa.html#conducting-model-comparisons"><i class="fa fa-check"></i><b>13.5</b> Conducting model comparisons</a></li>
+<li class="chapter" data-level="13.6" data-path="cfa.html"><a href="cfa.html#estimating-factor-scores"><i class="fa fa-check"></i><b>13.6</b> Estimating factor scores</a></li>
+<li class="chapter" data-level="13.7" data-path="cfa.html"><a href="cfa.html#internal-consistency-reliability-with-cfa"><i class="fa fa-check"></i><b>13.7</b> Internal consistency reliability with CFA</a></li>
+<li class="chapter" data-level="13.8" data-path="cfa.html"><a href="cfa.html#testing-congeneric-essentially-tau-equivalent-tau-equivalent-and-parallel-models"><i class="fa fa-check"></i><b>13.8</b> Testing congeneric, essentially tau-equivalent, tau-equivalent, and parallel models</a><ul>
+<li class="chapter" data-level="13.8.1" data-path="cfa.html"><a href="cfa.html#congeneric-model-specification"><i class="fa fa-check"></i><b>13.8.1</b> Congeneric model specification</a></li>
+<li class="chapter" data-level="13.8.2" data-path="cfa.html"><a href="cfa.html#essentially-tau-equivalent-model-specification"><i class="fa fa-check"></i><b>13.8.2</b> Essentially tau-equivalent model specification</a></li>
+<li class="chapter" data-level="13.8.3" data-path="cfa.html"><a href="cfa.html#tau-equivalent-model-specification"><i class="fa fa-check"></i><b>13.8.3</b> Tau-equivalent model specification</a></li>
+<li class="chapter" data-level="13.8.4" data-path="cfa.html"><a href="cfa.html#strictly-parallel-model-specification"><i class="fa fa-check"></i><b>13.8.4</b> Strictly parallel model specification</a></li>
+</ul></li>
+<li class="chapter" data-level="13.9" data-path="cfa.html"><a href="cfa.html#cfa-with-categorical-data"><i class="fa fa-check"></i><b>13.9</b> CFA with categorical data</a><ul>
+<li class="chapter" data-level="13.9.1" data-path="cfa.html"><a href="cfa.html#using-data-from-an-r-package"><i class="fa fa-check"></i><b>13.9.1</b> Using data from an R package</a></li>
+<li class="chapter" data-level="13.9.2" data-path="cfa.html"><a href="cfa.html#preparing-the-data"><i class="fa fa-check"></i><b>13.9.2</b> Preparing the data</a></li>
+<li class="chapter" data-level="13.9.3" data-path="cfa.html"><a href="cfa.html#describing-the-data"><i class="fa fa-check"></i><b>13.9.3</b> Describing the data</a></li>
+<li class="chapter" data-level="13.9.4" data-path="cfa.html"><a href="cfa.html#fitting-the-cfa-model"><i class="fa fa-check"></i><b>13.9.4</b> Fitting the CFA model</a></li>
+</ul></li>
+<li class="chapter" data-level="13.10" data-path="cfa.html"><a href="cfa.html#additional-manipulation-of-the-data"><i class="fa fa-check"></i><b>13.10</b> Additional manipulation of the data</a></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="irm.html"><a href="irm.html"><i class="fa fa-check"></i><b>14</b> Item Response Modeling</a><ul>
+<li class="chapter" data-level="14.1" data-path="irm.html"><a href="irm.html#on-fitting-linear-regression-models-to-dichotomous-data"><i class="fa fa-check"></i><b>14.1</b> On fitting linear regression models to dichotomous data</a></li>
+<li class="chapter" data-level="14.2" data-path="irm.html"><a href="irm.html#logistic-item-response-models-with-dichotomous-data"><i class="fa fa-check"></i><b>14.2</b> Logistic item response models with dichotomous data</a><ul>
+<li class="chapter" data-level="14.2.1" data-path="irm.html"><a href="irm.html#the-rasch-and-1pl-models"><i class="fa fa-check"></i><b>14.2.1</b> The Rasch and 1PL models</a></li>
+<li class="chapter" data-level="14.2.2" data-path="irm.html"><a href="irm.html#the-2pl-model"><i class="fa fa-check"></i><b>14.2.2</b> The 2PL model</a></li>
+<li class="chapter" data-level="14.2.3" data-path="irm.html"><a href="irm.html#the-3pl-model"><i class="fa fa-check"></i><b>14.2.3</b> The 3PL model</a></li>
+<li class="chapter" data-level="14.2.4" data-path="irm.html"><a href="irm.html#item-response-functions"><i class="fa fa-check"></i><b>14.2.4</b> Item response functions</a></li>
+<li class="chapter" data-level="14.2.5" data-path="irm.html"><a href="irm.html#test-characteristic-curve"><i class="fa fa-check"></i><b>14.2.5</b> Test characteristic curve</a></li>
+<li class="chapter" data-level="14.2.6" data-path="irm.html"><a href="irm.html#information-and-standard-error"><i class="fa fa-check"></i><b>14.2.6</b> Information and standard error</a></li>
+<li class="chapter" data-level="14.2.7" data-path="irm.html"><a href="irm.html#plotting-information-and-the-standard-error-of-measurement"><i class="fa fa-check"></i><b>14.2.7</b> Plotting information and the standard error of measurement</a></li>
+</ul></li>
+<li class="chapter" data-level="14.3" data-path="irm.html"><a href="irm.html#fitting-a-1pl-model"><i class="fa fa-check"></i><b>14.3</b> Fitting a 1PL model</a></li>
+<li class="chapter" data-level="14.4" data-path="irm.html"><a href="irm.html#checking-assumptions"><i class="fa fa-check"></i><b>14.4</b> Checking assumptions</a><ul>
+<li class="chapter" data-level="14.4.1" data-path="irm.html"><a href="irm.html#unidimensionality"><i class="fa fa-check"></i><b>14.4.1</b> Unidimensionality</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Using R for Measurement in the Social Sciences</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="interrater" class="section level1">
+<h1><span class="header-section-number">Chapter 10</span> Inter-rater and Test-retest Reliability</h1>
+<p>In this chapter, we expand our understanding of reliability to include inter-rater reliability and agreement. We will begin with coefficient kappa (<span class="math inline">\(\kappa\)</span>), which also called Cohen’s <span class="math inline">\(\kappa\)</span>, to estimate inter-rater agreement with nominal data. We’ll then practice estimating inter-rater reliability and agreement with the intraclass correlation coefficient (ICC), which we will also see can be used to estimate test-retest reliability.</p>
+<div id="coefficient-kappa-for-estimating-agreement-with-nominal-data" class="section level2">
+<h2><span class="header-section-number">10.1</span> Coefficient kappa for estimating agreement with nominal data</h2>
+<p>Coefficient <span class="math inline">\(\kappa\)</span> is appropriate for estimating agreement between raters when the data are nominal. This is appropriate when we plan to use the instrument to make classification decisions about persons, such as in determining whether each person has met a criterion.</p>
+<p>To estimate inter-rater agreement using <span class="math inline">\(\kappa\)</span>, we first create a contingency table of the frequency of ratings by each rater. We can do this manually by creating a table and counting the number of agreements and disagreements for each of the two categories, resulting in a four-cell table. We can also use R. Let’s look at some classification data:</p>
+<div class="sourceCode" id="cb314"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb314-1"><a href="interrater.html#cb314-1"></a>dat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;Week07 essays.csv&quot;</span>)</span>
+<span id="cb314-2"><a href="interrater.html#cb314-2"></a><span class="kw">str</span>(dat)</span></code></pre></div>
+<pre><code>## &#39;data.frame&#39;:    100 obs. of  5 variables:
+##  $ r1    : int  5 4 4 1 3 2 0 6 4 5 ...
+##  $ r2    : int  4 3 3 0 2 0 0 5 4 4 ...
+##  $ r3    : int  3 3 3 2 3 1 1 5 4 4 ...
+##  $ judge1: chr  &quot;Pass&quot; &quot;Pass&quot; &quot;Pass&quot; &quot;Fail&quot; ...
+##  $ judge2: chr  &quot;Pass&quot; &quot;Pass&quot; &quot;Pass&quot; &quot;Fail&quot; ...</code></pre>
+<p>The pass and fail data are what we are interested in. Let’s create a contingency table using the <code>table()</code> function from Base R:</p>
+<div class="sourceCode" id="cb316"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb316-1"><a href="interrater.html#cb316-1"></a>judges &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;judge1&quot;</span>, <span class="st">&quot;judge2&quot;</span>)</span>
+<span id="cb316-2"><a href="interrater.html#cb316-2"></a>judge_tab &lt;-<span class="st"> </span><span class="kw">table</span>(dat[, judges])</span>
+<span id="cb316-3"><a href="interrater.html#cb316-3"></a>judge_tab</span></code></pre></div>
+<pre><code>##       judge2
+## judge1 Fail Pass
+##   Fail   15    1
+##   Pass   21   63</code></pre>
+<p>It looks like the two judges agree on 15 cases about failure and 63 cases on passing. They disagree on some fails and passes, with Judge 1 assigning passes to people that Judge 2 assigned fails to. Let’s examine the proportion table:</p>
+<div class="sourceCode" id="cb318"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb318-1"><a href="interrater.html#cb318-1"></a>judge_tab<span class="op">/</span><span class="kw">sum</span>(judge_tab)</span></code></pre></div>
+<pre><code>##       judge2
+## judge1 Fail Pass
+##   Fail 0.15 0.01
+##   Pass 0.21 0.63</code></pre>
+<p>Alternatively, we can use the <code>prop.table()</code> function on the original table:</p>
+<div class="sourceCode" id="cb320"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb320-1"><a href="interrater.html#cb320-1"></a>judge_tab_p &lt;-<span class="st"> </span><span class="kw">prop.table</span>(judge_tab)</span>
+<span id="cb320-2"><a href="interrater.html#cb320-2"></a>judge_tab_p</span></code></pre></div>
+<pre><code>##       judge2
+## judge1 Fail Pass
+##   Fail 0.15 0.01
+##   Pass 0.21 0.63</code></pre>
+<p>We can get the nominal agreement estimate by summing the diagonal on the proportion table.</p>
+<div class="sourceCode" id="cb322"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb322-1"><a href="interrater.html#cb322-1"></a>P_o    &lt;-<span class="st"> </span><span class="kw">sum</span>(<span class="kw">diag</span>(judge_tab_p))  <span class="co">#Summing the diagonal</span></span>
+<span id="cb322-2"><a href="interrater.html#cb322-2"></a>P_o</span></code></pre></div>
+<pre><code>## [1] 0.78</code></pre>
+<p>The two judges agreed with each other 78% of the time. However, there is also chance agreement.<a href="#fn78" class="footnote-ref" id="fnref78"><sup>78</sup></a></p>
+<div class="sourceCode" id="cb324"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb324-1"><a href="interrater.html#cb324-1"></a><span class="co">#By-chance agreement:</span></span>
+<span id="cb324-2"><a href="interrater.html#cb324-2"></a>P_c&lt;-<span class="st"> </span><span class="kw">sum</span>(judge_tab_p[<span class="dv">1</span>,]) <span class="op">*</span><span class="st"> </span><span class="kw">sum</span>(judge_tab_p[,<span class="dv">1</span>]) <span class="op">+</span></span>
+<span id="cb324-3"><a href="interrater.html#cb324-3"></a><span class="st">      </span><span class="kw">sum</span>(judge_tab_p[<span class="dv">2</span>,]) <span class="op">*</span><span class="st"> </span><span class="kw">sum</span>(judge_tab_p[,<span class="dv">2</span>])</span>
+<span id="cb324-4"><a href="interrater.html#cb324-4"></a>P_c</span></code></pre></div>
+<pre><code>## [1] 0.5952</code></pre>
+<p>Now our earlier estimate of agreement does not seem so high given the high probability of agreement from chance. We can adjust our agreement coefficient by the chance probability to get <span class="math inline">\(\kappa\)</span>:</p>
+<div class="sourceCode" id="cb326"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb326-1"><a href="interrater.html#cb326-1"></a>Kappa&lt;-<span class="st"> </span>(P_o <span class="op">-</span><span class="st"> </span>P_c)<span class="op">/</span>(<span class="dv">1</span><span class="op">-</span>P_c)</span>
+<span id="cb326-2"><a href="interrater.html#cb326-2"></a>Kappa</span></code></pre></div>
+<pre><code>## [1] 0.4565217</code></pre>
+<div id="using-the-irr-package-to-estimate-kappa" class="section level3">
+<h3><span class="header-section-number">10.1.1</span> Using the irr package to estimate kappa</h3>
+<p>If we’re feeling lazy, we can use <code>kappa2()</code> function from the irr package <span class="citation">(Gamer et al., <a href="#ref-R-irr" role="doc-biblioref">2019</a>)</span> to estimate <span class="math inline">\(\kappa\)</span>:</p>
+<div class="sourceCode" id="cb328"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb328-1"><a href="interrater.html#cb328-1"></a><span class="kw">library</span>(irr)</span>
+<span id="cb328-2"><a href="interrater.html#cb328-2"></a><span class="kw">kappa2</span>(dat[, judges])</span></code></pre></div>
+<pre><code>##  Cohen&#39;s Kappa for 2 Raters (Weights: unweighted)
+## 
+##  Subjects = 100 
+##    Raters = 2 
+##     Kappa = 0.457 
+## 
+##         z = 5.25 
+##   p-value = 1.51e-07</code></pre>
+<p>We can also use it to estimate agreement:</p>
+<div class="sourceCode" id="cb330"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb330-1"><a href="interrater.html#cb330-1"></a>irr<span class="op">::</span><span class="kw">agree</span>(dat[, judges])</span></code></pre></div>
+<pre><code>##  Percentage agreement (Tolerance=0)
+## 
+##  Subjects = 100 
+##    Raters = 2 
+##   %-agree = 78</code></pre>
+</div>
+<div id="limitations-of-kappa" class="section level3">
+<h3><span class="header-section-number">10.1.2</span> Limitations of kappa</h3>
+<p>One limitation of <span class="math inline">\(\kappa\)</span> is that it is based on the assumption that the raters are fixed, rather than being a random sample of possible raters. This means that we cannot interpret a <span class="math inline">\(\kappa\)</span> coefficient as an indicator of how accurate the rating procedure is with raters who were not included in our nominal agreement study.</p>
+<p>It is also important to remember that <span class="math inline">\(\kappa\)</span> is for nominal data. If the raters are rating persons on multiple yes-or-no items, we would need to report <span class="math inline">\(\kappa\)</span> for each item. This coefficient does not, therefore, reveal an overall estimate of rater agreement across multiple items. For that, we would use generalizability theory, which we look into in the next chapter.</p>
+</div>
+</div>
+<div id="intraclass-correlation-coefficients-for-estimating-consistency-and-agreement" class="section level2">
+<h2><span class="header-section-number">10.2</span> Intraclass correlation coefficients for estimating consistency and agreement</h2>
+<p>Though some researchers simply use a correlation coefficient for inter-rater reliability<a href="#fn79" class="footnote-ref" id="fnref79"><sup>79</sup></a>, there is a special class of reliability coefficients for inter-rater reliability, falling under the name intraclass correlation coefficient (ICC).</p>
+<p>There are several ICC models we can use for inter-rater reliability. The one we use should depend on the nature of our data and the intended interpretations of the test scores.</p>
+<p>The most important distinguishing characteristic is probably whether we are considering consistency and agreement, or just consistency. Consistency is important for test-score interpretations that concern persons’ relative standing in the population of persons.<a href="#fn80" class="footnote-ref" id="fnref80"><sup>80</sup></a> An example in which consistency is important is when we collect test scores that we will subsequently use as a dependent variable in a regression to test the effects of an intervention study. This takes an ICC model that accounts for consistency, or relative decisions.</p>
+<p>Agreement is important for test-score interpretations that are criterion-referenced in nature. An example in which agreement is important might be when we have a panel of raters rate students’ writing skills in their essays to determine whether to place the students into a beginner, intermediate, or advanced level writing class. This takes an ICC model that accounts for agreement, or absolute decisions.</p>
+<div id="example-of-an-icc-for-consistency" class="section level3">
+<h3><span class="header-section-number">10.2.1</span> Example of an ICC for consistency</h3>
+<p>Let’s look at an example of an ICC that we would use for estimating the reliability of scores used for relative decisions. Let’s import the data from Table 9.1 of Bandalos <span class="citation">(<a href="#ref-Bandalos_2018" role="doc-biblioref">2018</a>)</span>.</p>
+<div class="sourceCode" id="cb332"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb332-1"><a href="interrater.html#cb332-1"></a>datW &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;Week07 Table9.1W.csv&quot;</span>)</span>
+<span id="cb332-2"><a href="interrater.html#cb332-2"></a>datW</span></code></pre></div>
+<pre><code>##    person rater1 rater2 rater3
+## 1       1      1      1      1
+## 2       2      2      1      3
+## 3       3      2      2      3
+## 4       4      3      3      4
+## 5       5      3      2      4
+## 6       6      3      3      4
+## 7       7      4      4      4
+## 8       8      4      3      5
+## 9       9      5      5      5
+## 10     10      5      5      5</code></pre>
+<p>Notice how the raters are arranged so that each rater is allocated to their own column.<a href="#fn81" class="footnote-ref" id="fnref81"><sup>81</sup></a> In this manner, we can think of these three raters as being analogous to three items (or sub-tests). Because we have at least three raters and because every rater rated every person, we can actually use coefficient alpha to estimate inter-rater reliability if all we were interested in was consistency between raters. Remember the CTT package and our use of the <code>itemAnalysis()</code> function to get alpha? Here it is again. One could also use the psych package.</p>
+<div class="sourceCode" id="cb334"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb334-1"><a href="interrater.html#cb334-1"></a><span class="kw">library</span>(CTT)</span>
+<span id="cb334-2"><a href="interrater.html#cb334-2"></a>CTT<span class="op">::</span><span class="kw">itemAnalysis</span>(datW[ , <span class="dv">-1</span>])<span class="op">$</span>alpha</span></code></pre></div>
+<pre><code>## [1] 0.9571106</code></pre>
+<p>This informs us of how consistent the raters are in rank-ordering persons.</p>
+<p>If we use one of the ICC models, <span class="math inline">\(\text{ICC}_{Ck}\)</span>, we will arrive at this same estimate. This particular ICC model, <span class="math inline">\(\text{ICC}_{Ck}\)</span>, includes the subscripts <span class="math inline">\(C\)</span> and <span class="math inline">\(k\)</span>, where <span class="math inline">\(C\)</span> stands for consistency and <span class="math inline">\(k\)</span> stands for scores averaged across raters. In other words, with this ICC, we’re interested in the consistency across raters, and when we calculate each person’s test score, we’ll use the average of the ratings that person received. This is pretty much what we do with a test comprising items that we sum to create a composite score.<a href="#fn82" class="footnote-ref" id="fnref82"><sup>82</sup></a> Here’s how this ICC is calculated. This formula might look familiar if you are accustomed to analysis-of-variance terminology.</p>
+<p><span class="math display">\[
+\text{ICC}_{\text{C,k}} = \frac{MS_B - MS_E}{MS_B}
+\]</span>
+<span class="math inline">\(MS_B\)</span> is the between-person variance and <span class="math inline">\(MS_E\)</span> is error variance. This is analogous to classical test theory, in which we are seeking to estimate the ratio of the true-score to total-observed-score variance. With the ICC, we subtracting the error variance from the observed between-person variance in the numerator, which is analogous to true-score variance.</p>
+<p>How do we estimate <span class="math inline">\(MS_B\)</span> and <span class="math inline">\(MS_E\)</span>? We can use ANOVA to get these, then examine the ratio and see if it is the same as what we saw with coefficient alpha. There’s something we need to do before we fit an ANOVA linear model. We need to reshape the data.</p>
+<div id="reshaping" class="section level4">
+<h4><span class="header-section-number">10.2.1.1</span> Reshaping data</h4>
+<p>In linear models, such as regression and ANOVA, our variables are columns. However, right now our data set has raters in separate columns. We need one column that includes all the raters (so each rater is a level in this factor). Then, we need a column that includes the rating. We need to reshape our data from wide to long. For this, we can use the <code>pivot_longer()</code> function from the <code>tidyr</code> package <span class="citation">(Wickham, <a href="#ref-R-tidyr" role="doc-biblioref">2020</a><a href="#ref-R-tidyr" role="doc-biblioref">c</a>)</span> which is part of the tidyverse set of packages.<a href="#fn83" class="footnote-ref" id="fnref83"><sup>83</sup></a> The argument <code>key =</code> is for us to name the new variable that will include the wide data set’s row names. We can name this “rater” or “Rater” or “judge” or whatever. The <code>value =</code> argument is for us to provide a name for the variable that will include the numeric score provided by the rater. We’ll use “score” but we could also use another name such as “rating”.</p>
+<div class="sourceCode" id="cb336"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb336-1"><a href="interrater.html#cb336-1"></a><span class="kw">library</span>(tidyverse)</span>
+<span id="cb336-2"><a href="interrater.html#cb336-2"></a>datL &lt;-<span class="st"> </span>datW <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb336-3"><a href="interrater.html#cb336-3"></a><span class="st">          </span><span class="kw">pivot_longer</span>(<span class="dt">names_to =</span> <span class="st">&quot;rater&quot;</span>, </span>
+<span id="cb336-4"><a href="interrater.html#cb336-4"></a>                      <span class="dt">values_to =</span> <span class="st">&quot;score&quot;</span>, </span>
+<span id="cb336-5"><a href="interrater.html#cb336-5"></a>                 rater1<span class="op">:</span>rater3)</span></code></pre></div>
+<p>The data set is now in long format. Let’s use the <code>head()</code> and <code>tail()</code> functions to look at the first and last six rows:</p>
+<div class="sourceCode" id="cb337"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb337-1"><a href="interrater.html#cb337-1"></a><span class="kw">head</span>(datL)</span></code></pre></div>
+<pre><code>## # A tibble: 6 x 3
+##   person rater  score
+##    &lt;int&gt; &lt;chr&gt;  &lt;int&gt;
+## 1      1 rater1     1
+## 2      1 rater2     1
+## 3      1 rater3     1
+## 4      2 rater1     2
+## 5      2 rater2     1
+## 6      2 rater3     3</code></pre>
+<div class="sourceCode" id="cb339"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb339-1"><a href="interrater.html#cb339-1"></a><span class="kw">tail</span>(datL)</span></code></pre></div>
+<pre><code>## # A tibble: 6 x 3
+##   person rater  score
+##    &lt;int&gt; &lt;chr&gt;  &lt;int&gt;
+## 1      9 rater1     5
+## 2      9 rater2     5
+## 3      9 rater3     5
+## 4     10 rater1     5
+## 5     10 rater2     5
+## 6     10 rater3     5</code></pre>
+<p>Notice that the names of the rater columns in the wide data set are now cell entries under the column <code>rater</code> in the long data set. Also, we created a variable called <code>score</code>. This is the same data set as is in Bandalos <span class="citation">(<a href="#ref-Bandalos_2018" role="doc-biblioref">2018</a>)</span> Table 9.4.<a href="#fn84" class="footnote-ref" id="fnref84"><sup>84</sup></a></p>
+<p>To run factorial ANOVA with <code>lm()</code>, we need to make sure the persons and the raters are <strong>factors</strong>.<a href="#fn85" class="footnote-ref" id="fnref85"><sup>85</sup></a> This ensures that the <code>lm()</code> function will use dummy variables instead of numeric values.</p>
+<div class="sourceCode" id="cb341"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb341-1"><a href="interrater.html#cb341-1"></a><span class="kw">str</span>(datL)</span></code></pre></div>
+<pre><code>## tibble [30 x 3] (S3: tbl_df/tbl/data.frame)
+##  $ person: int [1:30] 1 1 1 2 2 2 3 3 3 4 ...
+##  $ rater : chr [1:30] &quot;rater1&quot; &quot;rater2&quot; &quot;rater3&quot; &quot;rater1&quot; ...
+##  $ score : int [1:30] 1 1 1 2 1 3 2 2 3 3 ...</code></pre>
+<p>It appears that our person variable is numeric and our rater variable is of character type. Let’s change these to factors:</p>
+<div class="sourceCode" id="cb343"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb343-1"><a href="interrater.html#cb343-1"></a>datL<span class="op">$</span>person &lt;-<span class="st"> </span><span class="kw">factor</span>(datL<span class="op">$</span>person)</span>
+<span id="cb343-2"><a href="interrater.html#cb343-2"></a>datL<span class="op">$</span>rater  &lt;-<span class="st"> </span><span class="kw">factor</span>(datL<span class="op">$</span>rater)</span>
+<span id="cb343-3"><a href="interrater.html#cb343-3"></a><span class="kw">str</span>(datL)</span></code></pre></div>
+<pre><code>## tibble [30 x 3] (S3: tbl_df/tbl/data.frame)
+##  $ person: Factor w/ 10 levels &quot;1&quot;,&quot;2&quot;,&quot;3&quot;,&quot;4&quot;,..: 1 1 1 2 2 2 3 3 3 4 ...
+##  $ rater : Factor w/ 3 levels &quot;rater1&quot;,&quot;rater2&quot;,..: 1 2 3 1 2 3 1 2 3 1 ...
+##  $ score : int [1:30] 1 1 1 2 1 3 2 2 3 3 ...</code></pre>
+<p>Now we can fit these to a factorial ANOVA model using the <code>lm()</code> function. We can then get the ANOVA table to see the mean squares:<a href="#fn86" class="footnote-ref" id="fnref86"><sup>86</sup></a></p>
+<div class="sourceCode" id="cb345"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb345-1"><a href="interrater.html#cb345-1"></a>fit &lt;-<span class="st"> </span><span class="kw">lm</span>(score <span class="op">~</span><span class="st"> </span>person <span class="op">+</span><span class="st"> </span>rater, <span class="dt">data =</span> datL)</span>
+<span id="cb345-2"><a href="interrater.html#cb345-2"></a>anovatab&lt;-<span class="st"> </span><span class="kw">anova</span>(fit)</span>
+<span id="cb345-3"><a href="interrater.html#cb345-3"></a>anovatab</span></code></pre></div>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:right;">
+Df
+</th>
+<th style="text-align:right;">
+Sum Sq
+</th>
+<th style="text-align:right;">
+Mean Sq
+</th>
+<th style="text-align:right;">
+F value
+</th>
+<th style="text-align:right;">
+Pr(&gt;F)
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+person
+</td>
+<td style="text-align:right;">
+9
+</td>
+<td style="text-align:right;">
+44.3
+</td>
+<td style="text-align:right;">
+4.922
+</td>
+<td style="text-align:right;">
+23.316
+</td>
+<td style="text-align:right;">
+0.000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+rater
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+4.2
+</td>
+<td style="text-align:right;">
+2.100
+</td>
+<td style="text-align:right;">
+9.947
+</td>
+<td style="text-align:right;">
+0.001
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Residuals
+</td>
+<td style="text-align:right;">
+18
+</td>
+<td style="text-align:right;">
+3.8
+</td>
+<td style="text-align:right;">
+0.211
+</td>
+<td style="text-align:right;">
+</td>
+<td style="text-align:right;">
+</td>
+</tr>
+</tbody>
+</table>
+<p>Compare this ANOVA table with Table 9.6 of Bandalos. The person variance, <span class="math inline">\(MS_B\)</span>, is 4.92. The error variance, <span class="math inline">\(MS_E\)</span> is 0.21. The rater variance, <span class="math inline">\(MS_R\)</span> is 2.1. The within-person variance is made up of variance due to raters and variance due to the residual (or error).</p>
+<p>Our mission here is to calculate <span class="math inline">\(\text{ICC}_{Ck}\)</span>. Let’s plug these values into the equation:
+<span class="math display">\[\begin{eqnarray*}
+\text{ICC}_{\text{C,k}} &amp;=&amp; \frac{MS_B - MS_E}{MS_B}\\[5pt]
+&amp;=&amp; \frac{\\4.92 - 0.21}{\\4.92}\\[5pt]
+&amp;=&amp; 0.9571
+\end{eqnarray*}\]</span></p>
+<p>This is the same result from our calculation of coefficient alpha. Our interpretation is that the inter-rater reliability estimate based on consistency and when scores are calculated as the mean across raters, <span class="math inline">\(\text{ICC}_{Ck}\)</span>, is .96, meaning that about 96% of the observed between-person variance is estimated to be explained by true-score variance. We could do this all in R by assigning these values to objects and then using them in our equation.</p>
+<div class="sourceCode" id="cb346"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb346-1"><a href="interrater.html#cb346-1"></a>MSB &lt;-<span class="st"> </span>anovatab[<span class="st">&quot;person&quot;</span>,    <span class="st">&quot;Mean Sq&quot;</span>] <span class="co">#MS Between persons</span></span>
+<span id="cb346-2"><a href="interrater.html#cb346-2"></a>MSR &lt;-<span class="st"> </span>anovatab[<span class="st">&quot;rater&quot;</span>,     <span class="st">&quot;Mean Sq&quot;</span>] <span class="co">#MS between Raters</span></span>
+<span id="cb346-3"><a href="interrater.html#cb346-3"></a>MSE &lt;-<span class="st"> </span>anovatab[<span class="st">&quot;Residuals&quot;</span>, <span class="st">&quot;Mean Sq&quot;</span>] <span class="co">#MS error</span></span>
+<span id="cb346-4"><a href="interrater.html#cb346-4"></a>n &lt;-<span class="st"> </span><span class="kw">length</span>(<span class="kw">levels</span>(datL<span class="op">$</span>person))        <span class="co">#Number of persons</span></span>
+<span id="cb346-5"><a href="interrater.html#cb346-5"></a>k &lt;-<span class="st"> </span><span class="kw">length</span>(<span class="kw">levels</span>(datL<span class="op">$</span>rater))         <span class="co">#Number of raters</span></span>
+<span id="cb346-6"><a href="interrater.html#cb346-6"></a><span class="co"># ICC(C,k):</span></span>
+<span id="cb346-7"><a href="interrater.html#cb346-7"></a>(MSB <span class="op">-</span><span class="st"> </span>MSE) <span class="op">/</span><span class="st"> </span>MSB</span></code></pre></div>
+<pre><code>## [1] 0.9571106</code></pre>
+<p>We have seen how the calculation for <span class="math inline">\(\text{ICC}_{Ck}\)</span> yields the same result as coefficient alpha. This is only one of the ICC models. If we are also interested in rater agreement, coefficient alpha is not informative. Alpha and <span class="math inline">\(\text{ICC}_{Ck}\)</span> will <strong>not</strong> detect if one rater is consistently stringent in their ratings and another is consistently lenient. For estimating inter-rater agreement, which are valuable for absolute decisions, we need to use one of the other ICC models.</p>
+</div>
+</div>
+<div id="example-of-an-icc-for-agreement" class="section level3">
+<h3><span class="header-section-number">10.2.2</span> Example of an ICC for agreement</h3>
+<p>Let’s see what the <span class="math inline">\(\text{ICC}_{Ak}\)</span> is with this same data. We are now interested in rater <strong>a</strong>greement (for <strong>a</strong>bsolute decisions), which is what the <span class="math inline">\(A\)</span> subscript in <span class="math inline">\(\text{ICC}_{Ak}\)</span> stands for. What this means is that we now have to include rater variance as part of the total variance (the denominator) of our equation.</p>
+<p><span class="math display">\[
+\text{ICC}_{\text{A,k}} = \frac{MS_B - MS_E}{MS_B + (MS_R - MS_E)/n}
+\]</span></p>
+<p>We could calculate this using the following code with the objects we created in our previous example:</p>
+<div class="sourceCode" id="cb348"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb348-1"><a href="interrater.html#cb348-1"></a><span class="co"># ICC(A,k):</span></span>
+<span id="cb348-2"><a href="interrater.html#cb348-2"></a>(MSB <span class="op">-</span><span class="st"> </span>MSE) <span class="op">/</span><span class="st"> </span>(MSB <span class="op">+</span><span class="st"> </span>(MSR <span class="op">-</span><span class="st"> </span>MSE)<span class="op">/</span>n )</span></code></pre></div>
+<pre><code>## [1] 0.9217391</code></pre>
+<p>As expected this is lower than the estimate using only consistency. This is because <span class="math inline">\(\text{ICC}_{Ak}\)</span> includes more variance in the denominator than does <span class="math inline">\(\text{ICC}_{Ck}\)</span>.</p>
+</div>
+<div id="two-way-and-one-way-icc-models" class="section level3">
+<h3><span class="header-section-number">10.2.3</span> Two-way and one-way ICC models</h3>
+<p>So far, raters have been crossed with persons. In other words, each rater rated every person. In ANOVA terminology, these are <strong>two-way</strong> models because raters and persons are two factors.</p>
+<p>In some designs, each person has their own set of raters. In that case, we cannot disentangle the rater variance from the error variance of the person. These are <strong>one way</strong> models because the person factor includes the variance of the raters. Together those two variances would constitute within-person variance, <span class="math inline">\(MS_W\)</span>, which we can place in the following equation. <span class="math inline">\(\text{ICC}_k\)</span> cannot include consistency because none of the raters are shared across people, so consistency is a moot point; therefore, <span class="math inline">\(\text{ICC}_k\)</span> is about agreement among the raters nested within persons.</p>
+<p>We can calculate <span class="math inline">\(\text{ICC}_k\)</span> using the within-person variance, <span class="math inline">\(MS_W\)</span>, in this formula:
+<span class="math display">\[
+\text{ICC}_{\text{k}} = \frac{MS_B - MS_W}{MS_B}
+\]</span></p>
+<div class="sourceCode" id="cb350"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb350-1"><a href="interrater.html#cb350-1"></a><span class="co">#MS within-person is (SSR + SSE)/(sum of df of the two):</span></span>
+<span id="cb350-2"><a href="interrater.html#cb350-2"></a>SSW   &lt;-<span class="st"> </span><span class="kw">sum</span>(anovatab[<span class="kw">c</span>(<span class="st">&quot;rater&quot;</span>,<span class="st">&quot;Residuals&quot;</span>), <span class="st">&quot;Sum Sq&quot;</span>])</span>
+<span id="cb350-3"><a href="interrater.html#cb350-3"></a>MSW_df&lt;-<span class="st"> </span><span class="kw">sum</span>(anovatab[<span class="kw">c</span>(<span class="st">&quot;rater&quot;</span>,<span class="st">&quot;Residuals&quot;</span>), <span class="st">&quot;Df&quot;</span>])</span>
+<span id="cb350-4"><a href="interrater.html#cb350-4"></a>MSW   &lt;-<span class="st"> </span>SSW<span class="op">/</span>MSW_df</span>
+<span id="cb350-5"><a href="interrater.html#cb350-5"></a>ICC_k &lt;-<span class="st"> </span>(MSB <span class="op">-</span><span class="st"> </span>MSW)<span class="op">/</span>MSB</span>
+<span id="cb350-6"><a href="interrater.html#cb350-6"></a>ICC_k</span></code></pre></div>
+<pre><code>## [1] 0.9187359</code></pre>
+</div>
+<div id="single-versus-average-ratings" class="section level3">
+<h3><span class="header-section-number">10.2.4</span> Single versus average ratings</h3>
+<p>It may also be the case that during our reliability study, we included several raters but that we wish to interpret how reliable these rating procedures would be with a single rater. This would be important if we needed to reduce costs with our operationalized instrument (raters can be expensive). It may also occur when a single teacher uses this with a class of students rather than all of school’s teachers performing the ratings. These are labeled as <span class="math inline">\(\text{ICC}_{C1}\)</span> and <span class="math inline">\(\text{ICC}_{A1}\)</span> for consistency and agreement respectively. The <span class="math inline">\(1\)</span> subscript means that a single rater will be used.</p>
+</div>
+<div id="all-of-the-equations" class="section level3">
+<h3><span class="header-section-number">10.2.5</span> All of the equations</h3>
+<p>Here are all of the equations for the ICC designs. The ICC labels we have been using are conventions used in McGraw and Wong <span class="citation">(<a href="#ref-mcgraw_forming_1996" role="doc-biblioref">1996</a>)</span>:</p>
+<ul>
+<li><span class="math inline">\(A\)</span> is for <strong>a</strong>greement across raters, used for <strong>a</strong>bsolute decisions</li>
+<li><span class="math inline">\(C\)</span> is for <strong>c</strong>onsistency across raters, used for relative decisions</li>
+<li><span class="math inline">\(1\)</span> is for scores that will be from a single rater<a href="#fn87" class="footnote-ref" id="fnref87"><sup>87</sup></a></li>
+<li><span class="math inline">\(k\)</span> is for scores that will be calculated from the average of multiple raters</li>
+</ul>
+<div class="sourceCode" id="cb352"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb352-1"><a href="interrater.html#cb352-1"></a><span class="co"># ICC(1)   One-way, absolute, single:</span></span>
+<span id="cb352-2"><a href="interrater.html#cb352-2"></a>  ICC_<span class="dv">1</span>  &lt;-<span class="st"> </span>(MSB <span class="op">-</span><span class="st"> </span>MSW) <span class="op">/</span><span class="st"> </span>(MSB <span class="op">+</span><span class="st"> </span>(k<span class="dv">-1</span>)<span class="op">*</span>MSW)</span>
+<span id="cb352-3"><a href="interrater.html#cb352-3"></a><span class="co"># ICC(k)   One-way, absolute, average:</span></span>
+<span id="cb352-4"><a href="interrater.html#cb352-4"></a>  ICC_k  &lt;-<span class="st"> </span>(MSB <span class="op">-</span><span class="st"> </span>MSW) <span class="op">/</span><span class="st"> </span>(MSB) </span>
+<span id="cb352-5"><a href="interrater.html#cb352-5"></a><span class="co"># ICC(A,1) Two-way, absolute, single:</span></span>
+<span id="cb352-6"><a href="interrater.html#cb352-6"></a>  ICC_A1 &lt;-<span class="st"> </span>(MSB<span class="op">-</span><span class="st"> </span>MSE)<span class="op">/</span>(MSB <span class="op">+</span><span class="st"> </span>(k<span class="dv">-1</span>)<span class="op">*</span>MSE <span class="op">+</span><span class="st"> </span>k<span class="op">/</span>n<span class="op">*</span>(MSR<span class="op">-</span>MSE))</span>
+<span id="cb352-7"><a href="interrater.html#cb352-7"></a><span class="co"># ICC(A,k) Two-way, absolute, average:</span></span>
+<span id="cb352-8"><a href="interrater.html#cb352-8"></a>  ICC_Ak &lt;-<span class="st"> </span>(MSB <span class="op">-</span><span class="st"> </span>MSE) <span class="op">/</span><span class="st"> </span>(MSB<span class="op">+</span>(MSR <span class="op">-</span><span class="st"> </span>MSE)<span class="op">/</span>n)</span>
+<span id="cb352-9"><a href="interrater.html#cb352-9"></a><span class="co"># ICC(C,1) Two-way, consistency, single:</span></span>
+<span id="cb352-10"><a href="interrater.html#cb352-10"></a>  ICC_C1 &lt;-<span class="st"> </span>(MSB<span class="op">-</span><span class="st"> </span>MSE)<span class="op">/</span>(MSB <span class="op">+</span><span class="st"> </span>(k<span class="dv">-1</span>)<span class="op">*</span>MSE )</span>
+<span id="cb352-11"><a href="interrater.html#cb352-11"></a><span class="co"># ICC(C,k) Two-way, consistency, average:</span></span>
+<span id="cb352-12"><a href="interrater.html#cb352-12"></a>  ICC_Ck &lt;-<span class="st"> </span>(MSB <span class="op">-</span><span class="st"> </span>MSE) <span class="op">/</span><span class="st"> </span>(MSB)</span></code></pre></div>
+<table>
+<caption>
+<span id="tab:unnamed-chunk-235">Table 10.1: </span>ICC models and their formula
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+ICC model
+</th>
+<th style="text-align:left;">
+Formula
+</th>
+<th style="text-align:left;">
+Estimate
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+ICC<sub>1</sub>
+</td>
+<td style="text-align:left;">
+<span class="math inline">\(\frac{MS_B - MS_W} {MS_B + (k-1)MS_W}\)</span>
+</td>
+<td style="text-align:left;">
+.79
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ICC<sub>k</sub>
+</td>
+<td style="text-align:left;">
+<span class="math inline">\(\frac{MS_B - MS_W } { MS_B}\)</span>
+</td>
+<td style="text-align:left;">
+.92
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ICC<sub>A1</sub>
+</td>
+<td style="text-align:left;">
+<span class="math inline">\(\frac{MS_B- MS_E} {MS_B + (k-1)MS_E + \frac{k}{n}(MS_R-MS_E)}\)</span>
+</td>
+<td style="text-align:left;">
+.80
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ICC<sub>Ak</sub>
+</td>
+<td style="text-align:left;">
+<span class="math inline">\(\frac{MS_B - MS_E } { MS_B+(MS_R - MS_E)/n}\)</span>
+</td>
+<td style="text-align:left;">
+.92
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ICC<sub>C1</sub>
+</td>
+<td style="text-align:left;">
+<span class="math inline">\(\frac{MS_B- MS_E} {MS_B + (k-1)MS_E }\)</span>
+</td>
+<td style="text-align:left;">
+.88
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ICC<sub>Ck</sub>
+</td>
+<td style="text-align:left;">
+<span class="math inline">\(\frac{MS_B - MS_E } { MS_B }\)</span>
+</td>
+<td style="text-align:left;">
+.96
+</td>
+</tr>
+</tbody>
+<tfoot>
+<tr>
+<td style="padding: 0; border:0;" colspan="100%">
+<sup></sup> <em><em>Note.</em></em> The ICC labels are from McGraw and Wong <span class="citation">(<a href="#ref-mcgraw_forming_1996" role="doc-biblioref">1996</a>)</span>.
+</td>
+</tr>
+</tfoot>
+</table>
+</div>
+<div id="recommendations-on-reporting-iccs" class="section level3">
+<h3><span class="header-section-number">10.2.6</span> Recommendations on reporting ICCs</h3>
+<p>Strictly speaking, these ICC models also include a specification for whether the raters are fixed or random. Fixed refers to the specific set of raters without any intention to generalize this reliability coefficient beyond our sample of raters. This might be the case for a job interview in which the raters are all part of the same organization. A random specification assumes that the raters were random draws from a population of raters—as would be the case with a large testing company that hires many essay raters. What is weird is that we use the same computations when we treat raters as fixed and as random. Therefore, this distinction is not present in the table nor in the options of some R packages (because what’s the point). However, when we write up our methods we still need to address whether we assume our raters are fixed or random, as that affects how we interpret the results.</p>
+<p>Secondly, and perhaps worth stressing quite forcefully, whenever we report an ICC statistic, we need to state which model we used. For example, we might say this:</p>
+<blockquote>
+<p>For our inter-rater reliability study, we examined not only consistency but also agreement across the raters. Every rater rated every person; thus, this was a fully crossed design resulting in a two-way intraclass correlation coefficient (ICC) model. We treated the raters as random because the raters in our reliability study were a sample from our population of raters. During the operational study, each person’s score will be calculated as the average across this same number of raters. Given this design, we estimated inter-rater reliability using the ICC, specifically the <span class="math inline">\(\text{ICC}_{A,k}\)</span> model, the formula of which is described in McGraw and Wong <span class="citation">(<a href="#ref-mcgraw_forming_1996" role="doc-biblioref">1996</a>)</span>.</p>
+</blockquote>
+<p>It is poor practice to simply report that the ICC was estimated without saying which ICC. These models differ in their estimates and implications.</p>
+<p>Thirdly, there are at least two different conventions for labeling these ICC models. The ones here are from McGraw and Wong <span class="citation">(<a href="#ref-mcgraw_forming_1996" role="doc-biblioref">1996</a>)</span>. The labeling conventions of Shrout and Fleiss <span class="citation">(<a href="#ref-shrout_intraclass_1979" role="doc-biblioref">1979</a>)</span> are also frequently used. It is worth stating, as we just did, which conventions we are using so readers know where to look if they’re familiar with the convention we are using.</p>
+<p>Finally, when we use software, we need to report which package and procedure we used. The results from the irr package <span class="citation">(Gamer et al., <a href="#ref-R-irr" role="doc-biblioref">2019</a>)</span> and the psych package <span class="citation">(Revelle, <a href="#ref-R-psych" role="doc-biblioref">2020</a>)</span>, for example, do not always seem to align.</p>
+</div>
+</div>
+<div id="using-the-irr-package" class="section level2">
+<h2><span class="header-section-number">10.3</span> Using the irr package</h2>
+<p>For the practitioner seeking to avoid deep understanding, this previous lengthy discussion about how to calculate the ICC can be skipped. For all of us, now that we have thought through these at least a little, we can use the <code>icc()</code> function of the irr package <span class="citation">(Gamer et al., <a href="#ref-R-irr" role="doc-biblioref">2019</a>)</span>.</p>
+<p>For this function, we use data that are in the wide format. Let’s assign the names of our rater columns to an object, <code>ratrs</code>, bring the <code>irr</code> package into the library, and use the <code>icc()</code> function. The arguments are described in the help menus, but they are self explanatory. Let’s estimate <span class="math inline">\(\text{ICC}_{A,k}\)</span> using this function by specifying <code>type = "agreement"</code> and <code>unit = "average"</code>. We’ll also use <code>model = "twoway"</code> because the raters are crossed with people (again, all raters rated all persons).</p>
+<div class="sourceCode" id="cb353"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb353-1"><a href="interrater.html#cb353-1"></a>ratrs      &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;rater1&quot;</span>, <span class="st">&quot;rater2&quot;</span>, <span class="st">&quot;rater3&quot;</span>)</span>
+<span id="cb353-2"><a href="interrater.html#cb353-2"></a><span class="kw">library</span>(irr)</span>
+<span id="cb353-3"><a href="interrater.html#cb353-3"></a><span class="kw">icc</span>(datW[,ratrs], <span class="dt">model=</span><span class="st">&quot;twoway&quot;</span>, <span class="dt">type=</span><span class="st">&quot;agreement&quot;</span>,   <span class="dt">unit=</span><span class="st">&quot;average&quot;</span>)</span></code></pre></div>
+<pre><code>##  Average Score Intraclass Correlation
+## 
+##    Model: twoway 
+##    Type : agreement 
+## 
+##    Subjects = 10 
+##      Raters = 3 
+##    ICC(A,3) = 0.922
+## 
+##  F-Test, H0: r0 = 0 ; H1: r0 &gt; 0 
+##   F(9,6.82) = 23.3 , p = 0.000245 
+## 
+##  95%-Confidence Interval for ICC Population Values:
+##   0.663 &lt; ICC &lt; 0.981</code></pre>
+<p>The output tells us the model is two way of the agreement (rather than consistency) type. The ICC is labeled as <code>ICC(A,3)</code> with <code>3</code> referring to the number of raters. A confidence interval is also provided, which is worth reporting.</p>
+<p>For the other models, we can use the following code after we have created our <code>ratrs</code> object and brought the irr package into our library:</p>
+<div class="sourceCode" id="cb355"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb355-1"><a href="interrater.html#cb355-1"></a><span class="kw">icc</span>(datW[,ratrs], <span class="dt">model=</span><span class="st">&quot;oneway&quot;</span>, <span class="dt">type=</span><span class="st">&quot;agreement&quot;</span>,   <span class="dt">unit=</span><span class="st">&quot;single&quot;</span>)</span>
+<span id="cb355-2"><a href="interrater.html#cb355-2"></a><span class="kw">icc</span>(datW[,ratrs], <span class="dt">model=</span><span class="st">&quot;oneway&quot;</span>, <span class="dt">type=</span><span class="st">&quot;agreement&quot;</span>,   <span class="dt">unit=</span><span class="st">&quot;average&quot;</span>)</span>
+<span id="cb355-3"><a href="interrater.html#cb355-3"></a><span class="kw">icc</span>(datW[,ratrs], <span class="dt">model=</span><span class="st">&quot;twoway&quot;</span>, <span class="dt">type=</span><span class="st">&quot;agreement&quot;</span>,   <span class="dt">unit=</span><span class="st">&quot;single&quot;</span>)</span>
+<span id="cb355-4"><a href="interrater.html#cb355-4"></a><span class="kw">icc</span>(datW[,ratrs], <span class="dt">model=</span><span class="st">&quot;twoway&quot;</span>, <span class="dt">type=</span><span class="st">&quot;agreement&quot;</span>,   <span class="dt">unit=</span><span class="st">&quot;average&quot;</span>)</span>
+<span id="cb355-5"><a href="interrater.html#cb355-5"></a><span class="kw">icc</span>(datW[,ratrs], <span class="dt">model=</span><span class="st">&quot;twoway&quot;</span>, <span class="dt">type=</span><span class="st">&quot;consistency&quot;</span>, <span class="dt">unit=</span><span class="st">&quot;single&quot;</span>)</span>
+<span id="cb355-6"><a href="interrater.html#cb355-6"></a><span class="kw">icc</span>(datW[,ratrs], <span class="dt">model=</span><span class="st">&quot;twoway&quot;</span>, <span class="dt">type=</span><span class="st">&quot;consistency&quot;</span>, <span class="dt">unit=</span><span class="st">&quot;average&quot;</span>)</span></code></pre></div>
+<p>Typically, we only use one of these lines of code becuase our inter-rater reliability study usually is concerned with only one of them. All of them are presented here for easy reference.</p>
+</div>
+<div id="test-retest-reliability" class="section level2">
+<h2><span class="header-section-number">10.4</span> Test-retest reliability</h2>
+<p>Test-retest reliability in classical test theory is very straightforward: It is the Pearson correlation between the two tests. Each person takes the first and second test.</p>
+<p>This is analogous to having two raters test each person. We can perform the same calculations as we did with raters. A benefit to using the ICC is that we can also estimate the “agreement” across the two time points. This may be valuable when we seek to examine the stability of the instrument over time not only in how it ranks persons but in whether there is slippage in how difficult or easy the test is over time. For instance, if everyone’s second-occasion test were exactly 10 points higher than that of their first occasion, we would observe perfect consistency, but the agreement ICC coefficient would probably be low. This is a very good reason for using ICCs instead of Pearson’s correlation for test-retest reliability. Researchers using quasiexperimental designs with multiple pretests may wish to report this type of test-retest agreement to argue that some effects, such as maturation in the construct that the true scores are purported to measure, are not unduly affecting the changes in scores in their operational use of the test to detect change from an intervention.</p>
+<p>One thing we should be sure to do is to use the single rating specification, <span class="math inline">\(\text{ICC}_{C1}\)</span> and <span class="math inline">\(\text{ICC}_{A1}\)</span>. This is because the way we will <em>use</em> the instrument in our operational study (after completing the reliability study) is we will measure the participants on one occasion, get a score, then provide some kind of intervention, and then use the test again. It would make little sense to use the average scores of two occasions of the test, so the average measure should not be used for test-retest reliability.</p>
+<p>Let’s use our data set as an example and pretend that Raters 1 and 2 are actually two different occasions, Time 1 and Time 2. We can estimate test-retest reliability using <span class="math inline">\(\text{ICC}_{C1}\)</span>.</p>
+<div class="sourceCode" id="cb356"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb356-1"><a href="interrater.html#cb356-1"></a>datW<span class="op">$</span>time1 &lt;-<span class="st"> </span>datW<span class="op">$</span>rater1</span>
+<span id="cb356-2"><a href="interrater.html#cb356-2"></a>datW<span class="op">$</span>time2 &lt;-<span class="st"> </span>datW<span class="op">$</span>rater2</span>
+<span id="cb356-3"><a href="interrater.html#cb356-3"></a><span class="kw">icc</span>(datW[ , <span class="kw">c</span>(<span class="st">&quot;time1&quot;</span>, <span class="st">&quot;time2&quot;</span>) ], <span class="dt">model=</span><span class="st">&quot;twoway&quot;</span>, <span class="dt">type=</span><span class="st">&quot;consistency&quot;</span>, <span class="dt">unit=</span><span class="st">&quot;single&quot;</span>)</span></code></pre></div>
+<pre><code>##  Single Score Intraclass Correlation
+## 
+##    Model: twoway 
+##    Type : consistency 
+## 
+##    Subjects = 10 
+##      Raters = 2 
+##    ICC(C,1) = 0.939
+## 
+##  F-Test, H0: r0 = 0 ; H1: r0 &gt; 0 
+##      F(9,9) = 31.9 , p = 9.08e-06 
+## 
+##  95%-Confidence Interval for ICC Population Values:
+##   0.776 &lt; ICC &lt; 0.985</code></pre>
+<p>The test-retest reliability estimate with <span class="math inline">\(\text{ICC}_{C1}\)</span> is .94.
+Here’s the test-retest agreement coefficient, using <span class="math inline">\(\text{ICC}_{A1}\)</span>:</p>
+<div class="sourceCode" id="cb358"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb358-1"><a href="interrater.html#cb358-1"></a><span class="kw">icc</span>(datW[ , <span class="kw">c</span>(<span class="st">&quot;time1&quot;</span>, <span class="st">&quot;time2&quot;</span>) ], <span class="dt">model=</span><span class="st">&quot;twoway&quot;</span>, <span class="dt">type=</span><span class="st">&quot;agreement&quot;</span>, <span class="dt">unit=</span><span class="st">&quot;single&quot;</span>)</span></code></pre></div>
+<pre><code>##  Single Score Intraclass Correlation
+## 
+##    Model: twoway 
+##    Type : agreement 
+## 
+##    Subjects = 10 
+##      Raters = 2 
+##    ICC(A,1) = 0.923
+## 
+##  F-Test, H0: r0 = 0 ; H1: r0 &gt; 0 
+##   F(9,7.12) = 31.9 , p = 6.38e-05 
+## 
+##  95%-Confidence Interval for ICC Population Values:
+##   0.689 &lt; ICC &lt; 0.981</code></pre>
+<p>We can see that the absolute agreement is pretty high. This is because for several persons, several of the scores were the same in both time points (as Bandalos points out with this example data set).</p>
+
+</div>
+</div>
+<h3>References</h3>
+<div id="refs" class="references">
+<div id="ref-Bandalos_2018">
+<p>Bandalos, D. L. (2018). <em>Measurement theory and applications for the social sciences</em>. Guilford.</p>
+</div>
+<div id="ref-R-irr">
+<p>Gamer, M., Lemon, J., &amp; &lt;puspendra.pusp22@gmail.com&gt;, I. F. P. S. (2019). <em>Irr: Various coefficients of interrater reliability and agreement</em>. <a href="https://www.r-project.org">https://www.r-project.org</a></p>
+</div>
+<div id="ref-mcgraw_forming_1996">
+<p>McGraw, K. O., &amp; Wong, S. P. (1996). Forming inferences about some intraclass correlation coefficients. <em>Psychological Methods</em>, <em>1</em>(1), 30–46. <a href="https://doi.org/10.1037/1082-989X.1.1.30">https://doi.org/10.1037/1082-989X.1.1.30</a></p>
+</div>
+<div id="ref-R-psych">
+<p>Revelle, W. (2020). <em>Psych: Procedures for psychological, psychometric, and personality research</em>. <a href="https://personality-project.org/r/psych/%0Ahttps://personality-project.org/r/psych-manual.pdf">https://personality-project.org/r/psych/
+https://personality-project.org/r/psych-manual.pdf</a></p>
+<div id="ref-shrout_intraclass_1979">
+<p>Shrout, P. E., &amp; Fleiss, J. L. (1979). Intraclass correlations: Uses in assessing rater reliability. <em>Psychological Bulletin</em>, <em>86</em>(2), 420–428. <a href="https://doi.org/10.1037/0033-2909.86.2.420">https://doi.org/10.1037/0033-2909.86.2.420</a></p>
+</div>
+<div id="ref-R-tidyr">
+<p>Wickham, H. (2020c). <em>Tidyr: Tidy messy data</em>. <a href="https://CRAN.R-project.org/package=tidyr">https://CRAN.R-project.org/package=tidyr</a></p>
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="78">
+<li id="fn78"><p>We could also use matrix multiplication to get the chance probability: <code>P_c &lt;- (rowSums(judge_tab_p) %*% colSums(judge_tab_p))</code>.<a href="interrater.html#fnref78" class="footnote-back">↩︎</a></p></li>
+<li id="fn79"><p>When there are more than two raters, some researchers estimate the correlations across all raters, then apply the Spearman-Brown prophecy formula to the lowest correlation estimate, with <span class="math inline">\(k\)</span> in the formula being used to adjust the correlation to account for the total number of raters.<a href="interrater.html#fnref79" class="footnote-back">↩︎</a></p></li>
+<li id="fn80"><p>The term “persons” refers to examinees in tests and respondents in surveys.<a href="interrater.html#fnref80" class="footnote-back">↩︎</a></p></li>
+<li id="fn81"><p>It is for this reason that we include the “W” in our object name for these data. The data are in wide format because each rater has their own column. Soon, we’ll see a long format, with all of the raters in a single column and their scores in separate column.<a href="interrater.html#fnref81" class="footnote-back">↩︎</a></p></li>
+<li id="fn82"><p>With raters, we simply divide the sum by the number of raters—we could do the same thing with items by dividing by the number of items, <span class="math inline">\(k\)</span>, which is frequently done with survey items that use the same scale because the composite score can then be interpreted in reference to the item response scales.<a href="interrater.html#fnref82" class="footnote-back">↩︎</a></p></li>
+<li id="fn83"><p>This is part of the tidyverse set of packages that we briefly addressed <a href="packs.html#tidyverse_intro" target="_blank">in an earlier chapter</a>, which uses the pipe, <code>%&gt;%</code> to take something on the left of <code>%&gt;%</code> and do the stuff on the right. We could also have used the <code>melt()</code> function from the reshape2 package <span class="citation">(Wickham, <a href="#ref-R-reshape2" role="doc-biblioref">2020</a><a href="#ref-R-reshape2" role="doc-biblioref">b</a>)</span>.<a href="interrater.html#fnref83" class="footnote-back">↩︎</a></p></li>
+<li id="fn84"><p>The format is a tibble, which is tidyverse format for a data frame. We can treat this as a data frame. When we print a tibble, we can see the column type within the <code>&lt;&gt;</code> under the column name.<a href="interrater.html#fnref84" class="footnote-back">↩︎</a></p></li>
+<li id="fn85"><p>See the previous explanation of factors in <a href="itemans.html#factors" target="_blank">an earlier chapter</a>.<a href="interrater.html#fnref85" class="footnote-back">↩︎</a></p></li>
+<li id="fn86"><p>Note that we do not need the person*rater interaction as this is conflated with error and we’d overspecify the model.<a href="interrater.html#fnref86" class="footnote-back">↩︎</a></p></li>
+<li id="fn87"><p>We might also replace <span class="math inline">\(k\)</span> with the exact number of raters that will be used to score persons, such as <span class="math inline">\(\text{ICC}_{A,3}\)</span>.<a href="interrater.html#fnref87" class="footnote-back">↩︎</a></p></li>
+</ol>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="reliability.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="gtheory.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

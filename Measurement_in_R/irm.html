@@ -1,0 +1,1305 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 14 Item Response Modeling | Using R for Measurement in the Social Sciences</title>
+  <meta name="description" content="Provides example R code to accompany the learning of measurement concepts." />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 14 Item Response Modeling | Using R for Measurement in the Social Sciences" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="Provides example R code to accompany the learning of measurement concepts." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 14 Item Response Modeling | Using R for Measurement in the Social Sciences" />
+  
+  <meta name="twitter:description" content="Provides example R code to accompany the learning of measurement concepts." />
+  
+
+<meta name="author" content="George M. Harrison  University of Hawai‘i at Mānoa, College of Education" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="cfa.html"/>
+<link rel="next" href="references.html"/>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<link href="libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0/anchor-sections.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+<link href="libs/bsTable-3.3.7/bootstrapTable.min.css" rel="stylesheet" />
+<script src="libs/bsTable-3.3.7/bootstrapTable.js"></script>
+
+
+<style type="text/css">
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Introduction</a></li>
+<li class="chapter" data-level="1" data-path="trans.html"><a href="trans.html"><i class="fa fa-check"></i><b>1</b> Score Transformations</a><ul>
+<li class="chapter" data-level="1.1" data-path="trans.html"><a href="trans.html#percentiles-percentile-ranks-and-normalized-scores"><i class="fa fa-check"></i><b>1.1</b> Percentiles, percentile ranks, and normalized scores</a></li>
+<li class="chapter" data-level="1.2" data-path="trans.html"><a href="trans.html#run-of-the-mill-z-scores"><i class="fa fa-check"></i><b>1.2</b> Run-of-the-mill Z scores</a></li>
+<li class="chapter" data-level="1.3" data-path="trans.html"><a href="trans.html#extra-optional-stuff"><i class="fa fa-check"></i><b>1.3</b> Extra optional stuff</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="var-cov-cor.html"><a href="var-cov-cor.html"><i class="fa fa-check"></i><b>2</b> Variance, Covariance, and Correlation</a><ul>
+<li class="chapter" data-level="2.1" data-path="var-cov-cor.html"><a href="var-cov-cor.html#correlation"><i class="fa fa-check"></i><b>2.1</b> Correlation</a><ul>
+<li class="chapter" data-level="2.1.1" data-path="var-cov-cor.html"><a href="var-cov-cor.html#estimating-correlation-as-a-statistic"><i class="fa fa-check"></i><b>2.1.1</b> Estimating correlation as a statistic</a></li>
+<li class="chapter" data-level="2.1.2" data-path="var-cov-cor.html"><a href="var-cov-cor.html#creating-a-correlation-matrix"><i class="fa fa-check"></i><b>2.1.2</b> Creating a correlation matrix</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="var-cov-cor.html"><a href="var-cov-cor.html#variance"><i class="fa fa-check"></i><b>2.2</b> Variance</a></li>
+<li class="chapter" data-level="2.3" data-path="var-cov-cor.html"><a href="var-cov-cor.html#covariance"><i class="fa fa-check"></i><b>2.3</b> Covariance</a><ul>
+<li class="chapter" data-level="2.3.1" data-path="var-cov-cor.html"><a href="var-cov-cor.html#creating-a-variance-covariance-matrix"><i class="fa fa-check"></i><b>2.3.1</b> Creating a variance-covariance matrix</a></li>
+<li class="chapter" data-level="2.3.2" data-path="var-cov-cor.html"><a href="var-cov-cor.html#using-the-n-denominator"><i class="fa fa-check"></i><b>2.3.2</b> Using the <em>n</em> denominator</a></li>
+<li class="chapter" data-level="2.3.3" data-path="var-cov-cor.html"><a href="var-cov-cor.html#extra-understanding-for-use-in-classical-test-theory"><i class="fa fa-check"></i><b>2.3.3</b> Extra understanding, for use in classical test theory</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="var-cov-cor.html"><a href="var-cov-cor.html#practice"><i class="fa fa-check"></i><b>2.4</b> Practice</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="custfuncts.html"><a href="custfuncts.html"><i class="fa fa-check"></i><b>3</b> Creating Custom Functions</a><ul>
+<li class="chapter" data-level="3.1" data-path="custfuncts.html"><a href="custfuncts.html#using-our-function-on-multiple-variables"><i class="fa fa-check"></i><b>3.1</b> Using our function on multiple variables</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="packs.html"><a href="packs.html"><i class="fa fa-check"></i><b>4</b> Using Packages</a><ul>
+<li class="chapter" data-level="4.1" data-path="packs.html"><a href="packs.html#an-example-using-the-hmisc-package-for-correlation"><i class="fa fa-check"></i><b>4.1</b> An example: Using the <code>Hmisc</code> package for correlation</a></li>
+<li class="chapter" data-level="4.2" data-path="packs.html"><a href="packs.html#tidyverse_intro"><i class="fa fa-check"></i><b>4.2</b> Using Tidyverse packages</a><ul>
+<li class="chapter" data-level="4.2.1" data-path="packs.html"><a href="packs.html#piping_intro"><i class="fa fa-check"></i><b>4.2.1</b> Piping</a></li>
+<li class="chapter" data-level="4.2.2" data-path="packs.html"><a href="packs.html#saving-our-output-as-a-csv-file"><i class="fa fa-check"></i><b>4.2.2</b> Saving our output as a CSV file</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="regress.html"><a href="regress.html"><i class="fa fa-check"></i><b>5</b> Estimating Regression</a><ul>
+<li class="chapter" data-level="5.1" data-path="regress.html"><a href="regress.html#the-lm-function"><i class="fa fa-check"></i><b>5.1</b> The <code>lm()</code> function</a></li>
+<li class="chapter" data-level="5.2" data-path="regress.html"><a href="regress.html#using-the-regression-parameters-for-prediction"><i class="fa fa-check"></i><b>5.2</b> Using the regression parameters for prediction</a></li>
+<li class="chapter" data-level="5.3" data-path="regress.html"><a href="regress.html#model-error-variance-and-a-peek-into-classical-test-theory"><i class="fa fa-check"></i><b>5.3</b> Model error variance and a peek into classical test theory</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="graphing.html"><a href="graphing.html"><i class="fa fa-check"></i><b>6</b> Graphing</a><ul>
+<li class="chapter" data-level="6.1" data-path="graphing.html"><a href="graphing.html#using-base-r"><i class="fa fa-check"></i><b>6.1</b> Using Base R</a></li>
+<li class="chapter" data-level="6.2" data-path="graphing.html"><a href="graphing.html#using-the-ggplot2-package"><i class="fa fa-check"></i><b>6.2</b> Using the <code>ggplot2</code> package</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="itemans.html"><a href="itemans.html"><i class="fa fa-check"></i><b>7</b> Item Scoring and Item Analysis</a><ul>
+<li class="chapter" data-level="7.1" data-path="itemans.html"><a href="itemans.html#multiple-choice-raw-data-and-their-answer-key"><i class="fa fa-check"></i><b>7.1</b> Multiple-choice raw data and their answer key</a></li>
+<li class="chapter" data-level="7.2" data-path="itemans.html"><a href="itemans.html#scoring-the-responses"><i class="fa fa-check"></i><b>7.2</b> Scoring the responses</a></li>
+<li class="chapter" data-level="7.3" data-path="itemans.html"><a href="itemans.html#item-analysis-with-dichotomous-data"><i class="fa fa-check"></i><b>7.3</b> Item analysis with dichotomous data</a></li>
+<li class="chapter" data-level="7.4" data-path="itemans.html"><a href="itemans.html#distractor-analysis"><i class="fa fa-check"></i><b>7.4</b> Distractor analysis</a></li>
+<li class="chapter" data-level="7.5" data-path="itemans.html"><a href="itemans.html#item-analysis-with-polytomous-data"><i class="fa fa-check"></i><b>7.5</b> Item analysis with polytomous data</a><ul>
+<li class="chapter" data-level="7.5.1" data-path="itemans.html"><a href="itemans.html#partial-credit-data"><i class="fa fa-check"></i><b>7.5.1</b> Partial-credit data</a></li>
+<li class="chapter" data-level="7.5.2" data-path="itemans.html"><a href="itemans.html#LikertFunc"><i class="fa fa-check"></i><b>7.5.2</b> Item functioning of Likert-type scale items</a></li>
+<li class="chapter" data-level="7.5.3" data-path="itemans.html"><a href="itemans.html#graphing-frequencies-of-category-responses"><i class="fa fa-check"></i><b>7.5.3</b> Graphing frequencies of category responses</a></li>
+</ul></li>
+<li class="chapter" data-level="7.6" data-path="itemans.html"><a href="itemans.html#optional-advanced-graphics-stuff"><i class="fa fa-check"></i><b>7.6</b> Optional advanced graphics stuff</a><ul>
+<li class="chapter" data-level="7.6.1" data-path="itemans.html"><a href="itemans.html#creating-a-facet-plot-with-ggplot2"><i class="fa fa-check"></i><b>7.6.1</b> Creating a facet plot with <code>GGplot2</code></a></li>
+<li class="chapter" data-level="7.6.2" data-path="itemans.html"><a href="itemans.html#the-base-r-approach-to-creating-a-facet-plot"><i class="fa fa-check"></i><b>7.6.2</b> The Base R approach to creating a facet plot</a></li>
+</ul></li>
+<li class="chapter" data-level="7.7" data-path="itemans.html"><a href="itemans.html#additional-functions-for-examining-category-frequencies"><i class="fa fa-check"></i><b>7.7</b> Additional functions for examining category frequencies</a><ul>
+<li class="chapter" data-level="7.7.1" data-path="itemans.html"><a href="itemans.html#using-the-table-function-and-the-lapply-function"><i class="fa fa-check"></i><b>7.7.1</b> Using the <code>table()</code> function and the <code>lapply()</code> function</a></li>
+<li class="chapter" data-level="7.7.2" data-path="itemans.html"><a href="itemans.html#factors"><i class="fa fa-check"></i><b>7.7.2</b> Specifying the data as categorical</a></li>
+<li class="chapter" data-level="7.7.3" data-path="itemans.html"><a href="itemans.html#orderedfunc"><i class="fa fa-check"></i><b>7.7.3</b> Ordered factors</a></li>
+</ul></li>
+<li class="chapter" data-level="7.8" data-path="itemans.html"><a href="itemans.html#conclusion"><i class="fa fa-check"></i><b>7.8</b> Conclusion</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="CTT.html"><a href="CTT.html"><i class="fa fa-check"></i><b>8</b> Classical Test Theory</a><ul>
+<li class="chapter" data-level="8.1" data-path="CTT.html"><a href="CTT.html#true-score-model"><i class="fa fa-check"></i><b>8.1</b> True score model</a></li>
+<li class="chapter" data-level="8.2" data-path="CTT.html"><a href="CTT.html#assumptions-of-the-ctt-true-score-model"><i class="fa fa-check"></i><b>8.2</b> Assumptions of the CTT true score model</a></li>
+<li class="chapter" data-level="8.3" data-path="CTT.html"><a href="CTT.html#reliability-and-the-variance-of-the-composite-score"><i class="fa fa-check"></i><b>8.3</b> Reliability and the variance of the composite score</a><ul>
+<li class="chapter" data-level="8.3.1" data-path="CTT.html"><a href="CTT.html#reliability-as-the-ratio-of-true-score-variance-to-observed-score-variance"><i class="fa fa-check"></i><b>8.3.1</b> Reliability as the ratio of true-score variance to observed-score variance</a></li>
+<li class="chapter" data-level="8.3.2" data-path="CTT.html"><a href="CTT.html#reliability-as-the-lack-of-error-variance"><i class="fa fa-check"></i><b>8.3.2</b> Reliability as the lack of error variance</a></li>
+<li class="chapter" data-level="8.3.3" data-path="CTT.html"><a href="CTT.html#reliability-as-the-squared-correlation-between-observed-and-true-scores"><i class="fa fa-check"></i><b>8.3.3</b> Reliability as the squared correlation between observed and true scores</a></li>
+<li class="chapter" data-level="8.3.4" data-path="CTT.html"><a href="CTT.html#reliability-as-the-correlation-between-scores-on-parallel-tests"><i class="fa fa-check"></i><b>8.3.4</b> Reliability as the correlation between scores on parallel tests</a></li>
+</ul></li>
+<li class="chapter" data-level="8.4" data-path="CTT.html"><a href="CTT.html#four-ctt-models"><i class="fa fa-check"></i><b>8.4</b> Four CTT models</a><ul>
+<li class="chapter" data-level="8.4.1" data-path="CTT.html"><a href="CTT.html#the-parallel-model"><i class="fa fa-check"></i><b>8.4.1</b> The parallel model</a></li>
+<li class="chapter" data-level="8.4.2" data-path="CTT.html"><a href="CTT.html#the-tau-equivalent-model"><i class="fa fa-check"></i><b>8.4.2</b> The tau-equivalent model</a></li>
+<li class="chapter" data-level="8.4.3" data-path="CTT.html"><a href="CTT.html#the-essentially-tau-equivalent-model"><i class="fa fa-check"></i><b>8.4.3</b> The essentially tau-equivalent model</a></li>
+<li class="chapter" data-level="8.4.4" data-path="CTT.html"><a href="CTT.html#the-congeneric-model"><i class="fa fa-check"></i><b>8.4.4</b> The congeneric model</a></li>
+<li class="chapter" data-level="8.4.5" data-path="CTT.html"><a href="CTT.html#implications-of-each-model"><i class="fa fa-check"></i><b>8.4.5</b> Implications of each model</a></li>
+</ul></li>
+<li class="chapter" data-level="8.5" data-path="CTT.html"><a href="CTT.html#estimating-an-observations-true-score"><i class="fa fa-check"></i><b>8.5</b> Estimating an observation’s true score</a></li>
+<li class="chapter" data-level="8.6" data-path="CTT.html"><a href="CTT.html#the-standard-error-of-measurement"><i class="fa fa-check"></i><b>8.6</b> The standard error of measurement</a><ul>
+<li class="chapter" data-level="8.6.1" data-path="CTT.html"><a href="CTT.html#estimating-the-confidence-interval-of-a-true-score"><i class="fa fa-check"></i><b>8.6.1</b> Estimating the confidence interval of a true score</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="reliability.html"><a href="reliability.html"><i class="fa fa-check"></i><b>9</b> Internal-consistency Reliability</a><ul>
+<li class="chapter" data-level="9.1" data-path="reliability.html"><a href="reliability.html#coefficient-alpha"><i class="fa fa-check"></i><b>9.1</b> Coefficient alpha</a><ul>
+<li class="chapter" data-level="9.1.1" data-path="reliability.html"><a href="reliability.html#how-coefficient-alpha-works"><i class="fa fa-check"></i><b>9.1.1</b> How coefficient alpha works</a></li>
+</ul></li>
+<li class="chapter" data-level="9.2" data-path="reliability.html"><a href="reliability.html#using-r-to-estimate-internal-consistency-reliability-coefficient"><i class="fa fa-check"></i><b>9.2</b> Using R to estimate internal-consistency reliability coefficient</a><ul>
+<li class="chapter" data-level="9.2.1" data-path="reliability.html"><a href="reliability.html#a-demonstration-of-coefficient-alpha-using-hypothetical-data"><i class="fa fa-check"></i><b>9.2.1</b> A demonstration of coefficient alpha using hypothetical data</a></li>
+<li class="chapter" data-level="9.2.2" data-path="reliability.html"><a href="reliability.html#using-r-packages-to-calculate-alpha-and-more"><i class="fa fa-check"></i><b>9.2.2</b> Using R packages to calculate alpha and more</a></li>
+</ul></li>
+<li class="chapter" data-level="9.3" data-path="reliability.html"><a href="reliability.html#spearman-brown-prophecy-formula"><i class="fa fa-check"></i><b>9.3</b> Spearman-Brown prophecy formula</a><ul>
+<li class="chapter" data-level="9.3.1" data-path="reliability.html"><a href="reliability.html#calculation"><i class="fa fa-check"></i><b>9.3.1</b> Calculation</a></li>
+<li class="chapter" data-level="9.3.2" data-path="reliability.html"><a href="reliability.html#using-the-ctt-package"><i class="fa fa-check"></i><b>9.3.2</b> Using the CTT package</a></li>
+</ul></li>
+<li class="chapter" data-level="9.4" data-path="reliability.html"><a href="reliability.html#standardized-coefficient-alpha"><i class="fa fa-check"></i><b>9.4</b> Standardized coefficient alpha</a><ul>
+<li class="chapter" data-level="9.4.1" data-path="reliability.html"><a href="reliability.html#calculation-of-standardized-coefficient-alpha"><i class="fa fa-check"></i><b>9.4.1</b> Calculation of standardized coefficient alpha</a></li>
+</ul></li>
+<li class="chapter" data-level="9.5" data-path="reliability.html"><a href="reliability.html#reliability-of-difference-scores"><i class="fa fa-check"></i><b>9.5</b> Reliability of difference scores</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="interrater.html"><a href="interrater.html"><i class="fa fa-check"></i><b>10</b> Inter-rater and Test-retest Reliability</a><ul>
+<li class="chapter" data-level="10.1" data-path="interrater.html"><a href="interrater.html#coefficient-kappa-for-estimating-agreement-with-nominal-data"><i class="fa fa-check"></i><b>10.1</b> Coefficient kappa for estimating agreement with nominal data</a><ul>
+<li class="chapter" data-level="10.1.1" data-path="interrater.html"><a href="interrater.html#using-the-irr-package-to-estimate-kappa"><i class="fa fa-check"></i><b>10.1.1</b> Using the irr package to estimate kappa</a></li>
+<li class="chapter" data-level="10.1.2" data-path="interrater.html"><a href="interrater.html#limitations-of-kappa"><i class="fa fa-check"></i><b>10.1.2</b> Limitations of kappa</a></li>
+</ul></li>
+<li class="chapter" data-level="10.2" data-path="interrater.html"><a href="interrater.html#intraclass-correlation-coefficients-for-estimating-consistency-and-agreement"><i class="fa fa-check"></i><b>10.2</b> Intraclass correlation coefficients for estimating consistency and agreement</a><ul>
+<li class="chapter" data-level="10.2.1" data-path="interrater.html"><a href="interrater.html#example-of-an-icc-for-consistency"><i class="fa fa-check"></i><b>10.2.1</b> Example of an ICC for consistency</a></li>
+<li class="chapter" data-level="10.2.2" data-path="interrater.html"><a href="interrater.html#example-of-an-icc-for-agreement"><i class="fa fa-check"></i><b>10.2.2</b> Example of an ICC for agreement</a></li>
+<li class="chapter" data-level="10.2.3" data-path="interrater.html"><a href="interrater.html#two-way-and-one-way-icc-models"><i class="fa fa-check"></i><b>10.2.3</b> Two-way and one-way ICC models</a></li>
+<li class="chapter" data-level="10.2.4" data-path="interrater.html"><a href="interrater.html#single-versus-average-ratings"><i class="fa fa-check"></i><b>10.2.4</b> Single versus average ratings</a></li>
+<li class="chapter" data-level="10.2.5" data-path="interrater.html"><a href="interrater.html#all-of-the-equations"><i class="fa fa-check"></i><b>10.2.5</b> All of the equations</a></li>
+<li class="chapter" data-level="10.2.6" data-path="interrater.html"><a href="interrater.html#recommendations-on-reporting-iccs"><i class="fa fa-check"></i><b>10.2.6</b> Recommendations on reporting ICCs</a></li>
+</ul></li>
+<li class="chapter" data-level="10.3" data-path="interrater.html"><a href="interrater.html#using-the-irr-package"><i class="fa fa-check"></i><b>10.3</b> Using the irr package</a></li>
+<li class="chapter" data-level="10.4" data-path="interrater.html"><a href="interrater.html#test-retest-reliability"><i class="fa fa-check"></i><b>10.4</b> Test-retest reliability</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="gtheory.html"><a href="gtheory.html"><i class="fa fa-check"></i><b>11</b> Generalizability Theory</a><ul>
+<li class="chapter" data-level="11.1" data-path="gtheory.html"><a href="gtheory.html#a-single-facet-design"><i class="fa fa-check"></i><b>11.1</b> A single facet design</a><ul>
+<li class="chapter" data-level="11.1.1" data-path="gtheory.html"><a href="gtheory.html#g-study"><i class="fa fa-check"></i><b>11.1.1</b> G-study</a></li>
+<li class="chapter" data-level="11.1.2" data-path="gtheory.html"><a href="gtheory.html#d-study"><i class="fa fa-check"></i><b>11.1.2</b> D-study</a></li>
+<li class="chapter" data-level="11.1.3" data-path="gtheory.html"><a href="gtheory.html#using-the-vca-package"><i class="fa fa-check"></i><b>11.1.3</b> Using the VCA package</a></li>
+<li class="chapter" data-level="11.1.4" data-path="gtheory.html"><a href="gtheory.html#summary-of-our-one-facet-fully-crossed-design"><i class="fa fa-check"></i><b>11.1.4</b> Summary of our one-facet fully-crossed design</a></li>
+</ul></li>
+<li class="chapter" data-level="11.2" data-path="gtheory.html"><a href="gtheory.html#a-two-facet-design"><i class="fa fa-check"></i><b>11.2</b> A two facet design</a><ul>
+<li class="chapter" data-level="11.2.1" data-path="gtheory.html"><a href="gtheory.html#rand2facet"><i class="fa fa-check"></i><b>11.2.1</b> G-study with a two facet design</a></li>
+<li class="chapter" data-level="11.2.2" data-path="gtheory.html"><a href="gtheory.html#d-study-with-a-two-facet-design"><i class="fa fa-check"></i><b>11.2.2</b> D-study with a two facet design</a></li>
+</ul></li>
+<li class="chapter" data-level="11.3" data-path="gtheory.html"><a href="gtheory.html#nested-designs"><i class="fa fa-check"></i><b>11.3</b> Nested designs</a><ul>
+<li class="chapter" data-level="11.3.1" data-path="gtheory.html"><a href="gtheory.html#one-facet-nested-design"><i class="fa fa-check"></i><b>11.3.1</b> One-facet nested design</a></li>
+<li class="chapter" data-level="11.3.2" data-path="gtheory.html"><a href="gtheory.html#two-facet-nested-design"><i class="fa fa-check"></i><b>11.3.2</b> Two-facet nested design</a></li>
+<li class="chapter" data-level="11.3.3" data-path="gtheory.html"><a href="gtheory.html#g-study-with-a-two-facet-items-nested-within-occasions-design"><i class="fa fa-check"></i><b>11.3.3</b> G-study with a two-facet items-nested-within-occasions design</a></li>
+<li class="chapter" data-level="11.3.4" data-path="gtheory.html"><a href="gtheory.html#d-study-with-a-two-facet-items-nested-within-occasions-design"><i class="fa fa-check"></i><b>11.3.4</b> D-study with a two-facet items-nested-within-occasions design</a></li>
+</ul></li>
+<li class="chapter" data-level="11.4" data-path="gtheory.html"><a href="gtheory.html#fixed-facets"><i class="fa fa-check"></i><b>11.4</b> Fixed facets</a></li>
+<li class="chapter" data-level="11.5" data-path="gtheory.html"><a href="gtheory.html#summary"><i class="fa fa-check"></i><b>11.5</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="efa.html"><a href="efa.html"><i class="fa fa-check"></i><b>12</b> Exploratory Factor Analysis</a><ul>
+<li class="chapter" data-level="12.1" data-path="efa.html"><a href="efa.html#preparatory-steps"><i class="fa fa-check"></i><b>12.1</b> Preparatory steps</a><ul>
+<li class="chapter" data-level="12.1.1" data-path="efa.html"><a href="efa.html#examining-the-data"><i class="fa fa-check"></i><b>12.1.1</b> Examining the data</a></li>
+<li class="chapter" data-level="12.1.2" data-path="efa.html"><a href="efa.html#addressing-assumptions"><i class="fa fa-check"></i><b>12.1.2</b> Addressing assumptions</a></li>
+<li class="chapter" data-level="12.1.3" data-path="efa.html"><a href="efa.html#determining-factorability"><i class="fa fa-check"></i><b>12.1.3</b> Determining factorability</a></li>
+<li class="chapter" data-level="12.1.4" data-path="efa.html"><a href="efa.html#determining-how-many-factors-to-retain"><i class="fa fa-check"></i><b>12.1.4</b> Determining how many factors to retain</a></li>
+</ul></li>
+<li class="chapter" data-level="12.2" data-path="efa.html"><a href="efa.html#factor-analysis-with-raw-data"><i class="fa fa-check"></i><b>12.2</b> Factor analysis with raw data</a><ul>
+<li class="chapter" data-level="12.2.1" data-path="efa.html"><a href="efa.html#examining-pattern-coefficients-the-factor-loadings"><i class="fa fa-check"></i><b>12.2.1</b> Examining pattern coefficients (the factor loadings)</a></li>
+</ul></li>
+<li class="chapter" data-level="12.3" data-path="efa.html"><a href="efa.html#factor-analysis-with-correlation-data"><i class="fa fa-check"></i><b>12.3</b> Factor analysis with correlation data</a><ul>
+<li class="chapter" data-level="12.3.1" data-path="efa.html"><a href="efa.html#setting-up-the-data"><i class="fa fa-check"></i><b>12.3.1</b> Setting up the data</a></li>
+<li class="chapter" data-level="12.3.2" data-path="efa.html"><a href="efa.html#preparatory-steps-1"><i class="fa fa-check"></i><b>12.3.2</b> Preparatory steps</a></li>
+<li class="chapter" data-level="12.3.3" data-path="efa.html"><a href="efa.html#performing-the-factor-analysis"><i class="fa fa-check"></i><b>12.3.3</b> Performing the factor analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="12.4" data-path="efa.html"><a href="efa.html#efa-with-categorical-data"><i class="fa fa-check"></i><b>12.4</b> EFA with categorical data</a><ul>
+<li class="chapter" data-level="12.4.1" data-path="efa.html"><a href="efa.html#describing-categorical-data"><i class="fa fa-check"></i><b>12.4.1</b> Describing categorical data</a></li>
+<li class="chapter" data-level="12.4.2" data-path="efa.html"><a href="efa.html#getting-the-correlation-matrix"><i class="fa fa-check"></i><b>12.4.2</b> Getting the correlation matrix</a></li>
+<li class="chapter" data-level="12.4.3" data-path="efa.html"><a href="efa.html#appraising-the-factorability-and-determining-the-number-of-factors-to-retain"><i class="fa fa-check"></i><b>12.4.3</b> Appraising the factorability and determining the number of factors to retain</a></li>
+<li class="chapter" data-level="12.4.4" data-path="efa.html"><a href="efa.html#factor-analysis-on-the-polychoric-matrix"><i class="fa fa-check"></i><b>12.4.4</b> Factor analysis on the polychoric matrix</a></li>
+<li class="chapter" data-level="12.4.5" data-path="efa.html"><a href="efa.html#the-polycor-package"><i class="fa fa-check"></i><b>12.4.5</b> The polycor package</a></li>
+</ul></li>
+<li class="chapter" data-level="12.5" data-path="efa.html"><a href="efa.html#factor-scores"><i class="fa fa-check"></i><b>12.5</b> Factor scores</a><ul>
+<li class="chapter" data-level="12.5.1" data-path="efa.html"><a href="efa.html#transforming-factor-scores"><i class="fa fa-check"></i><b>12.5.1</b> Transforming factor scores</a></li>
+</ul></li>
+<li class="chapter" data-level="12.6" data-path="efa.html"><a href="efa.html#internal-consistency-reliability-of-the-scores"><i class="fa fa-check"></i><b>12.6</b> Internal consistency reliability of the scores</a></li>
+<li class="chapter" data-level="12.7" data-path="efa.html"><a href="efa.html#practice-1"><i class="fa fa-check"></i><b>12.7</b> Practice</a></li>
+<li class="chapter" data-level="12.8" data-path="efa.html"><a href="efa.html#summary-1"><i class="fa fa-check"></i><b>12.8</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="cfa.html"><a href="cfa.html"><i class="fa fa-check"></i><b>13</b> Confirmatory Factor Analysis</a><ul>
+<li class="chapter" data-level="13.1" data-path="cfa.html"><a href="cfa.html#preparatory-steps-2"><i class="fa fa-check"></i><b>13.1</b> Preparatory steps</a><ul>
+<li class="chapter" data-level="13.1.1" data-path="cfa.html"><a href="cfa.html#addressing-assumptions-1"><i class="fa fa-check"></i><b>13.1.1</b> Addressing assumptions</a></li>
+</ul></li>
+<li class="chapter" data-level="13.2" data-path="cfa.html"><a href="cfa.html#fitting-a-cfa-model"><i class="fa fa-check"></i><b>13.2</b> Fitting a CFA model</a><ul>
+<li class="chapter" data-level="13.2.1" data-path="cfa.html"><a href="cfa.html#making-sure-the-model-was-correctly-estimated"><i class="fa fa-check"></i><b>13.2.1</b> Making sure the model was correctly estimated</a></li>
+<li class="chapter" data-level="13.2.2" data-path="cfa.html"><a href="cfa.html#evaluating-the-model-fit"><i class="fa fa-check"></i><b>13.2.2</b> Evaluating the model fit</a></li>
+<li class="chapter" data-level="13.2.3" data-path="cfa.html"><a href="cfa.html#interpretting-the-parameter-estimates"><i class="fa fa-check"></i><b>13.2.3</b> Interpretting the parameter estimates</a></li>
+</ul></li>
+<li class="chapter" data-level="13.3" data-path="cfa.html"><a href="cfa.html#further-inspecting-our-model"><i class="fa fa-check"></i><b>13.3</b> Further inspecting our model</a><ul>
+<li class="chapter" data-level="13.3.1" data-path="cfa.html"><a href="cfa.html#looking-at-the-models-covariance-matrices"><i class="fa fa-check"></i><b>13.3.1</b> Looking at the model’s covariance matrices</a></li>
+<li class="chapter" data-level="13.3.2" data-path="cfa.html"><a href="cfa.html#further-inspecting-our-models-parameters"><i class="fa fa-check"></i><b>13.3.2</b> Further inspecting our model’s parameters</a></li>
+</ul></li>
+<li class="chapter" data-level="13.4" data-path="cfa.html"><a href="cfa.html#using-alternative-model-specifications"><i class="fa fa-check"></i><b>13.4</b> Using alternative model specifications</a><ul>
+<li class="chapter" data-level="13.4.1" data-path="cfa.html"><a href="cfa.html#rescaling-the-factors-to-be-standardized"><i class="fa fa-check"></i><b>13.4.1</b> Rescaling the factors to be standardized</a></li>
+<li class="chapter" data-level="13.4.2" data-path="cfa.html"><a href="cfa.html#specifying-a-competing-nested-model"><i class="fa fa-check"></i><b>13.4.2</b> Specifying a competing, nested, model</a></li>
+</ul></li>
+<li class="chapter" data-level="13.5" data-path="cfa.html"><a href="cfa.html#conducting-model-comparisons"><i class="fa fa-check"></i><b>13.5</b> Conducting model comparisons</a></li>
+<li class="chapter" data-level="13.6" data-path="cfa.html"><a href="cfa.html#estimating-factor-scores"><i class="fa fa-check"></i><b>13.6</b> Estimating factor scores</a></li>
+<li class="chapter" data-level="13.7" data-path="cfa.html"><a href="cfa.html#internal-consistency-reliability-with-cfa"><i class="fa fa-check"></i><b>13.7</b> Internal consistency reliability with CFA</a></li>
+<li class="chapter" data-level="13.8" data-path="cfa.html"><a href="cfa.html#testing-congeneric-essentially-tau-equivalent-tau-equivalent-and-parallel-models"><i class="fa fa-check"></i><b>13.8</b> Testing congeneric, essentially tau-equivalent, tau-equivalent, and parallel models</a><ul>
+<li class="chapter" data-level="13.8.1" data-path="cfa.html"><a href="cfa.html#congeneric-model-specification"><i class="fa fa-check"></i><b>13.8.1</b> Congeneric model specification</a></li>
+<li class="chapter" data-level="13.8.2" data-path="cfa.html"><a href="cfa.html#essentially-tau-equivalent-model-specification"><i class="fa fa-check"></i><b>13.8.2</b> Essentially tau-equivalent model specification</a></li>
+<li class="chapter" data-level="13.8.3" data-path="cfa.html"><a href="cfa.html#tau-equivalent-model-specification"><i class="fa fa-check"></i><b>13.8.3</b> Tau-equivalent model specification</a></li>
+<li class="chapter" data-level="13.8.4" data-path="cfa.html"><a href="cfa.html#strictly-parallel-model-specification"><i class="fa fa-check"></i><b>13.8.4</b> Strictly parallel model specification</a></li>
+</ul></li>
+<li class="chapter" data-level="13.9" data-path="cfa.html"><a href="cfa.html#cfa-with-categorical-data"><i class="fa fa-check"></i><b>13.9</b> CFA with categorical data</a><ul>
+<li class="chapter" data-level="13.9.1" data-path="cfa.html"><a href="cfa.html#using-data-from-an-r-package"><i class="fa fa-check"></i><b>13.9.1</b> Using data from an R package</a></li>
+<li class="chapter" data-level="13.9.2" data-path="cfa.html"><a href="cfa.html#preparing-the-data"><i class="fa fa-check"></i><b>13.9.2</b> Preparing the data</a></li>
+<li class="chapter" data-level="13.9.3" data-path="cfa.html"><a href="cfa.html#describing-the-data"><i class="fa fa-check"></i><b>13.9.3</b> Describing the data</a></li>
+<li class="chapter" data-level="13.9.4" data-path="cfa.html"><a href="cfa.html#fitting-the-cfa-model"><i class="fa fa-check"></i><b>13.9.4</b> Fitting the CFA model</a></li>
+</ul></li>
+<li class="chapter" data-level="13.10" data-path="cfa.html"><a href="cfa.html#additional-manipulation-of-the-data"><i class="fa fa-check"></i><b>13.10</b> Additional manipulation of the data</a></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="irm.html"><a href="irm.html"><i class="fa fa-check"></i><b>14</b> Item Response Modeling</a><ul>
+<li class="chapter" data-level="14.1" data-path="irm.html"><a href="irm.html#on-fitting-linear-regression-models-to-dichotomous-data"><i class="fa fa-check"></i><b>14.1</b> On fitting linear regression models to dichotomous data</a></li>
+<li class="chapter" data-level="14.2" data-path="irm.html"><a href="irm.html#logistic-item-response-models-with-dichotomous-data"><i class="fa fa-check"></i><b>14.2</b> Logistic item response models with dichotomous data</a><ul>
+<li class="chapter" data-level="14.2.1" data-path="irm.html"><a href="irm.html#the-rasch-and-1pl-models"><i class="fa fa-check"></i><b>14.2.1</b> The Rasch and 1PL models</a></li>
+<li class="chapter" data-level="14.2.2" data-path="irm.html"><a href="irm.html#the-2pl-model"><i class="fa fa-check"></i><b>14.2.2</b> The 2PL model</a></li>
+<li class="chapter" data-level="14.2.3" data-path="irm.html"><a href="irm.html#the-3pl-model"><i class="fa fa-check"></i><b>14.2.3</b> The 3PL model</a></li>
+<li class="chapter" data-level="14.2.4" data-path="irm.html"><a href="irm.html#item-response-functions"><i class="fa fa-check"></i><b>14.2.4</b> Item response functions</a></li>
+<li class="chapter" data-level="14.2.5" data-path="irm.html"><a href="irm.html#test-characteristic-curve"><i class="fa fa-check"></i><b>14.2.5</b> Test characteristic curve</a></li>
+<li class="chapter" data-level="14.2.6" data-path="irm.html"><a href="irm.html#information-and-standard-error"><i class="fa fa-check"></i><b>14.2.6</b> Information and standard error</a></li>
+<li class="chapter" data-level="14.2.7" data-path="irm.html"><a href="irm.html#plotting-information-and-the-standard-error-of-measurement"><i class="fa fa-check"></i><b>14.2.7</b> Plotting information and the standard error of measurement</a></li>
+</ul></li>
+<li class="chapter" data-level="14.3" data-path="irm.html"><a href="irm.html#fitting-a-1pl-model"><i class="fa fa-check"></i><b>14.3</b> Fitting a 1PL model</a></li>
+<li class="chapter" data-level="14.4" data-path="irm.html"><a href="irm.html#checking-assumptions"><i class="fa fa-check"></i><b>14.4</b> Checking assumptions</a><ul>
+<li class="chapter" data-level="14.4.1" data-path="irm.html"><a href="irm.html#unidimensionality"><i class="fa fa-check"></i><b>14.4.1</b> Unidimensionality</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Using R for Measurement in the Social Sciences</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="irm" class="section level1">
+<h1><span class="header-section-number">Chapter 14</span> Item Response Modeling</h1>
+<p>Item response theory (IRT) and Rasch modeling are used to estimate persons’ scores on tests that are made up of items that are scored as dichotomous or polytomous. Just as we saw with CFA models, a latent variable is modeled to cause the variation in the item responses. In this chapter, we will practice fitting IRT models using the ltm package [R-ltm]. We will begin with dichotomous data and then explore two models used for estimating scores from polytomous data—the graded response model <span class="citation">(Samejima, <a href="#ref-samejima_estimation_1969" role="doc-biblioref">1969</a>)</span> and the partial credit model <span class="citation">(Masters, <a href="#ref-masters_rasch_1982" role="doc-biblioref">1982</a>)</span>.</p>
+<p>Before we fit these models, it is a good idea visit concepts that will help us understand IRT and Rasch modeling.</p>
+<div id="on-fitting-linear-regression-models-to-dichotomous-data" class="section level2">
+<h2><span class="header-section-number">14.1</span> On fitting linear regression models to dichotomous data</h2>
+<p>If we have a set of outcome variables that are dichotomous, scored as <span class="math inline">\(0\)</span> and <span class="math inline">\(1\)</span>, a linear model of some predictor (such as X or a latent variable) will be misspecified if we do not transform Y to be on a continuous scale. We violate the assumption of linearity.</p>
+<p>Using a made-up data set, we can see the challenge in estimating a regression line when Y is dichotomous.<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a></p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="irm.html#cb1-1"></a>X  &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">4</span>, <span class="dv">4</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">5</span>, <span class="dv">5</span>, <span class="dv">5</span>, <span class="dv">5</span>)</span>
+<span id="cb1-2"><a href="irm.html#cb1-2"></a>Y  &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>)</span>
+<span id="cb1-3"><a href="irm.html#cb1-3"></a>ID &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(X)</span>
+<span id="cb1-4"><a href="irm.html#cb1-4"></a>samp &lt;-<span class="st"> </span><span class="kw">data.frame</span>(ID, X, Y)</span>
+<span id="cb1-5"><a href="irm.html#cb1-5"></a></span>
+<span id="cb1-6"><a href="irm.html#cb1-6"></a><span class="kw">library</span>(ggplot2)</span>
+<span id="cb1-7"><a href="irm.html#cb1-7"></a><span class="kw">ggplot</span>(samp, <span class="kw">aes</span>(<span class="dt">x =</span> X, <span class="dt">y =</span> Y)) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb1-8"><a href="irm.html#cb1-8"></a><span class="st">   </span><span class="kw">geom_smooth</span>() <span class="op">+</span></span>
+<span id="cb1-9"><a href="irm.html#cb1-9"></a><span class="st">   </span><span class="kw">geom_jitter</span>(<span class="dt">height =</span> <span class="fl">.03</span>, <span class="dt">width =</span> <span class="fl">.03</span>, <span class="dt">color =</span> <span class="st">&quot;blue&quot;</span>) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb1-10"><a href="irm.html#cb1-10"></a><span class="st">   </span><span class="kw">labs</span>(<span class="dt">title=</span><span class="st">&quot;Observed dichotomous scores&quot;</span>)</span></code></pre></div>
+<p><img src="R-Examples-for-Measurement_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<p>We see that the error band around the prediction line—from the <code>geom_smooth()</code> function—is pretty big. Because Y is a binary dependent variable, we cannot reasonably fit a regular regression model to the data. Instead, we need to transform the outcome variable to an interval-like scale, especially one that has no upper or lower bound. Our new scale will be in log-odds units, or as some people call them, <strong>logits</strong>. To show how this works, we can begin by estimating the probability that Y = 1, given the value of X. In other words, we calculate the conditional probability, <span class="math inline">\(P(Y = 1 | X)\)</span>.</p>
+<p>One way to do this in R is to use dplyr’s <code>group_by()</code> function, followed by a <code>mutate()</code> function. If we use <code>group_by(X)</code>, we are grouping the data into subsets based on their values in column X. In our data, X has 5 unique values, so there will be 5 subsets of data. Then, we can calculate the mean value on Y within each subset and assign it to a new column, which we’ll call <code>cond_p</code>, for conditional probability.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="irm.html#cb2-1"></a><span class="kw">library</span>(dplyr)</span>
+<span id="cb2-2"><a href="irm.html#cb2-2"></a>samp &lt;-<span class="st"> </span>samp <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">group_by</span>(X) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb2-3"><a href="irm.html#cb2-3"></a><span class="st">   </span><span class="kw">mutate</span>(<span class="dt">cond_p =</span> <span class="kw">mean</span>(Y)) </span>
+<span id="cb2-4"><a href="irm.html#cb2-4"></a>samp <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">distinct</span>(X, cond_p) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">round</span>(<span class="dv">2</span>) <span class="co"># Displaying the conditional p per value of X.</span></span></code></pre></div>
+<table class="table" style="width: auto !important; ">
+<thead>
+<tr>
+<th style="text-align:center;">
+<span class="math inline">\(X\)</span>
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(P(Y = 1 | X)\)</span>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;">
+1
+</td>
+<td style="text-align:center;">
+.33
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+2
+</td>
+<td style="text-align:center;">
+.50
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+3
+</td>
+<td style="text-align:center;">
+.67
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+4
+</td>
+<td style="text-align:center;">
+.75
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+5
+</td>
+<td style="text-align:center;">
+.80
+</td>
+</tr>
+</tbody>
+</table>
+<p>Probabilities are bound between <span class="math inline">\(0\)</span> and <span class="math inline">\(1\)</span>. If we transform probabilities into odds, using <span class="math inline">\(\frac{P}{1-P}\)</span> , the upper boundary is no longer <span class="math inline">\(1\)</span> but is freed to be infinity. However, the lower bound is still zero. We can transform the odds into logits, using <span class="math inline">\(ln\left(\frac{P}{1-P}\right)\)</span>. This frees the lower bound, making the possible range from <span class="math inline">\(-\infty\)</span> to <span class="math inline">\(\infty\)</span>.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="irm.html#cb3-1"></a>samp<span class="op">$</span>Odds   &lt;-<span class="st"> </span>samp<span class="op">$</span>cond_p<span class="op">/</span>(<span class="dv">1</span> <span class="op">-</span><span class="st"> </span>samp<span class="op">$</span>cond_p)</span>
+<span id="cb3-2"><a href="irm.html#cb3-2"></a>samp<span class="op">$</span>Logits &lt;-<span class="st"> </span><span class="kw">log</span>(samp<span class="op">$</span>Odds)</span></code></pre></div>
+<table class="table" style="width: auto !important; ">
+<thead>
+<tr>
+<th style="text-align:center;">
+<span class="math inline">\(X\)</span>
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(P(Y = 1 | X)\)</span>
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(Odds\)</span>
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(Logits\)</span>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;">
+1
+</td>
+<td style="text-align:center;">
+.33
+</td>
+<td style="text-align:center;">
+0.5
+</td>
+<td style="text-align:center;">
+-0.69
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+2
+</td>
+<td style="text-align:center;">
+.50
+</td>
+<td style="text-align:center;">
+1.0
+</td>
+<td style="text-align:center;">
+0.00
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+3
+</td>
+<td style="text-align:center;">
+.67
+</td>
+<td style="text-align:center;">
+2.0
+</td>
+<td style="text-align:center;">
+0.69
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+4
+</td>
+<td style="text-align:center;">
+.75
+</td>
+<td style="text-align:center;">
+3.0
+</td>
+<td style="text-align:center;">
+1.10
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+5
+</td>
+<td style="text-align:center;">
+.80
+</td>
+<td style="text-align:center;">
+4.0
+</td>
+<td style="text-align:center;">
+1.39
+</td>
+</tr>
+</tbody>
+</table>
+<p>Notice that when the probability is .50, the odds value is 1.00 and the logit is 0. Logits can be negative or positive, depending on whether the probability is above or below .50. Now we can use Logits as the dependent variable. If we plot our data, we can see that we can see that the Y axis is no longer categorical and that we can assume there is some degree of linearity between the predictor and the outcome variables.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="irm.html#cb4-1"></a><span class="kw">library</span>(ggplot2)</span>
+<span id="cb4-2"><a href="irm.html#cb4-2"></a><span class="kw">ggplot</span>(samp, <span class="kw">aes</span>(<span class="dt">x =</span> X, <span class="dt">y =</span> Logits)) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb4-3"><a href="irm.html#cb4-3"></a><span class="st">   </span><span class="kw">geom_smooth</span>() <span class="op">+</span><span class="st">   </span></span>
+<span id="cb4-4"><a href="irm.html#cb4-4"></a><span class="st">   </span><span class="kw">geom_jitter</span>(<span class="dt">height =</span> <span class="fl">.03</span>, <span class="dt">width =</span> <span class="fl">.03</span>, <span class="dt">color =</span> <span class="st">&quot;blue&quot;</span>) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb4-5"><a href="irm.html#cb4-5"></a><span class="st">   </span><span class="kw">labs</span>(<span class="dt">title=</span><span class="st">&quot;Dichotomous scores on a logit scale&quot;</span>)</span></code></pre></div>
+<p><img src="R-Examples-for-Measurement_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+<p>We can recover the probabilities from the logit scores using the <code>exp()</code> function to calculate <span class="math inline">\(\frac{e^{logits}}{1+e^{logits}}\)</span>.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="irm.html#cb5-1"></a>samp &lt;-<span class="st"> </span>samp <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb5-2"><a href="irm.html#cb5-2"></a><span class="st">   </span><span class="kw">mutate</span>(<span class="dt">p_back =</span> <span class="kw">exp</span>(Logits)<span class="op">/</span>(<span class="dv">1</span> <span class="op">+</span><span class="st"> </span><span class="kw">exp</span>(Logits)) )</span></code></pre></div>
+<table class="table" style="width: auto !important; ">
+<thead>
+<tr>
+<th style="text-align:center;">
+<span class="math inline">\(X\)</span>
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(P(Y = 1 | X)\)</span>
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(Odds\)</span>
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(Logits\)</span>
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(\frac{e^{logits}}{1+e^{logits}}\)</span>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;">
+1
+</td>
+<td style="text-align:center;">
+.33
+</td>
+<td style="text-align:center;">
+0.5
+</td>
+<td style="text-align:center;">
+-0.69
+</td>
+<td style="text-align:center;">
+.33
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+2
+</td>
+<td style="text-align:center;">
+.50
+</td>
+<td style="text-align:center;">
+1.0
+</td>
+<td style="text-align:center;">
+0.00
+</td>
+<td style="text-align:center;">
+.50
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+3
+</td>
+<td style="text-align:center;">
+.67
+</td>
+<td style="text-align:center;">
+2.0
+</td>
+<td style="text-align:center;">
+0.69
+</td>
+<td style="text-align:center;">
+.67
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+4
+</td>
+<td style="text-align:center;">
+.75
+</td>
+<td style="text-align:center;">
+3.0
+</td>
+<td style="text-align:center;">
+1.10
+</td>
+<td style="text-align:center;">
+.75
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+5
+</td>
+<td style="text-align:center;">
+.80
+</td>
+<td style="text-align:center;">
+4.0
+</td>
+<td style="text-align:center;">
+1.39
+</td>
+<td style="text-align:center;">
+.80
+</td>
+</tr>
+</tbody>
+</table>
+<table style="width:88%;">
+<colgroup>
+<col width="6%" />
+<col width="80%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td align="right"><br />
+</td>
+<td><img src="images/note.png" alt="Note" /><span style="color:gray"> <em><em>A note on <span class="math inline">\(e\)</span> and the natural log.</em></em> The mathematical constant <span class="math inline">\(e\)</span> has a value of approximately 2.71828. In R, we can use the exponential function, <code>exp(1)</code>, to get this number. If we apply the <code>exp()</code> function on another number, such as <span class="math inline">\(2\)</span>, the result will be 2.71828 to the power of that number. For example, <span class="math inline">\(\text{exp}(2) = 2.71828^{2} = 7.3890561\)</span>. If we have an exponentiated value and seek to get back to the original value, we can use the natural log. In R, the <code>log()</code> function uses base <span class="math inline">\(e\)</span> as the default, making it the natural log.<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a> So, with our example with the number <span class="math inline">\(2\)</span>, <span class="math inline">\(\text{log(}7.3890561\text{)} = 2\)</span>.</span></td>
+</tr>
+</tbody>
+</table>
+<p>This transformation of a dichotomous outcome variable into log-odds units is pretty much what logistic regression does with this equation:<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a>
+<span class="math display">\[ln\left(\frac{p}{1-p}\right) = b_0+b_1X\]</span>
+We can also obtain the predicted probability of Y = 1 given the values of X from the linear equation we used with logits:
+<span class="math display">\[P(Y = 1|X) = \frac{e^{(b_0+b_1X)}}{1+e^{(b_0+b_1X)}}\]</span></p>
+</div>
+<div id="logistic-item-response-models-with-dichotomous-data" class="section level2">
+<h2><span class="header-section-number">14.2</span> Logistic item response models with dichotomous data</h2>
+<p>The three fundamental logistic models in the IRT tradition for scoring dichotomous data are the one-parameter logistic (1PL), two-parameter logistic (2PL), and three-parameter logistic (3PL) models. In the Rasch tradition, a single model, the Rasch model, is applied to dichotomous data.</p>
+<p>The Rasch model and one-parameter logistic (1PL) model use the same logistic function, but Georg Rasch developed his measurement model directly using logistic functions, whereas the logistic IRT models were developed to find a computationally easier alternative to the normal ogive IRT model.<a href="#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a></p>
+<div id="the-rasch-and-1pl-models" class="section level3">
+<h3><span class="header-section-number">14.2.1</span> The Rasch and 1PL models</h3>
+<p>The 1PL and Rasch models provide a good starting point for understanding item parameters. We can think of them as latent logistic regression analyses, where item responses are predicted by the difference between two numbers: persons’ levels on the latent trait <span class="math inline">\((\theta)\)</span> and the item’s difficulty estimate (represented by the <span class="math inline">\(b\)</span> parameter). The <span class="math inline">\(\theta\)</span> variable and the <span class="math inline">\(b\)</span> parameter are logits and are on the same scale. Because theta can vary across persons, the subscript of theta, such as <span class="math inline">\(j\)</span>, refers to the person. The subscript of <span class="math inline">\(b\)</span>, such as <span class="math inline">\(i\)</span>, refers to the item.</p>
+<p>With the Rasch model, the probability that a person <span class="math inline">\(j\)</span>, with an ability of <span class="math inline">\(\theta\)</span> scores a 1 (rather than 0) on Item <span class="math inline">\(i\)</span>, given the difficulty of the item estimated by the <span class="math inline">\(b\)</span> parameter, is calculated using this equation:</p>
+<p><span class="math inline">\(P(X = 1|\theta_j, b_i) = \frac{e^{\theta_j - b_i}}{1+e^{\theta_j - b_i}}\)</span></p>
+<p>With the 1PL model, the same equation applies, but there is also a discrimination parameter <span class="math inline">\((a)\)</span> that is fixed to be the same across the items. The <span class="math inline">\(a\)</span> parameter is analogous to the pattern coefficients in a confirmatory factor analysis (CFA) model. If the 1PL model were estimated using categorical CFA, we would fix all of the pattern coefficients to be equal, as they are in an essentially tau-equivalent model. The 1PL equation is this:</p>
+<p><span class="math inline">\(P(X = 1|\theta_j, b_i) = \frac{e^{a(\theta_j - b_i)}}{1+e^{a(\theta_j - b_i)}} \text{,}\)</span></p>
+<p>Notice that the <span class="math inline">\(a\)</span> parameter is not subscripted, as it is the same across all of the items. If the Rasch model is used, <span class="math inline">\(a\)</span> is not estimated, but is set to 1.</p>
+</div>
+<div id="the-2pl-model" class="section level3">
+<h3><span class="header-section-number">14.2.2</span> The 2PL model</h3>
+<p>In the 2PL model, we estimate the discrimination parameter for each item. The equation to estimate persons’ probabilities of providing a correct response given their ability level <span class="math inline">\((\theta_j)\)</span>, the item difficulty <span class="math inline">\((b_i)\)</span>, and item discrimination <span class="math inline">\((a_i)\)</span>, is this:
+<span class="math display">\[P(X = 1|\theta_j, b_i, a_i) = \frac{e^{a_i(\theta_j - b_i)}}{1+e^{a_i(\theta_j - b_i)}}\]</span></p>
+</div>
+<div id="the-3pl-model" class="section level3">
+<h3><span class="header-section-number">14.2.3</span> The 3PL model</h3>
+<p>The 3PL model includes the 2PL model with an additional guessing parameter <span class="math inline">\((c)\)</span>. The probability that person <span class="math inline">\(j\)</span>, having an ability of <span class="math inline">\(\theta_j\)</span>, will score a 1 (rather than 0) on Item <span class="math inline">\(i\)</span>, given the item’s difficulty <span class="math inline">\((b_i)\)</span>, discrimination <span class="math inline">\((a_i)\)</span>, and guessing <span class="math inline">\((c_i)\)</span> parameters, is</p>
+<p><span class="math inline">\(P(X = 1|\theta_j, b_i, a_i, c_i) = c_i+(1-c_i)\frac{e^{a_i(\theta_j - b_i)}}{1+e^{a_i(\theta_j - b_i)}} \text{.}\)</span></p>
+<p>The guessing parameter adds a lower asymptote, which means the probability can only go as low as <span class="math inline">\(c_i\)</span> regardless of how low an estimated <span class="math inline">\(\theta\)</span> is. We can then think of this as fitting the 2PL model based on what is leftover after account for guessing (i.e., <span class="math inline">\(1 – c_i\)</span>). For instance, if the model estimated <span class="math inline">\(c_i\)</span> to be .25 on the 0-to-1 probability scale, the 2PL model then estimates the probability of correctly responding, which is somewhere between .25 and 1.00, after accounting for this guessing.</p>
+</div>
+<div id="item-response-functions" class="section level3">
+<h3><span class="header-section-number">14.2.4</span> Item response functions</h3>
+<p>These Rasch and IRT equations are item response functions (IRFs). IRFs are also called item characteristic curves (ICCs). We can plot an item’s IRF across a range of <span class="math inline">\(\theta\)</span>s to see how the item is modeled to function at different levels of person ability.</p>
+<p>Most IRT software prints IRFs, but not always. If we need to, we can use the item parameters from the IRT output and generate our own plots. Often, we estimate item parameters, which we will do later. However, sometimes authors publish them, permitting us to analyze the items’ functioning. Let’s use the item parameters presented in Table 14.1 of Bandalos [cite Bandalos]. These are a 3PL model.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="irm.html#cb6-1"></a>abc&lt;-<span class="st"> </span><span class="kw">matrix</span>(</span>
+<span id="cb6-2"><a href="irm.html#cb6-2"></a>       <span class="kw">c</span>( <span class="dv">1</span>, <span class="fl">2.0</span>, <span class="fl">-1.8</span>, <span class="fl">0.1</span>,</span>
+<span id="cb6-3"><a href="irm.html#cb6-3"></a>          <span class="dv">2</span>, <span class="fl">1.0</span>, <span class="fl">-1.4</span>, <span class="fl">0.2</span>,</span>
+<span id="cb6-4"><a href="irm.html#cb6-4"></a>          <span class="dv">3</span>, <span class="fl">0.8</span>, <span class="fl">-1.0</span>, <span class="fl">0.1</span>,</span>
+<span id="cb6-5"><a href="irm.html#cb6-5"></a>          <span class="dv">4</span>, <span class="fl">1.5</span>, <span class="fl">-0.6</span>, <span class="fl">0.2</span>,</span>
+<span id="cb6-6"><a href="irm.html#cb6-6"></a>          <span class="dv">5</span>, <span class="fl">2.1</span>, <span class="fl">-0.2</span>, <span class="fl">0.1</span>,</span>
+<span id="cb6-7"><a href="irm.html#cb6-7"></a>          <span class="dv">6</span>, <span class="fl">1.2</span>,  <span class="fl">0.2</span>, <span class="fl">0.2</span>,</span>
+<span id="cb6-8"><a href="irm.html#cb6-8"></a>          <span class="dv">7</span>, <span class="fl">0.8</span>,  <span class="fl">0.6</span>, <span class="fl">0.1</span>,</span>
+<span id="cb6-9"><a href="irm.html#cb6-9"></a>          <span class="dv">8</span>, <span class="fl">2.3</span>,  <span class="fl">1.0</span>, <span class="fl">0.2</span>,</span>
+<span id="cb6-10"><a href="irm.html#cb6-10"></a>          <span class="dv">9</span>, <span class="fl">1.0</span>,  <span class="fl">1.4</span>, <span class="fl">0.1</span>,</span>
+<span id="cb6-11"><a href="irm.html#cb6-11"></a>         <span class="dv">10</span>, <span class="fl">1.4</span>,  <span class="fl">1.8</span>, <span class="fl">0.2</span>), </span>
+<span id="cb6-12"><a href="irm.html#cb6-12"></a>       <span class="dt">ncol =</span> <span class="dv">4</span>, <span class="dt">byrow =</span> <span class="ot">TRUE</span>)</span>
+<span id="cb6-13"><a href="irm.html#cb6-13"></a><span class="kw">colnames</span>(abc) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Item&quot;</span>, <span class="st">&quot;a&quot;</span>, <span class="st">&quot;b&quot;</span>, <span class="st">&quot;c&quot;</span>)</span>
+<span id="cb6-14"><a href="irm.html#cb6-14"></a>Itemabc &lt;-<span class="st"> </span><span class="kw">data.frame</span>(abc)</span>
+<span id="cb6-15"><a href="irm.html#cb6-15"></a>Itemabc</span></code></pre></div>
+<table class="table" style="width: auto !important; ">
+<thead>
+<tr>
+<th style="text-align:right;">
+Item
+</th>
+<th style="text-align:right;">
+a
+</th>
+<th style="text-align:right;">
+b
+</th>
+<th style="text-align:right;">
+c
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+2.0
+</td>
+<td style="text-align:right;">
+-1.8
+</td>
+<td style="text-align:right;">
+0.1
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+1.0
+</td>
+<td style="text-align:right;">
+-1.4
+</td>
+<td style="text-align:right;">
+0.2
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+0.8
+</td>
+<td style="text-align:right;">
+-1.0
+</td>
+<td style="text-align:right;">
+0.1
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:right;">
+1.5
+</td>
+<td style="text-align:right;">
+-0.6
+</td>
+<td style="text-align:right;">
+0.2
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:right;">
+2.1
+</td>
+<td style="text-align:right;">
+-0.2
+</td>
+<td style="text-align:right;">
+0.1
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+6
+</td>
+<td style="text-align:right;">
+1.2
+</td>
+<td style="text-align:right;">
+0.2
+</td>
+<td style="text-align:right;">
+0.2
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+7
+</td>
+<td style="text-align:right;">
+0.8
+</td>
+<td style="text-align:right;">
+0.6
+</td>
+<td style="text-align:right;">
+0.1
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+8
+</td>
+<td style="text-align:right;">
+2.3
+</td>
+<td style="text-align:right;">
+1.0
+</td>
+<td style="text-align:right;">
+0.2
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+9
+</td>
+<td style="text-align:right;">
+1.0
+</td>
+<td style="text-align:right;">
+1.4
+</td>
+<td style="text-align:right;">
+0.1
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+10
+</td>
+<td style="text-align:right;">
+1.4
+</td>
+<td style="text-align:right;">
+1.8
+</td>
+<td style="text-align:right;">
+0.2
+</td>
+</tr>
+</tbody>
+</table>
+<p>We can plot the probability of getting the item correct for each theta level using the ggplot2 package. Some packages provide these plots for us, and we will use them. Using ggplot gives us freedom in how we format our plots, which we might prefer when we prepare our work for publication.</p>
+<div id="creating-the-data-frame-for-plotting-the-irfs" class="section level4">
+<h4><span class="header-section-number">14.2.4.1</span> Creating the data frame for plotting the IRFs</h4>
+<p>To generate ggplots of IRFs, we have to create a data frame that has a long format. In this data frame, each item will have a range of theta values, let’s say from -4 to +4. This means there will be many rows of data for that particular item. Then, for each theta value, we will calculate the probability, using the item response function. Let’s plot all the items’ ICCs on a single facet plot.</p>
+<p>First, let’s create a set of theta values, from -4 to 4 by increments of 0.10. We can use the sequence function, <code>seq()</code>, do this this.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="irm.html#cb7-1"></a>theta &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dt">from =</span> <span class="dv">-4</span>, <span class="dt">to =</span> <span class="dv">4</span>, <span class="dt">by =</span> <span class="fl">.1</span>)</span>
+<span id="cb7-2"><a href="irm.html#cb7-2"></a><span class="kw">length</span>(theta)</span></code></pre></div>
+<pre><code>## [1] 81</code></pre>
+<p>We see that we created a vector that has 81 values. Next, we can plug these values into a data frame with our item parameters.</p>
+<p>There’s a function in tidyverse’s dplyr package called <code>slice()</code> that lets us select rows. This is similar to <code>filter()</code>, which we used before, but with <code>slice()</code> we can use the row number in the indexing. For example, if we use <code>slice(Itemabc, c(1,3))</code>, we get Rows 1 and 3. We can also use this to duplicate the rows. For instance, if we use <code>slice(Itemabc, c(3,3))</code>, we will get 2 rows that are copies of Row 3 in our original Itemabc data. We can use this in combination with the replicate function, <code>rep()</code>. The <code>rep()</code> function has an <code>each =</code> argument. This replicates each row the number of times we specify before it goes to the next number. For example, <code>slice(Itemabc, rep(3:4, each = 2))</code> repeats Rows 3 and 4 two times.<a href="#fn5" class="footnote-ref" id="fnref5"><sup>5</sup></a></p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="irm.html#cb9-1"></a><span class="kw">library</span>(dplyr)</span>
+<span id="cb9-2"><a href="irm.html#cb9-2"></a><span class="kw">slice</span>(Itemabc, <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">3</span>)) <span class="co"># This gives us the first and third row.</span></span></code></pre></div>
+<pre><code>##   Item   a    b   c
+## 1    1 2.0 -1.8 0.1
+## 2    3 0.8 -1.0 0.1</code></pre>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="irm.html#cb11-1"></a><span class="kw">slice</span>(Itemabc, <span class="kw">c</span>(<span class="dv">3</span>,<span class="dv">3</span>)) <span class="co"># This gives us two copies of the third row.</span></span></code></pre></div>
+<pre><code>##   Item   a  b   c
+## 1    3 0.8 -1 0.1
+## 2    3 0.8 -1 0.1</code></pre>
+<p>The following code returns Rows 3 and 4, each having two replicates. We will use this type of code to create our long data frame. When we do that, the length of our replicates will be the number of values in our <code>theta</code> object that we just created because we will use <code>each = length(theta)</code> as the argument.</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="irm.html#cb13-1"></a><span class="kw">slice</span>(Itemabc, <span class="kw">rep</span>(<span class="dv">3</span><span class="op">:</span><span class="dv">4</span>, <span class="dt">each =</span> <span class="dv">2</span>)) </span></code></pre></div>
+<pre><code>##   Item   a    b   c
+## 1    3 0.8 -1.0 0.1
+## 2    3 0.8 -1.0 0.1
+## 3    4 1.5 -0.6 0.2
+## 4    4 1.5 -0.6 0.2</code></pre>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="irm.html#cb15-1"></a><span class="kw">library</span>(dplyr)</span>
+<span id="cb15-2"><a href="irm.html#cb15-2"></a>icc_dat &lt;-<span class="st"> </span>Itemabc <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb15-3"><a href="irm.html#cb15-3"></a><span class="st">   </span><span class="kw">slice</span>(<span class="kw">rep</span>(<span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(Itemabc), <span class="dt">each =</span> <span class="kw">length</span>(theta))) </span>
+<span id="cb15-4"><a href="irm.html#cb15-4"></a><span class="kw">str</span>(icc_dat)</span></code></pre></div>
+<pre><code>## &#39;data.frame&#39;:    810 obs. of  4 variables:
+##  $ Item: num  1 1 1 1 1 1 1 1 1 1 ...
+##  $ a   : num  2 2 2 2 2 2 2 2 2 2 ...
+##  $ b   : num  -1.8 -1.8 -1.8 -1.8 -1.8 -1.8 -1.8 -1.8 -1.8 -1.8 ...
+##  $ c   : num  0.1 0.1 0.1 0.1 0.1 0.1 0.1 0.1 0.1 0.1 ...</code></pre>
+<p>Now, let’s add new columns to the data. We use dplyr’s <code>mutate()</code> function for this. We’ll create a column called theta, which will include the values from our <code>theta</code> object, replicated across each item. For this we use the <code>times =</code> argument so it gets repeated for the number of items we have in our <code>Itemabc</code> data frame.</p>
+<p>Now we get to the whole point of this: We estimate the probability of getting a correct response using the item response function. For the 3PL model, this is <code>p = c + (1-c)*exp(a*(theta - b)) / (1 + exp(a*(theta - b)) )</code>.</p>
+<p>The last two lines are for making our plot nice. Here, we include another column, <code>Item_params</code> for the plot label. This is optional, but we can use it to display the item parameters when we print the plot. In the last line, we specify this column to be a factor, with the levels being in the order of the items. This will make the plots be presented in the order of the items rather than in alpha-numeric order.</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="irm.html#cb17-1"></a><span class="kw">library</span>(dplyr)</span>
+<span id="cb17-2"><a href="irm.html#cb17-2"></a>icc_dat &lt;-<span class="st"> </span>Itemabc <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb17-3"><a href="irm.html#cb17-3"></a><span class="st">   </span><span class="kw">slice</span>(<span class="kw">rep</span>(<span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(Itemabc), <span class="dt">each =</span> <span class="kw">length</span>(theta))) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb17-4"><a href="irm.html#cb17-4"></a><span class="st">   </span><span class="kw">mutate</span>(<span class="dt">theta =</span> <span class="kw">rep</span>(theta, <span class="dt">times =</span> <span class="kw">length</span>(Itemabc<span class="op">$</span>Item)),</span>
+<span id="cb17-5"><a href="irm.html#cb17-5"></a>              <span class="dt">p =</span> c <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span><span class="op">-</span>c)<span class="op">*</span><span class="kw">exp</span>(a<span class="op">*</span>(theta <span class="op">-</span><span class="st"> </span>b)) <span class="op">/</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">+</span><span class="st"> </span><span class="kw">exp</span>(a<span class="op">*</span>(theta <span class="op">-</span><span class="st"> </span>b)) ),</span>
+<span id="cb17-6"><a href="irm.html#cb17-6"></a>    <span class="dt">Item_params =</span> <span class="kw">paste0</span>(<span class="st">&quot;Item &quot;</span>,Item,<span class="st">&quot;, a = &quot;</span>,a,<span class="st">&quot;, b = &quot;</span>,b,<span class="st">&quot;, c = &quot;</span>,c))</span>
+<span id="cb17-7"><a href="irm.html#cb17-7"></a></span>
+<span id="cb17-8"><a href="irm.html#cb17-8"></a>icc_dat<span class="op">$</span>Item_params &lt;-<span class="st"> </span><span class="kw">factor</span>(icc_dat<span class="op">$</span>Item_params, </span>
+<span id="cb17-9"><a href="irm.html#cb17-9"></a>                              <span class="dt">levels =</span> <span class="kw">unique</span>(icc_dat<span class="op">$</span>Item_params) )</span>
+<span id="cb17-10"><a href="irm.html#cb17-10"></a><span class="kw">str</span>(icc_dat)</span></code></pre></div>
+<table class="table" style="width: auto !important; ">
+<thead>
+<tr>
+<th style="text-align:right;">
+Item
+</th>
+<th style="text-align:right;">
+a
+</th>
+<th style="text-align:right;">
+b
+</th>
+<th style="text-align:right;">
+c
+</th>
+<th style="text-align:right;">
+theta
+</th>
+<th style="text-align:right;">
+p
+</th>
+<th style="text-align:left;">
+Item_params
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+-1.8
+</td>
+<td style="text-align:right;">
+0.1
+</td>
+<td style="text-align:right;">
+-4.0
+</td>
+<td style="text-align:right;">
+0.1109156
+</td>
+<td style="text-align:left;">
+Item 1, a = 2, b = -1.8, c = 0.1
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+-1.8
+</td>
+<td style="text-align:right;">
+0.1
+</td>
+<td style="text-align:right;">
+-3.9
+</td>
+<td style="text-align:right;">
+0.1132966
+</td>
+<td style="text-align:left;">
+Item 1, a = 2, b = -1.8, c = 0.1
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+-1.8
+</td>
+<td style="text-align:right;">
+0.1
+</td>
+<td style="text-align:right;">
+-3.8
+</td>
+<td style="text-align:right;">
+0.1161876
+</td>
+<td style="text-align:left;">
+Item 1, a = 2, b = -1.8, c = 0.1
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+-1.8
+</td>
+<td style="text-align:right;">
+0.1
+</td>
+<td style="text-align:right;">
+-3.7
+</td>
+<td style="text-align:right;">
+0.1196931
+</td>
+<td style="text-align:left;">
+Item 1, a = 2, b = -1.8, c = 0.1
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+-1.8
+</td>
+<td style="text-align:right;">
+0.1
+</td>
+<td style="text-align:right;">
+-3.6
+</td>
+<td style="text-align:right;">
+0.1239373
+</td>
+<td style="text-align:left;">
+Item 1, a = 2, b = -1.8, c = 0.1
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+-1.8
+</td>
+<td style="text-align:right;">
+0.1
+</td>
+<td style="text-align:right;">
+-3.5
+</td>
+<td style="text-align:right;">
+0.1290659
+</td>
+<td style="text-align:left;">
+Item 1, a = 2, b = -1.8, c = 0.1
+</td>
+</tr>
+</tbody>
+</table>
+<p>Now we can generate a facet plot.</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="irm.html#cb18-1"></a><span class="kw">library</span>(ggplot2)</span>
+<span id="cb18-2"><a href="irm.html#cb18-2"></a><span class="kw">library</span>(gridExtra)</span>
+<span id="cb18-3"><a href="irm.html#cb18-3"></a></span>
+<span id="cb18-4"><a href="irm.html#cb18-4"></a>ICCs &lt;-<span class="st"> </span><span class="kw">ggplot</span>(icc_dat, <span class="kw">aes</span>(<span class="dt">x =</span> theta, <span class="dt">y =</span> p, <span class="dt">group =</span> Item)) <span class="op">+</span><span class="st">  </span></span>
+<span id="cb18-5"><a href="irm.html#cb18-5"></a><span class="st">    </span><span class="kw">geom_line</span>()  </span>
+<span id="cb18-6"><a href="irm.html#cb18-6"></a>ICCs <span class="op">+</span><span class="st"> </span><span class="kw">facet_wrap</span>(. <span class="op">~</span><span class="st"> </span>Item_params, <span class="dt">nrow =</span> <span class="dv">4</span> )</span></code></pre></div>
+<p><img src="R-Examples-for-Measurement_files/figure-html/unnamed-chunk-19-1.png" width="748.8" /></p>
+</div>
+</div>
+<div id="test-characteristic-curve" class="section level3">
+<h3><span class="header-section-number">14.2.5</span> Test characteristic curve</h3>
+<p>With a test having dichotomously scored items, a person’s expected raw score can be calculated as the sum of the <span class="math inline">\(P(X_i)\)</span>, given <span class="math inline">\(\theta\)</span> of that person and any of the item’s parameters. For the 3PL model, the expected raw score of Person <span class="math inline">\(j\)</span> on the test is</p>
+<p><span class="math display">\[\sum P(X = 1 | \theta_j, b_i, a_i, c_i) \text{.}\]</span>
+The possible range of expected raw scores is from <span class="math inline">\(0\)</span> to the number of items. We can generate a test characteristic curve (TCC) across a range of thetas in the same way as the ICC is drawn. Using the dplyr package’s <code>group_by()</code> function, we can group the data by the theta score, then add up all the values in the column in our data that include the probability (i.e, <code>p</code> in our data). We use the <code>summarize()</code> function for this, with the <code>sum(p)</code>.<a href="#fn6" class="footnote-ref" id="fnref6"><sup>6</sup></a></p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="irm.html#cb19-1"></a><span class="kw">library</span>(dplyr)</span>
+<span id="cb19-2"><a href="irm.html#cb19-2"></a>TCCs &lt;-<span class="st"> </span>icc_dat <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb19-3"><a href="irm.html#cb19-3"></a><span class="st">   </span><span class="kw">group_by</span>(theta) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb19-4"><a href="irm.html#cb19-4"></a><span class="st">   </span><span class="kw">summarize</span>(<span class="dt">Est_score =</span> <span class="kw">sum</span>(p), <span class="dt">.groups =</span> <span class="st">&#39;drop&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="irm.html#cb20-1"></a><span class="kw">library</span>(ggplot2)</span>
+<span id="cb20-2"><a href="irm.html#cb20-2"></a><span class="kw">ggplot</span>(TCCs, <span class="kw">aes</span>(<span class="dt">x =</span> theta, <span class="dt">y =</span> Est_score, <span class="dt">group =</span> <span class="dv">1</span>)) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb20-3"><a href="irm.html#cb20-3"></a><span class="st">   </span><span class="kw">geom_line</span>() <span class="op">+</span></span>
+<span id="cb20-4"><a href="irm.html#cb20-4"></a><span class="st">   </span><span class="kw">xlab</span>(<span class="st">&quot;Theta&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">ylab</span>(<span class="st">&quot;Estimated total score&quot;</span>) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb20-5"><a href="irm.html#cb20-5"></a><span class="st">   </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Test Characteristic Curve&quot;</span>)</span></code></pre></div>
+<p><img src="R-Examples-for-Measurement_files/figure-html/unnamed-chunk-21-1.png" width="672" /></p>
+<p>The test characteristic curve shows the connection between the latent-trait scores and the observed scores on the test. In other words, we can translate IRT scores back to the scale of the test. If we need to communicate to other people what a latent trait score is, we can use this function.
+<!-- # ```{r} -->
+<!-- # library(dplyr) -->
+<!-- # TCCs %>% filter(theta >= 1.5 & theta <= 2) -->
+<!-- # ``` --></p>
+</div>
+<div id="information-and-standard-error" class="section level3">
+<h3><span class="header-section-number">14.2.6</span> Information and standard error</h3>
+<div id="item-information" class="section level4">
+<h4><span class="header-section-number">14.2.6.1</span> Item information</h4>
+<p>Item information functions are valuable for locating where on the theta scale our item is most sensitive and therefore better equipped for distinguishing examinees. For example, if we have a very easy item, it will be better at distinguishing among examinees at the lower end of the latent trait scale than it will at distinguishing among examinees at higher end. If we hypothesize, based on our guiding subject-matter theory, that an item is difficult at a particular range on the latent=variable scale, we can examine if indeed the item provides information at that range.</p>
+<p>With a 3PL model, we can calculate the information function using the equation in Baker <span class="citation">(Baker, <a href="#ref-baker_basics_2001" role="doc-biblioref">2001</a>)</span>:<a href="#fn7" class="footnote-ref" id="fnref7"><sup>7</sup></a></p>
+<p><span class="math display">\[I_{i|(\theta)} = a^2_i\frac{Q_{i|(\theta)}}{P_{i|(\theta)}}\frac{(P_{i|(\theta)} - c_i)^2}{(1 - c_i)^2}\]</span>
+where <span class="math inline">\(P_{i|(\theta)}\)</span> is the probability of getting item <span class="math inline">\(i\)</span> correct at a given a level on the latent-trait (<span class="math inline">\(\theta\)</span>), and <span class="math inline">\(q_{i|(\theta)} = 1 - p_{i|(\theta)}\)</span>.</p>
+<p>With a 2PL model, <span class="math inline">\(c_i = 0\)</span>, which reduces the equation to</p>
+<p><span class="math display">\[I_{i|(\theta)} = a^2_iP_{i|(\theta)}Q_{i|(\theta)} \text{.}\]</span></p>
+<p>When the <span class="math inline">\(a\)</span> parameter is set to 1, such as with the Rasch model, the information function is
+<span class="math display">\[I_{i(\theta)} = P_{i|(\theta)}Q_{i|(\theta)} \text{.}\]</span>
+If we recall back to our chapter on variance and covariance, this equation is analogous to the variance of a dichotomous variable, <span class="math inline">\(pq\)</span>. In item-response modeling, we have taken this one step further and estimated the variance at the location of theta.</p>
+</div>
+<div id="test-information" class="section level4">
+<h4><span class="header-section-number">14.2.6.2</span> Test information</h4>
+<p>At any given level of <span class="math inline">\(\theta\)</span>, the information from individual items accumulates. If we intend to use the test scores to make decisions or distinguish among examinees around a particular cut score, such as for identifying who needs further assistance, or for identifying who has sufficient knowledge for licensure, we should examine the precision of our scores at that level. The test information curve, which is the sum of the item information curves, serves this purpose.</p>
+<p><span class="math display">\[I_{(\theta)} = \sum I_{i|(\theta)}\]</span></p>
+</div>
+<div id="the-standard-error-of-measurement-1" class="section level4">
+<h4><span class="header-section-number">14.2.6.3</span> The standard error of measurement</h4>
+<p>The error variance at a given level of theta is the inverse of the test information function:
+<span class="math display">\[ErrorVar_{(\theta)} = \frac{1}{I_{(\theta)}}\]</span></p>
+<p>The standard error of measurement is the square root of this:
+<span class="math display">\[SE_{(\theta)} = \frac{1}{\sqrt{I_{(\theta)}}}\]</span></p>
+</div>
+</div>
+<div id="plotting-information-and-the-standard-error-of-measurement" class="section level3">
+<h3><span class="header-section-number">14.2.7</span> Plotting information and the standard error of measurement</h3>
+<p>Because we know the item parameters and the probability across a range of thetas, We can include the item information functions in our data frame and plot them.</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="irm.html#cb21-1"></a><span class="kw">library</span>(dplyr)</span>
+<span id="cb21-2"><a href="irm.html#cb21-2"></a>icc_dat &lt;-<span class="st"> </span>Itemabc <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb21-3"><a href="irm.html#cb21-3"></a><span class="st">   </span><span class="kw">slice</span>(<span class="kw">rep</span>(<span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(Itemabc), <span class="dt">each =</span> <span class="kw">length</span>(theta))) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb21-4"><a href="irm.html#cb21-4"></a><span class="st">   </span><span class="kw">mutate</span>(<span class="dt">theta =</span> <span class="kw">rep</span>(theta, <span class="dt">times =</span> <span class="kw">length</span>(Itemabc<span class="op">$</span>Item)),</span>
+<span id="cb21-5"><a href="irm.html#cb21-5"></a>              <span class="dt">p =</span> c <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span><span class="op">-</span>c)<span class="op">*</span><span class="kw">exp</span>(a<span class="op">*</span>(theta <span class="op">-</span><span class="st"> </span>b)) <span class="op">/</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">+</span><span class="st"> </span><span class="kw">exp</span>(a<span class="op">*</span>(theta <span class="op">-</span><span class="st"> </span>b)) ),</span>
+<span id="cb21-6"><a href="irm.html#cb21-6"></a>              <span class="dt">q =</span> (<span class="dv">1</span><span class="op">-</span>p),</span>
+<span id="cb21-7"><a href="irm.html#cb21-7"></a>    <span class="dt">information =</span> a<span class="op">^</span><span class="dv">2</span><span class="op">*</span>(q<span class="op">/</span>p)<span class="op">*</span>((p <span class="op">-</span><span class="st"> </span>c)<span class="op">^</span><span class="dv">2</span>)<span class="op">/</span>((<span class="dv">1</span><span class="op">-</span>c)<span class="op">^</span><span class="dv">2</span>),</span>
+<span id="cb21-8"><a href="irm.html#cb21-8"></a>    <span class="dt">Item_params =</span> <span class="kw">paste0</span>(<span class="st">&quot;Item &quot;</span>,Item,<span class="st">&quot;, a = &quot;</span>,a,<span class="st">&quot;, b = &quot;</span>,b,<span class="st">&quot;, c = &quot;</span>,c))</span>
+<span id="cb21-9"><a href="irm.html#cb21-9"></a>icc_dat<span class="op">$</span>Item_params &lt;-<span class="st"> </span><span class="kw">factor</span>(icc_dat<span class="op">$</span>Item_params, </span>
+<span id="cb21-10"><a href="irm.html#cb21-10"></a>                              <span class="dt">levels =</span> <span class="kw">unique</span>(icc_dat<span class="op">$</span>Item_params) )</span>
+<span id="cb21-11"><a href="irm.html#cb21-11"></a><span class="co"># str(icc_dat)</span></span></code></pre></div>
+<p>We can use the same <code>ggplot()</code> and <code>facet_wrap()</code> functions as before and add a new <code>geom_line()</code> for the information, <code>geom_line(aes(y = information))</code>. This adds a new line that plots the X axis already in place (theta) with the new variable (<code>information</code>), which is on the same scale as the conditional probability estimates on the Y axis. We can change its color and line type to distinguish it from the item response curves.</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="irm.html#cb22-1"></a><span class="kw">library</span>(ggplot2)</span>
+<span id="cb22-2"><a href="irm.html#cb22-2"></a><span class="kw">library</span>(gridExtra)</span>
+<span id="cb22-3"><a href="irm.html#cb22-3"></a>ICCs &lt;-<span class="st"> </span><span class="kw">ggplot</span>(icc_dat, <span class="kw">aes</span>(<span class="dt">x =</span> theta, <span class="dt">y =</span> p, <span class="dt">group =</span> Item)) <span class="op">+</span><span class="st">  </span></span>
+<span id="cb22-4"><a href="irm.html#cb22-4"></a><span class="st">    </span><span class="kw">geom_line</span>() <span class="op">+</span><span class="st"> </span></span>
+<span id="cb22-5"><a href="irm.html#cb22-5"></a><span class="st">    </span><span class="kw">xlab</span>(<span class="st">&quot;Theta&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">ylab</span>(<span class="st">&quot;Probability&quot;</span>) <span class="op">+</span></span>
+<span id="cb22-6"><a href="irm.html#cb22-6"></a><span class="st">    </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">y =</span> information), <span class="dt">color =</span> <span class="st">&quot;blue&quot;</span>, <span class="dt">linetype =</span> <span class="st">&quot;dashed&quot;</span>) </span>
+<span id="cb22-7"><a href="irm.html#cb22-7"></a>ICCs <span class="op">+</span><span class="st"> </span><span class="kw">facet_wrap</span>(. <span class="op">~</span><span class="st"> </span>Item_params, <span class="dt">nrow =</span> <span class="dv">4</span>)</span></code></pre></div>
+<p><img src="R-Examples-for-Measurement_files/figure-html/unnamed-chunk-23-1.png" width="748.8" /></p>
+<p>With the 2PL and 3PL models, low discrimination parameter values can result in platykurtic information functions. High discriminations yield leptokurtic information, making them very sensitive at some regions of theta and very insensitive at others. Because Rasch models do not use the discrimination parameter (effectively fix <span class="math inline">\(a\)</span> to 1), item information functions are mesokurtic and always peak at <span class="math inline">\(p = .25\)</span>, where <span class="math inline">\(P_{i|(\theta)} = .50\)</span></p>
+<p>For the test information, we can sum the items’ information functions at each theta, then plot the result to acquire the test information function. We can also plot the standard error.</p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="irm.html#cb23-1"></a><span class="kw">library</span>(dplyr)</span>
+<span id="cb23-2"><a href="irm.html#cb23-2"></a>Test_info &lt;-<span class="st"> </span>icc_dat <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb23-3"><a href="irm.html#cb23-3"></a><span class="st">   </span><span class="kw">group_by</span>(theta) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb23-4"><a href="irm.html#cb23-4"></a><span class="st">   </span><span class="kw">summarize</span>(<span class="dt">Info =</span> <span class="kw">sum</span>(information), <span class="dt">.groups =</span> <span class="st">&#39;drop&#39;</span>)</span>
+<span id="cb23-5"><a href="irm.html#cb23-5"></a>Test_info<span class="op">$</span>SEm &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">/</span><span class="kw">sqrt</span>(Test_info<span class="op">$</span>Info)</span></code></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="irm.html#cb24-1"></a><span class="co"># ggplot(Test_info, aes(x = theta, y = Info)) +</span></span>
+<span id="cb24-2"><a href="irm.html#cb24-2"></a><span class="co">#    geom_line(color = &quot;blue&quot;) +</span></span>
+<span id="cb24-3"><a href="irm.html#cb24-3"></a><span class="co">#    geom_line(aes(y = SEm), color = &quot;brown&quot;, linetype = &quot;dashed&quot;) +</span></span>
+<span id="cb24-4"><a href="irm.html#cb24-4"></a><span class="co">#    # ylim(c(0, 1.3*max(Test_info$Info))) +</span></span>
+<span id="cb24-5"><a href="irm.html#cb24-5"></a><span class="co">#    xlab(&quot;Theta&quot;) + ylab(&quot;Information&quot;) +</span></span>
+<span id="cb24-6"><a href="irm.html#cb24-6"></a><span class="co">#    labs(title = &quot;Test Information&quot;, subtitle = &quot;(and standard errror)&quot;)</span></span></code></pre></div>
+<p>We see that the error is much higher at the lower and upper ends of the scale, which is not surprising. We should probably avoid trying to distinguish among examinees at these locations on the theta scale, as their scores are less stable. In other words, the estimates of their level on the latent trait scale are less precise than their counterparts where the information is high.</p>
+</div>
+</div>
+<div id="fitting-a-1pl-model" class="section level2">
+<h2><span class="header-section-number">14.3</span> Fitting a 1PL model</h2>
+<p>—under construction—</p>
+</div>
+<div id="checking-assumptions" class="section level2">
+<h2><span class="header-section-number">14.4</span> Checking assumptions</h2>
+<p>—under construction—</p>
+<p>There are two assumptions with IRT and Rasch models: The assumption of unidimensionality and the assumption of local independence. These are closely related. When the assumption of unidimensionality has been met, we can safely bet that local independence has, too.</p>
+<p>Another set of assumptions concerns the functional form of the data. In the IRT tradition, this helps analysts to determine whether to use a 1PL, 2PL, or 3PL model. In both the IRT and Rasch traditions, we examine item fit.<a href="#fn8" class="footnote-ref" id="fnref8"><sup>8</sup></a></p>
+<div id="unidimensionality" class="section level3">
+<h3><span class="header-section-number">14.4.1</span> Unidimensionality</h3>
+<p>—under construction—</p>
+<p>One way to examine unidimensionality is to use the same procedures that are used to detect the number of factors to retain in exploratory factor analysis. That is, we can transform the data into a tetrachoric correlation matrix (or a polychoric correlation matrix, with polytomous data) and use the parallel analysis and a scree plot to determine whether a single factor model is appropriate. Most data will show some degree of multidimensionality, so may be a matter of degree that requires judgment. One additional source for evaluating the influence of a second factor is the proportion of variance explained by the first and second factors, as is typically reported in EFA. We can also examine the ratio of the first eigenvalue to the second [cite Lumsden, 1976]. If this ratio is 4 or higher, we can be more confident that the theta scores in IRT will primarily be from that first dimension.</p>
+
+</div>
+</div>
+</div>
+<h3>References</h3>
+<div id="refs" class="references">
+<div id="ref-baker_basics_2001">
+<p>Baker, F. B. (2001). <em>The basics of item response theory</em> (Second). ERIC Clearinghouse on Assessment; Evaluation.</p>
+</div>
+<div id="ref-masters_rasch_1982">
+<p>Masters, G. N. (1982). A Rasch model for partial credit scoring. <em>Psychometrika</em>, <em>47</em>(2), 149–174. <a href="https://doi.org/10.1007/BF02296272">https://doi.org/10.1007/BF02296272</a></p>
+</div>
+<div id="ref-samejima_estimation_1969">
+<p>Samejima, F. (1969). Estimation of latent ability using a response pattern of graded scores. <em>Psychometrika Monograph No. 17</em>. <a href="https://doi.org/10.1007/BF03372160">https://doi.org/10.1007/BF03372160</a></p>
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="1">
+<li id="fn1"><p>Here we’re using <code>geom_jitter()</code> instead of <code>geom_point()</code> because otherwise, a single observation and multiple observations at the same location on the plot would look the same. With jittering, we can spread them out to get an idea of many observations are at each location on the plot.<a href="irm.html#fnref1" class="footnote-back">↩︎</a></p></li>
+<li id="fn2"><p>If we seek to use base 10, we can specify the argument <code>base = 10</code>.<a href="irm.html#fnref2" class="footnote-back">↩︎</a></p></li>
+<li id="fn3"><p>Beyond this example, logistic regression estimates the standard errors differently than does regular ordinary-least-squares regression. Logistic regression also uses maximum likelihood estimation instead of the simple conditional-probability transformation we conducted.<a href="irm.html#fnref3" class="footnote-back">↩︎</a></p></li>
+<li id="fn4"><p>The normal ogive models can be very closely approximated through these more convenient logistic functions by multiplying the logistic IRT <span class="math inline">\(a\)</span> parameter by a scaling constant, <span class="math inline">\(D\)</span>, which is about <span class="math inline">\(1.7\)</span>. Rasch models do not use this constant in their parameter estimations, but 1PL, 2PL, and 3PL models sometimes do when analysts seek to approximate the normal ogive models.<a href="irm.html#fnref4" class="footnote-back">↩︎</a></p></li>
+<li id="fn5"><p>Another way to do this is to use Base R’s <code>expand.grid()</code> function. This returns all combinations of two variables. So if we use <code>expand.grid(theta, Itemabc$Item)</code>, we have a data frame that repeats all of the unique values from the object <code>theta</code> for every unique value of <code>Itemabc$Item</code>. We can then merge it with the Itemabc data frame using <code>Item</code> as the key variable.<a href="irm.html#fnref5" class="footnote-back">↩︎</a></p></li>
+<li id="fn6"><p>The <code>.groups = 'drop'</code> code fixes an idiosyncratic anomaly with this function, which otherwise would throw a so-called “friendly error”.<a href="irm.html#fnref6" class="footnote-back">↩︎</a></p></li>
+<li id="fn7"><p>In at least some copies of Baker <span class="citation">(<a href="#ref-baker_basics_2001" role="doc-biblioref">2001</a>)</span>, the parentheses are missing in the primary equation but applied in the example. An equivalent equation is <span class="math inline">\(I_i(\theta) = \frac{a^2_iq_i(p_i-c_i)^2}{(1-c_i)^2p_i}\text{,}\)</span>, where <span class="math inline">\(p_i\)</span> and <span class="math inline">\(q_i\)</span> are at the given level of <span class="math inline">\(\theta\)</span> as with the equations from Baker.<a href="irm.html#fnref7" class="footnote-back">↩︎</a></p></li>
+<li id="fn8"><p>Item fit In the Rasch tradition, person fit is also examined.<a href="irm.html#fnref8" class="footnote-back">↩︎</a></p></li>
+</ol>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="cfa.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="references.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

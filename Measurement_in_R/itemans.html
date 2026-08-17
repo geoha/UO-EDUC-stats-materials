@@ -1,0 +1,1255 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 7 Item Scoring and Item Analysis | Using R for Measurement in the Social Sciences</title>
+  <meta name="description" content="Provides example R code to accompany the learning of measurement concepts." />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 7 Item Scoring and Item Analysis | Using R for Measurement in the Social Sciences" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="Provides example R code to accompany the learning of measurement concepts." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 7 Item Scoring and Item Analysis | Using R for Measurement in the Social Sciences" />
+  
+  <meta name="twitter:description" content="Provides example R code to accompany the learning of measurement concepts." />
+  
+
+<meta name="author" content="George M. Harrison  University of Hawai‘i at Mānoa, College of Education" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="graphing.html"/>
+<link rel="next" href="CTT.html"/>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<link href="libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0/anchor-sections.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+<link href="libs/bsTable-3.3.7/bootstrapTable.min.css" rel="stylesheet" />
+<script src="libs/bsTable-3.3.7/bootstrapTable.js"></script>
+
+
+<style type="text/css">
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Introduction</a></li>
+<li class="chapter" data-level="1" data-path="trans.html"><a href="trans.html"><i class="fa fa-check"></i><b>1</b> Score Transformations</a><ul>
+<li class="chapter" data-level="1.1" data-path="trans.html"><a href="trans.html#percentiles-percentile-ranks-and-normalized-scores"><i class="fa fa-check"></i><b>1.1</b> Percentiles, percentile ranks, and normalized scores</a></li>
+<li class="chapter" data-level="1.2" data-path="trans.html"><a href="trans.html#run-of-the-mill-z-scores"><i class="fa fa-check"></i><b>1.2</b> Run-of-the-mill Z scores</a></li>
+<li class="chapter" data-level="1.3" data-path="trans.html"><a href="trans.html#extra-optional-stuff"><i class="fa fa-check"></i><b>1.3</b> Extra optional stuff</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="var-cov-cor.html"><a href="var-cov-cor.html"><i class="fa fa-check"></i><b>2</b> Variance, Covariance, and Correlation</a><ul>
+<li class="chapter" data-level="2.1" data-path="var-cov-cor.html"><a href="var-cov-cor.html#correlation"><i class="fa fa-check"></i><b>2.1</b> Correlation</a><ul>
+<li class="chapter" data-level="2.1.1" data-path="var-cov-cor.html"><a href="var-cov-cor.html#estimating-correlation-as-a-statistic"><i class="fa fa-check"></i><b>2.1.1</b> Estimating correlation as a statistic</a></li>
+<li class="chapter" data-level="2.1.2" data-path="var-cov-cor.html"><a href="var-cov-cor.html#creating-a-correlation-matrix"><i class="fa fa-check"></i><b>2.1.2</b> Creating a correlation matrix</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="var-cov-cor.html"><a href="var-cov-cor.html#variance"><i class="fa fa-check"></i><b>2.2</b> Variance</a></li>
+<li class="chapter" data-level="2.3" data-path="var-cov-cor.html"><a href="var-cov-cor.html#covariance"><i class="fa fa-check"></i><b>2.3</b> Covariance</a><ul>
+<li class="chapter" data-level="2.3.1" data-path="var-cov-cor.html"><a href="var-cov-cor.html#creating-a-variance-covariance-matrix"><i class="fa fa-check"></i><b>2.3.1</b> Creating a variance-covariance matrix</a></li>
+<li class="chapter" data-level="2.3.2" data-path="var-cov-cor.html"><a href="var-cov-cor.html#using-the-n-denominator"><i class="fa fa-check"></i><b>2.3.2</b> Using the <em>n</em> denominator</a></li>
+<li class="chapter" data-level="2.3.3" data-path="var-cov-cor.html"><a href="var-cov-cor.html#extra-understanding-for-use-in-classical-test-theory"><i class="fa fa-check"></i><b>2.3.3</b> Extra understanding, for use in classical test theory</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="var-cov-cor.html"><a href="var-cov-cor.html#practice"><i class="fa fa-check"></i><b>2.4</b> Practice</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="custfuncts.html"><a href="custfuncts.html"><i class="fa fa-check"></i><b>3</b> Creating Custom Functions</a><ul>
+<li class="chapter" data-level="3.1" data-path="custfuncts.html"><a href="custfuncts.html#using-our-function-on-multiple-variables"><i class="fa fa-check"></i><b>3.1</b> Using our function on multiple variables</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="packs.html"><a href="packs.html"><i class="fa fa-check"></i><b>4</b> Using Packages</a><ul>
+<li class="chapter" data-level="4.1" data-path="packs.html"><a href="packs.html#an-example-using-the-hmisc-package-for-correlation"><i class="fa fa-check"></i><b>4.1</b> An example: Using the <code>Hmisc</code> package for correlation</a></li>
+<li class="chapter" data-level="4.2" data-path="packs.html"><a href="packs.html#tidyverse_intro"><i class="fa fa-check"></i><b>4.2</b> Using Tidyverse packages</a><ul>
+<li class="chapter" data-level="4.2.1" data-path="packs.html"><a href="packs.html#piping_intro"><i class="fa fa-check"></i><b>4.2.1</b> Piping</a></li>
+<li class="chapter" data-level="4.2.2" data-path="packs.html"><a href="packs.html#saving-our-output-as-a-csv-file"><i class="fa fa-check"></i><b>4.2.2</b> Saving our output as a CSV file</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="regress.html"><a href="regress.html"><i class="fa fa-check"></i><b>5</b> Estimating Regression</a><ul>
+<li class="chapter" data-level="5.1" data-path="regress.html"><a href="regress.html#the-lm-function"><i class="fa fa-check"></i><b>5.1</b> The <code>lm()</code> function</a></li>
+<li class="chapter" data-level="5.2" data-path="regress.html"><a href="regress.html#using-the-regression-parameters-for-prediction"><i class="fa fa-check"></i><b>5.2</b> Using the regression parameters for prediction</a></li>
+<li class="chapter" data-level="5.3" data-path="regress.html"><a href="regress.html#model-error-variance-and-a-peek-into-classical-test-theory"><i class="fa fa-check"></i><b>5.3</b> Model error variance and a peek into classical test theory</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="graphing.html"><a href="graphing.html"><i class="fa fa-check"></i><b>6</b> Graphing</a><ul>
+<li class="chapter" data-level="6.1" data-path="graphing.html"><a href="graphing.html#using-base-r"><i class="fa fa-check"></i><b>6.1</b> Using Base R</a></li>
+<li class="chapter" data-level="6.2" data-path="graphing.html"><a href="graphing.html#using-the-ggplot2-package"><i class="fa fa-check"></i><b>6.2</b> Using the <code>ggplot2</code> package</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="itemans.html"><a href="itemans.html"><i class="fa fa-check"></i><b>7</b> Item Scoring and Item Analysis</a><ul>
+<li class="chapter" data-level="7.1" data-path="itemans.html"><a href="itemans.html#multiple-choice-raw-data-and-their-answer-key"><i class="fa fa-check"></i><b>7.1</b> Multiple-choice raw data and their answer key</a></li>
+<li class="chapter" data-level="7.2" data-path="itemans.html"><a href="itemans.html#scoring-the-responses"><i class="fa fa-check"></i><b>7.2</b> Scoring the responses</a></li>
+<li class="chapter" data-level="7.3" data-path="itemans.html"><a href="itemans.html#item-analysis-with-dichotomous-data"><i class="fa fa-check"></i><b>7.3</b> Item analysis with dichotomous data</a></li>
+<li class="chapter" data-level="7.4" data-path="itemans.html"><a href="itemans.html#distractor-analysis"><i class="fa fa-check"></i><b>7.4</b> Distractor analysis</a></li>
+<li class="chapter" data-level="7.5" data-path="itemans.html"><a href="itemans.html#item-analysis-with-polytomous-data"><i class="fa fa-check"></i><b>7.5</b> Item analysis with polytomous data</a><ul>
+<li class="chapter" data-level="7.5.1" data-path="itemans.html"><a href="itemans.html#partial-credit-data"><i class="fa fa-check"></i><b>7.5.1</b> Partial-credit data</a></li>
+<li class="chapter" data-level="7.5.2" data-path="itemans.html"><a href="itemans.html#LikertFunc"><i class="fa fa-check"></i><b>7.5.2</b> Item functioning of Likert-type scale items</a></li>
+<li class="chapter" data-level="7.5.3" data-path="itemans.html"><a href="itemans.html#graphing-frequencies-of-category-responses"><i class="fa fa-check"></i><b>7.5.3</b> Graphing frequencies of category responses</a></li>
+</ul></li>
+<li class="chapter" data-level="7.6" data-path="itemans.html"><a href="itemans.html#optional-advanced-graphics-stuff"><i class="fa fa-check"></i><b>7.6</b> Optional advanced graphics stuff</a><ul>
+<li class="chapter" data-level="7.6.1" data-path="itemans.html"><a href="itemans.html#creating-a-facet-plot-with-ggplot2"><i class="fa fa-check"></i><b>7.6.1</b> Creating a facet plot with <code>GGplot2</code></a></li>
+<li class="chapter" data-level="7.6.2" data-path="itemans.html"><a href="itemans.html#the-base-r-approach-to-creating-a-facet-plot"><i class="fa fa-check"></i><b>7.6.2</b> The Base R approach to creating a facet plot</a></li>
+</ul></li>
+<li class="chapter" data-level="7.7" data-path="itemans.html"><a href="itemans.html#additional-functions-for-examining-category-frequencies"><i class="fa fa-check"></i><b>7.7</b> Additional functions for examining category frequencies</a><ul>
+<li class="chapter" data-level="7.7.1" data-path="itemans.html"><a href="itemans.html#using-the-table-function-and-the-lapply-function"><i class="fa fa-check"></i><b>7.7.1</b> Using the <code>table()</code> function and the <code>lapply()</code> function</a></li>
+<li class="chapter" data-level="7.7.2" data-path="itemans.html"><a href="itemans.html#factors"><i class="fa fa-check"></i><b>7.7.2</b> Specifying the data as categorical</a></li>
+<li class="chapter" data-level="7.7.3" data-path="itemans.html"><a href="itemans.html#orderedfunc"><i class="fa fa-check"></i><b>7.7.3</b> Ordered factors</a></li>
+</ul></li>
+<li class="chapter" data-level="7.8" data-path="itemans.html"><a href="itemans.html#conclusion"><i class="fa fa-check"></i><b>7.8</b> Conclusion</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="CTT.html"><a href="CTT.html"><i class="fa fa-check"></i><b>8</b> Classical Test Theory</a><ul>
+<li class="chapter" data-level="8.1" data-path="CTT.html"><a href="CTT.html#true-score-model"><i class="fa fa-check"></i><b>8.1</b> True score model</a></li>
+<li class="chapter" data-level="8.2" data-path="CTT.html"><a href="CTT.html#assumptions-of-the-ctt-true-score-model"><i class="fa fa-check"></i><b>8.2</b> Assumptions of the CTT true score model</a></li>
+<li class="chapter" data-level="8.3" data-path="CTT.html"><a href="CTT.html#reliability-and-the-variance-of-the-composite-score"><i class="fa fa-check"></i><b>8.3</b> Reliability and the variance of the composite score</a><ul>
+<li class="chapter" data-level="8.3.1" data-path="CTT.html"><a href="CTT.html#reliability-as-the-ratio-of-true-score-variance-to-observed-score-variance"><i class="fa fa-check"></i><b>8.3.1</b> Reliability as the ratio of true-score variance to observed-score variance</a></li>
+<li class="chapter" data-level="8.3.2" data-path="CTT.html"><a href="CTT.html#reliability-as-the-lack-of-error-variance"><i class="fa fa-check"></i><b>8.3.2</b> Reliability as the lack of error variance</a></li>
+<li class="chapter" data-level="8.3.3" data-path="CTT.html"><a href="CTT.html#reliability-as-the-squared-correlation-between-observed-and-true-scores"><i class="fa fa-check"></i><b>8.3.3</b> Reliability as the squared correlation between observed and true scores</a></li>
+<li class="chapter" data-level="8.3.4" data-path="CTT.html"><a href="CTT.html#reliability-as-the-correlation-between-scores-on-parallel-tests"><i class="fa fa-check"></i><b>8.3.4</b> Reliability as the correlation between scores on parallel tests</a></li>
+</ul></li>
+<li class="chapter" data-level="8.4" data-path="CTT.html"><a href="CTT.html#four-ctt-models"><i class="fa fa-check"></i><b>8.4</b> Four CTT models</a><ul>
+<li class="chapter" data-level="8.4.1" data-path="CTT.html"><a href="CTT.html#the-parallel-model"><i class="fa fa-check"></i><b>8.4.1</b> The parallel model</a></li>
+<li class="chapter" data-level="8.4.2" data-path="CTT.html"><a href="CTT.html#the-tau-equivalent-model"><i class="fa fa-check"></i><b>8.4.2</b> The tau-equivalent model</a></li>
+<li class="chapter" data-level="8.4.3" data-path="CTT.html"><a href="CTT.html#the-essentially-tau-equivalent-model"><i class="fa fa-check"></i><b>8.4.3</b> The essentially tau-equivalent model</a></li>
+<li class="chapter" data-level="8.4.4" data-path="CTT.html"><a href="CTT.html#the-congeneric-model"><i class="fa fa-check"></i><b>8.4.4</b> The congeneric model</a></li>
+<li class="chapter" data-level="8.4.5" data-path="CTT.html"><a href="CTT.html#implications-of-each-model"><i class="fa fa-check"></i><b>8.4.5</b> Implications of each model</a></li>
+</ul></li>
+<li class="chapter" data-level="8.5" data-path="CTT.html"><a href="CTT.html#estimating-an-observations-true-score"><i class="fa fa-check"></i><b>8.5</b> Estimating an observation’s true score</a></li>
+<li class="chapter" data-level="8.6" data-path="CTT.html"><a href="CTT.html#the-standard-error-of-measurement"><i class="fa fa-check"></i><b>8.6</b> The standard error of measurement</a><ul>
+<li class="chapter" data-level="8.6.1" data-path="CTT.html"><a href="CTT.html#estimating-the-confidence-interval-of-a-true-score"><i class="fa fa-check"></i><b>8.6.1</b> Estimating the confidence interval of a true score</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="reliability.html"><a href="reliability.html"><i class="fa fa-check"></i><b>9</b> Internal-consistency Reliability</a><ul>
+<li class="chapter" data-level="9.1" data-path="reliability.html"><a href="reliability.html#coefficient-alpha"><i class="fa fa-check"></i><b>9.1</b> Coefficient alpha</a><ul>
+<li class="chapter" data-level="9.1.1" data-path="reliability.html"><a href="reliability.html#how-coefficient-alpha-works"><i class="fa fa-check"></i><b>9.1.1</b> How coefficient alpha works</a></li>
+</ul></li>
+<li class="chapter" data-level="9.2" data-path="reliability.html"><a href="reliability.html#using-r-to-estimate-internal-consistency-reliability-coefficient"><i class="fa fa-check"></i><b>9.2</b> Using R to estimate internal-consistency reliability coefficient</a><ul>
+<li class="chapter" data-level="9.2.1" data-path="reliability.html"><a href="reliability.html#a-demonstration-of-coefficient-alpha-using-hypothetical-data"><i class="fa fa-check"></i><b>9.2.1</b> A demonstration of coefficient alpha using hypothetical data</a></li>
+<li class="chapter" data-level="9.2.2" data-path="reliability.html"><a href="reliability.html#using-r-packages-to-calculate-alpha-and-more"><i class="fa fa-check"></i><b>9.2.2</b> Using R packages to calculate alpha and more</a></li>
+</ul></li>
+<li class="chapter" data-level="9.3" data-path="reliability.html"><a href="reliability.html#spearman-brown-prophecy-formula"><i class="fa fa-check"></i><b>9.3</b> Spearman-Brown prophecy formula</a><ul>
+<li class="chapter" data-level="9.3.1" data-path="reliability.html"><a href="reliability.html#calculation"><i class="fa fa-check"></i><b>9.3.1</b> Calculation</a></li>
+<li class="chapter" data-level="9.3.2" data-path="reliability.html"><a href="reliability.html#using-the-ctt-package"><i class="fa fa-check"></i><b>9.3.2</b> Using the CTT package</a></li>
+</ul></li>
+<li class="chapter" data-level="9.4" data-path="reliability.html"><a href="reliability.html#standardized-coefficient-alpha"><i class="fa fa-check"></i><b>9.4</b> Standardized coefficient alpha</a><ul>
+<li class="chapter" data-level="9.4.1" data-path="reliability.html"><a href="reliability.html#calculation-of-standardized-coefficient-alpha"><i class="fa fa-check"></i><b>9.4.1</b> Calculation of standardized coefficient alpha</a></li>
+</ul></li>
+<li class="chapter" data-level="9.5" data-path="reliability.html"><a href="reliability.html#reliability-of-difference-scores"><i class="fa fa-check"></i><b>9.5</b> Reliability of difference scores</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="interrater.html"><a href="interrater.html"><i class="fa fa-check"></i><b>10</b> Inter-rater and Test-retest Reliability</a><ul>
+<li class="chapter" data-level="10.1" data-path="interrater.html"><a href="interrater.html#coefficient-kappa-for-estimating-agreement-with-nominal-data"><i class="fa fa-check"></i><b>10.1</b> Coefficient kappa for estimating agreement with nominal data</a><ul>
+<li class="chapter" data-level="10.1.1" data-path="interrater.html"><a href="interrater.html#using-the-irr-package-to-estimate-kappa"><i class="fa fa-check"></i><b>10.1.1</b> Using the irr package to estimate kappa</a></li>
+<li class="chapter" data-level="10.1.2" data-path="interrater.html"><a href="interrater.html#limitations-of-kappa"><i class="fa fa-check"></i><b>10.1.2</b> Limitations of kappa</a></li>
+</ul></li>
+<li class="chapter" data-level="10.2" data-path="interrater.html"><a href="interrater.html#intraclass-correlation-coefficients-for-estimating-consistency-and-agreement"><i class="fa fa-check"></i><b>10.2</b> Intraclass correlation coefficients for estimating consistency and agreement</a><ul>
+<li class="chapter" data-level="10.2.1" data-path="interrater.html"><a href="interrater.html#example-of-an-icc-for-consistency"><i class="fa fa-check"></i><b>10.2.1</b> Example of an ICC for consistency</a></li>
+<li class="chapter" data-level="10.2.2" data-path="interrater.html"><a href="interrater.html#example-of-an-icc-for-agreement"><i class="fa fa-check"></i><b>10.2.2</b> Example of an ICC for agreement</a></li>
+<li class="chapter" data-level="10.2.3" data-path="interrater.html"><a href="interrater.html#two-way-and-one-way-icc-models"><i class="fa fa-check"></i><b>10.2.3</b> Two-way and one-way ICC models</a></li>
+<li class="chapter" data-level="10.2.4" data-path="interrater.html"><a href="interrater.html#single-versus-average-ratings"><i class="fa fa-check"></i><b>10.2.4</b> Single versus average ratings</a></li>
+<li class="chapter" data-level="10.2.5" data-path="interrater.html"><a href="interrater.html#all-of-the-equations"><i class="fa fa-check"></i><b>10.2.5</b> All of the equations</a></li>
+<li class="chapter" data-level="10.2.6" data-path="interrater.html"><a href="interrater.html#recommendations-on-reporting-iccs"><i class="fa fa-check"></i><b>10.2.6</b> Recommendations on reporting ICCs</a></li>
+</ul></li>
+<li class="chapter" data-level="10.3" data-path="interrater.html"><a href="interrater.html#using-the-irr-package"><i class="fa fa-check"></i><b>10.3</b> Using the irr package</a></li>
+<li class="chapter" data-level="10.4" data-path="interrater.html"><a href="interrater.html#test-retest-reliability"><i class="fa fa-check"></i><b>10.4</b> Test-retest reliability</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="gtheory.html"><a href="gtheory.html"><i class="fa fa-check"></i><b>11</b> Generalizability Theory</a><ul>
+<li class="chapter" data-level="11.1" data-path="gtheory.html"><a href="gtheory.html#a-single-facet-design"><i class="fa fa-check"></i><b>11.1</b> A single facet design</a><ul>
+<li class="chapter" data-level="11.1.1" data-path="gtheory.html"><a href="gtheory.html#g-study"><i class="fa fa-check"></i><b>11.1.1</b> G-study</a></li>
+<li class="chapter" data-level="11.1.2" data-path="gtheory.html"><a href="gtheory.html#d-study"><i class="fa fa-check"></i><b>11.1.2</b> D-study</a></li>
+<li class="chapter" data-level="11.1.3" data-path="gtheory.html"><a href="gtheory.html#using-the-vca-package"><i class="fa fa-check"></i><b>11.1.3</b> Using the VCA package</a></li>
+<li class="chapter" data-level="11.1.4" data-path="gtheory.html"><a href="gtheory.html#summary-of-our-one-facet-fully-crossed-design"><i class="fa fa-check"></i><b>11.1.4</b> Summary of our one-facet fully-crossed design</a></li>
+</ul></li>
+<li class="chapter" data-level="11.2" data-path="gtheory.html"><a href="gtheory.html#a-two-facet-design"><i class="fa fa-check"></i><b>11.2</b> A two facet design</a><ul>
+<li class="chapter" data-level="11.2.1" data-path="gtheory.html"><a href="gtheory.html#rand2facet"><i class="fa fa-check"></i><b>11.2.1</b> G-study with a two facet design</a></li>
+<li class="chapter" data-level="11.2.2" data-path="gtheory.html"><a href="gtheory.html#d-study-with-a-two-facet-design"><i class="fa fa-check"></i><b>11.2.2</b> D-study with a two facet design</a></li>
+</ul></li>
+<li class="chapter" data-level="11.3" data-path="gtheory.html"><a href="gtheory.html#nested-designs"><i class="fa fa-check"></i><b>11.3</b> Nested designs</a><ul>
+<li class="chapter" data-level="11.3.1" data-path="gtheory.html"><a href="gtheory.html#one-facet-nested-design"><i class="fa fa-check"></i><b>11.3.1</b> One-facet nested design</a></li>
+<li class="chapter" data-level="11.3.2" data-path="gtheory.html"><a href="gtheory.html#two-facet-nested-design"><i class="fa fa-check"></i><b>11.3.2</b> Two-facet nested design</a></li>
+<li class="chapter" data-level="11.3.3" data-path="gtheory.html"><a href="gtheory.html#g-study-with-a-two-facet-items-nested-within-occasions-design"><i class="fa fa-check"></i><b>11.3.3</b> G-study with a two-facet items-nested-within-occasions design</a></li>
+<li class="chapter" data-level="11.3.4" data-path="gtheory.html"><a href="gtheory.html#d-study-with-a-two-facet-items-nested-within-occasions-design"><i class="fa fa-check"></i><b>11.3.4</b> D-study with a two-facet items-nested-within-occasions design</a></li>
+</ul></li>
+<li class="chapter" data-level="11.4" data-path="gtheory.html"><a href="gtheory.html#fixed-facets"><i class="fa fa-check"></i><b>11.4</b> Fixed facets</a></li>
+<li class="chapter" data-level="11.5" data-path="gtheory.html"><a href="gtheory.html#summary"><i class="fa fa-check"></i><b>11.5</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="efa.html"><a href="efa.html"><i class="fa fa-check"></i><b>12</b> Exploratory Factor Analysis</a><ul>
+<li class="chapter" data-level="12.1" data-path="efa.html"><a href="efa.html#preparatory-steps"><i class="fa fa-check"></i><b>12.1</b> Preparatory steps</a><ul>
+<li class="chapter" data-level="12.1.1" data-path="efa.html"><a href="efa.html#examining-the-data"><i class="fa fa-check"></i><b>12.1.1</b> Examining the data</a></li>
+<li class="chapter" data-level="12.1.2" data-path="efa.html"><a href="efa.html#addressing-assumptions"><i class="fa fa-check"></i><b>12.1.2</b> Addressing assumptions</a></li>
+<li class="chapter" data-level="12.1.3" data-path="efa.html"><a href="efa.html#determining-factorability"><i class="fa fa-check"></i><b>12.1.3</b> Determining factorability</a></li>
+<li class="chapter" data-level="12.1.4" data-path="efa.html"><a href="efa.html#determining-how-many-factors-to-retain"><i class="fa fa-check"></i><b>12.1.4</b> Determining how many factors to retain</a></li>
+</ul></li>
+<li class="chapter" data-level="12.2" data-path="efa.html"><a href="efa.html#factor-analysis-with-raw-data"><i class="fa fa-check"></i><b>12.2</b> Factor analysis with raw data</a><ul>
+<li class="chapter" data-level="12.2.1" data-path="efa.html"><a href="efa.html#examining-pattern-coefficients-the-factor-loadings"><i class="fa fa-check"></i><b>12.2.1</b> Examining pattern coefficients (the factor loadings)</a></li>
+</ul></li>
+<li class="chapter" data-level="12.3" data-path="efa.html"><a href="efa.html#factor-analysis-with-correlation-data"><i class="fa fa-check"></i><b>12.3</b> Factor analysis with correlation data</a><ul>
+<li class="chapter" data-level="12.3.1" data-path="efa.html"><a href="efa.html#setting-up-the-data"><i class="fa fa-check"></i><b>12.3.1</b> Setting up the data</a></li>
+<li class="chapter" data-level="12.3.2" data-path="efa.html"><a href="efa.html#preparatory-steps-1"><i class="fa fa-check"></i><b>12.3.2</b> Preparatory steps</a></li>
+<li class="chapter" data-level="12.3.3" data-path="efa.html"><a href="efa.html#performing-the-factor-analysis"><i class="fa fa-check"></i><b>12.3.3</b> Performing the factor analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="12.4" data-path="efa.html"><a href="efa.html#efa-with-categorical-data"><i class="fa fa-check"></i><b>12.4</b> EFA with categorical data</a><ul>
+<li class="chapter" data-level="12.4.1" data-path="efa.html"><a href="efa.html#describing-categorical-data"><i class="fa fa-check"></i><b>12.4.1</b> Describing categorical data</a></li>
+<li class="chapter" data-level="12.4.2" data-path="efa.html"><a href="efa.html#getting-the-correlation-matrix"><i class="fa fa-check"></i><b>12.4.2</b> Getting the correlation matrix</a></li>
+<li class="chapter" data-level="12.4.3" data-path="efa.html"><a href="efa.html#appraising-the-factorability-and-determining-the-number-of-factors-to-retain"><i class="fa fa-check"></i><b>12.4.3</b> Appraising the factorability and determining the number of factors to retain</a></li>
+<li class="chapter" data-level="12.4.4" data-path="efa.html"><a href="efa.html#factor-analysis-on-the-polychoric-matrix"><i class="fa fa-check"></i><b>12.4.4</b> Factor analysis on the polychoric matrix</a></li>
+<li class="chapter" data-level="12.4.5" data-path="efa.html"><a href="efa.html#the-polycor-package"><i class="fa fa-check"></i><b>12.4.5</b> The polycor package</a></li>
+</ul></li>
+<li class="chapter" data-level="12.5" data-path="efa.html"><a href="efa.html#factor-scores"><i class="fa fa-check"></i><b>12.5</b> Factor scores</a><ul>
+<li class="chapter" data-level="12.5.1" data-path="efa.html"><a href="efa.html#transforming-factor-scores"><i class="fa fa-check"></i><b>12.5.1</b> Transforming factor scores</a></li>
+</ul></li>
+<li class="chapter" data-level="12.6" data-path="efa.html"><a href="efa.html#internal-consistency-reliability-of-the-scores"><i class="fa fa-check"></i><b>12.6</b> Internal consistency reliability of the scores</a></li>
+<li class="chapter" data-level="12.7" data-path="efa.html"><a href="efa.html#practice-1"><i class="fa fa-check"></i><b>12.7</b> Practice</a></li>
+<li class="chapter" data-level="12.8" data-path="efa.html"><a href="efa.html#summary-1"><i class="fa fa-check"></i><b>12.8</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="cfa.html"><a href="cfa.html"><i class="fa fa-check"></i><b>13</b> Confirmatory Factor Analysis</a><ul>
+<li class="chapter" data-level="13.1" data-path="cfa.html"><a href="cfa.html#preparatory-steps-2"><i class="fa fa-check"></i><b>13.1</b> Preparatory steps</a><ul>
+<li class="chapter" data-level="13.1.1" data-path="cfa.html"><a href="cfa.html#addressing-assumptions-1"><i class="fa fa-check"></i><b>13.1.1</b> Addressing assumptions</a></li>
+</ul></li>
+<li class="chapter" data-level="13.2" data-path="cfa.html"><a href="cfa.html#fitting-a-cfa-model"><i class="fa fa-check"></i><b>13.2</b> Fitting a CFA model</a><ul>
+<li class="chapter" data-level="13.2.1" data-path="cfa.html"><a href="cfa.html#making-sure-the-model-was-correctly-estimated"><i class="fa fa-check"></i><b>13.2.1</b> Making sure the model was correctly estimated</a></li>
+<li class="chapter" data-level="13.2.2" data-path="cfa.html"><a href="cfa.html#evaluating-the-model-fit"><i class="fa fa-check"></i><b>13.2.2</b> Evaluating the model fit</a></li>
+<li class="chapter" data-level="13.2.3" data-path="cfa.html"><a href="cfa.html#interpretting-the-parameter-estimates"><i class="fa fa-check"></i><b>13.2.3</b> Interpretting the parameter estimates</a></li>
+</ul></li>
+<li class="chapter" data-level="13.3" data-path="cfa.html"><a href="cfa.html#further-inspecting-our-model"><i class="fa fa-check"></i><b>13.3</b> Further inspecting our model</a><ul>
+<li class="chapter" data-level="13.3.1" data-path="cfa.html"><a href="cfa.html#looking-at-the-models-covariance-matrices"><i class="fa fa-check"></i><b>13.3.1</b> Looking at the model’s covariance matrices</a></li>
+<li class="chapter" data-level="13.3.2" data-path="cfa.html"><a href="cfa.html#further-inspecting-our-models-parameters"><i class="fa fa-check"></i><b>13.3.2</b> Further inspecting our model’s parameters</a></li>
+</ul></li>
+<li class="chapter" data-level="13.4" data-path="cfa.html"><a href="cfa.html#using-alternative-model-specifications"><i class="fa fa-check"></i><b>13.4</b> Using alternative model specifications</a><ul>
+<li class="chapter" data-level="13.4.1" data-path="cfa.html"><a href="cfa.html#rescaling-the-factors-to-be-standardized"><i class="fa fa-check"></i><b>13.4.1</b> Rescaling the factors to be standardized</a></li>
+<li class="chapter" data-level="13.4.2" data-path="cfa.html"><a href="cfa.html#specifying-a-competing-nested-model"><i class="fa fa-check"></i><b>13.4.2</b> Specifying a competing, nested, model</a></li>
+</ul></li>
+<li class="chapter" data-level="13.5" data-path="cfa.html"><a href="cfa.html#conducting-model-comparisons"><i class="fa fa-check"></i><b>13.5</b> Conducting model comparisons</a></li>
+<li class="chapter" data-level="13.6" data-path="cfa.html"><a href="cfa.html#estimating-factor-scores"><i class="fa fa-check"></i><b>13.6</b> Estimating factor scores</a></li>
+<li class="chapter" data-level="13.7" data-path="cfa.html"><a href="cfa.html#internal-consistency-reliability-with-cfa"><i class="fa fa-check"></i><b>13.7</b> Internal consistency reliability with CFA</a></li>
+<li class="chapter" data-level="13.8" data-path="cfa.html"><a href="cfa.html#testing-congeneric-essentially-tau-equivalent-tau-equivalent-and-parallel-models"><i class="fa fa-check"></i><b>13.8</b> Testing congeneric, essentially tau-equivalent, tau-equivalent, and parallel models</a><ul>
+<li class="chapter" data-level="13.8.1" data-path="cfa.html"><a href="cfa.html#congeneric-model-specification"><i class="fa fa-check"></i><b>13.8.1</b> Congeneric model specification</a></li>
+<li class="chapter" data-level="13.8.2" data-path="cfa.html"><a href="cfa.html#essentially-tau-equivalent-model-specification"><i class="fa fa-check"></i><b>13.8.2</b> Essentially tau-equivalent model specification</a></li>
+<li class="chapter" data-level="13.8.3" data-path="cfa.html"><a href="cfa.html#tau-equivalent-model-specification"><i class="fa fa-check"></i><b>13.8.3</b> Tau-equivalent model specification</a></li>
+<li class="chapter" data-level="13.8.4" data-path="cfa.html"><a href="cfa.html#strictly-parallel-model-specification"><i class="fa fa-check"></i><b>13.8.4</b> Strictly parallel model specification</a></li>
+</ul></li>
+<li class="chapter" data-level="13.9" data-path="cfa.html"><a href="cfa.html#cfa-with-categorical-data"><i class="fa fa-check"></i><b>13.9</b> CFA with categorical data</a><ul>
+<li class="chapter" data-level="13.9.1" data-path="cfa.html"><a href="cfa.html#using-data-from-an-r-package"><i class="fa fa-check"></i><b>13.9.1</b> Using data from an R package</a></li>
+<li class="chapter" data-level="13.9.2" data-path="cfa.html"><a href="cfa.html#preparing-the-data"><i class="fa fa-check"></i><b>13.9.2</b> Preparing the data</a></li>
+<li class="chapter" data-level="13.9.3" data-path="cfa.html"><a href="cfa.html#describing-the-data"><i class="fa fa-check"></i><b>13.9.3</b> Describing the data</a></li>
+<li class="chapter" data-level="13.9.4" data-path="cfa.html"><a href="cfa.html#fitting-the-cfa-model"><i class="fa fa-check"></i><b>13.9.4</b> Fitting the CFA model</a></li>
+</ul></li>
+<li class="chapter" data-level="13.10" data-path="cfa.html"><a href="cfa.html#additional-manipulation-of-the-data"><i class="fa fa-check"></i><b>13.10</b> Additional manipulation of the data</a></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="irm.html"><a href="irm.html"><i class="fa fa-check"></i><b>14</b> Item Response Modeling</a><ul>
+<li class="chapter" data-level="14.1" data-path="irm.html"><a href="irm.html#on-fitting-linear-regression-models-to-dichotomous-data"><i class="fa fa-check"></i><b>14.1</b> On fitting linear regression models to dichotomous data</a></li>
+<li class="chapter" data-level="14.2" data-path="irm.html"><a href="irm.html#logistic-item-response-models-with-dichotomous-data"><i class="fa fa-check"></i><b>14.2</b> Logistic item response models with dichotomous data</a><ul>
+<li class="chapter" data-level="14.2.1" data-path="irm.html"><a href="irm.html#the-rasch-and-1pl-models"><i class="fa fa-check"></i><b>14.2.1</b> The Rasch and 1PL models</a></li>
+<li class="chapter" data-level="14.2.2" data-path="irm.html"><a href="irm.html#the-2pl-model"><i class="fa fa-check"></i><b>14.2.2</b> The 2PL model</a></li>
+<li class="chapter" data-level="14.2.3" data-path="irm.html"><a href="irm.html#the-3pl-model"><i class="fa fa-check"></i><b>14.2.3</b> The 3PL model</a></li>
+<li class="chapter" data-level="14.2.4" data-path="irm.html"><a href="irm.html#item-response-functions"><i class="fa fa-check"></i><b>14.2.4</b> Item response functions</a></li>
+<li class="chapter" data-level="14.2.5" data-path="irm.html"><a href="irm.html#test-characteristic-curve"><i class="fa fa-check"></i><b>14.2.5</b> Test characteristic curve</a></li>
+<li class="chapter" data-level="14.2.6" data-path="irm.html"><a href="irm.html#information-and-standard-error"><i class="fa fa-check"></i><b>14.2.6</b> Information and standard error</a></li>
+<li class="chapter" data-level="14.2.7" data-path="irm.html"><a href="irm.html#plotting-information-and-the-standard-error-of-measurement"><i class="fa fa-check"></i><b>14.2.7</b> Plotting information and the standard error of measurement</a></li>
+</ul></li>
+<li class="chapter" data-level="14.3" data-path="irm.html"><a href="irm.html#fitting-a-1pl-model"><i class="fa fa-check"></i><b>14.3</b> Fitting a 1PL model</a></li>
+<li class="chapter" data-level="14.4" data-path="irm.html"><a href="irm.html#checking-assumptions"><i class="fa fa-check"></i><b>14.4</b> Checking assumptions</a><ul>
+<li class="chapter" data-level="14.4.1" data-path="irm.html"><a href="irm.html#unidimensionality"><i class="fa fa-check"></i><b>14.4.1</b> Unidimensionality</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Using R for Measurement in the Social Sciences</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="itemans" class="section level1">
+<h1><span class="header-section-number">Chapter 7</span> Item Scoring and Item Analysis</h1>
+<p>This chapter addresses classical-test-theory approaches to item analysis. There are other ways to examine item functioning and these will be addressed later in this course when we analyze items using modern-test theory. It is a good idea to read Bandalos, Ch. 6 before or while embarking on this code.</p>
+<p>There are three examples here. The first shows how to score raw multiple-choice data and conduct an item analysis of the resulting dichotomously scored data. It also provides an example of how to analyze distractor functioning with multiple-choice data. The second two examples use polytomous data, the first of which can be thought of as a set of partial-credit scores of some kind of performance assessment, such as from rubric-based scores of students’ essay responses. The third example is with Likert-type data, such as from a questionnaire given to teachers about their perceptions of a professional development. All of these data are contrived. Here is a list of the accompanying data sets, which are separately available in Laulima:</p>
+<ol style="list-style-type: decimal">
+<li>Week04RawMCResponses.csv</li>
+<li>Week04_ItemAnalys_Poly.csv</li>
+<li>Week04_ItemAnalys_Likert.csv</li>
+</ol>
+<div id="multiple-choice-raw-data-and-their-answer-key" class="section level2">
+<h2><span class="header-section-number">7.1</span> Multiple-choice raw data and their answer key</h2>
+<p>For this first example, let’s import the raw multiple-choice data into a new R session and assign these to an object such as <code>dat</code>. We saw these data before in this class. These are the raw responses, not the scored responses. Using an answer key, we will score these responses as dichotomous data, then calculate total test scores from those item scores. We will also examine the functioning of the items, including their distractors.</p>
+<div class="sourceCode" id="cb151"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb151-1"><a href="itemans.html#cb151-1"></a>dat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;Week04RawMCResponses.csv&quot;</span>)</span>
+<span id="cb151-2"><a href="itemans.html#cb151-2"></a> <span class="kw">head</span>(dat) </span>
+<span id="cb151-3"><a href="itemans.html#cb151-3"></a> <span class="kw">tail</span>(dat) </span>
+<span id="cb151-4"><a href="itemans.html#cb151-4"></a><span class="kw">str</span>(dat)</span></code></pre></div>
+<pre><code>##         PID i1 i2 i3 i4 i5 i6 i7 i8 i9 i10
+## 1    Eloise  a  c  c  a  c  d  b  b  b   d
+## 2      Xena  a  c  c  b  d  d  b  c  b   d
+## 3    MrBean  a  c  c  a  c  d  b  b  c   d
+## 4      Rhea  a  c  c  b  d  d  b  c  d   d
+## 5 Jean-Paul  a  c  c  a  c  d  b  a  b   c
+## 6     Spock  a  c  a  b  d  d  b  b  b   b</code></pre>
+<pre><code>##                PID i1 i2 i3 i4 i5 i6 i7 i8 i9 i10
+## 11         Sachiko  a  c  c  a  a  b  d  b  c   c
+## 12           Chloe  a  d  c  a  d  c  d  b  a   c
+## 13            Kirk  a  b  b  a  d  a  b  d  c   a
+## 14 Lloyd Christmas  b  c  d  b  d  a  d  b  a   c
+## 15            Hulk  c  b  c  c  d  b  d  c  d   a
+## 16       Donald J.  a  b  a  d  d  b  d  a  a   a</code></pre>
+<pre><code>## &#39;data.frame&#39;:    16 obs. of  11 variables:
+##  $ PID: chr  &quot;Eloise&quot; &quot;Xena&quot; &quot;MrBean&quot; &quot;Rhea&quot; ...
+##  $ i1 : chr  &quot;a&quot; &quot;a&quot; &quot;a&quot; &quot;a&quot; ...
+##  $ i2 : chr  &quot;c&quot; &quot;c&quot; &quot;c&quot; &quot;c&quot; ...
+##  $ i3 : chr  &quot;c&quot; &quot;c&quot; &quot;c&quot; &quot;c&quot; ...
+##  $ i4 : chr  &quot;a&quot; &quot;b&quot; &quot;a&quot; &quot;b&quot; ...
+##  $ i5 : chr  &quot;c&quot; &quot;d&quot; &quot;c&quot; &quot;d&quot; ...
+##  $ i6 : chr  &quot;d&quot; &quot;d&quot; &quot;d&quot; &quot;d&quot; ...
+##  $ i7 : chr  &quot;b&quot; &quot;b&quot; &quot;b&quot; &quot;b&quot; ...
+##  $ i8 : chr  &quot;b&quot; &quot;c&quot; &quot;b&quot; &quot;c&quot; ...
+##  $ i9 : chr  &quot;b&quot; &quot;b&quot; &quot;c&quot; &quot;d&quot; ...
+##  $ i10: chr  &quot;d&quot; &quot;d&quot; &quot;d&quot; &quot;d&quot; ...</code></pre>
+<p>We can see that all of the variables are in character format, which is what we expect.<a href="#fn35" class="footnote-ref" id="fnref35"><sup>35</sup></a></p>
+<p>Let’s assign the item names to an object. Also, let’s assign the answer key to an object. These two vectors should be the same length.</p>
+<div class="sourceCode" id="cb155"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb155-1"><a href="itemans.html#cb155-1"></a>items  &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;i1&quot;</span>, <span class="st">&quot;i2&quot;</span>, <span class="st">&quot;i3&quot;</span>, <span class="st">&quot;i4&quot;</span>, <span class="st">&quot;i5&quot;</span>, <span class="st">&quot;i6&quot;</span>, <span class="st">&quot;i7&quot;</span>, <span class="st">&quot;i8&quot;</span>, <span class="st">&quot;i9&quot;</span>, <span class="st">&quot;i10&quot;</span>)</span>
+<span id="cb155-2"><a href="itemans.html#cb155-2"></a>key    &lt;-<span class="st"> </span><span class="kw">c</span>( <span class="st">&quot;a&quot;</span>,  <span class="st">&quot;c&quot;</span>,  <span class="st">&quot;c&quot;</span>,  <span class="st">&quot;a&quot;</span>,  <span class="st">&quot;d&quot;</span>,  <span class="st">&quot;d&quot;</span>,  <span class="st">&quot;b&quot;</span>,  <span class="st">&quot;b&quot;</span>,  <span class="st">&quot;b&quot;</span>,   <span class="st">&quot;d&quot;</span>)</span></code></pre></div>
+<p>Because our items are named with “i” followed by a series (<code>1</code> to <code>10</code>)<a href="#fn36" class="footnote-ref" id="fnref36"><sup>36</sup></a>, we could also use a shortcut for the list of item names, using the <code>paste0()</code> function:<a href="#fn37" class="footnote-ref" id="fnref37"><sup>37</sup></a></p>
+<div class="sourceCode" id="cb156"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb156-1"><a href="itemans.html#cb156-1"></a>items &lt;-<span class="st"> </span><span class="kw">paste0</span>(<span class="st">&quot;i&quot;</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">10</span>)</span></code></pre></div>
+<p>Let’s bring the <code>CTT</code> package <span class="citation">(Willse, <a href="#ref-R-CTT" role="doc-biblioref">2018</a>)</span> into our working library. As with any package, if this is the first time you’re using this package, you might first have to install it using <code>install.packages("CTT")</code>.</p>
+<div class="sourceCode" id="cb157"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb157-1"><a href="itemans.html#cb157-1"></a><span class="kw">library</span>(<span class="st">&quot;CTT&quot;</span>)</span></code></pre></div>
+<p>Take a look at the help files for the package:</p>
+<div class="sourceCode" id="cb158"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb158-1"><a href="itemans.html#cb158-1"></a><span class="kw">help</span>(<span class="dt">package=</span><span class="st">&quot;CTT&quot;</span>)      </span></code></pre></div>
+<p>In the resulting help directory, read the descriptions of the three functions we’ll use: <code>score()</code>, <code>itemAnalysis()</code>, and <code>distractorAnalysis()</code>.</p>
+</div>
+<div id="scoring-the-responses" class="section level2">
+<h2><span class="header-section-number">7.2</span> Scoring the responses</h2>
+<p>Let’s use the answer key and the <code>score()</code> function to score the items. Read the help file for this function to see what the arguments are and what other argument options are available.</p>
+<div class="sourceCode" id="cb159"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb159-1"><a href="itemans.html#cb159-1"></a>sc.out &lt;-<span class="st"> </span><span class="kw">score</span>(dat[,items], key, <span class="dt">output.scored =</span> <span class="ot">TRUE</span>, <span class="dt">ID =</span> dat<span class="op">$</span>PID)</span>
+<span id="cb159-2"><a href="itemans.html#cb159-2"></a>sc.out</span></code></pre></div>
+<pre><code>## $score
+##  P1  P2  P3  P4  P5  P6  P7  P8  P9 P10 P11 P12 P13 P14 P15 P16 
+##   9   8   8   7   7   7   6   6   5   5   5   5   4   3   2   2 
+## 
+## $scored
+##                 i1 i2 i3 i4 i5 i6 i7 i8 i9 i10
+## Eloise           1  1  1  1  0  1  1  1  1   1
+## Xena             1  1  1  0  1  1  1  0  1   1
+## MrBean           1  1  1  1  0  1  1  1  0   1
+## Rhea             1  1  1  0  1  1  1  0  0   1
+## Jean-Paul        1  1  1  1  0  1  1  0  1   0
+## Spock            1  1  0  0  1  1  1  1  1   0
+## Frodo            1  1  1  1  0  1  0  1  0   0
+## Shahab           1  1  0  1  1  0  0  0  1   1
+## Kan              0  1  0  1  0  1  1  0  1   0
+## Jayla            1  1  1  1  0  1  0  0  0   0
+## Sachiko          1  1  1  1  0  0  0  1  0   0
+## Chloe            1  0  1  1  1  0  0  1  0   0
+## Kirk             1  0  0  1  1  0  1  0  0   0
+## Lloyd Christmas  0  1  0  0  1  0  0  1  0   0
+## Hulk             0  0  1  0  1  0  0  0  0   0
+## Donald J.        1  0  0  0  1  0  0  0  0   0</code></pre>
+<p>There are two things in this outputted object:</p>
+<ol style="list-style-type: decimal">
+<li>a vector of the total scores, which is in the order of the examinees, and</li>
+<li>the matrix of scored responses.</li>
+</ol>
+<p>These are in two different objects within the <code>sc.out</code> object we created. So far in R, we’ve only addressed data frames (and secretly matrices). R includes a format of objects called <strong>lists</strong>. These lists can include smaller lists. In this case, we have two objects, <code>score</code> and <code>scored</code>, inside the <code>sc.out</code> list.<a href="#fn38" class="footnote-ref" id="fnref38"><sup>38</sup></a> To isolate one, we use the <code>$</code>. For example, to get only the <code>score</code> portion (the total scores), we use this code:</p>
+<div class="sourceCode" id="cb161"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb161-1"><a href="itemans.html#cb161-1"></a>sc.out<span class="op">$</span>score</span></code></pre></div>
+<pre><code>##  P1  P2  P3  P4  P5  P6  P7  P8  P9 P10 P11 P12 P13 P14 P15 P16 
+##   9   8   8   7   7   7   6   6   5   5   5   5   4   3   2   2</code></pre>
+<p>To get the <code>scored</code> portion (the matrix of item scores), we use a similar code:</p>
+<div class="sourceCode" id="cb163"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb163-1"><a href="itemans.html#cb163-1"></a>sc.out<span class="op">$</span>scored</span></code></pre></div>
+<pre><code>##                 i1 i2 i3 i4 i5 i6 i7 i8 i9 i10
+## Eloise           1  1  1  1  0  1  1  1  1   1
+## Xena             1  1  1  0  1  1  1  0  1   1
+## MrBean           1  1  1  1  0  1  1  1  0   1
+## Rhea             1  1  1  0  1  1  1  0  0   1
+## Jean-Paul        1  1  1  1  0  1  1  0  1   0
+## Spock            1  1  0  0  1  1  1  1  1   0
+## Frodo            1  1  1  1  0  1  0  1  0   0
+## Shahab           1  1  0  1  1  0  0  0  1   1
+## Kan              0  1  0  1  0  1  1  0  1   0
+## Jayla            1  1  1  1  0  1  0  0  0   0
+## Sachiko          1  1  1  1  0  0  0  1  0   0
+## Chloe            1  0  1  1  1  0  0  1  0   0
+## Kirk             1  0  0  1  1  0  1  0  0   0
+## Lloyd Christmas  0  1  0  0  1  0  0  1  0   0
+## Hulk             0  0  1  0  1  0  0  0  0   0
+## Donald J.        1  0  0  0  1  0  0  0  0   0</code></pre>
+<p>This <code>sc.out$scored</code> object is not formatted as a data frame. It is in a matrix format.<a href="#fn39" class="footnote-ref" id="fnref39"><sup>39</sup></a> Let’s turn it into a data frame using the <code>as.data.frame()</code> function.</p>
+<div class="sourceCode" id="cb165"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb165-1"><a href="itemans.html#cb165-1"></a>sc    &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(sc.out<span class="op">$</span>scored)</span></code></pre></div>
+<p>Because it is a data frame, we can attach the vector of the total scores to that data frame:<a href="#fn40" class="footnote-ref" id="fnref40"><sup>40</sup></a></p>
+<div class="sourceCode" id="cb166"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb166-1"><a href="itemans.html#cb166-1"></a>sc<span class="op">$</span>tot&lt;-<span class="st"> </span>sc.out<span class="op">$</span>score</span></code></pre></div>
+<p>Let’s take a look at our data frame:</p>
+<div class="sourceCode" id="cb167"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb167-1"><a href="itemans.html#cb167-1"></a>sc</span></code></pre></div>
+<pre><code>##                 i1 i2 i3 i4 i5 i6 i7 i8 i9 i10 tot
+## Eloise           1  1  1  1  0  1  1  1  1   1   9
+## Xena             1  1  1  0  1  1  1  0  1   1   8
+## MrBean           1  1  1  1  0  1  1  1  0   1   8
+## Rhea             1  1  1  0  1  1  1  0  0   1   7
+## Jean-Paul        1  1  1  1  0  1  1  0  1   0   7
+## Spock            1  1  0  0  1  1  1  1  1   0   7
+## Frodo            1  1  1  1  0  1  0  1  0   0   6
+## Shahab           1  1  0  1  1  0  0  0  1   1   6
+## Kan              0  1  0  1  0  1  1  0  1   0   5
+## Jayla            1  1  1  1  0  1  0  0  0   0   5
+## Sachiko          1  1  1  1  0  0  0  1  0   0   5
+## Chloe            1  0  1  1  1  0  0  1  0   0   5
+## Kirk             1  0  0  1  1  0  1  0  0   0   4
+## Lloyd Christmas  0  1  0  0  1  0  0  1  0   0   3
+## Hulk             0  0  1  0  1  0  0  0  0   0   2
+## Donald J.        1  0  0  0  1  0  0  0  0   0   2</code></pre>
+<p>We can save this to a CSV file for our subsequent use, such as copying and pasting into a table in a Word document:</p>
+<div class="sourceCode" id="cb169"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb169-1"><a href="itemans.html#cb169-1"></a><span class="kw">write.csv</span>(sc, <span class="st">&quot;Scored.csv&quot;</span>)</span></code></pre></div>
+</div>
+<div id="item-analysis-with-dichotomous-data" class="section level2">
+<h2><span class="header-section-number">7.3</span> Item analysis with dichotomous data</h2>
+<p>Let’s conduct an item analysis using, well, the <code>itemAnalysis()</code> function. Look at the help documentation to see the available arguments and examples beyond those presented here. Here, we’re using the scored data that we just calculated and saved to the data frame <code>sc</code>.</p>
+<div class="sourceCode" id="cb170"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb170-1"><a href="itemans.html#cb170-1"></a>itan&lt;-<span class="st"> </span><span class="kw">itemAnalysis</span>(sc[, items])</span>
+<span id="cb170-2"><a href="itemans.html#cb170-2"></a>itan</span></code></pre></div>
+<pre><code>## 
+##  Number of Items 
+##  10 
+## 
+##  Number of Examinees 
+##  16 
+## 
+##  Coefficient Alpha 
+##  0.506</code></pre>
+<p>Hm. That is sparse. In the help files, the author (John Willse) says to use the <code>str()</code> function on the output. Let’s do that:</p>
+<div class="sourceCode" id="cb172"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb172-1"><a href="itemans.html#cb172-1"></a><span class="kw">str</span>(itan)</span></code></pre></div>
+<pre><code>## List of 6
+##  $ nItem     : int 10
+##  $ nPerson   : int 16
+##  $ alpha     : num 0.506
+##  $ scaleMean : num 5.56
+##  $ scaleSD   : num 2.1
+##  $ itemReport:&#39;data.frame&#39;:  10 obs. of  5 variables:
+##   ..$ itemName      : chr [1:10] &quot;i1&quot; &quot;i2&quot; &quot;i3&quot; &quot;i4&quot; ...
+##   ..$ itemMean      : num [1:10] 0.812 0.75 0.625 0.625 0.562 ...
+##   ..$ pBis          : num [1:10] 0.3671 0.5081 0.1796 0.0413 -0.5565 ...
+##   ..$ bis           : num [1:10] 0.5323 0.6923 0.2294 0.0528 -0.7006 ...
+##   ..$ alphaIfDeleted: num [1:10] 0.44 0.39 0.489 0.531 0.686 ...
+##  - attr(*, &quot;class&quot;)= chr &quot;itemAnalysis&quot;</code></pre>
+<p>Our object is a list containing six smaller objects. We see the number of items, number of observations (nPerson), coefficient alpha (for comparing alphaIfDeleted), the mean of the total score, and the standard deviation (with the default <em>n</em>-1 denominator) of the total score, as well as an item report. This last one, <code>itan$itanReport</code> is what we want to examine and report.</p>
+<div class="sourceCode" id="cb174"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb174-1"><a href="itemans.html#cb174-1"></a>itan<span class="op">$</span>itemReport</span></code></pre></div>
+<pre><code>##    itemName itemMean         pBis         bis alphaIfDeleted
+## 1        i1   0.8125  0.367058490  0.53227823      0.4397727
+## 2        i2   0.7500  0.508092301  0.69234311      0.3903346
+## 3        i3   0.6250  0.179644728  0.22935449      0.4890231
+## 4        i4   0.6250  0.041344912  0.05278552      0.5307692
+## 5        i5   0.5625 -0.556522581 -0.70064283      0.6859756
+## 6        i6   0.5625  0.594430093  0.74836709      0.3423913
+## 7        i7   0.5000  0.464582098  0.58226731      0.3908046
+## 8        i8   0.4375  0.008016435  0.01009242      0.5420040
+## 9        i9   0.3750  0.347646609  0.44384442      0.4344458
+## 10      i10   0.3125  0.520097037  0.68094599      0.3788265</code></pre>
+<p>For each item, we get the item mean, which is the <em>p</em>-value with dichotomous data, the point-biserial and biserial correlations for examining item discrimination, and the alpha if deleted. The point-biserial and biserial correlations are corrected; that is, each item’s correlation is between the item and the corrected total score. The corrected total score excludes that particular item (because otherwise the correlation would be inflated).
+Based on these correlations, do you notice any items in need of closer inspection? How about with the alpha-if-deleted column? Compared to our alpha of 0.51 from the <code>itan$alpha</code> object, can we identify any items in need of closer inspection?</p>
+<p>Let’s format our output and save it as a csv file so we can use it in a report:<a href="#fn41" class="footnote-ref" id="fnref41"><sup>41</sup></a></p>
+<div class="sourceCode" id="cb176"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb176-1"><a href="itemans.html#cb176-1"></a>ItemAnalysReport&lt;-<span class="st"> </span><span class="kw">data.frame</span>(itan<span class="op">$</span>itemReport[<span class="dv">1</span>],</span>
+<span id="cb176-2"><a href="itemans.html#cb176-2"></a>                        <span class="kw">round</span>(itan<span class="op">$</span>itemReport[<span class="dv">2</span><span class="op">:</span><span class="dv">5</span>],<span class="dv">2</span>) ) </span>
+<span id="cb176-3"><a href="itemans.html#cb176-3"></a>ItemAnalysReport</span></code></pre></div>
+<pre><code>##    itemName itemMean  pBis   bis alphaIfDeleted
+## 1        i1     0.81  0.37  0.53           0.44
+## 2        i2     0.75  0.51  0.69           0.39
+## 3        i3     0.62  0.18  0.23           0.49
+## 4        i4     0.62  0.04  0.05           0.53
+## 5        i5     0.56 -0.56 -0.70           0.69
+## 6        i6     0.56  0.59  0.75           0.34
+## 7        i7     0.50  0.46  0.58           0.39
+## 8        i8     0.44  0.01  0.01           0.54
+## 9        i9     0.38  0.35  0.44           0.43
+## 10      i10     0.31  0.52  0.68           0.38</code></pre>
+<div class="sourceCode" id="cb178"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb178-1"><a href="itemans.html#cb178-1"></a><span class="kw">write.csv</span>(ItemAnalysReport, <span class="st">&quot;ItemAnalysReport.csv&quot;</span>, <span class="dt">row.names=</span><span class="ot">FALSE</span>)</span></code></pre></div>
+</div>
+<div id="distractor-analysis" class="section level2">
+<h2><span class="header-section-number">7.4</span> Distractor analysis</h2>
+<p>We can examine the functioning of the keyed response and the distractors using the <code>distractorAnalysis()</code> function. The help documentation provides a good explanation about the arguments.
+For the discrimination index (the d-index), we can specify how the groups will be defined. The minimum number of groups in this function is 3.</p>
+<div class="sourceCode" id="cb179"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb179-1"><a href="itemans.html#cb179-1"></a><span class="kw">distractorAnalysis</span>(dat[, items], key, </span>
+<span id="cb179-2"><a href="itemans.html#cb179-2"></a>                   <span class="dt">nGroups=</span><span class="dv">3</span>, </span>
+<span id="cb179-3"><a href="itemans.html#cb179-3"></a>                   <span class="dt">digits=</span><span class="dv">2</span>)</span></code></pre></div>
+<pre><code>## $i1
+##   correct key  n rspP  pbis discrim lower mid66 upper
+## a       *   a 13 0.81  0.37    0.38  0.62     1     1
+## b           b  2 0.12 -0.43   -0.25  0.25     0     0
+## c           c  1 0.06 -0.54   -0.12  0.12     0     0
+## d           d  0 0.00    NA    0.00  0.00     0     0
+## 
+## $i2
+##   correct key  n rspP  pbis discrim lower mid66 upper
+## a           a  0 0.00    NA    0.00  0.00     0     0
+## b           b  3 0.19 -0.77   -0.38  0.38     0     0
+## c       *   c 12 0.75  0.51    0.50  0.50     1     1
+## d           d  1 0.06 -0.19   -0.12  0.12     0     0
+## 
+## $i3
+##   correct key  n rspP  pbis discrim lower mid66 upper
+## a           a  4 0.25 -0.35   -0.25  0.25   0.4     0
+## b           b  1 0.06 -0.31   -0.12  0.12   0.0     0
+## c       *   c 10 0.62  0.18    0.50  0.50   0.6     1
+## d           d  1 0.06 -0.43   -0.12  0.12   0.0     0
+## 
+## $i4
+##   correct key  n rspP  pbis discrim lower mid66 upper
+## a       *   a 10 0.62  0.04    0.04  0.62   0.6  0.67
+## b           b  4 0.25 -0.02    0.21  0.12   0.4  0.33
+## c           c  1 0.06 -0.54   -0.12  0.12   0.0  0.00
+## d           d  1 0.06 -0.54   -0.12  0.12   0.0  0.00
+## 
+## $i5
+##   correct key n rspP  pbis discrim lower mid66 upper
+## a           a 1 0.06 -0.19   -0.12  0.12   0.0  0.00
+## b           b 1 0.06 -0.19   -0.12  0.12   0.0  0.00
+## c           c 5 0.31  0.27    0.54  0.12   0.4  0.67
+## d       *   d 9 0.56 -0.56   -0.29  0.62   0.6  0.33
+## 
+## $i6
+##   correct key n rspP  pbis discrim lower mid66 upper
+## a           a 2 0.12 -0.51   -0.25  0.25   0.0     0
+## b           b 3 0.19 -0.71   -0.38  0.38   0.0     0
+## c           c 2 0.12 -0.17   -0.12  0.12   0.2     0
+## d       *   d 9 0.56  0.59    0.75  0.25   0.8     1
+## 
+## $i7
+##   correct key n rspP  pbis discrim lower mid66 upper
+## a           a 0  0.0    NA    0.00  0.00   0.0     0
+## b       *   b 8  0.5  0.46    0.75  0.25   0.6     1
+## c           c 0  0.0    NA    0.00  0.00   0.0     0
+## d           d 8  0.5 -0.76   -0.75  0.75   0.4     0
+## 
+## $i8
+##   correct key n rspP  pbis discrim lower mid66 upper
+## a           a 3 0.19 -0.38   -0.25  0.25   0.2  0.00
+## b       *   b 7 0.44  0.01    0.29  0.38   0.4  0.67
+## c           c 5 0.31 -0.21    0.08  0.25   0.4  0.33
+## d           d 1 0.06 -0.31   -0.12  0.12   0.0  0.00
+## 
+## $i9
+##   correct key n rspP  pbis discrim lower mid66 upper
+## a           a 4 0.25 -0.59   -0.38  0.38   0.2  0.00
+## b       *   b 6 0.38  0.35    0.54  0.12   0.6  0.67
+## c           c 4 0.25 -0.23   -0.04  0.38   0.0  0.33
+## d           d 2 0.12 -0.35   -0.12  0.12   0.2  0.00
+## 
+## $i10
+##   correct key n rspP  pbis discrim lower mid66 upper
+## a           a 4 0.25 -0.76    -0.5   0.5   0.0     0
+## b           b 1 0.06  0.06     0.0   0.0   0.2     0
+## c           c 6 0.38 -0.37    -0.5   0.5   0.4     0
+## d       *   d 5 0.31  0.52     1.0   0.0   0.4     1</code></pre>
+<p>In the output, we see the keyed category marked with an asterisk, the number of responses to that category, the <em>p</em>-value of that category, <code>rspP</code>, the point-biserial and the d-index discrimination indexes, as well as the <em>p</em>-values in each of the groups.</p>
+<p>Instead of <code>ngroups</code>, we can specify the percentile cut points of the groups.<a href="#fn42" class="footnote-ref" id="fnref42"><sup>42</sup></a> For instance, if we sought to use the upper and lower quartiles, we would use <code>defineGroups=c(.25, .50, .25)</code>. If we sought to take the upper and lower 5 people, we might try this:</p>
+<div class="sourceCode" id="cb181"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb181-1"><a href="itemans.html#cb181-1"></a>DistAn2 &lt;-<span class="st"> </span><span class="kw">distractorAnalysis</span>(dat[, items], key, </span>
+<span id="cb181-2"><a href="itemans.html#cb181-2"></a>                   <span class="dt">defineGroups=</span><span class="kw">c</span>(<span class="dv">5</span><span class="op">/</span><span class="dv">16</span>, <span class="dv">6</span><span class="op">/</span><span class="dv">16</span>, <span class="dv">5</span><span class="op">/</span><span class="dv">16</span>), </span>
+<span id="cb181-3"><a href="itemans.html#cb181-3"></a>                   <span class="dt">digits=</span><span class="dv">2</span>)[<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>] </span>
+<span id="cb181-4"><a href="itemans.html#cb181-4"></a><span class="co"># This [1:4] asks for just the first four items, for demonstration.</span></span>
+<span id="cb181-5"><a href="itemans.html#cb181-5"></a>DistAn2</span></code></pre></div>
+<pre><code>## $i1
+##   correct key  n rspP  pbis discrim lower mid68 upper
+## a       *   a 13 0.81  0.37    0.38  0.62     1     1
+## b           b  2 0.12 -0.43   -0.25  0.25     0     0
+## c           c  1 0.06 -0.54   -0.12  0.12     0     0
+## d           d  0 0.00    NA    0.00  0.00     0     0
+## 
+## $i2
+##   correct key  n rspP  pbis discrim lower mid68 upper
+## a           a  0 0.00    NA    0.00  0.00     0     0
+## b           b  3 0.19 -0.77   -0.38  0.38     0     0
+## c       *   c 12 0.75  0.51    0.50  0.50     1     1
+## d           d  1 0.06 -0.19   -0.12  0.12     0     0
+## 
+## $i3
+##   correct key  n rspP  pbis discrim lower mid68 upper
+## a           a  4 0.25 -0.35   -0.25  0.25   0.4     0
+## b           b  1 0.06 -0.31   -0.12  0.12   0.0     0
+## c       *   c 10 0.62  0.18    0.50  0.50   0.6     1
+## d           d  1 0.06 -0.43   -0.12  0.12   0.0     0
+## 
+## $i4
+##   correct key  n rspP  pbis discrim lower mid68 upper
+## a       *   a 10 0.62  0.04    0.04  0.62   0.6  0.67
+## b           b  4 0.25 -0.02    0.21  0.12   0.4  0.33
+## c           c  1 0.06 -0.54   -0.12  0.12   0.0  0.00
+## d           d  1 0.06 -0.54   -0.12  0.12   0.0  0.00</code></pre>
+<table style="width:88%;">
+<colgroup>
+<col width="6%" />
+<col width="80%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td align="right"><br />
+</td>
+<td><img src="images/note.png" alt="Note" /><span style="color:gray"> With a small number of possible total scores, such as this one in which the total-score range is from 0 to 10, there will be tied scores (e.g., if we look at the <code>sc</code> data frame, we see that four people scored a <code>5</code>). This function handles ties whereas we might not be so diligent if we did this by hand in our spreadsheet. In this particular case, the function ended up allocating 3 people to the high group (those who scored <code>8</code> or <code>9</code>) and eight people to the low group (those who scored <code>5</code> or less) and the remaining five people in the middle group.<a href="#fn43" class="footnote-ref" id="fnref43"><sup>43</sup></a></span></td>
+</tr>
+</tbody>
+</table>
+<p>If we sought to use the top and bottom 27%, as some psychometricians believe we should use for this index <span class="citation">(Kelley, <a href="#ref-kelley_selection_1939" role="doc-biblioref">1939</a>)</span>, we can specify this:</p>
+<div class="sourceCode" id="cb183"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb183-1"><a href="itemans.html#cb183-1"></a>DistAn3 &lt;-<span class="st"> </span><span class="kw">distractorAnalysis</span>(dat[, items], key, </span>
+<span id="cb183-2"><a href="itemans.html#cb183-2"></a>                   <span class="dt">defineGroups=</span><span class="kw">c</span>(.<span class="dv">27</span>, <span class="fl">.46</span>, <span class="fl">.27</span>), </span>
+<span id="cb183-3"><a href="itemans.html#cb183-3"></a>                   <span class="dt">digits=</span><span class="dv">2</span>)[<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>] </span>
+<span id="cb183-4"><a href="itemans.html#cb183-4"></a>DistAn3</span></code></pre></div>
+<pre><code>## $i1
+##   correct key  n rspP  pbis discrim lower mid73 upper
+## a       *   a 13 0.81  0.37    0.38  0.62     1     1
+## b           b  2 0.12 -0.43   -0.25  0.25     0     0
+## c           c  1 0.06 -0.54   -0.12  0.12     0     0
+## d           d  0 0.00    NA    0.00  0.00     0     0
+## 
+## $i2
+##   correct key  n rspP  pbis discrim lower mid73 upper
+## a           a  0 0.00    NA    0.00  0.00     0     0
+## b           b  3 0.19 -0.77   -0.38  0.38     0     0
+## c       *   c 12 0.75  0.51    0.50  0.50     1     1
+## d           d  1 0.06 -0.19   -0.12  0.12     0     0
+## 
+## $i3
+##   correct key  n rspP  pbis discrim lower mid73 upper
+## a           a  4 0.25 -0.35   -0.25  0.25   0.4     0
+## b           b  1 0.06 -0.31   -0.12  0.12   0.0     0
+## c       *   c 10 0.62  0.18    0.50  0.50   0.6     1
+## d           d  1 0.06 -0.43   -0.12  0.12   0.0     0
+## 
+## $i4
+##   correct key  n rspP  pbis discrim lower mid73 upper
+## a       *   a 10 0.62  0.04    0.04  0.62   0.6  0.67
+## b           b  4 0.25 -0.02    0.21  0.12   0.4  0.33
+## c           c  1 0.06 -0.54   -0.12  0.12   0.0  0.00
+## d           d  1 0.06 -0.54   -0.12  0.12   0.0  0.00</code></pre>
+<p>As should be clear, we have to make the decision about how to define the upper and lower groups. Because D-indexes depend on how this grouping is set up, they tend to be accompanied by the biserial and point-biserial correlations when reporting on discrimination.</p>
+<p>A useful argument of this function is we can ask for a CSV report to be saved in our working directory. This is nice because we can later use that in our write-up.</p>
+<div class="sourceCode" id="cb185"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb185-1"><a href="itemans.html#cb185-1"></a><span class="kw">distractorAnalysis</span>(dat[, items], key, </span>
+<span id="cb185-2"><a href="itemans.html#cb185-2"></a>                   <span class="dt">nGroups=</span><span class="dv">3</span>, </span>
+<span id="cb185-3"><a href="itemans.html#cb185-3"></a>                   <span class="dt">digits=</span><span class="dv">2</span>, </span>
+<span id="cb185-4"><a href="itemans.html#cb185-4"></a>                   <span class="dt">csvReport=</span><span class="st">&quot;DistractorReport.csv&quot;</span>)</span></code></pre></div>
+</div>
+<div id="item-analysis-with-polytomous-data" class="section level2">
+<h2><span class="header-section-number">7.5</span> Item analysis with polytomous data</h2>
+<div id="partial-credit-data" class="section level3">
+<h3><span class="header-section-number">7.5.1</span> Partial-credit data</h3>
+<p>If we have a test with tasks or features that are scored on a partial-credit score, our data are polytomous. This might be from using a scoring rubric on an essay, for example. In the example below, the scores are from <code>1</code> to <code>4</code>. We could transform those to <code>0</code> to <code>3</code> scale if we wanted a score of <code>0</code> to have meaning. Nonetheless, we often see data like these.</p>
+<div class="sourceCode" id="cb186"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb186-1"><a href="itemans.html#cb186-1"></a>polydat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;Week04_ItemAnalys_Poly.csv&quot;</span>)</span>
+<span id="cb186-2"><a href="itemans.html#cb186-2"></a>polydat</span></code></pre></div>
+<pre><code>##    PID poly1 poly2 poly3 poly4 Total
+## 1    1     2     3     2     3    10
+## 2    2     1     1     1     2     5
+## 3    3     2     2     1     1     6
+## 4    4     2     1     1     2     6
+## 5    5     3     2     4     4    13
+## 6    6     1     2     1     1     5
+## 7    7     4     3     4     4    15
+## 8    8     3     4     1     4    12
+## 9    9     4     2     3     4    13
+## 10  10     1     1     3     2     7</code></pre>
+<p>We see there are four items. We can use the <code>itemAnalysis()</code> function from the <code>CTT</code> package for these types of data.</p>
+<div class="sourceCode" id="cb188"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb188-1"><a href="itemans.html#cb188-1"></a>polys   &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;poly1&quot;</span>, <span class="st">&quot;poly2&quot;</span>, <span class="st">&quot;poly3&quot;</span>, <span class="st">&quot;poly4&quot;</span>)</span>
+<span id="cb188-2"><a href="itemans.html#cb188-2"></a>itanp   &lt;-<span class="st"> </span><span class="kw">itemAnalysis</span>(polydat[,polys])</span>
+<span id="cb188-3"><a href="itemans.html#cb188-3"></a><span class="kw">str</span>(itanp)</span></code></pre></div>
+<pre><code>## List of 6
+##  $ nItem     : int 4
+##  $ nPerson   : int 10
+##  $ alpha     : num 0.827
+##  $ scaleMean : num 9.2
+##  $ scaleSD   : num 3.82
+##  $ itemReport:&#39;data.frame&#39;:  4 obs. of  5 variables:
+##   ..$ itemName      : chr [1:4] &quot;poly1&quot; &quot;poly2&quot; &quot;poly3&quot; &quot;poly4&quot;
+##   ..$ itemMean      : num [1:4] 2.3 2.1 2.1 2.7
+##   ..$ pBis          : num [1:4] 0.83 0.439 0.516 0.879
+##   ..$ bis           : num [1:4] 0.9 0.476 0.591 0.98
+##   ..$ alphaIfDeleted: num [1:4] 0.698 0.864 0.849 0.665
+##  - attr(*, &quot;class&quot;)= chr &quot;itemAnalysis&quot;</code></pre>
+<div class="sourceCode" id="cb190"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb190-1"><a href="itemans.html#cb190-1"></a>itanp<span class="op">$</span>itemReport</span></code></pre></div>
+<pre><code>##   itemName itemMean      pBis       bis alphaIfDeleted
+## 1    poly1      2.3 0.8296415 0.9000082      0.6981664
+## 2    poly2      2.1 0.4392713 0.4758474      0.8637771
+## 3    poly3      2.1 0.5155676 0.5907838      0.8491965
+## 4    poly4      2.7 0.8787320 0.9795256      0.6651163</code></pre>
+<p>This output provides the item mean, the point-polyserial and polyserial correlation indexes (though they are labeled as <code>pBis</code> and <code>bis</code> in the output)<a href="#fn44" class="footnote-ref" id="fnref44"><sup>44</sup></a> and the alpha-if-deleted estimates. Can you identify an item that seems to have less-than-ideal functioning?<a href="#fn45" class="footnote-ref" id="fnref45"><sup>45</sup></a></p>
+<p>If we needed to report something analogous to a <em>p</em>-value, we would divide the item mean by the number of items:</p>
+<div class="sourceCode" id="cb192"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb192-1"><a href="itemans.html#cb192-1"></a>PolyAnReport   &lt;-<span class="st"> </span>itanp<span class="op">$</span>itemReport</span>
+<span id="cb192-2"><a href="itemans.html#cb192-2"></a>PolyAnReport<span class="op">$</span>item_p &lt;-<span class="st"> </span>PolyAnReport<span class="op">$</span>itemMean<span class="op">/</span>itanp<span class="op">$</span>nItem</span>
+<span id="cb192-3"><a href="itemans.html#cb192-3"></a>PolyAnReport</span></code></pre></div>
+<pre><code>##   itemName itemMean      pBis       bis alphaIfDeleted item_p
+## 1    poly1      2.3 0.8296415 0.9000082      0.6981664  0.575
+## 2    poly2      2.1 0.4392713 0.4758474      0.8637771  0.525
+## 3    poly3      2.1 0.5155676 0.5907838      0.8491965  0.525
+## 4    poly4      2.7 0.8787320 0.9795256      0.6651163  0.675</code></pre>
+<p>With polytomous items, this “item_p” should not be interpreted as a probability of getting the item correct, but it is a way to represent item difficulty in this classical-test-theory approach.</p>
+</div>
+<div id="LikertFunc" class="section level3">
+<h3><span class="header-section-number">7.5.2</span> Item functioning of Likert-type scale items</h3>
+<p>In examining the item functioning of self-report data, such as from Likert-type survey scales, we typically examine frequency distributions of each item’s category as well as the corrected polyserial correlations with the total scores and alpha-if-deleted indexes. Again, this is from a classical-test-theory perspective. Modern test theory can provide additional item-functioning information.</p>
+<p>The following example is contrived. It consists of four five-point Likert-type scale questions. Here are the made-up item prompts and Likert-type response scales with their corresponding numeric code values:<a href="#fn46" class="footnote-ref" id="fnref46"><sup>46</sup></a></p>
+<ol style="list-style-type: decimal">
+<li>How well was the content of the lesson plan executed?
+<ul>
+<li><span style="color:gray">1 = <em>Very poorly executed</em>, 2 = <em>Not well executed</em>, 3 = <em>Adequately executed</em>, 4 = <em>Pretty well executed</em>, 5 = <em>Very well executed</em></li>
+</ul></li>
+<li>The lesson’s content was fun and educational.
+<ul>
+<li><span style="color:gray">1 = <em>Strongly disagree</em>, 2 = <em>Disagree</em>, 3 = <em>Neither agree nor disagree</em>, 4 = <em>Agree</em>, 5 = <em>Strongly agree</em>)</li>
+</ul></li>
+<li>To what extent was the activity appropriate for the students’ level?
+<ul>
+<li><span style="color:gray">1 = <em>Not appropriate at all</em>, 2 = <em>Weakly appropriate</em>, 3 = <em>Appropriate enough</em>, 4 = <em>Pretty appropriate</em>, 5 = <em>Very appropriate</em>)</li>
+</ul></li>
+<li>To what extent did the activity engage the students?
+<ul>
+<li><span style="color:gray">1 = <em>Not at all</em>, 2 = <em>Minimally</em>, 3 = <em>Partially</em>, 4 = <em>Moderately</em>, 5 = <em>Fully</em>)</span></li>
+</ul></li>
+</ol>
+<p>Let’s read in the data.</p>
+<div class="sourceCode" id="cb194"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb194-1"><a href="itemans.html#cb194-1"></a>Likdat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;Week04_ItemAnalys_Likert.csv&quot;</span>)</span>
+<span id="cb194-2"><a href="itemans.html#cb194-2"></a><span class="kw">str</span>(Likdat)</span></code></pre></div>
+<pre><code>## &#39;data.frame&#39;:    50 obs. of  5 variables:
+##  $ PID: int  1 2 3 4 5 6 7 8 9 10 ...
+##  $ Q1 : int  1 4 4 3 2 2 2 2 5 2 ...
+##  $ Q2 : int  2 3 3 3 3 3 3 3 5 4 ...
+##  $ Q3 : int  1 4 3 2 3 4 4 5 4 5 ...
+##  $ Q4 : int  4 5 5 5 5 5 5 5 5 5 ...</code></pre>
+<p>Let’s make a subset of the data using the index:</p>
+<div class="sourceCode" id="cb196"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb196-1"><a href="itemans.html#cb196-1"></a>Liks   &lt;-<span class="st"> </span><span class="kw">paste0</span>(<span class="st">&quot;Q&quot;</span>,<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>)</span>
+<span id="cb196-2"><a href="itemans.html#cb196-2"></a>Likdat_sub &lt;-<span class="st"> </span>Likdat[ , Liks]</span></code></pre></div>
+<p>We can again use the <code>CTT</code> package and its <code>itemAnalysis()</code> function to examine item functioning:</p>
+<div class="sourceCode" id="cb197"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb197-1"><a href="itemans.html#cb197-1"></a>ItanL   &lt;-<span class="st"> </span><span class="kw">itemAnalysis</span>(Likdat_sub)</span>
+<span id="cb197-2"><a href="itemans.html#cb197-2"></a><span class="kw">str</span>(ItanL)</span></code></pre></div>
+<pre><code>## List of 6
+##  $ nItem     : int 4
+##  $ nPerson   : int 50
+##  $ alpha     : num 0.435
+##  $ scaleMean : num 15
+##  $ scaleSD   : num 1.96
+##  $ itemReport:&#39;data.frame&#39;:  4 obs. of  5 variables:
+##   ..$ itemName      : chr [1:4] &quot;Q1&quot; &quot;Q2&quot; &quot;Q3&quot; &quot;Q4&quot;
+##   ..$ itemMean      : num [1:4] 3 3.08 4.08 4.88
+##   ..$ pBis          : num [1:4] 0.289 0.383 0.212 0.354
+##   ..$ bis           : num [1:4] 0.308 0.611 0.241 0.603
+##   ..$ alphaIfDeleted: num [1:4] 0.362 0.341 0.415 0.358
+##  - attr(*, &quot;class&quot;)= chr &quot;itemAnalysis&quot;</code></pre>
+<div class="sourceCode" id="cb199"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb199-1"><a href="itemans.html#cb199-1"></a>ItanL<span class="op">$</span>itemReport</span></code></pre></div>
+<pre><code>##   itemName itemMean      pBis       bis alphaIfDeleted
+## 1       Q1     3.00 0.2891476 0.3078482      0.3618619
+## 2       Q2     3.08 0.3827611 0.6110369      0.3406965
+## 3       Q3     4.08 0.2120227 0.2407376      0.4149392
+## 4       Q4     4.88 0.3540815 0.6033898      0.3575804</code></pre>
+<p>The internal-consistency reliability is pretty low, with alpha = 0.43. But, it’s only four-items long. Does any particular item need to be further inspected based on these correlations and alpha-if-deleted estimates?<a href="#fn47" class="footnote-ref" id="fnref47"><sup>47</sup></a></p>
+<p>Let’s try a different package to examine category-response frequencies, the <code>questionr</code> package <span class="citation">(Barnier et al., <a href="#ref-R-questionr" role="doc-biblioref">2020</a>)</span>. In this package, there is a function called <code>freq()</code>.<a href="#fn48" class="footnote-ref" id="fnref48"><sup>48</sup></a></p>
+<div class="sourceCode" id="cb201"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb201-1"><a href="itemans.html#cb201-1"></a><span class="kw">library</span>(questionr)</span>
+<span id="cb201-2"><a href="itemans.html#cb201-2"></a>questionr<span class="op">::</span><span class="kw">freq</span>(Likdat<span class="op">$</span>Q1)</span></code></pre></div>
+<pre><code>##    n  % val%
+## 1  4  8    8
+## 2 17 34   34
+## 3  8 16   16
+## 4 17 34   34
+## 5  4  8    8</code></pre>
+<p>This displays four columns:</p>
+<ol style="list-style-type: decimal">
+<li>The numeric values of the response categories, which in our data range from 1 to 5.</li>
+<li>The number of respondents selecting that category in this item.</li>
+<li>The percentage of respondents selecting that category in this item.</li>
+<li>The percentage of so-called “valid” data points. In other words, data that are not missing. This column should be the same as the third column if we have complete data.</li>
+</ol>
+<p>We can use this function in an <code>apply()</code> function to each of the four items:<a href="#fn49" class="footnote-ref" id="fnref49"><sup>49</sup></a></p>
+<div class="sourceCode" id="cb203"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb203-1"><a href="itemans.html#cb203-1"></a><span class="kw">apply</span>(Likdat_sub, <span class="dv">2</span>, questionr<span class="op">::</span>freq)</span></code></pre></div>
+<pre><code>## $Q1
+##    n  % val%
+## 1  4  8    8
+## 2 17 34   34
+## 3  8 16   16
+## 4 17 34   34
+## 5  4  8    8
+## 
+## $Q2
+##    n  % val%
+## 2  1  2    2
+## 3 45 90   90
+## 4  3  6    6
+## 5  1  2    2
+## 
+## $Q3
+##    n  % val%
+## 1  2  4    4
+## 2  1  2    2
+## 3  6 12   12
+## 4 23 46   46
+## 5 18 36   36
+## 
+## $Q4
+##    n  % val%
+## 3  1  2    2
+## 4  4  8    8
+## 5 45 90   90</code></pre>
+<p>What do you notice about the items that have no responses on some categories? Wouldn’t it be nice to <em>see</em> these results instead of strain our eyes with charts? That’s next:</p>
+</div>
+<div id="graphing-frequencies-of-category-responses" class="section level3">
+<h3><span class="header-section-number">7.5.3</span> Graphing frequencies of category responses</h3>
+<p>Here, we’ll practice creating a graphic for each individual item. If we did this with each item, we will have several plots. In the subsequent section, we’ll examine them all in a single graphic by displaying each item as a panel (or a facet) in a grid, which can get complex, so if you’re feeling overwhelmed, stick with plotting the individual items one at a time.</p>
+<p>Here’s the Base R code for creating a barplot with a single item. The <code>table()</code> function is described later in this chapter, but basically, it tabulates the number of responses that have that value before generating the bar plot.</p>
+<div class="sourceCode" id="cb205"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb205-1"><a href="itemans.html#cb205-1"></a><span class="kw">barplot</span>(<span class="kw">table</span>(Likdat_sub<span class="op">$</span>Q1))</span></code></pre></div>
+<p><img src="R-Examples-for-Measurement_files/figure-html/unnamed-chunk-126-1.png" width="672" /></p>
+<p>We can also do this in ggplot2 using the <code>ggplot()</code> function. We’re using a single variable, <code>Q1</code>, and the <code>geom_bar()</code> geometric graphic.</p>
+<div class="sourceCode" id="cb206"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb206-1"><a href="itemans.html#cb206-1"></a><span class="kw">library</span>(ggplot2)</span>
+<span id="cb206-2"><a href="itemans.html#cb206-2"></a><span class="kw">ggplot</span>(Likdat_sub, <span class="kw">aes</span>(Q1)) <span class="op">+</span></span>
+<span id="cb206-3"><a href="itemans.html#cb206-3"></a><span class="st">  </span><span class="kw">geom_bar</span>() </span></code></pre></div>
+<p><img src="R-Examples-for-Measurement_files/figure-html/unnamed-chunk-127-1.png" width="672" /></p>
+<p>How does this item appear to be functioning? It appears to be doing a good job of separating the lower respondents from the higher respondents, so even though it does not have a normal distribution, this is a great item in this regard.</p>
+<p>However, before concluding it is an all-around great item, we should also consider its discrimination and alpha-if-deleted indexes, as examined above. Additionally, evidence based on the respondents’ cognitive processes, such as through cognitive interviews, should be considered <span class="citation">(AERA et al., <a href="#ref-aera_standards_2014" role="doc-biblioref">2014</a>)</span>. If respondents rely on an unrelated construct when responding to these questions, such as social desirability or acquiescence, the resulting scores will not represent what we think they represent. All of this information should be taken together in arriving at conclusions with item functioning.</p>
+</div>
+</div>
+<div id="optional-advanced-graphics-stuff" class="section level2">
+<h2><span class="header-section-number">7.6</span> Optional advanced graphics stuff</h2>
+<div id="creating-a-facet-plot-with-ggplot2" class="section level3">
+<h3><span class="header-section-number">7.6.1</span> Creating a facet plot with <code>GGplot2</code></h3>
+<p>If you want to get fancy, try creating a plot that includes all of the items. Creating a grid-type of graphic is a little difficult, but it is useful for providing professional graphics of how the items are functioning.</p>
+<p>For ggplot, we have to create a data frame with the category as one variable and the frequency of responses to that category as another variable (sort of like what the <code>table()</code> function did in the Base R plot we just examined). In other words, our X and Y axes have to be columns in our data frame.</p>
+<p>We’ll use the <code>count()</code> function from the <code>plyr</code> package <span class="citation">(Wickham, <a href="#ref-R-plyr" role="doc-biblioref">2020</a><a href="#ref-R-plyr" role="doc-biblioref">a</a>)</span> for getting the frequency of each category and saving it as a variable. We will start with one variable and then copy and paste this as a template to use for the remaining three items.<a href="#fn50" class="footnote-ref" id="fnref50"><sup>50</sup></a></p>
+<div class="sourceCode" id="cb207"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb207-1"><a href="itemans.html#cb207-1"></a><span class="kw">library</span>(plyr)  <span class="co"># for the count() function</span></span></code></pre></div>
+<p>Here is what the <code>count()</code> function does with a single variable:</p>
+<div class="sourceCode" id="cb208"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb208-1"><a href="itemans.html#cb208-1"></a><span class="kw">count</span>(Likdat_sub<span class="op">$</span>Q1)</span></code></pre></div>
+<pre><code>##   x freq
+## 1 1    4
+## 2 2   17
+## 3 3    8
+## 4 4   17
+## 5 5    4</code></pre>
+<p>We can use this to create a data frame that includes what we need in the ggplot. Let’s create a data frame and add two more variables to the data frame: The item name, which we included in the <code>Liks</code> object (Q1, Q2, Q3, Q4) and an item label. The <code>ItemLab</code> here is optional—we are including it to remind us what the question was about. We will use these <code>ItemLab</code> entries to title each item’s facet in the graph.</p>
+<div class="sourceCode" id="cb210"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb210-1"><a href="itemans.html#cb210-1"></a>f1 &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">Item =</span> Liks[<span class="dv">1</span>], </span>
+<span id="cb210-2"><a href="itemans.html#cb210-2"></a>                 <span class="kw">count</span>(Likdat_sub, Liks[<span class="dv">1</span>]), </span>
+<span id="cb210-3"><a href="itemans.html#cb210-3"></a>                 <span class="dt">ItemLab =</span> <span class="st">&quot;Q1 content of the lesson plan executed&quot;</span>)</span>
+<span id="cb210-4"><a href="itemans.html#cb210-4"></a>f1</span></code></pre></div>
+<pre><code>##   Item Q1 freq                                ItemLab
+## 1   Q1  1    4 Q1 content of the lesson plan executed
+## 2   Q1  2   17 Q1 content of the lesson plan executed
+## 3   Q1  3    8 Q1 content of the lesson plan executed
+## 4   Q1  4   17 Q1 content of the lesson plan executed
+## 5   Q1  5    4 Q1 content of the lesson plan executed</code></pre>
+<p>Let’s also add a proportion variable to each of these, to see the proportion of responses in each item’s category<a href="#fn51" class="footnote-ref" id="fnref51"><sup>51</sup></a>. This is optional, but it might be useful if we wish to use percent of responses as the Y axis instead of frequency. It looks scary, but there is a numerator and a denominator. The numerator is the function from the line before but with the frequency, <code>$freq</code> isolated from it. So, that is the frequency of the responses in that particular category. The denominator is the number of non-missing responses to this item, which is the same number across the item’s categories. Here, we’re using the <code>sum(!is.na())</code> function to perform this count.</p>
+<div class="sourceCode" id="cb212"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb212-1"><a href="itemans.html#cb212-1"></a>f1 &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">Item =</span> Liks[<span class="dv">1</span>], </span>
+<span id="cb212-2"><a href="itemans.html#cb212-2"></a>                 <span class="kw">count</span>(Likdat_sub, Liks[<span class="dv">1</span>]), </span>
+<span id="cb212-3"><a href="itemans.html#cb212-3"></a>                 <span class="dt">Proportion =</span> <span class="kw">count</span>(Likdat_sub, Liks[<span class="dv">1</span>])<span class="op">$</span>freq <span class="op">/</span><span class="st"> </span><span class="kw">sum</span>(<span class="op">!</span><span class="kw">is.na</span>(Likdat_sub[, Liks[<span class="dv">1</span>]])), </span>
+<span id="cb212-4"><a href="itemans.html#cb212-4"></a>                 <span class="dt">ItemLab =</span> <span class="st">&quot;Q1 content of the lesson plan executed&quot;</span>)</span>
+<span id="cb212-5"><a href="itemans.html#cb212-5"></a>f1</span></code></pre></div>
+<pre><code>##   Item Q1 freq Proportion                                ItemLab
+## 1   Q1  1    4       0.08 Q1 content of the lesson plan executed
+## 2   Q1  2   17       0.34 Q1 content of the lesson plan executed
+## 3   Q1  3    8       0.16 Q1 content of the lesson plan executed
+## 4   Q1  4   17       0.34 Q1 content of the lesson plan executed
+## 5   Q1  5    4       0.08 Q1 content of the lesson plan executed</code></pre>
+<p>We can copy and paste that code and use it with Items 2 through 4, changing the numbers and labels (and checking it twice).</p>
+<div class="sourceCode" id="cb214"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb214-1"><a href="itemans.html#cb214-1"></a>f2 &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">Item =</span> Liks[<span class="dv">2</span>], </span>
+<span id="cb214-2"><a href="itemans.html#cb214-2"></a>                 <span class="kw">count</span>(Likdat_sub, Liks[<span class="dv">2</span>]),</span>
+<span id="cb214-3"><a href="itemans.html#cb214-3"></a>                 <span class="dt">Proportion =</span> <span class="kw">count</span>(Likdat_sub, Liks[<span class="dv">2</span>])<span class="op">$</span>freq <span class="op">/</span><span class="st"> </span><span class="kw">sum</span>(<span class="op">!</span><span class="kw">is.na</span>(Likdat_sub[, Liks[<span class="dv">2</span>]])), </span>
+<span id="cb214-4"><a href="itemans.html#cb214-4"></a>                 <span class="dt">ItemLab =</span> <span class="st">&quot;Q2 content was fun and educational&quot;</span>)</span>
+<span id="cb214-5"><a href="itemans.html#cb214-5"></a>f3 &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">Item =</span> Liks[<span class="dv">3</span>], </span>
+<span id="cb214-6"><a href="itemans.html#cb214-6"></a>                 <span class="kw">count</span>(Likdat_sub, Liks[<span class="dv">3</span>]), </span>
+<span id="cb214-7"><a href="itemans.html#cb214-7"></a>                 <span class="dt">Proportion =</span> <span class="kw">count</span>(Likdat_sub, Liks[<span class="dv">3</span>])<span class="op">$</span>freq <span class="op">/</span><span class="st"> </span><span class="kw">sum</span>(<span class="op">!</span><span class="kw">is.na</span>(Likdat_sub[, Liks[<span class="dv">3</span>]])), </span>
+<span id="cb214-8"><a href="itemans.html#cb214-8"></a>                 <span class="dt">ItemLab =</span> <span class="st">&quot;Q3 appropriate for the students’ level&quot;</span>)</span>
+<span id="cb214-9"><a href="itemans.html#cb214-9"></a>f4 &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">Item =</span> Liks[<span class="dv">4</span>], </span>
+<span id="cb214-10"><a href="itemans.html#cb214-10"></a>                 <span class="kw">count</span>(Likdat_sub, Liks[<span class="dv">4</span>]), </span>
+<span id="cb214-11"><a href="itemans.html#cb214-11"></a>                 <span class="dt">Proportion =</span> <span class="kw">count</span>(Likdat_sub, Liks[<span class="dv">4</span>])<span class="op">$</span>freq <span class="op">/</span><span class="st"> </span><span class="kw">sum</span>(<span class="op">!</span><span class="kw">is.na</span>(Likdat_sub[, Liks[<span class="dv">4</span>]])), </span>
+<span id="cb214-12"><a href="itemans.html#cb214-12"></a>                 <span class="dt">ItemLab =</span> <span class="st">&quot;Q4 engage the students&quot;</span>)</span></code></pre></div>
+<p>So, now we have four data frames. To make a complete data frame that includes the frequency data from all of the items, we need to combine them into a single data frame. But first, we need to make sure all of these smaller data frames have exactly the same column names; otherwise, when we append these, the results will get ugly. Let’s use the <code>names()</code> function to see what the names are of a couple of these data frames we just created:</p>
+<div class="sourceCode" id="cb215"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb215-1"><a href="itemans.html#cb215-1"></a><span class="kw">names</span>(f1)</span></code></pre></div>
+<pre><code>## [1] &quot;Item&quot;       &quot;Q1&quot;         &quot;freq&quot;       &quot;Proportion&quot; &quot;ItemLab&quot;</code></pre>
+<div class="sourceCode" id="cb217"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb217-1"><a href="itemans.html#cb217-1"></a><span class="kw">names</span>(f3)</span></code></pre></div>
+<pre><code>## [1] &quot;Item&quot;       &quot;Q3&quot;         &quot;freq&quot;       &quot;Proportion&quot; &quot;ItemLab&quot;</code></pre>
+<p>These do <em>not</em> have the same name for the second column of data. Let’s change the names of all of these so that they are the same. Actually, if we look at the column, this is the category. Let’s use “Category” as the name because we want to plot the frequency of repsponses per category per item. While we’re doing this, let’s also change the “freq” column to be “Frequency” so it shows up that way in our plot.</p>
+<div class="sourceCode" id="cb219"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb219-1"><a href="itemans.html#cb219-1"></a><span class="kw">names</span>(f4) &lt;-<span class="st"> </span><span class="kw">names</span>(f3) &lt;-<span class="st"> </span><span class="kw">names</span>(f2) &lt;-<span class="st"> </span><span class="kw">names</span>(f1) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Item&quot;</span>, <span class="st">&quot;Category&quot;</span>, <span class="st">&quot;Frequency&quot;</span>, <span class="st">&quot;Proportion&quot;</span>, <span class="st">&quot;ItemLab&quot;</span>)</span></code></pre></div>
+<p>Notice that we used the <code>c()</code> function to enclose a vector of words, which we then assigned to <code>names(x)</code> which we repeated with the other variables, from right to left.<a href="#fn52" class="footnote-ref" id="fnref52"><sup>52</sup></a>
+Let’s see what this looks like:</p>
+<div class="sourceCode" id="cb220"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb220-1"><a href="itemans.html#cb220-1"></a>f1</span></code></pre></div>
+<pre><code>##   Item Category Frequency Proportion                                ItemLab
+## 1   Q1        1         4       0.08 Q1 content of the lesson plan executed
+## 2   Q1        2        17       0.34 Q1 content of the lesson plan executed
+## 3   Q1        3         8       0.16 Q1 content of the lesson plan executed
+## 4   Q1        4        17       0.34 Q1 content of the lesson plan executed
+## 5   Q1        5         4       0.08 Q1 content of the lesson plan executed</code></pre>
+<p>Now that these all have the same variable names, we can append the objects as rows beneath each other to make a data frame, which we can arbitrarily call <code>freqy</code>. We can “bind” rows using the <code>rbind()</code> function.</p>
+<div class="sourceCode" id="cb222"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb222-1"><a href="itemans.html#cb222-1"></a>freqy &lt;-<span class="st"> </span><span class="kw">rbind</span>(f1, f2, f3, f4)</span>
+<span id="cb222-2"><a href="itemans.html#cb222-2"></a>freqy[<span class="dv">1</span><span class="op">:</span><span class="dv">8</span>, ] <span class="co"># The first 8 rows of data</span></span></code></pre></div>
+<pre><code>##   Item Category Frequency Proportion                                ItemLab
+## 1   Q1        1         4       0.08 Q1 content of the lesson plan executed
+## 2   Q1        2        17       0.34 Q1 content of the lesson plan executed
+## 3   Q1        3         8       0.16 Q1 content of the lesson plan executed
+## 4   Q1        4        17       0.34 Q1 content of the lesson plan executed
+## 5   Q1        5         4       0.08 Q1 content of the lesson plan executed
+## 6   Q2        2         1       0.02     Q2 content was fun and educational
+## 7   Q2        3        45       0.90     Q2 content was fun and educational
+## 8   Q2        4         3       0.06     Q2 content was fun and educational</code></pre>
+<p>Now we’re ready to create the plot. If we haven’t already, let’s bring <code>ggplot2</code> into our library. With this data layout—that is, with one column being the category and the other being the frequency—we use the <code>geom_col()</code> geom.<a href="#fn53" class="footnote-ref" id="fnref53"><sup>53</sup></a> For placing our items on a grid, we use the <code>gridExtra</code> package <span class="citation">(Auguie, <a href="#ref-R-gridExtra" role="doc-biblioref">2017</a>)</span>. We might need to install it. From this package, we use the <code>facet_wrap()</code> function.<a href="#fn54" class="footnote-ref" id="fnref54"><sup>54</sup></a></p>
+<div class="sourceCode" id="cb224"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb224-1"><a href="itemans.html#cb224-1"></a><span class="kw">library</span>(ggplot2)</span>
+<span id="cb224-2"><a href="itemans.html#cb224-2"></a><span class="kw">library</span>(gridExtra)</span>
+<span id="cb224-3"><a href="itemans.html#cb224-3"></a><span class="kw">ggplot</span>(freqy, <span class="kw">aes</span>(<span class="dt">x =</span> Category, <span class="dt">y =</span> Frequency)) <span class="op">+</span></span>
+<span id="cb224-4"><a href="itemans.html#cb224-4"></a><span class="st">  </span><span class="kw">geom_col</span>() <span class="op">+</span></span>
+<span id="cb224-5"><a href="itemans.html#cb224-5"></a><span class="st">  </span><span class="kw">facet_wrap</span>(. <span class="op">~</span><span class="st"> </span>ItemLab, <span class="dt">nrow=</span><span class="dv">2</span>, )</span></code></pre></div>
+<p><img src="R-Examples-for-Measurement_files/figure-html/unnamed-chunk-137-1.png" width="672" /></p>
+<p>Can you see which items are functioning well and which are not?</p>
+</div>
+<div id="the-base-r-approach-to-creating-a-facet-plot" class="section level3">
+<h3><span class="header-section-number">7.6.2</span> The Base R approach to creating a facet plot</h3>
+<p>To create a facet type plot in base R, we specify the parameters of the plot to be a 2-by-2 grid, with the <code>par(mfrow = c(2,2)</code>. We use a for loop from the first to last index in our set of names in <code>Liks</code> (which is a vector), which is four elements long. So the for-loop performs the <code>barplot()</code> function on a sequence of variables, first on the “Q1” in the data, then on “Q2” and so forth, then puts the plots into the 2-by-2 plot area:</p>
+<div class="sourceCode" id="cb225"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb225-1"><a href="itemans.html#cb225-1"></a>Liks</span></code></pre></div>
+<pre><code>## [1] &quot;Q1&quot; &quot;Q2&quot; &quot;Q3&quot; &quot;Q4&quot;</code></pre>
+<div class="sourceCode" id="cb227"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb227-1"><a href="itemans.html#cb227-1"></a><span class="kw">par</span>(<span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">2</span>), <span class="dt">ask =</span> <span class="ot">FALSE</span>, <span class="dt">mar=</span><span class="kw">c</span>(<span class="dv">5</span>,<span class="dv">5</span>,<span class="dv">5</span>,<span class="dv">5</span>))</span>
+<span id="cb227-2"><a href="itemans.html#cb227-2"></a><span class="cf">for</span> (i <span class="cf">in</span> Liks) <span class="kw">barplot</span>(<span class="kw">table</span>(Likdat_sub[ , i]), </span>
+<span id="cb227-3"><a href="itemans.html#cb227-3"></a>                         <span class="dt">main =</span> i, </span>
+<span id="cb227-4"><a href="itemans.html#cb227-4"></a>                         <span class="dt">col =</span> <span class="st">&quot;grey69&quot;</span>,</span>
+<span id="cb227-5"><a href="itemans.html#cb227-5"></a>                         <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">50</span>),</span>
+<span id="cb227-6"><a href="itemans.html#cb227-6"></a>                         <span class="dt">ylab=</span><span class="st">&quot;Frequency&quot;</span>, </span>
+<span id="cb227-7"><a href="itemans.html#cb227-7"></a>                         <span class="dt">xlab=</span><span class="st">&quot;Category&quot;</span>)</span></code></pre></div>
+<p><img src="R-Examples-for-Measurement_files/figure-html/unnamed-chunk-139-1.png" width="672" /></p>
+<p>The ggplot facet-plot result is more informative than this Base R result because it included the missing categories in Q2 and Q4.</p>
+<p>Conclusions: The Base R approach with individual items is probably the easiest to implement, though the ggplot is not that difficult. With the facet plot, the ggplot approach is nice looking and more informative, though the Base R plot has shorter code.</p>
+</div>
+</div>
+<div id="additional-functions-for-examining-category-frequencies" class="section level2">
+<h2><span class="header-section-number">7.7</span> Additional functions for examining category frequencies</h2>
+<p>The information in this section will serve us in future R work. We learn about factors<a href="#fn55" class="footnote-ref" id="fnref55"><sup>55</sup></a>, ordered factors, and a few new functions, <code>data.frame()</code>, <code>table()</code> and <code>lapply()</code>.</p>
+<div id="using-the-table-function-and-the-lapply-function" class="section level3">
+<h3><span class="header-section-number">7.7.1</span> Using the <code>table()</code> function and the <code>lapply()</code> function</h3>
+<p>We used the <code>questionr</code> package above to examine frequency counts of the categories for each item. We can also use some Base R functions. Let’s use the <code>table()</code> function on a single variable.</p>
+<div class="sourceCode" id="cb228"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb228-1"><a href="itemans.html#cb228-1"></a><span class="kw">table</span>(Likdat_sub<span class="op">$</span>Q1)</span></code></pre></div>
+<pre><code>## 
+##  1  2  3  4  5 
+##  4 17  8 17  4</code></pre>
+<p>The top row is the label of the category. The bottom row is the frequency. This is very simple, and not as informative as the output from the <code>questionr</code> package. It is also similar to the <code>count()</code> function we used from the <code>plyr</code> package. In any case, we could continue to do this for each item individually.</p>
+<p>A more efficient way is to use the <code>lapply()</code> function. This is related to the <code>apply()</code> function, but instead of using the function to apply a function to rows or columns (which is what the <code>apply()</code> function does), <code>lapply()</code> uses a function on each element (each data point) in a column of our data frame. Let’s use the <code>table</code> function inside the <code>lapply()</code> function:</p>
+<div class="sourceCode" id="cb230"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb230-1"><a href="itemans.html#cb230-1"></a>freqy_list &lt;-<span class="st"> </span><span class="kw">lapply</span>(Likdat_sub, table)</span>
+<span id="cb230-2"><a href="itemans.html#cb230-2"></a>freqy_list</span></code></pre></div>
+<pre><code>## $Q1
+## 
+##  1  2  3  4  5 
+##  4 17  8 17  4 
+## 
+## $Q2
+## 
+##  2  3  4  5 
+##  1 45  3  1 
+## 
+## $Q3
+## 
+##  1  2  3  4  5 
+##  2  1  6 23 18 
+## 
+## $Q4
+## 
+##  3  4  5 
+##  1  4 45</code></pre>
+<p>Now, we have a list of lists—one for each question.</p>
+</div>
+<div id="factors" class="section level3">
+<h3><span class="header-section-number">7.7.2</span> Specifying the data as categorical</h3>
+<p>We can use the <code>summary()</code> function to examine the data but because they are numeric, it will report the mean, minimum, maximumn, and quartiles.</p>
+<div class="sourceCode" id="cb232"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb232-1"><a href="itemans.html#cb232-1"></a><span class="kw">summary</span>(Likdat_sub)</span></code></pre></div>
+<pre><code>##        Q1          Q2             Q3             Q4      
+##  Min.   :1   Min.   :2.00   Min.   :1.00   Min.   :3.00  
+##  1st Qu.:2   1st Qu.:3.00   1st Qu.:4.00   1st Qu.:5.00  
+##  Median :3   Median :3.00   Median :4.00   Median :5.00  
+##  Mean   :3   Mean   :3.08   Mean   :4.08   Mean   :4.88  
+##  3rd Qu.:4   3rd Qu.:3.00   3rd Qu.:5.00   3rd Qu.:5.00  
+##  Max.   :5   Max.   :5.00   Max.   :5.00   Max.   :5.00</code></pre>
+<p>We can change the type of these data to be factors. R will treat factors in a different way than numeric data. Factors are categorical data, or on a nominal level scale of measurement. For this, we can use the <code>factor()</code> function. Here’s how we do it with a single variable, Q1 in this case:<a href="#fn56" class="footnote-ref" id="fnref56"><sup>56</sup></a></p>
+<div class="sourceCode" id="cb234"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb234-1"><a href="itemans.html#cb234-1"></a>Q1_F &lt;-<span class="st"> </span><span class="kw">factor</span>(Likdat_sub<span class="op">$</span>Q1)</span>
+<span id="cb234-2"><a href="itemans.html#cb234-2"></a><span class="kw">str</span>(Q1_F)</span></code></pre></div>
+<pre><code>##  Factor w/ 5 levels &quot;1&quot;,&quot;2&quot;,&quot;3&quot;,&quot;4&quot;,..: 1 4 4 3 2 2 2 2 5 2 ...</code></pre>
+<p>This is now a factor, not an integer type of data. Now if we use the <code>summary()</code> function on this variable, the results will be frequency counts:</p>
+<div class="sourceCode" id="cb236"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb236-1"><a href="itemans.html#cb236-1"></a><span class="kw">summary</span>(Q1_F)</span></code></pre></div>
+<pre><code>##  1  2  3  4  5 
+##  4 17  8 17  4</code></pre>
+<p>These results are the same as from the <code>table()</code> function.</p>
+<p>If we want to create factors with several items, we can do this with each variable. A more efficient way is to use the <code>lapply()</code> function with the <code>factor()</code> function, just as we did with the <code>table()</code> function above:</p>
+<div class="sourceCode" id="cb238"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb238-1"><a href="itemans.html#cb238-1"></a>Likdat_subF &lt;-<span class="st"> </span><span class="kw">lapply</span>(Likdat_sub, factor)</span>
+<span id="cb238-2"><a href="itemans.html#cb238-2"></a><span class="kw">str</span>(Likdat_subF)</span></code></pre></div>
+<pre><code>## List of 4
+##  $ Q1: Factor w/ 5 levels &quot;1&quot;,&quot;2&quot;,&quot;3&quot;,&quot;4&quot;,..: 1 4 4 3 2 2 2 2 5 2 ...
+##  $ Q2: Factor w/ 4 levels &quot;2&quot;,&quot;3&quot;,&quot;4&quot;,&quot;5&quot;: 1 2 2 2 2 2 2 2 4 3 ...
+##  $ Q3: Factor w/ 5 levels &quot;1&quot;,&quot;2&quot;,&quot;3&quot;,&quot;4&quot;,..: 1 4 3 2 3 4 4 5 4 5 ...
+##  $ Q4: Factor w/ 3 levels &quot;3&quot;,&quot;4&quot;,&quot;5&quot;: 2 3 3 3 3 3 3 3 3 3 ...</code></pre>
+<p>Let’s try using the <code>summary()</code> function on our new object:</p>
+<div class="sourceCode" id="cb240"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb240-1"><a href="itemans.html#cb240-1"></a><span class="kw">summary</span>(Likdat_subF)</span></code></pre></div>
+<pre><code>##    Length Class  Mode   
+## Q1 50     factor numeric
+## Q2 50     factor numeric
+## Q3 50     factor numeric
+## Q4 50     factor numeric</code></pre>
+<p>Hm. This is not the result we expect. The reason is that our object is a list. We need to turn it into a data frame. To do this, let’s use the <code>data.frame()</code> function:</p>
+<div class="sourceCode" id="cb242"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb242-1"><a href="itemans.html#cb242-1"></a>Likdat_subF &lt;-<span class="st"> </span><span class="kw">data.frame</span>(Likdat_subF)</span>
+<span id="cb242-2"><a href="itemans.html#cb242-2"></a><span class="kw">summary</span>(Likdat_subF)</span></code></pre></div>
+<pre><code>##  Q1     Q2     Q3     Q4    
+##  1: 4   2: 1   1: 2   3: 1  
+##  2:17   3:45   2: 1   4: 4  
+##  3: 8   4: 3   3: 6   5:45  
+##  4:17   5: 1   4:23         
+##  5: 4          5:18</code></pre>
+<p>That’s better. Looking at the structure of our data frame, we see these are indeed factors. Some have five levels; others have fewer:</p>
+<div class="sourceCode" id="cb244"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb244-1"><a href="itemans.html#cb244-1"></a><span class="kw">str</span>(Likdat_subF)</span></code></pre></div>
+<pre><code>## &#39;data.frame&#39;:    50 obs. of  4 variables:
+##  $ Q1: Factor w/ 5 levels &quot;1&quot;,&quot;2&quot;,&quot;3&quot;,&quot;4&quot;,..: 1 4 4 3 2 2 2 2 5 2 ...
+##  $ Q2: Factor w/ 4 levels &quot;2&quot;,&quot;3&quot;,&quot;4&quot;,&quot;5&quot;: 1 2 2 2 2 2 2 2 4 3 ...
+##  $ Q3: Factor w/ 5 levels &quot;1&quot;,&quot;2&quot;,&quot;3&quot;,&quot;4&quot;,..: 1 4 3 2 3 4 4 5 4 5 ...
+##  $ Q4: Factor w/ 3 levels &quot;3&quot;,&quot;4&quot;,&quot;5&quot;: 2 3 3 3 3 3 3 3 3 3 ...</code></pre>
+<p>These data are no longer numbers (we cannot use mathematical operations on them). Instead, they are nominal-level data with numbers used as their labels. We could replace the labels with text, such as <code>c("SD", "D", "N", "A", "SA")</code> for example if we sought to display our levels from “Strongly disagree” to “Strongly agree”.</p>
+</div>
+<div id="orderedfunc" class="section level3">
+<h3><span class="header-section-number">7.7.3</span> Ordered factors</h3>
+<p>We can also create <strong>ordered</strong> factors, which are ordered categorical data. These are on an ordinal level scale of measurement. For examining frequency counts, the results are no different from simply treating them as nomimal level factors, but while we’re talking about factors, we might as well talk about ordered factors. Here’s the code for a single variable:</p>
+<div class="sourceCode" id="cb246"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb246-1"><a href="itemans.html#cb246-1"></a>Q1_F &lt;-<span class="st"> </span><span class="kw">factor</span>(Likdat_sub<span class="op">$</span>Q1, <span class="dt">ordered =</span> <span class="ot">TRUE</span>)</span>
+<span id="cb246-2"><a href="itemans.html#cb246-2"></a><span class="kw">str</span>(Q1_F)</span></code></pre></div>
+<pre><code>##  Ord.factor w/ 5 levels &quot;1&quot;&lt;&quot;2&quot;&lt;&quot;3&quot;&lt;&quot;4&quot;&lt;..: 1 4 4 3 2 2 2 2 5 2 ...</code></pre>
+<p>A shorter version of this is with the <code>ordered()</code> function:</p>
+<div class="sourceCode" id="cb248"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb248-1"><a href="itemans.html#cb248-1"></a>Q1_F &lt;-<span class="st"> </span><span class="kw">ordered</span>(Likdat_sub<span class="op">$</span>Q1)</span>
+<span id="cb248-2"><a href="itemans.html#cb248-2"></a><span class="kw">str</span>(Q1_F)</span></code></pre></div>
+<pre><code>##  Ord.factor w/ 5 levels &quot;1&quot;&lt;&quot;2&quot;&lt;&quot;3&quot;&lt;&quot;4&quot;&lt;..: 1 4 4 3 2 2 2 2 5 2 ...</code></pre>
+<p>Looking at the structure of the object, we see it is an ordered factor with five levels. The “1” is ordered lower than the “2”, which is lower than the “3”, and so forth.</p>
+<p>If we want to create factors with several items, we can use the <code>lapply()</code> function with the <code>ordered()</code> function, just as we did above. Let’s also turn this into a data frame in the same step by enclosing the <code>lapply()</code> function in a <code>data.frame()</code> function:</p>
+<div class="sourceCode" id="cb250"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb250-1"><a href="itemans.html#cb250-1"></a>Likdat_subF &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="kw">lapply</span>(Likdat_sub, ordered))</span>
+<span id="cb250-2"><a href="itemans.html#cb250-2"></a><span class="kw">str</span>(Likdat_subF)</span></code></pre></div>
+<pre><code>## &#39;data.frame&#39;:    50 obs. of  4 variables:
+##  $ Q1: Ord.factor w/ 5 levels &quot;1&quot;&lt;&quot;2&quot;&lt;&quot;3&quot;&lt;&quot;4&quot;&lt;..: 1 4 4 3 2 2 2 2 5 2 ...
+##  $ Q2: Ord.factor w/ 4 levels &quot;2&quot;&lt;&quot;3&quot;&lt;&quot;4&quot;&lt;&quot;5&quot;: 1 2 2 2 2 2 2 2 4 3 ...
+##  $ Q3: Ord.factor w/ 5 levels &quot;1&quot;&lt;&quot;2&quot;&lt;&quot;3&quot;&lt;&quot;4&quot;&lt;..: 1 4 3 2 3 4 4 5 4 5 ...
+##  $ Q4: Ord.factor w/ 3 levels &quot;3&quot;&lt;&quot;4&quot;&lt;&quot;5&quot;: 2 3 3 3 3 3 3 3 3 3 ...</code></pre>
+<p>We can use the <code>summary()</code> function with these ordered-categorical data and see the same result as if they were nominal:</p>
+<div class="sourceCode" id="cb252"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb252-1"><a href="itemans.html#cb252-1"></a><span class="kw">summary</span>(Likdat_subF)</span></code></pre></div>
+<pre><code>##  Q1     Q2     Q3     Q4    
+##  1: 4   2: 1   1: 2   3: 1  
+##  2:17   3:45   2: 1   4: 4  
+##  3: 8   4: 3   3: 6   5:45  
+##  4:17   5: 1   4:23         
+##  5: 4          5:18</code></pre>
+<p>This section introduced factors and ordered factors in R. These are how R understands categorical and ordered-categorical data, which correspond with nominal and ordinal levels of measurement. Although there was no difference in our results with the <code>summary()</code> function when our data are factors and ordered factors, these types of data do make a difference in other R functions that we will encounter.</p>
+</div>
+</div>
+<div id="conclusion" class="section level2">
+<h2><span class="header-section-number">7.8</span> Conclusion</h2>
+<p>The examples provided in this chapter show how we can use R to perform some of the procedures needed for collecting quantitative evidence of item functioning. These procedures are consistent with classical test theory but can also accompany more advanced procedures that are used in modern-test-theory analyses.</p>
+<p>It is important to recognize that any single source of evidence is likely insufficient. For instance, we may have a distribution of frequencies for a Likert-type item’s categories that shows that the item is successfully separating respondents into low and high groups on that item; however, we must also examine whether that item is indeed measuring the construct we intend it to measure. For this, we might assume that the other items in our instrument measure this same construct. If we observe good discrimination and alpha-if-deleted indexes, we’re in good shape. These are, of course, related: If a frequency distribution reveals that only one category in an item is being used, the discrimination indexes will be <code>0</code> and the alpha-if-deleted index will be poor for that item. To gather further evidence that our items measure this construct, we can also collect evidence about the response processes with these items. Those types of data are more qualitative in nature and are typically collected through cognitive interviews <span class="citation">(for an example, see Harrison, <a href="#ref-harrison_validity_2020" role="doc-biblioref">2020</a>)</span>.</p>
+<p>Finally, we must also recognize that our item-analysis results are specific to the sample of examinees or respondents in the study. The item-analysis results obtained with small samples should be interpreted with caution. By chance, a random sample of examinees will differ from another random sample, which means we will likely observe different item-functioning results and therefore arrive at different conclusions about which items need to be revised. Our examples in this chapter were contrived and included 16 or fewer respondents, which is probably too few. Larger samples of the population with whom the instrument will be used will provide more stable results for drawing item-functioning conclusions.<a href="#fn57" class="footnote-ref" id="fnref57"><sup>57</sup></a></p>
+
+</div>
+</div>
+<h3>References</h3>
+<div id="refs" class="references">
+<div id="ref-aera_standards_2014">
+<p>AERA, APA, &amp; NCME. (2014). <em>Standards for educational and psychological testing</em>. American Educational Research Association.</p>
+</div>
+<div id="ref-R-gridExtra">
+<p>Auguie, B. (2017). <em>GridExtra: Miscellaneous functions for "grid" graphics</em>. <a href="https://CRAN.R-project.org/package=gridExtra">https://CRAN.R-project.org/package=gridExtra</a></p>
+</div>
+<div id="ref-R-questionr">
+<p>Barnier, J., Briatte, F., &amp; Larmarange, J. (2020). <em>Questionr: Functions to make surveys processing easier</em>. <a href="https://juba.github.io/questionr/">https://juba.github.io/questionr/</a></p>
+</div>
+<div id="ref-harrison_validity_2020">
+<p>Harrison, G. M. (2020). Validity evidence against the children’s New Ecological Paradigm Scale. <em>The Journal of Environmental Education</em>, <em>51</em>(1), 1–13. <a href="https://doi.org/10.1080/00958964.2019.1646202">https://doi.org/10.1080/00958964.2019.1646202</a></p>
+</div>
+<div id="ref-kelley_selection_1939">
+<p>Kelley, T. L. (1939). The selection of upper and lower groups for the validation of test items. <em>Journal of Educational Psychology</em>, <em>30</em>(1), 17–24.</p>
+</div>
+<div id="ref-R-plyr">
+<p>Wickham, H. (2020a). <em>Plyr: Tools for splitting, applying and combining data</em>. <a href="https://CRAN.R-project.org/package=plyr">https://CRAN.R-project.org/package=plyr</a></p>
+</div>
+<div id="ref-R-CTT">
+<p>Willse, J. T. (2018). <em>CTT: Classical test theory functions</em>. <a href="https://CRAN.R-project.org/package=CTT">https://CRAN.R-project.org/package=CTT</a></p>
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="35">
+<li id="fn35"><p>If the items are formatted as factors, use the <code>stringsAsFactors = FALSE</code> argument in the <code>read.csv</code> function. For example, <code>dat &lt;- read.csv("Week04RawMCResponses.csv", stringsAsFactors = FALSE)</code>.<a href="itemans.html#fnref35" class="footnote-back">↩︎</a></p></li>
+<li id="fn36"><p>The code <code>1:10</code> returns the integers from 1 to 10. This also works for letters; for example, if we have the first 10 letters in the alphabet, we can use <code>letters[1:10]</code>.<a href="itemans.html#fnref36" class="footnote-back">↩︎</a></p></li>
+<li id="fn37"><p>Another option to reduce typing fatigue is to use the <code>dput()</code> function on the names of the data frame, and then copy and paste that result from the console to our <code>c()</code> function in <code>items  &lt;- c("i1", "i2", "i3", "i4", "i5", "i6", "i7", "i8", "i9", "i10")</code>.<a href="itemans.html#fnref37" class="footnote-back">↩︎</a></p></li>
+<li id="fn38"><p>We can examine the structure of this object using <code>str(sc.out)</code>.<a href="itemans.html#fnref38" class="footnote-back">↩︎</a></p></li>
+<li id="fn39"><p>We actually saw matrices before when we examined the output from the <code>cor()</code> and <code>cov()</code> functions.<a href="itemans.html#fnref39" class="footnote-back">↩︎</a></p></li>
+<li id="fn40"><p>Unlike with objects in matrix format, with objects in data-frame format, we can append variables.<a href="itemans.html#fnref40" class="footnote-back">↩︎</a></p></li>
+<li id="fn41"><p>In the code, we are pulling out the item names (the first column), then rounding the numeric data in the report (columns 2:5) to two decimal places. Then, we putting them back together into a data frame. This is only for aesthetics in reporting the item analysis. If we wished to perform operations on these data, we would not round them.<a href="itemans.html#fnref41" class="footnote-back">↩︎</a></p></li>
+<li id="fn42"><p>These must sum to 1. Fractions seem to work, too, such as <code>c(1/3, 1/3, 1/3)</code>.<a href="itemans.html#fnref42" class="footnote-back">↩︎</a></p></li>
+<li id="fn43"><p>We can see these numbers if we use the <code>pTable = FALSE</code> argument in the function. For this reason, the results here will differ from those in our spreadsheet.<a href="itemans.html#fnref43" class="footnote-back">↩︎</a></p></li>
+<li id="fn44"><p>Like the biserial correlations from this function, these polyserial-type correlations are corrected to exclude the item from the total score. The <code>CTT</code> package also has a <code>polyserial()</code> function, which, if we correct the total score to exclude that item, will provide the same result with polytomous data as that listed in the output under the <code>bis</code> column (if the <code>ml = FALSE</code> option is used in <code>polyserial()</code> or if the <code>rBisML=TRUE</code> is used in the <code>ItemAnalysis()</code> function). This <code>polyserial()</code> function is useful if we seek to estimate the polyserial correlations of the items with an external variable that is hypothesized to measure the construct.<a href="itemans.html#fnref44" class="footnote-back">↩︎</a></p></li>
+<li id="fn45"><p>With a test with such a small number of items, we should be careful in making decisions to eliminate items, particularly if a less-than-ideal item is specified to measure a part of the content domain that is deemed to be important for the inferences we draw from these scores. For example, if the second item were measuring thinking and communication skills, that might be pretty important for our proposed scoring inferences. Instead of removing this item, we might look at the scoring rubric and the task and determine if it is functioning as we expect. To further emphasize the point, we often seek heterogeneity in our test tasks to gather information across the scope of the construct. This likely results in lower reliability than if all of the tasks were measuring something very homogeneous <span class="citation">(Loevinger, <a href="#ref-loevinger_attenuation_1954" role="doc-biblioref">1954</a>)</span>.<a href="itemans.html#fnref45" class="footnote-back">↩︎</a></p></li>
+<li id="fn46"><p>Question 2 is intentionally written to be a poor item. It is double-barreled; it also uses an agreement scale even though the construct in the prompt is not about agreement, which is a practice some survey-research scholars caution against <span class="citation">(Krosnick &amp; Presser, <a href="#ref-Krosnick_Presser_2010" role="doc-biblioref">2010</a>; Saris et al., <a href="#ref-saris_comparing_2010" role="doc-biblioref">2010</a>)</span>.<a href="itemans.html#fnref46" class="footnote-back">↩︎</a></p></li>
+<li id="fn47"><p>When developing instruments, we should take an iterative approach. If we eliminate or change a specific item, the other items’ biserial &amp; point-biserial correlations (or their analogues with polytomous data—polyserial &amp; point-polyserial correlations) and alpha-if-deleted will also change.<a href="itemans.html#fnref47" class="footnote-back">↩︎</a></p></li>
+<li id="fn48"><p>We are using the double colon, <code>::</code> in <code>questionr::freq()</code> to ensure that the <code>freq()</code> function is from this package. Sometimes with short function names such as this, packages might share the same function names, so this is a safeguard from getting an error.<a href="itemans.html#fnref48" class="footnote-back">↩︎</a></p></li>
+<li id="fn49"><p>Here, the <code>apply()</code> function is to margin 2, which is to apply it to each column, examining across the rows in that column.<a href="itemans.html#fnref49" class="footnote-back">↩︎</a></p></li>
+<li id="fn50"><p>There are more elegant ways to do this. We could, for example, use a custom functino or a for-loop to do this work, particularly if there are many items.<a href="itemans.html#fnref50" class="footnote-back">↩︎</a></p></li>
+<li id="fn51"><p>We could multiply by 100 for percents.<a href="itemans.html#fnref51" class="footnote-back">↩︎</a></p></li>
+<li id="fn52"><p>When we assign names to an existing data frame using this approach, we need to be sure the number of new names is the same as the number of columns. Another way is to use the <code>rename()</code> function in the <code>plyr</code> package. We could also use indexing, such as <code>names(f1)[c(2,3)] &lt;- c("Category", "Frequency")</code>, which assigns the two words to the second and third names of this data frame, <code>f1</code>.<a href="itemans.html#fnref52" class="footnote-back">↩︎</a></p></li>
+<li id="fn53"><p>This contrasts with the <code>geom_bar()</code> geom, which we used before with a single item and which only required a single column of data. In other words, <code>geom_bar()</code> automatically counted the number of responses in each category whereas <code>geom_col()</code> uses both an <code>x</code> and <code>y</code> in its aesthetics.<a href="itemans.html#fnref53" class="footnote-back">↩︎</a></p></li>
+<li id="fn54"><p>The <code>. ~ ItemLab</code> tells the <code>facet_wrap()</code> function to take the plotting data and create facets using the <code>ItemLab</code> variable. We could replace this with the <code>Item</code> variable in our data frame if we wanted the facets to be labeled as <code>Q1</code>, <code>Q2</code>, and so forth.<a href="itemans.html#fnref54" class="footnote-back">↩︎</a></p></li>
+<li id="fn55"><p>This is not factor analysis; just a type of variable.<a href="itemans.html#fnref55" class="footnote-back">↩︎</a></p></li>
+<li id="fn56"><p>We can use <code>_F</code> in the object name to remind us it is a factor, compared to the original object.<a href="itemans.html#fnref56" class="footnote-back">↩︎</a></p></li>
+<li id="fn57"><p>Ideally, we would use systematic sampling procedures, such as simple-random sampling, to represent the population who will eventually be given the instrument.<a href="itemans.html#fnref57" class="footnote-back">↩︎</a></p></li>
+</ol>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="graphing.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="CTT.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

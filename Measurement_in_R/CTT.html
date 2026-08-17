@@ -1,0 +1,2904 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 8 Classical Test Theory | Using R for Measurement in the Social Sciences</title>
+  <meta name="description" content="Provides example R code to accompany the learning of measurement concepts." />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 8 Classical Test Theory | Using R for Measurement in the Social Sciences" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="Provides example R code to accompany the learning of measurement concepts." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 8 Classical Test Theory | Using R for Measurement in the Social Sciences" />
+  
+  <meta name="twitter:description" content="Provides example R code to accompany the learning of measurement concepts." />
+  
+
+<meta name="author" content="George M. Harrison  University of Hawai‘i at Mānoa, College of Education" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="itemans.html"/>
+<link rel="next" href="reliability.html"/>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<link href="libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0/anchor-sections.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+<link href="libs/bsTable-3.3.7/bootstrapTable.min.css" rel="stylesheet" />
+<script src="libs/bsTable-3.3.7/bootstrapTable.js"></script>
+
+
+<style type="text/css">
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Introduction</a></li>
+<li class="chapter" data-level="1" data-path="trans.html"><a href="trans.html"><i class="fa fa-check"></i><b>1</b> Score Transformations</a><ul>
+<li class="chapter" data-level="1.1" data-path="trans.html"><a href="trans.html#percentiles-percentile-ranks-and-normalized-scores"><i class="fa fa-check"></i><b>1.1</b> Percentiles, percentile ranks, and normalized scores</a></li>
+<li class="chapter" data-level="1.2" data-path="trans.html"><a href="trans.html#run-of-the-mill-z-scores"><i class="fa fa-check"></i><b>1.2</b> Run-of-the-mill Z scores</a></li>
+<li class="chapter" data-level="1.3" data-path="trans.html"><a href="trans.html#extra-optional-stuff"><i class="fa fa-check"></i><b>1.3</b> Extra optional stuff</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="var-cov-cor.html"><a href="var-cov-cor.html"><i class="fa fa-check"></i><b>2</b> Variance, Covariance, and Correlation</a><ul>
+<li class="chapter" data-level="2.1" data-path="var-cov-cor.html"><a href="var-cov-cor.html#correlation"><i class="fa fa-check"></i><b>2.1</b> Correlation</a><ul>
+<li class="chapter" data-level="2.1.1" data-path="var-cov-cor.html"><a href="var-cov-cor.html#estimating-correlation-as-a-statistic"><i class="fa fa-check"></i><b>2.1.1</b> Estimating correlation as a statistic</a></li>
+<li class="chapter" data-level="2.1.2" data-path="var-cov-cor.html"><a href="var-cov-cor.html#creating-a-correlation-matrix"><i class="fa fa-check"></i><b>2.1.2</b> Creating a correlation matrix</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="var-cov-cor.html"><a href="var-cov-cor.html#variance"><i class="fa fa-check"></i><b>2.2</b> Variance</a></li>
+<li class="chapter" data-level="2.3" data-path="var-cov-cor.html"><a href="var-cov-cor.html#covariance"><i class="fa fa-check"></i><b>2.3</b> Covariance</a><ul>
+<li class="chapter" data-level="2.3.1" data-path="var-cov-cor.html"><a href="var-cov-cor.html#creating-a-variance-covariance-matrix"><i class="fa fa-check"></i><b>2.3.1</b> Creating a variance-covariance matrix</a></li>
+<li class="chapter" data-level="2.3.2" data-path="var-cov-cor.html"><a href="var-cov-cor.html#using-the-n-denominator"><i class="fa fa-check"></i><b>2.3.2</b> Using the <em>n</em> denominator</a></li>
+<li class="chapter" data-level="2.3.3" data-path="var-cov-cor.html"><a href="var-cov-cor.html#extra-understanding-for-use-in-classical-test-theory"><i class="fa fa-check"></i><b>2.3.3</b> Extra understanding, for use in classical test theory</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="var-cov-cor.html"><a href="var-cov-cor.html#practice"><i class="fa fa-check"></i><b>2.4</b> Practice</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="custfuncts.html"><a href="custfuncts.html"><i class="fa fa-check"></i><b>3</b> Creating Custom Functions</a><ul>
+<li class="chapter" data-level="3.1" data-path="custfuncts.html"><a href="custfuncts.html#using-our-function-on-multiple-variables"><i class="fa fa-check"></i><b>3.1</b> Using our function on multiple variables</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="packs.html"><a href="packs.html"><i class="fa fa-check"></i><b>4</b> Using Packages</a><ul>
+<li class="chapter" data-level="4.1" data-path="packs.html"><a href="packs.html#an-example-using-the-hmisc-package-for-correlation"><i class="fa fa-check"></i><b>4.1</b> An example: Using the <code>Hmisc</code> package for correlation</a></li>
+<li class="chapter" data-level="4.2" data-path="packs.html"><a href="packs.html#tidyverse_intro"><i class="fa fa-check"></i><b>4.2</b> Using Tidyverse packages</a><ul>
+<li class="chapter" data-level="4.2.1" data-path="packs.html"><a href="packs.html#piping_intro"><i class="fa fa-check"></i><b>4.2.1</b> Piping</a></li>
+<li class="chapter" data-level="4.2.2" data-path="packs.html"><a href="packs.html#saving-our-output-as-a-csv-file"><i class="fa fa-check"></i><b>4.2.2</b> Saving our output as a CSV file</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="regress.html"><a href="regress.html"><i class="fa fa-check"></i><b>5</b> Estimating Regression</a><ul>
+<li class="chapter" data-level="5.1" data-path="regress.html"><a href="regress.html#the-lm-function"><i class="fa fa-check"></i><b>5.1</b> The <code>lm()</code> function</a></li>
+<li class="chapter" data-level="5.2" data-path="regress.html"><a href="regress.html#using-the-regression-parameters-for-prediction"><i class="fa fa-check"></i><b>5.2</b> Using the regression parameters for prediction</a></li>
+<li class="chapter" data-level="5.3" data-path="regress.html"><a href="regress.html#model-error-variance-and-a-peek-into-classical-test-theory"><i class="fa fa-check"></i><b>5.3</b> Model error variance and a peek into classical test theory</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="graphing.html"><a href="graphing.html"><i class="fa fa-check"></i><b>6</b> Graphing</a><ul>
+<li class="chapter" data-level="6.1" data-path="graphing.html"><a href="graphing.html#using-base-r"><i class="fa fa-check"></i><b>6.1</b> Using Base R</a></li>
+<li class="chapter" data-level="6.2" data-path="graphing.html"><a href="graphing.html#using-the-ggplot2-package"><i class="fa fa-check"></i><b>6.2</b> Using the <code>ggplot2</code> package</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="itemans.html"><a href="itemans.html"><i class="fa fa-check"></i><b>7</b> Item Scoring and Item Analysis</a><ul>
+<li class="chapter" data-level="7.1" data-path="itemans.html"><a href="itemans.html#multiple-choice-raw-data-and-their-answer-key"><i class="fa fa-check"></i><b>7.1</b> Multiple-choice raw data and their answer key</a></li>
+<li class="chapter" data-level="7.2" data-path="itemans.html"><a href="itemans.html#scoring-the-responses"><i class="fa fa-check"></i><b>7.2</b> Scoring the responses</a></li>
+<li class="chapter" data-level="7.3" data-path="itemans.html"><a href="itemans.html#item-analysis-with-dichotomous-data"><i class="fa fa-check"></i><b>7.3</b> Item analysis with dichotomous data</a></li>
+<li class="chapter" data-level="7.4" data-path="itemans.html"><a href="itemans.html#distractor-analysis"><i class="fa fa-check"></i><b>7.4</b> Distractor analysis</a></li>
+<li class="chapter" data-level="7.5" data-path="itemans.html"><a href="itemans.html#item-analysis-with-polytomous-data"><i class="fa fa-check"></i><b>7.5</b> Item analysis with polytomous data</a><ul>
+<li class="chapter" data-level="7.5.1" data-path="itemans.html"><a href="itemans.html#partial-credit-data"><i class="fa fa-check"></i><b>7.5.1</b> Partial-credit data</a></li>
+<li class="chapter" data-level="7.5.2" data-path="itemans.html"><a href="itemans.html#LikertFunc"><i class="fa fa-check"></i><b>7.5.2</b> Item functioning of Likert-type scale items</a></li>
+<li class="chapter" data-level="7.5.3" data-path="itemans.html"><a href="itemans.html#graphing-frequencies-of-category-responses"><i class="fa fa-check"></i><b>7.5.3</b> Graphing frequencies of category responses</a></li>
+</ul></li>
+<li class="chapter" data-level="7.6" data-path="itemans.html"><a href="itemans.html#optional-advanced-graphics-stuff"><i class="fa fa-check"></i><b>7.6</b> Optional advanced graphics stuff</a><ul>
+<li class="chapter" data-level="7.6.1" data-path="itemans.html"><a href="itemans.html#creating-a-facet-plot-with-ggplot2"><i class="fa fa-check"></i><b>7.6.1</b> Creating a facet plot with <code>GGplot2</code></a></li>
+<li class="chapter" data-level="7.6.2" data-path="itemans.html"><a href="itemans.html#the-base-r-approach-to-creating-a-facet-plot"><i class="fa fa-check"></i><b>7.6.2</b> The Base R approach to creating a facet plot</a></li>
+</ul></li>
+<li class="chapter" data-level="7.7" data-path="itemans.html"><a href="itemans.html#additional-functions-for-examining-category-frequencies"><i class="fa fa-check"></i><b>7.7</b> Additional functions for examining category frequencies</a><ul>
+<li class="chapter" data-level="7.7.1" data-path="itemans.html"><a href="itemans.html#using-the-table-function-and-the-lapply-function"><i class="fa fa-check"></i><b>7.7.1</b> Using the <code>table()</code> function and the <code>lapply()</code> function</a></li>
+<li class="chapter" data-level="7.7.2" data-path="itemans.html"><a href="itemans.html#factors"><i class="fa fa-check"></i><b>7.7.2</b> Specifying the data as categorical</a></li>
+<li class="chapter" data-level="7.7.3" data-path="itemans.html"><a href="itemans.html#orderedfunc"><i class="fa fa-check"></i><b>7.7.3</b> Ordered factors</a></li>
+</ul></li>
+<li class="chapter" data-level="7.8" data-path="itemans.html"><a href="itemans.html#conclusion"><i class="fa fa-check"></i><b>7.8</b> Conclusion</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="CTT.html"><a href="CTT.html"><i class="fa fa-check"></i><b>8</b> Classical Test Theory</a><ul>
+<li class="chapter" data-level="8.1" data-path="CTT.html"><a href="CTT.html#true-score-model"><i class="fa fa-check"></i><b>8.1</b> True score model</a></li>
+<li class="chapter" data-level="8.2" data-path="CTT.html"><a href="CTT.html#assumptions-of-the-ctt-true-score-model"><i class="fa fa-check"></i><b>8.2</b> Assumptions of the CTT true score model</a></li>
+<li class="chapter" data-level="8.3" data-path="CTT.html"><a href="CTT.html#reliability-and-the-variance-of-the-composite-score"><i class="fa fa-check"></i><b>8.3</b> Reliability and the variance of the composite score</a><ul>
+<li class="chapter" data-level="8.3.1" data-path="CTT.html"><a href="CTT.html#reliability-as-the-ratio-of-true-score-variance-to-observed-score-variance"><i class="fa fa-check"></i><b>8.3.1</b> Reliability as the ratio of true-score variance to observed-score variance</a></li>
+<li class="chapter" data-level="8.3.2" data-path="CTT.html"><a href="CTT.html#reliability-as-the-lack-of-error-variance"><i class="fa fa-check"></i><b>8.3.2</b> Reliability as the lack of error variance</a></li>
+<li class="chapter" data-level="8.3.3" data-path="CTT.html"><a href="CTT.html#reliability-as-the-squared-correlation-between-observed-and-true-scores"><i class="fa fa-check"></i><b>8.3.3</b> Reliability as the squared correlation between observed and true scores</a></li>
+<li class="chapter" data-level="8.3.4" data-path="CTT.html"><a href="CTT.html#reliability-as-the-correlation-between-scores-on-parallel-tests"><i class="fa fa-check"></i><b>8.3.4</b> Reliability as the correlation between scores on parallel tests</a></li>
+</ul></li>
+<li class="chapter" data-level="8.4" data-path="CTT.html"><a href="CTT.html#four-ctt-models"><i class="fa fa-check"></i><b>8.4</b> Four CTT models</a><ul>
+<li class="chapter" data-level="8.4.1" data-path="CTT.html"><a href="CTT.html#the-parallel-model"><i class="fa fa-check"></i><b>8.4.1</b> The parallel model</a></li>
+<li class="chapter" data-level="8.4.2" data-path="CTT.html"><a href="CTT.html#the-tau-equivalent-model"><i class="fa fa-check"></i><b>8.4.2</b> The tau-equivalent model</a></li>
+<li class="chapter" data-level="8.4.3" data-path="CTT.html"><a href="CTT.html#the-essentially-tau-equivalent-model"><i class="fa fa-check"></i><b>8.4.3</b> The essentially tau-equivalent model</a></li>
+<li class="chapter" data-level="8.4.4" data-path="CTT.html"><a href="CTT.html#the-congeneric-model"><i class="fa fa-check"></i><b>8.4.4</b> The congeneric model</a></li>
+<li class="chapter" data-level="8.4.5" data-path="CTT.html"><a href="CTT.html#implications-of-each-model"><i class="fa fa-check"></i><b>8.4.5</b> Implications of each model</a></li>
+</ul></li>
+<li class="chapter" data-level="8.5" data-path="CTT.html"><a href="CTT.html#estimating-an-observations-true-score"><i class="fa fa-check"></i><b>8.5</b> Estimating an observation’s true score</a></li>
+<li class="chapter" data-level="8.6" data-path="CTT.html"><a href="CTT.html#the-standard-error-of-measurement"><i class="fa fa-check"></i><b>8.6</b> The standard error of measurement</a><ul>
+<li class="chapter" data-level="8.6.1" data-path="CTT.html"><a href="CTT.html#estimating-the-confidence-interval-of-a-true-score"><i class="fa fa-check"></i><b>8.6.1</b> Estimating the confidence interval of a true score</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="reliability.html"><a href="reliability.html"><i class="fa fa-check"></i><b>9</b> Internal-consistency Reliability</a><ul>
+<li class="chapter" data-level="9.1" data-path="reliability.html"><a href="reliability.html#coefficient-alpha"><i class="fa fa-check"></i><b>9.1</b> Coefficient alpha</a><ul>
+<li class="chapter" data-level="9.1.1" data-path="reliability.html"><a href="reliability.html#how-coefficient-alpha-works"><i class="fa fa-check"></i><b>9.1.1</b> How coefficient alpha works</a></li>
+</ul></li>
+<li class="chapter" data-level="9.2" data-path="reliability.html"><a href="reliability.html#using-r-to-estimate-internal-consistency-reliability-coefficient"><i class="fa fa-check"></i><b>9.2</b> Using R to estimate internal-consistency reliability coefficient</a><ul>
+<li class="chapter" data-level="9.2.1" data-path="reliability.html"><a href="reliability.html#a-demonstration-of-coefficient-alpha-using-hypothetical-data"><i class="fa fa-check"></i><b>9.2.1</b> A demonstration of coefficient alpha using hypothetical data</a></li>
+<li class="chapter" data-level="9.2.2" data-path="reliability.html"><a href="reliability.html#using-r-packages-to-calculate-alpha-and-more"><i class="fa fa-check"></i><b>9.2.2</b> Using R packages to calculate alpha and more</a></li>
+</ul></li>
+<li class="chapter" data-level="9.3" data-path="reliability.html"><a href="reliability.html#spearman-brown-prophecy-formula"><i class="fa fa-check"></i><b>9.3</b> Spearman-Brown prophecy formula</a><ul>
+<li class="chapter" data-level="9.3.1" data-path="reliability.html"><a href="reliability.html#calculation"><i class="fa fa-check"></i><b>9.3.1</b> Calculation</a></li>
+<li class="chapter" data-level="9.3.2" data-path="reliability.html"><a href="reliability.html#using-the-ctt-package"><i class="fa fa-check"></i><b>9.3.2</b> Using the CTT package</a></li>
+</ul></li>
+<li class="chapter" data-level="9.4" data-path="reliability.html"><a href="reliability.html#standardized-coefficient-alpha"><i class="fa fa-check"></i><b>9.4</b> Standardized coefficient alpha</a><ul>
+<li class="chapter" data-level="9.4.1" data-path="reliability.html"><a href="reliability.html#calculation-of-standardized-coefficient-alpha"><i class="fa fa-check"></i><b>9.4.1</b> Calculation of standardized coefficient alpha</a></li>
+</ul></li>
+<li class="chapter" data-level="9.5" data-path="reliability.html"><a href="reliability.html#reliability-of-difference-scores"><i class="fa fa-check"></i><b>9.5</b> Reliability of difference scores</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="interrater.html"><a href="interrater.html"><i class="fa fa-check"></i><b>10</b> Inter-rater and Test-retest Reliability</a><ul>
+<li class="chapter" data-level="10.1" data-path="interrater.html"><a href="interrater.html#coefficient-kappa-for-estimating-agreement-with-nominal-data"><i class="fa fa-check"></i><b>10.1</b> Coefficient kappa for estimating agreement with nominal data</a><ul>
+<li class="chapter" data-level="10.1.1" data-path="interrater.html"><a href="interrater.html#using-the-irr-package-to-estimate-kappa"><i class="fa fa-check"></i><b>10.1.1</b> Using the irr package to estimate kappa</a></li>
+<li class="chapter" data-level="10.1.2" data-path="interrater.html"><a href="interrater.html#limitations-of-kappa"><i class="fa fa-check"></i><b>10.1.2</b> Limitations of kappa</a></li>
+</ul></li>
+<li class="chapter" data-level="10.2" data-path="interrater.html"><a href="interrater.html#intraclass-correlation-coefficients-for-estimating-consistency-and-agreement"><i class="fa fa-check"></i><b>10.2</b> Intraclass correlation coefficients for estimating consistency and agreement</a><ul>
+<li class="chapter" data-level="10.2.1" data-path="interrater.html"><a href="interrater.html#example-of-an-icc-for-consistency"><i class="fa fa-check"></i><b>10.2.1</b> Example of an ICC for consistency</a></li>
+<li class="chapter" data-level="10.2.2" data-path="interrater.html"><a href="interrater.html#example-of-an-icc-for-agreement"><i class="fa fa-check"></i><b>10.2.2</b> Example of an ICC for agreement</a></li>
+<li class="chapter" data-level="10.2.3" data-path="interrater.html"><a href="interrater.html#two-way-and-one-way-icc-models"><i class="fa fa-check"></i><b>10.2.3</b> Two-way and one-way ICC models</a></li>
+<li class="chapter" data-level="10.2.4" data-path="interrater.html"><a href="interrater.html#single-versus-average-ratings"><i class="fa fa-check"></i><b>10.2.4</b> Single versus average ratings</a></li>
+<li class="chapter" data-level="10.2.5" data-path="interrater.html"><a href="interrater.html#all-of-the-equations"><i class="fa fa-check"></i><b>10.2.5</b> All of the equations</a></li>
+<li class="chapter" data-level="10.2.6" data-path="interrater.html"><a href="interrater.html#recommendations-on-reporting-iccs"><i class="fa fa-check"></i><b>10.2.6</b> Recommendations on reporting ICCs</a></li>
+</ul></li>
+<li class="chapter" data-level="10.3" data-path="interrater.html"><a href="interrater.html#using-the-irr-package"><i class="fa fa-check"></i><b>10.3</b> Using the irr package</a></li>
+<li class="chapter" data-level="10.4" data-path="interrater.html"><a href="interrater.html#test-retest-reliability"><i class="fa fa-check"></i><b>10.4</b> Test-retest reliability</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="gtheory.html"><a href="gtheory.html"><i class="fa fa-check"></i><b>11</b> Generalizability Theory</a><ul>
+<li class="chapter" data-level="11.1" data-path="gtheory.html"><a href="gtheory.html#a-single-facet-design"><i class="fa fa-check"></i><b>11.1</b> A single facet design</a><ul>
+<li class="chapter" data-level="11.1.1" data-path="gtheory.html"><a href="gtheory.html#g-study"><i class="fa fa-check"></i><b>11.1.1</b> G-study</a></li>
+<li class="chapter" data-level="11.1.2" data-path="gtheory.html"><a href="gtheory.html#d-study"><i class="fa fa-check"></i><b>11.1.2</b> D-study</a></li>
+<li class="chapter" data-level="11.1.3" data-path="gtheory.html"><a href="gtheory.html#using-the-vca-package"><i class="fa fa-check"></i><b>11.1.3</b> Using the VCA package</a></li>
+<li class="chapter" data-level="11.1.4" data-path="gtheory.html"><a href="gtheory.html#summary-of-our-one-facet-fully-crossed-design"><i class="fa fa-check"></i><b>11.1.4</b> Summary of our one-facet fully-crossed design</a></li>
+</ul></li>
+<li class="chapter" data-level="11.2" data-path="gtheory.html"><a href="gtheory.html#a-two-facet-design"><i class="fa fa-check"></i><b>11.2</b> A two facet design</a><ul>
+<li class="chapter" data-level="11.2.1" data-path="gtheory.html"><a href="gtheory.html#rand2facet"><i class="fa fa-check"></i><b>11.2.1</b> G-study with a two facet design</a></li>
+<li class="chapter" data-level="11.2.2" data-path="gtheory.html"><a href="gtheory.html#d-study-with-a-two-facet-design"><i class="fa fa-check"></i><b>11.2.2</b> D-study with a two facet design</a></li>
+</ul></li>
+<li class="chapter" data-level="11.3" data-path="gtheory.html"><a href="gtheory.html#nested-designs"><i class="fa fa-check"></i><b>11.3</b> Nested designs</a><ul>
+<li class="chapter" data-level="11.3.1" data-path="gtheory.html"><a href="gtheory.html#one-facet-nested-design"><i class="fa fa-check"></i><b>11.3.1</b> One-facet nested design</a></li>
+<li class="chapter" data-level="11.3.2" data-path="gtheory.html"><a href="gtheory.html#two-facet-nested-design"><i class="fa fa-check"></i><b>11.3.2</b> Two-facet nested design</a></li>
+<li class="chapter" data-level="11.3.3" data-path="gtheory.html"><a href="gtheory.html#g-study-with-a-two-facet-items-nested-within-occasions-design"><i class="fa fa-check"></i><b>11.3.3</b> G-study with a two-facet items-nested-within-occasions design</a></li>
+<li class="chapter" data-level="11.3.4" data-path="gtheory.html"><a href="gtheory.html#d-study-with-a-two-facet-items-nested-within-occasions-design"><i class="fa fa-check"></i><b>11.3.4</b> D-study with a two-facet items-nested-within-occasions design</a></li>
+</ul></li>
+<li class="chapter" data-level="11.4" data-path="gtheory.html"><a href="gtheory.html#fixed-facets"><i class="fa fa-check"></i><b>11.4</b> Fixed facets</a></li>
+<li class="chapter" data-level="11.5" data-path="gtheory.html"><a href="gtheory.html#summary"><i class="fa fa-check"></i><b>11.5</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="efa.html"><a href="efa.html"><i class="fa fa-check"></i><b>12</b> Exploratory Factor Analysis</a><ul>
+<li class="chapter" data-level="12.1" data-path="efa.html"><a href="efa.html#preparatory-steps"><i class="fa fa-check"></i><b>12.1</b> Preparatory steps</a><ul>
+<li class="chapter" data-level="12.1.1" data-path="efa.html"><a href="efa.html#examining-the-data"><i class="fa fa-check"></i><b>12.1.1</b> Examining the data</a></li>
+<li class="chapter" data-level="12.1.2" data-path="efa.html"><a href="efa.html#addressing-assumptions"><i class="fa fa-check"></i><b>12.1.2</b> Addressing assumptions</a></li>
+<li class="chapter" data-level="12.1.3" data-path="efa.html"><a href="efa.html#determining-factorability"><i class="fa fa-check"></i><b>12.1.3</b> Determining factorability</a></li>
+<li class="chapter" data-level="12.1.4" data-path="efa.html"><a href="efa.html#determining-how-many-factors-to-retain"><i class="fa fa-check"></i><b>12.1.4</b> Determining how many factors to retain</a></li>
+</ul></li>
+<li class="chapter" data-level="12.2" data-path="efa.html"><a href="efa.html#factor-analysis-with-raw-data"><i class="fa fa-check"></i><b>12.2</b> Factor analysis with raw data</a><ul>
+<li class="chapter" data-level="12.2.1" data-path="efa.html"><a href="efa.html#examining-pattern-coefficients-the-factor-loadings"><i class="fa fa-check"></i><b>12.2.1</b> Examining pattern coefficients (the factor loadings)</a></li>
+</ul></li>
+<li class="chapter" data-level="12.3" data-path="efa.html"><a href="efa.html#factor-analysis-with-correlation-data"><i class="fa fa-check"></i><b>12.3</b> Factor analysis with correlation data</a><ul>
+<li class="chapter" data-level="12.3.1" data-path="efa.html"><a href="efa.html#setting-up-the-data"><i class="fa fa-check"></i><b>12.3.1</b> Setting up the data</a></li>
+<li class="chapter" data-level="12.3.2" data-path="efa.html"><a href="efa.html#preparatory-steps-1"><i class="fa fa-check"></i><b>12.3.2</b> Preparatory steps</a></li>
+<li class="chapter" data-level="12.3.3" data-path="efa.html"><a href="efa.html#performing-the-factor-analysis"><i class="fa fa-check"></i><b>12.3.3</b> Performing the factor analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="12.4" data-path="efa.html"><a href="efa.html#efa-with-categorical-data"><i class="fa fa-check"></i><b>12.4</b> EFA with categorical data</a><ul>
+<li class="chapter" data-level="12.4.1" data-path="efa.html"><a href="efa.html#describing-categorical-data"><i class="fa fa-check"></i><b>12.4.1</b> Describing categorical data</a></li>
+<li class="chapter" data-level="12.4.2" data-path="efa.html"><a href="efa.html#getting-the-correlation-matrix"><i class="fa fa-check"></i><b>12.4.2</b> Getting the correlation matrix</a></li>
+<li class="chapter" data-level="12.4.3" data-path="efa.html"><a href="efa.html#appraising-the-factorability-and-determining-the-number-of-factors-to-retain"><i class="fa fa-check"></i><b>12.4.3</b> Appraising the factorability and determining the number of factors to retain</a></li>
+<li class="chapter" data-level="12.4.4" data-path="efa.html"><a href="efa.html#factor-analysis-on-the-polychoric-matrix"><i class="fa fa-check"></i><b>12.4.4</b> Factor analysis on the polychoric matrix</a></li>
+<li class="chapter" data-level="12.4.5" data-path="efa.html"><a href="efa.html#the-polycor-package"><i class="fa fa-check"></i><b>12.4.5</b> The polycor package</a></li>
+</ul></li>
+<li class="chapter" data-level="12.5" data-path="efa.html"><a href="efa.html#factor-scores"><i class="fa fa-check"></i><b>12.5</b> Factor scores</a><ul>
+<li class="chapter" data-level="12.5.1" data-path="efa.html"><a href="efa.html#transforming-factor-scores"><i class="fa fa-check"></i><b>12.5.1</b> Transforming factor scores</a></li>
+</ul></li>
+<li class="chapter" data-level="12.6" data-path="efa.html"><a href="efa.html#internal-consistency-reliability-of-the-scores"><i class="fa fa-check"></i><b>12.6</b> Internal consistency reliability of the scores</a></li>
+<li class="chapter" data-level="12.7" data-path="efa.html"><a href="efa.html#practice-1"><i class="fa fa-check"></i><b>12.7</b> Practice</a></li>
+<li class="chapter" data-level="12.8" data-path="efa.html"><a href="efa.html#summary-1"><i class="fa fa-check"></i><b>12.8</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="cfa.html"><a href="cfa.html"><i class="fa fa-check"></i><b>13</b> Confirmatory Factor Analysis</a><ul>
+<li class="chapter" data-level="13.1" data-path="cfa.html"><a href="cfa.html#preparatory-steps-2"><i class="fa fa-check"></i><b>13.1</b> Preparatory steps</a><ul>
+<li class="chapter" data-level="13.1.1" data-path="cfa.html"><a href="cfa.html#addressing-assumptions-1"><i class="fa fa-check"></i><b>13.1.1</b> Addressing assumptions</a></li>
+</ul></li>
+<li class="chapter" data-level="13.2" data-path="cfa.html"><a href="cfa.html#fitting-a-cfa-model"><i class="fa fa-check"></i><b>13.2</b> Fitting a CFA model</a><ul>
+<li class="chapter" data-level="13.2.1" data-path="cfa.html"><a href="cfa.html#making-sure-the-model-was-correctly-estimated"><i class="fa fa-check"></i><b>13.2.1</b> Making sure the model was correctly estimated</a></li>
+<li class="chapter" data-level="13.2.2" data-path="cfa.html"><a href="cfa.html#evaluating-the-model-fit"><i class="fa fa-check"></i><b>13.2.2</b> Evaluating the model fit</a></li>
+<li class="chapter" data-level="13.2.3" data-path="cfa.html"><a href="cfa.html#interpretting-the-parameter-estimates"><i class="fa fa-check"></i><b>13.2.3</b> Interpretting the parameter estimates</a></li>
+</ul></li>
+<li class="chapter" data-level="13.3" data-path="cfa.html"><a href="cfa.html#further-inspecting-our-model"><i class="fa fa-check"></i><b>13.3</b> Further inspecting our model</a><ul>
+<li class="chapter" data-level="13.3.1" data-path="cfa.html"><a href="cfa.html#looking-at-the-models-covariance-matrices"><i class="fa fa-check"></i><b>13.3.1</b> Looking at the model’s covariance matrices</a></li>
+<li class="chapter" data-level="13.3.2" data-path="cfa.html"><a href="cfa.html#further-inspecting-our-models-parameters"><i class="fa fa-check"></i><b>13.3.2</b> Further inspecting our model’s parameters</a></li>
+</ul></li>
+<li class="chapter" data-level="13.4" data-path="cfa.html"><a href="cfa.html#using-alternative-model-specifications"><i class="fa fa-check"></i><b>13.4</b> Using alternative model specifications</a><ul>
+<li class="chapter" data-level="13.4.1" data-path="cfa.html"><a href="cfa.html#rescaling-the-factors-to-be-standardized"><i class="fa fa-check"></i><b>13.4.1</b> Rescaling the factors to be standardized</a></li>
+<li class="chapter" data-level="13.4.2" data-path="cfa.html"><a href="cfa.html#specifying-a-competing-nested-model"><i class="fa fa-check"></i><b>13.4.2</b> Specifying a competing, nested, model</a></li>
+</ul></li>
+<li class="chapter" data-level="13.5" data-path="cfa.html"><a href="cfa.html#conducting-model-comparisons"><i class="fa fa-check"></i><b>13.5</b> Conducting model comparisons</a></li>
+<li class="chapter" data-level="13.6" data-path="cfa.html"><a href="cfa.html#estimating-factor-scores"><i class="fa fa-check"></i><b>13.6</b> Estimating factor scores</a></li>
+<li class="chapter" data-level="13.7" data-path="cfa.html"><a href="cfa.html#internal-consistency-reliability-with-cfa"><i class="fa fa-check"></i><b>13.7</b> Internal consistency reliability with CFA</a></li>
+<li class="chapter" data-level="13.8" data-path="cfa.html"><a href="cfa.html#testing-congeneric-essentially-tau-equivalent-tau-equivalent-and-parallel-models"><i class="fa fa-check"></i><b>13.8</b> Testing congeneric, essentially tau-equivalent, tau-equivalent, and parallel models</a><ul>
+<li class="chapter" data-level="13.8.1" data-path="cfa.html"><a href="cfa.html#congeneric-model-specification"><i class="fa fa-check"></i><b>13.8.1</b> Congeneric model specification</a></li>
+<li class="chapter" data-level="13.8.2" data-path="cfa.html"><a href="cfa.html#essentially-tau-equivalent-model-specification"><i class="fa fa-check"></i><b>13.8.2</b> Essentially tau-equivalent model specification</a></li>
+<li class="chapter" data-level="13.8.3" data-path="cfa.html"><a href="cfa.html#tau-equivalent-model-specification"><i class="fa fa-check"></i><b>13.8.3</b> Tau-equivalent model specification</a></li>
+<li class="chapter" data-level="13.8.4" data-path="cfa.html"><a href="cfa.html#strictly-parallel-model-specification"><i class="fa fa-check"></i><b>13.8.4</b> Strictly parallel model specification</a></li>
+</ul></li>
+<li class="chapter" data-level="13.9" data-path="cfa.html"><a href="cfa.html#cfa-with-categorical-data"><i class="fa fa-check"></i><b>13.9</b> CFA with categorical data</a><ul>
+<li class="chapter" data-level="13.9.1" data-path="cfa.html"><a href="cfa.html#using-data-from-an-r-package"><i class="fa fa-check"></i><b>13.9.1</b> Using data from an R package</a></li>
+<li class="chapter" data-level="13.9.2" data-path="cfa.html"><a href="cfa.html#preparing-the-data"><i class="fa fa-check"></i><b>13.9.2</b> Preparing the data</a></li>
+<li class="chapter" data-level="13.9.3" data-path="cfa.html"><a href="cfa.html#describing-the-data"><i class="fa fa-check"></i><b>13.9.3</b> Describing the data</a></li>
+<li class="chapter" data-level="13.9.4" data-path="cfa.html"><a href="cfa.html#fitting-the-cfa-model"><i class="fa fa-check"></i><b>13.9.4</b> Fitting the CFA model</a></li>
+</ul></li>
+<li class="chapter" data-level="13.10" data-path="cfa.html"><a href="cfa.html#additional-manipulation-of-the-data"><i class="fa fa-check"></i><b>13.10</b> Additional manipulation of the data</a></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="irm.html"><a href="irm.html"><i class="fa fa-check"></i><b>14</b> Item Response Modeling</a><ul>
+<li class="chapter" data-level="14.1" data-path="irm.html"><a href="irm.html#on-fitting-linear-regression-models-to-dichotomous-data"><i class="fa fa-check"></i><b>14.1</b> On fitting linear regression models to dichotomous data</a></li>
+<li class="chapter" data-level="14.2" data-path="irm.html"><a href="irm.html#logistic-item-response-models-with-dichotomous-data"><i class="fa fa-check"></i><b>14.2</b> Logistic item response models with dichotomous data</a><ul>
+<li class="chapter" data-level="14.2.1" data-path="irm.html"><a href="irm.html#the-rasch-and-1pl-models"><i class="fa fa-check"></i><b>14.2.1</b> The Rasch and 1PL models</a></li>
+<li class="chapter" data-level="14.2.2" data-path="irm.html"><a href="irm.html#the-2pl-model"><i class="fa fa-check"></i><b>14.2.2</b> The 2PL model</a></li>
+<li class="chapter" data-level="14.2.3" data-path="irm.html"><a href="irm.html#the-3pl-model"><i class="fa fa-check"></i><b>14.2.3</b> The 3PL model</a></li>
+<li class="chapter" data-level="14.2.4" data-path="irm.html"><a href="irm.html#item-response-functions"><i class="fa fa-check"></i><b>14.2.4</b> Item response functions</a></li>
+<li class="chapter" data-level="14.2.5" data-path="irm.html"><a href="irm.html#test-characteristic-curve"><i class="fa fa-check"></i><b>14.2.5</b> Test characteristic curve</a></li>
+<li class="chapter" data-level="14.2.6" data-path="irm.html"><a href="irm.html#information-and-standard-error"><i class="fa fa-check"></i><b>14.2.6</b> Information and standard error</a></li>
+<li class="chapter" data-level="14.2.7" data-path="irm.html"><a href="irm.html#plotting-information-and-the-standard-error-of-measurement"><i class="fa fa-check"></i><b>14.2.7</b> Plotting information and the standard error of measurement</a></li>
+</ul></li>
+<li class="chapter" data-level="14.3" data-path="irm.html"><a href="irm.html#fitting-a-1pl-model"><i class="fa fa-check"></i><b>14.3</b> Fitting a 1PL model</a></li>
+<li class="chapter" data-level="14.4" data-path="irm.html"><a href="irm.html#checking-assumptions"><i class="fa fa-check"></i><b>14.4</b> Checking assumptions</a><ul>
+<li class="chapter" data-level="14.4.1" data-path="irm.html"><a href="irm.html#unidimensionality"><i class="fa fa-check"></i><b>14.4.1</b> Unidimensionality</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Using R for Measurement in the Social Sciences</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="CTT" class="section level1">
+<h1><span class="header-section-number">Chapter 8</span> Classical Test Theory</h1>
+<div id="true-score-model" class="section level2">
+<h2><span class="header-section-number">8.1</span> True score model</h2>
+<p>Classical test theory (CTT) provides the rationale for many of the methods of estimating reliability. The fundamental premise is that a person’s observed score, <span class="math inline">\(X\)</span>, on a test (or test item) is explained by two things: their true status on the operationalized construct, <span class="math inline">\(T\)</span> , and random error, <span class="math inline">\(E\)</span>.
+<span class="math display">\[X = T + E\]</span>
+This is the true score model.</p>
+The following hypothetical data set, which we’ll call <strong>Test A</strong>, shows this relationship for each person. For example, Alba’s true score is 12.26. The random error that was present in her observed score was -0.81. These sum to 11.45.
+<table>
+<caption>
+<span id="tab:unnamed-chunk-156">Table 8.1: </span>Hypothetical data, Test A
+</caption>
+<thead>
+<tr>
+<th style="text-align:right;">
+PID
+</th>
+<th style="text-align:right;">
+T
+</th>
+<th style="text-align:right;">
+E
+</th>
+<th style="text-align:right;">
+X
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+Alba
+</td>
+<td style="text-align:right;">
+12.26
+</td>
+<td style="text-align:right;">
+-0.81
+</td>
+<td style="text-align:right;">
+11.45
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+Bee
+</td>
+<td style="text-align:right;">
+15.59
+</td>
+<td style="text-align:right;">
+2.19
+</td>
+<td style="text-align:right;">
+17.78
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+Carly
+</td>
+<td style="text-align:right;">
+20.94
+</td>
+<td style="text-align:right;">
+2.36
+</td>
+<td style="text-align:right;">
+23.30
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+Dahlia
+</td>
+<td style="text-align:right;">
+17.53
+</td>
+<td style="text-align:right;">
+-0.82
+</td>
+<td style="text-align:right;">
+16.71
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+Elly
+</td>
+<td style="text-align:right;">
+15.70
+</td>
+<td style="text-align:right;">
+-1.90
+</td>
+<td style="text-align:right;">
+13.80
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+Frida
+</td>
+<td style="text-align:right;">
+15.79
+</td>
+<td style="text-align:right;">
+-2.09
+</td>
+<td style="text-align:right;">
+13.70
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+Greta
+</td>
+<td style="text-align:right;">
+18.29
+</td>
+<td style="text-align:right;">
+-1.44
+</td>
+<td style="text-align:right;">
+16.85
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+Hildre
+</td>
+<td style="text-align:right;">
+11.91
+</td>
+<td style="text-align:right;">
+2.50
+</td>
+<td style="text-align:right;">
+14.42
+</td>
+</tr>
+</tbody>
+</table>
+<p>We can <strong>never</strong> know a person’s true score, so we can never know how much of their observed score is indeed made up of this randomness. What we can do, though, if we have multiple items (or sub-tests), is estimate this proportion given the patterns of responses across multiple observations. We’ll practice methods of estimating reliability in the next chapter.</p>
+<p>Not surprisingly, because <span class="math inline">\(X = T + E\)</span>, the same pattern occurs in expectation, <span class="math inline">\(\text{E}(X) = \text{E}(T) + \text{E}(E)\)</span>. We see the means in our hypothetical data representing this pattern:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:right;">
+</th>
+<th style="text-align:right;">
+T
+</th>
+<th style="text-align:right;">
+E
+</th>
+<th style="text-align:right;">
+X
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+Mean
+</td>
+<td style="text-align:right;">
+16.00
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+16.00
+</td>
+</tr>
+</tbody>
+</table>
+<p>Also, notice that the mean of the error is <span class="math inline">\(0\)</span>. This is because error is assumed to be random.</p>
+<p>Take a look at this next fake data set, <strong>Test B</strong>. Notice that each person’s true score is the same as it was in Test A but that the errors and therefore the observed scores are different from those in Test A.</p>
+<table>
+<caption>
+<span id="tab:unnamed-chunk-158">Table 8.2: </span>Hypothetical data, Test B
+</caption>
+<thead>
+<tr>
+<th style="text-align:right;">
+PID
+</th>
+<th style="text-align:right;">
+T
+</th>
+<th style="text-align:right;">
+E
+</th>
+<th style="text-align:right;">
+X
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+Alba
+</td>
+<td style="text-align:right;">
+12.26
+</td>
+<td style="text-align:right;">
+-1.85
+</td>
+<td style="text-align:right;">
+10.40
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+Bee
+</td>
+<td style="text-align:right;">
+15.59
+</td>
+<td style="text-align:right;">
+-3.47
+</td>
+<td style="text-align:right;">
+12.12
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+Carly
+</td>
+<td style="text-align:right;">
+20.94
+</td>
+<td style="text-align:right;">
+-0.38
+</td>
+<td style="text-align:right;">
+20.56
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+Dahlia
+</td>
+<td style="text-align:right;">
+17.53
+</td>
+<td style="text-align:right;">
+3.22
+</td>
+<td style="text-align:right;">
+20.75
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+Elly
+</td>
+<td style="text-align:right;">
+15.70
+</td>
+<td style="text-align:right;">
+-2.15
+</td>
+<td style="text-align:right;">
+13.55
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+Frida
+</td>
+<td style="text-align:right;">
+15.79
+</td>
+<td style="text-align:right;">
+0.81
+</td>
+<td style="text-align:right;">
+16.60
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+Greta
+</td>
+<td style="text-align:right;">
+18.29
+</td>
+<td style="text-align:right;">
+0.58
+</td>
+<td style="text-align:right;">
+18.87
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+Hildre
+</td>
+<td style="text-align:right;">
+11.91
+</td>
+<td style="text-align:right;">
+3.23
+</td>
+<td style="text-align:right;">
+15.15
+</td>
+</tr>
+</tbody>
+</table>
+<p>In Test A, Bee’s observed score is 17.78, which is higher than her true score, 15.59. In Test B, her observed score, 12.12, is lower than her true score. It may be that, for reasons beyond those related to construct being measured, Bee was feeling good during one test but not so good during the other test and her mood had an effect on her motivation.</p>
+<p>Other participants’ variations away from their true scores are also assumed to be due to conditions unrelated to the construct being measured by the test—things such as their physical comfort or their random lapses in attention. These sources of error are outside of our control (usually). Another source of random error can be due to features in the test tasks, such as item wording, that result in idiosyncratic responses by the participants. In a test with high reliability, these discrepancies are relatively small in magnitude and the proportion of variance in the observed scores that is explained by error is low.</p>
+<p>Looking at the magnitude of the errors, do you think Test B is better than, worse than, or about the same as Test A in terms of how much of the observed scores’ variability is due to error? It is difficult to tell by eyeballing the errors. Let’s look at the variance of the error in each of two hypothetical tests:</p>
+<table>
+<caption>
+<span id="tab:unnamed-chunk-159">Table 8.3: </span>Variances of the True, Error, and Observed Scores in Hypothetical Tests A and B
+</caption>
+<thead>
+<tr>
+<th style="text-align:right;">
+</th>
+<th style="text-align:right;">
+T
+</th>
+<th style="text-align:right;">
+E
+</th>
+<th style="text-align:right;">
+X
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+Test A
+</td>
+<td style="text-align:right;">
+7.88
+</td>
+<td style="text-align:right;">
+3.50
+</td>
+<td style="text-align:right;">
+11.38
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+Test B
+</td>
+<td style="text-align:right;">
+7.88
+</td>
+<td style="text-align:right;">
+5.25
+</td>
+<td style="text-align:right;">
+13.14
+</td>
+</tr>
+</tbody>
+</table>
+<p>With these hypothetical data, the variance of the true scores is the same for the two tests, but they differ in how much error variance contributes to the scores. The test with less error is more reliable at estimating persons’ true scores from their observed scores. That is, with Test A, we have more confidence that—in general across all of the examinees—the observed scores provide a better representation of the examinees’ true scores than they do in Test B.</p>
+<p>We are able to observe this with our hypothetical data because we have omniscient access to the true scores and error scores. In reality, we do not have this knowledge. We only have the observed scores. To estimate reliability, we examine the patterns in the observed data and rely on a set of assumptions of CTT.</p>
+</div>
+<div id="assumptions-of-the-ctt-true-score-model" class="section level2">
+<h2><span class="header-section-number">8.2</span> Assumptions of the CTT true score model</h2>
+<p>We’ve seen the first assumption of the true score model. There are five more:</p>
+<p><span class="math inline">\(\begin{aligned} &amp; 1.\;\; X = T + E\\[3pt] &amp; 2.\;\; T = \text{E}(X)\\[3pt] &amp; 3.\;\; \text{E}(E) = 0\\[3pt] &amp; 4.\;\; \rho_{ET} = 0\\[3pt] &amp; 5.\;\; \rho_{E_{i}E_{j}} = 0\\[3pt] &amp; 6.\;\; \rho_{E_{i}T_{j}} = 0 \end{aligned}\)</span></p>
+<p>The second assumption is that a person’s true score is the expectation of that person’s observed score over a multitude of occasions of taking that test. These multiple conditions are not realistically feasible because after each test we would have to wipe the person’s mind and send them back in time to take the test again. What we can do is generalize this assumption across a population of respondents: The expected observed score in the population is assumed to be the true score in the population.</p>
+<p>The third assumption states that the expected error—across a multitude of occasions of observations with that person—will be zero. This also applies across multiple, statistically independent<a href="#fn58" class="footnote-ref" id="fnref58"><sup>58</sup></a>, respondents. This makes sense because error is random, so in expectation it should have a mean of zero.</p>
+<p>The fourth assumption is that the correlation between the true scores and the error is zero. This again is consistent with the notion that error is random. In expectation, error should have a correlation of zero with anything else in the test besides the observed scores (remember that the observed scores are made up of that error, <span class="math inline">\(X = T + E\)</span>, so they will correlate).</p>
+<p>The fifth and sixth assumptions are similar to the fourth. The error on one test, <span class="math inline">\(E_i\)</span>, is unrelated to the error on another test, <span class="math inline">\(E_j\)</span>, and it is unrelated to the true scores on another test measuring the same thing, <span class="math inline">\(T_j\)</span>.</p>
+<p>These assumptions underlie the logic of the reliability estimation procedures. They are in expectation—that is, they are what is assumed to be true with <em>many</em> independent observations of the test condition, such as on repeated occasions with persons (who are memory-wiped and sent back in time) or across a large population of persons. With real data sets, we will never know persons’ true scores or error scores. Even if we could, we would not likely observe these patterns with a single sample of test data because expectation concerns the expected value in the population.</p>
+</div>
+<div id="reliability-and-the-variance-of-the-composite-score" class="section level2">
+<h2><span class="header-section-number">8.3</span> Reliability and the variance of the composite score</h2>
+<p>In the true score model, the observed score, <span class="math inline">\(X\)</span>, is a composite of <span class="math inline">\(T\)</span> and <span class="math inline">\(E\)</span>. Given that, we can assume that <span class="math inline">\(\text{Var}(X) = \text{Var}(T) + \text{Var}(E) + 2\text{Cov}(T,E)\)</span>. However, based on Assumption 4, in which <span class="math inline">\(\rho_{ET} = 0\)</span>, the covariance between <span class="math inline">\(T\)</span> and <span class="math inline">\(E\)</span> must be zero, <span class="math inline">\(\text{Cov}(T,E) = 0\)</span>. Stated another way, error is assumed to be random and therefore independent of the true scores. With this, under CTT, we therefore accept that <span class="math inline">\(\sigma^2_X = \sigma^2_T + \sigma^2_E\)</span>.</p>
+<p>One of the clearest accounts of reliability is from Furr <span class="citation">(<a href="#ref-furr_psychometrics_2018" role="doc-biblioref">2018</a>)</span>. We can follow his description of four ways to think about reliability: as the ratio of true-score to observed-score variance, as the lack of error variance, as the correlation between observed and true scores, and as the correlation between two tests that are assumed to fit a parallel model.</p>
+<div id="reliability-as-the-ratio-of-true-score-variance-to-observed-score-variance" class="section level3">
+<h3><span class="header-section-number">8.3.1</span> Reliability as the ratio of true-score variance to observed-score variance</h3>
+<p>If there is any error, and there likely always is with measurement in education and the social sciences, the variance of the observed scores will always be larger than the variance of the true scores. When we report reliability in our work, we are interested in what proportion of the observed (total) variance is explained by the true score variance:
+<span class="math display">\[\text{Rel} = \frac{\sigma^2_T}{\sigma^2_X}\]</span>
+This true-score to observed-score variance proportion is one definition of reliability.<a href="#fn59" class="footnote-ref" id="fnref59"><sup>59</sup></a></p>
+</div>
+<div id="reliability-as-the-lack-of-error-variance" class="section level3">
+<h3><span class="header-section-number">8.3.2</span> Reliability as the lack of error variance</h3>
+<p>We can also think of reliability as the lack of error variance in the total observed variance. This is because <span class="math inline">\(\sigma^2_T = \sigma^2_X - \sigma^2_E\)</span>.
+<span class="math display">\[\begin{eqnarray*}
+\text{Rel} &amp;=&amp; \frac{\sigma^2_X - \sigma^2_E}{\sigma^2_X}\\
+&amp;=&amp; \frac{\sigma^2_X}{\sigma^2_X} - \frac{\sigma^2_E}{\sigma^2_X}\\
+&amp;=&amp; 1 - \frac{\sigma^2_E}{\sigma^2_X}
+\end{eqnarray*}\]</span></p>
+</div>
+<div id="reliability-as-the-squared-correlation-between-observed-and-true-scores" class="section level3">
+<h3><span class="header-section-number">8.3.3</span> Reliability as the squared correlation between observed and true scores</h3>
+<p>The reliability coefficient can also be understood as the squared correlation between the true and observed scores. Let’s show that this is equivalent to our earlier definition regarding the ratio of true-score to observed-score variance:<a href="#fn60" class="footnote-ref" id="fnref60"><sup>60</sup></a>
+<span class="math display">\[\begin{eqnarray}
+\rho_{X,T}^2 &amp;=&amp; \left[\frac{\text{Cov}(X,T)}{S_{X}S_{T}}\right]^2 = \left[\frac{\sigma_{X,T}}{\sigma_{X}\sigma_{T}}\right]^2 = \frac{\sigma_{T}^2}{\sigma_{X}^2}
+\end{eqnarray}\]</span>
+Let’s break this down by seeing how we get from <span class="math inline">\(\left[\frac{\sigma_{X,T}}{\sigma_{X}\sigma_{T}}\right]^2\)</span> to <span class="math inline">\(\frac{\sigma_{T}^2}{\sigma_{X}^2}\)</span>.</p>
+<p>For starters, let’s demonstrate that the numerator in the correlation coefficient (the covariance between <span class="math inline">\(X\)</span> and <span class="math inline">\(T\)</span>) is the same as the variance of the true scores. This makes sense because the error in <span class="math inline">\(X\)</span> should not contribute to the correlation, so the systematic variance that is left in <span class="math inline">\(X\)</span> is actually the variance of <span class="math inline">\(T\)</span>. In the following equations, we rely on Assumptions 1 and 3 of the CTT true score model.
+<span class="math display">\[\begin{eqnarray*}
+\text{Cov}(X,T) &amp;=&amp; \text{E}\big((X-\bar{X})(T-\bar{T})\big)\\
+&amp;=&amp; \text{E}\Big(\big(T + E -(\bar{T} + \bar{E})\big)\big(T-\bar{T}\big)\Big)\\
+&amp;=&amp; \text{E}\big((T + E -\bar{T})(T-\bar{T})\big)\\
+&amp;=&amp; \text{E}(T^2 -T\bar{T} + ET - E\bar{T} - T\bar{T} + \bar{T}^2)\\
+&amp;=&amp; \text{E}(T^2) -\bar{T}\text{E}(T) + \text{E}(E)\text{E}(T) - \bar{T}\text{E}(E) - \bar{T}\text{E}(T) + \bar{T}^2\\
+&amp;=&amp; \text{E}(T^2) -\bar{T}^2 + 0 - 0 - \bar{T}^2 + \bar{T}^2\\
+&amp;=&amp; \text{E}(T^2) -\bar{T}^2\\
+&amp;=&amp; \text{E}(T^2) -\big(\text{E}(T)\big)^2\\
+\text{Cov}(X,T) &amp;=&amp; \text{Var}(T)
+\end{eqnarray*}\]</span>
+Next, let’s plug that into the numerator of our correlation and simplify it:
+<span class="math display">\[\begin{eqnarray*}
+\rho_{X,T} = \frac{\sigma_{X,T}}{\sigma_{X}\sigma_{T}} &amp;=&amp; 
+ \frac{\sigma_{T}^2}{\sigma_{X}\sigma_{T}}\\[5 pt]
+&amp;=&amp; \frac{\sigma_{T}}{\sigma_{X}}
+\end{eqnarray*}\]</span>
+Let’s now square that so the denominator is the total variance:
+<span class="math display">\[\begin{eqnarray*}
+\rho_{X,T}^2 &amp;=&amp; \frac{\sigma_{T}^2}{\sigma_{X}^2}
+\end{eqnarray*}\]</span>
+And Bob’s your uncle.</p>
+</div>
+<div id="reliability-as-the-correlation-between-scores-on-parallel-tests" class="section level3">
+<h3><span class="header-section-number">8.3.4</span> Reliability as the correlation between scores on parallel tests</h3>
+<p>With two parallel tests, we can estimate the reliability as their correlation. Let’s show that this is equivalent to our earlier definition regarding the ratio of true-score to observed-score variance.
+<span class="math display">\[\begin{eqnarray}
+\rho_{X_1,X_2} &amp;=&amp; \left[\frac{\text{Cov}(X_1,X_2)}{S_{X_1}S_{X_2}}\right] = \left[\frac{\sigma_{X_1,X_2}}{\sigma_{X_1}\sigma_{X_2}}\right] = \frac{\sigma_{T}^2}{\sigma_{X}^2}
+\end{eqnarray}\]</span></p>
+<p>Because two parallel tests have equal variances (and therefore equal standard deviations), the denominator, <span class="math inline">\(\sigma_{X_1}\sigma_{X_2}\)</span>, is the variance of either test, <span class="math inline">\(\sigma_{X_1}^2\)</span> or <span class="math inline">\(\sigma_{X_2}^2\)</span>, or simply <span class="math inline">\(\sigma_{X}^2\)</span> .</p>
+<p>The covariance of their components is
+<span class="math display">\[\begin{eqnarray}
+\text{Cov}(X_1,X_2) &amp;=&amp; \text{Cov}(T_1,T_2) + \text{Cov}(T_1,E_2) + \text{Cov}(E_1,T_2) + \text{Cov}(E_1,E_2)\\[5pt]
+&amp;=&amp; \text{Cov}(T_1,T_2) + 0 + 0 + 0
+\end{eqnarray}\]</span></p>
+<p>Because <span class="math inline">\(T_1\)</span> = <span class="math inline">\(T_2\)</span>, and the covariance of a variable with itself is variance,
+<span class="math display">\[\begin{eqnarray}
+\text{Cov}(X_1,X_2) &amp;=&amp; \text{Cov}(T_1,T_2) = \text{Cov}(T_1,T_1)\\[5pt]
+ &amp;=&amp; \sigma_T^2
+\end{eqnarray}\]</span>
+Plugging this into the numerator of <span class="math inline">\(\left[\frac{\sigma_{X_1,X_2}}{\sigma_{X_1}\sigma_{X_2}}\right]\)</span>, and replacing the denominator with <span class="math inline">\(\sigma_{X}^2\)</span>,
+<span class="math display">\[\begin{eqnarray}
+\rho_{_{X_1,X_2}} &amp;=&amp; \frac{\sigma_{T}^2}{\sigma_{X}^2}
+\end{eqnarray}\]</span></p>
+<p>This is the rationale for estimating the reliability coefficient in test-retest reliability or alternate-forms reliability as the correlation coefficient. It assumes a parallel model, which is described next.</p>
+</div>
+</div>
+<div id="four-ctt-models" class="section level2">
+<h2><span class="header-section-number">8.4</span> Four CTT models</h2>
+<p>In most tests, there are several items that are intended to measure the same construct. These items can be thought of as smaller mini tests or sub-tests. Because we cannot observe the true scores on any given test, we rely on the shared variances, or covariances, among items. As we saw above, the covariance between an observed score and the true score is the same as the variance of the true scores. This is because the error washes out. The same principle applies to covariances among items—their shared variance, after we remove error, what we have is the true-score variance.</p>
+<p>In each of the four hypothetical examples that follow to illustrate the four CTT models, we’ll be looking at only two tests (such as two items or two sub-tests). When we have many items (which again we’re calling tests or sub-tests here), the same assumptions about the relationships among those items would apply. Also, the tests don’t have to be items or mini tests or sub-tests. With test-retest reliability methods and alternative-form methods, we have two full tests and these same assumptions apply. With this, we use the generic term <em>tests</em> in this section but what we’re talking about can be applied to items, sub-tests, or alternate test forms.</p>
+<p>There are several methods for estimating reliability (such as test-retest reliability, coefficient alpha, and coefficient omega). In addition to the general assumptions of CTT, each method has additional assumptions having to do with the linear relationships among the true scores on these mini tests. These assumptions are classifiable into four CTT models:</p>
+<ol style="list-style-type: decimal">
+<li>Parallel,</li>
+<li>Tau-equivalent,</li>
+<li>Essentially tau-equivalent, and</li>
+<li>Congeneric.</li>
+</ol>
+<div id="the-parallel-model" class="section level3">
+<h3><span class="header-section-number">8.4.1</span> The parallel model</h3>
+<p>The parallel model is the most stringent. It assumes that the true score of each person is the same on both tests and that both tests are of the same difficulty. This linear relationship between the true scores on one test and those on the other is represented using regression: <span class="math inline">\(T_2 = a + bT_1\)</span>, with <span class="math inline">\(a = 0\)</span> and <span class="math inline">\(b = 1\)</span>. The intercept represents the test difficulty. If <span class="math inline">\(a \neq 0\)</span>, the true scores would be lower on the more difficult test. In the parallel model, the two tests are assumed to be equally difficult. The parallel test model also assumes that the error variances on both tests are the same, <span class="math inline">\(\sigma^2_{E_1} = \sigma^2_{E_2}\)</span>. Here are hypothetical data from two tests that are parallel:</p>
+<table>
+<caption>
+<span id="tab:unnamed-chunk-160">Table 8.4: </span>Two hypothetical tests fitting a parallel model
+</caption>
+<thead>
+<tr>
+<th style="empty-cells: hide;border-bottom:hidden;" colspan="1">
+</th>
+<th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="3">
+<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
+Test 1
+</div>
+</th>
+<th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="3">
+<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
+Test 2
+</div>
+</th>
+</tr>
+<tr>
+<th style="text-align:right;">
+PID
+</th>
+<th style="text-align:right;">
+X<sub>1</sub>
+</th>
+<th style="text-align:right;">
+T<sub>1</sub>
+</th>
+<th style="text-align:right;">
+E<sub>1</sub>
+</th>
+<th style="text-align:right;">
+X<sub>2</sub>
+</th>
+<th style="text-align:right;">
+T<sub>2</sub>
+</th>
+<th style="text-align:right;">
+E<sub>2</sub>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+Alba
+</td>
+<td style="text-align:right;">
+11.45
+</td>
+<td style="text-align:right;color: olivedrab !important;">
+12.26
+</td>
+<td style="text-align:right;color: brown !important;">
+-0.81
+</td>
+<td style="text-align:right;">
+13.84
+</td>
+<td style="text-align:right;color: olivedrab !important;">
+12.26
+</td>
+<td style="text-align:right;color: brown !important;">
+1.59
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+Bee
+</td>
+<td style="text-align:right;">
+17.78
+</td>
+<td style="text-align:right;color: olivedrab !important;">
+15.59
+</td>
+<td style="text-align:right;color: brown !important;">
+2.19
+</td>
+<td style="text-align:right;">
+12.32
+</td>
+<td style="text-align:right;color: olivedrab !important;">
+15.59
+</td>
+<td style="text-align:right;color: brown !important;">
+-3.26
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+Carly
+</td>
+<td style="text-align:right;">
+23.30
+</td>
+<td style="text-align:right;color: olivedrab !important;">
+20.94
+</td>
+<td style="text-align:right;color: brown !important;">
+2.36
+</td>
+<td style="text-align:right;">
+23.02
+</td>
+<td style="text-align:right;color: olivedrab !important;">
+20.94
+</td>
+<td style="text-align:right;color: brown !important;">
+2.08
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+Dahlia
+</td>
+<td style="text-align:right;">
+16.71
+</td>
+<td style="text-align:right;color: olivedrab !important;">
+17.53
+</td>
+<td style="text-align:right;color: brown !important;">
+-0.82
+</td>
+<td style="text-align:right;">
+15.49
+</td>
+<td style="text-align:right;color: olivedrab !important;">
+17.53
+</td>
+<td style="text-align:right;color: brown !important;">
+-2.05
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+Elly
+</td>
+<td style="text-align:right;">
+13.80
+</td>
+<td style="text-align:right;color: olivedrab !important;">
+15.70
+</td>
+<td style="text-align:right;color: brown !important;">
+-1.90
+</td>
+<td style="text-align:right;">
+17.23
+</td>
+<td style="text-align:right;color: olivedrab !important;">
+15.70
+</td>
+<td style="text-align:right;color: brown !important;">
+1.54
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+Frida
+</td>
+<td style="text-align:right;">
+13.70
+</td>
+<td style="text-align:right;color: olivedrab !important;">
+15.79
+</td>
+<td style="text-align:right;color: brown !important;">
+-2.09
+</td>
+<td style="text-align:right;">
+14.20
+</td>
+<td style="text-align:right;color: olivedrab !important;">
+15.79
+</td>
+<td style="text-align:right;color: brown !important;">
+-1.58
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+Greta
+</td>
+<td style="text-align:right;">
+16.85
+</td>
+<td style="text-align:right;color: olivedrab !important;">
+18.29
+</td>
+<td style="text-align:right;color: brown !important;">
+-1.44
+</td>
+<td style="text-align:right;">
+18.99
+</td>
+<td style="text-align:right;color: olivedrab !important;">
+18.29
+</td>
+<td style="text-align:right;color: brown !important;">
+0.70
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+Hildre
+</td>
+<td style="text-align:right;">
+14.42
+</td>
+<td style="text-align:right;color: olivedrab !important;">
+11.91
+</td>
+<td style="text-align:right;color: brown !important;">
+2.50
+</td>
+<td style="text-align:right;">
+12.90
+</td>
+<td style="text-align:right;color: olivedrab !important;">
+11.91
+</td>
+<td style="text-align:right;color: brown !important;">
+0.98
+</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th style="text-align:right;">
+Statistic
+</th>
+<th style="text-align:right;">
+X<sub>1</sub>
+</th>
+<th style="text-align:right;">
+T<sub>1</sub>
+</th>
+<th style="text-align:right;">
+E<sub>1</sub>
+</th>
+<th style="text-align:right;">
+X<sub>2</sub>
+</th>
+<th style="text-align:right;">
+T<sub>2</sub>
+</th>
+<th style="text-align:right;">
+E<sub>2</sub>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+Mean
+</td>
+<td style="text-align:right;">
+16.00
+</td>
+<td style="text-align:right;">
+16.00
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+16.00
+</td>
+<td style="text-align:right;">
+16.00
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+Variance
+</td>
+<td style="text-align:right;">
+11.38
+</td>
+<td style="text-align:right;">
+7.88
+</td>
+<td style="text-align:right;">
+3.50
+</td>
+<td style="text-align:right;">
+11.38
+</td>
+<td style="text-align:right;">
+7.88
+</td>
+<td style="text-align:right;">
+3.50
+</td>
+</tr>
+</tbody>
+</table>
+Notice that the means of the observed scores the same. This is because in the linear relationships, <span class="math inline">\(T_2 = a + bT_1\)</span>, the mean true scores are the same (with <span class="math inline">\(a = 0\)</span> and <span class="math inline">\(\text{E}(E) = 0\)</span>). The variances of the true scores are the same, too, because <span class="math inline">\(b = 1\)</span>. And because <span class="math inline">\(\sigma_{E_1}^2 = \sigma_{E_2}^2\)</span>, the variances of <span class="math inline">\(X_1\)</span> and <span class="math inline">\(X_2\)</span> are equal as well. If we were to regress T2 on T1, we’d get these results:
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:right;">
+Estimate
+</th>
+<th style="text-align:right;">
+Std. Error
+</th>
+<th style="text-align:right;">
+t value
+</th>
+<th style="text-align:right;">
+Pr(&gt;|t|)
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+(Intercept)
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0.000000e+00
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+T1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+3.003437e+16
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+</tbody>
+</table>
+<p>This pattern almost never happens with real data, especially with such a small data set (though we would never know because we can never observe the true scores). Also, just as we can never know a person’s true score, we can never know the error portion of their observed score. So why bother looking at data like these? It is this theoretical pattern that is assumed to be present when we use some classical-test-theory approaches to estimating reliability.</p>
+<p>Because we are omniscient, we can calculate reliability as the proportion of true-score variance to observed-score variance, <span class="math inline">\({S_{T_i}^2}/{S_{X_i}^2}\)</span>. We obtain the same value for the two tests, of course, because their variance components are the same on the two tests.</p>
+<p>We can also calculate reliability as the squared correlation betwen the true-scores and observed scores on each test, <span class="math inline">\(r_{X_i,T_i}^2\)</span>. And, if we performed a correlation between the two parallel tests’ observed scores, we would achieve the same estimate of reliability as from these other two methods.</p>
+<table>
+<caption>
+<span id="tab:unnamed-chunk-163">Table 8.5: </span>Reliability of each subtest in a parallel model
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+<span class="math inline">\(\frac{S_{T_1}^2}{S_{X_1}^2}\)</span>
+</th>
+<th style="text-align:left;">
+<span class="math inline">\(\frac{S_{T_2}^2}{S_{X_2}^2}\)</span>
+</th>
+<th style="text-align:left;">
+<span class="math inline">\(r_{X_1,T_1}^2\)</span>
+</th>
+<th style="text-align:left;">
+<span class="math inline">\(r_{X_2,T_2}^2\)</span>
+</th>
+<th style="text-align:left;">
+<span class="math inline">\(r_{_{X_1,X_2}}\)</span>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+.69
+</td>
+<td style="text-align:left;">
+.69
+</td>
+<td style="text-align:left;">
+.69
+</td>
+<td style="text-align:left;">
+.69
+</td>
+<td style="text-align:left;">
+.69
+</td>
+</tr>
+</tbody>
+</table>
+<div id="if-we-cannot-assume-a-parallel-test-model" class="section level4">
+<h4><span class="header-section-number">8.4.1.1</span> If we cannot assume a parallel test model</h4>
+<p>If the two tests are <strong>not</strong> parallel, the error variances will <em>probably</em> differ (<span class="math inline">\(\sigma_{E_i}^2 \neq \sigma_{E_j}^2\)</span>), which in turn will lead to unequal observed variances (and standard deviations) because <span class="math inline">\(\sigma_{X_i}^2 = \sigma_{T_i}^2 + \sigma_{E_i}^2\)</span>. Because of this, the denominator in the equation used above to show that reliability of either test is the correlation between scores on two parallel tests, <span class="math inline">\(\left[\frac{\sigma_{X_1,X_2}}{\sigma_{X_1}\sigma_{X_2}}\right]\)</span>, cannot be replaced with the variance of either test, <span class="math inline">\(\sigma_{X}^2\)</span>.</p>
+<p>Another way to think about this is that if the two tests cannot be assumed to have the same error variances, the proportion of the total variance that is explained by the true score variance will also likely differ in each test:
+<span class="math display">\[\begin{eqnarray}
+\text{Because it is likely that }\;\; {\sigma^2_{E_1}} &amp;\neq&amp;  {\sigma^2_{E_2}} \text{, }\\[5pt]
+\text{and because } \;\; \sigma_{X_i}^2 &amp;=&amp; \sigma_{T_i}^2 + \sigma_{E_i}^2 \text{, }\\[5pt]
+\text{it is also likely that }\;\; \frac{\sigma^2_{E_1}}{\sigma^2_{X_1}} &amp;\neq&amp;  \frac{\sigma^2_{E_2}}{\sigma^2_{X_2}}\text{. }\\[20pt]
+\text{Therefore, it is likely that }\;\;    1- \frac{\sigma^2_{E_1}}{\sigma^2_{X_1}} &amp;\neq&amp;  1- \frac{\sigma^2_{E_2}}{\sigma^2_{X_2}}\text{,}\\[5pt] 
+\text{which is the same as saying that }\;\;  \frac{\sigma^2_{T_1}}{\sigma^2_{X_1}} &amp;\neq&amp;  \frac{\sigma^2_{T_2}}{\sigma^2_{X_2}}  \text{ .}\\[5pt]
+\text{That is, it is likely that }\;\; \text{Rel}_{Test_1} &amp;\neq&amp; \text{Rel}_{Test_2}  \text{ .}
+\end{eqnarray}\]</span></p>
+<p>Even if we have a tau-equivalent or essentially-tau-equivalent model (described next), in which the true-score variances are equal (<span class="math inline">\(\sigma^2_{T_i} = \sigma^2_{T_j}\)</span>), the reliabilities of the sub-tests will likely differ. Therefore, if we cannot assume a parallel model, the correlation between the observed scores cannot serve as a confident estimate of either of the two tests’ reliability estimates. Nonetheless, this procedure tends to be used in practice when practitioners use a correlation coefficient to estimate test-retest or alternate-forms reliability coefficients. When practitioners do this, they are relying on the assumption that the two tests have equal error variances (in addition to their having equal true-score means and variances).</p>
+</div>
+</div>
+<div id="the-tau-equivalent-model" class="section level3">
+<h3><span class="header-section-number">8.4.2</span> The tau-equivalent model</h3>
+<p>The tau-equivalent model assumes the same linear relationship between tests’ true scores as does the parallel model, with <span class="math inline">\(T_2 = a + bT_1\)</span>, where <span class="math inline">\(a = 0\)</span> and <span class="math inline">\(b = 1\)</span>. Unlike the parallel model, this model does not assume that the two tests’ error variance are equal. With this, the observed-score variances can differ between the tests. Our example tests A and B from the beginning of this chapter are tau equivalent. Here they are again, as Test 1 and 3.</p>
+<table>
+<caption>
+<span id="tab:unnamed-chunk-164">Table 8.6: </span>Two hypothetical tests fitting a tau equivalent model
+</caption>
+<thead>
+<tr>
+<th style="empty-cells: hide;border-bottom:hidden;" colspan="1">
+</th>
+<th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="3">
+<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
+Test 1
+</div>
+</th>
+<th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="3">
+<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
+Test 3
+</div>
+</th>
+</tr>
+<tr>
+<th style="text-align:right;">
+PID
+</th>
+<th style="text-align:right;">
+X<sub>1</sub>
+</th>
+<th style="text-align:right;">
+T<sub>1</sub>
+</th>
+<th style="text-align:right;">
+E<sub>1</sub>
+</th>
+<th style="text-align:right;">
+X<sub>3</sub>
+</th>
+<th style="text-align:right;">
+T<sub>3</sub>
+</th>
+<th style="text-align:right;">
+E<sub>3</sub>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+Alba
+</td>
+<td style="text-align:right;">
+11.45
+</td>
+<td style="text-align:right;color: olivedrab !important;">
+12.26
+</td>
+<td style="text-align:right;color: brown !important;">
+-0.81
+</td>
+<td style="text-align:right;">
+10.40
+</td>
+<td style="text-align:right;color: olivedrab !important;">
+12.26
+</td>
+<td style="text-align:right;color: brown !important;">
+-1.85
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+Bee
+</td>
+<td style="text-align:right;">
+17.78
+</td>
+<td style="text-align:right;color: olivedrab !important;">
+15.59
+</td>
+<td style="text-align:right;color: brown !important;">
+2.19
+</td>
+<td style="text-align:right;">
+12.12
+</td>
+<td style="text-align:right;color: olivedrab !important;">
+15.59
+</td>
+<td style="text-align:right;color: brown !important;">
+-3.47
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+Carly
+</td>
+<td style="text-align:right;">
+23.30
+</td>
+<td style="text-align:right;color: olivedrab !important;">
+20.94
+</td>
+<td style="text-align:right;color: brown !important;">
+2.36
+</td>
+<td style="text-align:right;">
+20.56
+</td>
+<td style="text-align:right;color: olivedrab !important;">
+20.94
+</td>
+<td style="text-align:right;color: brown !important;">
+-0.38
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+Dahlia
+</td>
+<td style="text-align:right;">
+16.71
+</td>
+<td style="text-align:right;color: olivedrab !important;">
+17.53
+</td>
+<td style="text-align:right;color: brown !important;">
+-0.82
+</td>
+<td style="text-align:right;">
+20.75
+</td>
+<td style="text-align:right;color: olivedrab !important;">
+17.53
+</td>
+<td style="text-align:right;color: brown !important;">
+3.22
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+Elly
+</td>
+<td style="text-align:right;">
+13.80
+</td>
+<td style="text-align:right;color: olivedrab !important;">
+15.70
+</td>
+<td style="text-align:right;color: brown !important;">
+-1.90
+</td>
+<td style="text-align:right;">
+13.55
+</td>
+<td style="text-align:right;color: olivedrab !important;">
+15.70
+</td>
+<td style="text-align:right;color: brown !important;">
+-2.15
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+Frida
+</td>
+<td style="text-align:right;">
+13.70
+</td>
+<td style="text-align:right;color: olivedrab !important;">
+15.79
+</td>
+<td style="text-align:right;color: brown !important;">
+-2.09
+</td>
+<td style="text-align:right;">
+16.60
+</td>
+<td style="text-align:right;color: olivedrab !important;">
+15.79
+</td>
+<td style="text-align:right;color: brown !important;">
+0.81
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+Greta
+</td>
+<td style="text-align:right;">
+16.85
+</td>
+<td style="text-align:right;color: olivedrab !important;">
+18.29
+</td>
+<td style="text-align:right;color: brown !important;">
+-1.44
+</td>
+<td style="text-align:right;">
+18.87
+</td>
+<td style="text-align:right;color: olivedrab !important;">
+18.29
+</td>
+<td style="text-align:right;color: brown !important;">
+0.58
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+Hildre
+</td>
+<td style="text-align:right;">
+14.42
+</td>
+<td style="text-align:right;color: olivedrab !important;">
+11.91
+</td>
+<td style="text-align:right;color: brown !important;">
+2.50
+</td>
+<td style="text-align:right;">
+15.15
+</td>
+<td style="text-align:right;color: olivedrab !important;">
+11.91
+</td>
+<td style="text-align:right;color: brown !important;">
+3.23
+</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th style="text-align:right;">
+Statistic
+</th>
+<th style="text-align:right;">
+X<sub>1</sub>
+</th>
+<th style="text-align:right;">
+T<sub>1</sub>
+</th>
+<th style="text-align:right;">
+E<sub>1</sub>
+</th>
+<th style="text-align:right;">
+X<sub>3</sub>
+</th>
+<th style="text-align:right;">
+T<sub>3</sub>
+</th>
+<th style="text-align:right;">
+E<sub>3</sub>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+Mean
+</td>
+<td style="text-align:right;">
+16.00
+</td>
+<td style="text-align:right;">
+16.00
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+16.00
+</td>
+<td style="text-align:right;">
+16.00
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+Variance
+</td>
+<td style="text-align:right;">
+11.38
+</td>
+<td style="text-align:right;">
+7.88
+</td>
+<td style="text-align:right;">
+3.50
+</td>
+<td style="text-align:right;">
+13.14
+</td>
+<td style="text-align:right;">
+7.88
+</td>
+<td style="text-align:right;">
+5.25
+</td>
+</tr>
+</tbody>
+</table>
+<p>The expected values (or means, here) of the observed and true scores are the same. The variances of the true scores are the same. But the variances of the error scores differ, and because <span class="math inline">\(\sigma^2_X = \sigma^2_T + \sigma^2_E\)</span>, the observed scores differ as well.</p>
+<p>Because we are omniscient, we can calculate reliability using the theoretical equations as well as the correlation between the observed scores, <span class="math inline">\(r_{_{X_1,X_3}}\)</span>:</p>
+<table>
+<caption>
+<span id="tab:unnamed-chunk-166">Table 8.7: </span>Reliability of each subtest in a tau-equivalent model
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+<span class="math inline">\(\frac{S_{T_1}^2}{S_{X_1}^2}\)</span>
+</th>
+<th style="text-align:left;">
+<span class="math inline">\(\frac{S_{T_3}^2}{S_{X_3}^2}\)</span>
+</th>
+<th style="text-align:left;">
+<span class="math inline">\(r_{X_1,T_1}^2\)</span>
+</th>
+<th style="text-align:left;">
+<span class="math inline">\(r_{X_3,T_3}^2\)</span>
+</th>
+<th style="text-align:left;">
+<span class="math inline">\(r_{_{X_1,X_3}}\)</span>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+.69
+</td>
+<td style="text-align:left;">
+.60
+</td>
+<td style="text-align:left;">
+.69
+</td>
+<td style="text-align:left;">
+.60
+</td>
+<td style="text-align:left;color: brown !important;">
+.64
+</td>
+</tr>
+</tbody>
+</table>
+<p>The reliability of each test, in terms of variance proportions, are not equal in our example because the observed-score variances differ. Importantly, notice that <span class="math inline">\(r_{_{X_i,X_j}}\)</span>, which is our only method based on observed scores, is <strong>not</strong> the same as either of the two tests’ reliabilities.</p>
+<p>This illustrates that the correlation between the observed scores on tau-equivalent tests may not yield a stable estimate of reliability. Methods that use straight up correlations are test-retest and alternate-forms methods, so when we use those methods, we assume a parallel model is present. Because parallel models are difficult to achieve, we can resort to qualifying our claims about reliability if all we are using are these two-test correlation-based methods.</p>
+</div>
+<div id="the-essentially-tau-equivalent-model" class="section level3">
+<h3><span class="header-section-number">8.4.3</span> The essentially tau-equivalent model</h3>
+<p>This model does not assume that the two tests are of equal difficulty. In other words, the intercepts in the linear relationship can differ. That is, the <span class="math inline">\(a\)</span> parameter in <span class="math inline">\(T_2 = a + bT_1\)</span> can differ from <span class="math inline">\(0\)</span>. When we use coefficient alpha, we are assuming that at least this model is present. It allows for the items to differ in difficulty but it assumes that their relationships with the construct, or true score, are the same across the items.</p>
+<p>Here is a pair of tests that are essentially tau equivalent. Notice that they their expected values (the means) of the true scores—and therefore their observed scores—differ. Test 4 is more difficult than Test 1. However, their true-score variances are the same.</p>
+<table>
+<caption>
+<span id="tab:unnamed-chunk-167">Table 8.8: </span>Two hypothetical tests fitting an essentially tau equivalent model
+</caption>
+<thead>
+<tr>
+<th style="empty-cells: hide;border-bottom:hidden;" colspan="1">
+</th>
+<th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="3">
+<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
+Test 1
+</div>
+</th>
+<th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="3">
+<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
+Test 4
+</div>
+</th>
+</tr>
+<tr>
+<th style="text-align:right;">
+PID
+</th>
+<th style="text-align:right;">
+X<sub>1</sub>
+</th>
+<th style="text-align:right;">
+T<sub>1</sub>
+</th>
+<th style="text-align:right;">
+E<sub>1</sub>
+</th>
+<th style="text-align:right;">
+X<sub>4</sub>
+</th>
+<th style="text-align:right;">
+T<sub>4</sub>
+</th>
+<th style="text-align:right;">
+E<sub>4</sub>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+Alba
+</td>
+<td style="text-align:right;">
+11.45
+</td>
+<td style="text-align:right;color: olivedrab !important;">
+12.26
+</td>
+<td style="text-align:right;color: brown !important;">
+-0.81
+</td>
+<td style="text-align:right;">
+7.73
+</td>
+<td style="text-align:right;color: olivedrab !important;">
+9.26
+</td>
+<td style="text-align:right;color: brown !important;">
+-1.53
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+Bee
+</td>
+<td style="text-align:right;">
+17.78
+</td>
+<td style="text-align:right;color: olivedrab !important;">
+15.59
+</td>
+<td style="text-align:right;color: brown !important;">
+2.19
+</td>
+<td style="text-align:right;">
+11.60
+</td>
+<td style="text-align:right;color: olivedrab !important;">
+12.59
+</td>
+<td style="text-align:right;color: brown !important;">
+-0.99
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+Carly
+</td>
+<td style="text-align:right;">
+23.30
+</td>
+<td style="text-align:right;color: olivedrab !important;">
+20.94
+</td>
+<td style="text-align:right;color: brown !important;">
+2.36
+</td>
+<td style="text-align:right;">
+19.56
+</td>
+<td style="text-align:right;color: olivedrab !important;">
+17.94
+</td>
+<td style="text-align:right;color: brown !important;">
+1.62
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+Dahlia
+</td>
+<td style="text-align:right;">
+16.71
+</td>
+<td style="text-align:right;color: olivedrab !important;">
+17.53
+</td>
+<td style="text-align:right;color: brown !important;">
+-0.82
+</td>
+<td style="text-align:right;">
+16.21
+</td>
+<td style="text-align:right;color: olivedrab !important;">
+14.53
+</td>
+<td style="text-align:right;color: brown !important;">
+1.68
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+Elly
+</td>
+<td style="text-align:right;">
+13.80
+</td>
+<td style="text-align:right;color: olivedrab !important;">
+15.70
+</td>
+<td style="text-align:right;color: brown !important;">
+-1.90
+</td>
+<td style="text-align:right;">
+16.78
+</td>
+<td style="text-align:right;color: olivedrab !important;">
+12.70
+</td>
+<td style="text-align:right;color: brown !important;">
+4.08
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+Frida
+</td>
+<td style="text-align:right;">
+13.70
+</td>
+<td style="text-align:right;color: olivedrab !important;">
+15.79
+</td>
+<td style="text-align:right;color: brown !important;">
+-2.09
+</td>
+<td style="text-align:right;">
+14.36
+</td>
+<td style="text-align:right;color: olivedrab !important;">
+12.79
+</td>
+<td style="text-align:right;color: brown !important;">
+1.58
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+Greta
+</td>
+<td style="text-align:right;">
+16.85
+</td>
+<td style="text-align:right;color: olivedrab !important;">
+18.29
+</td>
+<td style="text-align:right;color: brown !important;">
+-1.44
+</td>
+<td style="text-align:right;">
+8.80
+</td>
+<td style="text-align:right;color: olivedrab !important;">
+15.29
+</td>
+<td style="text-align:right;color: brown !important;">
+-6.49
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+Hildre
+</td>
+<td style="text-align:right;">
+14.42
+</td>
+<td style="text-align:right;color: olivedrab !important;">
+11.91
+</td>
+<td style="text-align:right;color: brown !important;">
+2.50
+</td>
+<td style="text-align:right;">
+8.98
+</td>
+<td style="text-align:right;color: olivedrab !important;">
+8.91
+</td>
+<td style="text-align:right;color: brown !important;">
+0.06
+</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th style="text-align:right;">
+Statistic
+</th>
+<th style="text-align:right;">
+X<sub>1</sub>
+</th>
+<th style="text-align:right;">
+T<sub>1</sub>
+</th>
+<th style="text-align:right;">
+E<sub>1</sub>
+</th>
+<th style="text-align:right;">
+X<sub>4</sub>
+</th>
+<th style="text-align:right;">
+T<sub>4</sub>
+</th>
+<th style="text-align:right;">
+E<sub>4</sub>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+Mean
+</td>
+<td style="text-align:right;">
+16.00
+</td>
+<td style="text-align:right;">
+16.00
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+13.00
+</td>
+<td style="text-align:right;">
+13.00
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+Variance
+</td>
+<td style="text-align:right;">
+11.38
+</td>
+<td style="text-align:right;">
+7.88
+</td>
+<td style="text-align:right;">
+3.50
+</td>
+<td style="text-align:right;">
+16.63
+</td>
+<td style="text-align:right;">
+7.88
+</td>
+<td style="text-align:right;">
+8.75
+</td>
+</tr>
+</tbody>
+</table>
+<p>In the linear model, <span class="math inline">\(T_2 = a + bT_1\)</span>, <span class="math inline">\(b = 1\)</span> is still assumed but <span class="math inline">\(a = 0\)</span> is not. If we were to regress T4 on T1, we’d get these results:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:right;">
+Estimate
+</th>
+<th style="text-align:right;">
+Std. Error
+</th>
+<th style="text-align:right;">
+t value
+</th>
+<th style="text-align:right;">
+Pr(&gt;|t|)
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+(Intercept)
+</td>
+<td style="text-align:right;">
+-3
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+-2.540909e+15
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+T1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1.375943e+16
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+</tbody>
+</table>
+<p>Because we are omniscient, we can calculate reliability using the theoretical equations and correlation:</p>
+<table>
+<caption>
+<span id="tab:unnamed-chunk-170">Table 8.9: </span>Reliability of each subtest in an essentially tau-equivalent model
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+<span class="math inline">\(\frac{S_{T_1}^2}{S_{X_1}^2}\)</span>
+</th>
+<th style="text-align:left;">
+<span class="math inline">\(\frac{S_{T_4}^2}{S_{X_4}^2}\)</span>
+</th>
+<th style="text-align:left;">
+<span class="math inline">\(r_{X_1,T_1}^2\)</span>
+</th>
+<th style="text-align:left;">
+<span class="math inline">\(r_{X_4,T_4}^2\)</span>
+</th>
+<th style="text-align:left;">
+<span class="math inline">\(r_{_{X_1,X_4}}\)</span>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+.69
+</td>
+<td style="text-align:left;">
+.47
+</td>
+<td style="text-align:left;">
+.69
+</td>
+<td style="text-align:left;">
+.47
+</td>
+<td style="text-align:left;color: brown !important;">
+.57
+</td>
+</tr>
+</tbody>
+</table>
+<p>Again, we see that <span class="math inline">\(r_{_{X_i,X_j}}\)</span> is a poor estimate of the reliability of either of the two tests.</p>
+</div>
+<div id="the-congeneric-model" class="section level3">
+<h3><span class="header-section-number">8.4.4</span> The congeneric model</h3>
+<p>This is the most flexible model and probably the most realistic. The true-score component is the same on both tests, but its relationship with each item or sub-test may be on a different scale and have different strength of relationships with the construct. So, in addition to <span class="math inline">\(a\)</span> not having to equal <span class="math inline">\(0\)</span>, <span class="math inline">\(b\)</span> does not have to equal <span class="math inline">\(1\)</span>. When we use coefficient omega, this model is acceptable. If we use coefficient alpha, we’ll like get an underestimate of the reliability, which may be fine if we value taking a more conservative and cautious approach to evaluating our instruments. Here is an example of two tests that fit a congeneric model:</p>
+<table>
+<caption>
+<span id="tab:unnamed-chunk-171">Table 8.10: </span>Two hypothetical tests fitting a congeneric model
+</caption>
+<thead>
+<tr>
+<th style="empty-cells: hide;border-bottom:hidden;" colspan="1">
+</th>
+<th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="3">
+<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
+Test 1
+</div>
+</th>
+<th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="3">
+<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
+Test 5
+</div>
+</th>
+</tr>
+<tr>
+<th style="text-align:right;">
+PID
+</th>
+<th style="text-align:right;">
+X<sub>1</sub>
+</th>
+<th style="text-align:right;">
+T<sub>1</sub>
+</th>
+<th style="text-align:right;">
+E<sub>1</sub>
+</th>
+<th style="text-align:right;">
+X<sub>5</sub>
+</th>
+<th style="text-align:right;">
+T<sub>5</sub>
+</th>
+<th style="text-align:right;">
+E<sub>5</sub>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+Alba
+</td>
+<td style="text-align:right;">
+11.45
+</td>
+<td style="text-align:right;color: olivedrab !important;">
+12.26
+</td>
+<td style="text-align:right;color: brown !important;">
+-0.81
+</td>
+<td style="text-align:right;">
+1.28
+</td>
+<td style="text-align:right;color: olivedrab !important;">
+3.40
+</td>
+<td style="text-align:right;color: brown !important;">
+-2.12
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+Bee
+</td>
+<td style="text-align:right;">
+17.78
+</td>
+<td style="text-align:right;color: olivedrab !important;">
+15.59
+</td>
+<td style="text-align:right;color: brown !important;">
+2.19
+</td>
+<td style="text-align:right;">
+10.04
+</td>
+<td style="text-align:right;color: olivedrab !important;">
+9.08
+</td>
+<td style="text-align:right;color: brown !important;">
+0.95
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+Carly
+</td>
+<td style="text-align:right;">
+23.30
+</td>
+<td style="text-align:right;color: olivedrab !important;">
+20.94
+</td>
+<td style="text-align:right;color: brown !important;">
+2.36
+</td>
+<td style="text-align:right;">
+9.62
+</td>
+<td style="text-align:right;color: olivedrab !important;">
+11.80
+</td>
+<td style="text-align:right;color: brown !important;">
+-2.19
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+Dahlia
+</td>
+<td style="text-align:right;">
+16.71
+</td>
+<td style="text-align:right;color: olivedrab !important;">
+17.53
+</td>
+<td style="text-align:right;color: brown !important;">
+-0.82
+</td>
+<td style="text-align:right;">
+9.30
+</td>
+<td style="text-align:right;color: olivedrab !important;">
+7.15
+</td>
+<td style="text-align:right;color: brown !important;">
+2.15
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+Elly
+</td>
+<td style="text-align:right;">
+13.80
+</td>
+<td style="text-align:right;color: olivedrab !important;">
+15.70
+</td>
+<td style="text-align:right;color: brown !important;">
+-1.90
+</td>
+<td style="text-align:right;">
+13.88
+</td>
+<td style="text-align:right;color: olivedrab !important;">
+10.14
+</td>
+<td style="text-align:right;color: brown !important;">
+3.74
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+Frida
+</td>
+<td style="text-align:right;">
+13.70
+</td>
+<td style="text-align:right;color: olivedrab !important;">
+15.79
+</td>
+<td style="text-align:right;color: brown !important;">
+-2.09
+</td>
+<td style="text-align:right;">
+5.96
+</td>
+<td style="text-align:right;color: olivedrab !important;">
+10.88
+</td>
+<td style="text-align:right;color: brown !important;">
+-4.92
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+Greta
+</td>
+<td style="text-align:right;">
+16.85
+</td>
+<td style="text-align:right;color: olivedrab !important;">
+18.29
+</td>
+<td style="text-align:right;color: brown !important;">
+-1.44
+</td>
+<td style="text-align:right;">
+13.22
+</td>
+<td style="text-align:right;color: olivedrab !important;">
+11.69
+</td>
+<td style="text-align:right;color: brown !important;">
+1.53
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+Hildre
+</td>
+<td style="text-align:right;">
+14.42
+</td>
+<td style="text-align:right;color: olivedrab !important;">
+11.91
+</td>
+<td style="text-align:right;color: brown !important;">
+2.50
+</td>
+<td style="text-align:right;">
+8.71
+</td>
+<td style="text-align:right;color: olivedrab !important;">
+7.86
+</td>
+<td style="text-align:right;color: brown !important;">
+0.85
+</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th style="text-align:right;">
+Statistic
+</th>
+<th style="text-align:right;">
+X<sub>1</sub>
+</th>
+<th style="text-align:right;">
+T<sub>1</sub>
+</th>
+<th style="text-align:right;">
+E<sub>1</sub>
+</th>
+<th style="text-align:right;">
+X<sub>5</sub>
+</th>
+<th style="text-align:right;">
+T<sub>5</sub>
+</th>
+<th style="text-align:right;">
+E<sub>5</sub>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+Mean
+</td>
+<td style="text-align:right;">
+16.00
+</td>
+<td style="text-align:right;">
+16.00
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+9.00
+</td>
+<td style="text-align:right;">
+9.00
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+Variance
+</td>
+<td style="text-align:right;">
+11.38
+</td>
+<td style="text-align:right;">
+7.88
+</td>
+<td style="text-align:right;">
+3.50
+</td>
+<td style="text-align:right;">
+14.01
+</td>
+<td style="text-align:right;">
+7.00
+</td>
+<td style="text-align:right;">
+7.01
+</td>
+</tr>
+</tbody>
+</table>
+<p>The means and variances of the true scores of the tests can differ. Among the four models, this is the model in which we cannot assume that the true-score variances are the same across tests or items.</p>
+<p>In the linear model, <span class="math inline">\(T_2 = a + bT_1\)</span>, neither <span class="math inline">\(a = 0\)</span> nor <span class="math inline">\(b = 1\)</span> is assumed. If we were to regress T5 on T1, we’d get these results:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:right;">
+Estimate
+</th>
+<th style="text-align:right;">
+Std. Error
+</th>
+<th style="text-align:right;">
+t value
+</th>
+<th style="text-align:right;">
+Pr(&gt;|t|)
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+(Intercept)
+</td>
+<td style="text-align:right;">
+-1.666
+</td>
+<td style="text-align:right;">
+4.421
+</td>
+<td style="text-align:right;">
+-0.377
+</td>
+<td style="text-align:right;">
+0.719
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+T1
+</td>
+<td style="text-align:right;">
+0.667
+</td>
+<td style="text-align:right;">
+0.272
+</td>
+<td style="text-align:right;">
+2.449
+</td>
+<td style="text-align:right;">
+0.050
+</td>
+</tr>
+</tbody>
+</table>
+<p>Because we are omniscient, we can calculate reliability using the theoretical equations and correlation:</p>
+<table>
+<caption>
+<span id="tab:unnamed-chunk-174">Table 8.11: </span>Reliability of each subtest in a congeneric model
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+<span class="math inline">\(\frac{S_{T_1}^2}{S_{X_1}^2}\)</span>
+</th>
+<th style="text-align:left;">
+<span class="math inline">\(\frac{S_{T_5}^2}{S_{X_5}^2}\)</span>
+</th>
+<th style="text-align:left;">
+<span class="math inline">\(r_{X_1,T_1}^2\)</span>
+</th>
+<th style="text-align:left;">
+<span class="math inline">\(r_{X_5,T_5}^2\)</span>
+</th>
+<th style="text-align:left;">
+<span class="math inline">\(r_{_{X_1,X_5}}\)</span>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+.69
+</td>
+<td style="text-align:left;">
+.50
+</td>
+<td style="text-align:left;">
+.69
+</td>
+<td style="text-align:left;">
+.50
+</td>
+<td style="text-align:left;color: brown !important;">
+.42
+</td>
+</tr>
+</tbody>
+</table>
+<p>Yet again, we see that <span class="math inline">\(r_{_{X_i,X_j}}\)</span> is a poor estimate of the reliability of either of the two tests.</p>
+</div>
+<div id="implications-of-each-model" class="section level3">
+<h3><span class="header-section-number">8.4.5</span> Implications of each model</h3>
+<p>Looking at the patterns of each model, we can summarize these patterns into several conclusions about the minimal relationships among variables in each model. Following Furr’s <span class="citation">(<a href="#ref-furr_psychometrics_2018" role="doc-biblioref">2018</a>)</span> example of how to think about these, we can list these as implications:</p>
+<table>
+<caption>
+<span id="tab:unnamed-chunk-175">Table 8.12: </span>Implications for each of the four CTT models
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+Pattern
+</th>
+<th style="text-align:left;">
+Parallel
+</th>
+<th style="text-align:left;">
+Tau-equivalent
+</th>
+<th style="text-align:left;">
+Essentially tau-equivalent
+</th>
+<th style="text-align:left;">
+Congeneric
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<span class="math inline">\(\rho_{(T_i,T_j)} = 1\)</span>
+</td>
+<td style="text-align:left;">
+<span class="math inline">\(\checkmark\)</span>
+</td>
+<td style="text-align:left;">
+<span class="math inline">\(\checkmark\)</span>
+</td>
+<td style="text-align:left;">
+<span class="math inline">\(\checkmark\)</span>
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<span class="math inline">\(\sigma_{T_i}^2 = \sigma_{T_j}^2\)</span>
+</td>
+<td style="text-align:left;">
+<span class="math inline">\(\checkmark\)</span>
+</td>
+<td style="text-align:left;">
+<span class="math inline">\(\checkmark\)</span>
+</td>
+<td style="text-align:left;">
+<span class="math inline">\(\checkmark\)</span>
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<span class="math inline">\(T_{1} = T_{2}\)</span>
+</td>
+<td style="text-align:left;">
+<span class="math inline">\(\checkmark\)</span>
+</td>
+<td style="text-align:left;">
+<span class="math inline">\(\checkmark\)</span>
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<span class="math inline">\(\mu_{X_i} = \mu_{X_j}\)</span>
+</td>
+<td style="text-align:left;">
+<span class="math inline">\(\checkmark\)</span>
+</td>
+<td style="text-align:left;">
+<span class="math inline">\(\checkmark\)</span>
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<span class="math inline">\(\sigma_{X_i} = \sigma_{X_j}\)</span>
+</td>
+<td style="text-align:left;">
+<span class="math inline">\(\checkmark\)</span>
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<span class="math inline">\(\rho_{(T_i,X_i)} = \rho_{(T_j,X_j)}\)</span>
+</td>
+<td style="text-align:left;">
+<span class="math inline">\(\checkmark\)</span>
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+</tbody>
+</table>
+<p>Because of the linear relationship, <span class="math inline">\(T_j = a + bT_i\)</span> where <span class="math inline">\(b = 1\)</span>, in the first four models, we see that the correlations among first four models are 1. In our hypothetical data sets, we see this pattern:</p>
+<table>
+<caption>
+<span id="tab:unnamed-chunk-176">Table 8.13: </span>Correlation among the true scores on all five hypothetical tests
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:left;">
+</th>
+<th style="text-align:left;">
+T<sub>1</sub>
+</th>
+<th style="text-align:left;">
+T<sub>2</sub>
+</th>
+<th style="text-align:left;">
+T<sub>3</sub>
+</th>
+<th style="text-align:left;">
+T<sub>4</sub>
+</th>
+<th style="text-align:left;">
+T<sub>5</sub>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+T<sub>1</sub>
+</td>
+<td style="text-align:left;">
+T1
+</td>
+<td style="text-align:left;">
+1.00
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+T<sub>2</sub>
+</td>
+<td style="text-align:left;">
+T2
+</td>
+<td style="text-align:left;">
+1.00
+</td>
+<td style="text-align:left;">
+1.00
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+T<sub>3</sub>
+</td>
+<td style="text-align:left;">
+T3
+</td>
+<td style="text-align:left;">
+1.00
+</td>
+<td style="text-align:left;">
+1.00
+</td>
+<td style="text-align:left;">
+1.00
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+T<sub>4</sub>
+</td>
+<td style="text-align:left;">
+T4
+</td>
+<td style="text-align:left;">
+1.00
+</td>
+<td style="text-align:left;">
+1.00
+</td>
+<td style="text-align:left;">
+1.00
+</td>
+<td style="text-align:left;">
+1.00
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+T<sub>5</sub>
+</td>
+<td style="text-align:left;">
+T5
+</td>
+<td style="text-align:left;">
+.71
+</td>
+<td style="text-align:left;">
+.71
+</td>
+<td style="text-align:left;">
+.71
+</td>
+<td style="text-align:left;">
+.71
+</td>
+<td style="text-align:left;">
+1.00
+</td>
+</tr>
+</tbody>
+<tfoot>
+<tr>
+<td style="padding: 0; border:0;" colspan="100%">
+<sup>a</sup> Tests 1 through 4 together fit at least an essentially tau-equivalent model.
+</td>
+</tr>
+<tr>
+<td style="padding: 0; border:0;" colspan="100%">
+<sup>b</sup> Test 5 has a congeneric relationship with all other models.
+</td>
+</tr>
+</tfoot>
+</table>
+<p>Notice that in the congeneric model, in which at least one test (Test 5 here) has <span class="math inline">\(b \neq 1\)</span> in the <span class="math inline">\(T_j = a + bT_5\)</span> relationship, the correlation is <span class="math inline">\(\lt 1.00\)</span> with the other tests. We will see the implications of this when we examine internal consistency reliabiltiy in the next chapter.</p>
+</div>
+</div>
+<div id="estimating-an-observations-true-score" class="section level2">
+<h2><span class="header-section-number">8.5</span> Estimating an observation’s true score</h2>
+<p>We can never really know a person’s true score, but we can use regression to estimate it if we assume that <span class="math inline">\(T = \text{E}(X)\)</span>, and by implication that <span class="math inline">\(\text{E}(T) = \text{E}(X)\)</span>, or <span class="math inline">\(\bar{T} = \bar{X}\)</span>. In a simple regression, we can estimate <span class="math inline">\(\hat{Y}_{i}\)</span> of person <span class="math inline">\(i\)</span> from the covariance of the predictor and outcome variable, <span class="math inline">\(\sigma_{X,Y}\)</span>, the variance of the predictor, <span class="math inline">\(\sigma_X^2\)</span>, and the mean of the two variables, <span class="math inline">\(\bar{X}\)</span> and <span class="math inline">\(\bar{Y}\)</span>:</p>
+<p><span class="math display">\[\begin{eqnarray*}
+ \hat{Y}_{i} &amp;=&amp; \frac{\sigma_{X,Y}}{\sigma_X^2}(X - \bar{X}) + \bar{Y} \\[5pt]
+\end{eqnarray*}\]</span></p>
+<p>Here, we’re interested in predicting the true score, <span class="math inline">\(\hat{T}\)</span>, instead of <span class="math inline">\(\hat{Y}\)</span>. Unfortunately, we never know <span class="math inline">\(T\)</span> or <span class="math inline">\(\bar{T}\)</span>. However, we can work around this because we can assume, from our CTT assumptions, that <span class="math inline">\(T = \text{E}(X)\)</span> and therefore that <span class="math inline">\(\bar{T} = \bar{X}\)</span>. So, we can plug in the mean observed score, <span class="math inline">\(\bar{X}\)</span>, in place of the mean of the true score, <span class="math inline">\(\bar{T}\)</span>. Also, we know from above that the covariance between observed and true scores (<span class="math inline">\(\sigma_{X,T}\)</span>) is, according to CTT, the same as <span class="math inline">\(\sigma_{T}^2\)</span>. So, to predict Person <span class="math inline">\(i\)</span>’s true score, we can treat <span class="math inline">\(\frac{\sigma_{X,T}}{\sigma_X^2}\)</span> as <span class="math inline">\(\frac{\sigma_{T}^2}{\sigma_X^2}\)</span>:</p>
+<p><span class="math display">\[\begin{eqnarray*}
+ \hat{T}_{i} &amp;=&amp; \frac{\sigma_{X,T}}{\sigma_X^2}(X_i - \bar{X}) + \bar{T} \\[5pt]
+ \hat{T}_{i} &amp;=&amp; \frac{\sigma_{T}^2}{\sigma_X^2}(X_i - \bar{X}) + \bar{T} \\[5pt]
+ \hat{T}_{i} &amp;=&amp; \text{Rel}(X_i - \bar{X}) + \bar{X} \\[5pt]
+\end{eqnarray*}\]</span></p>
+<p>In this way, the true score is a linear transformation of the observed score, and a theoretical formulation based on classical test theory and regression.</p>
+<p>Let’s say we administered a test intended for norm-referenced interpretations. The mean score was <span class="math inline">\(16\)</span> and the reliability of the test scores was <span class="math inline">\(.69\)</span>. If Alba scored <span class="math inline">\(11.45\)</span>, what is our best estimate of her true score? We can create an R function using our formula:</p>
+<div class="sourceCode" id="cb254"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb254-1"><a href="CTT.html#cb254-1"></a>Ts_predicter &lt;-<span class="st"> </span><span class="cf">function</span>(x, xbar, rel) {</span>
+<span id="cb254-2"><a href="CTT.html#cb254-2"></a>       T_hat &lt;-<span class="st"> </span>rel<span class="op">*</span>(x <span class="op">-</span><span class="st"> </span>xbar) <span class="op">+</span><span class="st"> </span>xbar</span>
+<span id="cb254-3"><a href="CTT.html#cb254-3"></a>       T_hat</span>
+<span id="cb254-4"><a href="CTT.html#cb254-4"></a>}</span></code></pre></div>
+<p>Let’s try out our custom function, which we’ve named <code>Ts_predicter</code>:</p>
+<div class="sourceCode" id="cb255"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb255-1"><a href="CTT.html#cb255-1"></a>Pred_ts_Alba &lt;-<span class="st"> </span><span class="kw">Ts_predicter</span>(<span class="dt">x =</span> <span class="fl">11.45</span>, <span class="dt">xbar =</span> <span class="dv">16</span>, <span class="dt">rel =</span> <span class="fl">.69</span>)</span>
+<span id="cb255-2"><a href="CTT.html#cb255-2"></a>Pred_ts_Alba</span></code></pre></div>
+<pre><code>## [1] 12.8605</code></pre>
+<p>This is the predicted true score of Alba. Again, we have no way of really knowing a person’s true score.</p>
+<p>With a person’s observed score, along with the mean of the test and the reliability of the scores, we can predict a person’s true score. If all we know is a person’s observed score, that will be our best estimate of their true score.</p>
+</div>
+<div id="the-standard-error-of-measurement" class="section level2">
+<h2><span class="header-section-number">8.6</span> The standard error of measurement</h2>
+<p>Obviously, if we wish to have a precise instrument, we seek to have a small amount of error in estimating examinees’ true scores. We can think of this at the test level as well as at the individual examinee level over repeated independent test administrations (with mind wipes and back-to-the test context time travel). The standard error of measurement, <span class="math inline">\(\sigma_E\)</span>, is the standard deviation of the errors in this theoretical repeated independent test administration.</p>
+<p>As mentioned above, we can think of reliability as the lack of error variance, <span class="math inline">\(1 - \frac{\sigma^2_E}{\sigma^2_X}\)</span>, because of the direct relationship, <span class="math inline">\(\sigma^2_X = \sigma^2_T + \sigma^2_E\)</span>. From this, we can also see that <span class="math inline">\(\sigma_E^2\)</span> is the unexplained portion of the observed variance. The relationship between reliability and <span class="math inline">\(\sigma_E\)</span> can thought of in terms of variance:</p>
+<p><span class="math display">\[\begin{eqnarray*}
+\text{Rel} &amp;=&amp; 1 - \frac{\sigma^2_E}{\sigma^2_X}\\[5pt]
+\therefore \frac{\sigma^2_E}{\sigma^2_X} &amp;=&amp; 1 - Rel \\[5pt]
+\sigma^2_E &amp;=&amp; (1-\text{Rel})\sigma_{X}^2
+\end{eqnarray*}\]</span></p>
+<p>In other words, the error variance is what is left over in the observed variance after we account for reliability. Variance is in squared units. If we seek to get to the standard error, we take the square root:</p>
+<p><span class="math display">\[\begin{eqnarray*}
+\sigma_E &amp;=&amp; \sqrt{(1-\text{Rel})\sigma_{X}^2}  \\[5pt]
+\sigma_E &amp;=&amp; \sigma_{X}\sqrt{(1-\text{Rel})}  \\[5pt]
+\end{eqnarray*}\]</span></p>
+<p>If an assessment document provides a report of the reliability and of the standard deviation (or variance) of the observed scores, we can calculate the estimated standard error.</p>
+<p>The implication is this: If many (theoretical) random samples of this parallel test were administered to Person <span class="math inline">\(i\)</span>, 95% of them would have confidence intervals that include their true score.</p>
+<div id="estimating-the-confidence-interval-of-a-true-score" class="section level3">
+<h3><span class="header-section-number">8.6.1</span> Estimating the confidence interval of a true score</h3>
+<p>If we know the mean and variance of the observed scores on a test, as well as the reported reliability, we can estimate a confidence interval around an estimated true score. Let’s use Alba’s predicted true score.</p>
+<div class="sourceCode" id="cb257"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb257-1"><a href="CTT.html#cb257-1"></a>CIer &lt;-<span class="st"> </span><span class="cf">function</span>(x, rel, VarX ) {</span>
+<span id="cb257-2"><a href="CTT.html#cb257-2"></a>        Var_E  &lt;-<span class="st"> </span>(<span class="dv">1</span><span class="op">-</span>rel)<span class="op">*</span>VarX</span>
+<span id="cb257-3"><a href="CTT.html#cb257-3"></a>        SE_Msr &lt;-<span class="st"> </span><span class="kw">sqrt</span>(Var_E) </span>
+<span id="cb257-4"><a href="CTT.html#cb257-4"></a>        LB     &lt;-<span class="st"> </span>x <span class="op">-</span><span class="st"> </span><span class="fl">1.96</span><span class="op">*</span>SE_Msr </span>
+<span id="cb257-5"><a href="CTT.html#cb257-5"></a>        UB     &lt;-<span class="st"> </span>x <span class="op">+</span><span class="st"> </span><span class="fl">1.96</span><span class="op">*</span>SE_Msr</span>
+<span id="cb257-6"><a href="CTT.html#cb257-6"></a>   <span class="kw">round</span>(<span class="kw">c</span>(<span class="dt">SE =</span> SE_Msr, <span class="dt">LowerBound =</span> LB,<span class="dt">Pred_Sc =</span> x, <span class="dt">UpperBound=</span>UB),<span class="dv">3</span>)  }</span></code></pre></div>
+<p>Now, let’s try out our custom function with Alba’s predicted true score:</p>
+<div class="sourceCode" id="cb258"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb258-1"><a href="CTT.html#cb258-1"></a><span class="kw">CIer</span>(<span class="dt">x =</span> Pred_ts_Alba, <span class="dt">rel =</span> <span class="fl">.69</span>, <span class="dt">VarX =</span> <span class="fl">11.38</span>)</span></code></pre></div>
+<pre><code>##         SE LowerBound    Pred_Sc UpperBound 
+##      1.878      9.179     12.860     16.542</code></pre>
+<p>Some researchers do not report the predicted true score and simply report the confidence interval of a particular observed score. They would use Alba’s observed score of <span class="math inline">\(11.45\)</span> in this calculation:</p>
+<div class="sourceCode" id="cb260"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb260-1"><a href="CTT.html#cb260-1"></a><span class="kw">CIer</span>(<span class="dt">x =</span> <span class="fl">11.45</span>, <span class="dt">rel =</span> <span class="fl">.69</span>, <span class="dt">VarX =</span> <span class="fl">11.38</span>)</span></code></pre></div>
+<pre><code>##         SE LowerBound    Pred_Sc UpperBound 
+##      1.878      7.769     11.450     15.131</code></pre>
+<div id="using-confidence-intervals-for-making-decisions-about-examinees" class="section level4">
+<h4><span class="header-section-number">8.6.1.1</span> Using confidence intervals for making decisions about examinees</h4>
+<p>Estimating the confidence interval around a particular score—whether it be the predicted true score or the observed score—has implications for making decisions based on scores. If a person’s predicted true score (or perhaps their observed score) is near a particular cut score, their confidence interval may include that cut-off score. If we are making decisions about that person based on whether or not they scored at or above this cut score, we need to consider this uncertainty.</p>
+<p>The stakes of wrong decisions should play a role in our choice of how large a confidence interval to estimate. If we seek to be very cautious, we can use a broader confidence interval, such as with statistical alpha set to .01 instead of .05. The <span class="math inline">\(1.96\)</span> critical <span class="math inline">\(Z\)</span> that we used in our formula was based on the 95% confidence interval (with alpha set to .05). With a 99% confidence interval, our critical <span class="math inline">\(Z\)</span> will be <span class="math inline">\(2.58\)</span>, which we could insert into our formula in place of <span class="math inline">\(1.96\)</span>.<a href="#fn61" class="footnote-ref" id="fnref61"><sup>61</sup></a> This more cautious confidence interval, which would be appropriate for high-stakes decisions, will have a larger range thereby increasing our range of uncertainty. An example of a high-stakes decision would be whether we grant the examinee a license to perform surgery. With Alba’s estimated true score, this more conservative confidence interval would be:</p>
+<table>
+<caption>
+<span id="tab:unnamed-chunk-184">Table 8.14: </span>99% confidence interval of Alba’s estimated true score
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+<em>SE</em>
+</th>
+<th style="text-align:left;">
+Lower bound
+</th>
+<th style="text-align:left;">
+Pred. TS
+</th>
+<th style="text-align:left;">
+Upper bound
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+1.88
+</td>
+<td style="text-align:left;">
+8.02
+</td>
+<td style="text-align:left;">
+12.86
+</td>
+<td style="text-align:left;">
+17.70
+</td>
+</tr>
+</tbody>
+</table>
+<p>Additionally, the direction of our caution should also depend on the nature of the decision. For instance, a cut score for determining whether students should receive further instructional help can err on the side of false positives. If the cut score for classification into this program were set as <span class="math inline">\(\leq 10\)</span>, we might admit Alba even though her score was above 10 because her 95% confidence interval (9.18, 16.54) included that value. Probably the best approach to making this decision would be to use this test score along with additional information such as from reports from her teachers about her performance or an interview with her. Doing this for all students might be costly, so we might restrict this additional data collection to students whose confidence intervals included the cut score.</p>
+<p>In contrast, if our decision were a credential that involved high stakes, such as for licensure to become a surgeon, we should err on the side of false negatives. We should either set the cut score very high or ensure that the lower bound of the person’s confidence interval is above the cut-off criterion before licensing that person to perform surgery. If we used the 99% confidence interval and a cut score of <span class="math inline">\(\gt 10\)</span>, we would not yet recommend Alba for this license to perform surgery.<a href="#fn62" class="footnote-ref" id="fnref62"><sup>62</sup></a></p>
+
+</div>
+</div>
+</div>
+</div>
+<h3>References</h3>
+<div id="refs" class="references">
+<div id="ref-furr_psychometrics_2018">
+<p>Furr, R. M. (2018). <em>Psychometrics: An introduction</em> (Third edition). SAGE.</p>
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="58">
+<li id="fn58"><p>Statistically independent means that the responses on one person’s score on one test are not related to another person’s scores on that same test. Cheating would be a good example of dependence.<a href="CTT.html#fnref58" class="footnote-back">↩︎</a></p></li>
+<li id="fn59"><p>This is reliability as a coefficient, not the theoretical reliability index, which is seldom used in practice.<a href="CTT.html#fnref59" class="footnote-back">↩︎</a></p></li>
+<li id="fn60"><p>We can also think of this in same way that <span class="math inline">\(R^2\)</span> in a simple regression is the ratio of explained-to-total variance.<a href="CTT.html#fnref60" class="footnote-back">↩︎</a></p></li>
+<li id="fn61"><p>We can use the <code>qnorm()</code> function to get the critical value of <span class="math inline">\(Z\)</span> given a probability. For instance, with a 95% confidence interval, critical <span class="math inline">\(Z\)</span> is <code>qnorm(.975)</code>. With a 99% confidence interval, it is <code>qnorm(.995)</code>.<a href="CTT.html#fnref61" class="footnote-back">↩︎</a></p></li>
+<li id="fn62"><p>Sometimes, however, we use an operational cut score that takes into account the standard error of measurement. For instance, we might set the <em>operational</em> cut score at <span class="math inline">\(15\)</span> if the <em>recommended</em> cut score were <span class="math inline">\(10\)</span> (where that recommended cut score may have been determined by subject-matter experts in a standard-setting process). We arrive at this operational score by estimating the 99% confidence interval of that recommended cut score and using the upper bound to determine the operational cut score for decisions. With our reliability, a recommended score of <span class="math inline">\(10\)</span> will have a 99% confidence-interval upper-bound estimate of <span class="math inline">\(14.84\)</span>, so to be sure our candidates were not false positives, we would grant licenses to those scoring at least a <span class="math inline">\(15\)</span> (rounding up) on the exam. In that case, the person’s observed score (or predicted true score) can be used in the decision process rather than that person’s confidence interval. Note that this is within classical test theory. Modern test theory and generalizability theory have more sophisticated approaches to handling measurement error.<a href="CTT.html#fnref62" class="footnote-back">↩︎</a></p></li>
+</ol>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="itemans.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="reliability.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
