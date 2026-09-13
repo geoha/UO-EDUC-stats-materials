@@ -1,0 +1,1 @@
+<p>Notice that we do not enclose objects in quotes. Here, <code>Likerts</code> is an object. This is in contrast to our reference to the variable <code>Lik1</code> in the code above, which included quotes because it was the name of that column.</p>

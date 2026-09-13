@@ -1,0 +1,127 @@
+---
+title: "Getting Started with R, Part 2"
+subtitle: "EDEP 602, Survey Research Design & Analysis"
+author: "George M. Harrison"
+date: "`r Sys.Date()`"
+output:
+  tufte::tufte_html: 
+    toc: true
+  tufte::tufte_handout:
+    citation_package: natbib
+    latex_engine: xelatex
+    toc: true
+  tufte::tufte_book:
+    citation_package: natbib
+    latex_engine: xelatex
+bibliography: skeleton.bib
+link-citations: yes
+---
+
+```{r setup, include=FALSE}
+library(tufte)
+# invalidate cache when the tufte version changes
+knitr::opts_chunk$set(tidy = FALSE, cache.extra = packageVersion('tufte'))
+options(htmltools.dir.version = FALSE)
+```
+
+#Importing Data from a CSV file
+Our data set contains 10 observations. They are school professionals who responded to a questionnaire that had five Likert-type questions and one yes-no question asking whether or not they are a teacher.
+Here are the data: 
+```{marginfigure}
+_ID_ is the respondent's identifier code, which we arbitrarily assigned. _Lik1_ through _Lik5_ are our Likert-type items, corresponding to the five questions. _Teacher_ is coded _Yes_ for _yes, this person is a teacher_ and _No_ for _no, they're not_.
+```
+```{r, include=FALSE}
+dat<- read.csv("SchoolProfessionalSurvey.csv")
+```
+```{r, echo=FALSE}
+knitr::kable(dat,align=rep('c',7))
+```
+
+Let's read the data set into R and save it to an object, which we'll arbitrarily call _dat_. The `read.csv()` function does just that---it reads CSV files. Remember from the Part 1 handout that the CSV file needs to be in the same folder as your .r file (or that you have set the working directory to that folder or have used the directory to the file within quotes). Also, be sure to use quotes around the name. Finally, R is __case sensitive__, so if you get an error, check the spelling. Type the following code in your source pane in RStudio, place your cursor anywhere on the line, and click the `Run` button.`r margin_note("The less-than symbol '<' and the dash symbol '-' together as '<-' are the 'assign to' operation in R. We have instructed R to read the CSV file that is in our current directory (or folder) and assign that to an object labeled 'dat' in our R session.")`
+```{r}
+dat<- read.csv("SchoolProfessionalSurvey.csv")
+```
+Notice that nothing appears to show up. We don't see our data. Actually, we did create the object `dat`---it's just that we don't see it unless we ask for it. So, let's now examine the object we just created.
+
+#Examining our data
+Let's make sure our data set was actually imported and that it was formatted in the way we expect. If we have a small data set, as we do here, we can simply type a new line with our object, `dat`, select the object with our cursor, and run it to view the output in the console.
+```{r, eval=FALSE}
+dat
+```
+`r margin_note("When you run this code, you'll see the output in your console. In this handout, it is displayed with double hash marks preceding each line.")`If all went well, we should see this as our output:
+```{r, echo=FALSE}
+dat
+```
+Let's also look at the first six lines of data by performing the `head()` function on the object we just created. This is useful if we have a large data set and we simply want to see whether the variable names and first several observations look the way we expect them to.
+```{r}
+head(dat)
+```
+We can also examine the last six observations of our data using the `tail()` function.`r margin_note("I suppose you can say we're making heads and tails of our data.")`
+```{r}
+tail(dat)
+```
+A point-and-click way we can examine our data, and any other objects in our current session, is through the environment panel in RStudio. \newline
+![alt text](ImageOfEnvironment.png)\newline
+  
+
+If we click on an object itself, such as on the `dat` here, RStudio will open a new tab in the source pane and reveal the object.^[In RStudio, there are four panes (not to be confused with pains). The source pane is where we write our code. The environment pane is where we view what objects are present in our R session. The console pane reveals the output. And, the files, plots, packages, help, viewer pane includes that respective information.]\newline
+![alt text](ImageOfObjectBeingViewed.png)\newline
+
+Alternatively, we can simply type `View(dat)`. With large data sets, this can take a while to load so this is not a typical part of the work flow, but for people who are used to SPSS, this can put their mind at ease. Close that tab when you are done, or simply click back on your original tab. 
+
+If we click on the arrow icon in the environment panel, we can see the details.\newline
+![alt text](ImageOfEnvironment_details.png)\newline
+
+Alternatively, we can use the structure function, `str()` to get the same information:
+```{r}
+str(dat)
+```
+Notice that our data comprise 10 observations of 7 variables. Also notice the list of variables. Next to each, after the colon, is a code that tells us what the variable's type is. Here, we have several variables listed as integers (`int`), which means they are numeric^[Numeric variables are coded as `int` for integers (whole numbers) or `num` for numeric.], and one that is listed as a factor with two levels (`Factor w/ 2 levels "No","Yes"`).^[Factors are nominal variables with two or more levels. The factor level numbers merely indicate distinction among the levels rather than any ordered value (though later we will encounter ordered factors, which is the label R uses for ordinal variables).] Factor levels are coded under the hood with numbers, which by default match their alphabetical order, so here a "No" is coded as 1 and a "Yes" is coded as 2. The next set of columns are the first several observations of data (here, all 10), so the first person's ID was `1`, she or he selected `5` on the first two Likert-type questions, `4` on the third, and `3` and `2` on the next two questions. This person also selected `No`, coded as `1`, indicating that the individual is not a teacher. 
+
+##Functions for examining our data
+Let's put it all together. We have imported the data, 
+
+
+
+#Describing Our Data
+The `summary()` function is convenient. We can describe all of the variables in a data set^[A data set is called a ___data frame___ in R.] using the function on our data frame object, dat:
+
+`r margin_note("Notice that we have also summarized the ID variable, which is not meaningful. We would obviously not include that in a report.")`
+```{marginfigure}
+Notice that _Teacher_ is not a numeric variable. Notice also that the results of the summary function do not return the mean, median and so forth because those would not make sense with non-numeric data. Instead, the frequency of observations in each category of this variable is reported.
+```
+```{r}
+summary(dat)
+```
+We can apply the `summary()` function to a single variable:
+`r margin_note("The dollar sign is used to select a particular column (i.e., variable) from the data. All rows of this column of data are included.")`
+```{r}
+summary(dat$Lik1)
+```
+We can also perform functions like `min()`, `max()`, `mean()` and assign them to objects that we can later use:`r margin_note("For each of the three lines, we performed the function on the variable and we assigned the output to an object, which we've arbitrarily named  minX, maxX, and meanX.")`
+```{r}
+minX <- min(dat$Lik1)
+maxX <- max(dat$Lik1)
+meanX<- mean(dat$Lik1)
+```
+Let's view the objects in the console:
+```{r}
+meanX
+minX
+maxX
+```
+There are many functions we can use. For example, we can get the variance of a variable using the `var()` function and the standard deviation using `sd()`:
+```{r}
+var(dat$Lik1)
+sd(dat$Lik1)
+```
+
+
+
+
+
+
+
+
+
+

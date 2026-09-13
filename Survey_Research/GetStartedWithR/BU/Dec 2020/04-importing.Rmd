@@ -1,0 +1,32 @@
+# Importing data from a CSV file {#importing}
+Get the data from Laulima and save it to your folder. It is also available [here](http://www2.hawaii.edu/~georgeha/Handouts/SchoolSurvey.csv).
+Our data set contains 10 observations. They are school professionals who responded to a questionnaire that had five Likert-type questions and one yes-no question asking whether or not they are a teacher.
+Here are the data: 
+
+```{r, include=FALSE}
+dat<- read.csv("SchoolSurvey.csv")
+```
+```{r, echo=FALSE}
+knitr::kable(dat,align=rep('c',7))
+```
+
+These are made-up data. Let's say that the Likert-type items asked the school professionals how energetic they felt on a particular Wednesday afternoon. _PID_ is the respondent's identifier code, which we arbitrarily assigned.^[I used Excel to create this CSV file. Excel has this quirky behavior of reformatting CSV files that have `ID` as the first entry in the document's first cell. For that reason, I use `PID` (for person ID) instead of `ID`.]  _Lik1_ through _Lik5_ are our Likert-type items, corresponding to the five questions. _Teacher_ is coded _Yes_ for _yes, this person is a teacher_ and _No_ for _no, they're not_.
+
+Let's read the data set into R and save it to an object, which we'll arbitrarily call _dat_. The `read.csv()` function does just that---it reads CSV files.^[CSV files are comma-separated-value files, which we might have saved from a worksheet in a spreadsheet program such as Excel.] The CSV file needs to be in the same folder as your .R file (or you have set the working directory to that folder, or you have used the directory to the file within quotes). Also, be sure to use quotes around the name. Finally, R is __case sensitive__, so if you get an error, check the spelling. Type the following code in your source pane in RStudio, place your cursor anywhere on the line, and click the `Run` button.
+
+```{r}
+dat <- read.csv("SchoolSurvey.csv")
+```
+
+---- ---------------------------------------------------------
+   \ ![Note](images/note.png)<span style="color:gray"> The less-than symbol `<` and the dash symbol `-` together as `<-` are the 'assign to' operation in R. We have instructed R to read the CSV file that is in our current directory (or folder) and assign that to an object labeled 'dat' in our R session.</span>
+
+--------------------------------------------------------------
+<!-- ![Note](images/note.png) <span style="color:gray">The less-than symbol `<` and the dash symbol `-` together as `<-` are the 'assign to' operation in R. We have instructed R to read the CSV file that is in our current directory (or folder) and assign that to an object labeled 'dat' in our R session. </span> -->
+
+Notice that nothing seems to show up. We don't see our data. Actually, we did create the object `dat`. It's just that we don't see it unless we ask for it. So, let's now examine the object we just created.
+
+If you were unable to download the data, you can also try this code to directly download the file from the web site:
+```{r, eval = FALSE}
+dat <- read.csv("http://www2.hawaii.edu/~georgeha/Handouts/SchoolSurvey.csv")
+```

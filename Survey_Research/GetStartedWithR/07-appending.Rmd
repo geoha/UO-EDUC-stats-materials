@@ -1,0 +1,58 @@
+# Creating new variables {#appending}
+
+## Creating scores from items
+If our five Likert-type questions are asking about the same concept, we can combine them into a single composite score and save that as a new variable, which we'll call `Energy` in our data frame. Then we can perform functions, such as `summary()` and `var()` on that variable. It's worth noting that after we have this composite score based on multiple Likert-type items, we have a stronger case for assuming that our variable is continuous enough for performing operations like `mean()`, `var()`, and so forth; however, some statisticians will still frown against this practice because the summation procedure still assumes equal intervals in the Likert-type item data. In practice, however, with composite variables, this usually does not result in meaningful misinterpretations [@carifio_resolving_2008; @norman_likert_2010].
+
+```{r, echo=FALSE}
+dat <- read.csv("SchoolSurvey.csv")
+Likerts<- c("Lik1", "Lik2", "Lik3", "Lik4", "Lik5")
+```
+```{r}
+dat$Energy<- apply(dat[ ,Likerts], MARGIN = 1, mean)
+# Let's view the data frame:
+dat
+# Let's perform the summary function on the new variable.
+summary(dat$Energy)
+```
+Each person now has a score on our new variable, called `Energy`, which is the mean across the five Likert-type items. It looks like the average energy level was `r round(mean(dat$Energy),2)` on the `1` to `5` scale.
+
+How did we accomplish this? Let's break the code down so it makes sense: 
+
+Earlier we created the object `Likerts` using the `c()` function and the names of our variables of interest---the five Likert-type questions. In other words, we did this: 
+```{r, eval=FALSE}
+Likerts<- c("Lik1", "Lik2", "Lik3", "Lik4","Lik5")
+```
+Then, we subsetted our data, using indexing, with the column index consisting of our object, `Likerts`, which comprises the names of the five variables:
+```{r, eval=FALSE}
+dat[ ,Likerts]
+```
+We could have achieved the same result with the `c()` function directly embedded in the index, as in `dat[ ,c("Lik1", "Lik2", "Lik3", "Lik4","Lik5")]` but it would have made our line of code longer and harder to read. Also, we can re-use the `Likerts` object when we perform other functions (such as `head(dat[ ,Likerts])`). 
+
+What is new here is the `apply()` function. This function has three __arguments__. The first one specifies the data (rows and columns) we want to apply a function to, the second argument specifies the margin we seek to apply the function to, and the third argument specifies the function we wish to have applied (`mean` in our case).  
+
+---- ---------------------------------------------------------
+   \ ![Note](images/note.png)<span style="color:gray"> An argument is a statement within a function. Simple functions, like `summary()` and `median()` take a single argument. The order of arguments in a function is important so R can distinguish them; otherwise, we need to explicitly identify the argument. The function above, with its three arguments made explicit is `dat$Energy<- apply(X = dat[ , Likerts], MARGIN = 1, FUN = mean)`. The argument identifiers are `X`, `MARGIN`, and `FUN`. In our example, I made "`MARGIN =`" explicit to bring our attention to it but we can omit the words "`MARGIN =`" and simply use the value (`1` in our case) because it is the second argument in the function.</span>
+
+--------------------------------------------------------------
+
+In our example, our data are `dat[ ,Likerts]`, as specified by our first argument.  
+The second argument tells R to apply the function to the first margin (`MARGIN = 1`), which refers to the rows. (The second margin would apply the mean to the columns, which is not what we seek to do here.) Just as in indexing, the first margin refers to rows and the second margin to columns. In other words, we wish to apply the mean function _along each row_ (the first margin) and across the columns to get a mean score for each row.^[We are _applying_ the `mean()` function across Person 1's responses to the Likert-type questions, then applying `mean()` across Person 2's responses, and so forth until the last person. If we wanted to know the mean response on each column, such as for each variable across all the people, we'd specify `MARGIN = 2`.] The result is a vector of values.  
+Look again at our code and notice that the arguments are separated by commas:
+``` {r eval=FALSE}
+dat$Energy<- apply(dat[ ,Likerts], 1, mean)
+```
+## Appending variables to our data frame
+Finally, because the result is the same length as the number of rows in our data frame, we can append it as a new column using the `$` symbol and a new name, "`Energy`", that we create on the fly: `dat$Energy`.^[We can name our new variable anything we like, as long as it begins with a character. Numbers, periods, and underscores, `_`, are also acceptable in variable names, but spaces and special characters should be avoided, as should words that are used for functions, such as `c` or `mean`. Remember that R is case sensitive!]  
+
+Let's again examine our new data frame to see the new variable we created. Notice that it is the last column. Also, let's make sure the calculation was correct: For Person 1, the mean across the responses was $\frac{5+5+4+3+2}{5}=`r (5+5+4+3+2)/5`$, which is the same value reported under the Energy column.  
+```{r}
+head(dat)
+```
+
+Try this `apply()` function out on the same data and create a new variable called `EnergySum` (or use whatever variable name you like, as long as it begins with a character). In other words, instead of the mean, calculate a total score based on the sum of responses across the Likert-type questions.^[With composite scores calculated from multiple items that all use the same scale, you might find the mean to be more informative than the sum because the composite score can be interpreted on the same scale.
+For instance, if each of our items' response scales was 1 = _Very low energy_, 2 = _Moderately low energy_, 3 = _Medium level of energy_, 4 = _Moderately high energy_, and 5 = _Very high energy_, we can interpret Person 1's score of 3.8 on `Energy` as being just below a moderately high energy level.] You should see this as the result:
+
+```{r, echo=FALSE}
+dat$EnergySum<- apply(dat[ , Likerts], 1,sum)
+head(dat)
+```

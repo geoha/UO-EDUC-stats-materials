@@ -1,0 +1,512 @@
+deff = TRUE ) )
+print.data.frame( round(rslts_M_cl, 2) )
+rslts_V_cl <- des_cl %>% summarize(survey_var(score) )
+print.data.frame( round(rslts_V_cl, 2) )
+rslts_cl<- des_cl %>%
+summarize(Mn = survey_mean(score,
+vartype = c("se","ci"), df = degf(.),
+deff = TRUE ),
+Var= survey_var(score) )
+print.data.frame(round(rslts_cl, 2))
+n <- length(unique(dat$sid))
+n
+rslts_cl <- rslts_cl %>% mutate(EffSS = n/Mn_deff)
+print.data.frame(round(rslts_cl, 2))
+M_by_schl <- des_cl %>%
+group_by(school) %>%
+summarize(Mn = survey_mean(score),
+Var= survey_var(score))
+print.data.frame(round(M_by_schl,2))
+dat$N_cl_s <- 100
+des_cl2 <- dat %>%
+as_survey_design(id = c(school, sid),
+fpc = c(N_cl, N_cl_s))
+summary(des_cl2)
+rslts_cl2 <- des_cl2 %>%
+summarize(Mn = survey_mean(score,
+vartype = c("se","ci"), df = degf(.),
+deff = TRUE ),
+Var= survey_var(score) )
+rslts_cl2 <- rslts_cl2 %>% mutate(EffSS = n/Mn_deff)
+print.data.frame(round(rslts_cl2,2))
+View(rslts_cl)
+rslts_cl$Mn
+des_h <- dat %>%
+as_survey_design(id = 1,
+strata = district,
+fpc = N_h)
+library(survey)
+library(srvyr)
+library(dplyr)
+dat <- read.csv("Heeringa.Complex.SampleData.csv")
+str(dat)
+head(dat)
+des_h <- dat %>%
+as_survey_design(id = 1,
+strata = district,
+fpc = N_h)
+10^8
+10^6
+10^6/1000000
+10^6/4/250000
+dat$N_h   = 10^6/4
+dat$N_h   = 250000
+dat$N_h   = 250000
+des_h <- dat %>%
+as_survey_design(id = 1,
+strata = district,
+fpc = N_h)
+summary(des_h)
+rslts_h<- des_h %>%
+summarize(Mn = survey_mean(score,
+vartype = c("se","ci"), df = degf(.),
+deff = TRUE ),
+Var= survey_var(score) )
+rslts_h
+n
+rslts_h <- rslts_h %>% mutate(EffSS = n/Mn_deff)
+rslts_h
+M_by_dist <- des_h %>%
+group_by(district) %>%
+summarize(Mn = survey_mean(score),
+Var= survey_var(score))
+M_by_dist
+library(survey)
+library(srvyr)
+library(dplyr)
+dat <- read.csv("Heeringa.Complex.SampleData.csv")
+str(dat)
+head(dat)
+dat$N_cl <- 1000000
+head(dat)
+#********************************************
+# Complex Sampling Design: A Stratified Cluster Randomized Design
+#------------
+# Step 1: Create a survey-design object.
+# Now, we specify the PSU as the cluster (which are schools)
+# and the strata as the districts. And again, we use a very low
+# finite population correction (fpc) again to estimate the std error
+# as if the population were huge (i.e., n/N = 0.00001).
+dat$N_hcl <- 1000000
+des_hcl <- dat %>%
+as_survey_design(id = school,
+strata = district,
+fpc = N_hcl)
+summary(des_hcl)
+#------------
+# Step 2: Calculate estimates using functions on the design.
+# Mean:
+rslts_hcl <- des_hcl %>%
+summarize(Mn = survey_mean(score,
+vartype = c("se","ci"), df = degf(.),
+deff = TRUE ),
+Var= survey_var(score) )
+# Effective Sample Size from n and the design effect.
+# First, let's remember how many observations are in our data:
+n
+rslts_hcl <- rslts_hcl %>% mutate(EffSS = n/Mn_deff)
+#********************************************
+# Complex Sampling Design: A Stratified Cluster Randomized Design
+#------------
+# Step 1: Create a survey-design object.
+# Now, we specify the PSU as the cluster (which are schools)
+# and the strata as the districts. And again, we use a very low
+# finite population correction (fpc) again to estimate the std error
+# as if the population were huge (i.e., n/N = 0.00001).
+n <- length(unique(dat$sid))
+dat$N_hcl <- 1000000
+des_hcl <- dat %>%
+as_survey_design(id = school,
+strata = district,
+fpc = N_hcl)
+summary(des_hcl)
+#------------
+# Step 2: Calculate estimates using functions on the design.
+# Mean:
+rslts_hcl <- des_hcl %>%
+summarize(Mn = survey_mean(score,
+vartype = c("se","ci"), df = degf(.),
+deff = TRUE ),
+Var= survey_var(score) )
+# Effective Sample Size from n and the design effect.
+# First, let's remember how many observations are in our data:
+n
+rslts_hcl <- rslts_hcl %>% mutate(EffSS = n/Mn_deff)
+rslts_hcl
+#------------
+# Extra step:
+# We can look at the mean per stratum :
+M_by_Dist_cl <- des_hcl %>%
+group_by(district) %>%
+summarize(Mn = survey_mean(score),
+Var= survey_var(score))
+M_by_Dist_cl
+#********************************************
+# Simple Random Sample Design:
+# Assuming that students were randomly drawn from the population
+#------------
+des_srs <- dat %>%
+as_survey_design(id = 1, fpc = N)
+#********************************************
+# Complex Sampling Design: A Stratified Cluster Randomized Design
+#------------
+# Step 1: Create a survey-design object.
+# Now, we specify the PSU as the cluster (which are schools)
+# and the strata as the districts. And again, we use a very low
+# finite population correction (fpc) again to estimate the std error
+# as if the population were huge (i.e., n/N = 0.00001).
+n <- length(unique(dat$sid))
+N <- 10^8
+dat$N_hcl <- 1000000
+des_hcl <- dat %>%
+as_survey_design(id = school,
+strata = district,
+fpc = N_hcl)
+summary(des_hcl)
+#------------
+# Step 2: Calculate estimates using functions on the design.
+# Mean:
+rslts_hcl <- des_hcl %>%
+summarize(Mn = survey_mean(score,
+vartype = c("se","ci"), df = degf(.),
+deff = TRUE ),
+Var= survey_var(score) )
+# Effective Sample Size from n and the design effect.
+# First, let's remember how many observations are in our data:
+n
+rslts_hcl <- rslts_hcl %>% mutate(EffSS = n/Mn_deff)
+rslts_hcl
+#------------
+# Extra step:
+# We can look at the mean per stratum :
+M_by_Dist_cl <- des_hcl %>%
+group_by(district) %>%
+summarize(Mn = survey_mean(score),
+Var= survey_var(score))
+M_by_Dist_cl
+#********************************************
+# Simple Random Sample Design:
+# Assuming that students were randomly drawn from the population
+#------------
+des_srs <- dat %>%
+as_survey_design(id = 1, fpc = N)
+#********************************************
+# Complex Sampling Design: A Stratified Cluster Randomized Design
+#------------
+# Step 1: Create a survey-design object.
+# Now, we specify the PSU as the cluster (which are schools)
+# and the strata as the districts. And again, we use a very low
+# finite population correction (fpc) again to estimate the std error
+# as if the population were huge (i.e., n/N = 0.00001).
+n <- length(unique(dat$sid))
+N <- 10^8
+dat$N_hcl <- 1000000
+des_hcl <- dat %>%
+as_survey_design(id = school,
+strata = district,
+fpc = N_hcl)
+summary(des_hcl)
+#------------
+# Step 2: Calculate estimates using functions on the design.
+# Mean:
+rslts_hcl <- des_hcl %>%
+summarize(Mn = survey_mean(score,
+vartype = c("se","ci"), df = degf(.),
+deff = TRUE ),
+Var= survey_var(score) )
+# Effective Sample Size from n and the design effect.
+# First, let's remember how many observations are in our data:
+n
+rslts_hcl <- rslts_hcl %>% mutate(EffSS = n/Mn_deff)
+rslts_hcl
+#------------
+# Extra step:
+# We can look at the mean per stratum :
+M_by_Dist_cl <- des_hcl %>%
+group_by(district) %>%
+summarize(Mn = survey_mean(score),
+Var= survey_var(score))
+M_by_Dist_cl
+#********************************************
+# Simple Random Sample Design:
+# Assuming that students were randomly drawn from the population
+#------------
+des_srs <- dat %>%
+as_survey_design(id = ~1, fpc = N)
+des_srs <- dat %>%
+as_survey_design(id = ~1, fpc = N)
+des_srs <- dat %>%
+as_survey_design(id = 1, fpc = N)
+#********************************************
+# Simple Random Sample Design:
+# Assuming that students were randomly drawn from the population
+#------------
+dat$N <- N
+des_srs <- dat %>%
+as_survey_design(id = 1, fpc = N)
+rslts_srs <- des_srs %>%
+summarize(Mn = survey_mean(score, vartype = c("se","ci"), df = degf(.)),
+Var= survey_var(score))
+rslts_srs <- rslts_srs %>%
+mutate(EffSS   = n,
+Mn_deff = 1)
+rslts_srs
+#********************************************************
+# Comparing all design scenarios
+#********************************************************
+# Note that we would NOT do this in practice.
+# In practice, we would select a design and report
+# the results.
+rslts_cl2
+rslts_srs
+#********************************************
+# Simple Random Sample Design:
+# Assuming that students were randomly drawn from the population
+#------------
+dat$N <- N
+des_srs <- dat %>%
+as_survey_design(id = 1, fpc = N)
+rslts_srs <- des_srs %>%
+summarize(Mn = survey_mean(score, vartype = c("se","ci"), df = degf(.)),
+Var= survey_var(score))
+rslts_srs <- rslts_srs %>%
+mutate(EffSS   = n,
+Mn_deff = 1)
+rslts_srs
+#********************************************************
+# Comparing all design scenarios
+#********************************************************
+# Note that we would NOT do this in practice.
+# In practice, we would select a design and report
+# the results.
+rslts_cl2
+View(dat)
+1/1000000
+1e-06
+2/250000
+dat$N_hcl <- 250000
+des_hcl <- dat %>%
+as_survey_design(id = school,
+strata = district,
+fpc = N_hcl)
+summary(des_hcl)
+#------------
+# Step 2: Calculate estimates using functions on the design.
+# Mean:
+rslts_hcl <- des_hcl %>%
+summarize(Mn = survey_mean(score,
+vartype = c("se","ci"), df = degf(.),
+deff = TRUE ),
+Var= survey_var(score) )
+# Effective Sample Size from n and the design effect.
+# First, let's remember how many observations are in our data:
+n
+rslts_hcl <- rslts_hcl %>% mutate(EffSS = n/Mn_deff)
+rslts_hcl
+#------------
+# Extra step:
+# We can look at the mean per stratum :
+M_by_Dist_cl <- des_hcl %>%
+group_by(district) %>%
+summarize(Mn = survey_mean(score),
+Var= survey_var(score))
+M_by_Dist_cl
+des_hcl <- dat %>%
+as_survey_design(id = school,
+strata = district,
+fpc = N_hcl)
+summary(des_hcl)
+library(survey)
+library(srvyr)
+library(dplyr)
+dat <- read.csv("Heeringa.Complex.SampleData.csv")
+str(dat)
+head(dat)
+score_M  <- mean(dat$score)
+score_sd <- sd(dat$score)
+score_n  <- nrow(dat)
+score_se <- score_sd/sqrt(score_n)
+data.frame(c(score_M, score_sd, score_n, score_se)
+score_M  <- mean(dat$score)
+score_sd <- sd(dat$score)
+score_n  <- nrow(dat)
+score_se <- score_sd/sqrt(score_n)
+data.frame(c(score_M, score_sd, score_n, score_se))
+score_M  <- mean(dat$score)
+score_sd <- sd(dat$score)
+score_n  <- nrow(dat)
+score_se <- score_sd/sqrt(score_n)
+data.frame(c(M = score_M, sd = score_sd, n = score_n, se = score_se))
+score_M  <- mean(dat$score)
+score_sd <- sd(dat$score)
+score_n  <- nrow(dat)
+score_se <- score_sd/sqrt(score_n)
+(c(M = score_M, sd = score_sd, n = score_n, se = score_se))
+score_M  <- mean(dat$score)
+score_sd <- sd(dat$score)
+score_n  <- nrow(dat)
+score_se <- score_sd/sqrt(score_n)
+LB_t     <-  score_M - qt(0.975, df = score_n -1)*score_se
+UB_t     <-  score_M + qt(0.975, df = score_n -1)*score_se
+(c(M = score_M, var = score_sd^2, n = score_n, se = score_se,
+CI_upper = LB_t, CI_lower = UB_t))
+round((c(M = score_M, var = score_sd^2, n = score_n, se = score_se,
+CI_upper = LB_t, CI_lower = UB_t)), 2)
+Designs_report       <- bind_rows(rslts_srs, rslts_cl, rslts_cl2, rslts_h, rslts_hcl)
+library(survey)
+library(srvyr)
+library(dplyr)
+dat <- read.csv("Heeringa.Complex.SampleData.csv")
+str(dat)
+head(dat)
+dat$N_cl <- 1000000
+head(dat)
+library(survey)
+library(srvyr)
+des_cl <- dat %>%
+as_survey_design(id = school,
+fpc = N_cl)
+summary(des_cl)
+des_cl %>%
+summarize(survey_mean(score,
+vartype = c("se","ci"), df = degf(.),
+deff = TRUE ))
+rslts_M_cl <- des_cl %>%
+summarize(Mn = survey_mean(score,
+vartype = c("se","ci"), df = degf(.),
+deff = TRUE ) )
+print.data.frame( round(rslts_M_cl, 2) )
+rslts_V_cl <- des_cl %>% summarize(survey_var(score) )
+print.data.frame( round(rslts_V_cl, 2) )
+rslts_cl <- des_cl %>%
+summarize(Mn = survey_mean(score,
+vartype = c("se","ci"), df = degf(.),
+deff = TRUE ),
+Var= survey_var(score) )
+print.data.frame(round(rslts_cl, 2))
+n <- length(unique(dat$sid))
+n
+rslts_cl <- rslts_cl %>% mutate(EffSS = n/Mn_deff)
+print.data.frame(round(rslts_cl, 2))
+M_by_schl <- des_cl %>%
+group_by(school) %>%
+summarize(Mn = survey_mean(score),
+Var= survey_var(score))
+print.data.frame(round(M_by_schl,2))
+dat$N_cl_s <- 100
+des_cl2 <- dat %>%
+as_survey_design(id = c(school, sid),
+fpc = c(N_cl, N_cl_s))
+summary(des_cl2)
+des_cl2 <- dat %>%
+as_survey_design(id = c(school, sid),
+fpc = c(N_cl, N_cl_s))
+summary(des_cl2)
+dat$N_cl_s <- 100
+rslts_cl2 <- des_cl2 %>%
+summarize(Mn = survey_mean(score,
+vartype = c("se","ci"), df = degf(.),
+deff = TRUE ),
+Var= survey_var(score) )
+rslts_cl2 <- rslts_cl2 %>% mutate(EffSS = n/Mn_deff)
+print.data.frame(round(rslts_cl2,2))
+dat$N_h   = 25000000
+des_h <- dat %>%
+as_survey_design(id = 1,
+strata = district,
+fpc = N_h)
+summary(des_h)
+rslts_h <- des_h %>%
+summarize(Mn = survey_mean(score,
+vartype = c("se","ci"), df = degf(.),
+deff = TRUE ),
+Var= survey_var(score) )
+rslts_h
+n
+rslts_h <- rslts_h %>% mutate(EffSS = n/Mn_deff)
+rslts_h
+M_by_dist <- des_h %>%
+group_by(district) %>%
+summarize(Mn = survey_mean(score),
+Var= survey_var(score))
+M_by_dist
+dat$N_hcl <- 250000
+des_hcl <- dat %>%
+as_survey_design(id = school,
+strata = district,
+fpc = N_hcl)
+summary(des_hcl)
+rslts_hcl <- des_hcl %>%
+summarize(Mn = survey_mean(score,
+vartype = c("se","ci"), df = degf(.),
+deff = TRUE ),
+Var= survey_var(score) )
+# effective sample size
+n <- length(unique(dat$sid))
+rslts_hcl <- rslts_hcl %>% mutate(EffSS = n/Mn_deff)
+rslts_hcl
+#------------
+# Extra step:
+# We can look at the mean per stratum :
+M_by_Dist_cl <- des_hcl %>%
+group_by(district) %>%
+summarize(Mn = survey_mean(score),
+Var= survey_var(score))
+M_by_Dist_cl
+rslts_hcl <- des_hcl %>%
+summarize(Mn = survey_mean(score,
+vartype = c("se","ci"), df = degf(.),
+deff = TRUE ),
+Var= survey_var(score) )
+# effective sample size
+n <- length(unique(dat$sid))
+rslts_hcl <- rslts_hcl %>% mutate(EffSS = n/Mn_deff)
+rslts_hcl
+#------------
+# Extra step:
+# We can look at the mean per stratum :
+M_by_Dist_cl <- des_hcl %>%
+group_by(district) %>%
+summarize(Mn = survey_mean(score),
+Var= survey_var(score))
+M_by_Dist_cl
+n <- length(unique(dat$sid)) # sample n
+dat$N <- 10^8 # Population N
+des_srs <- dat %>%
+as_survey_design(id = 1, fpc = N)
+rslts_srs <- des_srs %>%
+summarize(Mn = survey_mean(score, vartype = c("se","ci"), df = degf(.)),
+Var= survey_var(score))
+rslts_srs <- rslts_srs %>%
+mutate(EffSS   = n,
+Mn_deff = 1)
+print.data.frame( round(rslts_srs, 2) )
+score_M  <- mean(dat$score)
+score_sd <- sd(dat$score)
+score_n  <- nrow(dat)
+score_se <- score_sd/sqrt(score_n)
+LB_t     <-  score_M - qt(0.975, df = score_n -1)*score_se
+UB_t     <-  score_M + qt(0.975, df = score_n -1)*score_se
+round((c(M = score_M, var = score_sd^2, n = score_n, se = score_se,
+CI_upper = LB_t, CI_lower = UB_t)), 2)
+dat$N2 <- 100 # Small Population N
+des_srs2 <- dat %>% as_survey_design(id = 1, fpc = N2)
+rslts_srs2 <- des_srs %>%
+summarize(Mn = survey_mean(score, vartype = c("se","ci"), df = degf(.)))
+print.data.frame( round(rslts_srs2, 2) )
+Designs_report       <- bind_rows(rslts_srs, rslts_cl, rslts_cl2, rslts_h, rslts_hcl)
+Designs_report$Design <- c("Simple Rand. Samp.", "Clustered", "two-stage Clustered", "Stratified", "Stratified Clustered")
+report <- Designs_report %>% select(Design, Mn, Mn_se, Mn_low, Mn_upp, Mn_deff, EffSS, report[,!1] %>% round(., 2)
+Designs_report       <- bind_rows(rslts_srs, rslts_cl, rslts_cl2, rslts_h, rslts_hcl)
+Designs_report$Design <- c("Simple Rand. Samp.", "Clustered", "two-stage Clustered", "Stratified", "Stratified Clustered")
+report <- Designs_report %>% select(Design, Mn, Mn_se, Mn_low, Mn_upp, Mn_deff, EffSS, Var, Var_se)
+report
+Designs_report       <- bind_rows(rslts_srs, rslts_cl, rslts_cl2, rslts_h, rslts_hcl)
+Designs_report$Design <- c("Simple Rand. Samp.", "Clustered", "two-stage Clustered", "Stratified", "Stratified Clustered")
+report <- Designs_report %>% select(Design, Mn, Mn_se, Mn_low, Mn_upp, Mn_deff, EffSS, Var, Var_se)
+report[,!1] %>% round(., 2)
+Designs_report       <- bind_rows(rslts_srs, rslts_cl, rslts_cl2, rslts_h, rslts_hcl)
+Designs_report$Design <- c("Simple Rand. Samp.", "Clustered", "two-stage Clustered", "Stratified", "Stratified Clustered")
+report <- Designs_report %>% select(Design, Mn, Mn_se, Mn_low, Mn_upp, Mn_deff, EffSS, Var, Var_se)
+report[,-1] <- report[,-1] %>% round(., 2)
+report

@@ -1,0 +1,95 @@
+---
+title: "Getting Started with R, Part 2"
+subtitle: "EDEP 602, Survey Research Design & Analysis"
+author: "George M. Harrison"
+date: "`r Sys.Date()`"
+output:
+  tufte::tufte_html: default
+  tufte::tufte_handout:
+    citation_package: natbib
+    latex_engine: xelatex
+  tufte::tufte_book:
+    citation_package: natbib
+    latex_engine: xelatex
+bibliography: skeleton.bib
+link-citations: yes
+---
+
+```{r setup, include=FALSE}
+library(tufte)
+# invalidate cache when the tufte version changes
+knitr::opts_chunk$set(tidy = FALSE, cache.extra = packageVersion('tufte'))
+options(htmltools.dir.version = FALSE)
+```
+
+##Learning Objectives
+1. Import data from a CSV file.  
+1. Examine the data
+1. Summarize the data
+
+##Importing Data from a CSV file
+Our data set contains 10 observations. They are school professionals who responded to a questionnaire that had five Likert-type questions and one yes-no question asking whether or not they are a teacher.
+Here are the data: 
+```{marginfigure}
+_ID_ is the respondent's identifier code, which we arbitrarily assigned. _Lik1_ through _Lik5_ are our Likert-type items, corresponding to the five questions. _Teacher_ is coded _Yes_ for _yes, this person is a teacher_ and _No_ for _no, they're not_.
+```
+```{r, include=FALSE}
+dat<- read.csv("SchoolProfessionalSurvey.csv")
+```
+```{r, echo=FALSE}
+knitr::kable(dat,align=rep('c',7))
+```
+
+Let's read the data set into R and save it to an object, which we'll arbitrarily call _dat_. The `read.csv()` function does just that---it reads CSV files. Be sure that the CSV file is in the same folder as your .r file (unless you're a few steps ahead and have set the working directory). Also, be sure to use quotes around the name. R is __case sensitive__, so if you get an error, check the spelling. Let's also look at the first several lines of data by performing the `head()` function on the object we just created:`r margin_note("The less-than symbol '<' and the dash symbol '-' together as '<-' are the 'assign to' operation in R. We have instructed R to read the CSV file that is in our currect directory (or folder) and assign that to an object labeled 'dat' in our R session.")`
+`r margin_note("When you run this code, you'll see the output in your console. In this handout, it is displayed with double hash marks preceding each line.")`
+```{r}
+dat<- read.csv("SchoolProfessionalSurvey.csv")
+head(dat)
+```
+We can also examine the last six observations of our data using the `tail()` function.`r margin_note("I suppose you can say we're making heads and tails of our data.")`
+```{r}
+tail(dat)
+```
+
+##Describing Our Data
+The `summary()` function is convenient. We can describe all of the variables in a data set^[A data set is called a ___data frame___ in R.] using the function on our data frame object, dat:
+
+`r margin_note("Notice that we have also summarized the ID variable, which is not meaningful. We would obviously not include that in a report.")`
+```{marginfigure}
+Notice that _Teacher_ is not a numeric variable. Notice also that the results of the summary function do not return the mean, median and so forth because those would not make sense with non-numeric data. Instead, the frequency of observations in each category of this variable is reported.
+```
+```{r}
+summary(dat)
+```
+We can apply the `summary()` function to a single variable:
+`r margin_note("The dollar sign is used to select a particular column (i.e., variable) from the data. All rows of this column of data are included.")`
+```{r}
+summary(dat$Lik1)
+```
+We can also perform functions like `min()`, `max()`, `mean()` and assign them to objects that we can later use:`r margin_note("For each of the three lines, we performed the function on the variable and we assigned the output to an object, which we've arbitrarily named  minX, maxX, and meanX.")`
+```{r}
+minX <- min(dat$Lik1)
+maxX <- max(dat$Lik1)
+meanX<- mean(dat$Lik1)
+```
+Let's view the objects in the console:
+```{r}
+meanX
+minX
+maxX
+```
+There are many functions we can use. For example, we can get the variance of a variable using the `var()` function and the standard deviation using `sd()`:
+```{r}
+var(dat$Lik1)
+sd(dat$Lik1)
+```
+
+
+
+
+
+
+
+
+
+

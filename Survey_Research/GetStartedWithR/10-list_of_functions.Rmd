@@ -1,0 +1,21 @@
+# List of functions and other code in this tutorial {#listoffunc}
+Here are the important functions and code we used in this tutorial: 
+
+* `read.csv()` for importing data from a CSV file  
+* `head()` and `tail()` for taking a peek at the first 6 and last 6 rows of data  
+* `str()` for examining the structure of the data 
+* `c()` for combining elements into a vector
+* The `$` as in `dataset$variable` for selecting a specific variable in a data frame
+* The use of brackets after a data frame, `dataset[ , ]`, for indexing a specific row or column or cell 
+* `summary()` for requesting a basic summary description of the variables
+* `min()`, `mean()`, `median()`, `max()`, `var()`, and `sd()` for requesting specific statistics about a variable
+* `apply()` for applying a function across a row or column of data
+* `help()` or `?` for getting help on a function
+* `boxplot()` for creating box-and-whisker plots with base-R graphics
+* The `ESC` key when the console is expecting us to complete some code.
+
+
+***
+Updated on `r Sys.Date()`.
+
+***

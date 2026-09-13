@@ -1,0 +1,115 @@
+# Internal Consistency Reliability {#Reliability}
+
+```{r results = "hide", echo = FALSE}
+timss <- read.csv('Week13_Timss_Mock_Raw.csv') 
+timss$Q5_Degree_F <- factor(timss$Q5_Degree, 
+                            ordered = TRUE, 
+                            levels = c("1", 
+                                       "2", 
+                                       "3", 
+                                       "4", 
+                                       "5", 
+                                       "6"),
+                            labels = c("No_HS", 
+                                       "HS", 
+                                       "Associates", 
+                                       "Bachelors", 
+                                       "Masters", 
+                                       "Doctorate"))
+timss$Q6_Major_in_Edu <- ifelse(timss$Q6_EdMat == "Yes" |
+                                timss$Q6_EdSci == "Yes" |    
+                                timss$Q6_EdGen == "Yes", 1 ,0)
+timss$Q6_Major_in_Edu_F <- factor(timss$Q6_Major_in_Edu,
+                                  levels = c(0,1),
+                                  labels = c("Not_education",
+                                             "Education") )
+# Reverse scoring the composite Q15 scale:
+Q15 <- paste0("Q15_StCentrd_", letters[1:7])
+timss$Q15_Index_raw  <- apply(timss[ ,Q15],1, mean, na.rm = TRUE) 
+timss$Q15_Index <- 4 + 0 - timss$Q15_Index_raw
+
+# Lower the composite Q16 scale by 1 point so zero has meaning
+Q16 <- paste0("Q16_Lims_", letters[1:7])
+timss$Q16_Index_raw  <- apply(timss[ ,Q16],1, mean, na.rm = TRUE) 
+timss$Q16_Index <- timss$Q16_Index_raw - 1 
+
+# Reverse scoring the composite Q19 scale:
+Q19 <- paste0("Q19_Didac_", letters[1:3])
+timss$Q19_Index_raw  <- apply(timss[ ,Q19],1, mean, na.rm = TRUE) 
+timss$Q19_Index <- 4 + 0 - timss$Q19_Index_raw 
+```
+
+## Doing it manually
+
+Let's hand calculate it for one of our scales, Q15, using the formula for coefficient alpha in the slides. Here's the covariance matrix:^[The term _covariance matrix_ is an abbreviation of _variance-covariance matrix_, which is more accurate but more cumbersome to say and write. The matrix includes the item variances on the diagonal and the covariances on the off diagonal.]
+```{r}
+round(cov(timss[,Q15]),2)
+```
+
+```{r results = "hide", echo = FALSE}
+varM_fortext <- round(var(timss$Q15_Index),2)
+var_fortext <- round(var(timss$Q15_Index)*ncol(timss[,Q15])^2, 2)
+# Just creating this to include in the narrative below.
+```
+
+Here's the total variance. Notice that this is the sum of all of the cells in the variance-covariance matrix:^[Note that this total variance calculated as the sum of the matrix's cells is the same as the variance of the composite score when that score is calculated as the sum of the item scores, which is often what we do in tests---we add up each person's points across the items to get their total score. However, to make our composite score easier to interpret on our survey scale, we have calculated each person's score as their mean across the _k_ items making up that scale, as this allows us to see each person's composite score on the same scale as the meaningful points in the Likert-type scale that is used with all _k_ of the items. For example, the first teacher's score on the Q15 composite scale was $`r round(timss[1,"Q15_Index"] ,2)`$, which somewhat more frequent than _About half the lessons_ on the original Likert-type scale. That is easier to interpret than a sum score would be---it is harder to relate the person's sum score of $`r 7*round(timss[1,"Q15_Index"] ,2)`$ back to a meaningful scale. Because our scale score is now divided by the number of items ($k = 7$ in this case), this total variance differs from that of the sum of the variance-covariance cells---it is smaller because we have divided by the constant 7. By the rules of algebra of expectation, we can multiply the variance of this, which is `var(timss$Q15_Index)` $= `r varM_fortext`$, by this constant squared to retrieve the same variance as if the composite score were calculated as the sum across the items: `var(timss$Q15_Index)*ncol(timss[,Q15])^2` $=`r var_fortext`$. This value is the same as the sum of the cells in the covariance matrix.]
+```{r}
+(totvar <- sum(cov(timss[,Q15])))
+```
+Here's the unique variance of the items:^[Placing parentheses around R code forces it to be printed to the console. It's simply a shortcut so we don't have to type the object (`totvar` in this example) to view the result.]
+```{r}
+(itemvarsum <- sum(apply(timss[,Q15],2,var)))
+```
+Here's _k_, which is the number of items in the scale:
+```{r}
+(k <- ncol(timss[,Q15]))
+```
+And, here's the alpha coefficient:
+```{r}
+MyAlpha <- k/(k-1)*(totvar - itemvarsum)/totvar
+MyAlpha
+```
+
+## Doing it with the psych package
+```{r warning = FALSE, message = FALSE}
+library(psych)
+# help(package = "psych")
+```
+
+To get coefficient alpha, we use the `alpha()` function.^[Here, we're using the double colon before the function because the function `alpha()` shares the same name with an argument in the ggplot package, so this `psych::alpha()` ensures that the function comes from the psych package.] Take a look at the `raw_alpha` column under the `Reliability if an item is dropped` section. What is this? Note where it is reported in our Word document that was shared on Laulima. In looking at this particular part of the output, what can we conclude about Item Q15_StCentrd_c?^[The answer is that the item is functioning inconsistently with the other items in the scale. We can see the reliability of the scale would be _higher_ if we had eliminated the item from our calculation of the composite score.]
+
+```{r warning = FALSE, message = FALSE}
+psych::alpha(timss[,Q15])
+```
+Does the estimate for alpha match our hand calculation? It should (though there the output here is rounded to two decimal places).
+
+What's the internal consistency reliability of the other two composite scales (AKA indexes)?
+
+###  Omega reliability using the psych package
+
+For omega reliability use the omega function. Because we have only one score, the number of factors is 1 and we report the result in Omega Total. Omega is appropriate for reflective scoring models,
+which was described in the validity PDF.
+
+```{r warning = FALSE, message = FALSE}
+psych::omega(timss[,Q15], nfactors=1)
+```
+If you came across an error that said `"Failed with error: 'there is no package called 'GPArotation''"`, install that package
+and run the previous line again. 
+```{r eval = FALSE}
+install.packages("GPArotation")
+```
+
+Look at the bottom part of the output. We are not working with more than one factor, or subscale, so we can report the estimate under the _g_ column ("g" stands for general). The first or second line, "Omega general for total scores and subscales" under g is **.85**. That's what we can report for this scale.
+
+## Summary
+There are several types of reliability coefficients. Coefficients alpha and omega are for internal consistency. Coefficient alpha is the most popular. Coefficient omega is becoming more popular because it handles some of the problems that alpha ignores.
+
+Other coefficients, such as for estimates of stability over time, with the intra-class correlation and generalizability coefficients are addressed in measurement primers and in EDEP 616.
+
+
+
+
+
+
+
+

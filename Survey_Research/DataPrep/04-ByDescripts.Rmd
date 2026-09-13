@@ -1,0 +1,215 @@
+# Descriptive Statistics by Group {#ByDescripts}
+
+
+```{r results = "hide", echo = FALSE}
+timss <- read.csv('Week13_Timss_Mock_Raw.csv') 
+timss$Q5_Degree_F <- factor(timss$Q5_Degree, 
+                            ordered = TRUE, 
+                            levels = c("1", 
+                                       "2", 
+                                       "3", 
+                                       "4", 
+                                       "5", 
+                                       "6"),
+                            labels = c("No_HS", 
+                                       "HS", 
+                                       "Associates", 
+                                       "Bachelors", 
+                                       "Masters", 
+                                       "Doctorate"))
+timss$Q6_Major_in_Edu <- ifelse(timss$Q6_EdMat == "Yes" |
+                                timss$Q6_EdSci == "Yes" |    
+                                timss$Q6_EdGen == "Yes", 1 ,0)
+timss$Q6_Major_in_Edu_F <- factor(timss$Q6_Major_in_Edu,
+                                  levels = c(0,1),
+                                  labels = c("Not_education",
+                                             "Education") )
+# Reverse scoring the composite Q15 scale:
+Q15 <- paste0("Q15_StCentrd_", letters[1:7])
+timss$Q15_Index_raw  <- apply(timss[ ,Q15],1, mean, na.rm = TRUE) 
+timss$Q15_Index <- 4 + 0 - timss$Q15_Index_raw
+
+# Lower the composite Q16 scale by 1 point so zero has meaning
+Q16 <- paste0("Q16_Lims_", letters[1:7])
+timss$Q16_Index_raw  <- apply(timss[ ,Q16],1, mean, na.rm = TRUE) 
+timss$Q16_Index <- timss$Q16_Index_raw - 1 
+
+# Reverse scoring the composite Q19 scale:
+Q19 <- paste0("Q19_Didac_", letters[1:3])
+timss$Q19_Index_raw  <- apply(timss[ ,Q19],1, mean, na.rm = TRUE) 
+timss$Q19_Index <- 4 + 0 - timss$Q19_Index_raw 
+```
+
+## Using the `describeBy()` function
+
+We can get descriptive statistics by group using the psych package's `describeBy()` function. In this case, we are interested in two groups: whether the teachers majored in education or not. In this chapter, we will estimate these, export them to a report, and plot the by-group data for one of the variables.
+
+In the previous chapter, we had created a factor using this code:
+
+```{r eval = FALSE}
+timss$Q6_Major_in_Edu_F <- factor(timss$Q6_Major_in_Edu,
+                                  levels = c(0,1),
+                                  labels = c("Not_education",
+                                             "Education") )
+```
+We will use this column in the data frame as our by-variable. 
+
+We can see that the `describeBy()` function is very similar to the `describe()` function, except in its name and in the addition of the `group = ` argument:
+
+```{r warning = FALSE, message = FALSE}
+library(psych)
+report2 <- describeBy(timss[,c("Q15_Index",
+                               "Q16_Index",
+                               "Q19_Index",
+                               "Q13_NumSs",
+                               "Q17_Mins")], 
+                              group = timss$Q6_Major_in_Edu_F)
+```
+Let's take a look at the output:
+```{r}
+report2
+```
+
+## Confidence intervals for each group's estimated mean
+
+For the by-group report, we can copy and paste the code we used in the previous chapter for the confidence intervals, but we have to do this separately with each group's report. So, we need to separate the report into two data frames, estimate the confidence intervals, and then glue them (bind them) back together. 
+
+### Separating the report by group
+The output from the `describeBy()` function we used has "Not_education" and "Education" for the group. We use that to subset the data. For example, to get the descriptive statistics for those teachers who did not major in education, we use this code:
+
+```{r}
+report2$Not_education
+```
+
+Here are the stats for teachers who did major in education:
+```{r}
+report2$Education 
+```
+
+### Calculating the confidence interval
+Let's start with the teachers who did not major in education. Also, notice that there is a new variable that we are creating called EduMajor. For this group, we set it to "No".
+```{r warning = FALSE, message = FALSE}
+library(dplyr)
+report2_0 <- report2$Not_education %>% 
+   mutate(EduMajor = "No",
+              LB_t =  mean - qt(0.975, df = n -1)*se,
+              UB_t =  mean + qt(0.975, df = n -1)*se,
+              varb = rownames(.)) %>% 
+  data.frame() %>% # have to add this because the psych package messed up the format (described in the previous chapter)
+  select(varb, EduMajor, n, mean, sd, min, max, se, LB_t, UB_t)
+```
+
+Now, for the education majors:
+```{r}
+report2_1<- report2$Education %>% 
+   mutate(EduMajor = "Yes",
+              LB_t =  mean - qt(0.975, df = n -1)*se,
+              UB_t =  mean + qt(0.975, df = n -1)*se,
+              varb = rownames(.)) %>% 
+  data.frame() %>% 
+  select(varb, EduMajor, n, mean, sd, min, max, se, LB_t, UB_t)
+```
+
+We can stack these two data frames on top of each other with the `rbind()` function, which binds the rows together. We can do this because the two different data frames have precisely the same column names and types of data. 
+
+```{r}
+MyReport2 <- rbind(report2_0, report2_1)
+MyReport2
+```
+
+We can use the `arrange()` function from the dplyr package to order the data by their variables. This way we can see the estimates of each group on a particular variable in adjacent rows.
+
+```{r warning = FALSE, message = FALSE}
+library(dplyr)
+MyReport2 <- arrange(MyReport2, varb)
+MyReport2
+```
+
+Now we have a report with a column that identifies the group. We can export this to a CSV file and then open it with our spreadsheet program to round the numbers to our preferred decimal places before we export it into our word processor's table.
+
+```{r eval = FALSE}
+write.csv(MyReport2, "report2.csv", row.names = FALSE)
+```
+
+## Plotting the by-group means and confidence intervals
+Let's create a plot of two variables side by side: Q15 and Q19, by whether they got their degree in education or not. First, let's subset our data. We can use the `filter()` function from dplyr:
+
+```{r, message = FALSE, warning = FALSE}
+library(dplyr)
+ForPlot <- MyReport2 %>% 
+               filter(varb == "Q15_Index" | varb == "Q19_Index")
+ForPlot 
+```
+Now, we have a data frame of our report that contains only these two variables. Let's use the ggplot2 package and a geom called `geom_col`, which makes columns and allows us to position groups' scores adjacent to each other (with the `position = "dodge"` argument):
+
+```{r message = FALSE, warning = FALSE}
+library(ggplot2)
+ggplot(data = ForPlot, aes(x = varb, y = mean, fill=EduMajor)) +
+ geom_col(position = "dodge") 
+```
+
+Let's add confidence intervals to the plot. The `geom_errorbar()` part of the code displays a band around the mean, which is the top of our bars. This allows us to eyeball whether the two groups are likely to be statistically different or not. Notice that we are using the lower bound and upper bound estimates that we had calculated earlier.
+
+```{r}
+Myplot <- ggplot(ForPlot, aes(x = varb, y = mean, fill=EduMajor)) +
+ geom_col(width = 0.9, position = "dodge") +
+ geom_errorbar(aes(ymin = LB_t, ymax = UB_t),
+              position = position_dodge(0.9), width = 0.2)
+Myplot
+```
+
+This plot says a lot. The two groups clearly differ on the Q15_Index. Their confidence intervals don't overlap at all. On the Q19_Index, they might still statistically significantly differ. With 95% confidence intervals that overlap less than about 25%, we can still observe statistically significant difference.^[Note that it is a misconception that statistically significant different results only occur when confidence intervals do not overlap. Nope. Not true.]
+
+### Making a pretty plot, maybe
+
+```{r results = "hide", echo = FALSE}
+library(dplyr)
+temp <- ForPlot %>% filter(varb == "Q15_Index", EduMajor == "Yes") %>% select(mean)
+example <- round(temp[[1]],2)
+```
+
+
+The following code generates a plot that is more informative and perhaps more pleasing in format:^[The viridis color palette is included in this plot. Viridis color pallettes are designed to be a little more accessible to people with colorblindness.] Notice that the scale of the composite scores is the same as that used in the items. This helps us interpret the meaning of these composite scores. For instance, with the teachers who majored in education when they were in college, the estimated mean on the Q15 index is $`r example`$, which slightly more frequent than _About half the lessons_ on the original Likert-type scale.
+
+```{r}
+MyPretty <- Myplot +
+  theme_grey(base_size = 16) +
+  theme(axis.title.x.bottom=element_blank() ) +
+  scale_fill_viridis_d(option = "cividis", begin=0.2,end=0.6) +
+  ylab("Mean score")   +
+  scale_x_discrete(labels=c("Student centered\nteaching approach",
+                            "Didactic\nteaching approach")) +
+  guides(fill = FALSE) +
+  annotate("text", x = .65, y = 0.10, size = 5, color="white", 
+            label = "Did not major\nin education",
+            hjust = 0, vjust=1,  angle = 90) + 
+  annotate("text", x = 1.05, y = 0.10, size =5,  color="white",
+            label = "Majored in education",
+            hjust = 0, vjust=1, angle = 90) +
+   
+  annotate("text", x = 0, y = 0, fontface="italic", size = 3,
+            label = "Never", hjust=0, vjust=-.2) +
+  annotate("text", x = 0, y = 1, fontface="italic", size = 3, 
+            label = "Some\nlessons", hjust=0) +
+  annotate("text", x = 0, y = 2, fontface="italic", size = 3,
+            label = "About half\nthe lessons", hjust=0)
+
+MyPretty
+```
+
+### Saving plots
+We can save plots to objects and then export them to .png or .pdf formats. The image, in .png format, is easy to paste into a word processor slide show for your report:
+
+```{r eval = FALSE}
+ggsave("MyPrettyPlot.png", MyPretty, width = 6, height = 5)
+ggsave("MyPrettyPlot.pdf", MyPretty, width = 6, height = 5)
+```
+
+
+
+
+
+
+
+
+

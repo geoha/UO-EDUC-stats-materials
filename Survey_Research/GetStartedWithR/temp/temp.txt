@@ -1,0 +1,23 @@
+https://www.hanoostdijk.nl/hugo/post/2020/04/29/maelle-salmon-article-about-rmd-and-hugo/
+`​``{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+knitr::knit_hooks$set(
+  # from https://ropensci.org/technotes/2020/04/23/rmd-learnings/
+  plot = function(x, options) {
+    hugoopts <- options$hugoopts
+    paste0(
+      "{", "{<figure src=", # the original code is simpler
+      # but here I need to escape the shortcode!
+      # '"', x, '" ', # HOQC replaced by next line:  
+      '"../../../../../', x, '" ',
+      if (!is.null(hugoopts)) {
+        glue::glue_collapse(
+          glue::glue('{names(hugoopts)}="{hugoopts}"'),
+          sep = " "
+        )
+      },
+      ">}}\n"
+    )
+  }
+)
+`​``

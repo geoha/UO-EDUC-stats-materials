@@ -1,0 +1,18 @@
+# Creating a simple box plot {#plotting}
+
+R provides many options for creating plots.^[This example uses the base R graphics. We can get fancier plots using the ggplot2 package.] Let's start simple and create a box plot. Because our `Teacher` variable is a factor, we can use a box plot to see whether the range of responses on our composite variable, `Energy`, depends on whether or not the school professional is a teacher.^[The tilde, `~`, is used in R to indicate a formula. We will see this in regression and other statistical equations, where it serves the same role as the "`=`" operator (e.g., Y ~ b~0~ + b~1~X). Here, we're asking R to make a box plot with a response (or outcome) variable, `dat$Energy`, based on the independent (or explanatory) variable,`dat$Teacher`. To match the scale of the Likert-type items, we set the scale of the Y axis to go from 1 to 5 using the `ylim=` argument. We have also specified the X and Y axis labels with the `xlab=` and `ylab=` arguments. The line `par(bty="l")` is for aesthetics. `bty` stands for box type and the `l` is a lowercase `L` to tell R to print only the left and bottom lines of the box (like the shape of the letter `L`).]
+```{r, echo=FALSE}
+dat <- read.csv("SchoolSurvey.csv")
+Likerts<- c("Lik1", "Lik2", "Lik3", "Lik4", "Lik5")
+dat$Energy<- apply(dat[ ,Likerts], MARGIN = 1, mean)
+dat$Energy<- apply(dat[ ,Likerts], 1, mean)
+```
+```{r, fig.width=6, fig.height=4.5, fig.cap = "Boxplot of Teachers on X axis and Energy level on Y axis."}
+par(bty="l")
+boxplot(dat$Energy ~ dat$Teacher,
+        ylim=c(1,5),
+        ylab="Energy level", 
+        xlab="Is the respondent a teacher?")
+```
+
+We see that the teachers provided lower responses on the Likert-type questions than non-teachers. It seems (in our hypothetical data example) that teachers have lower energy levels than the other school staff on a Wednesday afternoon.

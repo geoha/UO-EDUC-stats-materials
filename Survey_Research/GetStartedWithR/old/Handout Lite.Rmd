@@ -1,0 +1,73 @@
+---
+title: "Describing Variables"
+author: "George M. Harrison"
+date: "`r Sys.Date()`"
+output:
+  # pdf_document:
+  html_document:
+    df_print: paged
+    toc: yes
+---
+###Learning Objectives
+* Describe variables  
+* Calculate the covariance and correlation between two variables  
+* Calculate the covariance matrix and correlation matrix between many variables  
+* Create a bivariate scatterplot (correlation)  
+* Fit a simple linear regression model  
+* Predict Y from X using our model  
+
+###Data
+Our data set contains 10 observations, ID 1:10. They are students who took a five-item test and who were rated by their teacher on five five-point Likert-type items.  We might be interested in whether the teacher was able to predict the students' test scores.
+Let's read the data in and save it to an object, which we'll call dat. Let's look at the data, too:
+```{r}
+dat<- read.csv("Practice2Data.csv")
+head(dat)
+```
+Describing Our Data
+
+$f(k) = {n k} p^{k} (1-p)^{n-k}$
+
+\begin{equation} 
+  f\left(k\right) = \binom{n}{k} p^k\left(1-p\right)^{n-k}
+\end{equation} 
+
+\begin{align} 
+g(X_{n}) &= g(\theta)+g'({\tilde{\theta}})(X_{n}-\theta) \notag \\
+\sqrt{n}[g(X_{n})-g(\theta)] &= g'\left({\tilde{\theta}}\right)
+  \sqrt{n}[X_{n}-\theta ] (\#eq:align)
+\end{align} 
+
+The `summary()` function is convenient. We can describe all of the variables in a data set (a "dataframe" in R) using the function on our dataframe object, dat:
+```{r}
+summary(dat)
+```
+We can apply the `summary()` function to a single variable:
+```{r}
+summary(dat$TchrRating)
+```
+We can also perform functions like `min()`, `max()`, `mean()` and assign them to objects that we can later use:
+```{r}
+minX <- min(dat$TchrRating)
+maxX <- max(dat$TchrRating)
+meanX<- mean(dat$TchrRating)
+```
+The script above just assigned the output of the functions to objects. Let's view the objects in the console:
+```{r}
+meanX
+minX
+maxX
+```
+We can get the variance of a variable using the 'var()' function:
+```{r}
+var(dat$TchrRating)
+```
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,20 @@
+# Saving and closing an R session {#saving}
+Notice that after you type any script in your source pane, the file name in the tab will be red and have an asterisk at the end. This means your edits are unsaved. You can save your script at any time (use `Save` in the `File` menu or the save shortcut, `Ctrl+S` or `Cmd+S` depending on your OS).
+
+After you've saved your work, close RStudio. You might be prompted whether you'd like to also save the workspace image.^[The default in RStudio at the time of this writing seems to suppress this behavior.] If you're like me, you'll say "Wait a minute. I thought I just saved it. What's this?" Basically, we have the choice of ___also___ saving the output we have generated so far. My advice is to ___not___ save the workspace image unless (a) you're working on something that takes a lot of processing time (e.g., with very large data sets or complex analyses) or (b) you have neared the completion of your project and are making minor tweaks. 
+
+![Select "don't save" if the "Save workspace image to..." prompt appears.](images/DontSaveImage.png "Don't save the R image on exit")
+
+
+The reason we don't want to save the image is that it is best to start each session anew, without any R objects (assuming you also keep your data file in that same directory).^[R objects are described next.] Then you can run your code and be sure that the mistakes you made in the last session with this file are not included in your current session. If you want to be sure your session is clear, you can go to the `Environment` pane of RStudio and click on the broom icon to sweep your environment clean.^[You can also clear the console using the broom in that console.]
+
+---- ---------------------------------------------------------
+   \ ![Note](images/note.png)<span style="color:gray"> If you accidentally did save an image from a previous R session, there will be stuff in the environment pane. If this stuff contains mistakes, they're still there even though you restarted R. You should clear your environment and then save the session in its clean state. Then, next time you open it, the environment will be empty.</span>
+
+--------------------------------------------------------------
+
+![Clicking the broom in the environment pane clears the objects from the workspace.](images/ClearEnvironment.png "Clearing the environment removes any previous mistakes")
+
+If you want to stop this prompt from happening in the future, you can change your global settings. Go to `Tools` and `Global Options` and change the setting from "Ask" to "Never": <br>
+
+![Click Tools, then Global Options, then set the option under Workspace that says Restore .RData into Worspace at startup to "never".](images/DontSaveImageGlobal.png "Change the global setting to stop asking if we want to save the image")

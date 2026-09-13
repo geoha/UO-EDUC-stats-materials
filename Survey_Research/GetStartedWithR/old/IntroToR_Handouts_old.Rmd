@@ -1,0 +1,83 @@
+
+---
+title: "Introduction to R"
+subtitle: "EDEP 602"
+author: "George M. Harrison"
+date: "`r Sys.Date()`"
+output:
+  tufte::tufte_html: default
+  tufte::tufte_handout:
+    citation_package: natbib
+    latex_engine: xelatex
+  tufte::tufte_book:
+    citation_package: natbib
+    latex_engine: xelatex
+bibliography: skeleton.bib
+link-citations: yes
+---
+
+```{r setup, include=FALSE}
+library(tufte)
+# invalidate cache when the tufte version changes
+knitr::opts_chunk$set(tidy = FALSE, cache.extra = packageVersion('tufte'))
+options(htmltools.dir.version = FALSE)
+```
+
+
+
+
+
+
+###Learning Objectives
+* Describe variables  
+* Calculate the covariance and correlation between two variables  
+* Calculate the covariance matrix and correlation matrix between many variables  
+* Create a bivariate scatterplot (correlation)  
+* Fit a simple linear regression model  
+* Predict Y from X using our model  
+
+###Data
+Our data set contains 10 observations, ID 1:10. They are students who took a five-item test and who were rated by their teacher on five five-point Likert-type items.  We might be interested in whether the teacher was able to predict the students' test scores.
+Let's read the data in and save it to an object, which we'll call dat. Let's look at the data, too:
+```{r}
+dat<- read.csv("Practice2Data.csv")
+dat
+summary(dat)
+```
+Describing Our Data
+
+The `summary()` function is convenient. We can describe all of the variables in a data set (a "dataframe" in R) using the function on our dataframe object, dat:
+```{r}
+summary(dat)
+```
+We can apply to a single variable:
+```{r}
+summary(dat$TchrRating)
+```
+We can also perform functions like `min()`, `max()`, `mean()` and assign them to objects that we can later use:
+```{r}
+minX <- min(dat$TchrRating)
+maxX <- max(dat$TchrRating)
+meanX<- mean(dat$TchrRating)
+```
+The script above just assigned the output of the functions to objects. Let's view the objects in the console:
+```{r}
+meanX
+minX
+maxX
+```
+We can get the variance of a variable using the 'var()' function:
+```{r}
+var(dat$TchrRating)
+```
+
+
+
+
+
+
+
+
+
+
+
