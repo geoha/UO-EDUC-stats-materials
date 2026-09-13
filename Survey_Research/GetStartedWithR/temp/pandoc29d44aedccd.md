@@ -1,1 +1,0 @@
-_ID_ is the respondent's identifier code, which we arbitrarily assigned. _Lik1_ through _Lik5_ are our Likert-type items, corresponding to the five questions. _Teacher_ is coded _Yes_ for _yes, this person is a teacher_ and _No_ for _no, they're not_.

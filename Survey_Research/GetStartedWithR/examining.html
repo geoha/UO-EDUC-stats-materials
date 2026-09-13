@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Part 6 Examining the data | Getting Started with R for Survey Data</title>
+  <meta name="description" content="Provides guidance for getting started with R." />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Part 6 Examining the data | Getting Started with R for Survey Data" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="Provides guidance for getting started with R." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Part 6 Examining the data | Getting Started with R for Survey Data" />
+  
+  <meta name="twitter:description" content="Provides guidance for getting started with R." />
+  
+
+<meta name="author" content="George M. Harrison  University of Hawai‘i at Mānoa, College of Education" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="importing.html"/>
+<link rel="next" href="describing.html"/>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+
+
+<style type="text/css">
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Gettin' Started with R</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> What is R</a></li>
+<li class="chapter" data-level="2" data-path="download.html"><a href="download.html"><i class="fa fa-check"></i><b>2</b> Download R, then RStudio</a><ul>
+<li class="chapter" data-level="2.1" data-path="download.html"><a href="download.html#how-and-from-where"><i class="fa fa-check"></i><b>2.1</b> How and from where</a></li>
+<li class="chapter" data-level="2.2" data-path="download.html"><a href="download.html#look-at-rstudios-environment"><i class="fa fa-check"></i><b>2.2</b> Look at RStudio’s environment</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="creating.html"><a href="creating.html"><i class="fa fa-check"></i><b>3</b> Creating and re-opening an R script file</a><ul>
+<li class="chapter" data-level="3.1" data-path="creating.html"><a href="creating.html#create-an-r-script-file-in-your-folder-then-start-rstudio-by-double-clicking-that-file"><i class="fa fa-check"></i><b>3.1</b> Create an R script file in your folder, then start RStudio by double-clicking that file</a></li>
+<li class="chapter" data-level="3.2" data-path="creating.html"><a href="creating.html#if-you-need-to-set-the-working-directory"><i class="fa fa-check"></i><b>3.2</b> If you need to set the working directory</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="saving.html"><a href="saving.html"><i class="fa fa-check"></i><b>4</b> Saving and closing an R session</a></li>
+<li class="chapter" data-level="5" data-path="importing.html"><a href="importing.html"><i class="fa fa-check"></i><b>5</b> Importing data from a CSV file</a></li>
+<li class="chapter" data-level="6" data-path="examining.html"><a href="examining.html"><i class="fa fa-check"></i><b>6</b> Examining the data</a><ul>
+<li class="chapter" data-level="6.1" data-path="examining.html"><a href="examining.html#making-heads-and-tails-of-our-data"><i class="fa fa-check"></i><b>6.1</b> Making heads and tails of our data</a></li>
+<li class="chapter" data-level="6.2" data-path="examining.html"><a href="examining.html#point-and-click-in-rstudio"><i class="fa fa-check"></i><b>6.2</b> Point-and-click in RStudio</a></li>
+<li class="chapter" data-level="6.3" data-path="examining.html"><a href="examining.html#viewing-the-structure-of-the-data"><i class="fa fa-check"></i><b>6.3</b> Viewing the structure of the data</a></li>
+<li class="chapter" data-level="6.4" data-path="examining.html"><a href="examining.html#extracting-the-names-of-the-columns"><i class="fa fa-check"></i><b>6.4</b> Extracting the names of the columns</a></li>
+<li class="chapter" data-level="6.5" data-path="examining.html"><a href="examining.html#subsetting-data-using-and-indexing"><i class="fa fa-check"></i><b>6.5</b> Subsetting data using <code>$</code> and indexing</a></li>
+<li class="chapter" data-level="6.6" data-path="examining.html"><a href="examining.html#creating-objects-with-the-combine-function"><i class="fa fa-check"></i><b>6.6</b> Creating objects with the combine function</a></li>
+<li class="chapter" data-level="6.7" data-path="examining.html"><a href="examining.html#putting-the-functions-together"><i class="fa fa-check"></i><b>6.7</b> Putting the functions together</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="describing.html"><a href="describing.html"><i class="fa fa-check"></i><b>7</b> Describing the data</a><ul>
+<li class="chapter" data-level="7.1" data-path="describing.html"><a href="describing.html#the-summary-function"><i class="fa fa-check"></i><b>7.1</b> The summary function</a></li>
+<li class="chapter" data-level="7.2" data-path="describing.html"><a href="describing.html#specific-functions-for-summarizing-data"><i class="fa fa-check"></i><b>7.2</b> Specific functions for summarizing data</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="appending.html"><a href="appending.html"><i class="fa fa-check"></i><b>8</b> Creating new variables</a><ul>
+<li class="chapter" data-level="8.1" data-path="appending.html"><a href="appending.html#creating-scores-from-items"><i class="fa fa-check"></i><b>8.1</b> Creating scores from items</a></li>
+<li class="chapter" data-level="8.2" data-path="appending.html"><a href="appending.html#appending-variables-to-our-data-frame"><i class="fa fa-check"></i><b>8.2</b> Appending variables to our data frame</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="plotting.html"><a href="plotting.html"><i class="fa fa-check"></i><b>9</b> Creating a simple box plot</a></li>
+<li class="chapter" data-level="10" data-path="gettinghelp.html"><a href="gettinghelp.html"><i class="fa fa-check"></i><b>10</b> Getting help and troubleshooting</a><ul>
+<li class="chapter" data-level="10.1" data-path="gettinghelp.html"><a href="gettinghelp.html#rs-help-files"><i class="fa fa-check"></i><b>10.1</b> R’s help files</a></li>
+<li class="chapter" data-level="10.2" data-path="gettinghelp.html"><a href="gettinghelp.html#online-help"><i class="fa fa-check"></i><b>10.2</b> Online help</a></li>
+<li class="chapter" data-level="10.3" data-path="gettinghelp.html"><a href="gettinghelp.html#why-wont-my-code-run"><i class="fa fa-check"></i><b>10.3</b> Why won’t my code run?</a></li>
+<li class="chapter" data-level="10.4" data-path="gettinghelp.html"><a href="gettinghelp.html#have-patience-and-keep-learning"><i class="fa fa-check"></i><b>10.4</b> Have patience and keep learning</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="listoffunc.html"><a href="listoffunc.html"><i class="fa fa-check"></i><b>11</b> List of functions and other code in this tutorial</a></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Getting Started with R for Survey Data</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="examining" class="section level1">
+<h1><span class="header-section-number">Part 6</span> Examining the data</h1>
+<p>Let’s make sure our data set was actually imported and that it was formatted in the way we expect. If we have a small data frame, as we do here, we can simply type a new line with our object, <code>dat</code>, select the object with our cursor, and run it to view the output in the console.<a href="#fn11" class="footnote-ref" id="fnref11"><sup>11</sup></a></p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="examining.html#cb3-1"></a>dat</span></code></pre></div>
+<table style="width:88%;">
+<colgroup>
+<col width="6%" />
+<col width="80%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td align="right"><br />
+</td>
+<td><img src="images/note.png" alt="Note" /><span style="color:gray"> In R, a data set is called a <strong><em>data frame</em></strong>. There are other types of objects in R; for example, a <strong><em>vector</em></strong> is a single column (or row) of data.</span></td>
+</tr>
+</tbody>
+</table>
+<p>If all went well, we should see this as our output:</p>
+<pre><code>##    PID Lik1 Lik2 Lik3 Lik4 Lik5 Teacher
+## 1    1    5    5    4    3    2      No
+## 2    2    2    2    3    1    2     Yes
+## 3    3    4    4    3    3    2      No
+## 4    4    2    2    2    1    2     Yes
+## 5    5    5    5    3    5    4      No
+## 6    6    1    1    2    2    3     Yes
+## 7    7    1    2    3    1    1     Yes
+## 8    8    4    1    3    4    5      No
+## 9    9    5    3    4    4    3      No
+## 10  10    2    2    3    3    4     Yes</code></pre>
+<div id="making-heads-and-tails-of-our-data" class="section level2">
+<h2><span class="header-section-number">6.1</span> Making heads and tails of our data</h2>
+<p>Let’s also look at the first six lines of data by performing the <code>head()</code> function on the data-frame object we just created. This is useful if we have a large data set and we simply want to see whether the variable names and first several observations look the way we expect them to.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="examining.html#cb5-1"></a><span class="kw">head</span>(dat)</span></code></pre></div>
+<pre><code>##   PID Lik1 Lik2 Lik3 Lik4 Lik5 Teacher
+## 1   1    5    5    4    3    2      No
+## 2   2    2    2    3    1    2     Yes
+## 3   3    4    4    3    3    2      No
+## 4   4    2    2    2    1    2     Yes
+## 5   5    5    5    3    5    4      No
+## 6   6    1    1    2    2    3     Yes</code></pre>
+<p>We can also examine the last six observations of our data frame using the <code>tail()</code> function.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="examining.html#cb7-1"></a><span class="kw">tail</span>(dat)</span></code></pre></div>
+<pre><code>##    PID Lik1 Lik2 Lik3 Lik4 Lik5 Teacher
+## 5    5    5    5    3    5    4      No
+## 6    6    1    1    2    2    3     Yes
+## 7    7    1    2    3    1    1     Yes
+## 8    8    4    1    3    4    5      No
+## 9    9    5    3    4    4    3      No
+## 10  10    2    2    3    3    4     Yes</code></pre>
+</div>
+<div id="point-and-click-in-rstudio" class="section level2">
+<h2><span class="header-section-number">6.2</span> Point-and-click in RStudio</h2>
+<p>A point-and-click way we can examine our data frame, and any other objects in our current session, is through the environment pane in RStudio. <br>
+<img src="ImageOfEnvironment.png" alt="Image is of Environment pane and shows the object dat." /><br></p>
+<p>If we click on an object itself, such as on the <code>dat</code> here, RStudio will open a new tab in the script-editor pane and reveal the object.<a href="#fn12" class="footnote-ref" id="fnref12"><sup>12</sup></a></p>
+<p><br>
+<img src="ImageOfObjectBeingViewed.png" alt="Shows the data from the dat object in a tab in the console pane." /> <br></p>
+<p>With large data sets, this can take a while to load so this is not a typical part of the work flow, but for people who are used to SPSS, this brings some familiarity. Close that tab when you are done, or simply click back on the tab that contains the script you have written so far.</p>
+</div>
+<div id="viewing-the-structure-of-the-data" class="section level2">
+<h2><span class="header-section-number">6.3</span> Viewing the structure of the data</h2>
+<p>If we click on the arrow icon in the environment pane, we can see the details.<br>
+<img src="ImageOfEnvironment_details.png" alt="Shows the mouse at the arrow of the dat object of the environment pane. Arrow points down and the structure of the contents of dat are displayed." /><br></p>
+<p>Alternatively, we can use the structure function, <code>str()</code>, to get the same information:</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="examining.html#cb9-1"></a><span class="kw">str</span>(dat)</span></code></pre></div>
+<pre><code>## &#39;data.frame&#39;:    10 obs. of  7 variables:
+##  $ PID    : int  1 2 3 4 5 6 7 8 9 10
+##  $ Lik1   : int  5 2 4 2 5 1 1 4 5 2
+##  $ Lik2   : int  5 2 4 2 5 1 2 1 3 2
+##  $ Lik3   : int  4 3 3 2 3 2 3 3 4 3
+##  $ Lik4   : int  3 1 3 1 5 2 1 4 4 3
+##  $ Lik5   : int  2 2 2 2 4 3 1 5 3 4
+##  $ Teacher: chr  &quot;No&quot; &quot;Yes&quot; &quot;No&quot; &quot;Yes&quot; ...</code></pre>
+<p>Notice that our data comprise 10 observations of 7 variables. Also notice the list of variables. Next to each, after the colon, is a code that tells us what the variable’s type is. Here, we have several variables listed as integers (<code>int</code>), which means they are numeric. We have one variable, Teacher, that is listed either as a character (<code>chr</code>) variable or a factor type of variable (<code>Factor w/ 2 levels "No","Yes"</code>), depending on which version of R you are running.<a href="#fn13" class="footnote-ref" id="fnref13"><sup>13</sup></a> The character variable is a string. There can be many possible entries. A factor variable has levels, just like factors in ANOVA. Here, we would have two levels. Factor levels are coded under the hood with numbers, which by default match their alphabetical order, so here a “No” is coded as 1 and a “Yes” is coded as 2. The next set of columns are the first several observations of data (here, all 10), so the first person’s PID was <code>1</code>, she or he selected <code>5</code> on the first two Likert-type questions, <code>4</code> on the third, and <code>3</code> and <code>2</code> on the next two questions. This person also selected <code>No</code>, coded as <code>1</code>, indicating that the individual is not a teacher.</p>
+<table style="width:88%;">
+<colgroup>
+<col width="6%" />
+<col width="80%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td align="right"><br />
+<br />
+</td>
+<td><img src="images/note.png" alt="Note" /><span style="color:gray"> Numeric variables are coded as <code>int</code> for integers (i.e., numbers without a decimal, such as whole numbers) or <code>num</code> for numeric (i.e., numbers that can have a decimal).
+<br>Factors are nominal variables with two or more levels. The factor level numbers merely indicate distinction among the levels rather than any ordered value. (However, later we will encounter ordered factors. An “ordered factor” is R terminology for a variable that is on an ordinal level scale of measurement.)</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="extracting-the-names-of-the-columns" class="section level2">
+<h2><span class="header-section-number">6.4</span> Extracting the names of the columns</h2>
+<p>Sometimes, we need to know the names of the variables. For this, we can use the <code>names()</code> function.</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="examining.html#cb11-1"></a><span class="kw">names</span>(dat)</span></code></pre></div>
+<pre><code>## [1] &quot;PID&quot;     &quot;Lik1&quot;    &quot;Lik2&quot;    &quot;Lik3&quot;    &quot;Lik4&quot;    &quot;Lik5&quot;    &quot;Teacher&quot;</code></pre>
+<p>For extra fun, we can ask that the names of the output be in a format that is amenable to copying and pasting (we’ll see the value of this in a minute). The <code>dput()</code> function does this.<a href="#fn14" class="footnote-ref" id="fnref14"><sup>14</sup></a></p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="examining.html#cb13-1"></a><span class="kw">dput</span>(<span class="kw">names</span>(dat))</span></code></pre></div>
+<pre><code>## c(&quot;PID&quot;, &quot;Lik1&quot;, &quot;Lik2&quot;, &quot;Lik3&quot;, &quot;Lik4&quot;, &quot;Lik5&quot;, &quot;Teacher&quot;)</code></pre>
+<p>Notice that the output includes commas between the variables. This will be convenient in a minute.</p>
+</div>
+<div id="subsetting-data-using-and-indexing" class="section level2">
+<h2><span class="header-section-number">6.5</span> Subsetting data using <code>$</code> and indexing</h2>
+<p>Maybe we wish to examine a single variable in our data. Let’s look at the first Likert-type item.</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="examining.html#cb15-1"></a>dat<span class="op">$</span>Lik1</span></code></pre></div>
+<pre><code>##  [1] 5 2 4 2 5 1 1 4 5 2</code></pre>
+<table style="width:88%;">
+<colgroup>
+<col width="6%" />
+<col width="80%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td align="right"><br />
+</td>
+<td><img src="images/note.png" alt="Note" /><span style="color:gray"> The dollar sign is used to select a particular column (i.e., variable) from the data. All rows of this column of data are included. Because we’ve selected a single column, the result is a <strong><em>vector</em></strong> of numbers.</span></td>
+</tr>
+</tbody>
+</table>
+<p>The dollar sign is one way to select a particular column in our data frame. Another way is to use indexing, with brackets. Within the brackets are two indices. The first is the row index and the second is the column index. If an index entry is blank, it instructs R to include all of the elements in that index. The following code is the same as <code>dat$Lik1</code> because it includes all the rows and the specified column, <code>Lik1</code>.</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="examining.html#cb17-1"></a>dat[ ,<span class="st">&quot;Lik1&quot;</span>]</span></code></pre></div>
+<pre><code>##  [1] 5 2 4 2 5 1 1 4 5 2</code></pre>
+<table style="width:88%;">
+<colgroup>
+<col width="6%" />
+<col width="80%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td align="right"><br />
+</td>
+<td><img src="images/note.png" alt="Note" /><span style="color:gray"> When we use indexing, we need to enclose the variable name in quotes. With data frames like this (in which we have multiple rows and columns), indexing is always in the order of row first and column second <code>[row,column]</code>.</span></td>
+</tr>
+</tbody>
+</table>
+<p>Indexing might seem redundant because we can use the dollar sign, but it is more powerful. For instance, we might want to only examine the first three persons. We can use numbers in indexing (instead of column or row names, if we want). Here are the responses from the first three people in our data set on this question:</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="examining.html#cb19-1"></a>dat[<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>,<span class="st">&quot;Lik1&quot;</span>]</span></code></pre></div>
+<pre><code>## [1] 5 2 4</code></pre>
+<p>The following code is equivalent to the one above, but now we’re using numeric indexing for the column. Note that <code>Lik1</code> is actually the second column in our data set, so we use <code>2</code> in the column index.</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="examining.html#cb21-1"></a>dat[<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="dv">2</span>]</span></code></pre></div>
+<pre><code>## [1] 5 2 4</code></pre>
+</div>
+<div id="creating-objects-with-the-combine-function" class="section level2">
+<h2><span class="header-section-number">6.6</span> Creating objects with the combine function</h2>
+<p>The combine function, <code>c()</code>, is probably the most frequently used function in R. Here, we’re combining several character strings and assigning them to an object, which we’ll arbitrarily call <code>Likerts</code>.<a href="#fn15" class="footnote-ref" id="fnref15"><sup>15</sup></a> Because these are character strings, each element is in quotes.<a href="#fn16" class="footnote-ref" id="fnref16"><sup>16</sup></a> We can view the result by retyping the object we just created (and running it).</p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="examining.html#cb23-1"></a>Likerts&lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Lik1&quot;</span>, <span class="st">&quot;Lik2&quot;</span>, <span class="st">&quot;Lik3&quot;</span>, <span class="st">&quot;Lik4&quot;</span>, <span class="st">&quot;Lik5&quot;</span>)</span>
+<span id="cb23-2"><a href="examining.html#cb23-2"></a>Likerts</span></code></pre></div>
+<pre><code>## [1] &quot;Lik1&quot; &quot;Lik2&quot; &quot;Lik3&quot; &quot;Lik4&quot; &quot;Lik5&quot;</code></pre>
+<table style="width:88%;">
+<colgroup>
+<col width="6%" />
+<col width="80%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td align="right"><br />
+</td>
+<td><img src="images/note.png" alt="Note" /><span style="color:gray"> When we want to refer an object, we do <em>not</em> use quotes. Here, <code>Likerts</code> is an object. This is in contrast to our reference to the variable <code>Lik1</code> in the code above, <code>dat[ ,"Lik1"]</code>, which was enclosed in quotes because it was the name of that column.</span></td>
+</tr>
+</tbody>
+</table>
+<p>Notice that this object, <code>Likerts</code>, includes the names of five Likert-type variables in our data set. We can look at this subset of data using the following code:</p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="examining.html#cb25-1"></a>dat[ ,Likerts]</span></code></pre></div>
+<pre><code>##    Lik1 Lik2 Lik3 Lik4 Lik5
+## 1     5    5    4    3    2
+## 2     2    2    3    1    2
+## 3     4    4    3    3    2
+## 4     2    2    2    1    2
+## 5     5    5    3    5    4
+## 6     1    1    2    2    3
+## 7     1    2    3    1    1
+## 8     4    1    3    4    5
+## 9     5    3    4    4    3
+## 10    2    2    3    3    4</code></pre>
+<p>We can also use <code>c()</code> with indexing. Let’s examine only the first Likert-type question and the Teacher variable:</p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="examining.html#cb27-1"></a>dat[ ,<span class="kw">c</span>(<span class="st">&quot;Lik1&quot;</span>,<span class="st">&quot;Teacher&quot;</span>) ]</span></code></pre></div>
+<pre><code>##    Lik1 Teacher
+## 1     5      No
+## 2     2     Yes
+## 3     4      No
+## 4     2     Yes
+## 5     5      No
+## 6     1     Yes
+## 7     1     Yes
+## 8     4      No
+## 9     5      No
+## 10    2     Yes</code></pre>
+<p>It looks like all the teachers provided lower ratings on this question than their counterparts.</p>
+</div>
+<div id="putting-the-functions-together" class="section level2">
+<h2><span class="header-section-number">6.7</span> Putting the functions together</h2>
+<p>Here is some of the code we’ve addressed so far:</p>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="examining.html#cb29-1"></a>dat&lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;SchoolSurvey.csv&quot;</span>)</span>
+<span id="cb29-2"><a href="examining.html#cb29-2"></a>dat</span>
+<span id="cb29-3"><a href="examining.html#cb29-3"></a><span class="kw">head</span>(dat)</span>
+<span id="cb29-4"><a href="examining.html#cb29-4"></a><span class="kw">tail</span>(dat)</span>
+<span id="cb29-5"><a href="examining.html#cb29-5"></a><span class="kw">str</span>(dat)</span>
+<span id="cb29-6"><a href="examining.html#cb29-6"></a><span class="kw">names</span>(dat)</span>
+<span id="cb29-7"><a href="examining.html#cb29-7"></a><span class="kw">dput</span>(<span class="kw">names</span>(dat))</span>
+<span id="cb29-8"><a href="examining.html#cb29-8"></a>Likerts&lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Lik1&quot;</span>, <span class="st">&quot;Lik2&quot;</span>, <span class="st">&quot;Lik3&quot;</span>, <span class="st">&quot;Lik4&quot;</span>,<span class="st">&quot;Lik5&quot;</span>)</span>
+<span id="cb29-9"><a href="examining.html#cb29-9"></a>Likerts</span>
+<span id="cb29-10"><a href="examining.html#cb29-10"></a>dat[ ,Likerts]</span>
+<span id="cb29-11"><a href="examining.html#cb29-11"></a>dat[ ,<span class="kw">c</span>(<span class="st">&quot;Lik1&quot;</span>,<span class="st">&quot;Teacher&quot;</span>) ]</span></code></pre></div>
+<p>Here is a typical set of functions for checking whether our data have been correctly imported:</p>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="examining.html#cb30-1"></a>dat&lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;SchoolSurvey.csv&quot;</span>)</span>
+<span id="cb30-2"><a href="examining.html#cb30-2"></a>dat</span>
+<span id="cb30-3"><a href="examining.html#cb30-3"></a><span class="kw">head</span>(dat)</span>
+<span id="cb30-4"><a href="examining.html#cb30-4"></a><span class="kw">tail</span>(dat)</span>
+<span id="cb30-5"><a href="examining.html#cb30-5"></a><span class="kw">str</span>(dat)</span></code></pre></div>
+
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="11">
+<li id="fn11"><p>When you run this code, you’ll see the output in your console. In this handout (but not in your actual R session), it is displayed with double hash marks preceding each line.<a href="examining.html#fnref11" class="footnote-back">↩︎</a></p></li>
+<li id="fn12"><p>You can also use the <code>View()</code> function to open a data frame in a new tab and view it. Try the code <code>View(dat)</code>.<a href="examining.html#fnref12" class="footnote-back">↩︎</a></p></li>
+<li id="fn13"><p>The <code>read.csv()</code> function’s defaults changed in one of the R versions so that character type of column data are read in as character instead of factors.<a href="examining.html#fnref13" class="footnote-back">↩︎</a></p></li>
+<li id="fn14"><p>Notice that we can place functions inside of functions. The order of operations is the same as in mathematics, where the inside parentheses, <code>names(dat)</code>, are evaluated before the outside parentheses, <code>dput(...)</code>.<a href="examining.html#fnref14" class="footnote-back">↩︎</a></p></li>
+<li id="fn15"><p>Just like SPSS, Excel, and other programs, R distinguishes character strings from numeric values.<a href="examining.html#fnref15" class="footnote-back">↩︎</a></p></li>
+<li id="fn16"><p>This is where the <code>dput(names(</code>our data frame<code>))</code> function comes in handy—we can manually copy part of our output from that and paste it into our code here without having to type the quotes and commas.<a href="examining.html#fnref16" class="footnote-back">↩︎</a></p></li>
+</ol>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="importing.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="describing.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/rstudio/bookdown-demo/edit/master/05-examining.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["Getting-started.pdf", "Getting-started.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

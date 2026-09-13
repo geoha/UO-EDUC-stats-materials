@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Part 8 Creating new variables | Getting Started with R for Survey Data</title>
+  <meta name="description" content="Provides guidance for getting started with R." />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Part 8 Creating new variables | Getting Started with R for Survey Data" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="Provides guidance for getting started with R." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Part 8 Creating new variables | Getting Started with R for Survey Data" />
+  
+  <meta name="twitter:description" content="Provides guidance for getting started with R." />
+  
+
+<meta name="author" content="George M. Harrison  University of Hawai‘i at Mānoa, College of Education" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="describing.html"/>
+<link rel="next" href="plotting.html"/>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+
+
+<style type="text/css">
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Gettin' Started with R</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> What is R</a></li>
+<li class="chapter" data-level="2" data-path="download.html"><a href="download.html"><i class="fa fa-check"></i><b>2</b> Download R, then RStudio</a><ul>
+<li class="chapter" data-level="2.1" data-path="download.html"><a href="download.html#how-and-from-where"><i class="fa fa-check"></i><b>2.1</b> How and from where</a></li>
+<li class="chapter" data-level="2.2" data-path="download.html"><a href="download.html#look-at-rstudios-environment"><i class="fa fa-check"></i><b>2.2</b> Look at RStudio’s environment</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="creating.html"><a href="creating.html"><i class="fa fa-check"></i><b>3</b> Creating and re-opening an R script file</a><ul>
+<li class="chapter" data-level="3.1" data-path="creating.html"><a href="creating.html#create-an-r-script-file-in-your-folder-then-start-rstudio-by-double-clicking-that-file"><i class="fa fa-check"></i><b>3.1</b> Create an R script file in your folder, then start RStudio by double-clicking that file</a></li>
+<li class="chapter" data-level="3.2" data-path="creating.html"><a href="creating.html#if-you-need-to-set-the-working-directory"><i class="fa fa-check"></i><b>3.2</b> If you need to set the working directory</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="saving.html"><a href="saving.html"><i class="fa fa-check"></i><b>4</b> Saving and closing an R session</a></li>
+<li class="chapter" data-level="5" data-path="importing.html"><a href="importing.html"><i class="fa fa-check"></i><b>5</b> Importing data from a CSV file</a></li>
+<li class="chapter" data-level="6" data-path="examining.html"><a href="examining.html"><i class="fa fa-check"></i><b>6</b> Examining the data</a><ul>
+<li class="chapter" data-level="6.1" data-path="examining.html"><a href="examining.html#making-heads-and-tails-of-our-data"><i class="fa fa-check"></i><b>6.1</b> Making heads and tails of our data</a></li>
+<li class="chapter" data-level="6.2" data-path="examining.html"><a href="examining.html#point-and-click-in-rstudio"><i class="fa fa-check"></i><b>6.2</b> Point-and-click in RStudio</a></li>
+<li class="chapter" data-level="6.3" data-path="examining.html"><a href="examining.html#viewing-the-structure-of-the-data"><i class="fa fa-check"></i><b>6.3</b> Viewing the structure of the data</a></li>
+<li class="chapter" data-level="6.4" data-path="examining.html"><a href="examining.html#extracting-the-names-of-the-columns"><i class="fa fa-check"></i><b>6.4</b> Extracting the names of the columns</a></li>
+<li class="chapter" data-level="6.5" data-path="examining.html"><a href="examining.html#subsetting-data-using-and-indexing"><i class="fa fa-check"></i><b>6.5</b> Subsetting data using <code>$</code> and indexing</a></li>
+<li class="chapter" data-level="6.6" data-path="examining.html"><a href="examining.html#creating-objects-with-the-combine-function"><i class="fa fa-check"></i><b>6.6</b> Creating objects with the combine function</a></li>
+<li class="chapter" data-level="6.7" data-path="examining.html"><a href="examining.html#putting-the-functions-together"><i class="fa fa-check"></i><b>6.7</b> Putting the functions together</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="describing.html"><a href="describing.html"><i class="fa fa-check"></i><b>7</b> Describing the data</a><ul>
+<li class="chapter" data-level="7.1" data-path="describing.html"><a href="describing.html#the-summary-function"><i class="fa fa-check"></i><b>7.1</b> The summary function</a></li>
+<li class="chapter" data-level="7.2" data-path="describing.html"><a href="describing.html#specific-functions-for-summarizing-data"><i class="fa fa-check"></i><b>7.2</b> Specific functions for summarizing data</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="appending.html"><a href="appending.html"><i class="fa fa-check"></i><b>8</b> Creating new variables</a><ul>
+<li class="chapter" data-level="8.1" data-path="appending.html"><a href="appending.html#creating-scores-from-items"><i class="fa fa-check"></i><b>8.1</b> Creating scores from items</a></li>
+<li class="chapter" data-level="8.2" data-path="appending.html"><a href="appending.html#appending-variables-to-our-data-frame"><i class="fa fa-check"></i><b>8.2</b> Appending variables to our data frame</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="plotting.html"><a href="plotting.html"><i class="fa fa-check"></i><b>9</b> Creating a simple box plot</a></li>
+<li class="chapter" data-level="10" data-path="gettinghelp.html"><a href="gettinghelp.html"><i class="fa fa-check"></i><b>10</b> Getting help and troubleshooting</a><ul>
+<li class="chapter" data-level="10.1" data-path="gettinghelp.html"><a href="gettinghelp.html#rs-help-files"><i class="fa fa-check"></i><b>10.1</b> R’s help files</a></li>
+<li class="chapter" data-level="10.2" data-path="gettinghelp.html"><a href="gettinghelp.html#online-help"><i class="fa fa-check"></i><b>10.2</b> Online help</a></li>
+<li class="chapter" data-level="10.3" data-path="gettinghelp.html"><a href="gettinghelp.html#why-wont-my-code-run"><i class="fa fa-check"></i><b>10.3</b> Why won’t my code run?</a></li>
+<li class="chapter" data-level="10.4" data-path="gettinghelp.html"><a href="gettinghelp.html#have-patience-and-keep-learning"><i class="fa fa-check"></i><b>10.4</b> Have patience and keep learning</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="listoffunc.html"><a href="listoffunc.html"><i class="fa fa-check"></i><b>11</b> List of functions and other code in this tutorial</a></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Getting Started with R for Survey Data</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="appending" class="section level1">
+<h1><span class="header-section-number">Part 8</span> Creating new variables</h1>
+<div id="creating-scores-from-items" class="section level2">
+<h2><span class="header-section-number">8.1</span> Creating scores from items</h2>
+<p>If our five Likert-type questions are asking about the same concept, we can combine them into a single composite score and save that as a new variable, which we’ll call <code>Energy</code> in our data frame. Then we can perform functions, such as <code>summary()</code> and <code>var()</code> on that variable. It’s worth noting that after we have this composite score based on multiple Likert-type items, we have a stronger case for assuming that our variable is continuous enough for performing operations like <code>mean()</code>, <code>var()</code>, and so forth; however, some statisticians will still frown against this practice because the summation procedure still assumes equal intervals in the Likert-type item data. In practice, however, with composite variables, this usually does not result in meaningful misinterpretations <span class="citation">(Carifio &amp; Perla, <a href="#ref-carifio_resolving_2008" role="doc-biblioref">2008</a>; Norman, <a href="#ref-norman_likert_2010" role="doc-biblioref">2010</a>)</span>.</p>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="appending.html#cb55-1"></a>dat<span class="op">$</span>Energy&lt;-<span class="st"> </span><span class="kw">apply</span>(dat[ ,Likerts], <span class="dt">MARGIN =</span> <span class="dv">1</span>, mean)</span>
+<span id="cb55-2"><a href="appending.html#cb55-2"></a><span class="co"># Let&#39;s view the data frame:</span></span>
+<span id="cb55-3"><a href="appending.html#cb55-3"></a>dat</span></code></pre></div>
+<pre><code>##    PID Lik1 Lik2 Lik3 Lik4 Lik5 Teacher Energy
+## 1    1    5    5    4    3    2      No    3.8
+## 2    2    2    2    3    1    2     Yes    2.0
+## 3    3    4    4    3    3    2      No    3.2
+## 4    4    2    2    2    1    2     Yes    1.8
+## 5    5    5    5    3    5    4      No    4.4
+## 6    6    1    1    2    2    3     Yes    1.8
+## 7    7    1    2    3    1    1     Yes    1.6
+## 8    8    4    1    3    4    5      No    3.4
+## 9    9    5    3    4    4    3      No    3.8
+## 10  10    2    2    3    3    4     Yes    2.8</code></pre>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="appending.html#cb57-1"></a><span class="co"># Let&#39;s perform the summary function on the new variable.</span></span>
+<span id="cb57-2"><a href="appending.html#cb57-2"></a><span class="kw">summary</span>(dat<span class="op">$</span>Energy)</span></code></pre></div>
+<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+##    1.60    1.85    3.00    2.86    3.70    4.40</code></pre>
+<p>Each person now has a score on our new variable, called <code>Energy</code>, which is the mean across the five Likert-type items. It looks like the average energy level was 2.86 on the <code>1</code> to <code>5</code> scale.</p>
+<p>How did we accomplish this? Let’s break the code down so it makes sense:</p>
+<p>Earlier we created the object <code>Likerts</code> using the <code>c()</code> function and the names of our variables of interest—the five Likert-type questions. In other words, we did this:</p>
+<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="appending.html#cb59-1"></a>Likerts&lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Lik1&quot;</span>, <span class="st">&quot;Lik2&quot;</span>, <span class="st">&quot;Lik3&quot;</span>, <span class="st">&quot;Lik4&quot;</span>,<span class="st">&quot;Lik5&quot;</span>)</span></code></pre></div>
+<p>Then, we subsetted our data, using indexing, with the column index consisting of our object, <code>Likerts</code>, which comprises the names of the five variables:</p>
+<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="appending.html#cb60-1"></a>dat[ ,Likerts]</span></code></pre></div>
+<p>We could have achieved the same result with the <code>c()</code> function directly embedded in the index, as in <code>dat[ ,c("Lik1", "Lik2", "Lik3", "Lik4","Lik5")]</code> but it would have made our line of code longer and harder to read. Also, we can re-use the <code>Likerts</code> object when we perform other functions (such as <code>head(dat[ ,Likerts])</code>).</p>
+<p>What is new here is the <code>apply()</code> function. This function has three <strong>arguments</strong>. The first one specifies the data (rows and columns) we want to apply a function to, the second argument specifies the margin we seek to apply the function to, and the third argument specifies the function we wish to have applied (<code>mean</code> in our case).</p>
+<table style="width:88%;">
+<colgroup>
+<col width="6%" />
+<col width="80%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td align="right"><br />
+</td>
+<td><img src="images/note.png" alt="Note" /><span style="color:gray"> An argument is a statement within a function. Simple functions, like <code>summary()</code> and <code>median()</code> take a single argument. The order of arguments in a function is important so R can distinguish them; otherwise, we need to explicitly identify the argument. The function above, with its three arguments made explicit is <code>dat$Energy&lt;- apply(X = dat[ , Likerts], MARGIN = 1, FUN = mean)</code>. The argument identifiers are <code>X</code>, <code>MARGIN</code>, and <code>FUN</code>. In our example, I made “<code>MARGIN =</code>” explicit to bring our attention to it but we can omit the words “<code>MARGIN =</code>” and simply use the value (<code>1</code> in our case) because it is the second argument in the function.</span></td>
+</tr>
+</tbody>
+</table>
+<p>In our example, our data are <code>dat[ ,Likerts]</code>, as specified by our first argument.<br />
+The second argument tells R to apply the function to the first margin (<code>MARGIN = 1</code>), which refers to the rows. (The second margin would apply the mean to the columns, which is not what we seek to do here.) Just as in indexing, the first margin refers to rows and the second margin to columns. In other words, we wish to apply the mean function <em>along each row</em> (the first margin) and across the columns to get a mean score for each row.<a href="#fn19" class="footnote-ref" id="fnref19"><sup>19</sup></a> The result is a vector of values.<br />
+Look again at our code and notice that the arguments are separated by commas:</p>
+<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="appending.html#cb61-1"></a>dat<span class="op">$</span>Energy&lt;-<span class="st"> </span><span class="kw">apply</span>(dat[ ,Likerts], <span class="dv">1</span>, mean)</span></code></pre></div>
+</div>
+<div id="appending-variables-to-our-data-frame" class="section level2">
+<h2><span class="header-section-number">8.2</span> Appending variables to our data frame</h2>
+<p>Finally, because the result is the same length as the number of rows in our data frame, we can append it as a new column using the <code>$</code> symbol and a new name, “<code>Energy</code>”, that we create on the fly: <code>dat$Energy</code>.<a href="#fn20" class="footnote-ref" id="fnref20"><sup>20</sup></a></p>
+<p>Let’s again examine our new data frame to see the new variable we created. Notice that it is the last column. Also, let’s make sure the calculation was correct: For Person 1, the mean across the responses was <span class="math inline">\(\frac{5+5+4+3+2}{5}=3.8\)</span>, which is the same value reported under the Energy column.</p>
+<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="appending.html#cb62-1"></a><span class="kw">head</span>(dat)</span></code></pre></div>
+<pre><code>##   PID Lik1 Lik2 Lik3 Lik4 Lik5 Teacher Energy
+## 1   1    5    5    4    3    2      No    3.8
+## 2   2    2    2    3    1    2     Yes    2.0
+## 3   3    4    4    3    3    2      No    3.2
+## 4   4    2    2    2    1    2     Yes    1.8
+## 5   5    5    5    3    5    4      No    4.4
+## 6   6    1    1    2    2    3     Yes    1.8</code></pre>
+<p>Try this <code>apply()</code> function out on the same data and create a new variable called <code>EnergySum</code> (or use whatever variable name you like, as long as it begins with a character). In other words, instead of the mean, calculate a total score based on the sum of responses across the Likert-type questions.<a href="#fn21" class="footnote-ref" id="fnref21"><sup>21</sup></a> You should see this as the result:</p>
+<pre><code>##   PID Lik1 Lik2 Lik3 Lik4 Lik5 Teacher Energy EnergySum
+## 1   1    5    5    4    3    2      No    3.8        19
+## 2   2    2    2    3    1    2     Yes    2.0        10
+## 3   3    4    4    3    3    2      No    3.2        16
+## 4   4    2    2    2    1    2     Yes    1.8         9
+## 5   5    5    5    3    5    4      No    4.4        22
+## 6   6    1    1    2    2    3     Yes    1.8         9</code></pre>
+
+</div>
+</div>
+<h3>References</h3>
+<div id="refs" class="references">
+<div id="ref-carifio_resolving_2008">
+<p>Carifio, J., &amp; Perla, R. (2008). Resolving the 50-year debate around using and misusing likert scales. <em>Medical Education</em>, <em>42</em>, 1150–1152. <a href="https://doi.org/10.1111/j.1365-2923.2008.03172.x">https://doi.org/10.1111/j.1365-2923.2008.03172.x</a></p>
+</div>
+<div id="ref-norman_likert_2010">
+<p>Norman, G. (2010). Likert scales, levels of measurement and the “laws” of statistics. <em>Advances in Health Sciences Education</em>, <em>15</em>, 625–632. <a href="https://doi.org/10.1007/s10459-010-9222-y">https://doi.org/10.1007/s10459-010-9222-y</a></p>
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="19">
+<li id="fn19"><p>We are <em>applying</em> the <code>mean()</code> function across Person 1’s responses to the Likert-type questions, then applying <code>mean()</code> across Person 2’s responses, and so forth until the last person. If we wanted to know the mean response on each column, such as for each variable across all the people, we’d specify <code>MARGIN = 2</code>.<a href="appending.html#fnref19" class="footnote-back">↩︎</a></p></li>
+<li id="fn20"><p>We can name our new variable anything we like, as long as it begins with a character. Numbers, periods, and underscores, <code>_</code>, are also acceptable in variable names, but spaces and special characters should be avoided, as should words that are used for functions, such as <code>c</code> or <code>mean</code>. Remember that R is case sensitive!<a href="appending.html#fnref20" class="footnote-back">↩︎</a></p></li>
+<li id="fn21"><p>With composite scores calculated from multiple items that all use the same scale, you might find the mean to be more informative than the sum because the composite score can be interpreted on the same scale.
+For instance, if each of our items’ response scales was 1 = <em>Very low energy</em>, 2 = <em>Moderately low energy</em>, 3 = <em>Medium level of energy</em>, 4 = <em>Moderately high energy</em>, and 5 = <em>Very high energy</em>, we can interpret Person 1’s score of 3.8 on <code>Energy</code> as being just below a moderately high energy level.<a href="appending.html#fnref21" class="footnote-back">↩︎</a></p></li>
+</ol>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="describing.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="plotting.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/rstudio/bookdown-demo/edit/master/07-appending.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["Getting-started.pdf", "Getting-started.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

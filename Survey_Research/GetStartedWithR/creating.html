@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Part 3 Creating and re-opening an R script file | Getting Started with R for Survey Data</title>
+  <meta name="description" content="Provides guidance for getting started with R." />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Part 3 Creating and re-opening an R script file | Getting Started with R for Survey Data" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="Provides guidance for getting started with R." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Part 3 Creating and re-opening an R script file | Getting Started with R for Survey Data" />
+  
+  <meta name="twitter:description" content="Provides guidance for getting started with R." />
+  
+
+<meta name="author" content="George M. Harrison  University of Hawai‘i at Mānoa, College of Education" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="download.html"/>
+<link rel="next" href="saving.html"/>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+
+
+<style type="text/css">
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Gettin' Started with R</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> What is R</a></li>
+<li class="chapter" data-level="2" data-path="download.html"><a href="download.html"><i class="fa fa-check"></i><b>2</b> Download R, then RStudio</a><ul>
+<li class="chapter" data-level="2.1" data-path="download.html"><a href="download.html#how-and-from-where"><i class="fa fa-check"></i><b>2.1</b> How and from where</a></li>
+<li class="chapter" data-level="2.2" data-path="download.html"><a href="download.html#look-at-rstudios-environment"><i class="fa fa-check"></i><b>2.2</b> Look at RStudio’s environment</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="creating.html"><a href="creating.html"><i class="fa fa-check"></i><b>3</b> Creating and re-opening an R script file</a><ul>
+<li class="chapter" data-level="3.1" data-path="creating.html"><a href="creating.html#create-an-r-script-file-in-your-folder-then-start-rstudio-by-double-clicking-that-file"><i class="fa fa-check"></i><b>3.1</b> Create an R script file in your folder, then start RStudio by double-clicking that file</a></li>
+<li class="chapter" data-level="3.2" data-path="creating.html"><a href="creating.html#if-you-need-to-set-the-working-directory"><i class="fa fa-check"></i><b>3.2</b> If you need to set the working directory</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="saving.html"><a href="saving.html"><i class="fa fa-check"></i><b>4</b> Saving and closing an R session</a></li>
+<li class="chapter" data-level="5" data-path="importing.html"><a href="importing.html"><i class="fa fa-check"></i><b>5</b> Importing data from a CSV file</a></li>
+<li class="chapter" data-level="6" data-path="examining.html"><a href="examining.html"><i class="fa fa-check"></i><b>6</b> Examining the data</a><ul>
+<li class="chapter" data-level="6.1" data-path="examining.html"><a href="examining.html#making-heads-and-tails-of-our-data"><i class="fa fa-check"></i><b>6.1</b> Making heads and tails of our data</a></li>
+<li class="chapter" data-level="6.2" data-path="examining.html"><a href="examining.html#point-and-click-in-rstudio"><i class="fa fa-check"></i><b>6.2</b> Point-and-click in RStudio</a></li>
+<li class="chapter" data-level="6.3" data-path="examining.html"><a href="examining.html#viewing-the-structure-of-the-data"><i class="fa fa-check"></i><b>6.3</b> Viewing the structure of the data</a></li>
+<li class="chapter" data-level="6.4" data-path="examining.html"><a href="examining.html#extracting-the-names-of-the-columns"><i class="fa fa-check"></i><b>6.4</b> Extracting the names of the columns</a></li>
+<li class="chapter" data-level="6.5" data-path="examining.html"><a href="examining.html#subsetting-data-using-and-indexing"><i class="fa fa-check"></i><b>6.5</b> Subsetting data using <code>$</code> and indexing</a></li>
+<li class="chapter" data-level="6.6" data-path="examining.html"><a href="examining.html#creating-objects-with-the-combine-function"><i class="fa fa-check"></i><b>6.6</b> Creating objects with the combine function</a></li>
+<li class="chapter" data-level="6.7" data-path="examining.html"><a href="examining.html#putting-the-functions-together"><i class="fa fa-check"></i><b>6.7</b> Putting the functions together</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="describing.html"><a href="describing.html"><i class="fa fa-check"></i><b>7</b> Describing the data</a><ul>
+<li class="chapter" data-level="7.1" data-path="describing.html"><a href="describing.html#the-summary-function"><i class="fa fa-check"></i><b>7.1</b> The summary function</a></li>
+<li class="chapter" data-level="7.2" data-path="describing.html"><a href="describing.html#specific-functions-for-summarizing-data"><i class="fa fa-check"></i><b>7.2</b> Specific functions for summarizing data</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="appending.html"><a href="appending.html"><i class="fa fa-check"></i><b>8</b> Creating new variables</a><ul>
+<li class="chapter" data-level="8.1" data-path="appending.html"><a href="appending.html#creating-scores-from-items"><i class="fa fa-check"></i><b>8.1</b> Creating scores from items</a></li>
+<li class="chapter" data-level="8.2" data-path="appending.html"><a href="appending.html#appending-variables-to-our-data-frame"><i class="fa fa-check"></i><b>8.2</b> Appending variables to our data frame</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="plotting.html"><a href="plotting.html"><i class="fa fa-check"></i><b>9</b> Creating a simple box plot</a></li>
+<li class="chapter" data-level="10" data-path="gettinghelp.html"><a href="gettinghelp.html"><i class="fa fa-check"></i><b>10</b> Getting help and troubleshooting</a><ul>
+<li class="chapter" data-level="10.1" data-path="gettinghelp.html"><a href="gettinghelp.html#rs-help-files"><i class="fa fa-check"></i><b>10.1</b> R’s help files</a></li>
+<li class="chapter" data-level="10.2" data-path="gettinghelp.html"><a href="gettinghelp.html#online-help"><i class="fa fa-check"></i><b>10.2</b> Online help</a></li>
+<li class="chapter" data-level="10.3" data-path="gettinghelp.html"><a href="gettinghelp.html#why-wont-my-code-run"><i class="fa fa-check"></i><b>10.3</b> Why won’t my code run?</a></li>
+<li class="chapter" data-level="10.4" data-path="gettinghelp.html"><a href="gettinghelp.html#have-patience-and-keep-learning"><i class="fa fa-check"></i><b>10.4</b> Have patience and keep learning</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="listoffunc.html"><a href="listoffunc.html"><i class="fa fa-check"></i><b>11</b> List of functions and other code in this tutorial</a></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Getting Started with R for Survey Data</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="creating" class="section level1">
+<h1><span class="header-section-number">Part 3</span> Creating and re-opening an R script file</h1>
+<div id="create-an-r-script-file-in-your-folder-then-start-rstudio-by-double-clicking-that-file" class="section level2">
+<h2><span class="header-section-number">3.1</span> Create an R script file in your folder, then start RStudio by double-clicking that file</h2>
+<p>We typically write code in a script file, run it to be sure our coding is correct, then save the file to a location on our local machine so we can continue working on it another day. For a six-minute introductory video on this process, go to <a href="https://youtu.be/C8sP6rfrMAs" class="uri">https://youtu.be/C8sP6rfrMAs</a>.</p>
+<p>There are at least two ways to create a new R script file:</p>
+<ol style="list-style-type: decimal">
+<li>Open RStudio to get a blank source script page; then, save the file (using the <code>File</code> menu), giving it a name with the extension <code>.R</code> and selecting a directory on your computer where you want it to be saved (such as a folder for this class). After doing this, close RStudio. Then, navigate to the folder in which you saved your R script file and open it again by double-clicking on the file. You might need to right click on the file and use <strong><code>Open With</code></strong> to direct your computer to open the R file with RStudio.</li>
+</ol>
+<p>
+<ul>
+<li style="list-style-type: none;">
+From there, you should be able to also set your computer to always use RStudio for files with <code>.R</code> extensions. By closing RStudio, and then navigating to your folder to open the R file directly, our R session will automatically set the working directory to be that folder location. In other words, this is the lazy way (which I fully appreciate) because we can avoid having to manually set the working directory.
+</li>
+</ul>
+<p>
+<table style="width:88%;">
+<colgroup>
+<col width="6%" />
+<col width="80%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td align="right"><br />
+</td>
+<td><img src="images/note.png" alt="Note" /><span style="color:gray"> A working directory is the folder location where R looks for files, such as data files, and saves outputted files, such as plots that we output or data that we save. <strong>Advice for lazy folks like me:</strong> Create a folder for each separate analysis. In that folder, place the R script file and the data file (CSV file, which we’ll describe in <a href="importing.html#importing">Part 5</a>). This will simplify the process when you tell R which data file to use (because otherwise we have to specify a working directory).</span></td>
+</tr>
+</tbody>
+</table>
+<ol start="2" style="list-style-type: decimal">
+<li>Go to your directory where you want to keep the file and create a new document with the <code>.R</code> extension.<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a> You might name your file something like <code>MyAnalysis.R</code>.<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a> Open the file. As mentioned above, you might need to use <strong>Open With</strong> and set your computer to always open <code>.R</code> files with RStudio.</li>
+</ol>
+<p>You can, of course, also place an existing script file in a folder and start a new session of RStudio by clicking on that file. For instance, if you acquired some data and an R script file (from an online source, your instructor, or a colleague), you can place the files into your folder and open the script file from there. This will create the working directory in the right place (as long as RStudio was not already open).</p>
+</div>
+<div id="if-you-need-to-set-the-working-directory" class="section level2">
+<h2><span class="header-section-number">3.2</span> If you need to set the working directory</h2>
+<p>Note that when you start an RStudio session from a folder location that does <strong>not</strong> include your data, such as if you access a shortcut on your desktop, you will need create a working directory by entering something like this in your script: <code>setwd("C:/Users/Yourname/Desktop/Yourfolder")</code>.<a href="#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a></p>
+<p>An alternative to using the <code>setwd()</code> function is to use RStudio’s GUI. So, if you have your data and your R script in a folder, but you’re unable to read the data (perhaps because you opened RStudio from your applications menu instead of clicking on the file in your folder), you can do this: Go to the pane that shows your files, plots, packages, and so forth. Open the files tab and navigate to the folder where your data reside by clicking on the ellipsis button <code>...</code> on the right. After that, go to the <code>More</code> menu and select <code>Set As Working Directory</code>. <br></p>
+<p><img src="images/GoToFileDirectory.png" title="Navigate to the files directory (such as a folder you created for your class or specific analysis" alt="Click the small icon on the top right of the files pane to navigate to the files directory (such as a folder you created for your class or specific analysis)." /></p>
+<p>Now our files tab shows the folder we want (in this example, it’s a folder on the desktop).</p>
+<p><img src="images/AtFileDirectory.png" title="Now our files tab shows the folder we want (in this example, it&#39;s a folder on the desktop)" alt="Now our files tab shows the folder we want (in this example, it’s a folder on the desktop)" /></p>
+<p>Here’s the <code>More</code> directory, where <code>Set As Working Directory</code> can be selected.</p>
+<p><img src="images/SetWDGui.png" title="Using RStudio&#39;s GUI to set the working directory" alt="In the Files pane, select the More icon and then select Set as working directory." /></p>
+<p>Rather than dealing with all this working directory business, it is easier to place all of our files in a single folder and start an RStudio session by clicking on the <code>.R</code> file.<a href="#fn5" class="footnote-ref" id="fnref5"><sup>5</sup></a></p>
+
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="2">
+<li id="fn2"><p>On a PC, you can right click in a folder and create a new file, then change the extension from <code>.txt</code> to <code>.R</code>.<a href="creating.html#fnref2" class="footnote-back">↩︎</a></p></li>
+<li id="fn3"><p>You might need to tell your computer to display the file extensions of files, such as <code>.docx</code> for Word docs and <code>.R</code> for R script files.<a href="creating.html#fnref3" class="footnote-back">↩︎</a></p></li>
+<li id="fn4"><p>The directory path depends on your operating system, how your folders are set up, and of course, where you want to save your file. If you want to see where your working directory is, use the <code>getwd()</code> function.<a href="creating.html#fnref4" class="footnote-back">↩︎</a></p></li>
+<li id="fn5"><p>Another option is to use RStudio projects.<a href="creating.html#fnref5" class="footnote-back">↩︎</a></p></li>
+</ol>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="download.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="saving.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/rstudio/bookdown-demo/edit/master/02-creating.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["Getting-started.pdf", "Getting-started.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

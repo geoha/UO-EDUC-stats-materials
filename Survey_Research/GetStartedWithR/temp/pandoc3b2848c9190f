@@ -1,1 +1,0 @@
-<p>The dollar sign is used to select a particular column (i.e., variable) from the data. All rows of this column of data are included. Because we’ve selected a single column, the result is a <strong><em>vector</em></strong> of numbers.</p>
