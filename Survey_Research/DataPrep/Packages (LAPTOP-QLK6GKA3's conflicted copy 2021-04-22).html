@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Part 3 Installing and Using Packages | Preparing and Analyzing Survey Data in R</title>
+  <meta name="description" content="Provides guidance for preparing and analyzing survey data in R." />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Part 3 Installing and Using Packages | Preparing and Analyzing Survey Data in R" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="Provides guidance for preparing and analyzing survey data in R." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Part 3 Installing and Using Packages | Preparing and Analyzing Survey Data in R" />
+  
+  <meta name="twitter:description" content="Provides guidance for preparing and analyzing survey data in R." />
+  
+
+<meta name="author" content="George M. Harrison  University of Hawai‘i at Mānoa, College of Education" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="Prepping.html"/>
+<link rel="next" href="Descripts.html"/>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<link href="libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Preparing and Analyzing Survey Data</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a><ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#prior-knowledge"><i class="fa fa-check"></i><b>1.1</b> Prior knowledge</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="Prepping.html"><a href="Prepping.html"><i class="fa fa-check"></i><b>2</b> Preparing the Data</a><ul>
+<li class="chapter" data-level="2.1" data-path="Prepping.html"><a href="Prepping.html#import-the-data-from-the-csv-file"><i class="fa fa-check"></i><b>2.1</b> Import the data from the CSV file</a><ul>
+<li class="chapter" data-level="2.1.1" data-path="Prepping.html"><a href="Prepping.html#examining-the-imported-data-set"><i class="fa fa-check"></i><b>2.1.1</b> Examining the imported data set</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="Prepping.html"><a href="Prepping.html#managing-the-structure-of-the-data"><i class="fa fa-check"></i><b>2.2</b> Managing the structure of the data</a></li>
+<li class="chapter" data-level="2.3" data-path="Prepping.html"><a href="Prepping.html#recoding-response-category-data"><i class="fa fa-check"></i><b>2.3</b> Recoding response-category data</a><ul>
+<li class="chapter" data-level="2.3.1" data-path="Prepping.html"><a href="Prepping.html#reverse-coding-and-rescaling-data"><i class="fa fa-check"></i><b>2.3.1</b> Reverse-coding and rescaling data</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="Prepping.html"><a href="Prepping.html#creating-composite-scores-aka-indexes"><i class="fa fa-check"></i><b>2.4</b> Creating Composite Scores (AKA Indexes)</a></li>
+<li class="chapter" data-level="2.5" data-path="Prepping.html"><a href="Prepping.html#a-general-formula-for-rescaling-data"><i class="fa fa-check"></i><b>2.5</b> A general formula for rescaling data</a></li>
+<li class="chapter" data-level="2.6" data-path="Prepping.html"><a href="Prepping.html#create-and-use-a-custom-function"><i class="fa fa-check"></i><b>2.6</b> Create and use a custom function</a></li>
+<li class="chapter" data-level="2.7" data-path="Prepping.html"><a href="Prepping.html#the-code-in-one-place-for-one-of-the-composite-scores"><i class="fa fa-check"></i><b>2.7</b> The code in one place for one of the composite scores</a></li>
+<li class="chapter" data-level="2.8" data-path="Prepping.html"><a href="Prepping.html#a-shortcut-when-all-of-the-items-are-on-the-same-scale"><i class="fa fa-check"></i><b>2.8</b> A shortcut, when all of the items are on the same scale</a></li>
+<li class="chapter" data-level="2.9" data-path="Prepping.html"><a href="Prepping.html#summary"><i class="fa fa-check"></i><b>2.9</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="Packages.html"><a href="Packages.html"><i class="fa fa-check"></i><b>3</b> Installing and Using Packages</a><ul>
+<li class="chapter" data-level="3.1" data-path="Packages.html"><a href="Packages.html#seeing-if-we-need-to-install-a-package"><i class="fa fa-check"></i><b>3.1</b> Seeing if we need to install a package</a></li>
+<li class="chapter" data-level="3.2" data-path="Packages.html"><a href="Packages.html#installing-a-package"><i class="fa fa-check"></i><b>3.2</b> Installing a package</a></li>
+<li class="chapter" data-level="3.3" data-path="Packages.html"><a href="Packages.html#using-a-function-from-a-package"><i class="fa fa-check"></i><b>3.3</b> Using a function from a package</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="Descripts.html"><a href="Descripts.html"><i class="fa fa-check"></i><b>4</b> Estimating Descriptive Statistics</a><ul>
+<li class="chapter" data-level="4.1" data-path="Descripts.html"><a href="Descripts.html#descriptive-statistics-of-categorical-data"><i class="fa fa-check"></i><b>4.1</b> Descriptive statistics of categorical data</a><ul>
+<li class="chapter" data-level="4.1.1" data-path="Descripts.html"><a href="Descripts.html#creating-factors"><i class="fa fa-check"></i><b>4.1.1</b> Creating factors</a></li>
+<li class="chapter" data-level="4.1.2" data-path="Descripts.html"><a href="Descripts.html#plotting-the-frequency-data"><i class="fa fa-check"></i><b>4.1.2</b> Plotting the frequency data</a></li>
+<li class="chapter" data-level="4.1.3" data-path="Descripts.html"><a href="Descripts.html#cross-tabulations"><i class="fa fa-check"></i><b>4.1.3</b> Cross-tabulations</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="Descripts.html"><a href="Descripts.html#IntrvlDesc"><i class="fa fa-check"></i><b>4.2</b> Descriptive statistics of interval-level data</a><ul>
+<li class="chapter" data-level="4.2.1" data-path="Descripts.html"><a href="Descripts.html#calculating-the-confidence-interval"><i class="fa fa-check"></i><b>4.2.1</b> Calculating the confidence interval</a></li>
+<li class="chapter" data-level="4.2.2" data-path="Descripts.html"><a href="Descripts.html#generating-and-exporting-a-report"><i class="fa fa-check"></i><b>4.2.2</b> Generating and exporting a report</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="Descripts.html"><a href="Descripts.html#but-really-its-inferential"><i class="fa fa-check"></i><b>4.3</b> But really, it’s inferential</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="ByDescripts.html"><a href="ByDescripts.html"><i class="fa fa-check"></i><b>5</b> Descriptive Statistics by Group</a><ul>
+<li class="chapter" data-level="5.1" data-path="ByDescripts.html"><a href="ByDescripts.html#using-the-describeby-function"><i class="fa fa-check"></i><b>5.1</b> Using the <code>describeBy()</code> function</a></li>
+<li class="chapter" data-level="5.2" data-path="ByDescripts.html"><a href="ByDescripts.html#confidence-intervals-for-each-groups-estimated-mean"><i class="fa fa-check"></i><b>5.2</b> Confidence intervals for each group’s estimated mean</a><ul>
+<li class="chapter" data-level="5.2.1" data-path="ByDescripts.html"><a href="ByDescripts.html#separating-the-report-by-group"><i class="fa fa-check"></i><b>5.2.1</b> Separating the report by group</a></li>
+<li class="chapter" data-level="5.2.2" data-path="ByDescripts.html"><a href="ByDescripts.html#calculating-the-confidence-interval-1"><i class="fa fa-check"></i><b>5.2.2</b> Calculating the confidence interval</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="ByDescripts.html"><a href="ByDescripts.html#plotting-the-by-group-means-and-confidence-intervals"><i class="fa fa-check"></i><b>5.3</b> Plotting the by-group means and confidence intervals</a><ul>
+<li class="chapter" data-level="5.3.1" data-path="ByDescripts.html"><a href="ByDescripts.html#making-a-pretty-plot-maybe"><i class="fa fa-check"></i><b>5.3.1</b> Making a pretty plot, maybe</a></li>
+<li class="chapter" data-level="5.3.2" data-path="ByDescripts.html"><a href="ByDescripts.html#saving-plots"><i class="fa fa-check"></i><b>5.3.2</b> Saving plots</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="Reliability.html"><a href="Reliability.html"><i class="fa fa-check"></i><b>6</b> Internal Consistency Reliability</a><ul>
+<li class="chapter" data-level="6.1" data-path="Reliability.html"><a href="Reliability.html#doing-it-manually"><i class="fa fa-check"></i><b>6.1</b> Doing it manually</a></li>
+<li class="chapter" data-level="6.2" data-path="Reliability.html"><a href="Reliability.html#doing-it-with-the-psych-package"><i class="fa fa-check"></i><b>6.2</b> Doing it with the psych package</a><ul>
+<li class="chapter" data-level="6.2.1" data-path="Reliability.html"><a href="Reliability.html#omega-reliability-using-the-psych-package"><i class="fa fa-check"></i><b>6.2.1</b> Omega reliability using the psych package</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="Reliability.html"><a href="Reliability.html#summary-1"><i class="fa fa-check"></i><b>6.3</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="Complex.html"><a href="Complex.html"><i class="fa fa-check"></i><b>7</b> Introduction to the Analysis of Complex Survey Data</a><ul>
+<li class="chapter" data-level="7.1" data-path="Complex.html"><a href="Complex.html#packages"><i class="fa fa-check"></i><b>7.1</b> Packages</a></li>
+<li class="chapter" data-level="7.2" data-path="Complex.html"><a href="Complex.html#example-data"><i class="fa fa-check"></i><b>7.2</b> Example data</a></li>
+<li class="chapter" data-level="7.3" data-path="Complex.html"><a href="Complex.html#the-three-hypothetical-complex-designs"><i class="fa fa-check"></i><b>7.3</b> The three hypothetical complex designs</a><ul>
+<li class="chapter" data-level="7.3.1" data-path="Complex.html"><a href="Complex.html#pretending-we-have-a-cluster-sampled-design"><i class="fa fa-check"></i><b>7.3.1</b> Pretending we have a cluster-sampled design</a></li>
+<li class="chapter" data-level="7.3.2" data-path="Complex.html"><a href="Complex.html#pretending-we-have-a-stratified-design"><i class="fa fa-check"></i><b>7.3.2</b> Pretending we have a stratified design</a></li>
+<li class="chapter" data-level="7.3.3" data-path="Complex.html"><a href="Complex.html#pretending-we-have-a-stratified-cluster-sampled-design"><i class="fa fa-check"></i><b>7.3.3</b> Pretending we have a stratified cluster-sampled design</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="Complex.html"><a href="Complex.html#cluster-sampled-design"><i class="fa fa-check"></i><b>7.4</b> Cluster-sampled design</a><ul>
+<li class="chapter" data-level="7.4.1" data-path="Complex.html"><a href="Complex.html#preparing-the-data"><i class="fa fa-check"></i><b>7.4.1</b> Preparing the data</a></li>
+<li class="chapter" data-level="7.4.2" data-path="Complex.html"><a href="Complex.html#step-1-specifying-the-design"><i class="fa fa-check"></i><b>7.4.2</b> Step 1: Specifying the design</a></li>
+<li class="chapter" data-level="7.4.3" data-path="Complex.html"><a href="Complex.html#step-2-calculating-the-estimates"><i class="fa fa-check"></i><b>7.4.3</b> Step 2: Calculating the estimates</a></li>
+<li class="chapter" data-level="7.4.4" data-path="Complex.html"><a href="Complex.html#effective-sample-size"><i class="fa fa-check"></i><b>7.4.4</b> Effective sample size</a></li>
+<li class="chapter" data-level="7.4.5" data-path="Complex.html"><a href="Complex.html#reporting-the-mean-per-cluster"><i class="fa fa-check"></i><b>7.4.5</b> Reporting the mean per cluster</a></li>
+<li class="chapter" data-level="7.4.6" data-path="Complex.html"><a href="Complex.html#two-stage-cluster-sampled-design"><i class="fa fa-check"></i><b>7.4.6</b> Two-stage cluster-sampled design</a></li>
+</ul></li>
+<li class="chapter" data-level="7.5" data-path="Complex.html"><a href="Complex.html#stratified-design"><i class="fa fa-check"></i><b>7.5</b> Stratified design</a><ul>
+<li class="chapter" data-level="7.5.1" data-path="Complex.html"><a href="Complex.html#preparing-our-data-set"><i class="fa fa-check"></i><b>7.5.1</b> Preparing our data set</a></li>
+<li class="chapter" data-level="7.5.2" data-path="Complex.html"><a href="Complex.html#step-1-specifying-the-design-1"><i class="fa fa-check"></i><b>7.5.2</b> Step 1: Specifying the design</a></li>
+<li class="chapter" data-level="7.5.3" data-path="Complex.html"><a href="Complex.html#step-2-calculating-the-estimates-1"><i class="fa fa-check"></i><b>7.5.3</b> Step 2: Calculating the estimates</a></li>
+</ul></li>
+<li class="chapter" data-level="7.6" data-path="Complex.html"><a href="Complex.html#stratified-cluster-sampled-design"><i class="fa fa-check"></i><b>7.6</b> Stratified cluster-sampled design</a><ul>
+<li class="chapter" data-level="7.6.1" data-path="Complex.html"><a href="Complex.html#preparing-the-data-1"><i class="fa fa-check"></i><b>7.6.1</b> Preparing the data</a></li>
+<li class="chapter" data-level="7.6.2" data-path="Complex.html"><a href="Complex.html#step-1-specifying-the-design-2"><i class="fa fa-check"></i><b>7.6.2</b> Step 1: Specifying the design</a></li>
+<li class="chapter" data-level="7.6.3" data-path="Complex.html"><a href="Complex.html#step-2-calculating-the-estimates-2"><i class="fa fa-check"></i><b>7.6.3</b> Step 2: Calculating the estimates</a></li>
+</ul></li>
+<li class="chapter" data-level="7.7" data-path="Complex.html"><a href="Complex.html#a-simple-random-sample-design-for-comparison"><i class="fa fa-check"></i><b>7.7</b> A simple random sample design, for comparison</a><ul>
+<li class="chapter" data-level="7.7.1" data-path="Complex.html"><a href="Complex.html#preparing-our-data-set-1"><i class="fa fa-check"></i><b>7.7.1</b> Preparing our data set</a></li>
+<li class="chapter" data-level="7.7.2" data-path="Complex.html"><a href="Complex.html#comparing-all-design-scenarios"><i class="fa fa-check"></i><b>7.7.2</b> Comparing all design scenarios</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Preparing and Analyzing Survey Data in R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="Packages" class="section level1">
+<h1><span class="header-section-number">Part 3</span> Installing and Using Packages</h1>
+<p>In R, we use packages that are developed by nerdy people (whom I admire) and made available for the rest of us to use. Often a package is for a specific purpose or a family of analyses. To analyze simple survey data, we will use the psych package <span class="citation">(Revelle, <a href="#ref-R-psych" role="doc-biblioref">2020</a>)</span> to perform descriptive statistics and estimate reliability coefficients, the ggplot2 package <span class="citation">(Wickham, Chang, et al., <a href="#ref-R-ggplot2" role="doc-biblioref">2020</a>)</span> to create pretty plots, and the dplyr <span class="citation">(Wickham, François, et al., <a href="#ref-R-dplyr" role="doc-biblioref">2020</a>)</span> package to wrangle our data.</p>
+<div id="seeing-if-we-need-to-install-a-package" class="section level2">
+<h2><span class="header-section-number">3.1</span> Seeing if we need to install a package</h2>
+<p>First, we need to see if the packages we need for this session are installed on our machine. To do this, we can either</p>
+<ol style="list-style-type: decimal">
+<li>see if each of these packages is listed in the “Packages” tab in the lower right pane, or</li>
+<li>use the <code>require()</code> function with each package to see if we get the result “there is no package called ‘[package name]’”. Let’s say we think there’s a package called PackageNot on our machine. (You can plug in any random name for this.) We can verify this with this code:</li>
+</ol>
+<div class="sourceCode" id="cb96"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb96-1"><a href="Packages.html#cb96-1"></a><span class="kw">require</span>(<span class="st">&quot;PackageNot&quot;</span>)</span></code></pre></div>
+<pre><code>## Loading required package: PackageNot</code></pre>
+<pre><code>## Warning in library(package, lib.loc = lib.loc, character.only = TRUE,
+## logical.return = TRUE, : there is no package called &#39;PackageNot&#39;</code></pre>
+<p>Do the same thing with the psych package. If you do <em>not</em> have it installed, it will give you the same result. If you do have it installed, it will generate an output that says <code>Loading required package: psych</code>:</p>
+<div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb99-1"><a href="Packages.html#cb99-1"></a><span class="kw">require</span>(<span class="st">&quot;psych&quot;</span>)</span></code></pre></div>
+<pre><code>## Loading required package: psych</code></pre>
+<p>You might also see a warning that the package was built under a newer version of R. There are R updates every few months or so. If you find the package is not working, you might need to update R, which we won’t address right now.</p>
+</div>
+<div id="installing-a-package" class="section level2">
+<h2><span class="header-section-number">3.2</span> Installing a package</h2>
+<p>The <code>install.packages()</code> function is handy for installing packages:</p>
+<div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb101-1"><a href="Packages.html#cb101-1"></a><span class="kw">install.packages</span>(<span class="st">&quot;psych&quot;</span>)</span></code></pre></div>
+<p>Once a package is installed on a machine, we do not need to install it again.<a href="#fn7" class="footnote-ref" id="fnref7"><sup>7</sup></a> But, you might want to keep your code as a record of what you did or make the <code>install.packages()</code> line of your code accessible to your friends if you wish to share it with others.<a href="#fn8" class="footnote-ref" id="fnref8"><sup>8</sup></a> You can comment out the code if you want R to ignore it. In R, anything after a <code>#</code> symbol is commented out:</p>
+<div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb102-1"><a href="Packages.html#cb102-1"></a><span class="co"># install.packages(&quot;psych&quot;)</span></span></code></pre></div>
+<p>Now, let’s bring the package into our working library so we can use a function from that package.<a href="#fn9" class="footnote-ref" id="fnref9"><sup>9</sup></a></p>
+<div class="sourceCode" id="cb103"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb103-1"><a href="Packages.html#cb103-1"></a><span class="kw">library</span>(psych)</span></code></pre></div>
+<p>We can also find out what functions are available in a package with the <code>help()</code> function and the package name:</p>
+<div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb104-1"><a href="Packages.html#cb104-1"></a><span class="kw">help</span>(<span class="dt">package =</span> <span class="st">&quot;psych&quot;</span>)</span></code></pre></div>
+<p>The functions are in alphabetical order. We can see the <code>alpha()</code> function listed second in the alphabet (under <code>-- A --</code>). We will use this function for estimating internal consistency reliability. If you click on the function, there will be a lot of information to sort through. The <code>Usage</code>and <code>Arguments</code> sections near the top and the <code>Examples</code> section at the bottom are usually useful.</p>
+</div>
+<div id="using-a-function-from-a-package" class="section level2">
+<h2><span class="header-section-number">3.3</span> Using a function from a package</h2>
+<p>After we bring the package into our library, during our R session, we can use its functions.</p>
+<p>One that we will use is the <code>describe()</code> function. First, let’s review some code that we learned last week:<a href="#fn10" class="footnote-ref" id="fnref10"><sup>10</sup></a></p>
+<div class="sourceCode" id="cb105"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb105-1"><a href="Packages.html#cb105-1"></a>timss &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&#39;Week13_Timss_Mock_Raw.csv&#39;</span>) </span>
+<span id="cb105-2"><a href="Packages.html#cb105-2"></a></span>
+<span id="cb105-3"><a href="Packages.html#cb105-3"></a>Q15 &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Q15_StCentrd_a&quot;</span>, <span class="st">&quot;Q15_StCentrd_b&quot;</span>, <span class="st">&quot;Q15_StCentrd_c&quot;</span>, <span class="st">&quot;Q15_StCentrd_d&quot;</span>, </span>
+<span id="cb105-4"><a href="Packages.html#cb105-4"></a>        <span class="st">&quot;Q15_StCentrd_e&quot;</span>, <span class="st">&quot;Q15_StCentrd_f&quot;</span>, <span class="st">&quot;Q15_StCentrd_g&quot;</span>)</span>
+<span id="cb105-5"><a href="Packages.html#cb105-5"></a></span>
+<span id="cb105-6"><a href="Packages.html#cb105-6"></a>Q15R &lt;-<span class="st"> </span><span class="kw">paste0</span>(Q15,<span class="st">&quot;R&quot;</span>)</span>
+<span id="cb105-7"><a href="Packages.html#cb105-7"></a></span>
+<span id="cb105-8"><a href="Packages.html#cb105-8"></a>timss[ ,Q15R] &lt;-<span class="st"> </span>(<span class="dv">4</span> <span class="op">+</span><span class="st"> </span><span class="dv">0</span> <span class="op">-</span><span class="st"> </span>timss[,Q15]) </span>
+<span id="cb105-9"><a href="Packages.html#cb105-9"></a></span>
+<span id="cb105-10"><a href="Packages.html#cb105-10"></a>timss<span class="op">$</span>Q15_Index &lt;-<span class="st"> </span><span class="kw">apply</span>(timss[ ,Q15R],<span class="dv">1</span>, mean, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>) </span></code></pre></div>
+<p>We could use the <code>summary()</code> function from Base R to get some descriptive statistics of this variable, Q15_Index.</p>
+<div class="sourceCode" id="cb106"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb106-1"><a href="Packages.html#cb106-1"></a><span class="kw">summary</span>(timss<span class="op">$</span>Q15_Index)</span></code></pre></div>
+<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+##  0.5714  1.2857  1.5714  1.7190  2.0000  3.0000</code></pre>
+<p>This does not show the standard deviation or the <em>n</em>-size. Now, let’s try the <code>describe()</code> function from the psych package:</p>
+<div class="sourceCode" id="cb108"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb108-1"><a href="Packages.html#cb108-1"></a><span class="kw">describe</span>(timss<span class="op">$</span>Q15_Index)</span></code></pre></div>
+<pre><code>##    vars  n mean   sd median trimmed  mad  min max range skew kurtosis   se
+## X1    1 30 1.72 0.61   1.57    1.68 0.64 0.57   3  2.43 0.43    -0.62 0.11</code></pre>
+<p>With this, we get the <em>n</em>-size (<code>n</code>), the standard deviation (<code>sd</code>), and some other handy estimates, such as the standard error of the mean (<code>se</code> in this output). We might not wish to report all of these numbers from the output, but this is certainly more informative than Base R’s <code>summary()</code> function.</p>
+
+</div>
+</div>
+<h3>References</h3>
+<div id="refs" class="references">
+<div id="ref-R-psych">
+<p>Revelle, W. (2020). <em>Psych: Procedures for psychological, psychometric, and personality research</em>. <a href="https://personality-project.org/r/psych/%0Ahttps://personality-project.org/r/psych-manual.pdf">https://personality-project.org/r/psych/
+https://personality-project.org/r/psych-manual.pdf</a></p>
+<div id="ref-R-ggplot2">
+<p>Wickham, H., Chang, W., Henry, L., Pedersen, T. L., Takahashi, K., Wilke, C., Woo, K., Yutani, H., &amp; Dunnington, D. (2020). <em>Ggplot2: Create elegant data visualisations using the grammar of graphics</em>. <a href="https://CRAN.R-project.org/package=ggplot2">https://CRAN.R-project.org/package=ggplot2</a></p>
+</div>
+<div id="ref-R-dplyr">
+<p>Wickham, H., François, R., Henry, L., &amp; Müller, K. (2020). <em>Dplyr: A grammar of data manipulation</em>. <a href="https://CRAN.R-project.org/package=dplyr">https://CRAN.R-project.org/package=dplyr</a></p>
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="7">
+<li id="fn7"><p>It is a good idea, however, to update the packages every once in a while. In RStudio, we can click on the Packages tab and click Update.<a href="Packages.html#fnref7" class="footnote-back">↩︎</a></p></li>
+<li id="fn8"><p>Talking about R functions in social situations is a great way to ensure you get more alone time.<a href="Packages.html#fnref8" class="footnote-back">↩︎</a></p></li>
+<li id="fn9"><p>Base R has a lot of inconsistencies. You may notice that we need quotes around the package name when we use the <code>install.packages()</code> function but we don’t when we use the <code>library()</code> function. This is part of the so-called fun in R.<a href="Packages.html#fnref9" class="footnote-back">↩︎</a></p></li>
+<li id="fn10"><p>Also, note that because all of our items require the same rescaling procedure, we could use a shorter version of this code, discussed at the end of the last chapter.<a href="Packages.html#fnref10" class="footnote-back">↩︎</a></p></li>
+</ol>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="Prepping.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="Descripts.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["Getting-started.pdf", "Getting-started.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

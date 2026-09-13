@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Part 2 Preparing the Data | Preparing and Analyzing Survey Data in R</title>
+  <meta name="description" content="Provides guidance for preparing and analyzing survey data in R." />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Part 2 Preparing the Data | Preparing and Analyzing Survey Data in R" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="Provides guidance for preparing and analyzing survey data in R." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Part 2 Preparing the Data | Preparing and Analyzing Survey Data in R" />
+  
+  <meta name="twitter:description" content="Provides guidance for preparing and analyzing survey data in R." />
+  
+
+<meta name="author" content="George M. Harrison  University of Hawai‘i at Mānoa, College of Education" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="index.html"/>
+<link rel="next" href="Packages.html"/>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<link href="libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Preparing and Analyzing Survey Data</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a><ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#prior-knowledge"><i class="fa fa-check"></i><b>1.1</b> Prior knowledge</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="Prepping.html"><a href="Prepping.html"><i class="fa fa-check"></i><b>2</b> Preparing the Data</a><ul>
+<li class="chapter" data-level="2.1" data-path="Prepping.html"><a href="Prepping.html#import-the-data-from-the-csv-file"><i class="fa fa-check"></i><b>2.1</b> Import the data from the CSV file</a><ul>
+<li class="chapter" data-level="2.1.1" data-path="Prepping.html"><a href="Prepping.html#examining-the-imported-data-set"><i class="fa fa-check"></i><b>2.1.1</b> Examining the imported data set</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="Prepping.html"><a href="Prepping.html#managing-the-structure-of-the-data"><i class="fa fa-check"></i><b>2.2</b> Managing the structure of the data</a></li>
+<li class="chapter" data-level="2.3" data-path="Prepping.html"><a href="Prepping.html#recoding-response-category-data"><i class="fa fa-check"></i><b>2.3</b> Recoding response-category data</a><ul>
+<li class="chapter" data-level="2.3.1" data-path="Prepping.html"><a href="Prepping.html#reverse-coding-and-rescaling-data"><i class="fa fa-check"></i><b>2.3.1</b> Reverse-coding and rescaling data</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="Prepping.html"><a href="Prepping.html#creating-composite-scores-aka-indexes"><i class="fa fa-check"></i><b>2.4</b> Creating Composite Scores (AKA Indexes)</a></li>
+<li class="chapter" data-level="2.5" data-path="Prepping.html"><a href="Prepping.html#a-general-formula-for-rescaling-data"><i class="fa fa-check"></i><b>2.5</b> A general formula for rescaling data</a></li>
+<li class="chapter" data-level="2.6" data-path="Prepping.html"><a href="Prepping.html#create-and-use-a-custom-function"><i class="fa fa-check"></i><b>2.6</b> Create and use a custom function</a></li>
+<li class="chapter" data-level="2.7" data-path="Prepping.html"><a href="Prepping.html#the-code-in-one-place-for-one-of-the-composite-scores"><i class="fa fa-check"></i><b>2.7</b> The code in one place for one of the composite scores</a></li>
+<li class="chapter" data-level="2.8" data-path="Prepping.html"><a href="Prepping.html#a-shortcut-when-all-of-the-items-are-on-the-same-scale"><i class="fa fa-check"></i><b>2.8</b> A shortcut, when all of the items are on the same scale</a></li>
+<li class="chapter" data-level="2.9" data-path="Prepping.html"><a href="Prepping.html#summary"><i class="fa fa-check"></i><b>2.9</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="Packages.html"><a href="Packages.html"><i class="fa fa-check"></i><b>3</b> Installing and Using Packages</a><ul>
+<li class="chapter" data-level="3.1" data-path="Packages.html"><a href="Packages.html#seeing-if-we-need-to-install-a-package"><i class="fa fa-check"></i><b>3.1</b> Seeing if we need to install a package</a></li>
+<li class="chapter" data-level="3.2" data-path="Packages.html"><a href="Packages.html#installing-a-package"><i class="fa fa-check"></i><b>3.2</b> Installing a package</a></li>
+<li class="chapter" data-level="3.3" data-path="Packages.html"><a href="Packages.html#using-a-function-from-a-package"><i class="fa fa-check"></i><b>3.3</b> Using a function from a package</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="Descripts.html"><a href="Descripts.html"><i class="fa fa-check"></i><b>4</b> Estimating Descriptive Statistics</a><ul>
+<li class="chapter" data-level="4.1" data-path="Descripts.html"><a href="Descripts.html#descriptive-statistics-of-categorical-data"><i class="fa fa-check"></i><b>4.1</b> Descriptive statistics of categorical data</a><ul>
+<li class="chapter" data-level="4.1.1" data-path="Descripts.html"><a href="Descripts.html#creating-factors"><i class="fa fa-check"></i><b>4.1.1</b> Creating factors</a></li>
+<li class="chapter" data-level="4.1.2" data-path="Descripts.html"><a href="Descripts.html#plotting-the-frequency-data"><i class="fa fa-check"></i><b>4.1.2</b> Plotting the frequency data</a></li>
+<li class="chapter" data-level="4.1.3" data-path="Descripts.html"><a href="Descripts.html#cross-tabulations"><i class="fa fa-check"></i><b>4.1.3</b> Cross-tabulations</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="Descripts.html"><a href="Descripts.html#IntrvlDesc"><i class="fa fa-check"></i><b>4.2</b> Descriptive statistics of interval-level data</a><ul>
+<li class="chapter" data-level="4.2.1" data-path="Descripts.html"><a href="Descripts.html#calculating-the-confidence-interval"><i class="fa fa-check"></i><b>4.2.1</b> Calculating the confidence interval</a></li>
+<li class="chapter" data-level="4.2.2" data-path="Descripts.html"><a href="Descripts.html#generating-and-exporting-a-report"><i class="fa fa-check"></i><b>4.2.2</b> Generating and exporting a report</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="Descripts.html"><a href="Descripts.html#but-really-its-inferential"><i class="fa fa-check"></i><b>4.3</b> But really, it’s inferential</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="ByDescripts.html"><a href="ByDescripts.html"><i class="fa fa-check"></i><b>5</b> Descriptive Statistics by Group</a><ul>
+<li class="chapter" data-level="5.1" data-path="ByDescripts.html"><a href="ByDescripts.html#using-the-describeby-function"><i class="fa fa-check"></i><b>5.1</b> Using the <code>describeBy()</code> function</a></li>
+<li class="chapter" data-level="5.2" data-path="ByDescripts.html"><a href="ByDescripts.html#confidence-intervals-for-each-groups-estimated-mean"><i class="fa fa-check"></i><b>5.2</b> Confidence intervals for each group’s estimated mean</a><ul>
+<li class="chapter" data-level="5.2.1" data-path="ByDescripts.html"><a href="ByDescripts.html#separating-the-report-by-group"><i class="fa fa-check"></i><b>5.2.1</b> Separating the report by group</a></li>
+<li class="chapter" data-level="5.2.2" data-path="ByDescripts.html"><a href="ByDescripts.html#calculating-the-confidence-interval-1"><i class="fa fa-check"></i><b>5.2.2</b> Calculating the confidence interval</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="ByDescripts.html"><a href="ByDescripts.html#plotting-the-by-group-means-and-confidence-intervals"><i class="fa fa-check"></i><b>5.3</b> Plotting the by-group means and confidence intervals</a><ul>
+<li class="chapter" data-level="5.3.1" data-path="ByDescripts.html"><a href="ByDescripts.html#making-a-pretty-plot-maybe"><i class="fa fa-check"></i><b>5.3.1</b> Making a pretty plot, maybe</a></li>
+<li class="chapter" data-level="5.3.2" data-path="ByDescripts.html"><a href="ByDescripts.html#saving-plots"><i class="fa fa-check"></i><b>5.3.2</b> Saving plots</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="Reliability.html"><a href="Reliability.html"><i class="fa fa-check"></i><b>6</b> Internal Consistency Reliability</a><ul>
+<li class="chapter" data-level="6.1" data-path="Reliability.html"><a href="Reliability.html#doing-it-manually"><i class="fa fa-check"></i><b>6.1</b> Doing it manually</a></li>
+<li class="chapter" data-level="6.2" data-path="Reliability.html"><a href="Reliability.html#doing-it-with-the-psych-package"><i class="fa fa-check"></i><b>6.2</b> Doing it with the psych package</a><ul>
+<li class="chapter" data-level="6.2.1" data-path="Reliability.html"><a href="Reliability.html#omega-reliability-using-the-psych-package"><i class="fa fa-check"></i><b>6.2.1</b> Omega reliability using the psych package</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="Reliability.html"><a href="Reliability.html#summary-1"><i class="fa fa-check"></i><b>6.3</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="Complex.html"><a href="Complex.html"><i class="fa fa-check"></i><b>7</b> Introduction to the Analysis of Complex Survey Data</a><ul>
+<li class="chapter" data-level="7.1" data-path="Complex.html"><a href="Complex.html#packages"><i class="fa fa-check"></i><b>7.1</b> Packages</a></li>
+<li class="chapter" data-level="7.2" data-path="Complex.html"><a href="Complex.html#example-data"><i class="fa fa-check"></i><b>7.2</b> Example data</a></li>
+<li class="chapter" data-level="7.3" data-path="Complex.html"><a href="Complex.html#the-three-hypothetical-complex-designs"><i class="fa fa-check"></i><b>7.3</b> The three hypothetical complex designs</a><ul>
+<li class="chapter" data-level="7.3.1" data-path="Complex.html"><a href="Complex.html#pretending-we-have-a-cluster-sampled-design"><i class="fa fa-check"></i><b>7.3.1</b> Pretending we have a cluster-sampled design</a></li>
+<li class="chapter" data-level="7.3.2" data-path="Complex.html"><a href="Complex.html#pretending-we-have-a-stratified-design"><i class="fa fa-check"></i><b>7.3.2</b> Pretending we have a stratified design</a></li>
+<li class="chapter" data-level="7.3.3" data-path="Complex.html"><a href="Complex.html#pretending-we-have-a-stratified-cluster-sampled-design"><i class="fa fa-check"></i><b>7.3.3</b> Pretending we have a stratified cluster-sampled design</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="Complex.html"><a href="Complex.html#cluster-sampled-design"><i class="fa fa-check"></i><b>7.4</b> Cluster-sampled design</a><ul>
+<li class="chapter" data-level="7.4.1" data-path="Complex.html"><a href="Complex.html#preparing-the-data"><i class="fa fa-check"></i><b>7.4.1</b> Preparing the data</a></li>
+<li class="chapter" data-level="7.4.2" data-path="Complex.html"><a href="Complex.html#step-1-specifying-the-design"><i class="fa fa-check"></i><b>7.4.2</b> Step 1: Specifying the design</a></li>
+<li class="chapter" data-level="7.4.3" data-path="Complex.html"><a href="Complex.html#step-2-calculating-the-estimates"><i class="fa fa-check"></i><b>7.4.3</b> Step 2: Calculating the estimates</a></li>
+<li class="chapter" data-level="7.4.4" data-path="Complex.html"><a href="Complex.html#effective-sample-size"><i class="fa fa-check"></i><b>7.4.4</b> Effective sample size</a></li>
+<li class="chapter" data-level="7.4.5" data-path="Complex.html"><a href="Complex.html#estimating-the-mean-per-cluster"><i class="fa fa-check"></i><b>7.4.5</b> Estimating the mean per cluster</a></li>
+<li class="chapter" data-level="7.4.6" data-path="Complex.html"><a href="Complex.html#two-stage-cluster-sampled-design"><i class="fa fa-check"></i><b>7.4.6</b> Two-stage cluster-sampled design</a></li>
+<li class="chapter" data-level="7.4.7" data-path="Complex.html"><a href="Complex.html#estimating-the-mean-per-cluster-1"><i class="fa fa-check"></i><b>7.4.7</b> Estimating the mean per cluster</a></li>
+</ul></li>
+<li class="chapter" data-level="7.5" data-path="Complex.html"><a href="Complex.html#stratified-design"><i class="fa fa-check"></i><b>7.5</b> Stratified design</a><ul>
+<li class="chapter" data-level="7.5.1" data-path="Complex.html"><a href="Complex.html#preparing-our-data-set"><i class="fa fa-check"></i><b>7.5.1</b> Preparing our data set</a></li>
+<li class="chapter" data-level="7.5.2" data-path="Complex.html"><a href="Complex.html#step-1-specifying-the-design-1"><i class="fa fa-check"></i><b>7.5.2</b> Step 1: Specifying the design</a></li>
+<li class="chapter" data-level="7.5.3" data-path="Complex.html"><a href="Complex.html#step-2-calculating-the-estimates-1"><i class="fa fa-check"></i><b>7.5.3</b> Step 2: Calculating the estimates</a></li>
+</ul></li>
+<li class="chapter" data-level="7.6" data-path="Complex.html"><a href="Complex.html#stratified-cluster-sampled-design"><i class="fa fa-check"></i><b>7.6</b> Stratified cluster-sampled design</a><ul>
+<li class="chapter" data-level="7.6.1" data-path="Complex.html"><a href="Complex.html#preparing-the-data-1"><i class="fa fa-check"></i><b>7.6.1</b> Preparing the data</a></li>
+<li class="chapter" data-level="7.6.2" data-path="Complex.html"><a href="Complex.html#step-1-specifying-the-design-2"><i class="fa fa-check"></i><b>7.6.2</b> Step 1: Specifying the design</a></li>
+<li class="chapter" data-level="7.6.3" data-path="Complex.html"><a href="Complex.html#step-2-calculating-the-estimates-2"><i class="fa fa-check"></i><b>7.6.3</b> Step 2: Calculating the estimates</a></li>
+<li class="chapter" data-level="7.6.4" data-path="Complex.html"><a href="Complex.html#mean-per-stratum"><i class="fa fa-check"></i><b>7.6.4</b> Mean per stratum</a></li>
+</ul></li>
+<li class="chapter" data-level="7.7" data-path="Complex.html"><a href="Complex.html#a-simple-random-sample-design-for-comparison"><i class="fa fa-check"></i><b>7.7</b> A simple random sample design, for comparison</a><ul>
+<li class="chapter" data-level="7.7.1" data-path="Complex.html"><a href="Complex.html#preparing-our-data-set-1"><i class="fa fa-check"></i><b>7.7.1</b> Preparing our data set</a></li>
+</ul></li>
+<li class="chapter" data-level="7.8" data-path="Complex.html"><a href="Complex.html#comparing-all-design-scenarios"><i class="fa fa-check"></i><b>7.8</b> Comparing all design scenarios</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Preparing and Analyzing Survey Data in R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="Prepping" class="section level1">
+<h1><span class="header-section-number">Part 2</span> Preparing the Data</h1>
+<p>In this section, we are using R to prepare data for analysis. We will use mock data from the TIMSS Teacher Questionnaire.</p>
+<div id="import-the-data-from-the-csv-file" class="section level2">
+<h2><span class="header-section-number">2.1</span> Import the data from the CSV file</h2>
+<p>I generated these mock data as fake responses to the TIMSS math teacher questionnaire <a href="https://nces.ed.gov/timss/pdf/2015_8th_grade_Teacher_Questionnaire_Math.pdf" class="uri">https://nces.ed.gov/timss/pdf/2015_8th_grade_Teacher_Questionnaire_Math.pdf</a>. You can also get real data from their site. We could use the code below with those data (though we would need to address missing values). In other words, this can be part of our data analysis plan and we created data using our best guess about how people would respond. Then, we assume it functions well, and then analyze the real data.</p>
+<p>If you’ve opened this RStudio file from the same folder that contains the CSV file, <code>Week13_Timss_Mock_Raw.csv</code>, your working directory will be that location and you can import data using this code:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="Prepping.html#cb1-1"></a>timss &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&#39;Week13_Timss_Mock_Raw.csv&#39;</span>) </span></code></pre></div>
+<p>If you prefer to download the data, it will be temporarily available here:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="Prepping.html#cb2-1"></a>timss &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;http://www2.hawaii.edu/~georgeha/Handouts/Week13_Timss_Mock_Raw.csv&quot;</span>)</span></code></pre></div>
+<div id="examining-the-imported-data-set" class="section level3">
+<h3><span class="header-section-number">2.1.1</span> Examining the imported data set</h3>
+<p>We can print the first and last five rows of data using the <code>head()</code> and <code>tail()</code> functions:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="Prepping.html#cb3-1"></a><span class="kw">head</span>(timss)</span>
+<span id="cb3-2"><a href="Prepping.html#cb3-2"></a><span class="kw">tail</span>(timss)</span></code></pre></div>
+<p>We can also select which rows to print using indexing. Here, it prints only rows 1, 3, 5, 7, and 9:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="Prepping.html#cb4-1"></a>timss[<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">5</span>,<span class="dv">7</span>,<span class="dv">9</span>), ]</span></code></pre></div>
+<p>We can also print the data set to console or view it in a new tab.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="Prepping.html#cb5-1"></a>timss</span>
+<span id="cb5-2"><a href="Prepping.html#cb5-2"></a><span class="kw">View</span>(timss)</span></code></pre></div>
+<p>Let’s check that the data set has the number of observations we expect. We should have 30 mock teachers. This prints the number of rows in the column labeled <code>TID</code>.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="Prepping.html#cb6-1"></a><span class="kw">length</span>(timss<span class="op">$</span>TID)</span></code></pre></div>
+<pre><code>## [1] 30</code></pre>
+<p>Good. There are 30. We can also see what how many rows and columns there are with the <code>dim()</code> function, which prints the number of rows then the number of columns.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="Prepping.html#cb8-1"></a><span class="kw">dim</span>(timss)</span></code></pre></div>
+<pre><code>## [1] 30 31</code></pre>
+<p>Let’s see what the names of the variables are:</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="Prepping.html#cb10-1"></a><span class="kw">names</span>(timss)</span></code></pre></div>
+<pre><code>##  [1] &quot;TID&quot;            &quot;Q4_Age&quot;         &quot;Q5_Degree&quot;      &quot;Q6_Math&quot;       
+##  [5] &quot;Q6_Bio&quot;         &quot;Q6_Phys&quot;        &quot;Q6_Chem&quot;        &quot;Q6_EarthS&quot;     
+##  [9] &quot;Q6_EdMat&quot;       &quot;Q6_EdSci&quot;       &quot;Q6_EdGen&quot;       &quot;Q6_Othr&quot;       
+## [13] &quot;Q13_NumSs&quot;      &quot;Q15_StCentrd_a&quot; &quot;Q15_StCentrd_b&quot; &quot;Q15_StCentrd_c&quot;
+## [17] &quot;Q15_StCentrd_d&quot; &quot;Q15_StCentrd_e&quot; &quot;Q15_StCentrd_f&quot; &quot;Q15_StCentrd_g&quot;
+## [21] &quot;Q16_Lims_a&quot;     &quot;Q16_Lims_b&quot;     &quot;Q16_Lims_c&quot;     &quot;Q16_Lims_d&quot;    
+## [25] &quot;Q16_Lims_e&quot;     &quot;Q16_Lims_f&quot;     &quot;Q16_Lims_g&quot;     &quot;Q17_Mins&quot;      
+## [29] &quot;Q19_Didac_a&quot;    &quot;Q19_Didac_b&quot;    &quot;Q19_Didac_c&quot;</code></pre>
+<p>If we enclose this code in the <code>dput()</code> function, we can then copy and paste names into code.</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="Prepping.html#cb12-1"></a><span class="kw">dput</span>(<span class="kw">names</span>(timss)) </span></code></pre></div>
+<pre><code>## c(&quot;TID&quot;, &quot;Q4_Age&quot;, &quot;Q5_Degree&quot;, &quot;Q6_Math&quot;, &quot;Q6_Bio&quot;, &quot;Q6_Phys&quot;, 
+## &quot;Q6_Chem&quot;, &quot;Q6_EarthS&quot;, &quot;Q6_EdMat&quot;, &quot;Q6_EdSci&quot;, &quot;Q6_EdGen&quot;, &quot;Q6_Othr&quot;, 
+## &quot;Q13_NumSs&quot;, &quot;Q15_StCentrd_a&quot;, &quot;Q15_StCentrd_b&quot;, &quot;Q15_StCentrd_c&quot;, 
+## &quot;Q15_StCentrd_d&quot;, &quot;Q15_StCentrd_e&quot;, &quot;Q15_StCentrd_f&quot;, &quot;Q15_StCentrd_g&quot;, 
+## &quot;Q16_Lims_a&quot;, &quot;Q16_Lims_b&quot;, &quot;Q16_Lims_c&quot;, &quot;Q16_Lims_d&quot;, &quot;Q16_Lims_e&quot;, 
+## &quot;Q16_Lims_f&quot;, &quot;Q16_Lims_g&quot;, &quot;Q17_Mins&quot;, &quot;Q19_Didac_a&quot;, &quot;Q19_Didac_b&quot;, 
+## &quot;Q19_Didac_c&quot;)</code></pre>
+<p>This will be handy if we wish to copy and paste a string of column names from our console into our code because it formats it with quotes around the names and commas in between them, which is what we want to use in the <code>c()</code> function.</p>
+</div>
+</div>
+<div id="managing-the-structure-of-the-data" class="section level2">
+<h2><span class="header-section-number">2.2</span> Managing the structure of the data</h2>
+<p>Let’s look at the structure of our data set, using the <code>str()</code> function.</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="Prepping.html#cb14-1"></a><span class="kw">str</span>(timss)</span></code></pre></div>
+<pre><code>## &#39;data.frame&#39;:    30 obs. of  31 variables:
+##  $ TID           : int  1 2 3 4 5 6 7 8 9 10 ...
+##  $ Q4_Age        : num  2 3 3 2 5 6 5 2 4 3 ...
+##  $ Q5_Degree     : num  4 4 4 5 3 4 5 4 4 4 ...
+##  $ Q6_Math       : chr  &quot;No&quot; &quot;No&quot; &quot;No&quot; &quot;No&quot; ...
+##  $ Q6_Bio        : chr  &quot;No&quot; &quot;No&quot; &quot;No&quot; &quot;No&quot; ...
+##  $ Q6_Phys       : chr  &quot;No&quot; &quot;No&quot; &quot;Yes&quot; &quot;No&quot; ...
+##  $ Q6_Chem       : chr  &quot;No&quot; &quot;No&quot; &quot;No&quot; &quot;No&quot; ...
+##  $ Q6_EarthS     : chr  &quot;No&quot; &quot;No&quot; &quot;No&quot; &quot;No&quot; ...
+##  $ Q6_EdMat      : chr  &quot;No&quot; &quot;No&quot; &quot;No&quot; &quot;Yes&quot; ...
+##  $ Q6_EdSci      : chr  &quot;No&quot; &quot;No&quot; &quot;No&quot; &quot;No&quot; ...
+##  $ Q6_EdGen      : chr  &quot;Yes&quot; &quot;Yes&quot; &quot;No&quot; &quot;No&quot; ...
+##  $ Q6_Othr       : chr  &quot;No&quot; &quot;No&quot; &quot;Yes&quot; &quot;No&quot; ...
+##  $ Q13_NumSs     : int  8 12 19 16 18 26 29 16 30 22 ...
+##  $ Q15_StCentrd_a: int  2 3 3 1 2 3 4 1 4 3 ...
+##  $ Q15_StCentrd_b: int  2 1 2 1 1 3 2 1 2 2 ...
+##  $ Q15_StCentrd_c: int  1 4 2 2 3 3 2 1 2 2 ...
+##  $ Q15_StCentrd_d: int  1 2 3 2 2 3 3 1 4 4 ...
+##  $ Q15_StCentrd_e: int  2 2 3 1 2 3 4 2 2 2 ...
+##  $ Q15_StCentrd_f: int  3 3 3 1 3 4 2 1 1 4 ...
+##  $ Q15_StCentrd_g: int  1 2 3 1 2 3 3 1 3 3 ...
+##  $ Q16_Lims_a    : int  2 1 2 1 1 2 3 1 3 1 ...
+##  $ Q16_Lims_b    : int  1 1 2 2 1 1 2 1 3 2 ...
+##  $ Q16_Lims_c    : int  3 3 3 3 3 3 3 2 2 2 ...
+##  $ Q16_Lims_d    : int  2 2 2 2 2 2 2 1 2 3 ...
+##  $ Q16_Lims_e    : int  1 1 2 2 1 2 2 2 2 2 ...
+##  $ Q16_Lims_f    : int  1 1 1 1 1 1 1 1 2 1 ...
+##  $ Q16_Lims_g    : int  2 1 2 1 1 1 1 2 1 1 ...
+##  $ Q17_Mins      : int  160 180 190 200 210 180 200 240 150 160 ...
+##  $ Q19_Didac_a   : int  3 4 2 3 3 3 2 3 2 1 ...
+##  $ Q19_Didac_b   : int  3 2 1 4 1 4 2 2 2 2 ...
+##  $ Q19_Didac_c   : int  4 3 2 3 2 2 2 1 2 1 ...</code></pre>
+<p>We can see that Age and Degree are numeric. We see that the Q6 demographic questions are “character”, which is appropriate for data that are text in CSV file. The other variables are numeric (integer).<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a></p>
+<p>Let’s change a character variable to numeric data. For the Q6 variables, there are “No” and “Yes” responses. These are <strong>not</strong> numbers, so we cannot perform mathematical functions on them. We can create a new dichotomous variable from these one or more nominal variables, just like how we did in Excel. Let’s create a <code>Major_in_Educ</code> variable using the <code>ifelse()</code> function. The vertical bar, |, symbolizes “or”, so the following code is <em>if EdMath is <code>Yes</code>, or if EdScience is <code>Yes</code>, or if EdGen is <code>Yes</code>, code the new variable as <code>1</code>; otherwise, code it as <code>0</code></em>.</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="Prepping.html#cb16-1"></a>timss<span class="op">$</span>Q6_Major_in_Edu &lt;-<span class="st"> </span><span class="kw">ifelse</span>(timss<span class="op">$</span>Q6_EdMat <span class="op">==</span><span class="st"> &quot;Yes&quot;</span> <span class="op">|</span></span>
+<span id="cb16-2"><a href="Prepping.html#cb16-2"></a><span class="st">                                </span>timss<span class="op">$</span>Q6_EdSci <span class="op">==</span><span class="st"> &quot;Yes&quot;</span> <span class="op">|</span><span class="st">    </span></span>
+<span id="cb16-3"><a href="Prepping.html#cb16-3"></a><span class="st">                                </span>timss<span class="op">$</span>Q6_EdGen <span class="op">==</span><span class="st"> &quot;Yes&quot;</span>, <span class="dv">1</span> ,<span class="dv">0</span>)</span></code></pre></div>
+<p>Let’s verify it worked by examining some rows of data—here, the first 12 rows and the columns that were used to get our new variable as well as the new variable:</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="Prepping.html#cb17-1"></a>timss[<span class="dv">1</span><span class="op">:</span><span class="dv">12</span>, <span class="kw">c</span>(<span class="st">&quot;TID&quot;</span>, <span class="st">&quot;Q6_EdMat&quot;</span>, <span class="st">&quot;Q6_EdSci&quot;</span>, <span class="st">&quot;Q6_EdGen&quot;</span>, <span class="st">&quot;Q6_Major_in_Edu&quot;</span>)]</span></code></pre></div>
+<pre><code>##    TID Q6_EdMat Q6_EdSci Q6_EdGen Q6_Major_in_Edu
+## 1    1       No       No      Yes               1
+## 2    2       No       No      Yes               1
+## 3    3       No       No       No               0
+## 4    4      Yes       No       No               1
+## 5    5      Yes       No       No               1
+## 6    6       No       No      Yes               1
+## 7    7       No       No       No               0
+## 8    8      Yes       No       No               1
+## 9    9       No       No       No               0
+## 10  10       No       No       No               0
+## 11  11       No      Yes       No               1
+## 12  12       No       No       No               0</code></pre>
+<p>The variable we just created is in the rightmost column. We can look at the structure of this selected set of columns and see that the last one is numeric.</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="Prepping.html#cb19-1"></a><span class="kw">str</span>(timss[, <span class="kw">c</span>(<span class="st">&quot;Q6_EdMat&quot;</span>, <span class="st">&quot;Q6_EdSci&quot;</span>, <span class="st">&quot;Q6_EdGen&quot;</span>, <span class="st">&quot;Q6_Major_in_Edu&quot;</span>)])</span></code></pre></div>
+<pre><code>## &#39;data.frame&#39;:    30 obs. of  4 variables:
+##  $ Q6_EdMat       : chr  &quot;No&quot; &quot;No&quot; &quot;No&quot; &quot;Yes&quot; ...
+##  $ Q6_EdSci       : chr  &quot;No&quot; &quot;No&quot; &quot;No&quot; &quot;No&quot; ...
+##  $ Q6_EdGen       : chr  &quot;Yes&quot; &quot;Yes&quot; &quot;No&quot; &quot;No&quot; ...
+##  $ Q6_Major_in_Edu: num  1 1 0 1 1 1 0 1 0 0 ...</code></pre>
+<p>This dummy coding is valuable for analysis. We have prepared this new variable so it can serve as a predictor in a regression model (i.e., a general linear model).</p>
+</div>
+<div id="recoding-response-category-data" class="section level2">
+<h2><span class="header-section-number">2.3</span> Recoding response-category data</h2>
+<div id="reverse-coding-and-rescaling-data" class="section level3">
+<h3><span class="header-section-number">2.3.1</span> Reverse-coding and rescaling data</h3>
+<p>Questions 15a–15g have numeric codes that are not logical. For instance, <em>Every or almost every lesson</em> is <span class="math inline">\(1\)</span> but <em>Never</em> is coded as <span class="math inline">\(4\)</span>. Usually, we use higher values for more of a construct and lower values for less.</p>
+<p>So, let’s change our coding so that <em>Never</em> is coded as <span class="math inline">\(0\)</span>, <em>Some lessons</em> is <span class="math inline">\(1\)</span>, <em>About half the lessons</em> is <span class="math inline">\(2\)</span>, and <em>Every or almost every lesson</em> is <span class="math inline">\(3\)</span>. So, we are going from a 4-to-1 scale to a 0-to-3 scale.</p>
+<p>The general formula for reverse coding is this:</p>
+<ul>
+<li>newvalue = (num of response options) + (bottom value of new scale) - (observed value in the original scale)</li>
+</ul>
+<p>So with our data in Questions 15a–15g,</p>
+<ul>
+<li>How many response categories are there? <em>Answer:</em> 4</li>
+<li>What’s the bottom value on our NEW scale going to be? <em>Answer:</em> 0</li>
+<li>What are our original data? <em>Answer:</em> all of the data in Q15a through Q15g</li>
+</ul>
+<p>Maybe we forgot the names of the variables we were investigating. Let’s use <code>names()</code> to see what’s available.</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="Prepping.html#cb21-1"></a><span class="kw">names</span>(timss) </span></code></pre></div>
+<pre><code>##  [1] &quot;TID&quot;             &quot;Q4_Age&quot;          &quot;Q5_Degree&quot;       &quot;Q6_Math&quot;        
+##  [5] &quot;Q6_Bio&quot;          &quot;Q6_Phys&quot;         &quot;Q6_Chem&quot;         &quot;Q6_EarthS&quot;      
+##  [9] &quot;Q6_EdMat&quot;        &quot;Q6_EdSci&quot;        &quot;Q6_EdGen&quot;        &quot;Q6_Othr&quot;        
+## [13] &quot;Q13_NumSs&quot;       &quot;Q15_StCentrd_a&quot;  &quot;Q15_StCentrd_b&quot;  &quot;Q15_StCentrd_c&quot; 
+## [17] &quot;Q15_StCentrd_d&quot;  &quot;Q15_StCentrd_e&quot;  &quot;Q15_StCentrd_f&quot;  &quot;Q15_StCentrd_g&quot; 
+## [21] &quot;Q16_Lims_a&quot;      &quot;Q16_Lims_b&quot;      &quot;Q16_Lims_c&quot;      &quot;Q16_Lims_d&quot;     
+## [25] &quot;Q16_Lims_e&quot;      &quot;Q16_Lims_f&quot;      &quot;Q16_Lims_g&quot;      &quot;Q17_Mins&quot;       
+## [29] &quot;Q19_Didac_a&quot;     &quot;Q19_Didac_b&quot;     &quot;Q19_Didac_c&quot;     &quot;Q6_Major_in_Edu&quot;</code></pre>
+<p>Let’s try the calculation on a single variable and add “R” to the new variable name so we can remember this is the reversed version:</p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="Prepping.html#cb23-1"></a>timss<span class="op">$</span>Q15_StCentrd_aR &lt;-<span class="st"> </span><span class="dv">4</span> <span class="op">+</span><span class="st"> </span><span class="dv">0</span> <span class="op">-</span><span class="st"> </span>timss<span class="op">$</span>Q15_StCentrd_a</span></code></pre></div>
+<p>Let’s verify it worked by comparing the reversed and the original data with first 10 rows.
+Any old 4s should now be <span class="math inline">\(0\)</span> (because 4 + 0 - 4 = 0), 3s should be <span class="math inline">\(1\)</span>, 2s should still be <span class="math inline">\(2\)</span>, and 1s should be <span class="math inline">\(3\)</span>.</p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="Prepping.html#cb24-1"></a>timss[<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>, <span class="kw">c</span>(<span class="st">&quot;Q15_StCentrd_a&quot;</span>,<span class="st">&quot;Q15_StCentrd_aR&quot;</span>)]</span></code></pre></div>
+<pre><code>##    Q15_StCentrd_a Q15_StCentrd_aR
+## 1               2               2
+## 2               3               1
+## 3               3               1
+## 4               1               3
+## 5               2               2
+## 6               3               1
+## 7               4               0
+## 8               1               3
+## 9               4               0
+## 10              3               1</code></pre>
+<p>Let’s do this same operation with the remaining 6 items in Q15 (Q15b through Q15g). We could repeat the line above with the new variable names in each line. Or, we can create an R object that contains the names of these 7 variables and then perform the same calculation on this object:</p>
+<p><strong>Step 1.</strong> Let’s create an object that contains the 7 items in Question 15. We’ll call this Q15.<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a></p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="Prepping.html#cb26-1"></a>Q15 &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Q15_StCentrd_a&quot;</span>, <span class="st">&quot;Q15_StCentrd_b&quot;</span>, <span class="st">&quot;Q15_StCentrd_c&quot;</span>, <span class="st">&quot;Q15_StCentrd_d&quot;</span>, </span>
+<span id="cb26-2"><a href="Prepping.html#cb26-2"></a>        <span class="st">&quot;Q15_StCentrd_e&quot;</span>, <span class="st">&quot;Q15_StCentrd_f&quot;</span>, <span class="st">&quot;Q15_StCentrd_g&quot;</span>)</span></code></pre></div>
+<p>This object, Q15, is only a list of names, but we can use it to refer to those data.<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a></p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="Prepping.html#cb27-1"></a>Q15</span></code></pre></div>
+<pre><code>## [1] &quot;Q15_StCentrd_a&quot; &quot;Q15_StCentrd_b&quot; &quot;Q15_StCentrd_c&quot; &quot;Q15_StCentrd_d&quot;
+## [5] &quot;Q15_StCentrd_e&quot; &quot;Q15_StCentrd_f&quot; &quot;Q15_StCentrd_g&quot;</code></pre>
+<p>Let’s use our object, now: Here are the first five people’s responses on these items:</p>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="Prepping.html#cb29-1"></a>timss[<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>, Q15]</span></code></pre></div>
+<pre><code>##   Q15_StCentrd_a Q15_StCentrd_b Q15_StCentrd_c Q15_StCentrd_d Q15_StCentrd_e
+## 1              2              2              1              1              2
+## 2              3              1              4              2              2
+## 3              3              2              2              3              3
+## 4              1              1              2              2              1
+## 5              2              1              3              2              2
+##   Q15_StCentrd_f Q15_StCentrd_g
+## 1              3              1
+## 2              3              2
+## 3              3              3
+## 4              1              1
+## 5              3              2</code></pre>
+<p>Let’s check the range of the original data. The minimum should be 1 and the maxium 4:</p>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="Prepping.html#cb31-1"></a><span class="kw">range</span>(timss[ , Q15])</span></code></pre></div>
+<pre><code>## [1] 1 4</code></pre>
+<p>So, we have used the object <code>Q15</code> in two different functions. This is better than retyping this long string: <code>c("Q15_StCentrd_a", "Q15_StCentrd_b", "Q15_StCentrd_c", "Q15_StCentrd_d",          "Q15_StCentrd_e", "Q15_StCentrd_f", "Q15_StCentrd_g")</code>.</p>
+<div id="reverse-coding" class="section level4">
+<h4><span class="header-section-number">2.3.1.1</span> Reverse coding</h4>
+<p><strong>Step 2.</strong> Let’s do the same thing with the new set of variables that we will create. Let’s use an “R” to stand for Reversed. We could write out all the names, with R after each variable, or we can take a shortcut and use the <code>paste0()</code> function to concatenate an “R” at the end of every element in the Q15 object:</p>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="Prepping.html#cb33-1"></a>Q15R &lt;-<span class="st"> </span><span class="kw">paste0</span>(Q15,<span class="st">&quot;R&quot;</span>)</span></code></pre></div>
+<p>Verify that it created the set of names we want:</p>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="Prepping.html#cb34-1"></a>Q15R</span></code></pre></div>
+<pre><code>## [1] &quot;Q15_StCentrd_aR&quot; &quot;Q15_StCentrd_bR&quot; &quot;Q15_StCentrd_cR&quot; &quot;Q15_StCentrd_dR&quot;
+## [5] &quot;Q15_StCentrd_eR&quot; &quot;Q15_StCentrd_fR&quot; &quot;Q15_StCentrd_gR&quot;</code></pre>
+<p>Let’s create these seven new reverse-coded variables using our formula and these two objects, Q15 and Q15R. Because each object includes the same number of names, it performs the calculation on the first variable, then the next one and so forth.</p>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="Prepping.html#cb36-1"></a>timss[ ,Q15R] &lt;-<span class="st"> </span>(<span class="dv">4</span> <span class="op">+</span><span class="st"> </span><span class="dv">0</span> <span class="op">-</span><span class="st"> </span>timss[,Q15]) </span></code></pre></div>
+<p>Take a look at the first 6 rows:</p>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="Prepping.html#cb37-1"></a>timss[<span class="dv">1</span><span class="op">:</span><span class="dv">6</span>, Q15]</span></code></pre></div>
+<pre><code>##   Q15_StCentrd_a Q15_StCentrd_b Q15_StCentrd_c Q15_StCentrd_d Q15_StCentrd_e
+## 1              2              2              1              1              2
+## 2              3              1              4              2              2
+## 3              3              2              2              3              3
+## 4              1              1              2              2              1
+## 5              2              1              3              2              2
+## 6              3              3              3              3              3
+##   Q15_StCentrd_f Q15_StCentrd_g
+## 1              3              1
+## 2              3              2
+## 3              3              3
+## 4              1              1
+## 5              3              2
+## 6              4              3</code></pre>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="Prepping.html#cb39-1"></a>timss[<span class="dv">1</span><span class="op">:</span><span class="dv">6</span>, Q15R]</span></code></pre></div>
+<pre><code>##   Q15_StCentrd_aR Q15_StCentrd_bR Q15_StCentrd_cR Q15_StCentrd_dR
+## 1               2               2               3               3
+## 2               1               3               0               2
+## 3               1               2               2               1
+## 4               3               3               2               2
+## 5               2               3               1               2
+## 6               1               1               1               1
+##   Q15_StCentrd_eR Q15_StCentrd_fR Q15_StCentrd_gR
+## 1               2               1               3
+## 2               2               1               2
+## 3               1               1               1
+## 4               3               3               3
+## 5               2               1               2
+## 6               1               0               1</code></pre>
+<p>These match our Excel calculations.</p>
+<p>Let’s look at the first variable side by side:</p>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="Prepping.html#cb41-1"></a>timss[<span class="dv">1</span><span class="op">:</span><span class="dv">6</span>, <span class="kw">c</span>(Q15[<span class="dv">1</span>], Q15R[<span class="dv">1</span>]) ] </span></code></pre></div>
+<pre><code>##   Q15_StCentrd_a Q15_StCentrd_aR
+## 1              2               2
+## 2              3               1
+## 3              3               1
+## 4              1               3
+## 5              2               2
+## 6              3               1</code></pre>
+<p>We used the index [1] to ask for the first element of the Q15 and Q15R objects. This is the same as if we asked for the names:</p>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="Prepping.html#cb43-1"></a>timss[<span class="dv">1</span><span class="op">:</span><span class="dv">6</span>, <span class="kw">c</span>(<span class="st">&quot;Q15_StCentrd_a&quot;</span>, <span class="st">&quot;Q15_StCentrd_aR&quot;</span>) ]</span></code></pre></div>
+<pre><code>##   Q15_StCentrd_a Q15_StCentrd_aR
+## 1              2               2
+## 2              3               1
+## 3              3               1
+## 4              1               3
+## 5              2               2
+## 6              3               1</code></pre>
+<p>We could ask for the second element after making a small change to the code:</p>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="Prepping.html#cb45-1"></a>timss[<span class="dv">1</span><span class="op">:</span><span class="dv">6</span>, <span class="kw">c</span>(Q15[<span class="dv">2</span>], Q15R[<span class="dv">2</span>]) ] </span></code></pre></div>
+<p>Let’s see whether the minimum and maximum values are outside the bounds of 0, and max is 3.</p>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="Prepping.html#cb46-1"></a><span class="kw">range</span>(timss[,Q15R]) </span></code></pre></div>
+<pre><code>## [1] 0 3</code></pre>
+<p>We could also look at each of the 7 questions:</p>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="Prepping.html#cb48-1"></a><span class="kw">apply</span>(timss[ , Q15R], <span class="dv">2</span>, <span class="dt">FUN =</span> range)</span></code></pre></div>
+<pre><code>##      Q15_StCentrd_aR Q15_StCentrd_bR Q15_StCentrd_cR Q15_StCentrd_dR
+## [1,]               0               1               0               0
+## [2,]               3               3               3               3
+##      Q15_StCentrd_eR Q15_StCentrd_fR Q15_StCentrd_gR
+## [1,]               0               0               0
+## [2,]               3               3               3</code></pre>
+<p>None of the values is lower than 0 or higher than 3, which is what we expected.</p>
+</div>
+<div id="rescaling-q16-so-zero-is-meaningful" class="section level4">
+<h4><span class="header-section-number">2.3.1.2</span> Rescaling Q16 so zero is meaningful</h4>
+<p>Question 16 has the numeric codes in a logical direction (where a smaller numeric value represents a lower amount on the concept), but let’s change the scale from a 1-to-3 scale to 0-to-2 so that “Not at all” is zero.<a href="#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a> For this, we have to subtract 1 from the original value.</p>
+<p>Let’s remember what these Q16 variable names are:<a href="#fn5" class="footnote-ref" id="fnref5"><sup>5</sup></a></p>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="Prepping.html#cb50-1"></a><span class="kw">dput</span>(<span class="kw">names</span>(timss)) </span></code></pre></div>
+<pre><code>## c(&quot;TID&quot;, &quot;Q4_Age&quot;, &quot;Q5_Degree&quot;, &quot;Q6_Math&quot;, &quot;Q6_Bio&quot;, &quot;Q6_Phys&quot;, 
+## &quot;Q6_Chem&quot;, &quot;Q6_EarthS&quot;, &quot;Q6_EdMat&quot;, &quot;Q6_EdSci&quot;, &quot;Q6_EdGen&quot;, &quot;Q6_Othr&quot;, 
+## &quot;Q13_NumSs&quot;, &quot;Q15_StCentrd_a&quot;, &quot;Q15_StCentrd_b&quot;, &quot;Q15_StCentrd_c&quot;, 
+## &quot;Q15_StCentrd_d&quot;, &quot;Q15_StCentrd_e&quot;, &quot;Q15_StCentrd_f&quot;, &quot;Q15_StCentrd_g&quot;, 
+## &quot;Q16_Lims_a&quot;, &quot;Q16_Lims_b&quot;, &quot;Q16_Lims_c&quot;, &quot;Q16_Lims_d&quot;, &quot;Q16_Lims_e&quot;, 
+## &quot;Q16_Lims_f&quot;, &quot;Q16_Lims_g&quot;, &quot;Q17_Mins&quot;, &quot;Q19_Didac_a&quot;, &quot;Q19_Didac_b&quot;, 
+## &quot;Q19_Didac_c&quot;, &quot;Q6_Major_in_Edu&quot;, &quot;Q15_StCentrd_aR&quot;, &quot;Q15_StCentrd_bR&quot;, 
+## &quot;Q15_StCentrd_cR&quot;, &quot;Q15_StCentrd_dR&quot;, &quot;Q15_StCentrd_eR&quot;, &quot;Q15_StCentrd_fR&quot;, 
+## &quot;Q15_StCentrd_gR&quot;)</code></pre>
+<p>Let’s assign them to the object Q16:</p>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="Prepping.html#cb52-1"></a>Q16 &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Q16_Lims_a&quot;</span>, <span class="st">&quot;Q16_Lims_b&quot;</span>, <span class="st">&quot;Q16_Lims_c&quot;</span>, <span class="st">&quot;Q16_Lims_d&quot;</span>, <span class="st">&quot;Q16_Lims_e&quot;</span>, </span>
+<span id="cb52-2"><a href="Prepping.html#cb52-2"></a>        <span class="st">&quot;Q16_Lims_f&quot;</span>, <span class="st">&quot;Q16_Lims_g&quot;</span>)</span>
+<span id="cb52-3"><a href="Prepping.html#cb52-3"></a><span class="kw">range</span>(timss[ , Q16])</span></code></pre></div>
+<pre><code>## [1] 1 3</code></pre>
+<p>Because Q16 only needs to be lowered so that <em>Not at all</em> = <span class="math inline">\(0\)</span>, we might use “Z” in the names to remind us they are rescaled to have a meaningful zero.</p>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="Prepping.html#cb54-1"></a>Q16Z &lt;-<span class="st"> </span><span class="kw">paste0</span>(Q16,<span class="st">&quot;Z&quot;</span>)</span>
+<span id="cb54-2"><a href="Prepping.html#cb54-2"></a>Q16Z </span></code></pre></div>
+<pre><code>## [1] &quot;Q16_Lims_aZ&quot; &quot;Q16_Lims_bZ&quot; &quot;Q16_Lims_cZ&quot; &quot;Q16_Lims_dZ&quot; &quot;Q16_Lims_eZ&quot;
+## [6] &quot;Q16_Lims_fZ&quot; &quot;Q16_Lims_gZ&quot;</code></pre>
+<p>Now, let’s subtract 1 from the original response and create our new variables in the data frame:</p>
+<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="Prepping.html#cb56-1"></a>timss[ ,Q16Z] &lt;-<span class="st"> </span>(timss[ ,Q16] <span class="op">-</span><span class="st"> </span><span class="dv">1</span>) </span>
+<span id="cb56-2"><a href="Prepping.html#cb56-2"></a><span class="kw">range</span>(timss[,Q16Z])</span></code></pre></div>
+<pre><code>## [1] 0 2</code></pre>
+<p>We can see these new variables are appended at the end of the data set:</p>
+<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="Prepping.html#cb58-1"></a><span class="kw">str</span>(timss) </span></code></pre></div>
+<pre><code>## &#39;data.frame&#39;:    30 obs. of  46 variables:
+##  $ TID            : int  1 2 3 4 5 6 7 8 9 10 ...
+##  $ Q4_Age         : num  2 3 3 2 5 6 5 2 4 3 ...
+##  $ Q5_Degree      : num  4 4 4 5 3 4 5 4 4 4 ...
+##  $ Q6_Math        : chr  &quot;No&quot; &quot;No&quot; &quot;No&quot; &quot;No&quot; ...
+##  $ Q6_Bio         : chr  &quot;No&quot; &quot;No&quot; &quot;No&quot; &quot;No&quot; ...
+##  $ Q6_Phys        : chr  &quot;No&quot; &quot;No&quot; &quot;Yes&quot; &quot;No&quot; ...
+##  $ Q6_Chem        : chr  &quot;No&quot; &quot;No&quot; &quot;No&quot; &quot;No&quot; ...
+##  $ Q6_EarthS      : chr  &quot;No&quot; &quot;No&quot; &quot;No&quot; &quot;No&quot; ...
+##  $ Q6_EdMat       : chr  &quot;No&quot; &quot;No&quot; &quot;No&quot; &quot;Yes&quot; ...
+##  $ Q6_EdSci       : chr  &quot;No&quot; &quot;No&quot; &quot;No&quot; &quot;No&quot; ...
+##  $ Q6_EdGen       : chr  &quot;Yes&quot; &quot;Yes&quot; &quot;No&quot; &quot;No&quot; ...
+##  $ Q6_Othr        : chr  &quot;No&quot; &quot;No&quot; &quot;Yes&quot; &quot;No&quot; ...
+##  $ Q13_NumSs      : int  8 12 19 16 18 26 29 16 30 22 ...
+##  $ Q15_StCentrd_a : int  2 3 3 1 2 3 4 1 4 3 ...
+##  $ Q15_StCentrd_b : int  2 1 2 1 1 3 2 1 2 2 ...
+##  $ Q15_StCentrd_c : int  1 4 2 2 3 3 2 1 2 2 ...
+##  $ Q15_StCentrd_d : int  1 2 3 2 2 3 3 1 4 4 ...
+##  $ Q15_StCentrd_e : int  2 2 3 1 2 3 4 2 2 2 ...
+##  $ Q15_StCentrd_f : int  3 3 3 1 3 4 2 1 1 4 ...
+##  $ Q15_StCentrd_g : int  1 2 3 1 2 3 3 1 3 3 ...
+##  $ Q16_Lims_a     : int  2 1 2 1 1 2 3 1 3 1 ...
+##  $ Q16_Lims_b     : int  1 1 2 2 1 1 2 1 3 2 ...
+##  $ Q16_Lims_c     : int  3 3 3 3 3 3 3 2 2 2 ...
+##  $ Q16_Lims_d     : int  2 2 2 2 2 2 2 1 2 3 ...
+##  $ Q16_Lims_e     : int  1 1 2 2 1 2 2 2 2 2 ...
+##  $ Q16_Lims_f     : int  1 1 1 1 1 1 1 1 2 1 ...
+##  $ Q16_Lims_g     : int  2 1 2 1 1 1 1 2 1 1 ...
+##  $ Q17_Mins       : int  160 180 190 200 210 180 200 240 150 160 ...
+##  $ Q19_Didac_a    : int  3 4 2 3 3 3 2 3 2 1 ...
+##  $ Q19_Didac_b    : int  3 2 1 4 1 4 2 2 2 2 ...
+##  $ Q19_Didac_c    : int  4 3 2 3 2 2 2 1 2 1 ...
+##  $ Q6_Major_in_Edu: num  1 1 0 1 1 1 0 1 0 0 ...
+##  $ Q15_StCentrd_aR: num  2 1 1 3 2 1 0 3 0 1 ...
+##  $ Q15_StCentrd_bR: num  2 3 2 3 3 1 2 3 2 2 ...
+##  $ Q15_StCentrd_cR: num  3 0 2 2 1 1 2 3 2 2 ...
+##  $ Q15_StCentrd_dR: num  3 2 1 2 2 1 1 3 0 0 ...
+##  $ Q15_StCentrd_eR: num  2 2 1 3 2 1 0 2 2 2 ...
+##  $ Q15_StCentrd_fR: num  1 1 1 3 1 0 2 3 3 0 ...
+##  $ Q15_StCentrd_gR: num  3 2 1 3 2 1 1 3 1 1 ...
+##  $ Q16_Lims_aZ    : num  1 0 1 0 0 1 2 0 2 0 ...
+##  $ Q16_Lims_bZ    : num  0 0 1 1 0 0 1 0 2 1 ...
+##  $ Q16_Lims_cZ    : num  2 2 2 2 2 2 2 1 1 1 ...
+##  $ Q16_Lims_dZ    : num  1 1 1 1 1 1 1 0 1 2 ...
+##  $ Q16_Lims_eZ    : num  0 0 1 1 0 1 1 1 1 1 ...
+##  $ Q16_Lims_fZ    : num  0 0 0 0 0 0 0 0 1 0 ...
+##  $ Q16_Lims_gZ    : num  1 0 1 0 0 0 0 1 0 0 ...</code></pre>
+<p>Let’s check that it worked with the first and 7th variable.<a href="#fn6" class="footnote-ref" id="fnref6"><sup>6</sup></a></p>
+<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="Prepping.html#cb60-1"></a>timss[<span class="dv">7</span><span class="op">:</span><span class="dv">12</span>, <span class="kw">c</span>(Q16[<span class="dv">1</span>], Q16Z[<span class="dv">1</span>])]</span>
+<span id="cb60-2"><a href="Prepping.html#cb60-2"></a>timss[<span class="dv">7</span><span class="op">:</span><span class="dv">12</span>, <span class="kw">c</span>(Q16[<span class="dv">7</span>], Q16Z[<span class="dv">7</span>])]</span></code></pre></div>
+</div>
+<div id="rescaling-q19" class="section level4">
+<h4><span class="header-section-number">2.3.1.3</span> Rescaling Q19</h4>
+<p>Similar to Question 15, Question 19’s response scale categories are in an illogical direction. Let’s do the same thing we did for Question 15.</p>
+<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="Prepping.html#cb61-1"></a><span class="kw">str</span>(timss) </span>
+<span id="cb61-2"><a href="Prepping.html#cb61-2"></a></span>
+<span id="cb61-3"><a href="Prepping.html#cb61-3"></a>Q19 &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Q19_Didac_a&quot;</span>,  <span class="st">&quot;Q19_Didac_b&quot;</span>,  <span class="st">&quot;Q19_Didac_c&quot;</span>)</span>
+<span id="cb61-4"><a href="Prepping.html#cb61-4"></a>Q19R&lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Q19_Didac_aR&quot;</span>, <span class="st">&quot;Q19_Didac_bR&quot;</span>, <span class="st">&quot;Q19_Didac_cR&quot;</span>) </span>
+<span id="cb61-5"><a href="Prepping.html#cb61-5"></a></span>
+<span id="cb61-6"><a href="Prepping.html#cb61-6"></a>timss[,Q19R] &lt;-<span class="st"> </span>(<span class="dv">4</span> <span class="op">+</span><span class="st"> </span><span class="dv">0</span> <span class="op">-</span><span class="st"> </span>timss[,Q19]) </span></code></pre></div>
+</div>
+</div>
+</div>
+<div id="creating-composite-scores-aka-indexes" class="section level2">
+<h2><span class="header-section-number">2.4</span> Creating Composite Scores (AKA Indexes)</h2>
+<p><strong>1)</strong> Let’s create an index (AKA scale or composite) variable from the 7 numeric items in Q15. Let’s name our new variable <code>Q15_Stdnt_Centred_Index</code>.</p>
+<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="Prepping.html#cb62-1"></a>timss<span class="op">$</span>Q15_Index &lt;-<span class="st"> </span><span class="kw">apply</span>(timss[ ,Q15R],<span class="dv">1</span>, mean, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>) </span></code></pre></div>
+<p>Applying the mean function across columns “1” directs R to apply this function to the first margin, i.e. to the rows (and across columns). See <a href="http://www2.hawaii.edu/~georgeha/surveys/_book/appending.html" class="uri">http://www2.hawaii.edu/~georgeha/surveys/_book/appending.html</a>.
+So we get each person’s mean score across the 7 items in Q15R. <code>na.rm = TRUE</code> is used in case we have any missing data.</p>
+<p>Let’s look at the index scores for the first 5 or so observations:</p>
+<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="Prepping.html#cb63-1"></a>timss[<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>, <span class="kw">c</span>(Q15R,<span class="st">&quot;Q15_Index&quot;</span>)]  </span></code></pre></div>
+<pre><code>##   Q15_StCentrd_aR Q15_StCentrd_bR Q15_StCentrd_cR Q15_StCentrd_dR
+## 1               2               2               3               3
+## 2               1               3               0               2
+## 3               1               2               2               1
+## 4               3               3               2               2
+## 5               2               3               1               2
+##   Q15_StCentrd_eR Q15_StCentrd_fR Q15_StCentrd_gR Q15_Index
+## 1               2               1               3  2.285714
+## 2               2               1               2  1.571429
+## 3               1               1               1  1.285714
+## 4               3               3               3  2.714286
+## 5               2               1               2  1.857143</code></pre>
+<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="Prepping.html#cb65-1"></a><span class="kw">summary</span>(timss<span class="op">$</span>Q15_Index)</span></code></pre></div>
+<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+##  0.5714  1.2857  1.5714  1.7190  2.0000  3.0000</code></pre>
+<p>We can use the structure function, <code>str()</code>, with the same subset of data:</p>
+<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="Prepping.html#cb67-1"></a><span class="kw">str</span>(timss[, <span class="kw">c</span>(Q15R,<span class="st">&quot;Q15_Index&quot;</span>)])</span></code></pre></div>
+<pre><code>## &#39;data.frame&#39;:    30 obs. of  8 variables:
+##  $ Q15_StCentrd_aR: num  2 1 1 3 2 1 0 3 0 1 ...
+##  $ Q15_StCentrd_bR: num  2 3 2 3 3 1 2 3 2 2 ...
+##  $ Q15_StCentrd_cR: num  3 0 2 2 1 1 2 3 2 2 ...
+##  $ Q15_StCentrd_dR: num  3 2 1 2 2 1 1 3 0 0 ...
+##  $ Q15_StCentrd_eR: num  2 2 1 3 2 1 0 2 2 2 ...
+##  $ Q15_StCentrd_fR: num  1 1 1 3 1 0 2 3 3 0 ...
+##  $ Q15_StCentrd_gR: num  3 2 1 3 2 1 1 3 1 1 ...
+##  $ Q15_Index      : num  2.29 1.57 1.29 2.71 1.86 ...</code></pre>
+<p><strong>2)</strong> Let’s do the same thing with Q16 and Q19:</p>
+<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="Prepping.html#cb69-1"></a>timss<span class="op">$</span>Q19_Index &lt;-<span class="st"> </span><span class="kw">apply</span>(timss[,Q19R], <span class="dv">1</span>, mean, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)</span>
+<span id="cb69-2"><a href="Prepping.html#cb69-2"></a>timss<span class="op">$</span>Q16_Index &lt;-<span class="st"> </span><span class="kw">apply</span>(timss[,Q16Z], <span class="dv">1</span>, mean, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
+<p>Take a look at the new composite variables:</p>
+<div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb70-1"><a href="Prepping.html#cb70-1"></a>timss[<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>,<span class="kw">c</span>(Q19R,<span class="st">&quot;Q19_Index&quot;</span>)]  </span></code></pre></div>
+<pre><code>##   Q19_Didac_aR Q19_Didac_bR Q19_Didac_cR Q19_Index
+## 1            1            1            0 0.6666667
+## 2            0            2            1 1.0000000
+## 3            2            3            2 2.3333333
+## 4            1            0            1 0.6666667
+## 5            1            3            2 2.0000000</code></pre>
+<div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb72-1"><a href="Prepping.html#cb72-1"></a>timss[<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>,<span class="kw">c</span>(Q16Z,<span class="st">&quot;Q16_Index&quot;</span>)]  </span></code></pre></div>
+<pre><code>##   Q16_Lims_aZ Q16_Lims_bZ Q16_Lims_cZ Q16_Lims_dZ Q16_Lims_eZ Q16_Lims_fZ
+## 1           1           0           2           1           0           0
+## 2           0           0           2           1           0           0
+## 3           1           1           2           1           1           0
+## 4           0           1           2           1           1           0
+## 5           0           0           2           1           0           0
+##   Q16_Lims_gZ Q16_Index
+## 1           1 0.7142857
+## 2           0 0.4285714
+## 3           1 1.0000000
+## 4           0 0.7142857
+## 5           0 0.4285714</code></pre>
+</div>
+<div id="a-general-formula-for-rescaling-data" class="section level2">
+<h2><span class="header-section-number">2.5</span> A general formula for rescaling data</h2>
+<p>Here’s a more general formula for rescaling:</p>
+<p>Sometimes, we want to rescale data. For example, if we want to create an index based on several variables, but some of these variables are on a 1-to-5 scale while others are on a 1-to-6 scale and we want to give equal weight to the variables, we would rescale one type to be on the other’s scale.</p>
+<p>We can use this general formula, with the “bottom” and the “top” referring to the bottom and top of the scale and the “value” referring to the response of interest (a person’s response): new.value = new.bottom + (old.value - old.bottom)*(new.top - new.bottom)/(old.top - old.bottom) but first we have to assign values to each of the objects on the right side (or we could just plug them in). Here is an example of rescaling a response of 3 that was on a scale of 1 to 6 to the new scale of 1 to 5:</p>
+<div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb74-1"><a href="Prepping.html#cb74-1"></a>old.value &lt;-<span class="st">  </span><span class="dv">3</span>  <span class="co">#This is our original data point. </span></span>
+<span id="cb74-2"><a href="Prepping.html#cb74-2"></a>old.bottom&lt;-<span class="st">  </span><span class="dv">1</span>  <span class="co">#This is the lowest possible point on the original scale</span></span>
+<span id="cb74-3"><a href="Prepping.html#cb74-3"></a>old.top   &lt;-<span class="st">  </span><span class="dv">6</span>  <span class="co">#This is the highest possible point on the original scale</span></span>
+<span id="cb74-4"><a href="Prepping.html#cb74-4"></a>new.bottom&lt;-<span class="st">  </span><span class="dv">1</span>  <span class="co">#This is the lowest possible point on the new scale</span></span>
+<span id="cb74-5"><a href="Prepping.html#cb74-5"></a>new.top   &lt;-<span class="st">  </span><span class="dv">5</span>  <span class="co">#This is the highest possible point on the new scale</span></span></code></pre></div>
+<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb75-1"><a href="Prepping.html#cb75-1"></a>new.bottom <span class="op">+</span><span class="st"> </span>(old.value <span class="op">-</span><span class="st"> </span>old.bottom)<span class="op">*</span>(new.top <span class="op">-</span><span class="st"> </span>new.bottom)<span class="op">/</span>(old.top <span class="op">-</span><span class="st"> </span>old.bottom)</span></code></pre></div>
+<pre><code>## [1] 2.6</code></pre>
+<p>which is the same as this if we weren’t using object names:</p>
+<div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb77-1"><a href="Prepping.html#cb77-1"></a><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>(<span class="dv">3</span> <span class="op">-</span><span class="st"> </span><span class="dv">1</span>)<span class="op">*</span>(<span class="dv">5-1</span>)<span class="op">/</span>(<span class="dv">6-1</span>)</span></code></pre></div>
+<pre><code>## [1] 2.6</code></pre>
+<p>Seems like too much work, right. However, we can use this in a custom function.</p>
+</div>
+<div id="create-and-use-a-custom-function" class="section level2">
+<h2><span class="header-section-number">2.6</span> Create and use a custom function</h2>
+<p>It’s convenient to create a custom function using that formula. Let’s name our custom function something that does not already exist in base R. We can check this using the help() function to see if something comes up:</p>
+<div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb79-1"><a href="Prepping.html#cb79-1"></a><span class="kw">help</span>(<span class="st">&quot;myrescale&quot;</span>) </span></code></pre></div>
+<p>Seems like “myrescale” is a good name because nothing comes up in help. After the function(), we specify the argument names and their order. Then, we enclose the operations in the curly brackets. The final object, <code>new.value</code>, is what is produced.</p>
+<div class="sourceCode" id="cb80"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb80-1"><a href="Prepping.html#cb80-1"></a>myrescale &lt;-<span class="st"> </span><span class="cf">function</span>(old.value, old.bottom, old.top, new.bottom, new.top){</span>
+<span id="cb80-2"><a href="Prepping.html#cb80-2"></a> new.value &lt;-<span class="st"> </span>new.bottom <span class="op">+</span><span class="st"> </span>(old.value <span class="op">-</span><span class="st"> </span>old.bottom)<span class="op">*</span>(new.top <span class="op">-</span><span class="st"> </span>new.bottom)<span class="op">/</span>(old.top <span class="op">-</span><span class="st"> </span>old.bottom)</span>
+<span id="cb80-3"><a href="Prepping.html#cb80-3"></a>}</span></code></pre></div>
+<p>Now we can use that custom function. Let’s make up some arbitrary original data,
+within our original 1 to 6 scale:</p>
+<div class="sourceCode" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb81-1"><a href="Prepping.html#cb81-1"></a>olddat &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">4</span>, <span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">6</span>, <span class="dv">5</span>)</span>
+<span id="cb81-2"><a href="Prepping.html#cb81-2"></a></span>
+<span id="cb81-3"><a href="Prepping.html#cb81-3"></a>new1to5 &lt;-<span class="st"> </span><span class="kw">myrescale</span>(<span class="dt">old.value  =</span> olddat, </span>
+<span id="cb81-4"><a href="Prepping.html#cb81-4"></a>                     <span class="dt">old.bottom =</span> <span class="dv">1</span>, </span>
+<span id="cb81-5"><a href="Prepping.html#cb81-5"></a>                     <span class="dt">old.top    =</span> <span class="dv">6</span>, </span>
+<span id="cb81-6"><a href="Prepping.html#cb81-6"></a>                     <span class="dt">new.bottom =</span> <span class="dv">1</span>, </span>
+<span id="cb81-7"><a href="Prepping.html#cb81-7"></a>                     <span class="dt">new.top    =</span> <span class="dv">5</span>)</span>
+<span id="cb81-8"><a href="Prepping.html#cb81-8"></a>new1to5</span></code></pre></div>
+<pre><code>## [1] 3.4 2.6 1.8 1.0 5.0 4.2</code></pre>
+<p>So, we used our homemade function, <code>myrescale()</code>, by specifying the arguments. We can re-use this function in our R session.</p>
+<p>Here’s another example with our data set:
+Maybe for some reason we want to transform all of our Q15R variables to a 5 point scale that is centered at the midpoint, so from -2 to 2:</p>
+<p>First let’s create a name for our new set of variables Maybe we use “C5” to remind ourselves it’s centered and on five points:</p>
+<div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb83-1"><a href="Prepping.html#cb83-1"></a>Q15Centr5 &lt;-<span class="st"> </span><span class="kw">paste0</span>(Q15, <span class="st">&quot;_C5&quot;</span>)</span>
+<span id="cb83-2"><a href="Prepping.html#cb83-2"></a>Q15Centr5</span></code></pre></div>
+<pre><code>## [1] &quot;Q15_StCentrd_a_C5&quot; &quot;Q15_StCentrd_b_C5&quot; &quot;Q15_StCentrd_c_C5&quot;
+## [4] &quot;Q15_StCentrd_d_C5&quot; &quot;Q15_StCentrd_e_C5&quot; &quot;Q15_StCentrd_f_C5&quot;
+## [7] &quot;Q15_StCentrd_g_C5&quot;</code></pre>
+<div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb85-1"><a href="Prepping.html#cb85-1"></a>timss[ ,Q15Centr5]&lt;-<span class="st"> </span><span class="kw">myrescale</span>(<span class="dt">old.value  =</span> timss[, Q15R], </span>
+<span id="cb85-2"><a href="Prepping.html#cb85-2"></a>                      <span class="dt">old.bottom =</span>  <span class="dv">0</span>, </span>
+<span id="cb85-3"><a href="Prepping.html#cb85-3"></a>                      <span class="dt">old.top    =</span>  <span class="dv">3</span>, </span>
+<span id="cb85-4"><a href="Prepping.html#cb85-4"></a>                      <span class="dt">new.bottom =</span> <span class="dv">-2</span>, </span>
+<span id="cb85-5"><a href="Prepping.html#cb85-5"></a>                      <span class="dt">new.top    =</span>  <span class="dv">2</span>)</span>
+<span id="cb85-6"><a href="Prepping.html#cb85-6"></a>timss[<span class="dv">1</span><span class="op">:</span><span class="dv">6</span>, <span class="kw">c</span>(Q15R[<span class="dv">3</span>], Q15Centr5[<span class="dv">3</span>]) ]</span></code></pre></div>
+<pre><code>##   Q15_StCentrd_cR Q15_StCentrd_c_C5
+## 1               3         2.0000000
+## 2               0        -2.0000000
+## 3               2         0.6666667
+## 4               2         0.6666667
+## 5               1        -0.6666667
+## 6               1        -0.6666667</code></pre>
+<p>We can use this general formula to reverse scale, too. To reverse the scale, the new top and bottom are just reversed:</p>
+<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb87-1"><a href="Prepping.html#cb87-1"></a>newReversed &lt;-<span class="st"> </span><span class="kw">myrescale</span>(olddat, </span>
+<span id="cb87-2"><a href="Prepping.html#cb87-2"></a>                         <span class="dt">old.bottom =</span> <span class="dv">1</span>, </span>
+<span id="cb87-3"><a href="Prepping.html#cb87-3"></a>                         <span class="dt">old.top    =</span> <span class="dv">6</span>, </span>
+<span id="cb87-4"><a href="Prepping.html#cb87-4"></a>                         <span class="dt">new.bottom =</span> <span class="dv">6</span>, </span>
+<span id="cb87-5"><a href="Prepping.html#cb87-5"></a>                         <span class="dt">new.top    =</span> <span class="dv">1</span>)</span></code></pre></div>
+<p>Let’s compare our newly reversed scale to our original scale:</p>
+<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb88-1"><a href="Prepping.html#cb88-1"></a>newReversed</span></code></pre></div>
+<pre><code>## [1] 3 4 5 6 1 2</code></pre>
+<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb90-1"><a href="Prepping.html#cb90-1"></a>olddat</span></code></pre></div>
+<pre><code>## [1] 4 3 2 1 6 5</code></pre>
+</div>
+<div id="the-code-in-one-place-for-one-of-the-composite-scores" class="section level2">
+<h2><span class="header-section-number">2.7</span> The code in one place for one of the composite scores</h2>
+<p>Here is the code again for one of the scales—the Q15 index—but without the extra steps above. This shows the core steps:</p>
+<ol style="list-style-type: decimal">
+<li>Reading in the CSV file,</li>
+<li>Examining the structure of the data frame,</li>
+<li>Assigning the names of the columns to an object, <code>Q15</code>, so we can use that object in subsequent code,</li>
+<li>Creating a new object, <code>Q15R</code> that includes the names of the <code>Q15</code> items but with an “R” so we can create a new set of columns that are rescaled,</li>
+<li>The actual recscaling of the items,</li>
+<li>Calculating the composite score from the rescaled items, and</li>
+<li>Examining the structure of our rescaled items and our composite score.</li>
+</ol>
+<div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb92-1"><a href="Prepping.html#cb92-1"></a>timss &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&#39;Week13_Timss_Mock_Raw.csv&#39;</span>) </span>
+<span id="cb92-2"><a href="Prepping.html#cb92-2"></a><span class="kw">str</span>(timss)</span>
+<span id="cb92-3"><a href="Prepping.html#cb92-3"></a>Q15   &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Q15_StCentrd_a&quot;</span>, <span class="st">&quot;Q15_StCentrd_b&quot;</span>, <span class="st">&quot;Q15_StCentrd_c&quot;</span>, <span class="st">&quot;Q15_StCentrd_d&quot;</span>, </span>
+<span id="cb92-4"><a href="Prepping.html#cb92-4"></a>        <span class="st">&quot;Q15_StCentrd_e&quot;</span>, <span class="st">&quot;Q15_StCentrd_f&quot;</span>, <span class="st">&quot;Q15_StCentrd_g&quot;</span>)</span>
+<span id="cb92-5"><a href="Prepping.html#cb92-5"></a>Q15R  &lt;-<span class="st"> </span><span class="kw">paste0</span>(Q15,<span class="st">&quot;R&quot;</span>)</span>
+<span id="cb92-6"><a href="Prepping.html#cb92-6"></a>timss[ ,Q15R]   &lt;-<span class="st"> </span>(<span class="dv">4</span> <span class="op">+</span><span class="st"> </span><span class="dv">0</span> <span class="op">-</span><span class="st"> </span>timss[,Q15]) </span>
+<span id="cb92-7"><a href="Prepping.html#cb92-7"></a>timss<span class="op">$</span>Q15_Index &lt;-<span class="st"> </span><span class="kw">apply</span>(timss[ ,Q15R],<span class="dv">1</span>, mean, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>) </span>
+<span id="cb92-8"><a href="Prepping.html#cb92-8"></a><span class="kw">str</span>(timss[, <span class="kw">c</span>(Q15R,<span class="st">&quot;Q15_Index&quot;</span>)])</span></code></pre></div>
+</div>
+<div id="a-shortcut-when-all-of-the-items-are-on-the-same-scale" class="section level2">
+<h2><span class="header-section-number">2.8</span> A shortcut, when all of the items are on the same scale</h2>
+<p>So far, we have been practicing rescaling items before we use them to create a composite score. That was worth learning because sometimes we find ourselves needing to recode only some of the items (e.g., if we need to reverse-code items that are phrased in the opposite direction to the other items in the scale).</p>
+<p>When we do not have that situation, we can take a simpler approach: We can create the composite variable and then rescale that. Here’s an example with Q15.</p>
+<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb93-1"><a href="Prepping.html#cb93-1"></a>Q15 &lt;-<span class="st"> </span><span class="kw">paste0</span>(<span class="st">&quot;Q15_StCentrd_&quot;</span>, letters[<span class="dv">1</span><span class="op">:</span><span class="dv">7</span>])</span>
+<span id="cb93-2"><a href="Prepping.html#cb93-2"></a>timss<span class="op">$</span>Q15_Index_raw  &lt;-<span class="st"> </span><span class="kw">apply</span>(timss[ ,Q15],<span class="dv">1</span>, mean, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>) </span>
+<span id="cb93-3"><a href="Prepping.html#cb93-3"></a>timss<span class="op">$</span>Q15_Index_easy &lt;-<span class="st"> </span><span class="dv">4</span> <span class="op">+</span><span class="st"> </span><span class="dv">0</span> <span class="op">-</span><span class="st"> </span>timss<span class="op">$</span>Q15_Index_raw</span></code></pre></div>
+<p>Annoying, huh. We did all of the work above when we could have achieved the same result with three lines of code. Just to verify, in this demo, let’s eyeball the first 10 people’s scores on this variable (timss$Q15_Index_easy) and the one we had created earlier using after rescaling the individual items (Q15_Index):</p>
+<div class="sourceCode" id="cb94"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb94-1"><a href="Prepping.html#cb94-1"></a>timss[<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>, <span class="kw">c</span>(<span class="st">&quot;TID&quot;</span>, <span class="st">&quot;Q15_Index&quot;</span>, <span class="st">&quot;Q15_Index_easy&quot;</span>)]</span></code></pre></div>
+<pre><code>##    TID Q15_Index Q15_Index_easy
+## 1    1 2.2857143      2.2857143
+## 2    2 1.5714286      1.5714286
+## 3    3 1.2857143      1.2857143
+## 4    4 2.7142857      2.7142857
+## 5    5 1.8571429      1.8571429
+## 6    6 0.8571429      0.8571429
+## 7    7 1.1428571      1.1428571
+## 8    8 2.8571429      2.8571429
+## 9    9 1.4285714      1.4285714
+## 10  10 1.1428571      1.1428571</code></pre>
+</div>
+<div id="summary" class="section level2">
+<h2><span class="header-section-number">2.9</span> Summary</h2>
+<p>In this chapter, we created variables (dummy codes and composite scores), recoded and rescaled variables (items and composite variables), created a custom function, and practiced looking at our data and the structure of our data.</p>
+
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="1">
+<li id="fn1"><p>In earlier versions of R, the <code>read.csv()</code> function read these as factors, which are appropriate for nominal and ordinal level data.<a href="Prepping.html#fnref1" class="footnote-back">↩︎</a></p></li>
+<li id="fn2"><p>We can shorten this code using the <code>paste0()</code> function and the first 7 letters of the alphabet: <code>Q15 &lt;- paste0("Q15_StCentrd_", letters[1:7])</code><a href="Prepping.html#fnref2" class="footnote-back">↩︎</a></p></li>
+<li id="fn3"><p>The benefit here is that we can re-use this object, Q15, in other code to reference these columns.<a href="Prepping.html#fnref3" class="footnote-back">↩︎</a></p></li>
+<li id="fn4"><p>This recoding is helpful if we use these as predictors in a regression because we can interpret the intercept as a meaningful number.<a href="Prepping.html#fnref4" class="footnote-back">↩︎</a></p></li>
+<li id="fn5"><p>The <code>dput()</code> function creates an output that is easy to copy and paste into the <code>c()</code> function in our next step.<a href="Prepping.html#fnref5" class="footnote-back">↩︎</a></p></li>
+<li id="fn6"><p>We could also copy and paste the code and replace the numbers with any within the range of 1 through 7 because there are 7 items in this question.<a href="Prepping.html#fnref6" class="footnote-back">↩︎</a></p></li>
+</ol>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="Packages.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["Getting-started.pdf", "Getting-started.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

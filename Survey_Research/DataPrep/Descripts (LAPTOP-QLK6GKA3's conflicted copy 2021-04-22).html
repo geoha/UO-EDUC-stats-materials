@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Part 4 Estimating Descriptive Statistics | Preparing and Analyzing Survey Data in R</title>
+  <meta name="description" content="Provides guidance for preparing and analyzing survey data in R." />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Part 4 Estimating Descriptive Statistics | Preparing and Analyzing Survey Data in R" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="Provides guidance for preparing and analyzing survey data in R." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Part 4 Estimating Descriptive Statistics | Preparing and Analyzing Survey Data in R" />
+  
+  <meta name="twitter:description" content="Provides guidance for preparing and analyzing survey data in R." />
+  
+
+<meta name="author" content="George M. Harrison  University of Hawai‘i at Mānoa, College of Education" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="Packages.html"/>
+<link rel="next" href="ByDescripts.html"/>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<link href="libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Preparing and Analyzing Survey Data</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a><ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#prior-knowledge"><i class="fa fa-check"></i><b>1.1</b> Prior knowledge</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="Prepping.html"><a href="Prepping.html"><i class="fa fa-check"></i><b>2</b> Preparing the Data</a><ul>
+<li class="chapter" data-level="2.1" data-path="Prepping.html"><a href="Prepping.html#import-the-data-from-the-csv-file"><i class="fa fa-check"></i><b>2.1</b> Import the data from the CSV file</a><ul>
+<li class="chapter" data-level="2.1.1" data-path="Prepping.html"><a href="Prepping.html#examining-the-imported-data-set"><i class="fa fa-check"></i><b>2.1.1</b> Examining the imported data set</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="Prepping.html"><a href="Prepping.html#managing-the-structure-of-the-data"><i class="fa fa-check"></i><b>2.2</b> Managing the structure of the data</a></li>
+<li class="chapter" data-level="2.3" data-path="Prepping.html"><a href="Prepping.html#recoding-response-category-data"><i class="fa fa-check"></i><b>2.3</b> Recoding response-category data</a><ul>
+<li class="chapter" data-level="2.3.1" data-path="Prepping.html"><a href="Prepping.html#reverse-coding-and-rescaling-data"><i class="fa fa-check"></i><b>2.3.1</b> Reverse-coding and rescaling data</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="Prepping.html"><a href="Prepping.html#creating-composite-scores-aka-indexes"><i class="fa fa-check"></i><b>2.4</b> Creating Composite Scores (AKA Indexes)</a></li>
+<li class="chapter" data-level="2.5" data-path="Prepping.html"><a href="Prepping.html#a-general-formula-for-rescaling-data"><i class="fa fa-check"></i><b>2.5</b> A general formula for rescaling data</a></li>
+<li class="chapter" data-level="2.6" data-path="Prepping.html"><a href="Prepping.html#create-and-use-a-custom-function"><i class="fa fa-check"></i><b>2.6</b> Create and use a custom function</a></li>
+<li class="chapter" data-level="2.7" data-path="Prepping.html"><a href="Prepping.html#the-code-in-one-place-for-one-of-the-composite-scores"><i class="fa fa-check"></i><b>2.7</b> The code in one place for one of the composite scores</a></li>
+<li class="chapter" data-level="2.8" data-path="Prepping.html"><a href="Prepping.html#a-shortcut-when-all-of-the-items-are-on-the-same-scale"><i class="fa fa-check"></i><b>2.8</b> A shortcut, when all of the items are on the same scale</a></li>
+<li class="chapter" data-level="2.9" data-path="Prepping.html"><a href="Prepping.html#summary"><i class="fa fa-check"></i><b>2.9</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="Packages.html"><a href="Packages.html"><i class="fa fa-check"></i><b>3</b> Installing and Using Packages</a><ul>
+<li class="chapter" data-level="3.1" data-path="Packages.html"><a href="Packages.html#seeing-if-we-need-to-install-a-package"><i class="fa fa-check"></i><b>3.1</b> Seeing if we need to install a package</a></li>
+<li class="chapter" data-level="3.2" data-path="Packages.html"><a href="Packages.html#installing-a-package"><i class="fa fa-check"></i><b>3.2</b> Installing a package</a></li>
+<li class="chapter" data-level="3.3" data-path="Packages.html"><a href="Packages.html#using-a-function-from-a-package"><i class="fa fa-check"></i><b>3.3</b> Using a function from a package</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="Descripts.html"><a href="Descripts.html"><i class="fa fa-check"></i><b>4</b> Estimating Descriptive Statistics</a><ul>
+<li class="chapter" data-level="4.1" data-path="Descripts.html"><a href="Descripts.html#descriptive-statistics-of-categorical-data"><i class="fa fa-check"></i><b>4.1</b> Descriptive statistics of categorical data</a><ul>
+<li class="chapter" data-level="4.1.1" data-path="Descripts.html"><a href="Descripts.html#creating-factors"><i class="fa fa-check"></i><b>4.1.1</b> Creating factors</a></li>
+<li class="chapter" data-level="4.1.2" data-path="Descripts.html"><a href="Descripts.html#plotting-the-frequency-data"><i class="fa fa-check"></i><b>4.1.2</b> Plotting the frequency data</a></li>
+<li class="chapter" data-level="4.1.3" data-path="Descripts.html"><a href="Descripts.html#cross-tabulations"><i class="fa fa-check"></i><b>4.1.3</b> Cross-tabulations</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="Descripts.html"><a href="Descripts.html#IntrvlDesc"><i class="fa fa-check"></i><b>4.2</b> Descriptive statistics of interval-level data</a><ul>
+<li class="chapter" data-level="4.2.1" data-path="Descripts.html"><a href="Descripts.html#calculating-the-confidence-interval"><i class="fa fa-check"></i><b>4.2.1</b> Calculating the confidence interval</a></li>
+<li class="chapter" data-level="4.2.2" data-path="Descripts.html"><a href="Descripts.html#generating-and-exporting-a-report"><i class="fa fa-check"></i><b>4.2.2</b> Generating and exporting a report</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="Descripts.html"><a href="Descripts.html#but-really-its-inferential"><i class="fa fa-check"></i><b>4.3</b> But really, it’s inferential</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="ByDescripts.html"><a href="ByDescripts.html"><i class="fa fa-check"></i><b>5</b> Descriptive Statistics by Group</a><ul>
+<li class="chapter" data-level="5.1" data-path="ByDescripts.html"><a href="ByDescripts.html#using-the-describeby-function"><i class="fa fa-check"></i><b>5.1</b> Using the <code>describeBy()</code> function</a></li>
+<li class="chapter" data-level="5.2" data-path="ByDescripts.html"><a href="ByDescripts.html#confidence-intervals-for-each-groups-estimated-mean"><i class="fa fa-check"></i><b>5.2</b> Confidence intervals for each group’s estimated mean</a><ul>
+<li class="chapter" data-level="5.2.1" data-path="ByDescripts.html"><a href="ByDescripts.html#separating-the-report-by-group"><i class="fa fa-check"></i><b>5.2.1</b> Separating the report by group</a></li>
+<li class="chapter" data-level="5.2.2" data-path="ByDescripts.html"><a href="ByDescripts.html#calculating-the-confidence-interval-1"><i class="fa fa-check"></i><b>5.2.2</b> Calculating the confidence interval</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="ByDescripts.html"><a href="ByDescripts.html#plotting-the-by-group-means-and-confidence-intervals"><i class="fa fa-check"></i><b>5.3</b> Plotting the by-group means and confidence intervals</a><ul>
+<li class="chapter" data-level="5.3.1" data-path="ByDescripts.html"><a href="ByDescripts.html#making-a-pretty-plot-maybe"><i class="fa fa-check"></i><b>5.3.1</b> Making a pretty plot, maybe</a></li>
+<li class="chapter" data-level="5.3.2" data-path="ByDescripts.html"><a href="ByDescripts.html#saving-plots"><i class="fa fa-check"></i><b>5.3.2</b> Saving plots</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="Reliability.html"><a href="Reliability.html"><i class="fa fa-check"></i><b>6</b> Internal Consistency Reliability</a><ul>
+<li class="chapter" data-level="6.1" data-path="Reliability.html"><a href="Reliability.html#doing-it-manually"><i class="fa fa-check"></i><b>6.1</b> Doing it manually</a></li>
+<li class="chapter" data-level="6.2" data-path="Reliability.html"><a href="Reliability.html#doing-it-with-the-psych-package"><i class="fa fa-check"></i><b>6.2</b> Doing it with the psych package</a><ul>
+<li class="chapter" data-level="6.2.1" data-path="Reliability.html"><a href="Reliability.html#omega-reliability-using-the-psych-package"><i class="fa fa-check"></i><b>6.2.1</b> Omega reliability using the psych package</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="Reliability.html"><a href="Reliability.html#summary-1"><i class="fa fa-check"></i><b>6.3</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="Complex.html"><a href="Complex.html"><i class="fa fa-check"></i><b>7</b> Introduction to the Analysis of Complex Survey Data</a><ul>
+<li class="chapter" data-level="7.1" data-path="Complex.html"><a href="Complex.html#packages"><i class="fa fa-check"></i><b>7.1</b> Packages</a></li>
+<li class="chapter" data-level="7.2" data-path="Complex.html"><a href="Complex.html#example-data"><i class="fa fa-check"></i><b>7.2</b> Example data</a></li>
+<li class="chapter" data-level="7.3" data-path="Complex.html"><a href="Complex.html#the-three-hypothetical-complex-designs"><i class="fa fa-check"></i><b>7.3</b> The three hypothetical complex designs</a><ul>
+<li class="chapter" data-level="7.3.1" data-path="Complex.html"><a href="Complex.html#pretending-we-have-a-cluster-sampled-design"><i class="fa fa-check"></i><b>7.3.1</b> Pretending we have a cluster-sampled design</a></li>
+<li class="chapter" data-level="7.3.2" data-path="Complex.html"><a href="Complex.html#pretending-we-have-a-stratified-design"><i class="fa fa-check"></i><b>7.3.2</b> Pretending we have a stratified design</a></li>
+<li class="chapter" data-level="7.3.3" data-path="Complex.html"><a href="Complex.html#pretending-we-have-a-stratified-cluster-sampled-design"><i class="fa fa-check"></i><b>7.3.3</b> Pretending we have a stratified cluster-sampled design</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="Complex.html"><a href="Complex.html#cluster-sampled-design"><i class="fa fa-check"></i><b>7.4</b> Cluster-sampled design</a><ul>
+<li class="chapter" data-level="7.4.1" data-path="Complex.html"><a href="Complex.html#preparing-the-data"><i class="fa fa-check"></i><b>7.4.1</b> Preparing the data</a></li>
+<li class="chapter" data-level="7.4.2" data-path="Complex.html"><a href="Complex.html#step-1-specifying-the-design"><i class="fa fa-check"></i><b>7.4.2</b> Step 1: Specifying the design</a></li>
+<li class="chapter" data-level="7.4.3" data-path="Complex.html"><a href="Complex.html#step-2-calculating-the-estimates"><i class="fa fa-check"></i><b>7.4.3</b> Step 2: Calculating the estimates</a></li>
+<li class="chapter" data-level="7.4.4" data-path="Complex.html"><a href="Complex.html#effective-sample-size"><i class="fa fa-check"></i><b>7.4.4</b> Effective sample size</a></li>
+<li class="chapter" data-level="7.4.5" data-path="Complex.html"><a href="Complex.html#reporting-the-mean-per-cluster"><i class="fa fa-check"></i><b>7.4.5</b> Reporting the mean per cluster</a></li>
+<li class="chapter" data-level="7.4.6" data-path="Complex.html"><a href="Complex.html#two-stage-cluster-sampled-design"><i class="fa fa-check"></i><b>7.4.6</b> Two-stage cluster-sampled design</a></li>
+</ul></li>
+<li class="chapter" data-level="7.5" data-path="Complex.html"><a href="Complex.html#stratified-design"><i class="fa fa-check"></i><b>7.5</b> Stratified design</a><ul>
+<li class="chapter" data-level="7.5.1" data-path="Complex.html"><a href="Complex.html#preparing-our-data-set"><i class="fa fa-check"></i><b>7.5.1</b> Preparing our data set</a></li>
+<li class="chapter" data-level="7.5.2" data-path="Complex.html"><a href="Complex.html#step-1-specifying-the-design-1"><i class="fa fa-check"></i><b>7.5.2</b> Step 1: Specifying the design</a></li>
+<li class="chapter" data-level="7.5.3" data-path="Complex.html"><a href="Complex.html#step-2-calculating-the-estimates-1"><i class="fa fa-check"></i><b>7.5.3</b> Step 2: Calculating the estimates</a></li>
+</ul></li>
+<li class="chapter" data-level="7.6" data-path="Complex.html"><a href="Complex.html#stratified-cluster-sampled-design"><i class="fa fa-check"></i><b>7.6</b> Stratified cluster-sampled design</a><ul>
+<li class="chapter" data-level="7.6.1" data-path="Complex.html"><a href="Complex.html#preparing-the-data-1"><i class="fa fa-check"></i><b>7.6.1</b> Preparing the data</a></li>
+<li class="chapter" data-level="7.6.2" data-path="Complex.html"><a href="Complex.html#step-1-specifying-the-design-2"><i class="fa fa-check"></i><b>7.6.2</b> Step 1: Specifying the design</a></li>
+<li class="chapter" data-level="7.6.3" data-path="Complex.html"><a href="Complex.html#step-2-calculating-the-estimates-2"><i class="fa fa-check"></i><b>7.6.3</b> Step 2: Calculating the estimates</a></li>
+</ul></li>
+<li class="chapter" data-level="7.7" data-path="Complex.html"><a href="Complex.html#a-simple-random-sample-design-for-comparison"><i class="fa fa-check"></i><b>7.7</b> A simple random sample design, for comparison</a><ul>
+<li class="chapter" data-level="7.7.1" data-path="Complex.html"><a href="Complex.html#preparing-our-data-set-1"><i class="fa fa-check"></i><b>7.7.1</b> Preparing our data set</a></li>
+<li class="chapter" data-level="7.7.2" data-path="Complex.html"><a href="Complex.html#comparing-all-design-scenarios"><i class="fa fa-check"></i><b>7.7.2</b> Comparing all design scenarios</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Preparing and Analyzing Survey Data in R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="Descripts" class="section level1">
+<h1><span class="header-section-number">Part 4</span> Estimating Descriptive Statistics</h1>
+<p>With surveys, we typically report the descriptive statistics of the individual items and of the scales—the composite variables—that we calculated from those items. There are many ways in R to go about estimating the descriptive statistics.<a href="#fn11" class="footnote-ref" id="fnref11"><sup>11</sup></a> An easy way is to use the <code>describe()</code> function from the psych package. We will play with that. Another way is to use Base R’s functions and create our own function.<a href="#fn12" class="footnote-ref" id="fnref12"><sup>12</sup></a> This is handy, particularly if a descriptive statistic is not available to us in a package. We will use this approach, too, because we need to report the confidence intervals of the mean estimate–which is not something that seems to be available with the psych package’s <code>describe()</code> function.</p>
+<p>We also need to remember that there are different levels of data. For categorical data, such as those on nominal and ordinal level scales, it is a good idea to report the frequency (and percentages) of responses in each category. For interval level data, we can report the means, standard deviations, standard error of the mean, and so forth.</p>
+<div id="descriptive-statistics-of-categorical-data" class="section level2">
+<h2><span class="header-section-number">4.1</span> Descriptive statistics of categorical data</h2>
+<p>After we’ve imported the data, we can examine the frequency counts of the categorical variables. With our data, we can see some variables are numeric (<code>int</code> or <code>num</code>) and some are character (<code>chr</code>) in type:</p>
+<div class="sourceCode" id="cb110"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb110-1"><a href="Descripts.html#cb110-1"></a>timss &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&#39;Week13_Timss_Mock_Raw.csv&#39;</span>) </span>
+<span id="cb110-2"><a href="Descripts.html#cb110-2"></a><span class="kw">str</span>(timss)</span></code></pre></div>
+<pre><code>## &#39;data.frame&#39;:    30 obs. of  31 variables:
+##  $ TID           : int  1 2 3 4 5 6 7 8 9 10 ...
+##  $ Q4_Age        : num  2 3 3 2 5 6 5 2 4 3 ...
+##  $ Q5_Degree     : num  4 4 4 5 3 4 5 4 4 4 ...
+##  $ Q6_Math       : chr  &quot;No&quot; &quot;No&quot; &quot;No&quot; &quot;No&quot; ...
+##  $ Q6_Bio        : chr  &quot;No&quot; &quot;No&quot; &quot;No&quot; &quot;No&quot; ...
+##  $ Q6_Phys       : chr  &quot;No&quot; &quot;No&quot; &quot;Yes&quot; &quot;No&quot; ...
+##  $ Q6_Chem       : chr  &quot;No&quot; &quot;No&quot; &quot;No&quot; &quot;No&quot; ...
+##  $ Q6_EarthS     : chr  &quot;No&quot; &quot;No&quot; &quot;No&quot; &quot;No&quot; ...
+##  $ Q6_EdMat      : chr  &quot;No&quot; &quot;No&quot; &quot;No&quot; &quot;Yes&quot; ...
+##  $ Q6_EdSci      : chr  &quot;No&quot; &quot;No&quot; &quot;No&quot; &quot;No&quot; ...
+##  $ Q6_EdGen      : chr  &quot;Yes&quot; &quot;Yes&quot; &quot;No&quot; &quot;No&quot; ...
+##  $ Q6_Othr       : chr  &quot;No&quot; &quot;No&quot; &quot;Yes&quot; &quot;No&quot; ...
+##  $ Q13_NumSs     : int  8 12 19 16 18 26 29 16 30 22 ...
+##  $ Q15_StCentrd_a: int  2 3 3 1 2 3 4 1 4 3 ...
+##  $ Q15_StCentrd_b: int  2 1 2 1 1 3 2 1 2 2 ...
+##  $ Q15_StCentrd_c: int  1 4 2 2 3 3 2 1 2 2 ...
+##  $ Q15_StCentrd_d: int  1 2 3 2 2 3 3 1 4 4 ...
+##  $ Q15_StCentrd_e: int  2 2 3 1 2 3 4 2 2 2 ...
+##  $ Q15_StCentrd_f: int  3 3 3 1 3 4 2 1 1 4 ...
+##  $ Q15_StCentrd_g: int  1 2 3 1 2 3 3 1 3 3 ...
+##  $ Q16_Lims_a    : int  2 1 2 1 1 2 3 1 3 1 ...
+##  $ Q16_Lims_b    : int  1 1 2 2 1 1 2 1 3 2 ...
+##  $ Q16_Lims_c    : int  3 3 3 3 3 3 3 2 2 2 ...
+##  $ Q16_Lims_d    : int  2 2 2 2 2 2 2 1 2 3 ...
+##  $ Q16_Lims_e    : int  1 1 2 2 1 2 2 2 2 2 ...
+##  $ Q16_Lims_f    : int  1 1 1 1 1 1 1 1 2 1 ...
+##  $ Q16_Lims_g    : int  2 1 2 1 1 1 1 2 1 1 ...
+##  $ Q17_Mins      : int  160 180 190 200 210 180 200 240 150 160 ...
+##  $ Q19_Didac_a   : int  3 4 2 3 3 3 2 3 2 1 ...
+##  $ Q19_Didac_b   : int  3 2 1 4 1 4 2 2 2 2 ...
+##  $ Q19_Didac_c   : int  4 3 2 3 2 2 2 1 2 1 ...</code></pre>
+<p>One of the variables in our data set is Q5_Degree, but it is coded as having numeric values. This is an ordinal level variable. The numbers in the data correspond to these categories on the survey instrument:</p>
+<ul>
+<li>1 = <em>Did not complete high school</em></li>
+<li>2 = <em>High school graduate</em></li>
+<li>3 = <em>Associate’s degree</em></li>
+<li>4 = <em>Bachelor’s degree</em></li>
+<li>5 = <em>Master’s degree</em></li>
+<li>6 = <em>Doctorate</em></li>
+</ul>
+<p>To get the frequency counts of the responses in our data, we can use the <code>table()</code> function on the item:</p>
+<div class="sourceCode" id="cb112"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb112-1"><a href="Descripts.html#cb112-1"></a><span class="kw">table</span>(timss<span class="op">$</span>Q5_Degree)</span></code></pre></div>
+<pre><code>## 
+##  3  4  5  6 
+##  1 20  8  1</code></pre>
+<p>So, there was 1 person whose highest degree was at the associate’s level, 20 with a bachelor’s degree as their highest, 8 with at least a master’s degree, and 1 with a doctorate.</p>
+<p>We can calculate the proportion (or percentage) of the responses that are in each category using the <code>prop.table()</code> function around the table function.</p>
+<div class="sourceCode" id="cb114"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb114-1"><a href="Descripts.html#cb114-1"></a><span class="kw">prop.table</span>(<span class="kw">table</span>(timss<span class="op">$</span>Q5_Degree))</span></code></pre></div>
+<pre><code>## 
+##          3          4          5          6 
+## 0.03333333 0.66666667 0.26666667 0.03333333</code></pre>
+<p>We can see that <span class="math inline">\(2/3\)</span> of the teachers (<span class="math inline">\(0.67\)</span>) have a bachelor’s as their highest degree.</p>
+<div id="creating-factors" class="section level3">
+<h3><span class="header-section-number">4.1.1</span> Creating factors</h3>
+<p>Instead of having R treat these as numeric data, which would incorrectly permit calculation of the means and other types of operations that assume an interval level scale, we can change the variable type to be an <em>ordered factor</em>. We can use the <code>factor()</code> function.<a href="#fn13" class="footnote-ref" id="fnref13"><sup>13</sup></a></p>
+<div class="sourceCode" id="cb116"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb116-1"><a href="Descripts.html#cb116-1"></a>timss<span class="op">$</span>Q5_Degree_F &lt;-<span class="st"> </span><span class="kw">factor</span>(timss<span class="op">$</span>Q5_Degree, </span>
+<span id="cb116-2"><a href="Descripts.html#cb116-2"></a>                            <span class="dt">ordered =</span> <span class="ot">TRUE</span>, </span>
+<span id="cb116-3"><a href="Descripts.html#cb116-3"></a>                            <span class="dt">levels =</span> <span class="kw">c</span>(<span class="st">&quot;1&quot;</span>, </span>
+<span id="cb116-4"><a href="Descripts.html#cb116-4"></a>                                       <span class="st">&quot;2&quot;</span>, </span>
+<span id="cb116-5"><a href="Descripts.html#cb116-5"></a>                                       <span class="st">&quot;3&quot;</span>, </span>
+<span id="cb116-6"><a href="Descripts.html#cb116-6"></a>                                       <span class="st">&quot;4&quot;</span>, </span>
+<span id="cb116-7"><a href="Descripts.html#cb116-7"></a>                                       <span class="st">&quot;5&quot;</span>, </span>
+<span id="cb116-8"><a href="Descripts.html#cb116-8"></a>                                       <span class="st">&quot;6&quot;</span>),</span>
+<span id="cb116-9"><a href="Descripts.html#cb116-9"></a>                            <span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">&quot;No_HS&quot;</span>, </span>
+<span id="cb116-10"><a href="Descripts.html#cb116-10"></a>                                       <span class="st">&quot;HS&quot;</span>, </span>
+<span id="cb116-11"><a href="Descripts.html#cb116-11"></a>                                       <span class="st">&quot;Associates&quot;</span>, </span>
+<span id="cb116-12"><a href="Descripts.html#cb116-12"></a>                                       <span class="st">&quot;Bachelors&quot;</span>, </span>
+<span id="cb116-13"><a href="Descripts.html#cb116-13"></a>                                       <span class="st">&quot;Masters&quot;</span>, </span>
+<span id="cb116-14"><a href="Descripts.html#cb116-14"></a>                                       <span class="st">&quot;Doctorate&quot;</span>))</span>
+<span id="cb116-15"><a href="Descripts.html#cb116-15"></a><span class="kw">str</span>(timss<span class="op">$</span>Q5_Degree_F)</span></code></pre></div>
+<pre><code>##  Ord.factor w/ 6 levels &quot;No_HS&quot;&lt;&quot;HS&quot;&lt;&quot;Associates&quot;&lt;..: 4 4 4 5 3 4 5 4 4 4 ...</code></pre>
+<p>Now that we have labeled the levels in the factor, the output from the <code>table()</code> and <code>prop.table()</code> functions is easier to interpret.<a href="#fn14" class="footnote-ref" id="fnref14"><sup>14</sup></a> Factors have a specific set of categories (levels), so when we ask for the frequency of responses in a factor level and zero observations are present, it will still report it (as <span class="math inline">\(0\)</span>).</p>
+<div class="sourceCode" id="cb118"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb118-1"><a href="Descripts.html#cb118-1"></a><span class="kw">table</span>(timss<span class="op">$</span>Q5_Degree_F)</span></code></pre></div>
+<pre><code>## 
+##      No_HS         HS Associates  Bachelors    Masters  Doctorate 
+##          0          0          1         20          8          1</code></pre>
+<div class="sourceCode" id="cb120"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb120-1"><a href="Descripts.html#cb120-1"></a><span class="kw">round</span>( <span class="kw">prop.table</span>(<span class="kw">table</span>(timss<span class="op">$</span>Q5_Degree_F)), <span class="dv">2</span>)</span></code></pre></div>
+<pre><code>## 
+##      No_HS         HS Associates  Bachelors    Masters  Doctorate 
+##       0.00       0.00       0.03       0.67       0.27       0.03</code></pre>
+<p>Specifying our variables as factors is not always required for simple analyses. It’s a good idea to have two versions, one that is a numeric, dummy-coded, version that we can include in a regression and another that is a factor, which shows up nicely in plots.</p>
+</div>
+<div id="plotting-the-frequency-data" class="section level3">
+<h3><span class="header-section-number">4.1.2</span> Plotting the frequency data</h3>
+<p>Let’s use the ggplot2 package to plot the data. First be sure to install the package, which you can do by running <code>install.packages("ggplot2")</code>.</p>
+<div class="sourceCode" id="cb122"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb122-1"><a href="Descripts.html#cb122-1"></a><span class="kw">library</span>(ggplot2)</span>
+<span id="cb122-2"><a href="Descripts.html#cb122-2"></a><span class="kw">ggplot</span>(<span class="dt">data =</span> timss, <span class="kw">aes</span>(<span class="dt">x =</span> Q5_Degree_F) ) <span class="op">+</span></span>
+<span id="cb122-3"><a href="Descripts.html#cb122-3"></a><span class="st"> </span><span class="kw">geom_bar</span>() </span></code></pre></div>
+<p><img src="Getting-started_files/figure-html/unnamed-chunk-70-1.png" width="672" /></p>
+<p>The <code>ggplot()</code> function includes the data frame in the <code>data =</code> argument, which in this case is <code>timss</code>. Then, there’s the <code>aes()</code> argument, which refers to the aesthetics. This is where we would identify the X and Y axes. Here, we’re only using an X axis. That first line creates the plotting area but does not create the plot yet because we have to specify which type of plot, which is what the <code>geom_bar()</code> in the second line does. Notice that after each line in ggplot, we add a <code>+</code>. This tells ggplot to add the next line to the plot.</p>
+<p>We can make modify the plot. One thing we might do is place the scale of the Y axis from 0 to the total number of observations (<code>nrow(timss))</code>), which is 30 in our data. For this, we can use <code>ylim(0, 30)</code> or <code>ylim(0, nrow(timss))</code>. We can change the labels of the x and y axis and change the angle of the text on the x axis.</p>
+<div class="sourceCode" id="cb123"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb123-1"><a href="Descripts.html#cb123-1"></a><span class="kw">ggplot</span>(<span class="dt">data =</span> timss, <span class="kw">aes</span>(<span class="dt">x =</span> Q5_Degree_F)) <span class="op">+</span></span>
+<span id="cb123-2"><a href="Descripts.html#cb123-2"></a><span class="st"> </span><span class="kw">geom_bar</span>() <span class="op">+</span></span>
+<span id="cb123-3"><a href="Descripts.html#cb123-3"></a><span class="st"> </span><span class="kw">ylim</span>(<span class="dv">0</span>, <span class="kw">nrow</span>(timss)) <span class="op">+</span></span>
+<span id="cb123-4"><a href="Descripts.html#cb123-4"></a><span class="st"> </span><span class="kw">xlab</span>(<span class="st">&quot;Highest degree&quot;</span> ) <span class="op">+</span><span class="st"> </span><span class="kw">ylab</span>(<span class="st">&quot;Count&quot;</span>) <span class="op">+</span></span>
+<span id="cb123-5"><a href="Descripts.html#cb123-5"></a><span class="st"> </span><span class="kw">theme</span>(<span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">angle =</span> <span class="dv">45</span>, <span class="dt">hjust =</span> <span class="dv">1</span>))</span></code></pre></div>
+<p><img src="Getting-started_files/figure-html/unnamed-chunk-71-1.png" width="672" /></p>
+<p>We can plot the proportions on the Y axis, too, if we think that is important. Notice that we can include an <code>aes()</code> argument in the <code>geom_bar()</code> line. I found the <code>(..count..)/sum(..count..))</code> part of the code in an online post rather than recalling it from memory but this is an example of how we can modify the y axis.</p>
+<div class="sourceCode" id="cb124"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb124-1"><a href="Descripts.html#cb124-1"></a><span class="kw">ggplot</span>(<span class="dt">data =</span> timss, <span class="kw">aes</span>(<span class="dt">x =</span> Q5_Degree_F)) <span class="op">+</span></span>
+<span id="cb124-2"><a href="Descripts.html#cb124-2"></a><span class="st"> </span><span class="kw">geom_bar</span>(<span class="kw">aes</span>(<span class="dt">y =</span> (..count..)<span class="op">/</span><span class="kw">sum</span>(..count..))) <span class="op">+</span></span>
+<span id="cb124-3"><a href="Descripts.html#cb124-3"></a><span class="st"> </span><span class="kw">ylim</span>(<span class="dv">0</span>, <span class="dv">1</span>) <span class="op">+</span></span>
+<span id="cb124-4"><a href="Descripts.html#cb124-4"></a><span class="st"> </span><span class="kw">xlab</span>(<span class="st">&quot;Highest degree&quot;</span> ) <span class="op">+</span><span class="st"> </span><span class="kw">ylab</span>(<span class="st">&quot;Proportion&quot;</span>) <span class="op">+</span></span>
+<span id="cb124-5"><a href="Descripts.html#cb124-5"></a><span class="st"> </span><span class="kw">theme</span>(<span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">angle =</span> <span class="dv">45</span>, <span class="dt">hjust =</span> <span class="dv">1</span>))</span></code></pre></div>
+<p><img src="Getting-started_files/figure-html/unnamed-chunk-72-1.png" width="672" /></p>
+<p>There are many ways to accomplish the same thing in ggplot. It is powerful but the details are hard to remember.<a href="#fn15" class="footnote-ref" id="fnref15"><sup>15</sup></a> Here, we can change the Y axis to be percentages. If we wanted to include “Percentage” on the Y axis label, we would change <code>name = NULL</code> to <code>name = "Percentage"</code> in the code below:</p>
+<div class="sourceCode" id="cb125"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb125-1"><a href="Descripts.html#cb125-1"></a><span class="kw">ggplot</span>(<span class="dt">data =</span> timss, <span class="kw">aes</span>(<span class="dt">x =</span> Q5_Degree_F)) <span class="op">+</span></span>
+<span id="cb125-2"><a href="Descripts.html#cb125-2"></a><span class="st"> </span><span class="kw">geom_bar</span>(<span class="kw">aes</span>(<span class="dt">y =</span> (..count..)<span class="op">/</span><span class="kw">sum</span>(..count..))) <span class="op">+</span></span>
+<span id="cb125-3"><a href="Descripts.html#cb125-3"></a><span class="st"> </span><span class="kw">xlab</span>(<span class="st">&quot;Highest degree&quot;</span> ) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb125-4"><a href="Descripts.html#cb125-4"></a><span class="st"> </span><span class="kw">scale_y_continuous</span>(<span class="dt">labels =</span> scales<span class="op">::</span>percent, <span class="dt">limits =</span> <span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">1</span>), <span class="dt">name =</span> <span class="ot">NULL</span>) <span class="op">+</span><span class="st"> </span><span class="co"># This line formats the Y axis as percentages, replaces the ylim(0,1) from before, and removes the Y axis label.</span></span>
+<span id="cb125-5"><a href="Descripts.html#cb125-5"></a><span class="st"> </span><span class="kw">scale_x_discrete</span>(<span class="dt">drop =</span> <span class="ot">FALSE</span>) <span class="op">+</span><span class="st"> </span><span class="co"># You can keep this line if you want to include categories that have zero observations.</span></span>
+<span id="cb125-6"><a href="Descripts.html#cb125-6"></a><span class="st"> </span><span class="kw">theme</span>(<span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">angle =</span> <span class="dv">45</span>, <span class="dt">hjust =</span> <span class="dv">1</span>))</span></code></pre></div>
+<p><img src="Getting-started_files/figure-html/unnamed-chunk-73-1.png" width="672" /></p>
+</div>
+<div id="cross-tabulations" class="section level3">
+<h3><span class="header-section-number">4.1.3</span> Cross-tabulations</h3>
+<p>We can also create cross-tabulations—also called contingency tables—of categorical data. For instance, in the first chapter, we created a variable that identified whether the respondent had majored in education or not. We can see what the education level breakdowns are within each of these two categories:</p>
+<div class="sourceCode" id="cb126"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb126-1"><a href="Descripts.html#cb126-1"></a>timss<span class="op">$</span>Q6_Major_in_Edu &lt;-<span class="st"> </span><span class="kw">ifelse</span>(timss<span class="op">$</span>Q6_EdMat <span class="op">==</span><span class="st"> &quot;Yes&quot;</span> <span class="op">|</span></span>
+<span id="cb126-2"><a href="Descripts.html#cb126-2"></a><span class="st">                                </span>timss<span class="op">$</span>Q6_EdSci <span class="op">==</span><span class="st"> &quot;Yes&quot;</span> <span class="op">|</span><span class="st">    </span></span>
+<span id="cb126-3"><a href="Descripts.html#cb126-3"></a><span class="st">                                </span>timss<span class="op">$</span>Q6_EdGen <span class="op">==</span><span class="st"> &quot;Yes&quot;</span>, <span class="dv">1</span> ,<span class="dv">0</span>)</span></code></pre></div>
+<p>Optionally, we can create a factor version of this variable:</p>
+<div class="sourceCode" id="cb127"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb127-1"><a href="Descripts.html#cb127-1"></a>timss<span class="op">$</span>Q6_Major_in_Edu_F &lt;-<span class="st"> </span><span class="kw">factor</span>(timss<span class="op">$</span>Q6_Major_in_Edu,</span>
+<span id="cb127-2"><a href="Descripts.html#cb127-2"></a>                                  <span class="dt">levels =</span> <span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">1</span>),</span>
+<span id="cb127-3"><a href="Descripts.html#cb127-3"></a>                                  <span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">&quot;Not_education&quot;</span>,</span>
+<span id="cb127-4"><a href="Descripts.html#cb127-4"></a>                                             <span class="st">&quot;Education&quot;</span>) )</span></code></pre></div>
+<p>The simplest function is to use the <code>table()</code> function again. We see two rows, one for each unique value in the first variable.<a href="#fn16" class="footnote-ref" id="fnref16"><sup>16</sup></a> We see the six categories of the second variable as the columns:</p>
+<div class="sourceCode" id="cb128"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb128-1"><a href="Descripts.html#cb128-1"></a><span class="kw">table</span>(timss<span class="op">$</span>Q6_Major_in_Edu_F, timss<span class="op">$</span>Q5_Degree_F)</span></code></pre></div>
+<pre><code>##                
+##                 No_HS HS Associates Bachelors Masters Doctorate
+##   Not_education     0  0          0         7       5         1
+##   Education         0  0          1        13       3         0</code></pre>
+<p>We can create a facet plot to display these side by side. Here, we add a <code>facet_grid()</code> line with the categorical variable that we want the facets to be split up by. Don’t worry if you cannot remember the details of all of this code—the purpose here is to understand what is possible. Often we search for this syntax when we need it.</p>
+<div class="sourceCode" id="cb130"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb130-1"><a href="Descripts.html#cb130-1"></a><span class="kw">ggplot</span>(<span class="dt">data =</span> timss, <span class="kw">aes</span>(<span class="dt">x =</span> Q5_Degree_F)) <span class="op">+</span></span>
+<span id="cb130-2"><a href="Descripts.html#cb130-2"></a><span class="st"> </span><span class="kw">geom_bar</span>(<span class="kw">aes</span>(<span class="dt">y =</span> (..count..)<span class="op">/</span><span class="kw">sum</span>(..count..))) <span class="op">+</span></span>
+<span id="cb130-3"><a href="Descripts.html#cb130-3"></a><span class="st"> </span><span class="kw">xlab</span>(<span class="st">&quot;Highest degree&quot;</span> ) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb130-4"><a href="Descripts.html#cb130-4"></a><span class="st"> </span><span class="kw">scale_y_continuous</span>(<span class="dt">labels =</span> scales<span class="op">::</span>percent, <span class="dt">limits =</span> <span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">1</span>), <span class="dt">name =</span> <span class="ot">NULL</span>) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb130-5"><a href="Descripts.html#cb130-5"></a><span class="st"> </span><span class="kw">scale_x_discrete</span>(<span class="dt">drop =</span> <span class="ot">FALSE</span>) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb130-6"><a href="Descripts.html#cb130-6"></a><span class="st"> </span><span class="kw">facet_grid</span>(<span class="op">~</span><span class="st"> </span>Q6_Major_in_Edu_F) <span class="op">+</span></span>
+<span id="cb130-7"><a href="Descripts.html#cb130-7"></a><span class="st"> </span><span class="kw">theme</span>(<span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">angle =</span> <span class="dv">45</span>, <span class="dt">hjust =</span> <span class="dv">1</span>))</span></code></pre></div>
+<p><img src="Getting-started_files/figure-html/unnamed-chunk-77-1.png" width="672" /></p>
+</div>
+</div>
+<div id="IntrvlDesc" class="section level2">
+<h2><span class="header-section-number">4.2</span> Descriptive statistics of interval-level data</h2>
+<p>For this part, let’s use the composite variables we created in the first chapter. Here’s the shortcut version of that code:<a href="#fn17" class="footnote-ref" id="fnref17"><sup>17</sup></a></p>
+<div class="sourceCode" id="cb131"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb131-1"><a href="Descripts.html#cb131-1"></a><span class="co"># Reverse scoring the composite Q15 scale:</span></span>
+<span id="cb131-2"><a href="Descripts.html#cb131-2"></a>Q15 &lt;-<span class="st"> </span><span class="kw">paste0</span>(<span class="st">&quot;Q15_StCentrd_&quot;</span>, letters[<span class="dv">1</span><span class="op">:</span><span class="dv">7</span>])</span>
+<span id="cb131-3"><a href="Descripts.html#cb131-3"></a>timss<span class="op">$</span>Q15_Index_raw  &lt;-<span class="st"> </span><span class="kw">apply</span>(timss[ ,Q15],<span class="dv">1</span>, mean, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>) </span>
+<span id="cb131-4"><a href="Descripts.html#cb131-4"></a>timss<span class="op">$</span>Q15_Index &lt;-<span class="st"> </span><span class="dv">4</span> <span class="op">+</span><span class="st"> </span><span class="dv">0</span> <span class="op">-</span><span class="st"> </span>timss<span class="op">$</span>Q15_Index_raw</span>
+<span id="cb131-5"><a href="Descripts.html#cb131-5"></a></span>
+<span id="cb131-6"><a href="Descripts.html#cb131-6"></a><span class="co"># Lower the composite Q16 scale by 1 point so zero has meaning</span></span>
+<span id="cb131-7"><a href="Descripts.html#cb131-7"></a>Q16 &lt;-<span class="st"> </span><span class="kw">paste0</span>(<span class="st">&quot;Q16_Lims_&quot;</span>, letters[<span class="dv">1</span><span class="op">:</span><span class="dv">7</span>])</span>
+<span id="cb131-8"><a href="Descripts.html#cb131-8"></a>timss<span class="op">$</span>Q16_Index_raw  &lt;-<span class="st"> </span><span class="kw">apply</span>(timss[ ,Q16],<span class="dv">1</span>, mean, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>) </span>
+<span id="cb131-9"><a href="Descripts.html#cb131-9"></a>timss<span class="op">$</span>Q16_Index &lt;-<span class="st"> </span>timss<span class="op">$</span>Q16_Index_raw <span class="op">-</span><span class="st"> </span><span class="dv">1</span> </span>
+<span id="cb131-10"><a href="Descripts.html#cb131-10"></a></span>
+<span id="cb131-11"><a href="Descripts.html#cb131-11"></a><span class="co"># Reverse scoring the composite Q19 scale:</span></span>
+<span id="cb131-12"><a href="Descripts.html#cb131-12"></a>Q19 &lt;-<span class="st"> </span><span class="kw">paste0</span>(<span class="st">&quot;Q19_Didac_&quot;</span>, letters[<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>])</span>
+<span id="cb131-13"><a href="Descripts.html#cb131-13"></a>timss<span class="op">$</span>Q19_Index_raw  &lt;-<span class="st"> </span><span class="kw">apply</span>(timss[ ,Q19],<span class="dv">1</span>, mean, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>) </span>
+<span id="cb131-14"><a href="Descripts.html#cb131-14"></a>timss<span class="op">$</span>Q19_Index &lt;-<span class="st"> </span><span class="dv">4</span> <span class="op">+</span><span class="st"> </span><span class="dv">0</span> <span class="op">-</span><span class="st"> </span>timss<span class="op">$</span>Q19_Index_raw </span>
+<span id="cb131-15"><a href="Descripts.html#cb131-15"></a></span>
+<span id="cb131-16"><a href="Descripts.html#cb131-16"></a><span class="kw">str</span>(timss)</span></code></pre></div>
+<pre><code>## &#39;data.frame&#39;:    30 obs. of  40 variables:
+##  $ TID              : int  1 2 3 4 5 6 7 8 9 10 ...
+##  $ Q4_Age           : num  2 3 3 2 5 6 5 2 4 3 ...
+##  $ Q5_Degree        : num  4 4 4 5 3 4 5 4 4 4 ...
+##  $ Q6_Math          : chr  &quot;No&quot; &quot;No&quot; &quot;No&quot; &quot;No&quot; ...
+##  $ Q6_Bio           : chr  &quot;No&quot; &quot;No&quot; &quot;No&quot; &quot;No&quot; ...
+##  $ Q6_Phys          : chr  &quot;No&quot; &quot;No&quot; &quot;Yes&quot; &quot;No&quot; ...
+##  $ Q6_Chem          : chr  &quot;No&quot; &quot;No&quot; &quot;No&quot; &quot;No&quot; ...
+##  $ Q6_EarthS        : chr  &quot;No&quot; &quot;No&quot; &quot;No&quot; &quot;No&quot; ...
+##  $ Q6_EdMat         : chr  &quot;No&quot; &quot;No&quot; &quot;No&quot; &quot;Yes&quot; ...
+##  $ Q6_EdSci         : chr  &quot;No&quot; &quot;No&quot; &quot;No&quot; &quot;No&quot; ...
+##  $ Q6_EdGen         : chr  &quot;Yes&quot; &quot;Yes&quot; &quot;No&quot; &quot;No&quot; ...
+##  $ Q6_Othr          : chr  &quot;No&quot; &quot;No&quot; &quot;Yes&quot; &quot;No&quot; ...
+##  $ Q13_NumSs        : int  8 12 19 16 18 26 29 16 30 22 ...
+##  $ Q15_StCentrd_a   : int  2 3 3 1 2 3 4 1 4 3 ...
+##  $ Q15_StCentrd_b   : int  2 1 2 1 1 3 2 1 2 2 ...
+##  $ Q15_StCentrd_c   : int  1 4 2 2 3 3 2 1 2 2 ...
+##  $ Q15_StCentrd_d   : int  1 2 3 2 2 3 3 1 4 4 ...
+##  $ Q15_StCentrd_e   : int  2 2 3 1 2 3 4 2 2 2 ...
+##  $ Q15_StCentrd_f   : int  3 3 3 1 3 4 2 1 1 4 ...
+##  $ Q15_StCentrd_g   : int  1 2 3 1 2 3 3 1 3 3 ...
+##  $ Q16_Lims_a       : int  2 1 2 1 1 2 3 1 3 1 ...
+##  $ Q16_Lims_b       : int  1 1 2 2 1 1 2 1 3 2 ...
+##  $ Q16_Lims_c       : int  3 3 3 3 3 3 3 2 2 2 ...
+##  $ Q16_Lims_d       : int  2 2 2 2 2 2 2 1 2 3 ...
+##  $ Q16_Lims_e       : int  1 1 2 2 1 2 2 2 2 2 ...
+##  $ Q16_Lims_f       : int  1 1 1 1 1 1 1 1 2 1 ...
+##  $ Q16_Lims_g       : int  2 1 2 1 1 1 1 2 1 1 ...
+##  $ Q17_Mins         : int  160 180 190 200 210 180 200 240 150 160 ...
+##  $ Q19_Didac_a      : int  3 4 2 3 3 3 2 3 2 1 ...
+##  $ Q19_Didac_b      : int  3 2 1 4 1 4 2 2 2 2 ...
+##  $ Q19_Didac_c      : int  4 3 2 3 2 2 2 1 2 1 ...
+##  $ Q5_Degree_F      : Ord.factor w/ 6 levels &quot;No_HS&quot;&lt;&quot;HS&quot;&lt;&quot;Associates&quot;&lt;..: 4 4 4 5 3 4 5 4 4 4 ...
+##  $ Q6_Major_in_Edu  : num  1 1 0 1 1 1 0 1 0 0 ...
+##  $ Q6_Major_in_Edu_F: Factor w/ 2 levels &quot;Not_education&quot;,..: 2 2 1 2 2 2 1 2 1 1 ...
+##  $ Q15_Index_raw    : num  1.71 2.43 2.71 1.29 2.14 ...
+##  $ Q15_Index        : num  2.29 1.57 1.29 2.71 1.86 ...
+##  $ Q16_Index_raw    : num  1.71 1.43 2 1.71 1.43 ...
+##  $ Q16_Index        : num  0.714 0.429 1 0.714 0.429 ...
+##  $ Q19_Index_raw    : num  3.33 3 1.67 3.33 2 ...
+##  $ Q19_Index        : num  0.667 1 2.333 0.667 2 ...</code></pre>
+<p>While we are at this, we might as well estimate the descriptive statistics of two more variables, Q13_NumSs, and Q17_Mins, which are the number of students in the teacher’s math class and the number of minutes in a typical week that the teacher spends teaching math to those students. So, we have five continuous variables we need to report on.</p>
+<p>We could use the <code>summary()</code> function for each one, but this is pretty limiting. For example, it does not include standard deviation the or the standard error of the mean.</p>
+<div class="sourceCode" id="cb133"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb133-1"><a href="Descripts.html#cb133-1"></a><span class="kw">summary</span>(timss<span class="op">$</span>Q15_Index)</span></code></pre></div>
+<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+##  0.5714  1.2857  1.5714  1.7190  2.0000  3.0000</code></pre>
+<p>We can use specific functions for the statistics that are missing from <code>summary()</code>, such as <code>sd()</code>:</p>
+<div class="sourceCode" id="cb135"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb135-1"><a href="Descripts.html#cb135-1"></a><span class="kw">sd</span>(timss<span class="op">$</span>Q15_Index, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
+<pre><code>## [1] 0.6054913</code></pre>
+<p>The <code>na.rm = TRUE</code> tells R to calculate the value even if there are missing data (i.e., remove an observation before the calculation). Most other programs, like SPSS do this by default, but R is making us think twice about this, which is actually a good thing.</p>
+<p>We could also use our own function to calculate the standard error of the mean, <span class="math inline">\(\frac{s_x}{\sqrt{n_x}}\)</span>:<a href="#fn18" class="footnote-ref" id="fnref18"><sup>18</sup></a></p>
+<div class="sourceCode" id="cb137"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb137-1"><a href="Descripts.html#cb137-1"></a>Q15_sd &lt;-<span class="st"> </span><span class="kw">sd</span>(timss<span class="op">$</span>Q15_Index)</span>
+<span id="cb137-2"><a href="Descripts.html#cb137-2"></a>Q15_n  &lt;-<span class="st"> </span><span class="kw">nrow</span>(timss)</span>
+<span id="cb137-3"><a href="Descripts.html#cb137-3"></a>Q15_se &lt;-<span class="st"> </span>Q15_sd<span class="op">/</span><span class="kw">sqrt</span>(Q15_n)</span>
+<span id="cb137-4"><a href="Descripts.html#cb137-4"></a>Q15_se</span></code></pre></div>
+<pre><code>## [1] 0.1105471</code></pre>
+<p>However, we can also use the <code>describe()</code> function from the psych package to do this work for us.</p>
+<p>Let’s pull the psych package from our “library” of packages into our current session so we can use its functions and then put it to use:</p>
+<div class="sourceCode" id="cb139"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb139-1"><a href="Descripts.html#cb139-1"></a><span class="kw">library</span>(psych)</span>
+<span id="cb139-2"><a href="Descripts.html#cb139-2"></a><span class="kw">describe</span>(timss<span class="op">$</span>Q15_Index)</span></code></pre></div>
+<pre><code>##    vars  n mean   sd median trimmed  mad  min max range skew kurtosis   se
+## X1    1 30 1.72 0.61   1.57    1.68 0.64 0.57   3  2.43 0.43    -0.62 0.11</code></pre>
+<p>We can do this with multiple variables at the same time and create a report:</p>
+<div class="sourceCode" id="cb141"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb141-1"><a href="Descripts.html#cb141-1"></a>report1 &lt;-<span class="st"> </span><span class="kw">describe</span>(timss[,<span class="kw">c</span>(<span class="st">&quot;Q15_Index&quot;</span>,</span>
+<span id="cb141-2"><a href="Descripts.html#cb141-2"></a>                             <span class="st">&quot;Q16_Index&quot;</span>,</span>
+<span id="cb141-3"><a href="Descripts.html#cb141-3"></a>                             <span class="st">&quot;Q19_Index&quot;</span>,</span>
+<span id="cb141-4"><a href="Descripts.html#cb141-4"></a>                             <span class="st">&quot;Q13_NumSs&quot;</span>,</span>
+<span id="cb141-5"><a href="Descripts.html#cb141-5"></a>                             <span class="st">&quot;Q17_Mins&quot;</span>)])</span>
+<span id="cb141-6"><a href="Descripts.html#cb141-6"></a>report1</span></code></pre></div>
+<pre><code>##           vars  n   mean    sd median trimmed   mad    min    max range  skew
+## Q15_Index    1 30   1.72  0.61   1.57    1.68  0.64   0.57   3.00  2.43  0.43
+## Q16_Index    2 30   0.72  0.27   0.71    0.71  0.21   0.14   1.43  1.29  0.39
+## Q19_Index    3 30   1.56  0.83   1.83    1.57  0.74   0.00   3.00  3.00 -0.22
+## Q13_NumSs    4 30  23.13  5.75  24.00   23.46  4.45   8.00  35.00 27.00 -0.51
+## Q17_Mins     5 30 193.67 29.30 190.00  192.92 29.65 150.00 240.00 90.00  0.31
+##           kurtosis   se
+## Q15_Index    -0.62 0.11
+## Q16_Index     0.14 0.05
+## Q19_Index    -1.27 0.15
+## Q13_NumSs     0.14 1.05
+## Q17_Mins     -1.25 5.35</code></pre>
+<p>This is great. We have a lot of statistics here that we can include in our write-up. One thing we need, however, that is not included is the confidence interval of the estimated mean. We can create two new columns for this, the lower bound and upper bound of the interval using the formula <span class="math inline">\(mean \pm z(SE_{mean})\)</span> or <span class="math inline">\(mean \pm t(SE_{mean})\)</span> depending on whether we want to use a <em>z</em>- or a <em>t</em>-distribution.</p>
+<p>However, I stumbled into a problem. The psych package seems to assign attributes to objects we create with the <code>describe()</code> function, which I found was causing a problem when I wanted to perform operations and create new variables in the data frame. I am adding this code here because my code below (which worked in earlier versions of the psych package) was throwing me an error. In looking at the outputted object’s type, which we could see with the <code>str()</code> function or more clearly with the <code>class()</code> function, we see that this is not just a data frame, which is probably the source of my coding problems when I tried to add a new column:</p>
+<div class="sourceCode" id="cb143"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb143-1"><a href="Descripts.html#cb143-1"></a><span class="kw">class</span>(report1)</span></code></pre></div>
+<pre><code>## [1] &quot;psych&quot;      &quot;describe&quot;   &quot;data.frame&quot;</code></pre>
+<p>This shows that the object is not just a data frame. Let’s coerce to be <em>just</em> a data frame by using the <code>data.frame()</code> function on it:</p>
+<div class="sourceCode" id="cb145"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb145-1"><a href="Descripts.html#cb145-1"></a>report1 &lt;-<span class="st"> </span><span class="kw">data.frame</span>(report1)</span>
+<span id="cb145-2"><a href="Descripts.html#cb145-2"></a><span class="kw">class</span>(report1)</span></code></pre></div>
+<pre><code>## [1] &quot;data.frame&quot;</code></pre>
+<p>That’s better. I wish the psych package were friendlier. In this next section, we’ll calculate the confidence interval and attach it to this report data frame.</p>
+<div id="calculating-the-confidence-interval" class="section level3">
+<h3><span class="header-section-number">4.2.1</span> Calculating the confidence interval</h3>
+<p>We can calculate the estimated 95% confidence interval from the information from the report. Let’s use a <em>t</em>-distribution to multiple by the standard error. This requires the degrees of freedom, which is <span class="math inline">\(n - 1\)</span> here. The <code>qt()</code> function can be used to get this distribution with the 30 respondents:</p>
+<div class="sourceCode" id="cb147"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb147-1"><a href="Descripts.html#cb147-1"></a><span class="kw">qt</span>(.<span class="dv">975</span>, <span class="dt">df =</span> <span class="dv">29</span>) </span></code></pre></div>
+<pre><code>## [1] 2.04523</code></pre>
+<p>This is one tail of the distribution. The other tail would be the negative of this, <span class="math inline">\(-2.0452\)</span>. If we wanted to use the normal (<em>z</em>) distribution, we can use the <code>qnorm()</code> function:</p>
+<div class="sourceCode" id="cb149"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb149-1"><a href="Descripts.html#cb149-1"></a><span class="kw">qnorm</span>(.<span class="dv">975</span>)</span></code></pre></div>
+<pre><code>## [1] 1.959964</code></pre>
+<p>The <em>t</em> distribution is more conservative, which increases the credibility of our inferences about the confidence interval, though it does result in a broader confidence interval than with the <em>z</em> distribution.</p>
+<p>With the first variable, the confidence interval is this (with some rounding error):<a href="#fn19" class="footnote-ref" id="fnref19"><sup>19</sup></a></p>
+<div class="sourceCode" id="cb151"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb151-1"><a href="Descripts.html#cb151-1"></a><span class="fl">1.72</span> <span class="op">-</span><span class="st"> </span><span class="kw">qt</span>(<span class="fl">0.975</span>, <span class="dt">df =</span> <span class="dv">30</span> <span class="dv">-1</span>)<span class="op">*</span><span class="fl">0.11</span></span></code></pre></div>
+<pre><code>## [1] 1.495025</code></pre>
+<div class="sourceCode" id="cb153"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb153-1"><a href="Descripts.html#cb153-1"></a><span class="fl">1.72</span> <span class="op">+</span><span class="st"> </span><span class="kw">qt</span>(<span class="fl">0.975</span>, <span class="dt">df =</span> <span class="dv">30</span> <span class="dv">-1</span>)<span class="op">*</span><span class="fl">0.11</span></span></code></pre></div>
+<pre><code>## [1] 1.944975</code></pre>
+</div>
+<div id="generating-and-exporting-a-report" class="section level3">
+<h3><span class="header-section-number">4.2.2</span> Generating and exporting a report</h3>
+<p>We can use the dplyr package to create the new variables and reorder the variables The <code>%&gt;%</code> symbol means that we take the object before it, <code>report1</code>, and do the following things. Here, we’re using the <code>mutate()</code> function to create new variables for the upper and lower 95% confidence interval boundaries. We also use <code>select()</code> to select which variables we want in our final data set and their order.</p>
+<div class="sourceCode" id="cb155"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb155-1"><a href="Descripts.html#cb155-1"></a><span class="co"># install.packages(&quot;dplyr&quot;) # Run this line if you need to install it</span></span>
+<span id="cb155-2"><a href="Descripts.html#cb155-2"></a><span class="kw">library</span>(dplyr)</span>
+<span id="cb155-3"><a href="Descripts.html#cb155-3"></a>MyReport1 &lt;-<span class="st"> </span>report1 <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb155-4"><a href="Descripts.html#cb155-4"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">LB_t =</span>  mean <span class="op">-</span><span class="st"> </span><span class="kw">qt</span>(<span class="fl">0.975</span>, <span class="dt">df =</span> n <span class="dv">-1</span>)<span class="op">*</span>se,</span>
+<span id="cb155-5"><a href="Descripts.html#cb155-5"></a>         <span class="dt">UB_t =</span>  mean <span class="op">+</span><span class="st"> </span><span class="kw">qt</span>(<span class="fl">0.975</span>, <span class="dt">df =</span> n <span class="dv">-1</span>)<span class="op">*</span>se,</span>
+<span id="cb155-6"><a href="Descripts.html#cb155-6"></a>         <span class="dt">varb =</span> <span class="kw">rownames</span>(.) ) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb155-7"><a href="Descripts.html#cb155-7"></a><span class="st">  </span><span class="kw">select</span>(varb, n, mean, sd, min, max, se, LB_t, UB_t)</span>
+<span id="cb155-8"><a href="Descripts.html#cb155-8"></a>MyReport1</span></code></pre></div>
+<pre><code>##        varb  n        mean         sd         min        max         se
+## 1 Q15_Index 30   1.7190476  0.6054913   0.5714286   3.000000 0.11054709
+## 2 Q16_Index 30   0.7190476  0.2717870   0.1428571   1.428571 0.04962129
+## 3 Q19_Index 30   1.5555556  0.8319913   0.0000000   3.000000 0.15190013
+## 4 Q13_NumSs 30  23.1333333  5.7519612   8.0000000  35.000000 1.05015963
+## 5  Q17_Mins 30 193.6666667 29.3002687 150.0000000 240.000000 5.34947271
+##          LB_t        UB_t
+## 1   1.4929534   1.9451418
+## 2   0.6175607   0.8205345
+## 3   1.2448849   1.8662262
+## 4  20.9855157  25.2811509
+## 5 182.7257665 204.6075668</code></pre>
+<p>We can export this to a CSV file, open it in a spreadsheet program like Excel, format the numbers, and then copy and paste the cells into a table in Word or some other word processor.</p>
+<div class="sourceCode" id="cb157"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb157-1"><a href="Descripts.html#cb157-1"></a><span class="kw">write.csv</span>(MyReport1,<span class="st">&quot;report1.csv&quot;</span>, <span class="dt">row.names =</span> <span class="ot">FALSE</span>)</span></code></pre></div>
+</div>
+</div>
+<div id="but-really-its-inferential" class="section level2">
+<h2><span class="header-section-number">4.3</span> But really, it’s inferential</h2>
+<p>This chapter introduced some ways to calculate and report descriptive statistics. We included in our reports the standard error and the confidence intervals around the mean. However, strictly speaking, any time we seek to draw inferences about a larger population, we are actually estimating <em>inferential</em> statistics, because—well—we are drawing an inference about a larger group of people (the population) based on our sample.<a href="#fn20" class="footnote-ref" id="fnref20"><sup>20</sup></a> Whenever we estimate a statistic, such as the mean (or the variance), we have a point estimate. It is very unlikely that this point estimate is the exact mean that is present in the population. The confidence intervals help us to judge how well we can infer from our actual data what the population mean is.</p>
+
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="11">
+<li id="fn11"><p>Notice that I said “<em><em>estimate</em></em> descriptive statistics.” There is always some degree of uncertainty about how closely our estimates reflect the true status in the population.<a href="Descripts.html#fnref11" class="footnote-back">↩︎</a></p></li>
+<li id="fn12"><p>The term <em>Base R</em> is used to describe the functions that come with R rather than those that are part of packages that we install and use.<a href="Descripts.html#fnref12" class="footnote-back">↩︎</a></p></li>
+<li id="fn13"><p>This term <em>factor</em> comes from the ANOVA framework, in which a factor has levels. This is <em>not</em> the same thing as a factor in factor analysis, which correponds to a dimension or latent construct in the data.<a href="Descripts.html#fnref13" class="footnote-back">↩︎</a></p></li>
+<li id="fn14"><p>Here, we’re using the <code>round()</code> function to make the output even easier to read.<a href="Descripts.html#fnref14" class="footnote-back">↩︎</a></p></li>
+<li id="fn15"><p>If you remember the main function, the aesthetics argument and the geoms, you’re in good shape because we often find examples rather quickly in online searches.<a href="Descripts.html#fnref15" class="footnote-back">↩︎</a></p></li>
+<li id="fn16"><p>We could have used the regular dummy variable with 0 and 1 values, too. The factor labeling makes it easier to interpret.<a href="Descripts.html#fnref16" class="footnote-back">↩︎</a></p></li>
+<li id="fn17"><p>This shortcut code is calculating the composite scores on the raw scale and <em>then</em> rescaling that composite score, as demonstrated at the end of the last chapter. This works because all of the individual items required the same rescaling procedure. If some items in a composite scale require one type of rescaling, such as reverse coding, while others require other scaling, we would need to do this at the item level—which is the longer version presented in the earlier chapter.<a href="Descripts.html#fnref17" class="footnote-back">↩︎</a></p></li>
+<li id="fn18"><p>If there were missing data, we would specify <code>na.rm = TRUE</code> for the <code>sd()</code> function and use <code>Q15_n  &lt;- sum(!is.na(Q15_Index))</code> for the <em>n</em>-size calculation, which is a function that counts the number of observations that are not missing.<a href="Descripts.html#fnref18" class="footnote-back">↩︎</a></p></li>
+<li id="fn19"><p>A shorter code for these two lines is <code>1.72 + c(-1, 1) * qt(0.975, df = 30 -1)*0.11</code>.<a href="Descripts.html#fnref19" class="footnote-back">↩︎</a></p></li>
+<li id="fn20"><p>The reason for this discrepancy seems to be that in many studies in education and psychology, our research questions are about differences between groups, changes over time, or the relationship among variables, such as in a regression. We perform inferential statistical analyses to answer these questions—things like <em>t</em>-tests, repeated-measures ANOVA (including paired <em>t</em>-tests) or regression, and estimates of correlation or regression parameters. Traditionally, before we present those inferential-statistics results, we tend to present the descriptive statistics of the groups or time points we are measuring. In those scenarios, they are called descriptive statistics and are not intended to address inferential questions about the population because that part is reserved for our research questions. In contrast, in survey methods, our research questions might simply be about the mean of the population, in which case, the confidence intervals around those means help us to draw conclusions about how precise our estimates of the means are.<a href="Descripts.html#fnref20" class="footnote-back">↩︎</a></p></li>
+</ol>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="Packages.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="ByDescripts.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["Getting-started.pdf", "Getting-started.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
